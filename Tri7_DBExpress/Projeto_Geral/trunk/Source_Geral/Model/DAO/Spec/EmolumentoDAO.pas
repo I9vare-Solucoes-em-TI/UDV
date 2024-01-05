@@ -3,6 +3,8 @@ unit EmolumentoDAO;
 interface
 
 uses
+  I9Query,
+  I9Connection,
   DAO,
   Emolumento,
   EmolumentoList,
@@ -20,10 +22,10 @@ type
 
   TEmolumentoDAO = class
   private
-    FSQLConnection: TSQLConnection;
+    FConnection: TI9Connection;
   public
     constructor Create(
-      const vpSQLConnection: TSQLConnection); reintroduce;
+      const vpConnection: TI9Connection); reintroduce;
 
     function GetList(
       const vpSistema: ISistema): TEmolumentoList; overload;
@@ -49,30 +51,30 @@ uses
 { TEmolumentoDAO }
 
 constructor TEmolumentoDAO.Create(
-  const vpSQLConnection: TSQLConnection);
+  const vpConnection: TI9Connection);
 begin
   inherited Create;
-  FSQLConnection := vpSQLConnection;
+  FConnection := vpConnection;
 end;
 
 function TEmolumentoDAO.GetList(
   const vpSistema: ISistema): TEmolumentoList;
 {$REGION 'Variáveis'}
 var
-  viSQLDataSet: TSQLDataSet;
+  viSQLDataSet: TI9Query;
   viEmolumento: IEmolumento;
 {$ENDREGION}
 begin
   Result := nil;
 
-  viSQLDataSet := TSQLDataSet.Create(nil);
-  viSQLDataSet.SQLConnection := FSQLConnection;
+  viSQLDataSet := TI9Query.Create(nil);
+  viSQLDataSet.Connection := FConnection;
 
   try
     with viSQLDataSet do
     begin
       {$REGION 'Comando SQL SELECT'}
-      CommandText :=
+      SQL.Text :=
         'SELECT ' +
 
         {$REGION 'Colunas'}
@@ -133,19 +135,19 @@ function TEmolumentoDAO.Get(
   const vpEmolumentoID: Integer): IEmolumento;
 {$REGION 'Variáveis'}
 var
-  viSQLDataSet: TSQLDataSet;
+  viSQLDataSet: TI9Query;
 {$ENDREGION}
 begin
   Result := nil;
 
-  viSQLDataSet := TSQLDataSet.Create(nil);
-  viSQLDataSet.SQLConnection := FSQLConnection;
+  viSQLDataSet := TI9Query.Create(nil);
+  viSQLDataSet.Connection := FConnection;
 
   try
     with viSQLDataSet do
     begin
       {$REGION 'Comando SQL SELECT'}
-      CommandText :=
+      SQL.Text :=
         'SELECT ' +
 
         {$REGION 'Colunas'}
@@ -184,7 +186,7 @@ begin
           Descricao := FieldByName('DESCRICAO').AsString;
 
           if FieldByName('SISTEMA_ID').IsNull.&Not then
-            with TSistemaDAO.Create(FSQLConnection) do
+            with TSistemaDAO.Create(FConnection) do
               try
                 Sistema := Get(FieldByName('SISTEMA_ID').AsInteger);
               finally
@@ -203,21 +205,21 @@ end;
 function TEmolumentoDAO.GetList: TEmolumentoList;
 {$REGION 'Variáveis'}
 var
-  viSQLDataSet: TSQLDataSet;
+  viSQLDataSet: TI9Query;
   viSistemaDAO: TSistemaDAO;
   viEmolumento: IEmolumento;
 {$ENDREGION}
 begin
   Result := TEmolumentoList.Create;
 
-  viSQLDataSet := TSQLDataSet.Create(nil);
-  viSQLDataSet.SQLConnection := FSQLConnection;
+  viSQLDataSet := TI9Query.Create(nil);
+  viSQLDataSet.Connection := FConnection;
 
   try
     with viSQLDataSet do
     begin
       {$REGION 'Comando SQL SELECT'}
-      CommandText :=
+      SQL.Text :=
         'SELECT ' +
 
         {$REGION 'Colunas'}
@@ -237,7 +239,7 @@ begin
 
       try
         First;
-        viSistemaDAO := TSistemaDAO.Create(FSQLConnection);
+        viSistemaDAO := TSistemaDAO.Create(FConnection);
 
         try
           while not Eof do
@@ -273,17 +275,17 @@ procedure TEmolumentoDAO.Inserir(
   const vpValue: IEmolumento);
 {$REGION 'Variáveis'}
 var
-  viSQLDataSet: TSQLDataSet;
+  viSQLDataSet: TI9Query;
 {$ENDREGION}
 begin
-  viSQLDataSet := TSQLDataSet.Create(nil);
-  viSQLDataSet.SQLConnection := FSQLConnection;
+  viSQLDataSet := TI9Query.Create(nil);
+  viSQLDataSet.Connection := FConnection;
 
   try
     with viSQLDataSet do
     begin
       {$REGION 'Comando SQL INSERT'}
-      CommandText :=
+      SQL.Text :=
         'INSERT ' +
 
         {$REGION 'Cláusula INTO'}

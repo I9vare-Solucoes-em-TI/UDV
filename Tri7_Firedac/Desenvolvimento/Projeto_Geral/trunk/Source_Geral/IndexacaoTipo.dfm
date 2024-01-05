@@ -272,7 +272,6 @@ inherited frmIndexacaoTipo: TfrmIndexacaoTipo
   inherited DataSetAncestral: TI9Query
     MasterFields = 'SISTEMA_ID'
     SQL.Strings = (
-      
         'select *  from  G_INDEXACAO_TIPO'#13#10'where SISTEMA_ID =  :SISTEMA_I' +
         'D'#13#10'order by DESCRICAO')
     Left = 139

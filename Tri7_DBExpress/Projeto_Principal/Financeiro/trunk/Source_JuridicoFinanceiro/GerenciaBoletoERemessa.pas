@@ -3,6 +3,7 @@ unit GerenciaBoletoERemessa;
 interface
 
 uses
+  I9Query,
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, cxGraphics, cxLookAndFeels,
   cxLookAndFeelPainters, Vcl.Menus, cxControls, dxBarBuiltInMenu, cxContainer,
@@ -32,7 +33,7 @@ type
   TfrmGerenciaBoletoRemessa = class(TForm)
     pgcFiltro: TcxPageControl;
     tbcBoleto: TcxTabSheet;
-    sqlPessoa: TSimpleDataSet;
+    sqlPessoa: TI9Query;
     dtsPessoa: TDataSource;
     ppmCompromisso: TPopupMenu;
     CancelarBoleto: TMenuItem;
@@ -47,7 +48,7 @@ type
     cxGridClienteDBTableView2: TcxGridDBTableView;
     cxGridLevel2: TcxGridLevel;
     Panel4: TPanel;
-    sqlCompromisso: TSimpleDataSet;
+    sqlCompromisso: TI9Query;
     dtsCompromisso: TDataSource;
     cxGridClienteDBTableView2NOME: TcxGridDBColumn;
     cxGridClienteDBTableView2SELECIONADO: TcxGridDBColumn;
@@ -72,47 +73,47 @@ type
     cdsPessoaAuxPESSOAID: TStringField;
     cdsPessoaAuxNOME: TStringField;
     cdsPessoaAuxSELECIONADO: TStringField;
-    sqlCompromissoLIVRO_FINANCEIRO_ID: TFMTBCDField;
+    sqlCompromissoLIVRO_FINANCEIRO_ID: TBCDField;
     sqlCompromissoDATA_VENCIMENTO: TSQLTimeStampField;
-    sqlCompromissoVALOR_AGENDADO: TFMTBCDField;
+    sqlCompromissoVALOR_AGENDADO: TBCDField;
     sqlCompromissoSITUACAO: TStringField;
-    sqlCompromissoCONTABIL_CONTA_ID: TFMTBCDField;
-    sqlCompromissoCENTRO_CUSTO_ID: TFMTBCDField;
+    sqlCompromissoCONTABIL_CONTA_ID: TBCDField;
+    sqlCompromissoCENTRO_CUSTO_ID: TBCDField;
     sqlCompromissoANO_MES_REFERENCIA: TStringField;
-    sqlCompromissoBALANCETE_GRUPO_ID: TFMTBCDField;
+    sqlCompromissoBALANCETE_GRUPO_ID: TBCDField;
     sqlCompromissoESPECIE: TStringField;
-    sqlCompromissoBOLETA_ID: TFMTBCDField;
+    sqlCompromissoBOLETA_ID: TBCDField;
     sqlCompromissoATUALIZADO: TStringField;
-    sqlCompromissoVALOR_PAGO: TFMTBCDField;
-    sqlCompromissoPROCESSO_CONTRATO_ITEM_ID: TFMTBCDField;
-    sqlCompromissoPROCESSO_CONTRATO_ID: TFMTBCDField;
+    sqlCompromissoVALOR_PAGO: TBCDField;
+    sqlCompromissoPROCESSO_CONTRATO_ITEM_ID: TBCDField;
+    sqlCompromissoPROCESSO_CONTRATO_ID: TBCDField;
     sqlCompromissoOPERACAO: TStringField;
-    sqlCompromissoPESSOA_ID: TFMTBCDField;
-    sqlCompromissoVALOR_DOCUMENTO: TFMTBCDField;
+    sqlCompromissoPESSOA_ID: TBCDField;
+    sqlCompromissoVALOR_DOCUMENTO: TBCDField;
     sqlCompromissoHISTORICO: TStringField;
     sqlCompromissoOBSERVACAO: TStringField;
     sqlCompromissoDATA_OPERACAO: TSQLTimeStampField;
-    sqlCompromissoLIVRO_AGENDAMENTO_ID: TFMTBCDField;
-    sqlCompromissoDESCONTO: TFMTBCDField;
+    sqlCompromissoLIVRO_AGENDAMENTO_ID: TBCDField;
+    sqlCompromissoDESCONTO: TBCDField;
     sqlCompromissoIR: TStringField;
     sqlCompromissoCNJ: TStringField;
     sqlCompromissoDOCUMENTO_NUMERO: TStringField;
-    sqlCompromissoCAIXA_ID: TFMTBCDField;
+    sqlCompromissoCAIXA_ID: TBCDField;
     sqlCompromissoREGISTRO_PARCIAL: TStringField;
     sqlCompromissoSELECIONADO: TStringField;
     sqlCompromissoNOME: TStringField;
-    sqlCompromissoVALOR_PAGO_SOMA: TFMTBCDField;
+    sqlCompromissoVALOR_PAGO_SOMA: TBCDField;
     sqlCompromissocalc_referencia: TStringField;
     sqlCompromissocalc_valor_a_pagar: TCurrencyField;
-    sqlPesqCompromisso: TSimpleDataSet;
+    sqlPesqCompromisso: TI9Query;
     dtsPesqCompromisso: TDataSource;
     ppmRemessa: TPopupMenu;
     GerarRemessa1: TMenuItem;
     sqlCompromissogerou_boleto_calc: TStringField;
     cxGroupBox5: TcxGroupBox;
-    sqlAgruparReferencia: TSimpleDataSet;
+    sqlAgruparReferencia: TI9Query;
     sqlAgruparReferenciaANO_MES_REFERENCIA: TStringField;
-    sqlAgruparReferenciaVALOR: TFMTBCDField;
+    sqlAgruparReferenciaVALOR: TBCDField;
     OpenDialogRetorno: TOpenDialog;
     cdsRetorno: TClientDataSet;
     dtsRetorno: TDataSource;
@@ -171,8 +172,8 @@ type
     cxGridRetornoDBTableView1VALOR_PAGO: TcxGridDBColumn;
     cxLabel13: TcxLabel;
     cbxDadosBanco: TcxComboBox;
-    sqlBanco: TSimpleDataSet;
-    sqlBancoBANCO_ID: TFMTBCDField;
+    sqlBanco: TI9Query;
+    sqlBancoBANCO_ID: TBCDField;
     sqlBancoBANCO_NUMERO: TStringField;
     sqlBancoBANCO_DIGITO: TStringField;
     sqlBancoBANCO_NOME: TStringField;
@@ -210,12 +211,12 @@ type
     N2: TMenuItem;
     CancelarTodosBoletosClienteSelecioando1: TMenuItem;
     sqlCompromissoDATA_BOLETA: TSQLTimeStampField;
-    sqlCompromissoNOSSO_NUMERO: TFMTBCDField;
+    sqlCompromissoNOSSO_NUMERO: TBCDField;
     sqlCompromissoBOLETO_DESCRICAO: TStringField;
     sqlAgruparReferenciaLIVRO_FINANCEIRO_ID: TMemoField;
     mniReenviarBoleto: TMenuItem;
     tabHistorico: TcxTabSheet;
-    sqlHistoricoEmail: TSimpleDataSet;
+    sqlHistoricoEmail: TI9Query;
     dtsHistoricoEmail: TDataSource;
     Panel2: TPanel;
     cxGrid1: TcxGrid;
@@ -231,22 +232,22 @@ type
     cxLabel3: TcxLabel;
     edtDataFinal: TcxDateEdit;
     btnPesquisar: TcxButton;
-    sqlHistoricoEmailEMAIL_ENVIADO_ID: TFMTBCDField;
+    sqlHistoricoEmailEMAIL_ENVIADO_ID: TBCDField;
     sqlHistoricoEmailSTATUS: TStringField;
     sqlHistoricoEmailDATA: TSQLTimeStampField;
-    sqlHistoricoEmailUSUARIO_ID: TFMTBCDField;
+    sqlHistoricoEmailUSUARIO_ID: TBCDField;
     sqlHistoricoEmailTIPO: TStringField;
     sqlHistoricoEmailASSUNTO: TStringField;
     sqlHistoricoEmailMENSAGEM: TBlobField;
     sqlHistoricoEmailPARA: TStringField;
     sqlHistoricoEmailIP_MAQUINA: TStringField;
     sqlHistoricoEmailPESSOA_DESCRICAO: TStringField;
-    sqlHistoricoEmailPESSOA_ID: TFMTBCDField;
+    sqlHistoricoEmailPESSOA_ID: TBCDField;
     sqlHistoricoEmailBOLETOS: TStringField;
     cxGridDBTableView1Column6: TcxGridDBColumn;
     cxGridCompromissoDBTableView1Column2: TcxGridDBColumn;
     sqlCompromissoENVIO_EMAIL: TStringField;
-    sqlBancoCEDENTE_ID: TFMTBCDField;
+    sqlBancoCEDENTE_ID: TBCDField;
     cxGridRemessa: TcxGrid;
     cxGridRemessaDBTableView1: TcxGridDBTableView;
     cxGridRemessaDBTableView1NOME: TcxGridDBColumn;
@@ -263,14 +264,14 @@ type
     cxLabel14: TcxLabel;
     cxGridRemessaDBTableView1Column1: TcxGridDBColumn;
     cxGridCompromissoDBTableView1Column3: TcxGridDBColumn;
-    sqlCompromissoBANCO_ID: TFMTBCDField;
+    sqlCompromissoBANCO_ID: TBCDField;
     rdbNome: TcxRadioButton;
     rdbGrupo: TcxRadioButton;
     cdsPessoaAuxGRUPO: TStringField;
     chxArquivoUnico: TcxCheckBox;
     sqlPesqCompromissoNOME: TStringField;
     sqlPesqCompromissoCPFCNPJ: TStringField;
-    sqlPesqCompromissoENDERECO_CIDADE_ID: TFMTBCDField;
+    sqlPesqCompromissoENDERECO_CIDADE_ID: TBCDField;
     sqlPesqCompromissoENDERECO_LOGRADOURO: TStringField;
     sqlPesqCompromissoENDERECO_BAIRRO: TStringField;
     sqlPesqCompromissoENDERECO_CIDADE_UF: TStringField;
@@ -278,30 +279,30 @@ type
     sqlPesqCompromissoEMAIL1: TStringField;
     sqlPesqCompromissoTELEFONE: TStringField;
     sqlPesqCompromissoSITUACAO: TStringField;
-    sqlPesqCompromissoBOLETO_ID: TFMTBCDField;
-    sqlPesqCompromissoNOSSO_NUMERO: TFMTBCDField;
+    sqlPesqCompromissoBOLETO_ID: TBCDField;
+    sqlPesqCompromissoNOSSO_NUMERO: TBCDField;
     sqlPesqCompromissoDATA_EMISSAO: TSQLTimeStampField;
     sqlPesqCompromissoDATA_VENCIMENTO: TSQLTimeStampField;
     sqlPesqCompromissoBANCO_NOME: TStringField;
     sqlPesqCompromissoCARTEIRA: TStringField;
-    sqlPesqCompromissoVALOR_AGENDADO: TFMTBCDField;
-    sqlPesqCompromissoPESSOA_ID: TFMTBCDField;
+    sqlPesqCompromissoVALOR_AGENDADO: TBCDField;
+    sqlPesqCompromissoPESSOA_ID: TBCDField;
     N3: TMenuItem;
     AlterarDatadeVencimento: TMenuItem;
     cxGridCompromissoDBTableView1Column4: TcxGridDBColumn;
     cxButton1: TcxButton;
     btnCalcularTaxas: TcxButton;
-    sqlCompromissoVALOR_DESCONTO: TFMTBCDField;
-    sqlCompromissoVALOR_JUROS: TFMTBCDField;
-    sqlCompromissoVALOR_MULTA: TFMTBCDField;
-    sqlCompromissoVALOR_OUTRA_DEDUCAO: TFMTBCDField;
-    sqlCompromissoVALOR_CALCULO: TFMTBCDField;
+    sqlCompromissoVALOR_DESCONTO: TBCDField;
+    sqlCompromissoVALOR_JUROS: TBCDField;
+    sqlCompromissoVALOR_MULTA: TBCDField;
+    sqlCompromissoVALOR_OUTRA_DEDUCAO: TBCDField;
+    sqlCompromissoVALOR_CALCULO: TBCDField;
     sqlCompromissoOBSERVACAO_MONETARIA: TStringField;
     sqlCompromissoCALC_VALOR: TCurrencyField;
     sqlCompromissoCALC_OBSERVACAO: TStringField;
     cxGridCompromissoDBTableView1Observacao: TcxGridDBColumn;
     btnLimparCalculo: TcxButton;
-    sqlCompromissoVALOR_OUTRAS_TAXAS: TFMTBCDField;
+    sqlCompromissoVALOR_OUTRAS_TAXAS: TBCDField;
     procedure cxBtnFecharClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure lblMarcarClick(Sender: TObject);
@@ -677,7 +678,7 @@ var
   procedure GerarBoletoReferencia;
   begin
     sqlAgruparReferencia.Active := False;
-    sqlAgruparReferencia.DataSet.ParamByName('PESSOA_ID').AsString := cdsPessoaAuxPESSOAID.AsString;
+    sqlAgruparReferencia.ParamByName('PESSOA_ID').AsString := cdsPessoaAuxPESSOAID.AsString;
     sqlAgruparReferencia.Active := True;
 
     if sqlAgruparReferencia.IsEmpty then begin
@@ -1106,7 +1107,7 @@ begin
     ' order by BO.NOSSO_NUMERO ';
 
   sqlPesqCompromisso.Active := False;
-  sqlPesqCompromisso.DataSet.CommandText := viPesquisa;
+  sqlPesqCompromisso.SQL.Text := viPesquisa;
   sqlPesqCompromisso.Active := True;
 
   if sqlPesqCompromisso.RecordCount = 0 then
@@ -1394,7 +1395,7 @@ begin
             ' FROM G_EMAIL_ENVIADO '+
             ' WHERE DATA '+ MontarSqlData(edtDataInicial.Date , edtDataFinal.Date);
    sqlHistoricoEmail.Active := False;
-   sqlHistoricoEmail.DataSet.CommandText := viSql;
+   sqlHistoricoEmail.SQL.Text := viSql;
    sqlHistoricoEmail.Active := True;
 end;
 
@@ -1738,7 +1739,7 @@ var
         '   P.NOME desc ';
 
       sqlPessoa.Active := False;
-      sqlPessoa.DataSet.CommandText := viPesquisa;
+      sqlPessoa.SQL.Text := viPesquisa;
       sqlPessoa.Active := True;
     end
     else
@@ -1781,7 +1782,7 @@ var
         '  LF.CONTABIL_CONTA_ID ';
 
       sqlCompromisso.Active := False;
-      sqlCompromisso.DataSet.CommandText := viPesquisa;
+      sqlCompromisso.SQL.Text := viPesquisa;
       sqlCompromisso.Active := True;
     end;
   end;
@@ -1812,7 +1813,7 @@ var
       '   P.IDENTIFICACAO desc ';
 
     sqlPessoa.Active := False;
-    sqlPessoa.DataSet.CommandText := viPesquisa;
+    sqlPessoa.SQL.Text := viPesquisa;
     sqlPessoa.Active := True;
   end;
   {$ENDREGION}
@@ -2297,7 +2298,7 @@ end.
     exit;
 
   dtmLookupFinanceiro.sqlBanco.Active := False;
-  dtmLookupFinanceiro.sqlBanco.DataSet.ParamByName('BANCO_ID').AsBCD := lcxBancoBoleto.EditValue;
+  dtmLookupFinanceiro.sqlBanco.ParamByName('BANCO_ID').AsBCD := lcxBancoBoleto.EditValue;
   dtmLookupFinanceiro.sqlBanco.Active := True;
 
   vgPastaBoleto :=  Trim(dtmLookupFinanceiro.sqlBancoLOCAL_PADRAO.AsString);

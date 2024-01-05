@@ -3,6 +3,7 @@ unit CadastroSeloLote;
 interface
 
 uses
+  I9Query,
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, CadBasico, FMTBcd, DB, DBClient, Provider,
   SqlExpr, ActnList, ComCtrls, StdCtrls, cxButtons, ExtCtrls,
@@ -21,36 +22,36 @@ uses
 
 type
   TfrmCadSeloLote = class(TfrmCadBasico)
-    sqlSeloLivro: TSimpleDataSet;
+    sqlSeloLivro: TI9Query;
     dtsSeloLivro: TDataSource;
-    ClientAncestralSELO_LOTE_ID: TFMTBCDField;
+    ClientAncestralSELO_LOTE_ID: TBCDField;
     ClientAncestralSITUACAO: TStringField;
     ClientAncestralDATA_LOTE: TSQLTimeStampField;
-    ClientAncestralNUMERO_INICIAL: TFMTBCDField;
-    ClientAncestralNUMERO_FINAL: TFMTBCDField;
+    ClientAncestralNUMERO_INICIAL: TBCDField;
+    ClientAncestralNUMERO_FINAL: TBCDField;
     ClientAncestralOBSERVACAO: TStringField;
-    ClientAncestralSELO_GRUPO_ID: TFMTBCDField;
-    sqlSeloGrupo: TSimpleDataSet;
+    ClientAncestralSELO_GRUPO_ID: TBCDField;
+    sqlSeloGrupo: TI9Query;
     dtsSeloGrupo: TDataSource;
-    sqlSeloLivroSELO_LIVRO_ID: TFMTBCDField;
-    sqlSeloLivroNUMERO: TFMTBCDField;
-    sqlSeloLivroSELO_SITUACAO_ID: TFMTBCDField;
+    sqlSeloLivroSELO_LIVRO_ID: TBCDField;
+    sqlSeloLivroNUMERO: TBCDField;
+    sqlSeloLivroSELO_SITUACAO_ID: TBCDField;
     sqlSeloLivroOBSERVACAO: TStringField;
-    sqlSeloLivroSELO_LOTE_ID: TFMTBCDField;
-    sqlSeloGrupoSELO_GRUPO_ID: TFMTBCDField;
+    sqlSeloLivroSELO_LOTE_ID: TBCDField;
+    sqlSeloGrupoSELO_GRUPO_ID: TBCDField;
     sqlSeloGrupoDESCRICAO: TStringField;
     sqlSeloGrupoSITUACAO: TStringField;
     sqlSeloLivroSIGLA: TStringField;
-    sqlSeloSituacao: TSimpleDataSet;
+    sqlSeloSituacao: TI9Query;
     dtsSeloSituacao: TDataSource;
-    sqlSeloSituacaoSELO_SITUACAO_ID: TFMTBCDField;
+    sqlSeloSituacaoSELO_SITUACAO_ID: TBCDField;
     sqlSeloSituacaoDESCRICAO: TStringField;
     sqlSeloSituacaoSITUACAO: TStringField;
     sqlSeloLivroDATA: TSQLTimeStampField;
-    sqlSeloGrupoNUMERO: TFMTBCDField;
+    sqlSeloGrupoNUMERO: TBCDField;
     sqlSeloLivroTABELA: TStringField;
-    sqlSeloLivroCAMPO_ID: TFMTBCDField;
-    sqlSeloLivroUSUARIO_ID: TFMTBCDField;
+    sqlSeloLivroCAMPO_ID: TBCDField;
+    sqlSeloLivroUSUARIO_ID: TBCDField;
     sqlSeloLivrocalc_Vinculo: TBooleanField;
     ClientAncestralCALC_NUMERO_INI: TStringField;
     ClientAncestralCALC_NUMERO_FIM: TStringField;
@@ -152,31 +153,31 @@ type
     Panel2: TPanel;
     btnPesquisar: TcxButton;
     dtsSelos: TDataSource;
-    sqlSelos: TSimpleDataSet;
+    sqlSelos: TI9Query;
     sqlSelosNOTA_FISCAL: TStringField;
     sqlSelosNUMERO_AGRUPADOR: TStringField;
     sqlSelosSIGLA: TStringField;
-    sqlSelosNUMERO: TFMTBCDField;
-    sqlSelosTIPO_ATO: TFMTBCDField;
+    sqlSelosNUMERO: TBCDField;
+    sqlSelosTIPO_ATO: TBCDField;
     sqlSelosAPRESENTANTE: TStringField;
     sqlSelosNOME_COMPLETO: TStringField;
     sqlSelosDATA: TSQLTimeStampField;
     sqlSelosIP_MAQUINA: TStringField;
-    sqlSelosVALOR_TOTAL: TFMTBCDField;
-    sqlSelosVALOR_EMOLUMENTO: TFMTBCDField;
-    sqlSelosVALOR_TAXA_JUDICIARIA: TFMTBCDField;
-    sqlSelosVALOR_FUNDESP: TFMTBCDField;
+    sqlSelosVALOR_TOTAL: TBCDField;
+    sqlSelosVALOR_EMOLUMENTO: TBCDField;
+    sqlSelosVALOR_TAXA_JUDICIARIA: TBCDField;
+    sqlSelosVALOR_FUNDESP: TBCDField;
     sqlSeloscal_numero_selo: TStringField;
-    sqlSelosSELO_LIVRO_ID: TFMTBCDField;
+    sqlSelosSELO_LIVRO_ID: TBCDField;
     ProgressBar: TcxProgressBar;
-    sqlSelosSELO_GRUPO_ID: TFMTBCDField;
-    sqlSelosSELO_SITUACAO_ID: TFMTBCDField;
+    sqlSelosSELO_GRUPO_ID: TBCDField;
+    sqlSelosSELO_SITUACAO_ID: TBCDField;
     sqlSelosDESCRICAO: TStringField;
     btnLimparDoc: TcxButton;
     sqlSeloLivroCALC_PROTOCOLO: TStringField;
     sqlSelosCALC_PROTOCOLO: TStringField;
     sqlSelosTABELA: TStringField;
-    sqlSelosCAMPO_ID: TFMTBCDField;
+    sqlSelosCAMPO_ID: TBCDField;
     sqlSelosTIPO_CARTORIO: TStringField;
     gridSelosTABELA: TcxGridDBColumn;
     gridSelosCAMPO_iD: TcxGridDBColumn;
@@ -184,22 +185,22 @@ type
     cdsSelosNOTA_FISCAL: TStringField;
     cdsSelosNUMERO_AGRUPADOR: TStringField;
     cdsSelosSIGLA: TStringField;
-    cdsSelosNUMERO: TFMTBCDField;
-    cdsSelosTIPO_ATO: TFMTBCDField;
+    cdsSelosNUMERO: TBCDField;
+    cdsSelosTIPO_ATO: TBCDField;
     cdsSelosAPRESENTANTE: TStringField;
     cdsSelosNOME_COMPLETO: TStringField;
     cdsSelosDATA: TSQLTimeStampField;
     cdsSelosIP_MAQUINA: TStringField;
-    cdsSelosVALOR_TOTAL: TFMTBCDField;
-    cdsSelosVALOR_EMOLUMENTO: TFMTBCDField;
-    cdsSelosVALOR_TAXA_JUDICIARIA: TFMTBCDField;
-    cdsSelosVALOR_FUNDESP: TFMTBCDField;
-    cdsSelosSELO_LIVRO_ID: TFMTBCDField;
-    cdsSelosSELO_GRUPO_ID: TFMTBCDField;
-    cdsSelosSELO_SITUACAO_ID: TFMTBCDField;
+    cdsSelosVALOR_TOTAL: TBCDField;
+    cdsSelosVALOR_EMOLUMENTO: TBCDField;
+    cdsSelosVALOR_TAXA_JUDICIARIA: TBCDField;
+    cdsSelosVALOR_FUNDESP: TBCDField;
+    cdsSelosSELO_LIVRO_ID: TBCDField;
+    cdsSelosSELO_GRUPO_ID: TBCDField;
+    cdsSelosSELO_SITUACAO_ID: TBCDField;
     cdsSelosDESCRICAO: TStringField;
     cdsSelosTABELA: TStringField;
-    cdsSelosCAMPO_ID: TFMTBCDField;
+    cdsSelosCAMPO_ID: TBCDField;
     cdsSelosTIPO_CARTORIO: TStringField;
     cdsSeloscal_numero_selo: TStringField;
     cdsSelosCALC_PROTOCOLO: TStringField;
@@ -220,12 +221,12 @@ type
     edtNumeroSelo: TcxTextEdit;
     btnPesquisarSelo: TcxButton;
     btnPesqLimpar: TcxButton;
-    sqlSeloLivroUSUARIO_ATO_ID: TFMTBCDField;
-    sqlSeloLivroUSUARIO_RESERVA_ID: TFMTBCDField;
+    sqlSeloLivroUSUARIO_ATO_ID: TBCDField;
+    sqlSeloLivroUSUARIO_RESERVA_ID: TBCDField;
     cxGridDBTableView1Column5: TcxGridDBColumn;
     cxGridDBTableView1Column6: TcxGridDBColumn;
     cdsSelosPROTOCOLO: TStringField;
-    sqlSelosPROTOCOLO: TFMTBCDField;
+    sqlSelosPROTOCOLO: TBCDField;
     gridSelosProtocolo: TcxGridDBColumn;
     N1: TMenuItem;
     CorrigirNumerodeProtocolo1: TMenuItem;
@@ -338,7 +339,7 @@ begin
                          ' WHERE SELO_LOTE_ID = '+ ClientAncestralSELO_LOTE_ID.AsString,1);
 
       sqlSeloLivro.Active := False;
-      sqlSeloLivro.DataSet.ParamByName('SELO_LOTE_ID').AsBCD := ClientAncestralSELO_LOTE_ID.AsCurrency;
+      sqlSeloLivro.ParamByName('SELO_LOTE_ID').AsBCD := ClientAncestralSELO_LOTE_ID.AsCurrency;
       sqlSeloLivro.Active := True;
 
       Screen.Cursor := crHourGlass;
@@ -443,7 +444,7 @@ begin
 
   Screen.Cursor := crSQLWait;
   ClientAncestral.Active := False;
-  DataSetAncestral.CommandText := viSql;
+  DataSetAncestral.SQL.Text := viSql;
   ClientAncestral.Active := True;
   Screen.Cursor := crDefault;
 
@@ -472,7 +473,7 @@ begin
     pgcPesquisa.ActivePageIndex := 1 ;
 
     sqlSeloLivro.Active := False;
-    sqlSeloLivro.DataSet.ParamByName('SELO_LOTE_ID').AsBCD := ClientAncestralSELO_LOTE_ID.AsCurrency;
+    sqlSeloLivro.ParamByName('SELO_LOTE_ID').AsBCD := ClientAncestralSELO_LOTE_ID.AsCurrency;
     sqlSeloLivro.Active := True;
 
     vgSeloDisponivel := StrToInt(PegarSeloDisponivel('1'));
@@ -881,7 +882,7 @@ begin
         end;
 
         sqlSelos.Close;
-        sqlSelos.DataSet.CommandText := viSql + ' AND SL.SIGLA = ' + QuotedStr(viSeloSigla)+
+        sqlSelos.SQL.Text := viSql + ' AND SL.SIGLA = ' + QuotedStr(viSeloSigla)+
                                                 ' AND SL.NUMERO = ' + viSeloNumero +
                                                 ' ORDER BY SL.NUMERO_AGRUPADOR, TIPO_ATO, SL.NUMERO ';
         sqlSelos.Open;

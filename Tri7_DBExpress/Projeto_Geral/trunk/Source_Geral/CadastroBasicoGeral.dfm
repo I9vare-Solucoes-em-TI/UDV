@@ -357,7 +357,7 @@ inherited frmCadastroBasicoGeral: TfrmCadastroBasicoGeral
     Left = 421
     Top = 170
   end
-  inherited DataSetAncestral: TSQLDataSet
+  inherited DataSetAncestral: TI9Query
     Left = 451
     Top = 170
   end

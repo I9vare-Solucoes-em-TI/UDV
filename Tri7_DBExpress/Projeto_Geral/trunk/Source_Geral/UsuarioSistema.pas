@@ -3,6 +3,7 @@ unit UsuarioSistema;
 interface
 
 uses
+  I9Query,
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, CadBasico, DB, cxGridLevel, cxGridDBTableView, cxGrid, cxSplitter,
   cxContainer, cxDBLookupComboBox, cxLabel, SimpleDS,
@@ -25,17 +26,17 @@ type
     lcbGrupo: TcxDBLookupComboBox;
     cxLabel1: TcxLabel;
     lcbUsuario: TcxDBLookupComboBox;
-    sqlGrupo: TSimpleDataSet;
-    sqlUsuario: TSimpleDataSet;
+    sqlGrupo: TI9Query;
+    sqlUsuario: TI9Query;
     dsGrupo: TDataSource;
     dsUsuario: TDataSource;
-    ClientAncestralSISTEMA_ID: TFMTBCDField;
-    ClientAncestralUSUARIO_ID: TFMTBCDField;
-    ClientAncestralUSUARIO_GRUPO_ID: TFMTBCDField;
-    sqlGrupoUSUARIO_GRUPO_ID: TFMTBCDField;
+    ClientAncestralSISTEMA_ID: TBCDField;
+    ClientAncestralUSUARIO_ID: TBCDField;
+    ClientAncestralUSUARIO_GRUPO_ID: TBCDField;
+    sqlGrupoUSUARIO_GRUPO_ID: TBCDField;
     sqlGrupoDESCRICAO: TStringField;
     sqlGrupoSITUACAO: TStringField;
-    sqlUsuarioUSUARIO_ID: TFMTBCDField;
+    sqlUsuarioUSUARIO_ID: TBCDField;
     sqlUsuarioNOME_COMPLETO: TStringField;
     cxGridDBTableView1USUARIO_ID: TcxGridDBColumn;
     cxGridDBTableView1USUARIO_GRUPO_ID: TcxGridDBColumn;

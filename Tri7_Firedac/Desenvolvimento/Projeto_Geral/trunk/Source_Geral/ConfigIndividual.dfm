@@ -1393,7 +1393,6 @@ inherited frmConfigIndividual: TfrmConfigIndividual
     FetchOptions.AssignedValues = [evMode]
     FetchOptions.Mode = fmAll
     SQL.Strings = (
-      
         'SELECT CV.*'#13#10'FROM G_CONFIG_PADRAO_VALOR CV'#13#10'WHERE CV.CONFIG_PADR' +
         'AO_ID = :CONFIG_PADRAO_ID'#13#10'ORDER BY CV.VALOR')
     Left = 530

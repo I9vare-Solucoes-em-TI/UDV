@@ -241,11 +241,10 @@ object dtmLookupFinanceiro: TdtmLookupFinanceiro
         end>
     end
   end
-  object sqlPessoasTodas: TSimpleDataSet
+  object sqlPessoasTodas: TI9Query
     Aggregates = <>
-    DataSet.CommandText = 'SELECT NOME, PESSOA_ID'#13#10'FROM J_PESSOA'#13#10'ORDER BY NOME'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <>
+    SQL.Strings = ('SELECT NOME, PESSOA_ID'#13#10'FROM J_PESSOA'#13#10'ORDER BY NOME')
+    ParamData = <>
     Params = <>
     Left = 140
     Top = 8
@@ -253,7 +252,7 @@ object dtmLookupFinanceiro: TdtmLookupFinanceiro
       FieldName = 'NOME'
       Size = 120
     end
-    object sqlPessoasTodasPESSOA_ID: TFMTBCDField
+    object sqlPessoasTodasPESSOA_ID: TBCDField
       FieldName = 'PESSOA_ID'
       Precision = 20
       Size = 2
@@ -264,15 +263,14 @@ object dtmLookupFinanceiro: TdtmLookupFinanceiro
     Left = 140
     Top = 64
   end
-  object sqlPessoaFuncao: TSimpleDataSet
+  object sqlPessoaFuncao: TI9Query
     Aggregates = <>
-    DataSet.CommandText = 'SELECT *'#13#10'FROM J_PESSOA_FUNCAO'#13#10'ORDER BY DESCRICAO'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <>
+    SQL.Strings = ('SELECT *'#13#10'FROM J_PESSOA_FUNCAO'#13#10'ORDER BY DESCRICAO')
+    ParamData = <>
     Params = <>
     Left = 289
     Top = 124
-    object sqlPessoaFuncaoPESSOA_FUNCAO_ID: TFMTBCDField
+    object sqlPessoaFuncaoPESSOA_FUNCAO_ID: TBCDField
       FieldName = 'PESSOA_FUNCAO_ID'
       Required = True
       Precision = 20
@@ -282,7 +280,7 @@ object dtmLookupFinanceiro: TdtmLookupFinanceiro
       FieldName = 'DESCRICAO'
       Size = 30
     end
-    object sqlPessoaFuncaoVALOR: TFMTBCDField
+    object sqlPessoaFuncaoVALOR: TBCDField
       FieldName = 'VALOR'
       Precision = 20
       Size = 3
@@ -297,14 +295,13 @@ object dtmLookupFinanceiro: TdtmLookupFinanceiro
     Left = 291
     Top = 172
   end
-  object sqlGrupoIdentificacao: TSimpleDataSet
+  object sqlGrupoIdentificacao: TI9Query
     Aggregates = <>
     Connection = dtmControles.DB
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT IDENTIFICACAO'#13#10'FROM J_PESSOA'#13#10'WHERE NOT (IDENTIFICACAO IS' +
-      ' NULL)'#13#10'GROUP BY IDENTIFICACAO'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <>
+      ' NULL)'#13#10'GROUP BY IDENTIFICACAO')
+    ParamData = <>
     Params = <>
     Left = 138
     Top = 122
@@ -569,18 +566,17 @@ object dtmLookupFinanceiro: TdtmLookupFinanceiro
     Left = 381
     Top = 110
   end
-  object sqlPessoaTarefa: TSimpleDataSet
+  object sqlPessoaTarefa: TI9Query
     Aggregates = <>
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT IDENTIFICACAO, PESSOA_ID'#13#10'FROM J_PESSOA'#13#10'WHERE (NOT PESSO' +
       'A_FUNCAO_ID IS NULL) AND (PESSOA_FUNCAO_ID > 0)'#13#10'ORDER BY IDENTI' +
-      'FICACAO'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <>
+      'FICACAO')
+    ParamData = <>
     Params = <>
     Left = 457
     Top = 120
-    object FMTBCDField1: TFMTBCDField
+    object FMTBCDField1: TBCDField
       FieldName = 'PESSOA_ID'
       Precision = 20
       Size = 2
@@ -595,15 +591,14 @@ object dtmLookupFinanceiro: TdtmLookupFinanceiro
     Left = 459
     Top = 176
   end
-  object sqlCaixa: TSimpleDataSet
+  object sqlCaixa: TI9Query
     Aggregates = <>
-    DataSet.CommandText = 'SELECT *'#13#10'FROM J_CAIXA'#13#10'ORDER BY DESCRICAO'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <>
+    SQL.Strings = ('SELECT *'#13#10'FROM J_CAIXA'#13#10'ORDER BY DESCRICAO')
+    ParamData = <>
     Params = <>
     Left = 220
     Top = 6
-    object sqlCaixaCAIXA_ID: TFMTBCDField
+    object sqlCaixaCAIXA_ID: TBCDField
       FieldName = 'CAIXA_ID'
       Precision = 20
       Size = 2
@@ -616,7 +611,7 @@ object dtmLookupFinanceiro: TdtmLookupFinanceiro
       FieldName = 'SITUACAO'
       Size = 1
     end
-    object sqlCaixaRESPONSAVEL_ID: TFMTBCDField
+    object sqlCaixaRESPONSAVEL_ID: TBCDField
       FieldName = 'RESPONSAVEL_ID'
       Precision = 20
       Size = 2
@@ -631,21 +626,20 @@ object dtmLookupFinanceiro: TdtmLookupFinanceiro
     Left = 220
     Top = 72
   end
-  object sqlBanco: TSimpleDataSet
+  object sqlBanco: TI9Query
     Aggregates = <>
     Connection = dtmControles.DB
-    DataSet.CommandText = 'SELECT *'#13#10'FROM J_BANCO'#13#10'WHERE BANCO_ID = :BANCO_ID'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <
+    SQL.Strings = ('SELECT *'#13#10'FROM J_BANCO'#13#10'WHERE BANCO_ID = :BANCO_ID')
+    ParamData = <
       item
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Name = 'BANCO_ID'
         ParamType = ptInput
       end>
     Params = <>
     Left = 539
     Top = 8
-    object sqlBancoBANCO_ID: TFMTBCDField
+    object sqlBancoBANCO_ID: TBCDField
       FieldName = 'BANCO_ID'
       Required = True
       Precision = 15
@@ -699,7 +693,7 @@ object dtmLookupFinanceiro: TdtmLookupFinanceiro
       FieldName = 'CODIGO_CEDENTE_DIGITO'
       Size = 3
     end
-    object sqlBancoNOSSO_NUMERO: TFMTBCDField
+    object sqlBancoNOSSO_NUMERO: TBCDField
       FieldName = 'NOSSO_NUMERO'
       Precision = 15
       Size = 2
@@ -708,7 +702,7 @@ object dtmLookupFinanceiro: TdtmLookupFinanceiro
       FieldName = 'CARTEIRA'
       Size = 10
     end
-    object sqlBancoCONFIG_RELATORIO_ID: TFMTBCDField
+    object sqlBancoCONFIG_RELATORIO_ID: TBCDField
       FieldName = 'CONFIG_RELATORIO_ID'
       Precision = 20
       Size = 2
@@ -717,7 +711,7 @@ object dtmLookupFinanceiro: TdtmLookupFinanceiro
       FieldName = 'MODALIDADE'
       Size = 3
     end
-    object sqlBancoCEDENTE_ID: TFMTBCDField
+    object sqlBancoCEDENTE_ID: TBCDField
       FieldName = 'CEDENTE_ID'
       Precision = 20
       Size = 2
@@ -731,12 +725,11 @@ object dtmLookupFinanceiro: TdtmLookupFinanceiro
       Size = 260
     end
   end
-  object sqlBoleto: TSimpleDataSet
+  object sqlBoleto: TI9Query
     Aggregates = <>
     Connection = dtmControles.DB
-    DataSet.CommandText = 'SELECT *'#13#10'FROM J_BOLETO'#13#10'WHERE BOLETO_ID = :BOLETO_ID;'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <
+    SQL.Strings = ('SELECT *'#13#10'FROM J_BOLETO'#13#10'WHERE BOLETO_ID = :BOLETO_ID;')
+    ParamData = <
       item
         DataType = ftBCD
         Name = 'BOLETO_ID'
@@ -745,7 +738,7 @@ object dtmLookupFinanceiro: TdtmLookupFinanceiro
     Params = <>
     Left = 609
     Top = 8
-    object sqlBoletoBOLETO_ID: TFMTBCDField
+    object sqlBoletoBOLETO_ID: TBCDField
       FieldName = 'BOLETO_ID'
       Required = True
       Precision = 15
@@ -791,12 +784,12 @@ object dtmLookupFinanceiro: TdtmLookupFinanceiro
       FieldName = 'LOCAL_PAGTO'
       Size = 120
     end
-    object sqlBoletoCONT_REMESSA: TFMTBCDField
+    object sqlBoletoCONT_REMESSA: TBCDField
       FieldName = 'CONT_REMESSA'
       Precision = 15
       Size = 2
     end
-    object sqlBoletoVALOR: TFMTBCDField
+    object sqlBoletoVALOR: TBCDField
       FieldName = 'VALOR'
       Precision = 20
       Size = 3
@@ -807,7 +800,7 @@ object dtmLookupFinanceiro: TdtmLookupFinanceiro
     object sqlBoletoDATA_VENCIMENTO: TSQLTimeStampField
       FieldName = 'DATA_VENCIMENTO'
     end
-    object sqlBoletoNOSSO_NUMERO: TFMTBCDField
+    object sqlBoletoNOSSO_NUMERO: TBCDField
       FieldName = 'NOSSO_NUMERO'
       Precision = 20
       Size = 2
@@ -816,12 +809,12 @@ object dtmLookupFinanceiro: TdtmLookupFinanceiro
       FieldName = 'SITUACAO'
       Size = 1
     end
-    object sqlBoletoBANCO_ID: TFMTBCDField
+    object sqlBoletoBANCO_ID: TBCDField
       FieldName = 'BANCO_ID'
       Precision = 20
       Size = 2
     end
-    object sqlBoletoPESSOA_ID: TFMTBCDField
+    object sqlBoletoPESSOA_ID: TBCDField
       FieldName = 'PESSOA_ID'
       Precision = 20
       Size = 2
@@ -837,16 +830,15 @@ object dtmLookupFinanceiro: TdtmLookupFinanceiro
     Left = 540
     Top = 56
   end
-  object sqlCedente: TSimpleDataSet
+  object sqlCedente: TI9Query
     Aggregates = <>
     Connection = dtmControles.DB
-    DataSet.CommandText = 'SELECT *'#13#10'FROM J_CEDENTE'#13#10'WHERE SITUACAO = '#39'A'#39
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <>
+    SQL.Strings = ('SELECT *'#13#10'FROM J_CEDENTE'#13#10'WHERE SITUACAO = '#39'A'#39)
+    ParamData = <>
     Params = <>
     Left = 529
     Top = 120
-    object sqlCedenteCEDENTE_ID: TFMTBCDField
+    object sqlCedenteCEDENTE_ID: TBCDField
       FieldName = 'CEDENTE_ID'
       Required = True
       Precision = 15
@@ -888,7 +880,7 @@ object dtmLookupFinanceiro: TdtmLookupFinanceiro
       FieldName = 'END_EMAIL'
       Size = 30
     end
-    object sqlCedenteCONFIG_RELATORIO_ID: TFMTBCDField
+    object sqlCedenteCONFIG_RELATORIO_ID: TBCDField
       FieldName = 'CONFIG_RELATORIO_ID'
       Precision = 15
       Size = 2
@@ -915,22 +907,21 @@ object dtmLookupFinanceiro: TdtmLookupFinanceiro
     Left = 530
     Top = 176
   end
-  object sqlLivroFinanceiro: TSimpleDataSet
+  object sqlLivroFinanceiro: TI9Query
     Aggregates = <>
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT *'#13#10'FROM J_LIVRO_FINANCEIRO'#13#10'WHERE LIVRO_FINANCEIRO_ID = :' +
-      'LIVRO_FINANCEIRO_ID'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <
+      'LIVRO_FINANCEIRO_ID')
+    ParamData = <
       item
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Name = 'LIVRO_FINANCEIRO_ID'
         ParamType = ptInput
       end>
     Params = <>
     Left = 609
     Top = 120
-    object sqlLivroFinanceiroLIVRO_FINANCEIRO_ID: TFMTBCDField
+    object sqlLivroFinanceiroLIVRO_FINANCEIRO_ID: TBCDField
       FieldName = 'LIVRO_FINANCEIRO_ID'
       Required = True
       Precision = 15
@@ -939,7 +930,7 @@ object dtmLookupFinanceiro: TdtmLookupFinanceiro
     object sqlLivroFinanceiroDATA_VENCIMENTO: TSQLTimeStampField
       FieldName = 'DATA_VENCIMENTO'
     end
-    object sqlLivroFinanceiroVALOR_AGENDADO: TFMTBCDField
+    object sqlLivroFinanceiroVALOR_AGENDADO: TBCDField
       FieldName = 'VALOR_AGENDADO'
       Precision = 15
       Size = 3
@@ -948,12 +939,12 @@ object dtmLookupFinanceiro: TdtmLookupFinanceiro
       FieldName = 'SITUACAO'
       Size = 1
     end
-    object sqlLivroFinanceiroCONTABIL_CONTA_ID: TFMTBCDField
+    object sqlLivroFinanceiroCONTABIL_CONTA_ID: TBCDField
       FieldName = 'CONTABIL_CONTA_ID'
       Precision = 15
       Size = 2
     end
-    object sqlLivroFinanceiroCENTRO_CUSTO_ID: TFMTBCDField
+    object sqlLivroFinanceiroCENTRO_CUSTO_ID: TBCDField
       FieldName = 'CENTRO_CUSTO_ID'
       Precision = 15
       Size = 2
@@ -962,7 +953,7 @@ object dtmLookupFinanceiro: TdtmLookupFinanceiro
       FieldName = 'ANO_MES_REFERENCIA'
       Size = 10
     end
-    object sqlLivroFinanceiroBALANCETE_GRUPO_ID: TFMTBCDField
+    object sqlLivroFinanceiroBALANCETE_GRUPO_ID: TBCDField
       FieldName = 'BALANCETE_GRUPO_ID'
       Precision = 15
       Size = 2
@@ -971,7 +962,7 @@ object dtmLookupFinanceiro: TdtmLookupFinanceiro
       FieldName = 'ESPECIE'
       Size = 1
     end
-    object sqlLivroFinanceiroBOLETA_ID: TFMTBCDField
+    object sqlLivroFinanceiroBOLETA_ID: TBCDField
       FieldName = 'BOLETA_ID'
       Precision = 15
       Size = 2
@@ -980,17 +971,17 @@ object dtmLookupFinanceiro: TdtmLookupFinanceiro
       FieldName = 'ATUALIZADO'
       Size = 1
     end
-    object sqlLivroFinanceiroVALOR_PAGO: TFMTBCDField
+    object sqlLivroFinanceiroVALOR_PAGO: TBCDField
       FieldName = 'VALOR_PAGO'
       Precision = 15
       Size = 3
     end
-    object sqlLivroFinanceiroPROCESSO_CONTRATO_ITEM_ID: TFMTBCDField
+    object sqlLivroFinanceiroPROCESSO_CONTRATO_ITEM_ID: TBCDField
       FieldName = 'PROCESSO_CONTRATO_ITEM_ID'
       Precision = 15
       Size = 2
     end
-    object sqlLivroFinanceiroPROCESSO_CONTRATO_ID: TFMTBCDField
+    object sqlLivroFinanceiroPROCESSO_CONTRATO_ID: TBCDField
       FieldName = 'PROCESSO_CONTRATO_ID'
       Precision = 15
       Size = 2
@@ -999,22 +990,22 @@ object dtmLookupFinanceiro: TdtmLookupFinanceiro
       FieldName = 'OPERACAO'
       Size = 1
     end
-    object sqlLivroFinanceiroPESSOA_ID: TFMTBCDField
+    object sqlLivroFinanceiroPESSOA_ID: TBCDField
       FieldName = 'PESSOA_ID'
       Precision = 15
       Size = 2
     end
-    object sqlLivroFinanceiroVALOR_DOCUMENTO: TFMTBCDField
+    object sqlLivroFinanceiroVALOR_DOCUMENTO: TBCDField
       FieldName = 'VALOR_DOCUMENTO'
       Precision = 15
       Size = 3
     end
-    object sqlLivroFinanceiroLIVRO_REMUNERACAO_ID: TFMTBCDField
+    object sqlLivroFinanceiroLIVRO_REMUNERACAO_ID: TBCDField
       FieldName = 'LIVRO_REMUNERACAO_ID'
       Precision = 15
       Size = 2
     end
-    object sqlLivroFinanceiroFINANCEIRO_REMUNERACAO_ID: TFMTBCDField
+    object sqlLivroFinanceiroFINANCEIRO_REMUNERACAO_ID: TBCDField
       FieldName = 'FINANCEIRO_REMUNERACAO_ID'
       Precision = 15
       Size = 2
@@ -1030,12 +1021,12 @@ object dtmLookupFinanceiro: TdtmLookupFinanceiro
     object sqlLivroFinanceiroDATA_OPERACAO: TSQLTimeStampField
       FieldName = 'DATA_OPERACAO'
     end
-    object sqlLivroFinanceiroLIVRO_AGENDAMENTO_ID: TFMTBCDField
+    object sqlLivroFinanceiroLIVRO_AGENDAMENTO_ID: TBCDField
       FieldName = 'LIVRO_AGENDAMENTO_ID'
       Precision = 15
       Size = 2
     end
-    object sqlLivroFinanceiroDESCONTO: TFMTBCDField
+    object sqlLivroFinanceiroDESCONTO: TBCDField
       FieldName = 'DESCONTO'
       Precision = 15
       Size = 3
@@ -1052,7 +1043,7 @@ object dtmLookupFinanceiro: TdtmLookupFinanceiro
       FieldName = 'DOCUMENTO_NUMERO'
       Size = 60
     end
-    object sqlLivroFinanceiroCAIXA_ID: TFMTBCDField
+    object sqlLivroFinanceiroCAIXA_ID: TBCDField
       FieldName = 'CAIXA_ID'
       Precision = 15
       Size = 2
@@ -2986,17 +2977,16 @@ object dtmLookupFinanceiro: TdtmLookupFinanceiro
     Left = 781
     Top = 120
   end
-  object sqlContaBancaria: TSimpleDataSet
+  object sqlContaBancaria: TI9Query
     Aggregates = <>
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT'#13#10'   BANCO_ID, '#13#10'   BANCO_NOME '#13#10'FROM '#13#10'  J_BANCO '#13#10'ORDER ' +
-      'BY '#13#10'  BANCO_NOME'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <>
+      'BY '#13#10'  BANCO_NOME')
+    ParamData = <>
     Params = <>
     Left = 461
     Top = 9
-    object sqlContaBancariaBANCO_ID: TFMTBCDField
+    object sqlContaBancariaBANCO_ID: TBCDField
       FieldName = 'BANCO_ID'
       Required = True
       Precision = 20
@@ -3017,17 +3007,16 @@ object dtmLookupFinanceiro: TdtmLookupFinanceiro
     Left = 292
     Top = 72
   end
-  object sqlLayoutBoleto: TSimpleDataSet
+  object sqlLayoutBoleto: TI9Query
     Aggregates = <>
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT'#13#10'  CONFIG_RELATORIO_ID,'#13#10'  DESCRICAO'#13#10'FROM'#13#10'  G_CONFIG_RE' +
-      'LATORIO'#13#10'ORDER BY DESCRICAO'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <>
+      'LATORIO'#13#10'ORDER BY DESCRICAO')
+    ParamData = <>
     Params = <>
     Left = 292
     Top = 6
-    object sqlLayoutBoletoCONFIG_RELATORIO_ID: TFMTBCDField
+    object sqlLayoutBoletoCONFIG_RELATORIO_ID: TBCDField
       FieldName = 'CONFIG_RELATORIO_ID'
       Required = True
       Precision = 20
@@ -3038,18 +3027,17 @@ object dtmLookupFinanceiro: TdtmLookupFinanceiro
       Size = 60
     end
   end
-  object sqlOrcamento: TSimpleDataSet
+  object sqlOrcamento: TI9Query
     Aggregates = <>
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT LIVRO_AGENDAMENTO_ID, HISTORICO'#13#10'FROM J_LIVRO_AGENDAMENTO' +
       #13#10'WHERE OPERACAO = '#39'O'#39#13#10'  AND SITUACAO IN (1,2)'#13#10'ORDER BY HISTOR' +
-      'ICO'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <>
+      'ICO')
+    ParamData = <>
     Params = <>
     Left = 133
     Top = 271
-    object sqlOrcamentoLIVRO_AGENDAMENTO_ID: TFMTBCDField
+    object sqlOrcamentoLIVRO_AGENDAMENTO_ID: TBCDField
       FieldName = 'LIVRO_AGENDAMENTO_ID'
       Required = True
       Precision = 20
@@ -3065,13 +3053,12 @@ object dtmLookupFinanceiro: TdtmLookupFinanceiro
     Left = 133
     Top = 325
   end
-  object sqlTipoDocumento: TSimpleDataSet
+  object sqlTipoDocumento: TI9Query
     Aggregates = <>
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT DESCRICAO, TIPO_DOCUMENTO_ID'#13#10'FROM J_TIPO_DOCUMENTO'#13#10'ORDE' +
-      'R BY DESCRICAO'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <>
+      'R BY DESCRICAO')
+    ParamData = <>
     Params = <>
     Left = 262
     Top = 274
@@ -3079,7 +3066,7 @@ object dtmLookupFinanceiro: TdtmLookupFinanceiro
       FieldName = 'DESCRICAO'
       Size = 30
     end
-    object sqlTipoDocumentoTIPO_DOCUMENTO_ID: TFMTBCDField
+    object sqlTipoDocumentoTIPO_DOCUMENTO_ID: TBCDField
       FieldName = 'TIPO_DOCUMENTO_ID'
       Precision = 20
       Size = 2

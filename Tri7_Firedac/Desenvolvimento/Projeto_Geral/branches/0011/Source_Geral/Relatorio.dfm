@@ -241,7 +241,6 @@ object frmRelatorio: TfrmRelatorio
   object sqlRelatorio: TI9Query
     Connection = dtmControles.DB
     SQL.Strings = (
-      
         'SELECT GR.DESCRICAO AS GRUPO,'#13#10'       CR.CONFIG_RELATORIO_ID,'#13#10' ' +
         '      CR.DESCRICAO,'#13#10'       CR.RELATORIO'#13#10'FROM G_CONFIG_RELATORI' +
         'O CR'#13#10'LEFT JOIN G_GRUPO_RELATORIO GR ON'#13#10'   CR.GRUPO_RELATORIO_I' +

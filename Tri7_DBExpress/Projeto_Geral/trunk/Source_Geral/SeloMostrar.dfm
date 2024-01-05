@@ -107,14 +107,14 @@ inherited frmSeloMostrar: TfrmSeloMostrar
       end
     end
   end
-  inherited DataSetAncestral: TSQLDataSet
-    CommandText = 
+  inherited DataSetAncestral: TI9Query
+    SQL.Strings = (
       'SELECT SL.SIGLA, CAST(SL.NUMERO AS INTEGER) AS NUMERO, SL.SELO_L' +
       'IVRO_ID,'#13#10'            SG.DESCRICAO_COMPLETA'#13#10'FROM G_SELO_LIVRO S' +
       'L'#13#10'LEFT OUTER JOIN G_SELO_LOTE ST ON'#13#10'  SL.SELO_LOTE_ID = ST.SEL' +
       'O_LOTE_ID'#13#10'  LEFT OUTER JOIN G_SELO_GRUPO SG ON'#13#10'  ST.SELO_GRUPO' +
       '_ID = SG.SELO_GRUPO_ID'#13#10'WHERE TABELA = :TABELA'#13#10'  AND CAMPO_ID =' +
-      ' :CAMPO_ID'#13#10'ORDER BY SIGLA, NUMERO'
+      ' :CAMPO_ID'#13#10'ORDER BY SIGLA, NUMERO')
     Params = <
       item
         DataType = ftUnknown
@@ -144,7 +144,7 @@ inherited frmSeloMostrar: TfrmSeloMostrar
     object ClientAncestralNUMERO: TIntegerField
       FieldName = 'NUMERO'
     end
-    object ClientAncestralSELO_LIVRO_ID: TFMTBCDField
+    object ClientAncestralSELO_LIVRO_ID: TBCDField
       FieldName = 'SELO_LIVRO_ID'
       Required = True
       Precision = 20

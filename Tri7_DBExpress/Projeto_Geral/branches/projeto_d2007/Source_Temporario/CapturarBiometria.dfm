@@ -875,7 +875,7 @@ inherited frmCapturarBiometria: TfrmCapturarBiometria
       LookAndFeel.SkinName = ''
     end
   end
-  inherited DataSetAncestral: TSQLDataSet
+  inherited DataSetAncestral: TI9Query
     Left = 35
     Top = 151
   end

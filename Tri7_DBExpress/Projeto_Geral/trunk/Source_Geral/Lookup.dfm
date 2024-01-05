@@ -1747,11 +1747,10 @@ object dtmLookup: TdtmLookup
         end>
     end
   end
-  object sqlG_Banco: TSimpleDataSet
+  object sqlG_Banco: TI9Query
     Aggregates = <>
-    DataSet.CommandText = 'SELECT * FROM G_BANCO'#13#10'ORDER BY DESCRICAO'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <>
+    SQL.Strings = ('SELECT * FROM G_BANCO'#13#10'ORDER BY DESCRICAO')
+    ParamData = <>
     Params = <>
     Left = 124
     Top = 8
@@ -1770,17 +1769,16 @@ object dtmLookup: TdtmLookup
     Left = 121
     Top = 61
   end
-  object sqlG_TB_DocumentoTipo: TSimpleDataSet
+  object sqlG_TB_DocumentoTipo: TI9Query
     Aggregates = <>
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT * '#13#10'FROM G_TB_DOCUMENTOTIPO'#13#10'WHERE SITUACAO = '#39'A'#39#13#10'ORDER ' +
-      'BY DESCRICAO'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <>
+      'BY DESCRICAO')
+    ParamData = <>
     Params = <>
     Left = 236
     Top = 8
-    object sqlG_TB_DocumentoTipoTB_DOCUMENTOTIPO_ID: TFMTBCDField
+    object sqlG_TB_DocumentoTipoTB_DOCUMENTOTIPO_ID: TBCDField
       FieldName = 'TB_DOCUMENTOTIPO_ID'
       Required = True
       Precision = 15
@@ -1807,22 +1805,21 @@ object dtmLookup: TdtmLookup
     Left = 236
     Top = 64
   end
-  object sqlG_TB_EstadoCivil: TSimpleDataSet
+  object sqlG_TB_EstadoCivil: TI9Query
     Aggregates = <>
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT * FROM G_TB_ESTADOCIVIL'#13#10'WHERE SITUACAO = '#39'A'#39#13#10'AND SISTEM' +
-      'A_ID = :SISTEMA_ID'#13#10'ORDER BY DESCRICAO'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <
+      'A_ID = :SISTEMA_ID'#13#10'ORDER BY DESCRICAO')
+    ParamData = <
       item
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Name = 'SISTEMA_ID'
         ParamType = ptInput
       end>
     Params = <>
     Left = 372
     Top = 8
-    object sqlG_TB_EstadoCivilTB_ESTADOCIVIL_ID: TFMTBCDField
+    object sqlG_TB_EstadoCivilTB_ESTADOCIVIL_ID: TBCDField
       FieldName = 'TB_ESTADOCIVIL_ID'
       Required = True
       Precision = 15
@@ -1846,17 +1843,16 @@ object dtmLookup: TdtmLookup
     Left = 372
     Top = 64
   end
-  object sqlG_TB_Profissao: TSimpleDataSet
+  object sqlG_TB_Profissao: TI9Query
     Aggregates = <>
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT * FROM G_TB_PROFISSAO'#13#10'WHERE SITUACAO = '#39'A'#39#13#10'ORDER BY DES' +
-      'CRICAO'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <>
+      'CRICAO')
+    ParamData = <>
     Params = <>
     Left = 484
     Top = 8
-    object sqlG_TB_ProfissaoTB_PROFISSAO_ID: TFMTBCDField
+    object sqlG_TB_ProfissaoTB_PROFISSAO_ID: TBCDField
       FieldName = 'TB_PROFISSAO_ID'
       Required = True
       Precision = 15
@@ -1880,17 +1876,16 @@ object dtmLookup: TdtmLookup
     Left = 484
     Top = 64
   end
-  object sqlG_TB_RegimeComunhao: TSimpleDataSet
+  object sqlG_TB_RegimeComunhao: TI9Query
     Aggregates = <>
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT * FROM G_TB_REGIMECOMUNHAO'#13#10'WHERE SITUACAO = '#39'A'#39#13#10'ORDER B' +
-      'Y DESCRICAO'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <>
+      'Y DESCRICAO')
+    ParamData = <>
     Params = <>
     Left = 604
     Top = 8
-    object sqlG_TB_RegimeComunhaoTB_REGIMECOMUNHAO_ID: TFMTBCDField
+    object sqlG_TB_RegimeComunhaoTB_REGIMECOMUNHAO_ID: TBCDField
       FieldName = 'TB_REGIMECOMUNHAO_ID'
       Required = True
       Precision = 15
@@ -1914,17 +1909,16 @@ object dtmLookup: TdtmLookup
     Left = 580
     Top = 64
   end
-  object sqlG_TB_TipoLogradouro: TSimpleDataSet
+  object sqlG_TB_TipoLogradouro: TI9Query
     Aggregates = <>
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT * FROM G_TB_TIPOLOGRADOURO'#13#10'WHERE SITUACAO = '#39'A'#39#13#10'ORDER B' +
-      'Y DESCRICAO'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <>
+      'Y DESCRICAO')
+    ParamData = <>
     Params = <>
     Left = 260
     Top = 247
-    object sqlG_TB_TipoLogradouroTB_TIPOLOGRADOURO_ID: TFMTBCDField
+    object sqlG_TB_TipoLogradouroTB_TIPOLOGRADOURO_ID: TBCDField
       FieldName = 'TB_TIPOLOGRADOURO_ID'
       Required = True
       Precision = 15
@@ -1944,17 +1938,16 @@ object dtmLookup: TdtmLookup
     Left = 260
     Top = 303
   end
-  object sqlG_TB_TxModeloGrupo: TSimpleDataSet
+  object sqlG_TB_TxModeloGrupo: TI9Query
     Aggregates = <>
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT TB_TXMODELOGRUPO_ID, DESCRICAO'#13#10'FROM G_TB_TXMODELOGRUPO'#13#10 +
-      'ORDER BY DESCRICAO'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <>
+      'ORDER BY DESCRICAO')
+    ParamData = <>
     Params = <>
     Left = 130
     Top = 127
-    object sqlG_TB_TxModeloGrupoTB_TXMODELOGRUPO_ID: TFMTBCDField
+    object sqlG_TB_TxModeloGrupoTB_TXMODELOGRUPO_ID: TBCDField
       FieldName = 'TB_TXMODELOGRUPO_ID'
       Required = True
       Precision = 15
@@ -1970,32 +1963,31 @@ object dtmLookup: TdtmLookup
     Left = 130
     Top = 183
   end
-  object sqlG_Natureza_Titulo: TSimpleDataSet
+  object sqlG_Natureza_Titulo: TI9Query
     Aggregates = <>
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT *'#13#10'FROM G_NATUREZA_TITULO'#13#10'WHERE SITUACAO = '#39'A'#39#13#10'AND SIST' +
-      'EMA_ID = :SISTEMA_ID'#13#10'ORDER BY DESCRICAO'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <
+      'EMA_ID = :SISTEMA_ID'#13#10'ORDER BY DESCRICAO')
+    ParamData = <
       item
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Name = 'SISTEMA_ID'
         ParamType = ptInput
       end>
     Params = <>
     Left = 263
     Top = 128
-    object sqlG_Natureza_TituloCODIGO_NATUREZA_SEF: TFMTBCDField
+    object sqlG_Natureza_TituloCODIGO_NATUREZA_SEF: TBCDField
       FieldName = 'CODIGO_NATUREZA_SEF'
       Precision = 15
       Size = 2
     end
-    object sqlG_Natureza_TituloEMOLUMENTO_ID: TFMTBCDField
+    object sqlG_Natureza_TituloEMOLUMENTO_ID: TBCDField
       FieldName = 'EMOLUMENTO_ID'
       Precision = 15
       Size = 2
     end
-    object sqlG_Natureza_TituloNATUREZA_TITULO_ID: TFMTBCDField
+    object sqlG_Natureza_TituloNATUREZA_TITULO_ID: TBCDField
       FieldName = 'NATUREZA_TITULO_ID'
       Required = True
       Precision = 15
@@ -2005,7 +1997,7 @@ object dtmLookup: TdtmLookup
       FieldName = 'DESCRICAO'
       Size = 60
     end
-    object sqlG_Natureza_TituloPRAZO: TFMTBCDField
+    object sqlG_Natureza_TituloPRAZO: TBCDField
       FieldName = 'PRAZO'
       Precision = 15
       Size = 2
@@ -2018,12 +2010,12 @@ object dtmLookup: TdtmLookup
       FieldName = 'ABRIR_MATRICULA'
       Size = 1
     end
-    object sqlG_Natureza_TituloSISTEMA_ID: TFMTBCDField
+    object sqlG_Natureza_TituloSISTEMA_ID: TBCDField
       FieldName = 'SISTEMA_ID'
       Precision = 15
       Size = 2
     end
-    object sqlG_Natureza_TituloCODIGO_DOI: TFMTBCDField
+    object sqlG_Natureza_TituloCODIGO_DOI: TBCDField
       FieldName = 'CODIGO_DOI'
       Precision = 15
       Size = 2
@@ -2042,22 +2034,21 @@ object dtmLookup: TdtmLookup
     Left = 260
     Top = 184
   end
-  object sqlG_Emolumento: TSimpleDataSet
+  object sqlG_Emolumento: TI9Query
     Aggregates = <>
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT * FROM G_EMOLUMENTO'#13#10'WHERE SISTEMA_ID = :SISTEMA_ID'#13#10'  AN' +
-      'D (SITUACAO IS NULL OR SITUACAO <> '#39'I'#39')'#13#10'ORDER BY DESCRICAO'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <
+      'D (SITUACAO IS NULL OR SITUACAO <> '#39'I'#39')'#13#10'ORDER BY DESCRICAO')
+    ParamData = <
       item
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Name = 'SISTEMA_ID'
         ParamType = ptInput
       end>
     Params = <>
     Left = 372
     Top = 128
-    object sqlG_EmolumentoEMOLUMENTO_ID: TFMTBCDField
+    object sqlG_EmolumentoEMOLUMENTO_ID: TBCDField
       FieldName = 'EMOLUMENTO_ID'
       Required = True
       Precision = 15
@@ -2077,15 +2068,14 @@ object dtmLookup: TdtmLookup
     Left = 372
     Top = 184
   end
-  object sqlG_Emolumento_Periodo: TSimpleDataSet
+  object sqlG_Emolumento_Periodo: TI9Query
     Aggregates = <>
-    DataSet.CommandText = 'SELECT * FROM G_EMOLUMENTO_PERIODO'#13#10'ORDER BY DESCRICAO'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <>
+    SQL.Strings = ('SELECT * FROM G_EMOLUMENTO_PERIODO'#13#10'ORDER BY DESCRICAO')
+    ParamData = <>
     Params = <>
     Left = 484
     Top = 128
-    object sqlG_Emolumento_PeriodoEMOLUMENTO_PERIODO_ID: TFMTBCDField
+    object sqlG_Emolumento_PeriodoEMOLUMENTO_PERIODO_ID: TBCDField
       FieldName = 'EMOLUMENTO_PERIODO_ID'
       Required = True
       Precision = 15
@@ -2108,15 +2098,14 @@ object dtmLookup: TdtmLookup
     Left = 484
     Top = 184
   end
-  object sqlG_Medida_Tipo: TSimpleDataSet
+  object sqlG_Medida_Tipo: TI9Query
     Aggregates = <>
-    DataSet.CommandText = 'SELECT *'#13#10'FROM G_MEDIDA_TIPO'#13#10'ORDER BY DESCRICAO'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <>
+    SQL.Strings = ('SELECT *'#13#10'FROM G_MEDIDA_TIPO'#13#10'ORDER BY DESCRICAO')
+    ParamData = <>
     Params = <>
     Left = 130
     Top = 247
-    object sqlG_Medida_TipoMEDIDA_TIPO_ID: TFMTBCDField
+    object sqlG_Medida_TipoMEDIDA_TIPO_ID: TBCDField
       FieldName = 'MEDIDA_TIPO_ID'
       Required = True
       Precision = 15
@@ -2136,22 +2125,21 @@ object dtmLookup: TdtmLookup
     Left = 130
     Top = 303
   end
-  object sqlG_TB_Bairro: TSimpleDataSet
+  object sqlG_TB_Bairro: TI9Query
     Aggregates = <>
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT * FROM G_TB_BAIRRO'#13#10'WHERE SITUACAO = '#39'A'#39#13#10'      AND SISTE' +
-      'MA_ID = :SISTEMA_ID'#13#10'ORDER BY DESCRICAO'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <
+      'MA_ID = :SISTEMA_ID'#13#10'ORDER BY DESCRICAO')
+    ParamData = <
       item
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Name = 'SISTEMA_ID'
         ParamType = ptInput
       end>
     Params = <>
     Left = 604
     Top = 128
-    object sqlG_TB_BairroTB_BAIRRO_ID: TFMTBCDField
+    object sqlG_TB_BairroTB_BAIRRO_ID: TBCDField
       FieldName = 'TB_BAIRRO_ID'
       Required = True
       Precision = 15
@@ -2171,18 +2159,17 @@ object dtmLookup: TdtmLookup
     Left = 604
     Top = 184
   end
-  object sqlG_Usuario: TSimpleDataSet
+  object sqlG_Usuario: TI9Query
     Aggregates = <>
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT USUARIO_ID,'#13#10' TROCARSENHA, '#13#10'LOGIN, '#13#10'SENHA, '#13#10'SITUACAO,'#13 +
       #10' NOME_COMPLETO, '#13#10'FUNCAO, '#13#10'ASSINA'#13#10' FROM G_USUARIO'#13#10'ORDER BY L' +
-      'OGIN'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <>
+      'OGIN')
+    ParamData = <>
     Params = <>
     Left = 388
     Top = 248
-    object sqlG_UsuarioUSUARIO_ID: TFMTBCDField
+    object sqlG_UsuarioUSUARIO_ID: TBCDField
       FieldName = 'USUARIO_ID'
       Required = True
       Precision = 15
@@ -2222,22 +2209,21 @@ object dtmLookup: TdtmLookup
     Left = 388
     Top = 304
   end
-  object sqlG_Natureza: TSimpleDataSet
+  object sqlG_Natureza: TI9Query
     Aggregates = <>
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT * '#13#10'FROM G_NATUREZA'#13#10'WHERE SITUACAO = '#39'A'#39#13#10'     AND SISTE' +
-      'MA_ID = :SISTEMA_ID'#13#10'ORDER BY DESCRICAO'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <
+      'MA_ID = :SISTEMA_ID'#13#10'ORDER BY DESCRICAO')
+    ParamData = <
       item
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Name = 'SISTEMA_ID'
         ParamType = ptInput
       end>
     Params = <>
     Left = 484
     Top = 248
-    object sqlG_NaturezaNATUREZA_ID: TFMTBCDField
+    object sqlG_NaturezaNATUREZA_ID: TBCDField
       FieldName = 'NATUREZA_ID'
       Required = True
       Precision = 15
@@ -2248,7 +2234,7 @@ object dtmLookup: TdtmLookup
       Required = True
       Size = 60
     end
-    object sqlG_NaturezaSISTEMA_ID: TFMTBCDField
+    object sqlG_NaturezaSISTEMA_ID: TBCDField
       FieldName = 'SISTEMA_ID'
       Precision = 15
       Size = 2
@@ -2259,15 +2245,14 @@ object dtmLookup: TdtmLookup
     Left = 484
     Top = 296
   end
-  object sqlUsuarioSistema: TSimpleDataSet
+  object sqlUsuarioSistema: TI9Query
     Aggregates = <>
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT U.USUARIO_ID, U.LOGIN'#13#10'FROM G_USUARIO U RIGHT OUTER JOIN ' +
       'G_USUARIO_SISTEMA S'#13#10'  ON U.USUARIO_ID = S.USUARIO_ID'#13#10'WHERE (S.' +
       'SISTEMA_ID = :SISTEMA_ID'#13#10'      OR U.USUARIO_ID = 123456)'#13#10'ORDER' +
-      ' BY U.LOGIN'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <
+      ' BY U.LOGIN')
+    ParamData = <
       item
         DataType = ftUnknown
         Name = 'SISTEMA_ID'
@@ -2276,7 +2261,7 @@ object dtmLookup: TdtmLookup
     Params = <>
     Left = 588
     Top = 248
-    object sqlUsuarioSistemaUSUARIO_ID: TFMTBCDField
+    object sqlUsuarioSistemaUSUARIO_ID: TBCDField
       FieldName = 'USUARIO_ID'
       Precision = 15
       Size = 2
@@ -2291,17 +2276,16 @@ object dtmLookup: TdtmLookup
     Left = 588
     Top = 304
   end
-  object sqlUsuarioAssinante: TSimpleDataSet
+  object sqlUsuarioAssinante: TI9Query
     Aggregates = <>
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT U.USUARIO_ID, U.NOME_COMPLETO, FUNCAO'#13#10'FROM G_USUARIO U R' +
       'IGHT OUTER JOIN G_USUARIO_SISTEMA S'#13#10'  ON U.USUARIO_ID = S.USUAR' +
       'IO_ID'#13#10'WHERE S.SISTEMA_ID = :SISTEMA_ID'#13#10'      AND U.ASSINA = '#39'S' +
-      #39#13#10'ORDER BY U.NOME_COMPLETO'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <
+      #39#13#10'ORDER BY U.NOME_COMPLETO')
+    ParamData = <
       item
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Name = 'SISTEMA_ID'
         ParamType = ptInput
         Value = '0'
@@ -2309,7 +2293,7 @@ object dtmLookup: TdtmLookup
     Params = <>
     Left = 700
     Top = 248
-    object FMTBCDField1: TFMTBCDField
+    object FMTBCDField1: TBCDField
       FieldName = 'USUARIO_ID'
       Precision = 15
       Size = 2
@@ -2328,15 +2312,14 @@ object dtmLookup: TdtmLookup
     Left = 700
     Top = 304
   end
-  object sqlC_Caixa_Servico: TSimpleDataSet
+  object sqlC_Caixa_Servico: TI9Query
     Aggregates = <>
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT * FROM C_CAIXA_SERVICO'#13#10'WHERE SITUACAO = '#39'A'#39#13#10'      AND S' +
-      'ISTEMA_ID = :SISTEMA_ID'#13#10'ORDER BY DESCRICAO'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <
+      'ISTEMA_ID = :SISTEMA_ID'#13#10'ORDER BY DESCRICAO')
+    ParamData = <
       item
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Name = 'SISTEMA_ID'
         ParamType = ptInput
       end>
@@ -2347,7 +2330,7 @@ object dtmLookup: TdtmLookup
       FieldName = 'INTERNO_SISTEMA'
       Size = 1
     end
-    object sqlC_Caixa_ServicoCAIXA_SERVICO_ID: TFMTBCDField
+    object sqlC_Caixa_ServicoCAIXA_SERVICO_ID: TBCDField
       FieldName = 'CAIXA_SERVICO_ID'
       Required = True
       Precision = 15
@@ -2365,7 +2348,7 @@ object dtmLookup: TdtmLookup
       FieldName = 'TIPO_TRANSACAO'
       Size = 1
     end
-    object sqlC_Caixa_ServicoSISTEMA_ID: TFMTBCDField
+    object sqlC_Caixa_ServicoSISTEMA_ID: TBCDField
       FieldName = 'SISTEMA_ID'
       Precision = 15
       Size = 3
@@ -2376,15 +2359,14 @@ object dtmLookup: TdtmLookup
     Left = 700
     Top = 184
   end
-  object sqlSeloGrupo: TSimpleDataSet
+  object sqlSeloGrupo: TI9Query
     Aggregates = <>
-    DataSet.CommandText = 'SELECT *'#13#10'FROM G_SELO_GRUPO'#13#10'ORDER BY DESCRICAO'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <>
+    SQL.Strings = ('SELECT *'#13#10'FROM G_SELO_GRUPO'#13#10'ORDER BY DESCRICAO')
+    ParamData = <>
     Params = <>
     Left = 122
     Top = 363
-    object sqlSeloGrupoSELO_GRUPO_ID: TFMTBCDField
+    object sqlSeloGrupoSELO_GRUPO_ID: TBCDField
       FieldName = 'SELO_GRUPO_ID'
       Precision = 20
       Size = 2
@@ -2397,7 +2379,7 @@ object dtmLookup: TdtmLookup
       FieldName = 'DESCRICAO_COMPLETA'
       Size = 260
     end
-    object sqlSeloGrupoNUMERO: TFMTBCDField
+    object sqlSeloGrupoNUMERO: TBCDField
       FieldName = 'NUMERO'
       Precision = 20
       Size = 2
@@ -2408,17 +2390,16 @@ object dtmLookup: TdtmLookup
     Left = 122
     Top = 419
   end
-  object sqlSeloTipoCartorio: TSimpleDataSet
+  object sqlSeloTipoCartorio: TI9Query
     Aggregates = <>
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT *'#13#10'FROM G_SELO_TIPO_CARTORIO'#13#10'ORDER BY SELO_TIPO_CARTORIO' +
-      '_ID'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <>
+      '_ID')
+    ParamData = <>
     Params = <>
     Left = 234
     Top = 363
-    object sqlSeloTipoCartorioSELO_TIPO_CARTORIO_ID: TFMTBCDField
+    object sqlSeloTipoCartorioSELO_TIPO_CARTORIO_ID: TBCDField
       FieldName = 'SELO_TIPO_CARTORIO_ID'
       Precision = 20
       Size = 2
@@ -2463,15 +2444,14 @@ object dtmLookup: TdtmLookup
       Size = 120
     end
   end
-  object sqlMunicipioIBGE: TSimpleDataSet
+  object sqlMunicipioIBGE: TI9Query
     Aggregates = <>
-    DataSet.CommandText = 'SELECT *'#13#10'FROM G_MUNICIPIO'#13#10'ORDER BY MUNICIPIO'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <>
+    SQL.Strings = ('SELECT *'#13#10'FROM G_MUNICIPIO'#13#10'ORDER BY MUNICIPIO')
+    ParamData = <>
     Params = <>
     Left = 410
     Top = 366
-    object sqlMunicipioIBGEMUNICIPIO_ID: TFMTBCDField
+    object sqlMunicipioIBGEMUNICIPIO_ID: TBCDField
       FieldName = 'MUNICIPIO_ID'
       Precision = 20
       Size = 2
@@ -2498,15 +2478,14 @@ object dtmLookup: TdtmLookup
     Left = 410
     Top = 422
   end
-  object sqlPaisIBGE: TSimpleDataSet
+  object sqlPaisIBGE: TI9Query
     Aggregates = <>
-    DataSet.CommandText = 'SELECT *'#13#10'FROM G_IBGE_PAIS'#13#10'ORDER BY DESCRICAO'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <>
+    SQL.Strings = ('SELECT *'#13#10'FROM G_IBGE_PAIS'#13#10'ORDER BY DESCRICAO')
+    ParamData = <>
     Params = <>
     Left = 507
     Top = 368
-    object sqlPaisIBGEIBGE_PAIS_ID: TFMTBCDField
+    object sqlPaisIBGEIBGE_PAIS_ID: TBCDField
       FieldName = 'IBGE_PAIS_ID'
       Precision = 20
       Size = 2
@@ -2521,17 +2500,16 @@ object dtmLookup: TdtmLookup
     Left = 506
     Top = 423
   end
-  object sqlRegineBens: TSimpleDataSet
+  object sqlRegineBens: TI9Query
     Aggregates = <>
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT *'#13#10'FROM G_TB_REGIMEBENS'#13#10'WHERE SITUACAO = '#39'A'#39#13#10'ORDER BY D' +
-      'ESCRICAO'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <>
+      'ESCRICAO')
+    ParamData = <>
     Params = <>
     Left = 593
     Top = 367
-    object sqlRegineBensTB_REGIMEBENS_ID: TFMTBCDField
+    object sqlRegineBensTB_REGIMEBENS_ID: TBCDField
       FieldName = 'TB_REGIMEBENS_ID'
       Precision = 20
       Size = 2
@@ -2550,11 +2528,10 @@ object dtmLookup: TdtmLookup
     Left = 591
     Top = 422
   end
-  object sqlCaixaServicoTodos: TSimpleDataSet
+  object sqlCaixaServicoTodos: TI9Query
     Aggregates = <>
-    DataSet.CommandText = 'SELECT * FROM C_CAIXA_SERVICO'#13#10'ORDER BY DESCRICAO'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <>
+    SQL.Strings = ('SELECT * FROM C_CAIXA_SERVICO'#13#10'ORDER BY DESCRICAO')
+    ParamData = <>
     Params = <>
     Left = 700
     Top = 360
@@ -2562,7 +2539,7 @@ object dtmLookup: TdtmLookup
       FieldName = 'INTERNO_SISTEMA'
       Size = 1
     end
-    object FMTBCDField2: TFMTBCDField
+    object FMTBCDField2: TBCDField
       FieldName = 'CAIXA_SERVICO_ID'
       Required = True
       Precision = 15
@@ -2580,7 +2557,7 @@ object dtmLookup: TdtmLookup
       FieldName = 'TIPO_TRANSACAO'
       Size = 1
     end
-    object FMTBCDField3: TFMTBCDField
+    object FMTBCDField3: TBCDField
       FieldName = 'SISTEMA_ID'
       Precision = 15
       Size = 3
@@ -2591,15 +2568,14 @@ object dtmLookup: TdtmLookup
     Left = 700
     Top = 416
   end
-  object sqlEmailTextoPadrao: TSimpleDataSet
+  object sqlEmailTextoPadrao: TI9Query
     Aggregates = <>
-    DataSet.CommandText = 'SELECT *'#13#10'FROM G_EMAIL_TEXTO_PADRAO'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <>
+    SQL.Strings = ('SELECT *'#13#10'FROM G_EMAIL_TEXTO_PADRAO')
+    ParamData = <>
     Params = <>
     Left = 793
     Top = 27
-    object sqlEmailTextoPadraoEMAIL_TEXTO_PADRAO_ID: TFMTBCDField
+    object sqlEmailTextoPadraoEMAIL_TEXTO_PADRAO_ID: TBCDField
       FieldName = 'EMAIL_TEXTO_PADRAO_ID'
       Required = True
       Precision = 20
@@ -2622,17 +2598,16 @@ object dtmLookup: TdtmLookup
     Left = 793
     Top = 84
   end
-  object sqlSistema: TSimpleDataSet
+  object sqlSistema: TI9Query
     Aggregates = <>
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT SISTEMA_ID, DESCRICAO'#13#10'FROM G_SISTEMA'#13#10'WHERE SITUACAO = '#39 +
-      'A'#39#13#10'ORDER BY SISTEMA_ID'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <>
+      'A'#39#13#10'ORDER BY SISTEMA_ID')
+    ParamData = <>
     Params = <>
     Left = 798
     Top = 329
-    object sqlSistemaSISTEMA_ID: TFMTBCDField
+    object sqlSistemaSISTEMA_ID: TBCDField
       FieldName = 'SISTEMA_ID'
       Required = True
       Precision = 15
@@ -2648,15 +2623,14 @@ object dtmLookup: TdtmLookup
     Left = 796
     Top = 381
   end
-  object sqlProvimentoEsferaNivel: TSimpleDataSet
+  object sqlProvimentoEsferaNivel: TI9Query
     Aggregates = <>
-    DataSet.CommandText = 'SELECT * FROM G_PROVIMENTO_ESFERA_NIVEL'#13#10'ORDER BY DESCRICAO'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <>
+    SQL.Strings = ('SELECT * FROM G_PROVIMENTO_ESFERA_NIVEL'#13#10'ORDER BY DESCRICAO')
+    ParamData = <>
     Params = <>
     Left = 956
     Top = 22
-    object sqlProvimentoEsferaNivelPROVIMENTO_ESFERA_NIVEL_ID: TFMTBCDField
+    object sqlProvimentoEsferaNivelPROVIMENTO_ESFERA_NIVEL_ID: TBCDField
       FieldName = 'PROVIMENTO_ESFERA_NIVEL_ID'
       Required = True
       Precision = 20
@@ -2676,15 +2650,14 @@ object dtmLookup: TdtmLookup
     Left = 956
     Top = 67
   end
-  object sqlProvimentoOrigem: TSimpleDataSet
+  object sqlProvimentoOrigem: TI9Query
     Aggregates = <>
-    DataSet.CommandText = 'SELECT * FROM G_PROVIMENTO_ORIGEM'#13#10'ORDER BY DESCRICAO'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <>
+    SQL.Strings = ('SELECT * FROM G_PROVIMENTO_ORIGEM'#13#10'ORDER BY DESCRICAO')
+    ParamData = <>
     Params = <>
     Left = 956
     Top = 110
-    object sqlProvimentoOrigemPROVIMENTO_ORIGEM_ID: TFMTBCDField
+    object sqlProvimentoOrigemPROVIMENTO_ORIGEM_ID: TBCDField
       FieldName = 'PROVIMENTO_ORIGEM_ID'
       Required = True
       Precision = 20
@@ -2704,15 +2677,14 @@ object dtmLookup: TdtmLookup
     Left = 956
     Top = 163
   end
-  object sqlProvimentoTipo: TSimpleDataSet
+  object sqlProvimentoTipo: TI9Query
     Aggregates = <>
-    DataSet.CommandText = 'SELECT * FROM G_PROVIMENTO_TIPO'#13#10'ORDER BY DESCRICAO'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <>
+    SQL.Strings = ('SELECT * FROM G_PROVIMENTO_TIPO'#13#10'ORDER BY DESCRICAO')
+    ParamData = <>
     Params = <>
     Left = 955
     Top = 207
-    object sqlProvimentoTipoPROVIMENTO_TIPO_ID: TFMTBCDField
+    object sqlProvimentoTipoPROVIMENTO_TIPO_ID: TBCDField
       FieldName = 'PROVIMENTO_TIPO_ID'
       Required = True
       Precision = 20
@@ -2732,22 +2704,21 @@ object dtmLookup: TdtmLookup
     Left = 956
     Top = 251
   end
-  object sqlEmolumentoTodos: TSimpleDataSet
+  object sqlEmolumentoTodos: TI9Query
     Aggregates = <>
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT * FROM G_EMOLUMENTO'#13#10'WHERE SISTEMA_ID = :SISTEMA_ID'#13#10'ORDE' +
-      'R BY DESCRICAO'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <
+      'R BY DESCRICAO')
+    ParamData = <
       item
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Name = 'SISTEMA_ID'
         ParamType = ptInput
       end>
     Params = <>
     Left = 32
     Top = 128
-    object FMTBCDField4: TFMTBCDField
+    object FMTBCDField4: TBCDField
       FieldName = 'EMOLUMENTO_ID'
       Required = True
       Precision = 15
@@ -2772,28 +2743,27 @@ object dtmLookup: TdtmLookup
     Left = 816
     Top = 224
   end
-  object sqlNaturezaTituloTodos: TSimpleDataSet
+  object sqlNaturezaTituloTodos: TI9Query
     Aggregates = <>
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT NT.*, S.DESCRICAO AS SISTEMA'#13#10'FROM G_NATUREZA_TITULO NT '#13 +
       #10'  LEFT  OUTER JOIN G_SISTEMA S ON'#13#10'  NT.SISTEMA_ID = S.SISTEMA_' +
-      'ID'#13#10'WHERE NT.SITUACAO = '#39'A'#39#13#10'ORDER BY NT.DESCRICAO'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <>
+      'ID'#13#10'WHERE NT.SITUACAO = '#39'A'#39#13#10'ORDER BY NT.DESCRICAO')
+    ParamData = <>
     Params = <>
     Left = 817
     Top = 168
-    object sqlNaturezaTituloTodosCODIGO_NATUREZA_SEF: TFMTBCDField
+    object sqlNaturezaTituloTodosCODIGO_NATUREZA_SEF: TBCDField
       FieldName = 'CODIGO_NATUREZA_SEF'
       Precision = 15
       Size = 2
     end
-    object sqlNaturezaTituloTodosEMOLUMENTO_ID: TFMTBCDField
+    object sqlNaturezaTituloTodosEMOLUMENTO_ID: TBCDField
       FieldName = 'EMOLUMENTO_ID'
       Precision = 15
       Size = 2
     end
-    object sqlNaturezaTituloTodosNATUREZA_TITULO_ID: TFMTBCDField
+    object sqlNaturezaTituloTodosNATUREZA_TITULO_ID: TBCDField
       FieldName = 'NATUREZA_TITULO_ID'
       Required = True
       Precision = 15
@@ -2803,7 +2773,7 @@ object dtmLookup: TdtmLookup
       FieldName = 'DESCRICAO'
       Size = 60
     end
-    object sqlNaturezaTituloTodosPRAZO: TFMTBCDField
+    object sqlNaturezaTituloTodosPRAZO: TBCDField
       FieldName = 'PRAZO'
       Precision = 15
       Size = 2
@@ -2816,12 +2786,12 @@ object dtmLookup: TdtmLookup
       FieldName = 'ABRIR_MATRICULA'
       Size = 1
     end
-    object sqlNaturezaTituloTodosSISTEMA_ID: TFMTBCDField
+    object sqlNaturezaTituloTodosSISTEMA_ID: TBCDField
       FieldName = 'SISTEMA_ID'
       Precision = 15
       Size = 2
     end
-    object sqlNaturezaTituloTodosCODIGO_DOI: TFMTBCDField
+    object sqlNaturezaTituloTodosCODIGO_DOI: TBCDField
       FieldName = 'CODIGO_DOI'
       Precision = 15
       Size = 2
@@ -2839,17 +2809,16 @@ object dtmLookup: TdtmLookup
       Size = 30
     end
   end
-  object sqlR_TB_Tipo_Andamento: TSimpleDataSet
+  object sqlR_TB_Tipo_Andamento: TI9Query
     Aggregates = <>
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT * FROM R_TB_TIPO_ANDAMENTO'#13#10'WHERE SITUACAO = '#39'A'#39#13#10'ORDER B' +
-      'Y DESCRICAO'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <>
+      'Y DESCRICAO')
+    ParamData = <>
     Params = <>
     Left = 924
     Top = 330
-    object sqlR_TB_Tipo_AndamentoTB_TIPO_ANDAMENTO_ID: TFMTBCDField
+    object sqlR_TB_Tipo_AndamentoTB_TIPO_ANDAMENTO_ID: TBCDField
       FieldName = 'TB_TIPO_ANDAMENTO_ID'
       Required = True
       Precision = 15
@@ -2873,15 +2842,14 @@ object dtmLookup: TdtmLookup
     Left = 924
     Top = 386
   end
-  object sqlConfiguracaoSalva: TSimpleDataSet
+  object sqlConfiguracaoSalva: TI9Query
     Aggregates = <>
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT *'#13#10'FROM G_CONFIGURACAO_SALVA'#13#10'WHERE SISTEMA_ID = :SISTEMA' +
-      '_ID'#13#10'  AND LOCAL = :LOCAL'#13#10'  AND ORDEM = '#39'0'#39';'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <
+      '_ID'#13#10'  AND LOCAL = :LOCAL'#13#10'  AND ORDEM = '#39'0'#39';')
+    ParamData = <
       item
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Name = 'SISTEMA_ID'
         ParamType = ptInput
       end
@@ -2893,7 +2861,7 @@ object dtmLookup: TdtmLookup
     Params = <>
     Left = 116
     Top = 486
-    object sqlConfiguracaoSalvaCONFIGURACAO_SALVA_ID: TFMTBCDField
+    object sqlConfiguracaoSalvaCONFIGURACAO_SALVA_ID: TBCDField
       FieldName = 'CONFIGURACAO_SALVA_ID'
       Required = True
       Precision = 15
@@ -2911,22 +2879,21 @@ object dtmLookup: TdtmLookup
       FieldName = 'VALOR'
       Size = 30
     end
-    object sqlConfiguracaoSalvaSISTEMA_ID: TFMTBCDField
+    object sqlConfiguracaoSalvaSISTEMA_ID: TBCDField
       FieldName = 'SISTEMA_ID'
       Precision = 15
       Size = 2
     end
   end
-  object sqlConfiguracaoDados: TSimpleDataSet
+  object sqlConfiguracaoDados: TI9Query
     Aggregates = <>
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT *'#13#10'FROM G_CONFIGURACAO_SALVA'#13#10'WHERE SISTEMA_ID = :SISTEMA' +
       '_ID'#13#10'  AND LOCAL = :LOCAL'#13#10'  AND DESCRICAO = :DESCRICAO'#13#10'  AND O' +
-      'RDEM <> '#39'0'#39';'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <
+      'RDEM <> '#39'0'#39';')
+    ParamData = <
       item
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Name = 'SISTEMA_ID'
         ParamType = ptInput
       end
@@ -2943,7 +2910,7 @@ object dtmLookup: TdtmLookup
     Params = <>
     Left = 225
     Top = 485
-    object sqlConfiguracaoDadosCONFIGURACAO_SALVA_ID: TFMTBCDField
+    object sqlConfiguracaoDadosCONFIGURACAO_SALVA_ID: TBCDField
       FieldName = 'CONFIGURACAO_SALVA_ID'
       Required = True
       Precision = 15
@@ -2961,7 +2928,7 @@ object dtmLookup: TdtmLookup
       FieldName = 'VALOR'
       Size = 30
     end
-    object sqlConfiguracaoDadosSISTEMA_ID: TFMTBCDField
+    object sqlConfiguracaoDadosSISTEMA_ID: TBCDField
       FieldName = 'SISTEMA_ID'
       Precision = 15
       Size = 2
@@ -2977,15 +2944,14 @@ object dtmLookup: TdtmLookup
     Left = 225
     Top = 541
   end
-  object sqlMensalista: TSimpleDataSet
+  object sqlMensalista: TI9Query
     Aggregates = <>
-    DataSet.CommandText = 'SELECT *'#13#10'FROM C_MENSALISTA'#13#10'ORDER BY DESCRICAO'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <>
+    SQL.Strings = ('SELECT *'#13#10'FROM C_MENSALISTA'#13#10'ORDER BY DESCRICAO')
+    ParamData = <>
     Params = <>
     Left = 311
     Top = 490
-    object sqlMensalistaMENSALISTA_ID: TFMTBCDField
+    object sqlMensalistaMENSALISTA_ID: TBCDField
       FieldName = 'MENSALISTA_ID'
       Required = True
       Precision = 20
@@ -2995,7 +2961,7 @@ object dtmLookup: TdtmLookup
       FieldName = 'DESCRICAO'
       Size = 120
     end
-    object sqlMensalistaVALOR_CREDITO_INICIAL: TFMTBCDField
+    object sqlMensalistaVALOR_CREDITO_INICIAL: TBCDField
       FieldName = 'VALOR_CREDITO_INICIAL'
       Precision = 20
       Size = 3
@@ -3010,15 +2976,14 @@ object dtmLookup: TdtmLookup
     Left = 311
     Top = 546
   end
-  object sqlContaCliente: TSimpleDataSet
+  object sqlContaCliente: TI9Query
     Aggregates = <>
-    DataSet.CommandText = 'SELECT *'#13#10'FROM C_CONTA_CLIENTE'#13#10'ORDER BY DESCRICAO'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <>
+    SQL.Strings = ('SELECT *'#13#10'FROM C_CONTA_CLIENTE'#13#10'ORDER BY DESCRICAO')
+    ParamData = <>
     Params = <>
     Left = 399
     Top = 489
-    object sqlContaClienteCONTA_CLIENTE_ID: TFMTBCDField
+    object sqlContaClienteCONTA_CLIENTE_ID: TBCDField
       FieldName = 'CONTA_CLIENTE_ID'
       Required = True
       Precision = 20
@@ -3038,17 +3003,16 @@ object dtmLookup: TdtmLookup
     Left = 399
     Top = 544
   end
-  object sqlContaClienteAtiva: TSimpleDataSet
+  object sqlContaClienteAtiva: TI9Query
     Aggregates = <>
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT *'#13#10'FROM C_CONTA_CLIENTE'#13#10'WHERE SITUACAO = '#39'A'#39#13#10'ORDER BY D' +
-      'ESCRICAO'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <>
+      'ESCRICAO')
+    ParamData = <>
     Params = <>
     Left = 495
     Top = 489
-    object FMTBCDField5: TFMTBCDField
+    object FMTBCDField5: TBCDField
       FieldName = 'CONTA_CLIENTE_ID'
       Required = True
       Precision = 20
@@ -3068,17 +3032,16 @@ object dtmLookup: TdtmLookup
     Left = 495
     Top = 544
   end
-  object sqlG_Emolumento_PeriodoAtivos: TSimpleDataSet
+  object sqlG_Emolumento_PeriodoAtivos: TI9Query
     Aggregates = <>
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT * FROM G_EMOLUMENTO_PERIODO'#13#10'WHERE SITUACAO = '#39'A'#39#13#10'ORDER ' +
-      'BY DESCRICAO'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <>
+      'BY DESCRICAO')
+    ParamData = <>
     Params = <>
     Left = 28
     Top = 240
-    object sqlG_Emolumento_PeriodoAtivosEMOLUMENTO_PERIODO_ID: TFMTBCDField
+    object sqlG_Emolumento_PeriodoAtivosEMOLUMENTO_PERIODO_ID: TBCDField
       FieldName = 'EMOLUMENTO_PERIODO_ID'
       Required = True
       Precision = 15
@@ -3101,14 +3064,13 @@ object dtmLookup: TdtmLookup
     Left = 28
     Top = 296
   end
-  object sqlTipoCartao: TSimpleDataSet
+  object sqlTipoCartao: TI9Query
     Aggregates = <>
     AutoCalcFields = False
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT *'#13#10'FROM C_TIPO_CARTAO'#13#10'WHERE SITUACAO = '#39'A'#39#13#10'ORDER BY TIP' +
-      'O DESC'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <>
+      'O DESC')
+    ParamData = <>
     Params = <>
     Left = 599
     Top = 489
@@ -3116,7 +3078,7 @@ object dtmLookup: TdtmLookup
       FieldName = 'DESCRICAO'
       Size = 30
     end
-    object sqlTipoCartaoPERCENTUAL: TFMTBCDField
+    object sqlTipoCartaoPERCENTUAL: TBCDField
       FieldName = 'PERCENTUAL'
       Precision = 20
       Size = 2
@@ -3125,13 +3087,13 @@ object dtmLookup: TdtmLookup
       FieldName = 'SITUACAO'
       Size = 1
     end
-    object sqlTipoCartaoTIPO_CARTAO_ID: TFMTBCDField
+    object sqlTipoCartaoTIPO_CARTAO_ID: TBCDField
       FieldName = 'TIPO_CARTAO_ID'
       Required = True
       Precision = 20
       Size = 2
     end
-    object sqlTipoCartaoQTD_PARCELA: TFMTBCDField
+    object sqlTipoCartaoQTD_PARCELA: TBCDField
       FieldName = 'QTD_PARCELA'
       Precision = 20
       Size = 2
@@ -3146,17 +3108,16 @@ object dtmLookup: TdtmLookup
     Left = 599
     Top = 544
   end
-  object sqlPaisEstrangeiro: TSimpleDataSet
+  object sqlPaisEstrangeiro: TI9Query
     Aggregates = <>
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT *'#13#10'FROM G_IBGE_PAIS'#13#10'WHERE CODIGO <> '#39'076'#39#13#10'ORDER BY DESC' +
-      'RICAO'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <>
+      'RICAO')
+    ParamData = <>
     Params = <>
     Left = 43
     Top = 368
-    object sqlPaisEstrangeiroIBGE_PAIS_ID: TFMTBCDField
+    object sqlPaisEstrangeiroIBGE_PAIS_ID: TBCDField
       FieldName = 'IBGE_PAIS_ID'
       Required = True
       Precision = 20
@@ -3172,13 +3133,12 @@ object dtmLookup: TdtmLookup
     Left = 42
     Top = 423
   end
-  object sqlG_TB_Orgao_Expedidor: TSimpleDataSet
+  object sqlG_TB_Orgao_Expedidor: TI9Query
     Aggregates = <>
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT *'#13#10'FROM G_TB_ORGAO_EXPEDIDOR'#13#10'WHERE STATUS = '#39'A'#39#13#10'ORDER B' +
-      'Y DESCRICAO'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <>
+      'Y DESCRICAO')
+    ParamData = <>
     Params = <>
     Left = 688
     Top = 472
@@ -3201,19 +3161,18 @@ object dtmLookup: TdtmLookup
     Left = 696
     Top = 520
   end
-  object sqlG_TB_DocumentoTipoPrincipal: TSimpleDataSet
+  object sqlG_TB_DocumentoTipoPrincipal: TI9Query
     Aggregates = <>
     Connection = dtmControles.DB
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT * '#13#10'FROM G_TB_DOCUMENTOTIPO'#13#10'WHERE SITUACAO = '#39'A'#39#13#10'AND (P' +
       'RIORIDADE = '#39'P'#39' OR PRIORIDADE = '#39'A'#39' )'#13#10'ORDER BY '#13#10'  ORDEM,'#13#10'  DE' +
-      'SCRICAO'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <>
+      'SCRICAO')
+    ParamData = <>
     Params = <>
     Left = 836
     Top = 440
-    object FMTBCDField6: TFMTBCDField
+    object FMTBCDField6: TBCDField
       FieldName = 'TB_DOCUMENTOTIPO_ID'
       Required = True
       Precision = 15
@@ -3245,19 +3204,18 @@ object dtmLookup: TdtmLookup
     Left = 996
     Top = 520
   end
-  object sqlG_TB_DocumentoTiposOutros: TSimpleDataSet
+  object sqlG_TB_DocumentoTiposOutros: TI9Query
     Aggregates = <>
     Connection = dtmControles.DB
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT * '#13#10'FROM G_TB_DOCUMENTOTIPO'#13#10'WHERE SITUACAO = '#39'A'#39#13#10'AND (P' +
       'RIORIDADE = '#39'O'#39' OR PRIORIDADE = '#39'A'#39' )'#13#10'ORDER BY '#13#10'  ORDEM,'#13#10'  DE' +
-      'SCRICAO'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <>
+      'SCRICAO')
+    ParamData = <>
     Params = <>
     Left = 996
     Top = 464
-    object FMTBCDField7: TFMTBCDField
+    object FMTBCDField7: TBCDField
       FieldName = 'TB_DOCUMENTOTIPO_ID'
       Required = True
       Precision = 15
@@ -3284,15 +3242,14 @@ object dtmLookup: TdtmLookup
     Left = 28
     Top = 544
   end
-  object sqlUsuariosTodos: TSimpleDataSet
+  object sqlUsuariosTodos: TI9Query
     Aggregates = <>
-    DataSet.CommandText = 'SELECT * FROM G_USUARIO'#13#10'ORDER BY LOGIN'
-    DataSet.MaxBlobSize = 1
-    DataSet.Params = <>
+    SQL.Strings = ('SELECT * FROM G_USUARIO'#13#10'ORDER BY LOGIN')
+    ParamData = <>
     Params = <>
     Left = 28
     Top = 496
-    object sqlUsuariosTodosUSUARIO_ID: TFMTBCDField
+    object sqlUsuariosTodosUSUARIO_ID: TBCDField
       FieldName = 'USUARIO_ID'
       Required = True
       Precision = 15

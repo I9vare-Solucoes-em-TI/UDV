@@ -195,9 +195,8 @@ inherited frmCadModalidade: TfrmCadModalidade
     Left = 89
     Top = 214
   end
-  inherited DataSetAncestral: TSQLDataSet
-    SchemaName = 'SYSDBA'
-    CommandText = 'SELECT *'#13#10'FROM J_TIPO_MODALIDADE'#13#10'ORDER BY DESCRICAO'
+  inherited DataSetAncestral: TI9Query
+    SQL.Strings = ('SELECT *'#13#10'FROM J_TIPO_MODALIDADE'#13#10'ORDER BY DESCRICAO')
     Left = 119
     Top = 214
   end
@@ -216,7 +215,7 @@ inherited frmCadModalidade: TfrmCadModalidade
       FieldName = 'SITUACAO'
       Size = 1
     end
-    object ClientAncestralTIPO_MODALIDADE_ID: TFMTBCDField
+    object ClientAncestralTIPO_MODALIDADE_ID: TBCDField
       FieldName = 'TIPO_MODALIDADE_ID'
       Required = True
       Precision = 20

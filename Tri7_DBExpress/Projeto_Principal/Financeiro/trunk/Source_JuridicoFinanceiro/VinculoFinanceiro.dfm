@@ -444,29 +444,28 @@ object frmVinculoFinaceiro: TfrmVinculoFinaceiro
     Left = 154
     Top = 168
   end
-  object sqlVinculoResponsavelAtivo: TSimpleDataSet
+  object sqlVinculoResponsavelAtivo: TI9Query
     Aggregates = <>
     Connection = dtmControles.DB
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT PROCESSO_RESPONSAVEL_ID, PESSOA_ID, PESSOA_TIPO'#13#10'FROM J_P' +
       'ROCESSO_RESPONSAVEL'#13#10'WHERE PROCESSO_ID = :PROCESSO_ID'#13#10'ORDER BY ' +
-      'PESSOA_TIPO'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <
+      'PESSOA_TIPO')
+    ParamData = <
       item
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Name = 'PROCESSO_ID'
         ParamType = ptInput
       end>
     Params = <>
     Left = 99
     Top = 134
-    object sqlVinculoResponsavelAtivoPROCESSO_RESPONSAVEL_ID: TFMTBCDField
+    object sqlVinculoResponsavelAtivoPROCESSO_RESPONSAVEL_ID: TBCDField
       FieldName = 'PROCESSO_RESPONSAVEL_ID'
       Precision = 20
       Size = 2
     end
-    object sqlVinculoResponsavelAtivoPESSOA_ID: TFMTBCDField
+    object sqlVinculoResponsavelAtivoPESSOA_ID: TBCDField
       FieldName = 'PESSOA_ID'
       Precision = 20
       Size = 2
@@ -538,18 +537,17 @@ object frmVinculoFinaceiro: TfrmVinculoFinaceiro
       FieldName = 'SELECIONADO'
     end
   end
-  object sqlSocio: TSimpleDataSet
+  object sqlSocio: TI9Query
     Aggregates = <>
     Connection = dtmControles.DB
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT PESSOA_ID, NOME'#13#10'FROM J_PESSOA'#13#10'WHERE TIPO LIKE '#39'%S'#211'CIO%'#39 +
-      #13#10'ORDER BY NOME'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <>
+      #13#10'ORDER BY NOME')
+    ParamData = <>
     Params = <>
     Left = 97
     Top = 168
-    object sqlSocioPESSOA_ID: TFMTBCDField
+    object sqlSocioPESSOA_ID: TBCDField
       FieldName = 'PESSOA_ID'
       Precision = 20
       Size = 2
@@ -559,34 +557,33 @@ object frmVinculoFinaceiro: TfrmVinculoFinaceiro
       Size = 120
     end
   end
-  object sqlVinculosFinanceiros: TSimpleDataSet
+  object sqlVinculosFinanceiros: TI9Query
     Aggregates = <>
     Connection = dtmControles.DB
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT PESSOA_ID, PROCESSO_RESPONSAVEL_ID, PERCENTUAL'#13#10'FROM J_PR' +
       'OCESSO_FINANCEIRO'#13#10'WHERE PROCESSO_CUSTAS_ID = :PROCESSO_CUSTAS_I' +
-      'D'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <
+      'D')
+    ParamData = <
       item
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Name = 'PROCESSO_CUSTAS_ID'
         ParamType = ptInput
       end>
     Params = <>
     Left = 95
     Top = 202
-    object sqlVinculosFinanceirosPESSOA_ID: TFMTBCDField
+    object sqlVinculosFinanceirosPESSOA_ID: TBCDField
       FieldName = 'PESSOA_ID'
       Precision = 20
       Size = 2
     end
-    object sqlVinculosFinanceirosPROCESSO_RESPONSAVEL_ID: TFMTBCDField
+    object sqlVinculosFinanceirosPROCESSO_RESPONSAVEL_ID: TBCDField
       FieldName = 'PROCESSO_RESPONSAVEL_ID'
       Precision = 20
       Size = 2
     end
-    object sqlVinculosFinanceirosPERCENTUAL: TFMTBCDField
+    object sqlVinculosFinanceirosPERCENTUAL: TBCDField
       FieldName = 'PERCENTUAL'
       Precision = 20
       Size = 3

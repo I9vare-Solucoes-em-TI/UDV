@@ -3,6 +3,7 @@ unit VisualizaRelatorios;
 interface
 
 uses
+  I9Query,
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, ExtCtrls, StdCtrls, Buttons, Menus, Mask, DB, frxClass, frxPreview,
   frxExportPDF, frxExportRTF, frxExportXLS, ComCtrls, Controles,
@@ -450,11 +451,11 @@ end;
 procedure GravarRelatorio(ID: String);
 var
   Caminho, Historico, WPath: string;
-  sqlRelatorio: TSimpleDataSet;
+  sqlRelatorio: TI9Query;
   vGravarHistorico: boolean;
 begin
   Application.ProcessMessages;
-  sqlRelatorio := TSimpleDataSet.Create(Application);
+  sqlRelatorio := TI9Query.Create(Application);
   sqlRelatorio.Connection := dtmControles.DB;
 
   WPath := vgDiretorioCorrente + '\';
@@ -486,46 +487,43 @@ begin
             with sqlRelatorio do
             begin
               Active := False;
-              DataSet.Prepared := False;
 
               if vGravarHistorico then
               begin
-                DataSet.CommandText := 'UPDATE G_CONFIG_RELATORIO '+
+                SQL.Text := 'UPDATE G_CONFIG_RELATORIO '+
                   ' SET RELATORIO = :RELATORIO, '+
                   '     HISTORICO = :HISTORICO '+
                   ' WHERE CONFIG_RELATORIO_ID = :CONFIG_RELATORIO_ID ';
-                DataSet.Prepared := True;
-                DataSet.ParamByName('RELATORIO').ParamType := ptInput;
-                DataSet.ParamByName('RELATORIO').DataType  := ftBlob;
-                DataSet.ParamByName('RELATORIO').LoadFromFile(Caminho, ftBlob);
-  //              DataSet.ParamByName('RELATORIO').AsMemo := CompressString(DataSet.ParamByName('RELATORIO').AsAnsiString);
-                DataSet.ParamByName('HISTORICO').ParamType := ptInput;
-                DataSet.ParamByName('HISTORICO').DataType  := ftBlob;
-                DataSet.ParamByName('HISTORICO').LoadFromFile(Historico, ftBlob);
-  //              DataSet.ParamByName('HISTORICO').AsMemo := CompressString(DataSet.ParamByName('HISTORICO').AsAnsiString);
+                ParamByName('RELATORIO').ParamType := ptInput;
+                ParamByName('RELATORIO').DataType  := ftBlob;
+                ParamByName('RELATORIO').LoadFromFile(Caminho, ftBlob);
+  //              ParamByName('RELATORIO').AsMemo := CompressString(DataSet.ParamByName('RELATORIO').AsAnsiString);
+                ParamByName('HISTORICO').ParamType := ptInput;
+                ParamByName('HISTORICO').DataType  := ftBlob;
+                ParamByName('HISTORICO').LoadFromFile(Historico, ftBlob);
+  //              ParamByName('HISTORICO').AsMemo := CompressString(DataSet.ParamByName('HISTORICO').AsAnsiString);
               end
               else
               begin
-                DataSet.CommandText := 'UPDATE G_CONFIG_RELATORIO '+
+                SQL.Text := 'UPDATE G_CONFIG_RELATORIO '+
                   ' SET RELATORIO = :RELATORIO '+
                   ' WHERE CONFIG_RELATORIO_ID = :CONFIG_RELATORIO_ID ';
-                DataSet.Prepared := True;
-                DataSet.ParamByName('RELATORIO').ParamType := ptInput;
-                DataSet.ParamByName('RELATORIO').DataType  := ftBlob;
-                DataSet.ParamByName('RELATORIO').LoadFromFile(Caminho, ftBlob);
-  //              DataSet.ParamByName('RELATORIO').AsMemo := CompressString(DataSet.ParamByName('RELATORIO').AsAnsiString);
+                ParamByName('RELATORIO').ParamType := ptInput;
+                ParamByName('RELATORIO').DataType  := ftBlob;
+                ParamByName('RELATORIO').LoadFromFile(Caminho, ftBlob);
+  //              ParamByName('RELATORIO').AsMemo := CompressString(DataSet.ParamByName('RELATORIO').AsAnsiString);
               end;
-              DataSet.ParamByName('CONFIG_RELATORIO_ID').ParamType := ptInput;
-              DataSet.ParamByName('CONFIG_RELATORIO_ID').DataType  := ftInteger;
-              DataSet.ParamByName('CONFIG_RELATORIO_ID').AsString  := ID;
+              ParamByName('CONFIG_RELATORIO_ID').ParamType := ptInput;
+              ParamByName('CONFIG_RELATORIO_ID').DataType  := ftInteger;
+              ParamByName('CONFIG_RELATORIO_ID').AsString  := ID;
               Execute;
 
 
-  //                DataSet.ParamByName('HISTORICO').ParamType := ptInput;
-  //                DataSet.ParamByName('HISTORICO').DataType := ftBlob;
-  //                DataSet.ParamByName('HISTORICO')
+  //                ParamByName('HISTORICO').ParamType := ptInput;
+  //                ParamByName('HISTORICO').DataType := ftBlob;
+  //                ParamByName('HISTORICO')
   //                  .LoadFromFile(Historico, ftBlob);
-  //                DataSet.ParamByName('HISTORICO').AsString :=
+  //                ParamByName('HISTORICO').AsString :=
   //                  CompressString(DataSet.ParamByName('HISTORICO').AsString);
             end;
           end

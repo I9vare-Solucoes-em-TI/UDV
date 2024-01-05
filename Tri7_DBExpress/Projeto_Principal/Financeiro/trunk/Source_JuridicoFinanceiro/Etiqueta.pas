@@ -3,6 +3,7 @@ unit Etiqueta;
 interface
 
 uses
+  I9Query,
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, CadAuxiliar, cxLookAndFeelPainters, FMTBcd, DB, DBClient,
   Provider, SqlExpr, StdCtrls, cxButtons, ExtCtrls, cxTextEdit, cxMaskEdit,
@@ -26,33 +27,33 @@ type
   TfrmEtiqueta = class(TfrmCadAuxiliar)
     cbxInicio: TcxGroupBox;
     speInicio: TcxSpinEdit;
-    ClientAncestralDOCUMENTO_ID: TFMTBCDField;
-    ClientAncestralNUMERO_REGISTRO: TFMTBCDField;
+    ClientAncestralDOCUMENTO_ID: TBCDField;
+    ClientAncestralNUMERO_REGISTRO: TBCDField;
     ClientAncestralLIVRO: TStringField;
-    ClientAncestralNUMERO_PAGINAS: TFMTBCDField;
-    ClientAncestralNUMERO_VIAS: TFMTBCDField;
+    ClientAncestralNUMERO_PAGINAS: TBCDField;
+    ClientAncestralNUMERO_VIAS: TBCDField;
     ClientAncestralDATA_REGISTRO: TSQLTimeStampField;
     ClientAncestralAPRESENTANTE: TStringField;
     ClientAncestralOBSERVACAO: TBlobField;
-    ClientAncestralVALOR_DOCUMENTO: TFMTBCDField;
-    ClientAncestralTAXA_JUDICIARIA: TFMTBCDField;
-    ClientAncestralVALOR_CUSTAS: TFMTBCDField;
-    ClientAncestralTIPO_DOCUMENTO_ID: TFMTBCDField;
-    ClientAncestralEMOLUMENTO_ID: TFMTBCDField;
-    ClientAncestralVALOR_TOTAL: TFMTBCDField;
-    ClientAncestralLIVRO_NUMERO: TFMTBCDField;
-    ClientAncestralLIVRO_PAGINA: TFMTBCDField;
-    ClientAncestralNUMERO_PESSOAS: TFMTBCDField;
+    ClientAncestralVALOR_DOCUMENTO: TBCDField;
+    ClientAncestralTAXA_JUDICIARIA: TBCDField;
+    ClientAncestralVALOR_CUSTAS: TBCDField;
+    ClientAncestralTIPO_DOCUMENTO_ID: TBCDField;
+    ClientAncestralEMOLUMENTO_ID: TBCDField;
+    ClientAncestralVALOR_TOTAL: TBCDField;
+    ClientAncestralLIVRO_NUMERO: TBCDField;
+    ClientAncestralLIVRO_PAGINA: TBCDField;
+    ClientAncestralNUMERO_PESSOAS: TBCDField;
     ClientAncestralPAGINA_ID: TIntegerField;
     btnConfirmarItem: TcxButton;
     lcxEscrevente: TcxLookupComboBox;
     cxLabel1: TcxLabel;
     cxLabel2: TcxLabel;
     lcxModeloEtiqueta: TcxLookupComboBox;
-    sqlModeloEtiqueta: TSimpleDataSet;
+    sqlModeloEtiqueta: TI9Query;
     sqlModeloEtiquetaDESCRICAO: TStringField;
     sqlModeloEtiquetaTEXTO: TBlobField;
-    sqlModeloEtiquetaMARCACAO_TIPO_ID: TFMTBCDField;
+    sqlModeloEtiquetaMARCACAO_TIPO_ID: TBCDField;
     dtsModeloEtiqueta: TDataSource;
     cxGroupBox1: TcxGroupBox;
     speQtd: TcxSpinEdit;
@@ -132,7 +133,7 @@ begin
   sqlModeloEtiqueta.Connection :=  dtmControles.DB;
 
   sqlModeloEtiqueta.Active := False;
-  sqlModeloEtiqueta.DataSet.ParamByName('GRUPO_MODELO').AsString := vgEtiqueta.GrupoModeloEtiqueta;
+  sqlModeloEtiqueta.ParamByName('GRUPO_MODELO').AsString := vgEtiqueta.GrupoModeloEtiqueta;
   sqlModeloEtiqueta.Active := True;
 
   speQtd.Enabled    := vgEtiqueta.QtdEtiqueta > 1;

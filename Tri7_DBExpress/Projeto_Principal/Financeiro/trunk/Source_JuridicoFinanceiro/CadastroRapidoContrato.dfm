@@ -194,9 +194,8 @@ inherited frmCadastroRapidoContrato: TfrmCadastroRapidoContrato
       TabOrder = 7
     end
   end
-  inherited DataSetAncestral: TSQLDataSet
-    SchemaName = 'SYSDBA'
-    CommandText = 'SELECT * '#13#10'FROM J_PROCESSO_CONTRATO'
+  inherited DataSetAncestral: TI9Query
+    SQL.Strings = ('SELECT * '#13#10'FROM J_PROCESSO_CONTRATO')
     Left = 357
     Top = 135
   end
@@ -207,18 +206,18 @@ inherited frmCadastroRapidoContrato: TfrmCadastroRapidoContrato
   inherited ClientAncestral: TClientDataSet
     Left = 423
     Top = 135
-    object ClientAncestralPROCESSO_CONTRATO_ID: TFMTBCDField
+    object ClientAncestralPROCESSO_CONTRATO_ID: TBCDField
       FieldName = 'PROCESSO_CONTRATO_ID'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
       Precision = 20
       Size = 2
     end
-    object ClientAncestralPROCESSO_ID: TFMTBCDField
+    object ClientAncestralPROCESSO_ID: TBCDField
       FieldName = 'PROCESSO_ID'
       Precision = 20
       Size = 2
     end
-    object ClientAncestralPROCESSO_PARTE_ID: TFMTBCDField
+    object ClientAncestralPROCESSO_PARTE_ID: TBCDField
       FieldName = 'PROCESSO_PARTE_ID'
       Precision = 20
       Size = 2
@@ -227,12 +226,12 @@ inherited frmCadastroRapidoContrato: TfrmCadastroRapidoContrato
       FieldName = 'PARTE_ADICIONAL'
       Size = 90
     end
-    object ClientAncestralCONTRATO_NUMERO: TFMTBCDField
+    object ClientAncestralCONTRATO_NUMERO: TBCDField
       FieldName = 'CONTRATO_NUMERO'
       Precision = 20
       Size = 2
     end
-    object ClientAncestralPROCESSO_TRAMITE_ID: TFMTBCDField
+    object ClientAncestralPROCESSO_TRAMITE_ID: TBCDField
       FieldName = 'PROCESSO_TRAMITE_ID'
       Precision = 20
       Size = 2
@@ -241,7 +240,7 @@ inherited frmCadastroRapidoContrato: TfrmCadastroRapidoContrato
       FieldName = 'ADICIONAL'
       Size = 1
     end
-    object ClientAncestralADITIVO: TFMTBCDField
+    object ClientAncestralADITIVO: TBCDField
       FieldName = 'ADITIVO'
       Precision = 20
       Size = 2
@@ -251,16 +250,15 @@ inherited frmCadastroRapidoContrato: TfrmCadastroRapidoContrato
     Left = 455
     Top = 135
   end
-  object sqlClientePrincipal: TSimpleDataSet
+  object sqlClientePrincipal: TI9Query
     Aggregates = <>
     Connection = dtmControles.DB
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT PP.PROCESSO_PARTE_ID, PP.NOME, P.CPFCNPJ, PP.PRINCIPAL'#13#10'F' +
       'ROM J_PROCESSO_PARTE PP LEFT OUTER JOIN J_PESSOA P ON'#13#10'  PP.PESS' +
       'OA_ID = P.PESSOA_ID'#13#10'WHERE PROCESSO_TRAMITE_ID = :PROCESSO_TRAMI' +
-      'TE_ID'#13#10'    AND CLIENTE = '#39'S'#39#13#10'ORDER BY PRINCIPAL DESC, NOME'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <
+      'TE_ID'#13#10'    AND CLIENTE = '#39'S'#39#13#10'ORDER BY PRINCIPAL DESC, NOME')
+    ParamData = <
       item
         DataType = ftBCD
         Name = 'PROCESSO_TRAMITE_ID'
@@ -269,7 +267,7 @@ inherited frmCadastroRapidoContrato: TfrmCadastroRapidoContrato
     Params = <>
     Left = 324
     Top = 105
-    object sqlClientePrincipalPROCESSO_PARTE_ID: TFMTBCDField
+    object sqlClientePrincipalPROCESSO_PARTE_ID: TBCDField
       FieldName = 'PROCESSO_PARTE_ID'
       Precision = 20
       Size = 2
@@ -292,29 +290,28 @@ inherited frmCadastroRapidoContrato: TfrmCadastroRapidoContrato
     Left = 324
     Top = 137
   end
-  object sqlDemaisPartes: TSimpleDataSet
+  object sqlDemaisPartes: TI9Query
     Aggregates = <>
     Connection = dtmControles.DB
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT PROCESSO_PARTE_ID, NOME'#13#10'FROM J_PROCESSO_PARTE'#13#10'WHERE PRO' +
       'CESSO_TRAMITE_ID = :PROCESSO_TRAMITE_ID'#13#10'  AND NOT PROCESSO_PART' +
-      'E_ID = :PROCESSO_PARTE_ID'#13#10'  AND CLIENTE = '#39'S'#39#13#10'ORDER BY NOME'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <
+      'E_ID = :PROCESSO_PARTE_ID'#13#10'  AND CLIENTE = '#39'S'#39#13#10'ORDER BY NOME')
+    ParamData = <
       item
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Name = 'PROCESSO_TRAMITE_ID'
         ParamType = ptInput
       end
       item
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Name = 'PROCESSO_PARTE_ID'
         ParamType = ptInput
       end>
     Params = <>
     Left = 286
     Top = 105
-    object sqlDemaisPartesPROCESSO_PARTE_ID: TFMTBCDField
+    object sqlDemaisPartesPROCESSO_PARTE_ID: TBCDField
       FieldName = 'PROCESSO_PARTE_ID'
       Precision = 20
       Size = 2

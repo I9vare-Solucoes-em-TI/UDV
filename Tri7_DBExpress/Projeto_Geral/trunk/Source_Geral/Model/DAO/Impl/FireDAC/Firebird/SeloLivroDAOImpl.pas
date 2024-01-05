@@ -3,6 +3,8 @@ unit SeloLivroDAOImpl;
 interface
 
 uses
+  I9Query,
+  I9Connection,
   SeloLivroDAO,
   FireDAC.Comp.Client,
   Data.DB,
@@ -16,10 +18,10 @@ uses
 type
   TSeloLivroDAO = class(TInterfacedObject, ISeloLivroDAO)
   private
-    FFDConnection: TFDConnection;
+    FFDConnection: TI9Connection;
   public
     constructor Create(
-      const vpFDConnection: TFDConnection); reintroduce;
+      const vpFDConnection: TI9Connection); reintroduce;
 
     function Get(
       const vpValue: TDataSet): ISeloLivro;
@@ -71,7 +73,7 @@ uses
 { TSeloLivroDAO }
 
 constructor TSeloLivroDAO.Create(
-  const vpFDConnection: TFDConnection);
+  const vpFDConnection: TI9Connection);
 begin
   inherited Create;
   FFDConnection := vpFDConnection;
@@ -172,13 +174,13 @@ const
 
 {$REGION 'Variáveis'}
 var
-  viFDQuery: TFDQuery;
+  viFDQuery: TI9Query;
   viSeloLivro: ISeloLivro;
 {$ENDREGION}
 begin
   Result := TSeloLivroList.Create;
 
-  viFDQuery := TFDQuery.Create(nil);
+  viFDQuery := TI9Query.Create(nil);
   viFDQuery.Connection := FFDConnection;
 
   viFDQuery.FetchOptions.Unidirectional := True;

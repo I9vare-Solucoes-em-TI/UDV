@@ -263,10 +263,10 @@ inherited frmQualificacaoTipo: TfrmQualificacaoTipo
     Left = 437
     Top = 370
   end
-  inherited DataSetAncestral: TSQLDataSet
-    CommandText = 
+  inherited DataSetAncestral: TI9Query
+    SQL.Strings = (
       'SELECT *'#13#10'FROM G_QUALIFICACAO_TIPO'#13#10'WHERE SISTEMA_ID = :SISTEMA_' +
-      'ID'#13#10'ORDER BY GRUPO, NOME'
+      'ID'#13#10'ORDER BY GRUPO, NOME')
     Params = <
       item
         DataType = ftBCD

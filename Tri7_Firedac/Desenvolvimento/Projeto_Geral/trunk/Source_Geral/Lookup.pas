@@ -4,6 +4,7 @@ interface
 
 uses
   I9Query,
+  I9Query,
   SysUtils, Classes, cxDBEditRepository, DB, DBClient, SimpleDS,
   cxEditRepositoryItems, cxEdit, cxImageComboBox, cxDbEdit, cxClasses,
   Vcl.Forms, Vcl.Controls, System.Variants,  Vcl.Dialogs, Winapi.Windows,

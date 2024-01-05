@@ -3,6 +3,7 @@ unit FrameImagem;
 interface
 
 uses
+  I9Query,
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, DB, DBClient, SimpleDS, ImgList,
   ExtCtrls, AxCtrls, ComObj,ActiveX, OleCtrls, cxImageComboBox, cxMaskEdit, StdCtrls, cxButtons,
@@ -55,16 +56,16 @@ type
     edtLetra: TcxTextEdit;
     icxGrupo: TcxImageComboBox;
     btnIndexar: TcxButton;
-    sqlCarimbo: TSimpleDataSet;
+    sqlCarimbo: TI9Query;
     sqlCarimboDESCRICAO: TStringField;
     sqlCarimboTEXTO: TBlobField;
-    sqlIndexacaoTipo: TSimpleDataSet;
-    sqlIndexacaoTipoINDEXACAO_TIPO_ID: TFMTBCDField;
+    sqlIndexacaoTipo: TI9Query;
+    sqlIndexacaoTipoINDEXACAO_TIPO_ID: TBCDField;
     sqlIndexacaoTipoDESCRICAO: TStringField;
     sqlIndexacaoTipoSIGLA: TStringField;
     sqlIndexacaoTipoGRUPO: TStringField;
     sqlIndexacaoTipoSITUACAO: TStringField;
-    sqlIndexacaoTipoSISTEMA_ID: TFMTBCDField;
+    sqlIndexacaoTipoSISTEMA_ID: TBCDField;
     sqlIndexacaoTipoBD: TStringField;
     dsIndexacaoTipo: TDataSource;
     dsCarimbo: TDataSource;
@@ -410,7 +411,7 @@ begin
     //Abrir a query com os tipos de carimbo
     sqlCarimbo.Connection := dtmControles.DB;
     sqlCarimbo.Active     := False;
-    sqlCarimbo.DataSet.Params[0].AsInteger := vgId;
+    sqlCarimbo.Params[0].AsInteger := vgId;
     sqlCarimbo.Active     := True;
 
     //Carimbo
@@ -2040,8 +2041,8 @@ procedure TfmeImagem.icxGrupoPropertiesChange(Sender: TObject);
 begin
   sqlIndexacaoTipo.Connection := dtmControles.DB;
   sqlIndexacaoTipo.Close;
-  sqlIndexacaoTipo.DataSet.Params[0].AsInteger := vgId;
-  sqlIndexacaoTipo.DataSet.Params[1].Value  := icxGrupo.EditValue;
+  sqlIndexacaoTipo.Params[0].AsInteger := vgId;
+  sqlIndexacaoTipo.Params[1].Value  := icxGrupo.EditValue;
   sqlIndexacaoTipo.Open;
 
   edtLetra.Visible := icxGrupo.Text = 'Ficha';
@@ -2785,7 +2786,7 @@ begin
       Params[4].AsCurrency := vgId;
       Params[5].AsCurrency := StrToInt(vNumero);
       Params[6].AsCurrency := StrToInt(vNumero);
-      ExecSql(False);
+      ExecSQL;
     end;
   end
   else
@@ -2807,7 +2808,7 @@ begin
     Params[4].AsString := vOperacao;
     Params[5].AsString := vPagina;
     Params[6].AsString := vObs;
-    ExecSql(False);
+    ExecSQL;
   end;
 
   dtmControles.sqlAuxiliar.Active := False;

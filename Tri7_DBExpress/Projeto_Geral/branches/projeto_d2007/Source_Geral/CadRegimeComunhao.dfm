@@ -251,9 +251,8 @@ inherited frmCadRegimeComunhao: TfrmCadRegimeComunhao
     Left = 479
     Top = 233
   end
-  inherited DataSetAncestral: TSQLDataSet
-    SchemaName = 'SYSDBA'
-    CommandText = 'SELECT *'#13#10'FROM G_TB_REGIMECOMUNHAO'#13#10'ORDER BY DESCRICAO'
+  inherited DataSetAncestral: TI9Query
+    SQL.Strings = ('SELECT *'#13#10'FROM G_TB_REGIMECOMUNHAO'#13#10'ORDER BY DESCRICAO')
     Left = 509
     Top = 233
   end
@@ -265,7 +264,7 @@ inherited frmCadRegimeComunhao: TfrmCadRegimeComunhao
     AfterScroll = ClientAncestralAfterScroll
     Left = 573
     Top = 233
-    object ClientAncestralTB_REGIMECOMUNHAO_ID: TFMTBCDField
+    object ClientAncestralTB_REGIMECOMUNHAO_ID: TBCDField
       FieldName = 'TB_REGIMECOMUNHAO_ID'
       Precision = 20
       Size = 2
@@ -281,7 +280,7 @@ inherited frmCadRegimeComunhao: TfrmCadRegimeComunhao
       FieldName = 'SITUACAO'
       Size = 1
     end
-    object ClientAncestralTB_REGIMEBENS_ID: TFMTBCDField
+    object ClientAncestralTB_REGIMEBENS_ID: TBCDField
       FieldName = 'TB_REGIMEBENS_ID'
       Precision = 20
       Size = 2

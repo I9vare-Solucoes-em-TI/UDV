@@ -1488,8 +1488,8 @@ inherited frmMostrarCertidaoGravada: TfrmMostrarCertidaoGravada
       end
     end
   end
-  inherited DataSetAncestral: TSQLDataSet
-    CommandText = 'SELECT *'#13#10'FROM T_CERTIDAO_GRAVADA'#13#10'ORDER BY DESCRICAO'
+  inherited DataSetAncestral: TI9Query
+    SQL.Strings = ('SELECT *'#13#10'FROM T_CERTIDAO_GRAVADA'#13#10'ORDER BY DESCRICAO')
     Left = 499
     Top = 239
   end
@@ -1503,7 +1503,7 @@ inherited frmMostrarCertidaoGravada: TfrmMostrarCertidaoGravada
     AfterScroll = ClientAncestralAfterScroll
     Left = 563
     Top = 239
-    object ClientAncestralCERTIDAO_GRAVADA_ID: TFMTBCDField
+    object ClientAncestralCERTIDAO_GRAVADA_ID: TBCDField
       FieldName = 'CERTIDAO_GRAVADA_ID'
       Required = True
       Precision = 15
@@ -1520,7 +1520,7 @@ inherited frmMostrarCertidaoGravada: TfrmMostrarCertidaoGravada
       FieldName = 'TEXTO'
       Size = 1
     end
-    object ClientAncestralUSUARIO_ID: TFMTBCDField
+    object ClientAncestralUSUARIO_ID: TBCDField
       FieldName = 'USUARIO_ID'
       Precision = 15
       Size = 2

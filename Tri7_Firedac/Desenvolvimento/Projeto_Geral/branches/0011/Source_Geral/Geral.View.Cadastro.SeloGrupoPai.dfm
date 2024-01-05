@@ -311,7 +311,6 @@ inherited frmCadastroSeloGrupoPai: TfrmCadastroSeloGrupoPai
   end
   inherited DataSetAncestral: TI9Query
     SQL.Strings = (
-      
         'SELECT'#13#10'    G_SGP.SELO_GRUPO_PAI_ID,'#13#10'    G_SGP.SELO_GRUPO_ID'#13#10'F' +
         'ROM'#13#10'    G_SELO_GRUPO_PAI G_SGP'#13#10'ORDER BY'#13#10'    G_SGP.SELO_GRUPO_' +
         'PAI_ID')

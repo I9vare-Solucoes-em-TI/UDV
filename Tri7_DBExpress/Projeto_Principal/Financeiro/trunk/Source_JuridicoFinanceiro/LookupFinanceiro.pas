@@ -3,6 +3,7 @@ unit LookupFinanceiro;
 interface
 
 uses
+  I9Query,
   SysUtils, Classes, DB, DBClient, SimpleDS, cxEditRepositoryItems, cxEdit,
   cxDBEditRepository, cxClasses, cxCurrencyEdit, Controls, Dialogs, frxClass,
   DbxDevartInterBase, ACBrBase, ACBrBoleto, ACBrBoletoFCFR, cxGridDBTableView, cxCustomData, Graphics,
@@ -78,16 +79,16 @@ type
     ListaCaixaFinanceiro: TcxEditRepositoryLookupComboBoxItem;
     ListaPessoaFuncao: TcxEditRepositoryLookupComboBoxItem;
     ListaGrupoIdentificacao: TcxEditRepositoryLookupComboBoxItem;
-    sqlPessoasTodas: TSimpleDataSet;
+    sqlPessoasTodas: TI9Query;
     dtsPessoasTodas: TDataSource;
-    sqlPessoaFuncao: TSimpleDataSet;
+    sqlPessoaFuncao: TI9Query;
     dtsPessoaFuncao: TDataSource;
-    sqlGrupoIdentificacao: TSimpleDataSet;
+    sqlGrupoIdentificacao: TI9Query;
     dtsGrupoIdentificacao: TDataSource;
     ClientItem: TClientDataSet;
     dtsItem: TDataSource;
     sqlPessoasTodasNOME: TStringField;
-    sqlPessoasTodasPESSOA_ID: TFMTBCDField;
+    sqlPessoasTodasPESSOA_ID: TBCDField;
     sqlGrupoIdentificacaoIDENTIFICACAO: TStringField;
     ClientItemCOMPROMISSO: TIntegerField;
     ClientItemESPECIE: TStringField;
@@ -105,26 +106,26 @@ type
     ClientItemPESSOA_ID: TIntegerField;
     ClientItemHISTORICO: TStringField;
     ClientItemDETALHES: TStringField;
-    sqlPessoaFuncaoPESSOA_FUNCAO_ID: TFMTBCDField;
+    sqlPessoaFuncaoPESSOA_FUNCAO_ID: TBCDField;
     sqlPessoaFuncaoDESCRICAO: TStringField;
-    sqlPessoaFuncaoVALOR: TFMTBCDField;
+    sqlPessoaFuncaoVALOR: TBCDField;
     sqlPessoaFuncaoSITUACAO: TStringField;
-    sqlPessoaTarefa: TSimpleDataSet;
-    FMTBCDField1: TFMTBCDField;
+    sqlPessoaTarefa: TI9Query;
+    FMTBCDField1: TBCDField;
     sqlPessoaTarefaIDENTIFICACAO: TStringField;
     dtsPessoaTarefa: TDataSource;
     ListaPessoaTarefa: TcxEditRepositoryLookupComboBoxItem;
     ComboHonorarioPeriodo: TcxEditRepositoryImageComboBoxItem;
     ComboContratoItemSituacao: TcxEditRepositoryImageComboBoxItem;
-    sqlCaixa: TSimpleDataSet;
-    sqlCaixaCAIXA_ID: TFMTBCDField;
+    sqlCaixa: TI9Query;
+    sqlCaixaCAIXA_ID: TBCDField;
     sqlCaixaDESCRICAO: TStringField;
     sqlCaixaSITUACAO: TStringField;
-    sqlCaixaRESPONSAVEL_ID: TFMTBCDField;
+    sqlCaixaRESPONSAVEL_ID: TBCDField;
     sqlCaixaPRINCIPAL: TStringField;
     dtsCaixa: TDataSource;
-    sqlBanco: TSimpleDataSet;
-    sqlBancoBANCO_ID: TFMTBCDField;
+    sqlBanco: TI9Query;
+    sqlBancoBANCO_ID: TBCDField;
     sqlBancoBANCO_NUMERO: TStringField;
     sqlBancoBANCO_DIGITO: TStringField;
     sqlBancoBANCO_NOME: TStringField;
@@ -137,9 +138,9 @@ type
     sqlBancoCONVENIO: TStringField;
     sqlBancoCODIGO_CEDENTE_NUMERO: TStringField;
     sqlBancoCODIGO_CEDENTE_DIGITO: TStringField;
-    sqlBancoNOSSO_NUMERO: TFMTBCDField;
-    sqlBoleto: TSimpleDataSet;
-    sqlBoletoBOLETO_ID: TFMTBCDField;
+    sqlBancoNOSSO_NUMERO: TBCDField;
+    sqlBoleto: TI9Query;
+    sqlBoletoBOLETO_ID: TBCDField;
     sqlBoletoPATH_REMESSA: TStringField;
     sqlBoletoPATH_RETORNO: TStringField;
     sqlBoletoPATH_LOGOTIPO: TStringField;
@@ -150,12 +151,12 @@ type
     sqlBoletoACEITE: TStringField;
     sqlBoletoCARTEIRA: TStringField;
     sqlBoletoLOCAL_PAGTO: TStringField;
-    sqlBoletoCONT_REMESSA: TFMTBCDField;
+    sqlBoletoCONT_REMESSA: TBCDField;
     dtsBoleto: TDataSource;
     dtsBanco: TDataSource;
-    sqlCedente: TSimpleDataSet;
+    sqlCedente: TI9Query;
     dtsCedente: TDataSource;
-    sqlCedenteCEDENTE_ID: TFMTBCDField;
+    sqlCedenteCEDENTE_ID: TBCDField;
     sqlCedenteSITUACAO: TStringField;
     sqlCedentePRINCIPAL: TStringField;
     sqlCedenteDESCRICAO: TStringField;
@@ -165,69 +166,69 @@ type
     sqlCedenteEND_BAIRRO: TStringField;
     sqlCedenteEND_UF: TStringField;
     sqlCedenteEND_EMAIL: TStringField;
-    sqlCedenteCONFIG_RELATORIO_ID: TFMTBCDField;
-    sqlLivroFinanceiro: TSimpleDataSet;
+    sqlCedenteCONFIG_RELATORIO_ID: TBCDField;
+    sqlLivroFinanceiro: TI9Query;
     dtsLivroFinanceiro: TDataSource;
-    sqlLivroFinanceiroLIVRO_FINANCEIRO_ID: TFMTBCDField;
+    sqlLivroFinanceiroLIVRO_FINANCEIRO_ID: TBCDField;
     sqlLivroFinanceiroDATA_VENCIMENTO: TSQLTimeStampField;
-    sqlLivroFinanceiroVALOR_AGENDADO: TFMTBCDField;
+    sqlLivroFinanceiroVALOR_AGENDADO: TBCDField;
     sqlLivroFinanceiroSITUACAO: TStringField;
-    sqlLivroFinanceiroCONTABIL_CONTA_ID: TFMTBCDField;
-    sqlLivroFinanceiroCENTRO_CUSTO_ID: TFMTBCDField;
+    sqlLivroFinanceiroCONTABIL_CONTA_ID: TBCDField;
+    sqlLivroFinanceiroCENTRO_CUSTO_ID: TBCDField;
     sqlLivroFinanceiroANO_MES_REFERENCIA: TStringField;
-    sqlLivroFinanceiroBALANCETE_GRUPO_ID: TFMTBCDField;
+    sqlLivroFinanceiroBALANCETE_GRUPO_ID: TBCDField;
     sqlLivroFinanceiroESPECIE: TStringField;
-    sqlLivroFinanceiroBOLETA_ID: TFMTBCDField;
+    sqlLivroFinanceiroBOLETA_ID: TBCDField;
     sqlLivroFinanceiroATUALIZADO: TStringField;
-    sqlLivroFinanceiroVALOR_PAGO: TFMTBCDField;
-    sqlLivroFinanceiroPROCESSO_CONTRATO_ITEM_ID: TFMTBCDField;
-    sqlLivroFinanceiroPROCESSO_CONTRATO_ID: TFMTBCDField;
+    sqlLivroFinanceiroVALOR_PAGO: TBCDField;
+    sqlLivroFinanceiroPROCESSO_CONTRATO_ITEM_ID: TBCDField;
+    sqlLivroFinanceiroPROCESSO_CONTRATO_ID: TBCDField;
     sqlLivroFinanceiroOPERACAO: TStringField;
-    sqlLivroFinanceiroPESSOA_ID: TFMTBCDField;
-    sqlLivroFinanceiroVALOR_DOCUMENTO: TFMTBCDField;
-    sqlLivroFinanceiroLIVRO_REMUNERACAO_ID: TFMTBCDField;
-    sqlLivroFinanceiroFINANCEIRO_REMUNERACAO_ID: TFMTBCDField;
+    sqlLivroFinanceiroPESSOA_ID: TBCDField;
+    sqlLivroFinanceiroVALOR_DOCUMENTO: TBCDField;
+    sqlLivroFinanceiroLIVRO_REMUNERACAO_ID: TBCDField;
+    sqlLivroFinanceiroFINANCEIRO_REMUNERACAO_ID: TBCDField;
     sqlLivroFinanceiroHISTORICO: TStringField;
     sqlLivroFinanceiroOBSERVACAO: TStringField;
     sqlLivroFinanceiroDATA_OPERACAO: TSQLTimeStampField;
-    sqlLivroFinanceiroLIVRO_AGENDAMENTO_ID: TFMTBCDField;
-    sqlLivroFinanceiroDESCONTO: TFMTBCDField;
+    sqlLivroFinanceiroLIVRO_AGENDAMENTO_ID: TBCDField;
+    sqlLivroFinanceiroDESCONTO: TBCDField;
     sqlLivroFinanceiroIR: TStringField;
     sqlLivroFinanceiroCNJ: TStringField;
     sqlLivroFinanceiroDOCUMENTO_NUMERO: TStringField;
-    sqlLivroFinanceiroCAIXA_ID: TFMTBCDField;
+    sqlLivroFinanceiroCAIXA_ID: TBCDField;
     sqlLivroFinanceiroREGISTRO_PARCIAL: TStringField;
     sqlBancoCARTEIRA: TStringField;
     frxReport1: TfrxReport;
     ACBrBoleto1: TACBrBoleto;
     ACBrBoletoFCFR1: TACBrBoletoFCFR;
-    sqlContaBancaria: TSimpleDataSet;
+    sqlContaBancaria: TI9Query;
     tdsContaBancaria: TDataSource;
-    sqlContaBancariaBANCO_ID: TFMTBCDField;
+    sqlContaBancariaBANCO_ID: TBCDField;
     sqlContaBancariaBANCO_NOME: TStringField;
     ListaContaBancaria: TcxEditRepositoryLookupComboBoxItem;
     dtsLayoutBoleto: TDataSource;
-    sqlLayoutBoleto: TSimpleDataSet;
-    sqlLayoutBoletoCONFIG_RELATORIO_ID: TFMTBCDField;
+    sqlLayoutBoleto: TI9Query;
+    sqlLayoutBoletoCONFIG_RELATORIO_ID: TBCDField;
     sqlLayoutBoletoDESCRICAO: TStringField;
     ListaLayoutBancario: TcxEditRepositoryLookupComboBoxItem;
-    sqlBancoCONFIG_RELATORIO_ID: TFMTBCDField;
-    sqlBoletoVALOR: TFMTBCDField;
+    sqlBancoCONFIG_RELATORIO_ID: TBCDField;
+    sqlBoletoVALOR: TBCDField;
     sqlBoletoDATA_EMISSAO: TSQLTimeStampField;
     sqlBoletoDATA_VENCIMENTO: TSQLTimeStampField;
-    sqlBoletoNOSSO_NUMERO: TFMTBCDField;
+    sqlBoletoNOSSO_NUMERO: TBCDField;
     sqlBoletoSITUACAO: TStringField;
     sqlCedenteCNPJ_CPF: TStringField;
     sqlCedenteTELEFONE: TStringField;
     sqlCedenteCOMPLEMENTO: TStringField;
-    sqlOrcamento: TSimpleDataSet;
-    sqlOrcamentoLIVRO_AGENDAMENTO_ID: TFMTBCDField;
+    sqlOrcamento: TI9Query;
+    sqlOrcamentoLIVRO_AGENDAMENTO_ID: TBCDField;
     sqlOrcamentoHISTORICO: TStringField;
     dtsOrcamento: TDataSource;
     ListaOrcamentos: TcxEditRepositoryLookupComboBoxItem;
-    sqlTipoDocumento: TSimpleDataSet;
+    sqlTipoDocumento: TI9Query;
     sqlTipoDocumentoDESCRICAO: TStringField;
-    sqlTipoDocumentoTIPO_DOCUMENTO_ID: TFMTBCDField;
+    sqlTipoDocumentoTIPO_DOCUMENTO_ID: TBCDField;
     dtsTipoDocumento: TDataSource;
     ListaTipoDocumento: TcxEditRepositoryLookupComboBoxItem;
     ListaCedenteAtivos: TcxEditRepositoryLookupComboBoxItem;
@@ -257,12 +258,12 @@ type
     ClientCentroReservaPORCENTAGEM: TCurrencyField;
     ClientCentroReservaSITUACAO: TStringField;
     ClientCentroReservaID: TIntegerField;
-    sqlBancoCEDENTE_ID: TFMTBCDField;
+    sqlBancoCEDENTE_ID: TBCDField;
     sqlBancoLOCAL_REMESSA: TStringField;
     sqlBancoLOCAL_PADRAO: TStringField;
-    sqlBoletoBANCO_ID: TFMTBCDField;
+    sqlBoletoBANCO_ID: TBCDField;
     ComboCaixaTipos: TcxEditRepositoryImageComboBoxItem;
-    sqlBoletoPESSOA_ID: TFMTBCDField;
+    sqlBoletoPESSOA_ID: TBCDField;
     frxPDFExport1: TfrxPDFExport;
 
     procedure DataModuleCreate(Sender: TObject);
@@ -475,7 +476,7 @@ var
     sqlBoleto.Active := False;
     if vgRenovarTitulo.Renovar then
     begin
-      sqlBoleto.DataSet.ParamByName('BOLETO_ID').AsInteger := StrToInt(vgRenovarTitulo.DadosTituloRenovado.Values['BOLETO_ID']);
+      sqlBoleto.ParamByName('BOLETO_ID').AsInteger := StrToInt(vgRenovarTitulo.DadosTituloRenovado.Values['BOLETO_ID']);
       sqlBoleto.Active := True;
       sqlBoleto.Edit;
       viBoletoId := sqlBoletoBOLETO_ID.AsInteger;
@@ -484,7 +485,7 @@ var
     end
     else
     begin
-      sqlBoleto.DataSet.ParamByName('BOLETO_ID').AsInteger := 0;
+      sqlBoleto.ParamByName('BOLETO_ID').AsInteger := 0;
       sqlBoleto.Active := True;
       sqlBoleto.Append;
       viBoletoId := dtmControles.GerarSequencia('J_BANCO');
@@ -694,7 +695,7 @@ end;
 procedure TdtmLookupFinanceiro.CarregarDadosDaConta(vpBancoId : Integer);
 begin
   sqlBanco.Active := False;
-  sqlBanco.DataSet.ParamByName('BANCO_ID').AsBCD := vpBancoId;
+  sqlBanco.ParamByName('BANCO_ID').AsBCD := vpBancoId;
   sqlBanco.Active := True;
 
   vgPastaBoleto :=  Trim(sqlBancoLOCAL_PADRAO.AsString);
@@ -712,11 +713,11 @@ var
   procedure CarregarDadosConta;
   begin
     sqlLivroFinanceiro.Active := False;
-    sqlLivroFinanceiro.DataSet.ParamByName('LIVRO_FINANCEIRO_ID').AsBCD := vpId;
+    sqlLivroFinanceiro.ParamByName('LIVRO_FINANCEIRO_ID').AsBCD := vpId;
     sqlLivroFinanceiro.Active := True;
 
     sqlBanco.Active := False;
-    sqlBanco.DataSet.ParamByName('BANCO_ID').AsBCD := vpBancoId;
+    sqlBanco.ParamByName('BANCO_ID').AsBCD := vpBancoId;
     sqlBanco.Active := True;
   end;
 
@@ -1101,7 +1102,7 @@ procedure TdtmLookupFinanceiro.GravarCentroCustoReserva(vpId : Integer; vpCampoI
       ParamByName('PERCENTUAL').AsBCD           := vpClientDataSet.FieldByName('PORCENTAGEM').AsCurrency;
       ParamByName('TIPO_CENTRO').AsString       := vpTipoCentro;
       ParamByName(vpCampoId).AsBCD              := vpId;
-      ExecSQL(FALSE);
+      ExecSQL;
     end;
   end;
 

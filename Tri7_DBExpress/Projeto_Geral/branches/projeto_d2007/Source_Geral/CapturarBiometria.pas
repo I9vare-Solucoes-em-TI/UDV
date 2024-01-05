@@ -83,7 +83,7 @@ begin
   pgcCapturarBiometria.HideTabs        := True;
 
   ClientAncestral.Active := False;
-  DataSetAncestral.CommandText := ' SELECT * FROM '+ vlVetBiometria.NomeTabela +
+  DataSetAncestral.SQL.Text := ' SELECT * FROM '+ vlVetBiometria.NomeTabela +
                                   ' WHERE CHAVE_ID = '+IntToStr(vlVetBiometria.Chave_id);
   ClientAncestral.Active := True;
   AtualizarSelecao;

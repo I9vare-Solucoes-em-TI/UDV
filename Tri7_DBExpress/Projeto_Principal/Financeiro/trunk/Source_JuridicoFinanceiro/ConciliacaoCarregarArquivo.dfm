@@ -256,7 +256,7 @@ inherited frmConciliacaoArquivoCarregar: TfrmConciliacaoArquivoCarregar
       end
     end
   end
-  inherited DataSetAncestral: TSQLDataSet
+  inherited DataSetAncestral: TI9Query
     Left = 487
     Top = 41
   end

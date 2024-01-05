@@ -197,7 +197,6 @@ object frmSeloSelecao: TfrmSeloSelecao
   object sqlSeloItens: TI9Query
     Connection = dtmControles.DB
     SQL.Strings = (
-      
         'SELECT SL.SELO_LIVRO_ID, '#13#10'             (SL.SIGLA || '#39'-'#39' || CAST' +
         '(SL.NUMERO AS INTEGER)) AS NUMERO'#13#10'FROM G_SELO_LIVRO SL LEFT OUT' +
         'ER JOIN G_SELO_LOTE ST ON'#13#10'  SL.SELO_LOTE_ID = ST.SELO_LOTE_ID'#13#10 +

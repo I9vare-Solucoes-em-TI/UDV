@@ -41,11 +41,11 @@ type
     edtDescricao: TcxDBTextEdit;
     chbSituacao: TcxDBCheckBox;
     cxLabel1: TcxLabel;
-    ClientAncestralCONTABIL_GRUPO_ID: TFMTBCDField;
+    ClientAncestralCONTABIL_GRUPO_ID: TBCDField;
     ClientAncestralDESCRICAO: TStringField;
     ClientAncestralSITUACAO: TStringField;
     ClientAncestralTIPO: TStringField;
-    ClientAncestralBALANCETE_GRUPO_ID: TFMTBCDField;
+    ClientAncestralBALANCETE_GRUPO_ID: TBCDField;
     ClientAncestralOPERACAO: TStringField;
     cxDBCheckBox1: TcxDBCheckBox;
     ClientAncestralTIPO_GLOBAL: TStringField;

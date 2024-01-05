@@ -3176,24 +3176,23 @@ object frmResumoFinanceiro: TfrmResumoFinanceiro
     Left = 91
     Top = 106
   end
-  object sqlPartesFinanceiras: TSimpleDataSet
+  object sqlPartesFinanceiras: TI9Query
     Aggregates = <>
     Connection = dtmControles.DB
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT SUM(VALOR_RECEBER) AS VALOR, PESSOA_ID'#13#10'FROM J_PROCESSO_F' +
-      'INANCEIRO'#13#10'GROUP BY PESSOA_ID'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <>
+      'INANCEIRO'#13#10'GROUP BY PESSOA_ID')
+    ParamData = <>
     Params = <>
     OnCalcFields = sqlPartesFinanceirasCalcFields
     Left = 64
     Top = 164
-    object sqlPartesFinanceirasVALOR: TFMTBCDField
+    object sqlPartesFinanceirasVALOR: TBCDField
       FieldName = 'VALOR'
       Precision = 20
       Size = 3
     end
-    object sqlPartesFinanceirasPESSOA_ID: TFMTBCDField
+    object sqlPartesFinanceirasPESSOA_ID: TBCDField
       FieldName = 'PESSOA_ID'
       Precision = 20
       Size = 2

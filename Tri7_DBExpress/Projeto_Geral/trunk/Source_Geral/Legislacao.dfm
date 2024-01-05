@@ -2051,11 +2051,10 @@ object frmLegislacao: TfrmLegislacao
       OnClick = btnAlterarClick
     end
   end
-  object DataSetProvimento: TSQLDataSet
-    CommandText = 'SELECT *'#13#10'FROM G_PROVIMENTO'
-    MaxBlobSize = -1
+  object DataSetProvimento: TI9Query
+    SQL.Strings = ('SELECT *'#13#10'FROM G_PROVIMENTO')
     Params = <>
-    SQLConnection = dtmControles.DB
+    Connection = dtmControles.DB
     Left = 360
     Top = 65531
   end
@@ -2072,24 +2071,24 @@ object frmLegislacao: TfrmLegislacao
     AfterScroll = ClientProvimentoAfterScroll
     Left = 520
     Top = 11
-    object ClientProvimentoPROVIMENTO_ID: TFMTBCDField
+    object ClientProvimentoPROVIMENTO_ID: TBCDField
       FieldName = 'PROVIMENTO_ID'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
       Required = True
       Precision = 20
       Size = 2
     end
-    object ClientProvimentoPROVIMENTO_ESFERA_NIVEL_ID: TFMTBCDField
+    object ClientProvimentoPROVIMENTO_ESFERA_NIVEL_ID: TBCDField
       FieldName = 'PROVIMENTO_ESFERA_NIVEL_ID'
       Precision = 20
       Size = 2
     end
-    object ClientProvimentoPROVIMENTO_ORIGEM_ID: TFMTBCDField
+    object ClientProvimentoPROVIMENTO_ORIGEM_ID: TBCDField
       FieldName = 'PROVIMENTO_ORIGEM_ID'
       Precision = 20
       Size = 2
     end
-    object ClientProvimentoPROVIMENTO_TIPO_ID: TFMTBCDField
+    object ClientProvimentoPROVIMENTO_TIPO_ID: TBCDField
       FieldName = 'PROVIMENTO_TIPO_ID'
       Precision = 20
       Size = 2

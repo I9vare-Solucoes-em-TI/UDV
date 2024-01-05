@@ -3,6 +3,8 @@ unit SequenciaDAOImpl;
 interface
 
 uses
+  FireDAC.Stan.Param,
+  I9Connection,
   SequenciaDAO,
   Data.SqlExpr,
   Data.DB,
@@ -12,14 +14,14 @@ uses
 type
   TSequenciaDAO = class(TInterfacedObject, ISequenciaDAO)
   private
-    FSQLConnection: TSQLConnection;
+    FConnection: TI9Connection;
 
     procedure PreencherParametros(
-      const vpParams: TParams;
+      const vpParams: TFDParams;
       const vpValue: ISequencia);
   public
     constructor Create(
-      const vpSQLConnection: TSQLConnection); reintroduce;
+      const vpConnection: TI9Connection); reintroduce;
 
     function Get(
       const vpValue: TDataSet): ISequencia; overload;
@@ -57,7 +59,7 @@ procedure TSequenciaDAO.Alterar(
 {$REGION 'Variáveis'}
 var
   viSQL: string;
-  viParams: TParams;
+  viParams: TFDParams;
 {$ENDREGION}
 begin
   viSQL := {$REGION 'Comando SQL UPDATE'}
@@ -79,7 +81,7 @@ begin
 
   {$ENDREGION}
 
-  viParams := TParams.Create;
+  viParams := TFDParams.Create;
   try
     with viParams do
     begin
@@ -88,17 +90,17 @@ begin
     end;
 
     PreencherParametros(viParams, vpValue);
-    FSQLConnection.Execute(viSQL, viParams);
+    FConnection.Execute(viSQL, viParams);
   finally
     FreeAndNil(viParams);
   end;
 end;
 
 constructor TSequenciaDAO.Create(
-  const vpSQLConnection: TSQLConnection);
+  const vpConnection: TI9Connection);
 begin
   inherited Create;
-  FSQLConnection := vpSQLConnection;
+  FConnection := vpConnection;
 end;
 
 function TSequenciaDAO.Get(
@@ -126,7 +128,7 @@ function TSequenciaDAO.GetByID(
 {$REGION 'Variáveis'}
 var
   viSQL: string;
-  viParams: TParams;
+  viParams: TFDParams;
   viDataSet: TDataSet;
 {$ENDREGION}
 begin
@@ -151,12 +153,12 @@ begin
 
   {$ENDREGION}
 
-  viParams := TParams.Create;
+  viParams := TFDParams.Create;
   try
     viParams.CreateParam(TFieldType.ftString, 'P_TABELA',
       TParamType.ptInput).AsString := vpValue;
 
-    FSQLConnection.Execute(viSQL, viParams, viDataSet);
+    FConnection.Execute(viSQL, viParams, viDataSet);
     try
       if viDataSet.IsEmpty then
         Exit;
@@ -181,7 +183,7 @@ procedure TSequenciaDAO.Inserir(
 {$REGION 'Variáveis'}
 var
   viSQL: string;
-  viParams: TParams;
+  viParams: TFDParams;
 {$ENDREGION}
 begin
   viSQL := {$REGION 'Comando SQL INSERT'}
@@ -209,7 +211,7 @@ begin
 
   {$ENDREGION}
 
-  viParams := TParams.Create;
+  viParams := TFDParams.Create;
   try
     with viParams do
     begin
@@ -218,7 +220,7 @@ begin
     end;
 
     PreencherParametros(viParams, vpValue);
-    FSQLConnection.Execute(viSQL, viParams);
+    FConnection.Execute(viSQL, viParams);
   finally
     FreeAndNil(viParams);
   end;
@@ -226,11 +228,11 @@ end;
 
 
 procedure TSequenciaDAO.PreencherParametros(
-  const vpParams: TParams;
+  const vpParams: TFDParams;
   const vpValue: ISequencia);
 {$REGION 'Variáveis'}
 var
-  viParam: TParam;
+  viParam: TFDParam;
 {$ENDREGION}
 begin
   with vpParams, vpValue do

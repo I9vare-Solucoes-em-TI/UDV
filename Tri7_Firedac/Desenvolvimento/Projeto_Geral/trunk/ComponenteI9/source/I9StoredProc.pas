@@ -9,7 +9,7 @@ uses
   FireDAC.DApt, FireDAC.Comp.Client, Data.DB, FireDAC.Comp.DataSet;
 
 type
-  TI9StoredProc = class(TFDStoredProc)
+  TI9StoredProc = class(TI9StoredProc)
 
   end;
 

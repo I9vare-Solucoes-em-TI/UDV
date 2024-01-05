@@ -3,6 +3,8 @@ unit EmolumentoPeriodoDAOImpl;
 interface
 
 uses
+  I9Query,
+  I9Connection,
   EmolumentoPeriodoDAO,
   FireDAC.Comp.Client,
   Data.DB,
@@ -13,10 +15,10 @@ uses
 type
   TEmolumentoPeriodoDAO = class(TInterfacedObject, IEmolumentoPeriodoDAO)
   private
-    FFDConnection: TFDConnection;
+    FFDConnection: TI9Connection;
   public
     constructor Create(
-      const vpFDConnection: TFDConnection); reintroduce;
+      const vpFDConnection: TI9Connection); reintroduce;
 
     function Get(
       const vpValue: TDataSet): IEmolumentoPeriodo;
@@ -50,7 +52,7 @@ uses
 { TEmolumentoPeriodoDAO }
 
 constructor TEmolumentoPeriodoDAO.Create(
-  const vpFDConnection: TFDConnection);
+  const vpFDConnection: TI9Connection);
 begin
   inherited Create;
   FFDConnection := vpFDConnection;
@@ -94,13 +96,13 @@ const
 
 {$REGION 'Variáveis'}
 var
-  viFDQuery: TFDQuery;
+  viFDQuery: TI9Query;
   viEmolumentoPeriodo: IEmolumentoPeriodo;
 {$ENDREGION}
 begin
   Result := TEmolumentoPeriodoList.Create;
 
-  viFDQuery := TFDQuery.Create(nil);
+  viFDQuery := TI9Query.Create(nil);
   viFDQuery.Connection := FFDConnection;
 
   viFDQuery.FetchOptions.Unidirectional := True;

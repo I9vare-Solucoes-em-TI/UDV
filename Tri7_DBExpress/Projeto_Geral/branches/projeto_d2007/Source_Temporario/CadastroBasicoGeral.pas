@@ -139,10 +139,10 @@ begin
   inherited;
   DataSetAncestral.Close;
   ClientAncestral.Close;
-  DataSetAncestral.CommandText := ' SELECT * '+
+  DataSetAncestral.SQL.Text := ' SELECT * '+
                                   ' FROM '+ vgDadosCadastroGeral.Tabela;
   if vgDadosCadastroGeral.Sistema then
-    DataSetAncestral.CommandText := DataSetAncestral.CommandText +
+    DataSetAncestral.SQL.Text := DataSetAncestral.SQL.Text +
                                     '  WHERE SISTEMA_ID = '+ IntToStr(vgId);
   ClientAncestral.Open;
   cxGridBasicaDBCodigo.DataBinding.FieldName := vgDadosCadastroGeral.Chave;

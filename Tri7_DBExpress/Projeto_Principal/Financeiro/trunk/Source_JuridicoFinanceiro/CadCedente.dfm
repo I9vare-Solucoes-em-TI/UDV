@@ -345,9 +345,8 @@ inherited frmCadCedente: TfrmCadCedente
     Left = 641
     Top = 270
   end
-  inherited DataSetAncestral: TSQLDataSet
-    SchemaName = 'SYSDBA'
-    CommandText = 'SELECT * '#13#10'FROM J_CEDENTE'#13#10'ORDER BY DESCRICAO'
+  inherited DataSetAncestral: TI9Query
+    SQL.Strings = ('SELECT * '#13#10'FROM J_CEDENTE'#13#10'ORDER BY DESCRICAO')
     Left = 675
     Top = 270
   end
@@ -358,7 +357,7 @@ inherited frmCadCedente: TfrmCadCedente
   inherited ClientAncestral: TClientDataSet
     Left = 735
     Top = 270
-    object ClientAncestralCEDENTE_ID: TFMTBCDField
+    object ClientAncestralCEDENTE_ID: TBCDField
       FieldName = 'CEDENTE_ID'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
       Required = True

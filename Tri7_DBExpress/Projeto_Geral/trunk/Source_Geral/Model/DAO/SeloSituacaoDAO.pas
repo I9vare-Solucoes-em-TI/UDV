@@ -3,16 +3,18 @@ unit SeloSituacaoDAO;
 interface
 
 uses
+  I9Query,
+  I9Connection,
   Data.SqlExpr,
   SeloSituacao;
 
 type
   TSeloSituacaoDAO = class
   private
-    FSQLConnection: TSQLConnection;
+    FConnection: TI9Connection;
   public
     constructor Create(
-      const vpSQLConnection: TSQLConnection); reintroduce;
+      const vpConnection: TI9Connection); reintroduce;
 
     function Get(
       const vpSeloSituacaoID: Integer): ISeloSituacao;
@@ -30,29 +32,29 @@ uses
 { TSeloSituacaoDAO }
 
 constructor TSeloSituacaoDAO.Create(
-  const vpSQLConnection: TSQLConnection);
+  const vpConnection: TI9Connection);
 begin
   inherited Create;
-  FSQLConnection := vpSQLConnection;
+  FConnection := vpConnection;
 end;
 
 function TSeloSituacaoDAO.Get(
   const vpSeloSituacaoID: Integer): ISeloSituacao;
 {$REGION 'Variáveis'}
 var
-  viSQLDataSet: TSQLDataSet;
+  viSQLDataSet: TI9Query;
 {$ENDREGION}
 begin
   Result := nil;
 
-  viSQLDataSet := TSQLDataSet.Create(nil);
-  viSQLDataSet.SQLConnection := FSQLConnection;
+  viSQLDataSet := TI9Query.Create(nil);
+  viSQLDataSet.Connection := FConnection;
 
   try
     with viSQLDataSet do
     begin
       {$REGION 'Comando SQL SELECT'}
-      CommandText :=
+      SQL.Text :=
         'SELECT ' +
 
         {$REGION 'Colunas'}
@@ -95,7 +97,7 @@ begin
             FieldByName('SITUACAO').AsString);
 
           if FieldByName('SISTEMA_ID').IsNull.&Not then
-            with TSistemaDAO.Create(FSQLConnection) do
+            with TSistemaDAO.Create(FConnection) do
               try
                 Sistema := Get(FieldByName('SISTEMA_ID').AsInteger);
               finally

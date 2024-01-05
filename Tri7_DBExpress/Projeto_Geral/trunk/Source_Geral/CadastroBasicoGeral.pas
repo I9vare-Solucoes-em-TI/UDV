@@ -192,7 +192,7 @@ begin
 
   DataSetAncestral.Close;
   ClientAncestral.Close;
-  DataSetAncestral.CommandText := ' SELECT * '+
+  DataSetAncestral.SQL.Text := ' SELECT * '+
                                   ' FROM '+ vgDadosCadastroGeral.Tabela +
                                   ' WHERE 1=1 ' + viCondicao;
   ClientAncestral.Open;

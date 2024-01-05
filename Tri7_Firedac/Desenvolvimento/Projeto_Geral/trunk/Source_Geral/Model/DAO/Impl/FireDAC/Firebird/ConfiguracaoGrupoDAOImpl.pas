@@ -3,6 +3,8 @@ unit ConfiguracaoGrupoDAOImpl;
 interface
 
 uses
+  I9Query,
+  I9Connection,
   ConfiguracaoGrupoDAO,
   FireDAC.Comp.Client,
   Data.DB,
@@ -13,10 +15,10 @@ uses
 type
   TConfiguracaoGrupoDAO = class(TInterfacedObject, IConfiguracaoGrupoDAO)
   private
-    FFDConnection: TFDConnection;
+    FFDConnection: TI9Connection;
   public
     constructor Create(
-      const vpFDConnection: TFDConnection); reintroduce;
+      const vpFDConnection: TI9Connection); reintroduce;
 
     function Get(
       const vpValue: TDataSet): IConfiguracaoGrupo;
@@ -51,7 +53,7 @@ uses
 { TConfiguracaoGrupoDAO }
 
 constructor TConfiguracaoGrupoDAO.Create(
-  const vpFDConnection: TFDConnection);
+  const vpFDConnection: TI9Connection);
 begin
   inherited Create;
   FFDConnection := vpFDConnection;
@@ -99,13 +101,13 @@ const
 
 {$REGION 'Variáveis'}
 var
-  viFDQuery: TFDQuery;
+  viFDQuery: TI9Query;
   viConfiguracaoGrupo: IConfiguracaoGrupo;
 {$ENDREGION}
 begin
   Result := TConfiguracaoGrupoList.Create;
 
-  viFDQuery := TFDQuery.Create(nil);
+  viFDQuery := TI9Query.Create(nil);
   viFDQuery.Connection := FFDConnection;
 
   viFDQuery.FetchOptions.Unidirectional := True;

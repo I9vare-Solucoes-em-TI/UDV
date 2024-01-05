@@ -624,7 +624,6 @@ inherited frmValoresDiversos: TfrmValoresDiversos
     FetchOptions.AssignedValues = [evMode]
     FetchOptions.Mode = fmAll
     SQL.Strings = (
-      
         'SELECT V.*,'#13#10'       I.TIPO_CLASSE, I.NUMERO, I.UF, TB_BAIRRO_ID,' +
         ' I.IMOVEL_ID,'#13#10'       U.NUMERO_UNIDADE, U.QUADRA, U.AREA, U.TIPO' +
         '_IMOVEL,'#13#10'       U.LOGRADOURO, U.CARACTERISTICA, U.COMPLEMENTO'#13#10 +

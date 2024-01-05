@@ -783,16 +783,15 @@ object fmeCadastro: TfmeCadastro
       Width = 26
     end
   end
-  object sqlTipoServico: TSimpleDataSet
+  object sqlTipoServico: TI9Query
     Aggregates = <>
     Connection = dtmControles.DB
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT DESCRICAO, CAIXA_SERVICO_ID'#13#10'FROM C_CAIXA_SERVICO'#13#10'WHERE ' +
       'TIPO_TRANSACAO = :TIPO_TRANSACAO'#13#10'    AND (SERVENTIA_REGISTRO_DI' +
       'ARIO = :SERVENTIA or SERVENTIA_REGISTRO_DIARIO = '#39'9'#39')'#13#10'    AND S' +
-      'ITUACAO = '#39'A'#39#13#10'ORDER BY DESCRICAO'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <
+      'ITUACAO = '#39'A'#39#13#10'ORDER BY DESCRICAO')
+    ParamData = <
       item
         DataType = ftString
         Name = 'TIPO_TRANSACAO'
@@ -810,7 +809,7 @@ object fmeCadastro: TfmeCadastro
       FieldName = 'DESCRICAO'
       Size = 60
     end
-    object sqlTipoServicoCAIXA_SERVICO_ID: TFMTBCDField
+    object sqlTipoServicoCAIXA_SERVICO_ID: TBCDField
       FieldName = 'CAIXA_SERVICO_ID'
       Precision = 20
       Size = 2

@@ -194,7 +194,7 @@ inherited frmAporte: TfrmAporte
       Width = 298
     end
   end
-  inherited DataSetAncestral: TSQLDataSet
+  inherited DataSetAncestral: TI9Query
     Left = 175
     Top = 9
   end

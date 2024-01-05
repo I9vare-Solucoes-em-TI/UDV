@@ -492,7 +492,6 @@ object frmAnotacoes: TfrmAnotacoes
       ' SELECT * '
       '   FROM G_ANOTACAO'
       '  WHERE USUARIO_ID = :USUARIO_ID'
-      
         '    AND (SISTEMA_ID = :SISTEMA_ID OR COALESCE(EXCLUSIVO_SISTEMA_' +
         'ORIGEM, '#39#39') <> '#39'S'#39')'
       '  ORDER BY TITULO')

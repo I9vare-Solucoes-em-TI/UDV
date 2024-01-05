@@ -3,6 +3,7 @@ unit CadEnvioEmail;
 interface
 
 uses
+  I9Query,
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs,  Menus, FMTBcd,
   DB, DBClient, Provider, SqlExpr, StdCtrls, cxButtons, cxTextEdit, cxDBEdit,
@@ -37,10 +38,10 @@ type
     tabRodape: TcxTabSheet;
     memTextoRodape: TMemo;
     Panel1: TPanel;
-    DataSetAncestral: TSQLDataSet;
+    DataSetAncestral: TI9Query;
     ProviderAncestral: TDataSetProvider;
     ClientAncestral: TClientDataSet;
-    ClientAncestralEMAIL_CONFIG_ID: TFMTBCDField;
+    ClientAncestralEMAIL_CONFIG_ID: TBCDField;
     ClientAncestralTEXTO_EMAIL: TBlobField;
     ClientAncestralHOST_SMTP: TStringField;
     ClientAncestralUSER_NAME: TStringField;
@@ -53,7 +54,7 @@ type
     cxLabel7: TcxLabel;
     pnlEnvio: TPanel;
     ClientAncestralTEXTO_RODAPE: TBlobField;
-    ClientAncestralESPACO_TEXTO_RODAPE: TFMTBCDField;
+    ClientAncestralESPACO_TEXTO_RODAPE: TBCDField;
     ClientAncestralADICIONAR_ASSINATURA_USUARIO: TStringField;
     chxAssinaturaUsuario: TcxDBCheckBox;
     lblEnviando: TcxLabel;
@@ -72,27 +73,27 @@ type
     lcxEmailTextoPadrao: TcxLookupComboBox;
     cbxAnexarArquivo: TcxCheckBox;
     dtsAtoAcompanhamento: TDataSource;
-    sqlAtoAcompanhamento: TSimpleDataSet;
-    sqlAtoAcompanhamentoATO_ACOMPANHAMENTO_ID: TFMTBCDField;
+    sqlAtoAcompanhamento: TI9Query;
+    sqlAtoAcompanhamentoATO_ACOMPANHAMENTO_ID: TBCDField;
     sqlAtoAcompanhamentoDATA: TSQLTimeStampField;
     sqlAtoAcompanhamentoHORA: TSQLTimeStampField;
     sqlAtoAcompanhamentoCONTATO: TStringField;
     sqlAtoAcompanhamentoOBSERVACAO: TStringField;
     sqlAtoAcompanhamentoTIPO_CONTATO: TStringField;
-    sqlAtoAcompanhamentoUSUARIO_ID: TFMTBCDField;
-    sqlAtoAcompanhamentoATO_ID: TFMTBCDField;
+    sqlAtoAcompanhamentoUSUARIO_ID: TBCDField;
+    sqlAtoAcompanhamentoATO_ID: TBCDField;
     mxStringsExport1: TmxStringsExport;
     sqlAtoAcompanhamentoCORPO_EMAIL: TBlobField;
     sqlAtoAcompanhamentoSTATUS: TStringField;
     sqlAtoAcompanhamentoASSUNTO: TStringField;
-    sqlAtoAcompanhamentoORDEM_ENVIO: TFMTBCDField;
+    sqlAtoAcompanhamentoORDEM_ENVIO: TBCDField;
     sqlAtoAcompanhamentoSITUACAO: TStringField;
     sqlAtoAcompanhamentoMOSTRAR_MSG: TStringField;
     memTextoPadrao: TRichEdit;
-    sqlQualifica: TSimpleDataSet;
+    sqlQualifica: TI9Query;
     sqlQualificaDESCRICAO: TStringField;
     sqlQualificaSITUACAO: TStringField;
-    ClientAncestralEMAIL_TEXTO_PADRAO_ID: TFMTBCDField;
+    ClientAncestralEMAIL_TEXTO_PADRAO_ID: TBCDField;
     procedure btnConfirmarClick(Sender: TObject);
     procedure btnCancelarClick(Sender: TObject);
     procedure pgcConfigChange(Sender: TObject);
@@ -457,7 +458,7 @@ begin
     vgQualificar.StlLista := TStringList.Create;
 
     sqlQualifica.Active := False;
-    sqlQualifica.DataSet.ParamByName('ATO_ID').AsInteger := vpAtoId;
+    sqlQualifica.ParamByName('ATO_ID').AsInteger := vpAtoId;
     sqlQualifica.Active := True;
 
     while not sqlQualifica.Eof do

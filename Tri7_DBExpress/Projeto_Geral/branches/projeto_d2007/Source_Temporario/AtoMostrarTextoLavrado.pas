@@ -32,12 +32,12 @@ type
     pnlPesquisar: TPanel;
     cxLabel2: TcxLabel;
     ClientAncestralTEXTO: TBlobField;
-    ClientAncestralPROTOCOLO: TFMTBCDField;
-    ClientAncestralFOLHA_INICIAL: TFMTBCDField;
-    ClientAncestralFOLHA_FINAL: TFMTBCDField;
+    ClientAncestralPROTOCOLO: TBCDField;
+    ClientAncestralFOLHA_INICIAL: TBCDField;
+    ClientAncestralFOLHA_FINAL: TBCDField;
     ClientAncestralDATA_LAVRATURA: TSQLTimeStampField;
     ClientAncestralPESSOA_NOME: TStringField;
-    ClientAncestralNUMERO_LIVRO: TFMTBCDField;
+    ClientAncestralNUMERO_LIVRO: TBCDField;
     pgcVisualizacao: TcxPageControl;
     cxTabSheet1: TcxTabSheet;
     pnlTexto: TPanel;
@@ -60,7 +60,7 @@ type
     Panel2: TPanel;
     wptTexto: TWPRichText;
     WPReguaHorizontal: TWPRuler;
-    ClientAncestralATO_ID: TFMTBCDField;
+    ClientAncestralATO_ID: TBCDField;
     cxLabel5: TcxLabel;
     cxLabel6: TcxLabel;
     btnConfirmar: TcxButton;
@@ -160,7 +160,7 @@ procedure TfrmTextroLavrado.FiltrarSql(vpFiltro : string );
 begin
   Screen.Cursor := crHourGlass;
   ClientAncestral.Active := False;
-  DataSetAncestral.CommandText := ' SELECT A.TEXTO, A.PROTOCOLO, A.FOLHA_INICIAL, A.FOLHA_FINAL, A.DATA_LAVRATURA, A.ATO_ID, '+
+  DataSetAncestral.SQL.Text := ' SELECT A.TEXTO, A.PROTOCOLO, A.FOLHA_INICIAL, A.FOLHA_FINAL, A.DATA_LAVRATURA, A.ATO_ID, '+
                                   ' VP.PESSOA_NOME, LA.NUMERO_LIVRO '+
                                   '  FROM T_ATO A '+
                                   '    LEFT OUTER JOIN T_ATO_VINCULOPARTE VP '+
@@ -169,12 +169,12 @@ begin
                                   '    ON A.LIVRO_ANDAMENTO_ID = LA.LIVRO_ANDAMENTO_ID '+
                                   '    WHERE VP.ORDEM = 1 ';
   if icxPesqTipoParte.EditValue <> '3' then
-    DataSetAncestral.CommandText := DataSetAncestral.CommandText +
+    DataSetAncestral.SQL.Text := DataSetAncestral.SQL.Text +
                                    '    AND (VP.TIPO_VINCULO = '+ QuotedStr('0') +
                                    '    OR VP.TIPO_VINCULO = '+ QuotedStr(IntToStr(icxPesqTipoParte.EditValue))+')' + ' '+ vpFiltro+
                                    '  ORDER BY A.PROTOCOLO '
   else
-    DataSetAncestral.CommandText := DataSetAncestral.CommandText +
+    DataSetAncestral.SQL.Text := DataSetAncestral.SQL.Text +
                                    '    AND VP.TIPO_VINCULO BETWEEN '+ QuotedStr('0') + ' AND ' + QuotedStr('2') + ' '+ vpFiltro+
                                    '  ORDER BY A.PROTOCOLO ';
   ClientAncestral.Active := True;

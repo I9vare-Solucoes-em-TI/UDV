@@ -811,7 +811,7 @@ object frmHoraExtra: TfrmHoraExtra
     AfterDelete = sqlUsuarioAfterDelete
     Left = 440
     Top = 200
-    object sqlUsuarioUSUARIO_ID: TFMTBCDField
+    object sqlUsuarioUSUARIO_ID: TBCDField
       FieldName = 'USUARIO_ID'
       Required = True
       Precision = 20
@@ -831,19 +831,18 @@ object frmHoraExtra: TfrmHoraExtra
     Left = 480
     Top = 200
   end
-  object sqlUsuarioHorario: TSimpleDataSet
+  object sqlUsuarioHorario: TI9Query
     Aggregates = <>
     Connection = dtmControles.DB
-    DataSet.CommandText = 
+    SQL.Strings = (
       'select USUARIO_ID, NOME_COMPLETO, HORA_FIM '#13#10'from G_USUARIO'#13#10'whe' +
       're  CONTROLE_HORARIO = '#39'S'#39#13#10'     and SITUACAO = '#39'A'#39#13#10'order by NO' +
-      'ME_COMPLETO'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <>
+      'ME_COMPLETO')
+    ParamData = <>
     Params = <>
     Left = 440
     Top = 168
-    object sqlUsuarioHorarioUSUARIO_ID: TFMTBCDField
+    object sqlUsuarioHorarioUSUARIO_ID: TBCDField
       FieldName = 'USUARIO_ID'
       Required = True
       Precision = 20
@@ -863,16 +862,15 @@ object frmHoraExtra: TfrmHoraExtra
     Left = 480
     Top = 168
   end
-  object sqlHoraExtra: TSimpleDataSet
+  object sqlHoraExtra: TI9Query
     Aggregates = <>
     Connection = dtmControles.DB
-    DataSet.CommandText = 'select * '#13#10'from G_HORA_EXTRA'#13#10'where 1=0'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <>
+    SQL.Strings = ('select * '#13#10'from G_HORA_EXTRA'#13#10'where 1=0')
+    ParamData = <>
     Params = <>
     Left = 56
     Top = 176
-    object sqlHoraExtraHORA_EXTRA_ID: TFMTBCDField
+    object sqlHoraExtraHORA_EXTRA_ID: TBCDField
       FieldName = 'HORA_EXTRA_ID'
       Required = True
       Precision = 20
@@ -881,7 +879,7 @@ object frmHoraExtra: TfrmHoraExtra
     object sqlHoraExtraDATA_HORA_EXTRA: TSQLTimeStampField
       FieldName = 'DATA_HORA_EXTRA'
     end
-    object sqlHoraExtraUSUARIO_ID: TFMTBCDField
+    object sqlHoraExtraUSUARIO_ID: TBCDField
       FieldName = 'USUARIO_ID'
       Required = True
       Precision = 20

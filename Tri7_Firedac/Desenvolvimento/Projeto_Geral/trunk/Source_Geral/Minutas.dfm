@@ -964,7 +964,6 @@ inherited frmMinutas: TfrmMinutas
     FetchOptions.AssignedValues = [evMode]
     FetchOptions.Mode = fmAll
     SQL.Strings = (
-      
         'SELECT A.ATO_TIPO_ID, A.DESCRICAO, LN.NATUREZA_ID'#13#10'FROM T_ATO_TI' +
         'PO A, T_LIVRO_NATUREZA LN'#13#10'WHERE A.LIVRO_NATUREZA_ID = LN.LIVRO_' +
         'NATUREZA_ID'#13#10'  AND LN.NATUREZA_ID = :NATUREZA_ID'#13#10'ORDER BY A.DES' +
@@ -1004,7 +1003,6 @@ inherited frmMinutas: TfrmMinutas
     FetchOptions.AssignedValues = [evMode]
     FetchOptions.Mode = fmAll
     SQL.Strings = (
-      
         'SELECT A.ATO_TIPO_ID, A.DESCRICAO, LN.NATUREZA_ID'#13#10'FROM T_ATO_TI' +
         'PO A, T_LIVRO_NATUREZA LN'#13#10'WHERE A.LIVRO_NATUREZA_ID = LN.LIVRO_' +
         'NATUREZA_ID'#13#10'ORDER BY A.DESCRICAO')

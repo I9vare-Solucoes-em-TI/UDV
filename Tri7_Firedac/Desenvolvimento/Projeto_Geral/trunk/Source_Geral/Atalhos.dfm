@@ -200,7 +200,6 @@ inherited frmAtalho: TfrmAtalho
   inherited DataSetAncestral: TI9Query
     MasterFields = 'SISTEMA_ID'
     SQL.Strings = (
-      
         'select * from V_G_SISTEMA_ROTINA'#13#10'WHERE SISTEMA_ID = :SISTEMA_ID' +
         #13#10'order by DESCRICAO')
     Top = 162

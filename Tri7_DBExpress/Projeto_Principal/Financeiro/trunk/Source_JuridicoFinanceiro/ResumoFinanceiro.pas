@@ -3,6 +3,7 @@ unit ResumoFinanceiro;
 interface
 
 uses
+  I9Query,
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, dxSkinsCore, dxSkinBlack, dxSkinBlue, dxSkinCaramel, dxSkinCoffee,
   dxSkinDarkSide, dxSkinGlassOceans, dxSkiniMaginary, dxSkinLilian,
@@ -45,10 +46,10 @@ type
     cxGridDBColumn2: TcxGridDBColumn;
     cxGridDBColumn3: TcxGridDBColumn;
     cxGridLevel1: TcxGridLevel;
-    sqlPartesFinanceiras: TSimpleDataSet;
+    sqlPartesFinanceiras: TI9Query;
     dtsPartesFinanceiras: TDataSource;
-    sqlPartesFinanceirasVALOR: TFMTBCDField;
-    sqlPartesFinanceirasPESSOA_ID: TFMTBCDField;
+    sqlPartesFinanceirasVALOR: TBCDField;
+    sqlPartesFinanceirasPESSOA_ID: TBCDField;
     sqlPartesFinanceirasCALC_VALOR_RECEBER: TCurrencyField;
     sqlPartesFinanceirasCALC_VALOR_DEVOLVER: TCurrencyField;
     cxGridDBTableView1Column1: TcxGridDBColumn;

@@ -3,6 +3,7 @@ unit Feriado;
 interface
 
 uses
+  I9Query,
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, CadBasico, FMTBcd, DB, DBClient,
   Provider, SqlExpr, ActnList, ComCtrls, StdCtrls, cxButtons, ExtCtrls,
@@ -18,13 +19,13 @@ uses
 
 type
   TfrmFeriado = class(TfrmCadBasico)
-    ClientAncestralFERIADO_ID: TFMTBCDField;
+    ClientAncestralFERIADO_ID: TBCDField;
     ClientAncestralDESCRICAO: TStringField;
     ClientAncestralSITUACAO: TStringField;
     ClientAncestralTIPO: TStringField;
-    ClientAncestralDIA: TFMTBCDField;
-    ClientAncestralMES: TFMTBCDField;
-    ClientAncestralANO: TFMTBCDField;
+    ClientAncestralDIA: TBCDField;
+    ClientAncestralMES: TBCDField;
+    ClientAncestralANO: TBCDField;
     pnlDadosFeriado: TPanel;
     cxLabel1: TcxLabel;
     cxLabel2: TcxLabel;
@@ -59,7 +60,7 @@ type
     { Private declarations }
   public
     { Public declarations }
-    vgQuery : TSimpleDataSet;
+    vgQuery : TI9Query;
     procedure SetState (AState : TDataSetState);override;
   end;
 

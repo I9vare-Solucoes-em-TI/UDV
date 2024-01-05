@@ -3,6 +3,7 @@ unit Orientacao;
 interface
 
 uses
+  I9Query,
   Windows, SysUtils, Variants, Classes, Graphics, Controls, Forms, Dialogs,
   CadAuxiliar, cxContainer, cxEdit, DB, SimpleDS, cxDBEdit, StdCtrls, Buttons,
   cxMaskEdit, cxDBLookupComboBox, FrameEditorSimples, ExtCtrls, cxLabel, SqlExpr,
@@ -25,7 +26,7 @@ type
     cxLabel9: TcxLabel;
     edtDescricao: TcxDBTextEdit;
     cxButton1: TcxButton;
-    sqlOrientacao: TSimpleDataSet;
+    sqlOrientacao: TI9Query;
     dtsOrientacao: TDataSource;
     Panel12: TPanel;
     Panel13: TPanel;
@@ -43,15 +44,15 @@ type
     cxLabel1: TcxLabel;
     btnFechar: TcxButton;
     fmeEditorSimples: TfmeEditorSimples;
-    sqlOrientacaoORIENTACAO_ID: TFMTBCDField;
-    sqlOrientacaoUSUARIO_RECEBEU_ID: TFMTBCDField;
+    sqlOrientacaoORIENTACAO_ID: TBCDField;
+    sqlOrientacaoUSUARIO_RECEBEU_ID: TBCDField;
     sqlOrientacaoRECEBEU: TStringField;
-    sqlOrientacaoUSUARIO_ENVIOU_ID: TFMTBCDField;
+    sqlOrientacaoUSUARIO_ENVIOU_ID: TBCDField;
     sqlOrientacaoMENSAGEM: TBlobField;
     sqlOrientacaoDATA_CADASTRO: TSQLTimeStampField;
     sqlOrientacaoDATA_ORIENTACAO: TSQLTimeStampField;
     sqlOrientacaoDATA_CANCELADO: TSQLTimeStampField;
-    sqlOrientacaoID_CONTROLE: TFMTBCDField;
+    sqlOrientacaoID_CONTROLE: TBCDField;
     sqlOrientacaoDATA_EXCLUIDO: TSQLTimeStampField;
     sqlOrientacaoTITULO: TStringField;
     procedure btnConfirmarClick(Sender: TObject);
@@ -104,7 +105,7 @@ var
       Params[5].AsString := FormatDateTime('DD.MM.YYYY hh:mm:ss', edtDataOrientacao.Date);
       Params[6].AsString := edtDescricao.Text;
       Params[7].AsCurrency := vIDControle;
-      ExecSql(False);
+      ExecSQL;
     end;
   end;
 begin
@@ -115,7 +116,7 @@ begin
       Active := False;
       Sql.Clear;
       Sql.Add('DELETE FROM R_ORIENTACAO WHERE ID_CONTROLE = '+sqlOrientacaoID_CONTROLE.AsString);
-      ExecSql(False);
+      ExecSQL;
     end;
   end;
 
@@ -162,7 +163,7 @@ begin
       with dtmControles.SimpleAuxiliar do
       begin
         Active := False;
-        DataSet.CommandText := 'SELECT USUARIO_ID FROM G_USUARIO '+
+        SQL.Text := 'SELECT USUARIO_ID FROM G_USUARIO '+
                                ' WHERE SITUACAO = '+QuotedStr('A');
         Active := True;
         First;
@@ -205,7 +206,7 @@ begin
     with dtmControles.SimpleAuxiliar do
     begin
       Active := False;
-      DataSet.CommandText := 'SELECT O.USUARIO_RECEBEU_ID, U.LOGIN '+
+      SQL.Text := 'SELECT O.USUARIO_RECEBEU_ID, U.LOGIN '+
                              ' FROM R_ORIENTACAO O, G_USUARIO U '+
                              ' WHERE O.USUARIO_RECEBEU_ID = U.USUARIO_ID '+
                              ' AND ID_CONTROLE = '+sqlOrientacaoID_CONTROLE.AsString;

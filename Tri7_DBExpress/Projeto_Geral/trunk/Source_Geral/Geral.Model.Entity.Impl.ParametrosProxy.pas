@@ -3,6 +3,7 @@ unit Geral.Model.Entity.Impl.ParametrosProxy;
 interface
 
 uses
+  FireDAC.Stan.Param,
   Geral.Model.Entity.Spec.ParametrosProxy;
 
 type

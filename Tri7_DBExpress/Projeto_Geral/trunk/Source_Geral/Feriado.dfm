@@ -406,8 +406,8 @@ inherited frmFeriado: TfrmFeriado
     Left = 306
     Top = 182
   end
-  inherited DataSetAncestral: TSQLDataSet
-    CommandText = 'SELECT * FROM G_FERIADO'
+  inherited DataSetAncestral: TI9Query
+    SQL.Strings = ('SELECT * FROM G_FERIADO')
     Left = 442
     Top = 154
   end
@@ -418,7 +418,7 @@ inherited frmFeriado: TfrmFeriado
   inherited ClientAncestral: TClientDataSet
     Left = 441
     Top = 265
-    object ClientAncestralFERIADO_ID: TFMTBCDField
+    object ClientAncestralFERIADO_ID: TBCDField
       FieldName = 'FERIADO_ID'
       Required = True
       Precision = 15
@@ -436,17 +436,17 @@ inherited frmFeriado: TfrmFeriado
       FieldName = 'TIPO'
       Size = 1
     end
-    object ClientAncestralDIA: TFMTBCDField
+    object ClientAncestralDIA: TBCDField
       FieldName = 'DIA'
       Precision = 20
       Size = 2
     end
-    object ClientAncestralMES: TFMTBCDField
+    object ClientAncestralMES: TBCDField
       FieldName = 'MES'
       Precision = 20
       Size = 2
     end
-    object ClientAncestralANO: TFMTBCDField
+    object ClientAncestralANO: TBCDField
       FieldName = 'ANO'
       Precision = 20
       Size = 2

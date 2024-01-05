@@ -3,6 +3,7 @@ unit EmolumentoDAOImpl;
 interface
 
 uses
+  I9Query,
   FireDAC.Stan.Param,
   I9Query,
   I9Connection,

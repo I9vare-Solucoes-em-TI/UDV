@@ -389,14 +389,13 @@ object frmAnotacoes: TfrmAnotacoes
       GridView = cxGridDBTableView1
     end
   end
-  object sqlAnotacao: TSimpleDataSet
+  object sqlAnotacao: TI9Query
     Aggregates = <>
     Connection = dtmControles.DB
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT * FROM G_ANOTACAO'#13#10'WHERE USUARIO_ID = :USUARIO_ID'#13#10'ORDER ' +
-      'BY TITULO'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <
+      'BY TITULO')
+    ParamData = <
       item
         DataType = ftUnknown
         Name = 'USUARIO_ID'
@@ -405,13 +404,13 @@ object frmAnotacoes: TfrmAnotacoes
     Params = <>
     Left = 305
     Top = 280
-    object sqlAnotacaoANOTACAO_ID: TFMTBCDField
+    object sqlAnotacaoANOTACAO_ID: TBCDField
       FieldName = 'ANOTACAO_ID'
       Required = True
       Precision = 20
       Size = 2
     end
-    object sqlAnotacaoUSUARIO_ID: TFMTBCDField
+    object sqlAnotacaoUSUARIO_ID: TBCDField
       FieldName = 'USUARIO_ID'
       Precision = 20
       Size = 2

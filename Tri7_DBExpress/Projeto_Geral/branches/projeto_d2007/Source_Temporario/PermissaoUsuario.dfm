@@ -536,27 +536,25 @@ object frmPermissaousuario: TfrmPermissaousuario
         00000000000024050505}
     end
   end
-  object sqlRotina: TSimpleDataSet
+  object sqlRotina: TI9Query
     Aggregates = <>
     Connection = dtmControles.DB
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT R.SISTEMA_ROTINA_ID,'#13#10'               R.DESCRICAO DESCROTI' +
       'NA,'#13#10'               R.SISTEMA_MENU_ID,'#13#10'               M.DESCRIC' +
       'AO DESCMENU'#13#10'FROM G_SISTEMA_ROTINA R'#13#10'LEFT JOIN G_SISTEMA_MENU M' +
       ' ON'#13#10'     R.SISTEMA_MENU_ID = M.SISTEMA_MENU_ID'#13#10'WHERE SISTEMA_I' +
-      'D = :SISTEMA_ID'#13#10'ORDER BY M.DESCRICAO, R.DESCRICAO'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <
+      'D = :SISTEMA_ID'#13#10'ORDER BY M.DESCRICAO, R.DESCRICAO')
+    ParamData = <
       item
         DataType = ftUnknown
         Name = 'SISTEMA_ID'
         ParamType = ptInput
       end>
-    PacketRecords = 50
     Params = <>
     Left = 208
     Top = 176
-    object sqlRotinaSISTEMA_ROTINA_ID: TFMTBCDField
+    object sqlRotinaSISTEMA_ROTINA_ID: TBCDField
       FieldName = 'SISTEMA_ROTINA_ID'
       Required = True
       Precision = 15
@@ -566,7 +564,7 @@ object frmPermissaousuario: TfrmPermissaousuario
       FieldName = 'DESCROTINA'
       Size = 60
     end
-    object sqlRotinaSISTEMA_MENU_ID: TFMTBCDField
+    object sqlRotinaSISTEMA_MENU_ID: TBCDField
       FieldName = 'SISTEMA_MENU_ID'
       Precision = 15
       Size = 2
@@ -576,26 +574,24 @@ object frmPermissaousuario: TfrmPermissaousuario
       Size = 60
     end
   end
-  object sqlUsuario: TSimpleDataSet
+  object sqlUsuario: TI9Query
     Aggregates = <>
     Connection = dtmControles.DB
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT U.* FROM G_USUARIO_SISTEMA US'#13#10'LEFT JOIN G_USUARIO U ON'#13#10 +
       '   US.USUARIO_ID = U.USUARIO_ID'#13#10'WHERE US.SISTEMA_ID = :SISTEMA_' +
       'ID AND'#13#10'               U.SITUACAO =  '#39'A'#39' '#13#10'ORDER BY U.NOME_COMPL' +
-      'ETO'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <
+      'ETO')
+    ParamData = <
       item
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Name = 'SISTEMA_ID'
         ParamType = ptInput
       end>
-    PacketRecords = 50
     Params = <>
     Left = 328
     Top = 7
-    object sqlUsuarioUSUARIO_ID: TFMTBCDField
+    object sqlUsuarioUSUARIO_ID: TBCDField
       FieldName = 'USUARIO_ID'
       Required = True
       Precision = 15
@@ -778,14 +774,13 @@ object frmPermissaousuario: TfrmPermissaousuario
       F80FFFFF00000000FC1FFFFF0000000000000000000000000000000000000000
       000000000000}
   end
-  object sqlPermusuario: TSimpleDataSet
+  object sqlPermusuario: TI9Query
     Aggregates = <>
     Connection = dtmControles.DB
-    DataSet.CommandText = 'select * from G_PERMISSAO_USUARIO'#13#10'where USUARIO_ID= :USUARIO_ID'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <
+    SQL.Strings = ('select * from G_PERMISSAO_USUARIO'#13#10'where USUARIO_ID= :USUARIO_ID')
+    ParamData = <
       item
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Name = 'USUARIO_ID'
         ParamType = ptInput
         Value = '0'
@@ -793,13 +788,13 @@ object frmPermissaousuario: TfrmPermissaousuario
     Params = <>
     Left = 208
     Top = 145
-    object sqlPermusuarioSISTEMA_ROTINA_ID: TFMTBCDField
+    object sqlPermusuarioSISTEMA_ROTINA_ID: TBCDField
       FieldName = 'SISTEMA_ROTINA_ID'
       Required = True
       Precision = 15
       Size = 2
     end
-    object sqlPermusuarioUSUARIO_ID: TFMTBCDField
+    object sqlPermusuarioUSUARIO_ID: TBCDField
       FieldName = 'USUARIO_ID'
       Required = True
       Precision = 15

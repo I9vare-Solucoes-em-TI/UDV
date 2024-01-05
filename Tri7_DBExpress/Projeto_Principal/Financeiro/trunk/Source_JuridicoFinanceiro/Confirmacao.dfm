@@ -3456,17 +3456,16 @@ object frmConfirmacao: TfrmConfirmacao
       end
     end
   end
-  object sqlPlanoContas: TSimpleDataSet
+  object sqlPlanoContas: TI9Query
     Aggregates = <>
     Connection = dtmControles.DB
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT CC.CONTABIL_CONTA_ID, CC.DESCRICAO, CC.IR, CC.CNJ'#13#10'FROM J' +
       '_CONTABIL_CONTA CC LEFT OUTER JOIN J_CONTABIL_GRUPO CG ON'#13#10'  CC.' +
       'CONTABIL_GRUPO_ID = CG.CONTABIL_GRUPO_ID'#13#10'WHERE CC.SITUACAO = '#39'A' +
       #39#13#10'  AND ((CC.CONTABIL_GRUPO_ID = :CONTABIL_GRUPO_ID)'#13#10'    OR (C' +
-      'C.TIPO_GLOBAL = '#39'S'#39')) '#13#10'ORDER BY CC.DESCRICAO'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <
+      'C.TIPO_GLOBAL = '#39'S'#39')) '#13#10'ORDER BY CC.DESCRICAO')
+    ParamData = <
       item
         DataType = ftUnknown
         Name = 'CONTABIL_GRUPO_ID'
@@ -3475,7 +3474,7 @@ object frmConfirmacao: TfrmConfirmacao
     Params = <>
     Left = 102
     Top = 262
-    object sqlPlanoContasCONTABIL_CONTA_ID: TFMTBCDField
+    object sqlPlanoContasCONTABIL_CONTA_ID: TBCDField
       FieldName = 'CONTABIL_CONTA_ID'
       Precision = 20
       Size = 2
@@ -3498,16 +3497,15 @@ object frmConfirmacao: TfrmConfirmacao
     Left = 102
     Top = 316
   end
-  object sqlGrupoContabil: TSimpleDataSet
+  object sqlGrupoContabil: TI9Query
     Aggregates = <>
     Connection = dtmControles.DB
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT DESCRICAO, CONTABIL_GRUPO_ID, BALANCETE_GRUPO_ID'#13#10'FROM J_' +
       'CONTABIL_GRUPO'#13#10'WHERE SITUACAO = '#39'A'#39' '#13#10'     AND TIPO = :TIPO'#13#10'  ' +
       '  AND ((BALANCETE_GRUPO_ID = :BALANCETE_GRUPO_ID)'#13#10'      OR (TIP' +
-      'O_GLOBAL = '#39'S'#39'))'#13#10'ORDER BY DESCRICAO'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <
+      'O_GLOBAL = '#39'S'#39'))'#13#10'ORDER BY DESCRICAO')
+    ParamData = <
       item
         DataType = ftString
         Name = 'TIPO'
@@ -3525,12 +3523,12 @@ object frmConfirmacao: TfrmConfirmacao
       FieldName = 'DESCRICAO'
       Size = 90
     end
-    object sqlGrupoContabilCONTABIL_GRUPO_ID: TFMTBCDField
+    object sqlGrupoContabilCONTABIL_GRUPO_ID: TBCDField
       FieldName = 'CONTABIL_GRUPO_ID'
       Precision = 20
       Size = 2
     end
-    object sqlGrupoContabilBALANCETE_GRUPO_ID: TFMTBCDField
+    object sqlGrupoContabilBALANCETE_GRUPO_ID: TBCDField
       FieldName = 'BALANCETE_GRUPO_ID'
       Precision = 20
       Size = 2
@@ -3541,14 +3539,13 @@ object frmConfirmacao: TfrmConfirmacao
     Left = 194
     Top = 317
   end
-  object sqlTipoModalidade: TSimpleDataSet
+  object sqlTipoModalidade: TI9Query
     Aggregates = <>
     Connection = dtmControles.DB
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT *'#13#10'FROM J_TIPO_MODALIDADE'#13#10'WHERE (TIPO = '#39'G'#39'  OR TIPO = :' +
-      'TIPO)'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <
+      'TIPO)')
+    ParamData = <
       item
         DataType = ftUnknown
         Name = 'TIPO'
@@ -3557,7 +3554,7 @@ object frmConfirmacao: TfrmConfirmacao
     Params = <>
     Left = 357
     Top = 261
-    object sqlTipoModalidadeTIPO_MODALIDADE_ID: TFMTBCDField
+    object sqlTipoModalidadeTIPO_MODALIDADE_ID: TBCDField
       FieldName = 'TIPO_MODALIDADE_ID'
       Required = True
       Precision = 20

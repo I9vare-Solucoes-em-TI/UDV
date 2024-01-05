@@ -18,7 +18,7 @@ type
     cxGridBasicaDBPalavra: TcxGridDBColumn;
     cxGridBasicaDBPrefixo: TcxGridDBColumn;
     cxGridBasicaLevel1: TcxGridLevel;
-    ClientAncestralGRAMATICA_ID: TFMTBCDField;
+    ClientAncestralGRAMATICA_ID: TBCDField;
     edtPalavra: TcxDBTextEdit;
     edtPrefixo: TcxDBTextEdit;
     Label1: TLabel;

@@ -3,6 +3,7 @@ unit CadastroRapidoContrato;
 interface
 
 uses
+  I9Query,
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, CadastroAuxSimplificado, dxSkinsCore, dxSkinBlack, dxSkinBlue,
   dxSkinCaramel, dxSkinCoffee, dxSkinDarkSide, dxSkinGlassOceans,
@@ -31,7 +32,7 @@ type
 
   TfrmCadastroRapidoContrato = class(TfrmCadastroAuxSimplificado)
     cxLabel28: TcxLabel;
-    sqlClientePrincipal: TSimpleDataSet;
+    sqlClientePrincipal: TI9Query;
     dtsClientePrincipal: TDataSource;
     cxLabel4: TcxLabel;
     lblDemaisClientes: TcxLabel;
@@ -39,22 +40,22 @@ type
     btnAlterarContrato: TcxButton;
     lcxClientePrincipal: TcxDBLookupComboBox;
     cbxVincular: TcxCheckBox;
-    ClientAncestralPROCESSO_CONTRATO_ID: TFMTBCDField;
-    ClientAncestralPROCESSO_ID: TFMTBCDField;
-    ClientAncestralPROCESSO_PARTE_ID: TFMTBCDField;
+    ClientAncestralPROCESSO_CONTRATO_ID: TBCDField;
+    ClientAncestralPROCESSO_ID: TBCDField;
+    ClientAncestralPROCESSO_PARTE_ID: TBCDField;
     ClientAncestralPARTE_ADICIONAL: TStringField;
-    ClientAncestralCONTRATO_NUMERO: TFMTBCDField;
-    sqlDemaisPartes: TSimpleDataSet;
+    ClientAncestralCONTRATO_NUMERO: TBCDField;
+    sqlDemaisPartes: TI9Query;
     dtsDemaisPartes: TDataSource;
-    sqlClientePrincipalPROCESSO_PARTE_ID: TFMTBCDField;
+    sqlClientePrincipalPROCESSO_PARTE_ID: TBCDField;
     sqlClientePrincipalNOME: TStringField;
-    sqlDemaisPartesPROCESSO_PARTE_ID: TFMTBCDField;
+    sqlDemaisPartesPROCESSO_PARTE_ID: TBCDField;
     sqlDemaisPartesNOME: TStringField;
     lcxDemaisClientes: TcxCheckListBox;
     sqlClientePrincipalCPFCNPJ: TStringField;
-    ClientAncestralPROCESSO_TRAMITE_ID: TFMTBCDField;
+    ClientAncestralPROCESSO_TRAMITE_ID: TBCDField;
     ClientAncestralADICIONAL: TStringField;
-    ClientAncestralADITIVO: TFMTBCDField;
+    ClientAncestralADITIVO: TBCDField;
     sqlClientePrincipalPRINCIPAL: TStringField;
     procedure FormActivate(Sender: TObject);
     procedure btnConfirmarClick(Sender: TObject);
@@ -190,7 +191,7 @@ begin
   sqlDemaisPartes.Connection     := dtmControles.DB;
 
   sqlClientePrincipal.Active := False;
-  sqlClientePrincipal.DataSet.ParamByName('PROCESSO_TRAMITE_ID').AsBCD := vgDadosCadastro.ChaveIdSecundaria;
+  sqlClientePrincipal.ParamByName('PROCESSO_TRAMITE_ID').AsBCD := vgDadosCadastro.ChaveIdSecundaria;
   sqlClientePrincipal.Active := True;
 
   cbxVincular.Enabled := sqlClientePrincipal.RecordCount > 1;
@@ -285,8 +286,8 @@ begin
     exit;
 
   sqlDemaisPartes.Active := False;
-  sqlDemaisPartes.DataSet.ParamByName('PROCESSO_TRAMITE_ID').AsBCD := vgDadosCadastro.ChaveIdSecundaria;
-  sqlDemaisPartes.DataSet.ParamByName('PROCESSO_PARTE_ID').AsBCD   := lcxClientePrincipal.EditValue;
+  sqlDemaisPartes.ParamByName('PROCESSO_TRAMITE_ID').AsBCD := vgDadosCadastro.ChaveIdSecundaria;
+  sqlDemaisPartes.ParamByName('PROCESSO_PARTE_ID').AsBCD   := lcxClientePrincipal.EditValue;
   sqlDemaisPartes.Active := True;
 
   if not sqlDemaisPartes.IsEmpty then

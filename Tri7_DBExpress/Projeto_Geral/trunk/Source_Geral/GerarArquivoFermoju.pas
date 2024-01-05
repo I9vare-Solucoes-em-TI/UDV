@@ -3,6 +3,8 @@ unit GerarArquivoFermoju;
 interface
 
 uses
+  I9Query,
+  I9Connection,
   Windows,
   Messages,
   SysUtils,
@@ -215,16 +217,16 @@ function TfrmGerarArquivoFermoju.AlterarSequencia(
   const vpSequencia: Integer): Integer;
 {$REGION 'Variáveis'}
 var
-  viSQLDataSet: TSQLDataSet;
+  viSQLDataSet: TI9Query;
 {$ENDREGION}
 begin
-  viSQLDataSet := TSQLDataSet.Create(
+  viSQLDataSet := TI9Query.Create(
     nil);
 
   try
-    viSQLDataSet.SQLConnection := dtmControles.DB;
+    viSQLDataSet.Connection := dtmControles.DB;
 
-    viSQLDataSet.CommandText := {$REGION 'Comando SQL UPDATE'}
+    viSQLDataSet.SQL.Text := {$REGION 'Comando SQL UPDATE'}
       {$REGION 'Cláusula UPDATE'}
       'UPDATE ' +
       'G_SEQUENCIA ' +
@@ -269,7 +271,7 @@ end;
 
 procedure TfrmGerarArquivoFermoju.btnPesquisarClick(Sender: TObject);
 var
-  SQL: TSimpleDataSet;
+  SQL: TI9Query;
   viEmolumentoPeriodoId : String;
   viQtd : Integer;
 

@@ -3,6 +3,8 @@ unit Legislacao;
 interface
 
 uses
+  I9Query,
+  I9Connection,
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
   System.Classes, Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, cxGraphics,
   cxControls, cxLookAndFeels, cxLookAndFeelPainters, dxBarBuiltInMenu, cxPC,
@@ -34,14 +36,14 @@ type
     Panel1: TPanel;
     btnPesquisarTop: TcxButton;
     btnFechar: TcxButton;
-    DataSetProvimento: TSQLDataSet;
+    DataSetProvimento: TI9Query;
     ProviderProvimento: TDataSetProvider;
     ClientProvimento: TClientDataSet;
     SourceProvimento: TDataSource;
-    ClientProvimentoPROVIMENTO_ID: TFMTBCDField;
-    ClientProvimentoPROVIMENTO_ESFERA_NIVEL_ID: TFMTBCDField;
-    ClientProvimentoPROVIMENTO_ORIGEM_ID: TFMTBCDField;
-    ClientProvimentoPROVIMENTO_TIPO_ID: TFMTBCDField;
+    ClientProvimentoPROVIMENTO_ID: TBCDField;
+    ClientProvimentoPROVIMENTO_ESFERA_NIVEL_ID: TBCDField;
+    ClientProvimentoPROVIMENTO_ORIGEM_ID: TBCDField;
+    ClientProvimentoPROVIMENTO_TIPO_ID: TBCDField;
     ClientProvimentoNUMERO: TStringField;
     ClientProvimentoDATA: TSQLTimeStampField;
     ClientProvimentoASSUNTO: TStringField;
@@ -539,7 +541,7 @@ begin
   viSqlComplemento := viSqlComplemento + ' ORDER BY DATA ';
 
   ClientProvimento.Close;
-  DataSetProvimento.CommandText := viSql + viSqlComplemento;
+  DataSetProvimento.SQL.Text := viSql + viSqlComplemento;
   ClientProvimento.Open;
 end;
 
@@ -731,7 +733,7 @@ procedure TfrmLegislacao.FormCreate(Sender: TObject);
 begin
   vlPermissao := vgPermissaoRotina;
 
-  DataSetProvimento.SQLConnection := dtmControles.DB;
+  DataSetProvimento.Connection := dtmControles.DB;
 
   if not dtmLookup.sqlProvimentoEsferaNivel.Active then
     dtmLookup.sqlProvimentoEsferaNivel.Active := True;

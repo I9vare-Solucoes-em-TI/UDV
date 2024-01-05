@@ -3,13 +3,16 @@ unit Controles;
 interface
 
 uses                             
+  I9StoredProc,
+  I9Query,
+  I9Connection,
   Windows, SysUtils, Forms, Classes, DBXpress, DB, SqlExpr, ImgList,
   Controls, cxContainer, cxEdit, cxClasses, cxStyles, Math, Messages,
   cxGridTableView, cxHint, DBClient, SimpleDS, cxEditRepositoryItems, WPCTRRich,
   FMTBcd, cxGridCardView, cxLookupEdit, cxDBLookupEdit, cxDBLookupComboBox, cxDbEdit, IniFiles,
   cxDropDownEdit, Variants, cxMaskEdit, frxRich, frxClass, cxTextEdit, frxExportImage,
   frxDesgn, ad3SpellBase, ad3Spell, frxDCtrl, cxCalendar,
-  frxDBXComponents, frxChBox, frxChart, frxOLE, frxBarcode,
+  frxFDComponents, frxChBox, frxChart, frxOLE, frxBarcode,
   ActnMan, ActnColorMaps, cxImageComboBox, Dialogs, ActnCtrls, ActnList,
   cxLookAndFeels, MSNPopUp, ExtCtrls, cxScheduler, cxSchedulerCustomControls,
   cxSchedulerDialogs, frxExportRTF, frxExportPDF, frxExportXLS, ECripto,
@@ -106,18 +109,18 @@ type
 
   TdtmControles = class(TDataModule)
     cxHintStyleController: TcxHintStyleController;
-    SimpleAuxiliar: TSimpleDataSet;
-    sqlSequencia: TSQLQuery;
-    sqlAuxiliar: TSQLQuery;
+    SimpleAuxiliar: TI9Query;
+    sqlSequencia: TI9Query;
+    sqlAuxiliar: TI9Query;
     cxEsc_EditsNormal: TcxEditStyleController;
     cxEsc_EditsObrigatorio: TcxEditStyleController;
     cxEditRepository1: TcxEditRepository;
     cxEditRepository1CurrencyItem1: TcxEditRepositoryCurrencyItem;
     cxEditRepository1DateItem1: TcxEditRepositoryDateItem;
-    sqlConfig: TSimpleDataSet;
-    sqlConfigCONFIG_ID: TFMTBCDField;
-    sqlConfigCONFIG_GRUPO_ID: TFMTBCDField;
-    sqlConfigCONFIG_PADRAO_ID: TFMTBCDField;
+    sqlConfig: TI9Query;
+    sqlConfigCONFIG_ID: TBCDField;
+    sqlConfigCONFIG_GRUPO_ID: TBCDField;
+    sqlConfigCONFIG_PADRAO_ID: TBCDField;
     sqlConfigSECAO: TStringField;
     sqlConfigNOME: TStringField;
     sqlConfigVALOR: TStringField;
@@ -134,30 +137,30 @@ type
     frxOLEObject1: TfrxOLEObject;
     frxChartObject1: TfrxChartObject;
     frxCheckBoxObject1: TfrxCheckBoxObject;
-    frxDBXComponents1: TfrxDBXComponents;
+    frxFDComponents1: TfrxFDComponents;
     StandardColorMap1: TStandardColorMap;
-    sqlRelatorio: TSimpleDataSet;
-    sqlRelatorioGRUPO_RELATORIO_ID: TFMTBCDField;
+    sqlRelatorio: TI9Query;
+    sqlRelatorioGRUPO_RELATORIO_ID: TBCDField;
     sqlRelatorioGRUPO: TStringField;
-    sqlRelatorioCONFIG_RELATORIO_ID: TFMTBCDField;
+    sqlRelatorioCONFIG_RELATORIO_ID: TBCDField;
     sqlRelatorioDESCRICAO: TStringField;
     sqlRelatorioRELATORIO: TBlobField;
     LookAndFeelController: TcxLookAndFeelController;
     frxDesigner1: TfrxDesigner;
     frxImagem: TfrxReport;
     timerAgenda: TTimer;
-    sqlG_Agenda: TSimpleDataSet;
-    sqlG_AgendaAGENDA_ID: TFMTBCDField;
-    sqlG_AgendaTIPO_EVENTO: TFMTBCDField;
+    sqlG_Agenda: TI9Query;
+    sqlG_AgendaAGENDA_ID: TBCDField;
+    sqlG_AgendaTIPO_EVENTO: TBCDField;
     sqlG_AgendaDATA_INICIO: TSQLTimeStampField;
     sqlG_AgendaDATA_FIM: TSQLTimeStampField;
     sqlG_AgendaASSUNTO: TStringField;
     sqlG_AgendaMENSAGEM: TStringField;
-    sqlG_AgendaCOR: TFMTBCDField;
-    sqlG_AgendaOPCAO: TFMTBCDField;
-    sqlG_AgendaSTATUS: TFMTBCDField;
-    sqlG_AgendaUSUARIO_ID: TFMTBCDField;
-    sqlG_AgendaUSUARIO_AGENDOU_ID: TFMTBCDField;
+    sqlG_AgendaCOR: TBCDField;
+    sqlG_AgendaOPCAO: TBCDField;
+    sqlG_AgendaSTATUS: TBCDField;
+    sqlG_AgendaUSUARIO_ID: TBCDField;
+    sqlG_AgendaUSUARIO_AGENDOU_ID: TBCDField;
     sqlG_AgendaMENSAGEM_FINALIZADO: TBlobField;
     sqlG_AgendaDATA_HORA_CADASTRO: TSQLTimeStampField;
     sqlG_AgendaDATA_HORA_ENVIADO: TSQLTimeStampField;
@@ -172,7 +175,7 @@ type
     Cripto: TEvCriptografa;
     timerSessao: TTimer;
     imgCadBasicos: TImageList;
-    SP_SEQUENCIA: TSQLStoredProc;
+    SP_SEQUENCIA: TI9StoredProc;
     IdMessage: TIdMessage;
     idPOP3: TIdPOP3;
     idSmtp: TIdSMTP;
@@ -184,8 +187,8 @@ type
     gtPDFDocument: TgtPDFDocument;
     ClientAncestral: TClientDataSet;
     ProviderAncestral: TDataSetProvider;
-    DataSetAncestral: TSQLDataSet;
-    ClientAncestralCONFIG_RELATORIO_ID: TFMTBCDField;
+    DataSetAncestral: TI9Query;
+    ClientAncestralCONFIG_RELATORIO_ID: TBCDField;
     ClientAncestralRELATORIO: TBlobField;
     ImageListAndamento: TImageList;
     cxStyleLabel: TcxEditStyleController;
@@ -245,7 +248,7 @@ type
     cxTreeListStyleSheet1: TcxTreeListStyleSheet;
     frxRTFExport1: TfrxRTFExport;
     cxEditStyleBotao: TcxEditStyleController;
-    DB: TCRSQLConnection;
+    DB: TI9Connection;
     procedure CRTemp_DBBeforeConnect(Sender: TObject);
     procedure DataModuleCreate(Sender: TObject);
     procedure DataModuleDestroy(Sender: TObject);
@@ -539,9 +542,9 @@ begin
   end;
 end;
 
-function NewQuery: TSimpleDataSet;
+function NewQuery: TI9Query;
 begin
-  Result := TSimpleDataSet.Create(Application);
+  Result := TI9Query.Create(Application);
   Result.Connection := dtmControles.DB;
 end;
 
@@ -798,8 +801,8 @@ begin
   with dtmControles.SimpleAuxiliar do
   begin
     Active := False;
-    DataSet.CommandText := '';
-    DataSet.CommandText := vpSql;
+    SQL.Text := '';
+    SQL.Text := vpSql;
     case vpTipo of
       0 : Active := True;
       1 : Execute;
@@ -919,12 +922,12 @@ end;
 
 function TdtmControles.GetStr(Qry: string): string;
 var
-  SQL: TSimpleDataSet;
+  SQL: TI9Query;
 begin
   Result := '';
   SQL := NewQuery;
   try
-    SQL.DataSet.CommandText := Qry;
+    SQL.SQL.Text := Qry;
     SQL.Open;
     if SQL.Active then
     begin
@@ -1561,7 +1564,7 @@ begin
     SQL.Add(vpSql);
     case vpTipo of
       0 : Active := True;
-      1 : ExecSQL(FALSE);
+      1 : ExecSQL;
       // Tipo = 2, significa que vai receber parametros.
     end;
   end;
@@ -1599,13 +1602,13 @@ end;
 
 function TdtmControles.GetFields(Qry: string): TStringList;
 var
-  SQL: TSimpleDataSet;
+  SQL: TI9Query;
   C: integer;
 begin
   Result := TStringList.Create;
   SQL := NewQuery;
   try
-    SQL.DataSet.CommandText := Qry;
+    SQL.SQL.Text := Qry;
     SQL.Open;
     if SQL.Active then
     begin
@@ -1805,8 +1808,8 @@ end;
 procedure TdtmControles.CarregarConfig;
 begin
   dtmControles.sqlConfig.Close;
-  dtmControles.sqlConfig.DataSet.ParamByName('TERMINAL').AsString    := Rotinas.NomeEstacao;
-  dtmControles.sqlConfig.DataSet.ParamByName('SISTEMA_ID').AsInteger := vgId;
+  dtmControles.sqlConfig.ParamByName('TERMINAL').AsString    := Rotinas.NomeEstacao;
+  dtmControles.sqlConfig.ParamByName('SISTEMA_ID').AsInteger := vgId;
   dtmControles.sqlConfig.Open;
 
   vgNumeRegHistorico := BuscarConfig('PRINCIPAL', 'GERAL', 'QTDEREG_HISTORICO', 'I');
@@ -1816,11 +1819,11 @@ procedure TdtmControles.Auditoria(Tabela, Campo, Operacao, Valor, ID, Observacao
 
   function ControleAuditor(TabelaAuditoria : String): Boolean;
   var Sql : String;
-      sqlHistorico : TSimpleDataSet;
+      sqlHistorico : TI9Query;
   begin
     Result := True;
 
-    sqlHistorico := TSimpleDataSet.Create(Application);
+    sqlHistorico := TI9Query.Create(Application);
     sqlHistorico.Connection := DB;
 
     Sql := ' SELECT * FROM ' + TabelaAuditoria +
@@ -1829,11 +1832,10 @@ procedure TdtmControles.Auditoria(Tabela, Campo, Operacao, Valor, ID, Observacao
            ' AND CAMPO = :CAMPO '+
            ' ORDER BY HISTORICO_ID ';
 
-    sqlHistorico.DataSet.CommandText :=  Sql;
-    sqlHistorico.DataSet.Prepared := True;
-    sqlHistorico.DataSet.ParamByName('TABELA').AsString := Tabela;
-    sqlHistorico.DataSet.ParamByName('ID').AsString     := ID;
-    sqlHistorico.DataSet.ParamByName('CAMPO').AsString  := Campo;
+    sqlHistorico.SQL.Text :=  Sql;
+    sqlHistorico.ParamByName('TABELA').AsString := Tabela;
+    sqlHistorico.ParamByName('ID').AsString     := ID;
+    sqlHistorico.ParamByName('CAMPO').AsString  := Campo;
     sqlHistorico.Open;
 
     if not sqlHistorico.IsEmpty then
@@ -1863,7 +1865,7 @@ procedure TdtmControles.Auditoria(Tabela, Campo, Operacao, Valor, ID, Observacao
 var
   Sql,
   TabelaAuditoria : String;
-  sqlAuditor : TSimpleDataSet;
+  sqlAuditor : TI9Query;
 begin
   case vgId of
     1 : TabelaAuditoria := 'R_HISTORICO';
@@ -1877,7 +1879,7 @@ begin
 
   if ControleAuditor(TabelaAuditoria) then
   begin
-    sqlAuditor := TSimpleDataSet.Create(Application);
+    sqlAuditor := TI9Query.Create(Application);
     sqlAuditor.Connection := DB;
 
     Sql := 'INSERT INTO '+  TabelaAuditoria + ' ( '+
@@ -1901,17 +1903,17 @@ begin
            '             :ID, '+
            '             :OBSERVACAO); ';
 
-    sqlAuditor.DataSet.CommandText := Sql;
+    sqlAuditor.SQL.Text := Sql;
 
-    sqlAuditor.DataSet.ParamByName('HISTORICO_ID').AsString := GerarSequencia(TabelaAuditoria);
-    sqlAuditor.DataSet.ParamByName('TABELA').AsString := Tabela;
-    sqlAuditor.DataSet.ParamByName('CAMPO').AsString := Campo;
-    sqlAuditor.DataSet.ParamByName('OPERACAO').AsString := Operacao;
-    sqlAuditor.DataSet.ParamByName('NEW_VALUE').AsBlob   := Valor;
-    sqlAuditor.DataSet.ParamByName('DATA').AsString := DataHoraBanco(5);
-    sqlAuditor.DataSet.ParamByName('USUARIO_ID').AsString := vgUsuarioID;
-    sqlAuditor.DataSet.ParamByName('ID').AsString := ID;
-    sqlAuditor.DataSet.ParamByName('OBSERVACAO').AsString := Observacao;
+    sqlAuditor.ParamByName('HISTORICO_ID').AsString := GerarSequencia(TabelaAuditoria);
+    sqlAuditor.ParamByName('TABELA').AsString := Tabela;
+    sqlAuditor.ParamByName('CAMPO').AsString := Campo;
+    sqlAuditor.ParamByName('OPERACAO').AsString := Operacao;
+    sqlAuditor.ParamByName('NEW_VALUE').AsBlob   := Valor;
+    sqlAuditor.ParamByName('DATA').AsString := DataHoraBanco(5);
+    sqlAuditor.ParamByName('USUARIO_ID').AsString := vgUsuarioID;
+    sqlAuditor.ParamByName('ID').AsString := ID;
+    sqlAuditor.ParamByName('OBSERVACAO').AsString := Observacao;
 
     sqlAuditor.Execute;
     Application.ProcessMessages;
@@ -1928,7 +1930,7 @@ begin
     with SimpleAuxiliar do
     begin
       Active := False;
-      DataSet.CommandText := ' SELECT * FROM G_LOG_ERRO '+
+      SQL.Text := ' SELECT * FROM G_LOG_ERRO '+
                              ' WHERE LOG_ERRO_ID = 0 ';
       Active := True;
       Insert;
@@ -2062,7 +2064,7 @@ var
   Str : TStringList;
 begin
   sqlRelatorio.Connection := dtmControles.DB;
-  sqlRelatorio.DataSet.Params[0].AsInteger := vgId;
+  sqlRelatorio.Params[0].AsInteger := vgId;
   sqlRelatorio.Open;
 
   if not sqlRelatorio.IsEmpty then
@@ -2194,7 +2196,7 @@ begin
         with sqlG_Agenda do
         begin
           Active := False;
-          DataSet.Params[0].AsCurrency := StrToInt(vgUsuarioID);
+          Params[0].AsCurrency := StrToInt(vgUsuarioID);
           Active := True;
         end;
       end;

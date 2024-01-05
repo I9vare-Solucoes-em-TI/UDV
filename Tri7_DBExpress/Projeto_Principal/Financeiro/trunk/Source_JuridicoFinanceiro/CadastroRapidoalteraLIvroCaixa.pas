@@ -3,6 +3,7 @@ unit CadastroRapidoalteraLIvroCaixa;
 interface
 
 uses
+  I9Query,
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, CadastroAuxSimplificado, cxGraphics, cxControls, cxLookAndFeels,
   cxLookAndFeelPainters, cxContainer, cxEdit, dxSkinsCore, dxSkinBlack,
@@ -24,21 +25,21 @@ uses
 
 type
   TfrmCadastroRapidoAlteraLivroCaixa = class(TfrmCadastroAuxSimplificado)
-    ClientAncestralLIVRO_CAIXA_ID: TFMTBCDField;
+    ClientAncestralLIVRO_CAIXA_ID: TBCDField;
     ClientAncestralHISTORICO: TStringField;
     ClientAncestralESPECIE: TStringField;
     ClientAncestralOBSERVACAO: TStringField;
-    ClientAncestralVALOR: TFMTBCDField;
+    ClientAncestralVALOR: TBCDField;
     ClientAncestralDATA_PAGAMENTO: TSQLTimeStampField;
-    ClientAncestralCONTABIL_CONTA_ID: TFMTBCDField;
+    ClientAncestralCONTABIL_CONTA_ID: TBCDField;
     ClientAncestralREFERENCIA: TStringField;
-    ClientAncestralCAIXA_ID: TFMTBCDField;
+    ClientAncestralCAIXA_ID: TBCDField;
     ClientAncestralANO_MES_REGISTRO: TStringField;
     ClientAncestralIR: TStringField;
     ClientAncestralCNJ: TStringField;
     ClientAncestralDOCUMENTO_NUMERO: TStringField;
-    ClientAncestralCONTABIL_GRUPO_ID: TFMTBCDField;
-    ClientAncestralPESSOA_ID: TFMTBCDField;
+    ClientAncestralCONTABIL_GRUPO_ID: TBCDField;
+    ClientAncestralPESSOA_ID: TBCDField;
     ClientAncestralOPERACAO: TStringField;
     tabBalancete: TcxTabControl;
     cxLabel3: TcxLabel;
@@ -64,18 +65,18 @@ type
     edtDataLancamento: TcxDBDateEdit;
     icxEspecie: TcxDBImageComboBox;
     lcxConta: TcxDBLookupComboBox;
-    sqlPlanoContas: TSimpleDataSet;
-    sqlPlanoContasCONTABIL_CONTA_ID: TFMTBCDField;
+    sqlPlanoContas: TI9Query;
+    sqlPlanoContasCONTABIL_CONTA_ID: TBCDField;
     sqlPlanoContasDESCRICAO: TStringField;
     sqlPlanoContasIR: TStringField;
     sqlPlanoContasCNJ: TStringField;
     dtsPlanoContas: TDataSource;
-    ClientAncestralBALANCETE_GRUPO_ID: TFMTBCDField;
-    ClientAncestralLIVRO_FINANCEIRO_ID: TFMTBCDField;
-    sqlGrupoContabil: TSimpleDataSet;
+    ClientAncestralBALANCETE_GRUPO_ID: TBCDField;
+    ClientAncestralLIVRO_FINANCEIRO_ID: TBCDField;
+    sqlGrupoContabil: TI9Query;
     sqlGrupoContabilDESCRICAO: TStringField;
-    sqlGrupoContabilCONTABIL_GRUPO_ID: TFMTBCDField;
-    sqlGrupoContabilBALANCETE_GRUPO_ID: TFMTBCDField;
+    sqlGrupoContabilCONTABIL_GRUPO_ID: TBCDField;
+    sqlGrupoContabilBALANCETE_GRUPO_ID: TBCDField;
     dtsGrupoContabil: TDataSource;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnConfirmarClick(Sender: TObject);
@@ -162,7 +163,7 @@ begin
     exit;
 
   sqlPlanoContas.Active := False;
-  sqlPlanoContas.DataSet.ParamByName('CONTABIL_GRUPO_ID').AsInteger := lcxGrupoContabil.EditValue;
+  sqlPlanoContas.ParamByName('CONTABIL_GRUPO_ID').AsInteger := lcxGrupoContabil.EditValue;
   sqlPlanoContas.Active := True;
 
   if (sqlPlanoContas.RecordCount = 1) and (ClientAncestral.State in [dsEdit, dsInsert]) then
@@ -185,8 +186,8 @@ begin
     viTipoGrupoContabil := dtmControles.GetStr(' SELECT TIPO FROM J_CONTABIL_GRUPO WHERE CONTABIL_GRUPO_ID = '+ ClientAncestralCONTABIL_GRUPO_ID.AsString);
 
     sqlGrupoContabil.Active := False;
-    sqlGrupoContabil.DataSet.ParamByName('TIPO').AsString := viTipoGrupoContabil;
-    sqlGrupoContabil.DataSet.ParamByName('BALANCETE_GRUPO_ID').AsInteger := vgTabBalancete[tabBalancete.TabIndex];
+    sqlGrupoContabil.ParamByName('TIPO').AsString := viTipoGrupoContabil;
+    sqlGrupoContabil.ParamByName('BALANCETE_GRUPO_ID').AsInteger := vgTabBalancete[tabBalancete.TabIndex];
     sqlGrupoContabil.Active := True;
   end;
 

@@ -3,6 +3,7 @@ unit SeloLote;
 interface
 
 uses
+  I9Query,
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, CadBasico, cxLookAndFeelPainters, FMTBcd, DB, DBClient,
   Provider, SqlExpr, ActnList, ComCtrls, StdCtrls, cxButtons, ExtCtrls,
@@ -30,23 +31,23 @@ type
   TfrmCadSeloLote = class(TfrmCadBasico)
     cxLabel1: TcxLabel;
     cxLabel5: TcxLabel;
-    sqlSeloLivro: TSimpleDataSet;
+    sqlSeloLivro: TI9Query;
     dtsSeloLivro: TDataSource;
-    ClientAncestralSELO_LOTE_ID: TFMTBCDField;
+    ClientAncestralSELO_LOTE_ID: TBCDField;
     ClientAncestralSITUACAO: TStringField;
     ClientAncestralDATA_LOTE: TSQLTimeStampField;
-    ClientAncestralNUMERO_INICIAL: TFMTBCDField;
-    ClientAncestralNUMERO_FINAL: TFMTBCDField;
+    ClientAncestralNUMERO_INICIAL: TBCDField;
+    ClientAncestralNUMERO_FINAL: TBCDField;
     ClientAncestralOBSERVACAO: TStringField;
-    ClientAncestralSELO_GRUPO_ID: TFMTBCDField;
-    sqlSeloGrupo: TSimpleDataSet;
+    ClientAncestralSELO_GRUPO_ID: TBCDField;
+    sqlSeloGrupo: TI9Query;
     dtsSeloGrupo: TDataSource;
-    sqlSeloLivroSELO_LIVRO_ID: TFMTBCDField;
-    sqlSeloLivroNUMERO: TFMTBCDField;
-    sqlSeloLivroSELO_SITUACAO_ID: TFMTBCDField;
+    sqlSeloLivroSELO_LIVRO_ID: TBCDField;
+    sqlSeloLivroNUMERO: TBCDField;
+    sqlSeloLivroSELO_SITUACAO_ID: TBCDField;
     sqlSeloLivroOBSERVACAO: TStringField;
-    sqlSeloLivroSELO_LOTE_ID: TFMTBCDField;
-    sqlSeloGrupoSELO_GRUPO_ID: TFMTBCDField;
+    sqlSeloLivroSELO_LOTE_ID: TBCDField;
+    sqlSeloGrupoSELO_GRUPO_ID: TBCDField;
     sqlSeloGrupoDESCRICAO: TStringField;
     sqlSeloGrupoSITUACAO: TStringField;
     cxLabel7: TcxLabel;
@@ -74,16 +75,16 @@ type
     cxGridDBColumn6: TcxGridDBColumn;
     cxGridLevel1: TcxGridLevel;
     pnlBotoes: TPanel;
-    sqlSeloSituacao: TSimpleDataSet;
+    sqlSeloSituacao: TI9Query;
     dtsSeloSituacao: TDataSource;
-    sqlSeloSituacaoSELO_SITUACAO_ID: TFMTBCDField;
+    sqlSeloSituacaoSELO_SITUACAO_ID: TBCDField;
     sqlSeloSituacaoDESCRICAO: TStringField;
     sqlSeloSituacaoSITUACAO: TStringField;
     sqlSeloLivroDATA: TSQLTimeStampField;
-    sqlSeloGrupoNUMERO: TFMTBCDField;
+    sqlSeloGrupoNUMERO: TBCDField;
     sqlSeloLivroTABELA: TStringField;
-    sqlSeloLivroCAMPO_ID: TFMTBCDField;
-    sqlSeloLivroUSUARIO_ID: TFMTBCDField;
+    sqlSeloLivroCAMPO_ID: TBCDField;
+    sqlSeloLivroUSUARIO_ID: TBCDField;
     cxGridDBTableView1Column1: TcxGridDBColumn;
     cxGridDBTableView1Column2: TcxGridDBColumn;
     sqlSeloLivrocalc_Vinculo: TBooleanField;
@@ -211,7 +212,7 @@ begin
                          ' WHERE SELO_LOTE_ID = '+ ClientAncestralSELO_LOTE_ID.AsString,1);
 
       sqlSeloLivro.Active := False;
-      sqlSeloLivro.DataSet.ParamByName('SELO_LOTE_ID').AsBCD := ClientAncestralSELO_LOTE_ID.AsCurrency;
+      sqlSeloLivro.ParamByName('SELO_LOTE_ID').AsBCD := ClientAncestralSELO_LOTE_ID.AsCurrency;
       sqlSeloLivro.Active := True;
 
       Screen.Cursor := crHourGlass;
@@ -284,7 +285,7 @@ begin
   if pgcControle.ActivePageIndex = 1 then
   begin
     sqlSeloLivro.Active := False;
-    sqlSeloLivro.DataSet.ParamByName('SELO_LOTE_ID').AsBCD := ClientAncestralSELO_LOTE_ID.AsCurrency;
+    sqlSeloLivro.ParamByName('SELO_LOTE_ID').AsBCD := ClientAncestralSELO_LOTE_ID.AsCurrency;
     sqlSeloLivro.Active := True;
 
     vgSeloDisponivel := StrToInt(PegarSeloDisponivel('1'));

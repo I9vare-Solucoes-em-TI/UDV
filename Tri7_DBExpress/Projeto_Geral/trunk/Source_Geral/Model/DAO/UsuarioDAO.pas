@@ -3,16 +3,18 @@ unit UsuarioDAO;
 interface
 
 uses
+  I9Query,
+  I9Connection,
   Data.SqlExpr,
   Usuario;
 
 type
   TUsuarioDAO = class
   private
-    FSQLConnection: TSQLConnection;
+    FConnection: TI9Connection;
   public
     constructor Create(
-      const vpSQLConnection: TSQLConnection); reintroduce;
+      const vpConnection: TI9Connection); reintroduce;
 
     function Get(
       const vpUsuarioID: Integer): IUsuario;
@@ -27,29 +29,29 @@ uses
 { TUsuarioDAO }
 
 constructor TUsuarioDAO.Create(
-  const vpSQLConnection: TSQLConnection);
+  const vpConnection: TI9Connection);
 begin
   inherited Create;
-  FSQLConnection := vpSQLConnection;
+  FConnection := vpConnection;
 end;
 
 function TUsuarioDAO.Get(
   const vpUsuarioID: Integer): IUsuario;
 {$REGION 'Variáveis'}
 var
-  viSQLDataSet: TSQLDataSet;
+  viSQLDataSet: TI9Query;
 {$ENDREGION}
 begin
   Result := nil;
 
-  viSQLDataSet := TSQLDataSet.Create(nil);
-  viSQLDataSet.SQLConnection := FSQLConnection;
+  viSQLDataSet := TI9Query.Create(nil);
+  viSQLDataSet.Connection := FConnection;
 
   try
     with viSQLDataSet do
     begin
       {$REGION 'Comando SQL SELECT'}
-      CommandText :=
+      SQL.Text :=
         'SELECT ' +
 
         {$REGION 'Colunas'}

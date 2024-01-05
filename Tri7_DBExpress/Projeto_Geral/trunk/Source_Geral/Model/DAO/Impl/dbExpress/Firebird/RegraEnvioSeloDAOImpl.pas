@@ -3,6 +3,8 @@ unit RegraEnvioSeloDAOImpl;
 interface
 
 uses
+  FireDAC.Stan.Param,
+  I9Connection,
   RegraEnvioSeloDAO,
   Data.SqlExpr,
   Data.DB,
@@ -13,14 +15,14 @@ uses
 type
   TRegraEnvioSeloDAO = class(TInterfacedObject, IRegraEnvioSeloDAO)
   private
-    FSQLConnection: TSQLConnection;
+    FConnection: TI9Connection;
 
     procedure PreencherParametros(
-      const vpParams: TParams;
+      const vpParams: TFDParams;
       const vpValue: IRegraEnvioSelo);
   public
     constructor Create(
-      const vpSQLConnection: TSQLConnection); reintroduce;
+      const vpConnection: TI9Connection); reintroduce;
 
     function Get(
       const vpValue: TDataSet): IRegraEnvioSelo; overload;
@@ -63,7 +65,7 @@ procedure TRegraEnvioSeloDAO.Alterar(
 {$REGION 'Variáveis'}
 var
   viSQL: string;
-  viParams: TParams;
+  viParams: TFDParams;
 {$ENDREGION}
 begin
   viSQL := {$REGION 'Comando SQL UPDATE'}
@@ -85,7 +87,7 @@ begin
 
   {$ENDREGION}
 
-  viParams := TParams.Create;
+  viParams := TFDParams.Create;
   try
     viParams.CreateParam(TFieldType.ftInteger, 'P_REGRA_ENVIO_SELO_ID',
       TParamType.ptInput);
@@ -97,17 +99,17 @@ begin
       TParamType.ptInput);
 
     PreencherParametros(viParams, vpValue);
-    FSQLConnection.Execute(viSQL, viParams);
+    FConnection.Execute(viSQL, viParams);
   finally
     FreeAndNil(viParams);
   end;
 end;
 
 constructor TRegraEnvioSeloDAO.Create(
-  const vpSQLConnection: TSQLConnection);
+  const vpConnection: TI9Connection);
 begin
   inherited Create;
-  FSQLConnection := vpSQLConnection;
+  FConnection := vpConnection;
 end;
 
 procedure TRegraEnvioSeloDAO.Excluir(
@@ -115,7 +117,7 @@ procedure TRegraEnvioSeloDAO.Excluir(
 {$REGION 'Variáveis'}
 var
   viSQL: string;
-  viParams: TParams;
+  viParams: TFDParams;
 {$ENDREGION}
 begin
   viSQL := {$REGION 'Comando SQL DELETE'}
@@ -133,12 +135,12 @@ begin
 
   {$ENDREGION}
 
-  viParams := TParams.Create;
+  viParams := TFDParams.Create;
   try
     viParams.CreateParam(TFieldType.ftInteger, 'P_SELO_GRUPO_ID',
       TParamType.ptInput).AsInteger := vpValue.SeloGrupoID;
 
-    FSQLConnection.Execute(viSQL, viParams);
+    FConnection.Execute(viSQL, viParams);
   finally
     FreeAndNil(viParams);
   end;
@@ -149,7 +151,7 @@ function TRegraEnvioSeloDAO.Get(
 {$REGION 'Variáveis'}
 var
   viSQL: string;
-  viParams: TParams;
+  viParams: TFDParams;
   viDataSet: TDataSet;
 {$ENDREGION}
 begin
@@ -175,12 +177,12 @@ begin
 
   {$ENDREGION}
 
-  viParams := TParams.Create;
+  viParams := TFDParams.Create;
   try
     viParams.CreateParam(TFieldType.ftInteger, 'P_SELO_GRUPO_ID',
       TParamType.ptInput).AsInteger := vpValue.SeloGrupoID;
 
-    FSQLConnection.Execute(viSQL, viParams, viDataSet);
+    FConnection.Execute(viSQL, viParams, viDataSet);
     try
       if viDataSet.IsEmpty then
         Exit;
@@ -228,7 +230,7 @@ begin
     if Assigned(viField) and
       viField.IsNull.&Not then
     begin
-      viSeloGrupoDAO := TSeloGrupoDAO.Create(FSQLConnection);
+      viSeloGrupoDAO := TSeloGrupoDAO.Create(FConnection);
       try
         SeloGrupo := viSeloGrupoDAO.Get(vpValue);
       finally
@@ -286,7 +288,7 @@ begin
 
   {$ENDREGION}
 
-  FSQLConnection.Execute(viSQL, nil, viDataSet);
+  FConnection.Execute(viSQL, nil, viDataSet);
   try
     if viDataSet.IsEmpty then
       Exit;
@@ -315,7 +317,7 @@ procedure TRegraEnvioSeloDAO.Inserir(
 {$REGION 'Variáveis'}
 var
   viSQL: string;
-  viParams: TParams;
+  viParams: TFDParams;
 {$ENDREGION}
 begin
   viSQL := {$REGION 'Comando SQL INSERT'}
@@ -346,7 +348,7 @@ begin
 
   {$ENDREGION}
 
-  viParams := TParams.Create;
+  viParams := TFDParams.Create;
   try
     viParams.CreateParam(TFieldType.ftInteger, 'P_REGRA_ENVIO_SELO_ID',
       TParamType.ptInput);
@@ -358,18 +360,18 @@ begin
       TParamType.ptInput);
 
     PreencherParametros(viParams, vpValue);
-    FSQLConnection.Execute(viSQL, viParams);
+    FConnection.Execute(viSQL, viParams);
   finally
     FreeAndNil(viParams);
   end;
 end;
 
 procedure TRegraEnvioSeloDAO.PreencherParametros(
-  const vpParams: TParams;
+  const vpParams: TFDParams;
   const vpValue: IRegraEnvioSelo);
 {$REGION 'Variáveis'}
 var
-  viParam: TParam;
+  viParam: TFDParam;
 {$ENDREGION}
 begin
   with vpParams, vpValue do

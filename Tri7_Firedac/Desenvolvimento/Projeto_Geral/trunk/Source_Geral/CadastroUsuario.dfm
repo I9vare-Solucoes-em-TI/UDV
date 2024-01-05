@@ -2714,7 +2714,6 @@ inherited frmUsuario: TfrmUsuario
     FetchOptions.AssignedValues = [evMode]
     FetchOptions.Mode = fmAll
     SQL.Strings = (
-      
         'select * from G_USUARIO_GRUPO'#13#10'where SITUACAO = '#39'A'#39#13#10'order by DE' +
         'SCRICAO')
     Left = 269
@@ -2890,7 +2889,6 @@ inherited frmUsuario: TfrmUsuario
     FetchOptions.AssignedValues = [evMode]
     FetchOptions.Mode = fmAll
     SQL.Strings = (
-      
         'select * from G_SISTEMA_MENU '#13#10'where SISTEMA_ID = :SISTEMA_ID'#13#10'o' +
         'rder by DESCRICAO')
     Left = 726
@@ -2898,7 +2896,7 @@ inherited frmUsuario: TfrmUsuario
     ParamData = <
       item
         Name = 'SISTEMA_ID'
-        DataType = ftFMTBcd
+        DataType = ftBCD
         ParamType = ptInput
       end>
     object sqlMenuSISTEMA_MENU_ID: TBCDField
@@ -2975,7 +2973,6 @@ inherited frmUsuario: TfrmUsuario
     FetchOptions.AssignedValues = [evMode]
     FetchOptions.Mode = fmAll
     SQL.Strings = (
-      
         'SELECT R.SISTEMA_ROTINA_ID,'#13#10'       R.DESCRICAO DESCROTINA,'#13#10'   ' +
         '    R.SISTEMA_MENU_ID,'#13#10'       R.CHAVE_ROTINA,'#13#10'       PG.PERMIS' +
         'SAO'#13#10'FROM G_SISTEMA_ROTINA R'#13#10'LEFT JOIN G_PERMISSAO_GRUPO PG ON'#13 +
@@ -3059,7 +3056,6 @@ inherited frmUsuario: TfrmUsuario
     FetchOptions.AssignedValues = [evMode]
     FetchOptions.Mode = fmAll
     SQL.Strings = (
-      
         'SELECT U.USUARIO_ID, U.NOME_COMPLETO, U.LOGIN, U.FUNCAO, U.ASSIN' +
         'A, U.SITUACAO'
       'FROM G_USUARIO U'
@@ -3067,7 +3063,6 @@ inherited frmUsuario: TfrmUsuario
       '  U.USUARIO_ID = US.USUARIO_ID'
       'WHERE (U.SITUACAO = :SITUACAO1'
       '  OR      U.SITUACAO = :SITUACAO2)'
-      
         'GROUP BY U.USUARIO_ID, U.NOME_COMPLETO, U.LOGIN, U.FUNCAO, U.ASS' +
         'INA, U.SITUACAO'
       'ORDER BY NOME_COMPLETO')
@@ -3121,7 +3116,6 @@ inherited frmUsuario: TfrmUsuario
     FetchOptions.AssignedValues = [evMode]
     FetchOptions.Mode = fmAll
     SQL.Strings = (
-      
         'SELECT US.SISTEMA_ID, UG.DESCRICAO'#13#10'FROM G_USUARIO_SISTEMA US'#13#10' ' +
         ' LEFT OUTER JOIN G_USUARIO_GRUPO UG ON'#13#10'  US.USUARIO_GRUPO_ID = ' +
         'UG.USUARIO_GRUPO_ID'#13#10'WHERE US.USUARIO_ID = :USUARIO_ID'#13#10'ORDER BY' +
@@ -3166,7 +3160,6 @@ inherited frmUsuario: TfrmUsuario
     FetchOptions.AssignedValues = [evMode]
     FetchOptions.Mode = fmAll
     SQL.Strings = (
-      
         'SELECT U.USUARIO_ID, U.NOME_COMPLETO,'#13#10' U.LOGIN, U.FUNCAO, US.US' +
         'UARIO_GRUPO_ID'#13#10'FROM G_USUARIO U'#13#10'  LEFT OUTER JOIN G_USUARIO_SI' +
         'STEMA US ON'#13#10'  U.USUARIO_ID = US.USUARIO_ID'#13#10'WHERE U.SITUACAO = ' +

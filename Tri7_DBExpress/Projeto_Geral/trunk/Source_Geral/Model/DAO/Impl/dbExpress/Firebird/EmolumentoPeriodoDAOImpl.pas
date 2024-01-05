@@ -3,6 +3,9 @@ unit EmolumentoPeriodoDAOImpl;
 interface
 
 uses
+  FireDAC.Stan.Param,
+  I9Query,
+  I9Connection,
   EmolumentoPeriodoDAO,
   Data.SqlExpr,
   Data.DB,
@@ -13,14 +16,14 @@ uses
 type
   TEmolumentoPeriodoDAO = class(TInterfacedObject, IEmolumentoPeriodoDAO)
   private
-    FSQLConnection: TSQLConnection;
+    FConnection: TI9Connection;
 
     procedure PreencherParametros(
-      const vpSQLDataSet: TSQLDataSet;
+      const vpI9Query: TI9Query;
       const vpValue: IEmolumentoPeriodo);
   public
     constructor Create(
-      const vpSQLConnection: TSQLConnection); reintroduce;
+      const vpConnection: TI9Connection); reintroduce;
 
     function Get(
       const vpValue: TDataSet;
@@ -35,7 +38,7 @@ type
       const vpValue: ISistema): TEmolumentoPeriodoList; virtual; abstract;
 
     class function New(
-      const vpSQLConnection: TSQLConnection): IEmolumentoPeriodoDAO; static;
+      const vpConnection: TI9Connection): IEmolumentoPeriodoDAO; static;
 
     class function GetColunas(
       const vpPrefix: string = ''): string; static;
@@ -61,10 +64,10 @@ uses
 { TEmolumentoPeriodoDAO }
 
 constructor TEmolumentoPeriodoDAO.Create(
-  const vpSQLConnection: TSQLConnection);
+  const vpConnection: TI9Connection);
 begin
   inherited Create;
-  FSQLConnection := vpSQLConnection;
+  FConnection := vpConnection;
 end;
 
 function TEmolumentoPeriodoDAO.Get(
@@ -104,7 +107,7 @@ function TEmolumentoPeriodoDAO.GetByID(
 {$REGION 'Variáveis'}
 var
   viSQL: string;
-  viParams: TParams;
+  viParams: TFDParams;
   viDataSet: TDataSet;
 {$ENDREGION}
 begin
@@ -127,14 +130,14 @@ begin
 
   {$ENDREGION}
 
-  viParams := TParams.Create;
+  viParams := TFDParams.Create;
   try
     viParams.CreateParam(
       TFieldType.ftInteger,
       'P_EMOLUMENTO_PERIODO_ID',
       TParamType.ptInput).AsInteger := vpValue;
 
-    FSQLConnection.Execute(
+    FConnection.Execute(
       viSQL,
       viParams,
       viDataSet);
@@ -175,15 +178,15 @@ end;
 function TEmolumentoPeriodoDAO.GetList: TEmolumentoPeriodoList;
 {$REGION 'Variáveis'}
 var
-  viSQLDataSet: TSQLDataSet;
+  viSQLDataSet: TI9Query;
   viSQL: TStrings;
   viEmolumentoPeriodo: IEmolumentoPeriodo;
 {$ENDREGION}
 begin
   Result := TEmolumentoPeriodoList.Create;
 
-  viSQLDataSet := TSQLDataSet.Create(nil);
-  viSQLDataSet.SQLConnection := FSQLConnection;
+  viSQLDataSet := TI9Query.Create(nil);
+  viSQLDataSet.Connection := FConnection;
 
   viSQL := TStringList.Create;
 
@@ -210,7 +213,7 @@ begin
         {$ENDREGION}
       end;
 
-      CommandText := viSQL.Text;
+      SQL.Text := viSQL.Text;
       Open;
 
       try
@@ -239,12 +242,12 @@ procedure TEmolumentoPeriodoDAO.Inserir(
   const vpValue: IEmolumentoPeriodo);
 {$REGION 'Variáveis'}
 var
-  viSQLDataSet: TSQLDataSet;
+  viSQLDataSet: TI9Query;
   viSQL: TStrings;
 {$ENDREGION}
 begin
-  viSQLDataSet := TSQLDataSet.Create(nil);
-  viSQLDataSet.SQLConnection := FSQLConnection;
+  viSQLDataSet := TI9Query.Create(nil);
+  viSQLDataSet.Connection := FConnection;
 
   viSQL := TStringList.Create;
 
@@ -283,7 +286,7 @@ begin
         {$ENDREGION}
       end;
 
-      CommandText := viSQL.Text;
+      SQL.Text := viSQL.Text;
       PreencherParametros(viSQLDataSet, vpValue);
       ExecSQL;
     end;
@@ -294,20 +297,20 @@ begin
 end;
 
 class function TEmolumentoPeriodoDAO.New(
-  const vpSQLConnection: TSQLConnection): IEmolumentoPeriodoDAO;
+  const vpConnection: TI9Connection): IEmolumentoPeriodoDAO;
 begin
-  Result := TEmolumentoPeriodoDAO.Create(vpSQLConnection);
+  Result := TEmolumentoPeriodoDAO.Create(vpConnection);
 end;
 
 procedure TEmolumentoPeriodoDAO.PreencherParametros(
-  const vpSQLDataSet: TSQLDataSet;
+  const vpI9Query: TI9Query;
   const vpValue: IEmolumentoPeriodo);
 {$REGION 'Variáveis'}
 var
-  viParam: TParam;
+  viParam: TFDParam;
 {$ENDREGION}
 begin
-  with vpSQLDataSet.Params, vpValue do
+  with vpI9Query.Params, vpValue do
   begin
     viParam := FindParam('P_EMOLUMENTO_PERIODO_ID');
     if Assigned(viParam) then

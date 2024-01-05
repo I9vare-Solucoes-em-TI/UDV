@@ -158,7 +158,7 @@ inherited frmCadRelatorioGerencial: TfrmCadRelatorioGerencial
       Width = 135
     end
   end
-  inherited DataSetAncestral: TSQLDataSet
+  inherited DataSetAncestral: TI9Query
     Left = 47
     Top = 145
   end

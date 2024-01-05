@@ -146,18 +146,18 @@ inherited frmGrupoRelatorio: TfrmGrupoRelatorio
   inherited ActionList1: TActionList
     Top = 162
   end
-  inherited DataSetAncestral: TSQLDataSet
-    CommandText = 
+  inherited DataSetAncestral: TI9Query
+    SQL.Strings = (
       'select *  from G_GRUPO_RELATORIO'#13#10'where SISTEMA_ID =  :SISTEMA_I' +
-      'D'#13#10'   or sistema_id = :SISTEMA_ID1'#13#10'order by DESCRICAO'
+      'D'#13#10'   or sistema_id = :SISTEMA_ID1'#13#10'order by DESCRICAO')
     Params = <
       item
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Name = 'SISTEMA_ID'
         ParamType = ptInput
       end
       item
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Name = 'SISTEMA_ID1'
         ParamType = ptInput
       end>
@@ -168,7 +168,7 @@ inherited frmGrupoRelatorio: TfrmGrupoRelatorio
   end
   inherited ClientAncestral: TClientDataSet
     Top = 162
-    object ClientAncestralGRUPO_RELATORIO_ID: TFMTBCDField
+    object ClientAncestralGRUPO_RELATORIO_ID: TBCDField
       FieldName = 'GRUPO_RELATORIO_ID'
       Required = True
       Precision = 15
@@ -178,7 +178,7 @@ inherited frmGrupoRelatorio: TfrmGrupoRelatorio
       FieldName = 'DESCRICAO'
       Size = 60
     end
-    object ClientAncestralSISTEMA_ID: TFMTBCDField
+    object ClientAncestralSISTEMA_ID: TBCDField
       FieldName = 'SISTEMA_ID'
       Precision = 15
       Size = 2

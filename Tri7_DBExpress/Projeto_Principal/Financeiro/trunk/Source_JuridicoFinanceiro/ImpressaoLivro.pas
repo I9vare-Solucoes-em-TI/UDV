@@ -3,6 +3,7 @@ unit ImpressaoLivro;
 interface
 
 uses
+  I9Query,
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, cxLookAndFeelPainters, dxSkinsCore, dxSkinBlack, dxSkinBlue,
   dxSkinCaramel, dxSkinCoffee, dxSkinDarkSide, dxSkinGlassOceans,
@@ -34,20 +35,20 @@ type
     edtAssina: TcxTextEdit;
     btnConfirmarItem: TcxButton;
     btnCancelar: TcxButton;
-    sqlPesquisa: TSimpleDataSet;
-    sqlPesquisaREGISTRO_DIARIO_ID: TFMTBCDField;
+    sqlPesquisa: TI9Query;
+    sqlPesquisaREGISTRO_DIARIO_ID: TBCDField;
     sqlPesquisaDESCRICAO: TStringField;
     sqlPesquisaAPRESENTANTE: TStringField;
-    sqlPesquisaVALOR: TFMTBCDField;
+    sqlPesquisaVALOR: TBCDField;
     sqlPesquisaOPERACAO: TStringField;
-    sqlPesquisaUSUARIO_ID: TFMTBCDField;
-    sqlPesquisaPROTOCOLO: TFMTBCDField;
+    sqlPesquisaUSUARIO_ID: TBCDField;
+    sqlPesquisaPROTOCOLO: TBCDField;
     sqlPesquisaDATA: TSQLTimeStampField;
-    sqlPesquisaCONTROLE_ID: TFMTBCDField;
-    sqlPesquisaQTD: TFMTBCDField;
-    sqlPesquisaESCREVENTE: TFMTBCDField;
+    sqlPesquisaCONTROLE_ID: TBCDField;
+    sqlPesquisaQTD: TBCDField;
+    sqlPesquisaESCREVENTE: TBCDField;
     sqlPesquisaSERVENTIA: TStringField;
-    sqlPesquisaCAIXA_SERVICO_ID: TFMTBCDField;
+    sqlPesquisaCAIXA_SERVICO_ID: TBCDField;
     sqlPesquisaCALC_RECEITA: TCurrencyField;
     sqlPesquisaCALC_DESPESA: TCurrencyField;
     sqlPesquisaSELO: TStringField;
@@ -145,7 +146,7 @@ begin
                 ' ORDER BY DATA, SERVENTIA, CAIXA_SERVICO_ID, PROTOCOLO';
 
   sqlPesquisa.Active := False;
-  sqlPesquisa.DataSet.CommandText := viPesquisa;
+  sqlPesquisa.SQL.Text := viPesquisa;
   sqlPesquisa.Active := True;
   Screen.Cursor := crDefault;
 

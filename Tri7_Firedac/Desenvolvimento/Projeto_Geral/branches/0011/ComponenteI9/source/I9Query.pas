@@ -3,11 +3,12 @@ unit I9Query;
 interface
 
 uses
+  I9Query,
   System.SysUtils, System.Classes, Vcl.Clipbrd,
   FireDAC.Stan.Option, FireDAC.Comp.Client, Data.DB;
 
 type
-  TI9Query = class(TFDQuery)
+  TI9Query = class(TI9Query)
   private
 
     procedure ValidarQueryOpen;

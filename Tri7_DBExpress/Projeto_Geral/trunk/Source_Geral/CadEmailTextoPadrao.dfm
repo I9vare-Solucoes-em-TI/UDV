@@ -352,9 +352,8 @@ inherited frmCademailTextoPadrao: TfrmCademailTextoPadrao
     Left = 479
     Top = 233
   end
-  inherited DataSetAncestral: TSQLDataSet
-    SchemaName = 'SYSDBA'
-    CommandText = 'SELECT *'#13#10'FROM G_EMAIL_TEXTO_PADRAO'#13#10'ORDER BY DESCRICAO'
+  inherited DataSetAncestral: TI9Query
+    SQL.Strings = ('SELECT *'#13#10'FROM G_EMAIL_TEXTO_PADRAO'#13#10'ORDER BY DESCRICAO')
     Left = 509
     Top = 233
   end
@@ -366,7 +365,7 @@ inherited frmCademailTextoPadrao: TfrmCademailTextoPadrao
     AfterScroll = ClientAncestralAfterScroll
     Left = 573
     Top = 233
-    object ClientAncestralEMAIL_TEXTO_PADRAO_ID: TFMTBCDField
+    object ClientAncestralEMAIL_TEXTO_PADRAO_ID: TBCDField
       FieldName = 'EMAIL_TEXTO_PADRAO_ID'
       Required = True
       Precision = 20

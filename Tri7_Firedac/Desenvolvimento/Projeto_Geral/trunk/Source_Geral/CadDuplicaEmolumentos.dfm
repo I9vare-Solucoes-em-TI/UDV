@@ -453,7 +453,6 @@ inherited frmCadDuplicaEmolumento: TfrmCadDuplicaEmolumento
   object sqlG_Emolumento_Periodo: TI9Query
     Connection = dtmControles.DB
     SQL.Strings = (
-      
         'SELECT * FROM G_EMOLUMENTO_PERIODO'#13#10'WHERE EMOLUMENTO_PERIODO_ID ' +
         '<> :EMOLUMENTO_PERIODO_ID')
     Left = 264

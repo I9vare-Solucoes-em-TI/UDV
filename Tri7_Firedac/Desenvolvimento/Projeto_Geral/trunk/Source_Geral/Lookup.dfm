@@ -2300,7 +2300,6 @@ object dtmLookup: TdtmLookup
     FetchOptions.AssignedValues = [evMode]
     FetchOptions.Mode = fmAll
     SQL.Strings = (
-      
         'SELECT * '#13#10'FROM G_TB_DOCUMENTOTIPO'#13#10'WHERE SITUACAO = '#39'A'#39#13#10'ORDER ' +
         'BY DESCRICAO')
     Left = 236
@@ -2338,7 +2337,6 @@ object dtmLookup: TdtmLookup
     FetchOptions.AssignedValues = [evMode]
     FetchOptions.Mode = fmAll
     SQL.Strings = (
-      
         'SELECT * FROM G_TB_ESTADOCIVIL'#13#10'WHERE SITUACAO = '#39'A'#39#13#10'AND SISTEM' +
         'A_ID = :SISTEMA_ID'#13#10'ORDER BY DESCRICAO')
     Left = 372
@@ -2378,7 +2376,6 @@ object dtmLookup: TdtmLookup
     FetchOptions.AssignedValues = [evMode]
     FetchOptions.Mode = fmAll
     SQL.Strings = (
-      
         'SELECT * FROM G_TB_PROFISSAO'#13#10'WHERE SITUACAO = '#39'A'#39#13#10'ORDER BY DES' +
         'CRICAO')
     Left = 484
@@ -2417,7 +2414,6 @@ object dtmLookup: TdtmLookup
     FetchOptions.AssignedValues = [evMode]
     FetchOptions.Mode = fmAll
     SQL.Strings = (
-      
         'SELECT * FROM G_TB_REGIMECOMUNHAO'#13#10'WHERE SITUACAO = '#39'A'#39#13#10'ORDER B' +
         'Y DESCRICAO')
     Left = 604
@@ -2451,7 +2447,6 @@ object dtmLookup: TdtmLookup
     FetchOptions.AssignedValues = [evMode]
     FetchOptions.Mode = fmAll
     SQL.Strings = (
-      
         'SELECT * FROM G_TB_TIPOLOGRADOURO'#13#10'WHERE SITUACAO = '#39'A'#39#13#10'ORDER B' +
         'Y DESCRICAO')
     Left = 260
@@ -2481,7 +2476,6 @@ object dtmLookup: TdtmLookup
     FetchOptions.AssignedValues = [evMode]
     FetchOptions.Mode = fmAll
     SQL.Strings = (
-      
         'SELECT TB_TXMODELOGRUPO_ID, DESCRICAO'#13#10'FROM G_TB_TXMODELOGRUPO'#13#10 +
         'ORDER BY DESCRICAO')
     Left = 130
@@ -2507,7 +2501,6 @@ object dtmLookup: TdtmLookup
     FetchOptions.AssignedValues = [evMode]
     FetchOptions.Mode = fmAll
     SQL.Strings = (
-      
         'SELECT *'#13#10'FROM G_NATUREZA_TITULO'#13#10'WHERE SITUACAO = '#39'A'#39#13#10'AND SIST' +
         'EMA_ID = :SISTEMA_ID'#13#10'ORDER BY DESCRICAO')
     Left = 263
@@ -2580,7 +2573,6 @@ object dtmLookup: TdtmLookup
     FetchOptions.AssignedValues = [evMode]
     FetchOptions.Mode = fmAll
     SQL.Strings = (
-      
         'SELECT * FROM G_EMOLUMENTO'#13#10'WHERE SISTEMA_ID = :SISTEMA_ID'#13#10'  AN' +
         'D (SITUACAO IS NULL OR SITUACAO <> '#39'I'#39')'#13#10'ORDER BY DESCRICAO')
     Left = 372
@@ -2675,7 +2667,6 @@ object dtmLookup: TdtmLookup
     FetchOptions.AssignedValues = [evMode]
     FetchOptions.Mode = fmAll
     SQL.Strings = (
-      
         'SELECT * FROM G_TB_BAIRRO'#13#10'WHERE SITUACAO = '#39'A'#39#13#10'      AND SISTE' +
         'MA_ID = :SISTEMA_ID'#13#10'ORDER BY DESCRICAO')
     Left = 604
@@ -2711,7 +2702,6 @@ object dtmLookup: TdtmLookup
     FetchOptions.AssignedValues = [evMode]
     FetchOptions.Mode = fmAll
     SQL.Strings = (
-      
         'SELECT USUARIO_ID,'#13#10' TROCARSENHA, '#13#10'LOGIN, '#13#10'SENHA, '#13#10'SITUACAO,'#13 +
         #10' NOME_COMPLETO, '#13#10'FUNCAO, '#13#10'ASSINA'#13#10' FROM G_USUARIO'#13#10'ORDER BY L' +
         'OGIN')
@@ -2762,7 +2752,6 @@ object dtmLookup: TdtmLookup
     FetchOptions.AssignedValues = [evMode]
     FetchOptions.Mode = fmAll
     SQL.Strings = (
-      
         'SELECT * '#13#10'FROM G_NATUREZA'#13#10'WHERE SITUACAO = '#39'A'#39#13#10'     AND SISTE' +
         'MA_ID = :SISTEMA_ID'#13#10'ORDER BY DESCRICAO')
     Left = 484
@@ -2800,7 +2789,6 @@ object dtmLookup: TdtmLookup
     FetchOptions.AssignedValues = [evMode]
     FetchOptions.Mode = fmAll
     SQL.Strings = (
-      
         'SELECT U.USUARIO_ID, U.LOGIN'#13#10'FROM G_USUARIO U RIGHT OUTER JOIN ' +
         'G_USUARIO_SISTEMA S'#13#10'  ON U.USUARIO_ID = S.USUARIO_ID'#13#10'WHERE (S.' +
         'SISTEMA_ID = :SISTEMA_ID'#13#10'      OR U.USUARIO_ID = 123456)'#13#10'ORDER' +
@@ -2832,7 +2820,6 @@ object dtmLookup: TdtmLookup
     FetchOptions.AssignedValues = [evMode]
     FetchOptions.Mode = fmAll
     SQL.Strings = (
-      
         'SELECT U.USUARIO_ID, U.NOME_COMPLETO, FUNCAO'#13#10'FROM G_USUARIO U R' +
         'IGHT OUTER JOIN G_USUARIO_SISTEMA S'#13#10'  ON U.USUARIO_ID = S.USUAR' +
         'IO_ID'#13#10'WHERE S.SISTEMA_ID = :SISTEMA_ID'#13#10'      AND U.ASSINA = '#39'S' +
@@ -2870,7 +2857,6 @@ object dtmLookup: TdtmLookup
     FetchOptions.AssignedValues = [evMode]
     FetchOptions.Mode = fmAll
     SQL.Strings = (
-      
         'SELECT * FROM C_CAIXA_SERVICO'#13#10'WHERE SITUACAO = '#39'A'#39#13#10'      AND S' +
         'ISTEMA_ID = :SISTEMA_ID'#13#10'ORDER BY DESCRICAO')
     Left = 700
@@ -2951,7 +2937,6 @@ object dtmLookup: TdtmLookup
     FetchOptions.AssignedValues = [evMode]
     FetchOptions.Mode = fmAll
     SQL.Strings = (
-      
         'SELECT *'#13#10'FROM G_SELO_TIPO_CARTORIO'#13#10'ORDER BY SELO_TIPO_CARTORIO' +
         '_ID')
     Left = 234
@@ -3064,7 +3049,6 @@ object dtmLookup: TdtmLookup
     FetchOptions.AssignedValues = [evMode]
     FetchOptions.Mode = fmAll
     SQL.Strings = (
-      
         'SELECT *'#13#10'FROM G_TB_REGIMEBENS'#13#10'WHERE SITUACAO = '#39'A'#39#13#10'ORDER BY D' +
         'ESCRICAO')
     Left = 593
@@ -3165,7 +3149,6 @@ object dtmLookup: TdtmLookup
     FetchOptions.AssignedValues = [evMode]
     FetchOptions.Mode = fmAll
     SQL.Strings = (
-      
         'SELECT SISTEMA_ID, DESCRICAO'#13#10'FROM G_SISTEMA'#13#10'WHERE SITUACAO = '#39 +
         'A'#39#13#10'ORDER BY SISTEMA_ID')
     Left = 798
@@ -3275,7 +3258,6 @@ object dtmLookup: TdtmLookup
     FetchOptions.AssignedValues = [evMode]
     FetchOptions.Mode = fmAll
     SQL.Strings = (
-      
         'SELECT * FROM G_EMOLUMENTO'#13#10'WHERE SISTEMA_ID = :SISTEMA_ID'#13#10'ORDE' +
         'R BY DESCRICAO')
     Left = 32
@@ -3316,7 +3298,6 @@ object dtmLookup: TdtmLookup
     FetchOptions.AssignedValues = [evMode]
     FetchOptions.Mode = fmAll
     SQL.Strings = (
-      
         'SELECT NT.*, S.DESCRICAO AS SISTEMA'#13#10'FROM G_NATUREZA_TITULO NT '#13 +
         #10'  LEFT  OUTER JOIN G_SISTEMA S ON'#13#10'  NT.SISTEMA_ID = S.SISTEMA_' +
         'ID'#13#10'WHERE NT.SITUACAO = '#39'A'#39#13#10'ORDER BY NT.DESCRICAO')
@@ -3383,7 +3364,6 @@ object dtmLookup: TdtmLookup
     FetchOptions.AssignedValues = [evMode]
     FetchOptions.Mode = fmAll
     SQL.Strings = (
-      
         'SELECT * FROM R_TB_TIPO_ANDAMENTO'#13#10'WHERE SITUACAO = '#39'A'#39#13#10'ORDER B' +
         'Y DESCRICAO')
     Left = 924
@@ -3477,7 +3457,6 @@ object dtmLookup: TdtmLookup
     FetchOptions.AssignedValues = [evMode]
     FetchOptions.Mode = fmAll
     SQL.Strings = (
-      
         'SELECT *'#13#10'FROM G_CONFIGURACAO_SALVA'#13#10'WHERE SISTEMA_ID = :SISTEMA' +
         '_ID'#13#10'  AND LOCAL = :LOCAL'#13#10'  AND DESCRICAO = :DESCRICAO'#13#10'  AND O' +
         'RDEM <> '#39'0'#39';')
@@ -3599,7 +3578,6 @@ object dtmLookup: TdtmLookup
     FetchOptions.AssignedValues = [evMode]
     FetchOptions.Mode = fmAll
     SQL.Strings = (
-      
         'SELECT *'#13#10'FROM C_CONTA_CLIENTE'#13#10'WHERE SITUACAO = '#39'A'#39#13#10'ORDER BY D' +
         'ESCRICAO')
     Left = 495
@@ -3629,7 +3607,6 @@ object dtmLookup: TdtmLookup
     FetchOptions.AssignedValues = [evMode]
     FetchOptions.Mode = fmAll
     SQL.Strings = (
-      
         'SELECT * FROM G_EMOLUMENTO_PERIODO'#13#10'WHERE SITUACAO = '#39'A'#39#13#10'ORDER ' +
         'BY DESCRICAO')
     Left = 28
@@ -3663,7 +3640,6 @@ object dtmLookup: TdtmLookup
     FetchOptions.AssignedValues = [evMode]
     FetchOptions.Mode = fmAll
     SQL.Strings = (
-      
         'SELECT *'#13#10'FROM C_TIPO_CARTAO'#13#10'WHERE SITUACAO = '#39'A'#39#13#10'ORDER BY TIP' +
         'O DESC')
     Left = 599
@@ -3707,7 +3683,6 @@ object dtmLookup: TdtmLookup
     FetchOptions.AssignedValues = [evMode]
     FetchOptions.Mode = fmAll
     SQL.Strings = (
-      
         'SELECT *'#13#10'FROM G_IBGE_PAIS'#13#10'WHERE CODIGO <> '#39'076'#39#13#10'ORDER BY DESC' +
         'RICAO')
     Left = 43
@@ -3733,7 +3708,6 @@ object dtmLookup: TdtmLookup
     FetchOptions.AssignedValues = [evMode]
     FetchOptions.Mode = fmAll
     SQL.Strings = (
-      
         'SELECT *'#13#10'FROM G_TB_ORGAO_EXPEDIDOR'#13#10'WHERE STATUS = '#39'A'#39#13#10'ORDER B' +
         'Y DESCRICAO')
     Left = 688
@@ -3762,7 +3736,6 @@ object dtmLookup: TdtmLookup
     FetchOptions.AssignedValues = [evMode]
     FetchOptions.Mode = fmAll
     SQL.Strings = (
-      
         'SELECT * '#13#10'FROM G_TB_DOCUMENTOTIPO'#13#10'WHERE SITUACAO = '#39'A'#39#13#10'AND (P' +
         'RIORIDADE = '#39'P'#39' OR PRIORIDADE = '#39'A'#39' )'#13#10'ORDER BY '#13#10'  ORDEM,'#13#10'  DE' +
         'SCRICAO')
@@ -3805,7 +3778,6 @@ object dtmLookup: TdtmLookup
     FetchOptions.AssignedValues = [evMode]
     FetchOptions.Mode = fmAll
     SQL.Strings = (
-      
         'SELECT * '#13#10'FROM G_TB_DOCUMENTOTIPO'#13#10'WHERE SITUACAO = '#39'A'#39#13#10'AND (P' +
         'RIORIDADE = '#39'O'#39' OR PRIORIDADE = '#39'A'#39' )'#13#10'ORDER BY '#13#10'  ORDEM,'#13#10'  DE' +
         'SCRICAO')

@@ -30,7 +30,7 @@ type
     cxGridBasicaDBDescricao: TcxGridDBColumn;
     grdBasicaLevel1: TcxGridLevel;
     cxGridBasicaDbSigla: TcxGridDBColumn;
-    ClientAncestralMEDIDA_TIPO_ID: TFMTBCDField;
+    ClientAncestralMEDIDA_TIPO_ID: TBCDField;
     ClientAncestralDESCRICAO: TStringField;
     ClientAncestralSIGLA: TStringField;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);

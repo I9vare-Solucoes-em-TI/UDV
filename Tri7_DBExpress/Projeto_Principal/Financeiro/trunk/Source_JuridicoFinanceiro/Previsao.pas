@@ -3,6 +3,7 @@ unit Previsao;
 interface
 
 uses
+  I9Query,
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, dxSkinscxPCPainter, Menus, cxLookAndFeelPainters, cxGraphics, cxStyles,
   cxSchedulerStorage, cxSchedulerCustomControls, cxSchedulerDateNavigator,
@@ -197,26 +198,26 @@ type
     grdBasicaDBTableHistorico: TcxGridDBColumn;
     grdBasicaLevel1: TcxGridLevel;
     dtsLancamentoFavorito: TDataSource;
-    sqlLancamentoFavorito: TSimpleDataSet;
+    sqlLancamentoFavorito: TI9Query;
     grdBasicaDBTablePessoa: TcxGridDBColumn;
     grdBasicaDBTableView1Column1: TcxGridDBColumn;
-    sqlFinanceiroCompromisso: TSimpleDataSet;
-    sqlFinanceiroCompromissoLIVRO_FINANCEIRO_ID: TFMTBCDField;
+    sqlFinanceiroCompromisso: TI9Query;
+    sqlFinanceiroCompromissoLIVRO_FINANCEIRO_ID: TBCDField;
     sqlFinanceiroCompromissoDATA_VENCIMENTO: TSQLTimeStampField;
-    sqlFinanceiroCompromissoVALOR_AGENDADO: TFMTBCDField;
+    sqlFinanceiroCompromissoVALOR_AGENDADO: TBCDField;
     sqlFinanceiroCompromissoSITUACAO: TStringField;
     sqlFinanceiroCompromissocalc_Referencia: TStringField;
-    sqlFinanceiroCompromissoCONTABIL_CONTA_ID: TFMTBCDField;
-    sqlFinanceiroCompromissoCENTRO_CUSTO_ID: TFMTBCDField;
+    sqlFinanceiroCompromissoCONTABIL_CONTA_ID: TBCDField;
+    sqlFinanceiroCompromissoCENTRO_CUSTO_ID: TBCDField;
     sqlFinanceiroCompromissoANO_MES_REFERENCIA: TStringField;
-    sqlFinanceiroCompromissoBALANCETE_GRUPO_ID: TFMTBCDField;
+    sqlFinanceiroCompromissoBALANCETE_GRUPO_ID: TBCDField;
     tt: TStringField;
-    sqlFinanceiroCompromissoBOLETA_ID: TFMTBCDField;
+    sqlFinanceiroCompromissoBOLETA_ID: TBCDField;
     sqlFinanceiroCompromissoATUALIZADO: TStringField;
     sqlFinanceiroCompromissoOPERACAO: TStringField;
-    sqlFinanceiroCompromissoPESSOA_ID: TFMTBCDField;
+    sqlFinanceiroCompromissoPESSOA_ID: TBCDField;
     sqlFinanceiroCompromissocalc_Selecionado: TBooleanField;
-    sqlFinanceiroCompromissoVALOR_DOCUMENTO: TFMTBCDField;
+    sqlFinanceiroCompromissoVALOR_DOCUMENTO: TBCDField;
     sqlFinanceiroCompromissoCALC_VALOR_RECEBER: TCurrencyField;
     sqlFinanceiroCompromissocalc_Observacao: TStringField;
     sqlFinanceiroCompromissoCALC_GRUPO: TStringField;
@@ -224,75 +225,75 @@ type
     sqlFinanceiroCompromissocalc_TipoFinanceiro: TStringField;
     sqlFinanceiroCompromissoHISTORICO: TStringField;
     sqlFinanceiroCompromissoOBSERVACAO: TStringField;
-    sqlFinanceiroCompromissoLIVRO_AGENDAMENTO_ID: TFMTBCDField;
-    sqlFinanceiroCompromissoPROCESSO_CONTRATO_ITEM_ID: TFMTBCDField;
+    sqlFinanceiroCompromissoLIVRO_AGENDAMENTO_ID: TBCDField;
+    sqlFinanceiroCompromissoPROCESSO_CONTRATO_ITEM_ID: TBCDField;
     sqlFinanceiroCompromissocalc_Entrada: TCurrencyField;
     sqlFinanceiroCompromissocalc_saida: TCurrencyField;
     sqlFinanceiroCompromissoIR: TStringField;
     sqlFinanceiroCompromissoCNJ: TStringField;
-    sqlFinanceiroCompromissoCAIXA_ID: TFMTBCDField;
+    sqlFinanceiroCompromissoCAIXA_ID: TBCDField;
     sqlFinanceiroCompromissoDOCUMENTO_NUMERO: TStringField;
     sqlFinanceiroCompromissoREGISTRO_PARCIAL: TStringField;
-    sqlFinanceiroCompromissoVALOR_PAGO_SOMA: TFMTBCDField;
+    sqlFinanceiroCompromissoVALOR_PAGO_SOMA: TBCDField;
     sqlFinanceiroCompromissoUTILIZA_BOLETO: TStringField;
-    sqlFinanceiroCompromissoORCAMENTO_ID: TFMTBCDField;
-    sqlFinanceiroCompromissoVALOR_ORCAMENTO_COMPROMETIDO: TFMTBCDField;
-    sqlFinanceiroCompromissoVALOR_ORCAMENTO_PAGO: TFMTBCDField;
+    sqlFinanceiroCompromissoORCAMENTO_ID: TBCDField;
+    sqlFinanceiroCompromissoVALOR_ORCAMENTO_COMPROMETIDO: TBCDField;
+    sqlFinanceiroCompromissoVALOR_ORCAMENTO_PAGO: TBCDField;
     sqlFinanceiroCompromissocalc_caixa: TIntegerField;
     sqlFinanceiroCompromissocalc_compromisso: TIntegerField;
     sqlFinanceiroCompromissocalc_historico: TStringField;
     sqlFinanceiroCompromissocalc_nome: TStringField;
     sqlFinanceiroCompromissocalc_orcamento: TBooleanField;
-    sqlFinanceiroCompromissoVALOR_RESERVA_ENTRADA: TFMTBCDField;
-    sqlFinanceiroCompromissoVALOR_RESERVA_SAIDA: TFMTBCDField;
+    sqlFinanceiroCompromissoVALOR_RESERVA_ENTRADA: TBCDField;
+    sqlFinanceiroCompromissoVALOR_RESERVA_SAIDA: TBCDField;
     sqlFinanceiroCompromissoCALC_SALDO: TCurrencyField;
     sqlFinanceiroCompromissoPERIODO: TStringField;
-    sqlFinanceiroCompromissoPARCELA: TFMTBCDField;
-    sqlFinanceiroCompromissoQTD: TFMTBCDField;
-    sqlFinanceiroCompromissoPARCELA_INICIAL: TFMTBCDField;
+    sqlFinanceiroCompromissoPARCELA: TBCDField;
+    sqlFinanceiroCompromissoQTD: TBCDField;
+    sqlFinanceiroCompromissoPARCELA_INICIAL: TBCDField;
     sqlFinanceiroCompromissoCALC_PARCELA: TStringField;
     sqlFinanceiroCompromissoDOC_TIPO: TStringField;
     sqlFinanceiroCompromissoREFERENCIA_PERIODO: TStringField;
-    sqlLancamentoFavoritoLIVRO_CAIXA_ID: TFMTBCDField;
-    sqlLancamentoFavoritoCAIXA_ID: TFMTBCDField;
-    sqlLancamentoFavoritoVALOR: TFMTBCDField;
+    sqlLancamentoFavoritoLIVRO_CAIXA_ID: TBCDField;
+    sqlLancamentoFavoritoCAIXA_ID: TBCDField;
+    sqlLancamentoFavoritoVALOR: TBCDField;
     sqlLancamentoFavoritoOPERACAO: TStringField;
-    sqlLancamentoFavoritoPESSOA_ID: TFMTBCDField;
+    sqlLancamentoFavoritoPESSOA_ID: TBCDField;
     sqlLancamentoFavoritoDATA_PAGAMENTO: TSQLTimeStampField;
     sqlLancamentoFavoritoREFERENCIA: TStringField;
     sqlLancamentoFavoritoOBSERVACAO: TStringField;
-    sqlLancamentoFavoritoCONTABIL_CONTA_ID: TFMTBCDField;
-    sqlLancamentoFavoritoCENTRO_CUSTO_ID: TFMTBCDField;
+    sqlLancamentoFavoritoCONTABIL_CONTA_ID: TBCDField;
+    sqlLancamentoFavoritoCENTRO_CUSTO_ID: TBCDField;
     sqlLancamentoFavoritoESPECIE: TStringField;
     sqlLancamentoFavoritoDOCUMENTO_DESCRICAO: TStringField;
-    sqlLancamentoFavoritoBALANCETE_GRUPO_ID: TFMTBCDField;
-    sqlLancamentoFavoritoLIVRO_FINANCEIRO_ID: TFMTBCDField;
+    sqlLancamentoFavoritoBALANCETE_GRUPO_ID: TBCDField;
+    sqlLancamentoFavoritoLIVRO_FINANCEIRO_ID: TBCDField;
     sqlLancamentoFavoritoHISTORICO: TStringField;
     sqlLancamentoFavoritoANO_MES_REGISTRO: TStringField;
     sqlLancamentoFavoritoDATA_VENCIMENTO: TSQLTimeStampField;
     sqlLancamentoFavoritoSITUACAO: TStringField;
-    sqlLancamentoFavoritoCAIXA_TRANSFERENCIA_ID: TFMTBCDField;
+    sqlLancamentoFavoritoCAIXA_TRANSFERENCIA_ID: TBCDField;
     sqlLancamentoFavoritoIR: TStringField;
     sqlLancamentoFavoritoCNJ: TStringField;
-    sqlLancamentoFavoritoCONTABIL_GRUPO_ID: TFMTBCDField;
+    sqlLancamentoFavoritoCONTABIL_GRUPO_ID: TBCDField;
     sqlLancamentoFavoritoDOCUMENTO_NUMERO: TStringField;
     sqlLancamentoFavoritoAUTOMATICO: TStringField;
-    sqlLancamentoFavoritoCODIGO_FINALIZACAO: TFMTBCDField;
-    sqlLancamentoFavoritoORCAMENTO_ID: TFMTBCDField;
+    sqlLancamentoFavoritoCODIGO_FINALIZACAO: TBCDField;
+    sqlLancamentoFavoritoORCAMENTO_ID: TBCDField;
     sqlLancamentoFavoritoDOC_TIPO: TStringField;
     sqlLancamentoFavoritoDATA_LANCAMENTO: TSQLTimeStampField;
     sqlLancamentoFavoritoFAVORITO_SITUACAO: TStringField;
-    sqlLancamentoFavoritoFAVORITO_VALOR: TFMTBCDField;
+    sqlLancamentoFavoritoFAVORITO_VALOR: TBCDField;
     Panel4: TPanel;
     btnRealizarLancamento: TcxButton;
     btnExcluirFavorito: TcxButton;
-    sqlFinanceiroCompromissoNOSSO_NUMERO: TFMTBCDField;
+    sqlFinanceiroCompromissoNOSSO_NUMERO: TBCDField;
     sqlFinanceiroCompromissoIDENTIFICACAO: TStringField;
     sqlFinanceiroCompromissoTIPO: TStringField;
-    sqlFinanceiroCompromissoTIPO_MODALIDADE_ID: TFMTBCDField;
+    sqlFinanceiroCompromissoTIPO_MODALIDADE_ID: TBCDField;
     N4: TMenuItem;
     mniRegistrarTodosSelecionados: TMenuItem;
-    sqlFinanceiroCompromissoTIPO_CARGA_ID: TFMTBCDField;
+    sqlFinanceiroCompromissoTIPO_CARGA_ID: TBCDField;
     sqlFinanceiroCompromissoSITUACAO_COMISSAO: TStringField;
     pgcFinanceiroPrevisao: TcxPageControl;
     tabPequisaPersonalizada: TcxTabSheet;
@@ -320,15 +321,15 @@ type
     cxGridDBTableView1Column5: TcxGridDBColumn;
     cxGridDBTableView1Column6: TcxGridDBColumn;
     cxGridDBTableView1Column7: TcxGridDBColumn;
-    sqlFinanceiroAgrupada: TSimpleDataSet;
+    sqlFinanceiroAgrupada: TI9Query;
     dtsFinanceiroAgrupada: TDataSource;
-    sqlFinanceiroAgrupadaVALOR: TFMTBCDField;
+    sqlFinanceiroAgrupadaVALOR: TBCDField;
     sqlFinanceiroAgrupadaNOME: TStringField;
     sqlFinanceiroAgrupadaIDENTIFICACAO: TStringField;
-    sqlFinanceiroAgrupadaTIPO_CARGA_ID: TFMTBCDField;
-    sqlFinanceiroAgrupadaCENTRO_CUSTO_ID: TFMTBCDField;
+    sqlFinanceiroAgrupadaTIPO_CARGA_ID: TBCDField;
+    sqlFinanceiroAgrupadaCENTRO_CUSTO_ID: TBCDField;
      sqlFinanceiroAgrupadaOPERACAO: TStringField;
-    sqlFinanceiroAgrupadaBALANCETE_GRUPO_ID: TFMTBCDField;
+    sqlFinanceiroAgrupadaBALANCETE_GRUPO_ID: TBCDField;
     ClientPrevisaoResumida: TClientDataSet;
     dtsPrevisaoResumida: TDataSource;
     ClientPrevisaoResumidaVALOR_D: TCurrencyField;
@@ -370,17 +371,17 @@ type
     chxMostar12: TcxCheckBox;
     popAlterarIdentificacao: TPopupMenu;
     MenuItem1: TMenuItem;
-    sqlFinanceiroAgrupadaPESSOA_ID: TFMTBCDField;
+    sqlFinanceiroAgrupadaPESSOA_ID: TBCDField;
     cxGridDBTableView1Column8: TcxGridDBColumn;
     sqlFinanceiroAgrupadaCALC_ENTRADAS: TCurrencyField;
     sqlFinanceiroAgrupadaCALC_SAIDAS: TCurrencyField;
     sqlFinanceiroCompromissoCALC_CENTROCUSTO: TIntegerField;
     sqlFinanceiroCompromissoCONFERIDO: TStringField;
     mniRegistrarTodosConferidos: TMenuItem;
-    sqlLancamentoFavoritoTIPO_MODALIDADE_ID: TFMTBCDField;
-    sqlLancamentoFavoritoTIPO_CARGA_ID: TFMTBCDField;
-    sqlFinanceiroCompromissoCENTRO_RESERVA_ID: TFMTBCDField;
-    sqlLancamentoFavoritoCENTRO_RESERVA_ID: TFMTBCDField;
+    sqlLancamentoFavoritoTIPO_MODALIDADE_ID: TBCDField;
+    sqlLancamentoFavoritoTIPO_CARGA_ID: TBCDField;
+    sqlFinanceiroCompromissoCENTRO_RESERVA_ID: TBCDField;
+    sqlLancamentoFavoritoCENTRO_RESERVA_ID: TBCDField;
     PopCaucaia: TPopupMenu;
     mniRealizarFechamento: TMenuItem;
     mniDevolverItem: TMenuItem;
@@ -388,7 +389,7 @@ type
     N2: TMenuItem;
     mniItensVinculado: TMenuItem;
     frxDBDatasetPrevisao: TfrxDBDataset;
-    sqlLancamentoFavoritoORDEM: TFMTBCDField;
+    sqlLancamentoFavoritoORDEM: TBCDField;
     sqlLancamentoFavoritoFATURAMENTO: TStringField;
     mniAlterarDataVencimento: TMenuItem;
     N5: TMenuItem;
@@ -455,12 +456,12 @@ type
     lcxGrupo: TcxLookupComboBox;
     sqlFinanceiroAgrupadaCALC_ORCAMENTOS: TCurrencyField;
     cxGridDBTableView1Column9: TcxGridDBColumn;
-    sqlLancamentoFavoritoVALOR_DESCONTO: TFMTBCDField;
-    sqlLancamentoFavoritoVALOR_JUROS: TFMTBCDField;
-    sqlLancamentoFavoritoVALOR_MULTA: TFMTBCDField;
+    sqlLancamentoFavoritoVALOR_DESCONTO: TBCDField;
+    sqlLancamentoFavoritoVALOR_JUROS: TBCDField;
+    sqlLancamentoFavoritoVALOR_MULTA: TBCDField;
     sqlLancamentoFavoritoOBSERVACAO_MONETARIA: TStringField;
-    sqlLancamentoFavoritoVALOR_OUTRA_DEDUCAO: TFMTBCDField;
-    sqlLancamentoFavoritoVALOR_FATURADO: TFMTBCDField;
+    sqlLancamentoFavoritoVALOR_OUTRA_DEDUCAO: TBCDField;
+    sqlLancamentoFavoritoVALOR_FATURADO: TBCDField;
     dxBarSaldoExcluido: TdxBarCombo;
     chxSomarExcluido: TcxBarEditItem;
     ClientCaixaPREVISAO_SALDO: TStringField;
@@ -471,20 +472,20 @@ type
     sqlFinanceiroCompromissoDATA_HISTORICO: TStringField;
     mniAlterardatadeVencimento: TMenuItem;
     sqlFinanceiroCompromissocalc_Situacao: TStringField;
-    sqlFinanceiroCompromissoLIVRO_CAIXA_FATURADO_ID: TFMTBCDField;
+    sqlFinanceiroCompromissoLIVRO_CAIXA_FATURADO_ID: TBCDField;
     cxGridDBTablePrevisaosSituacao: TcxGridDBColumn;
-    sqlFinanceiroCompromissoFECHAMENTO_ID: TFMTBCDField;
+    sqlFinanceiroCompromissoFECHAMENTO_ID: TBCDField;
     N8: TMenuItem;
     mniVerItemdeFaturamento: TMenuItem;
-    sqlFinanceiroCompromissoVALOR_BOLETO: TFMTBCDField;
-    sqlFinanceiroCompromissoVALOR_DESCONTO: TFMTBCDField;
-    sqlFinanceiroCompromissoVALOR_JUROS: TFMTBCDField;
-    sqlFinanceiroCompromissoVALOR_MULTA: TFMTBCDField;
-    sqlFinanceiroCompromissoVALOR_OUTRA_DEDUCAO: TFMTBCDField;
-    sqlFinanceiroCompromissoVALOR_CALCULO: TFMTBCDField;
+    sqlFinanceiroCompromissoVALOR_BOLETO: TBCDField;
+    sqlFinanceiroCompromissoVALOR_DESCONTO: TBCDField;
+    sqlFinanceiroCompromissoVALOR_JUROS: TBCDField;
+    sqlFinanceiroCompromissoVALOR_MULTA: TBCDField;
+    sqlFinanceiroCompromissoVALOR_OUTRA_DEDUCAO: TBCDField;
+    sqlFinanceiroCompromissoVALOR_CALCULO: TBCDField;
     sqlFinanceiroCompromissoOBSERVACAO_MONETARIA: TStringField;
-    sqlFinanceiroCompromissoVALOR_OUTRAS_TAXAS: TFMTBCDField;
-    sqlLancamentoFavoritoVALOR_OUTRAS_TAXAS: TFMTBCDField;
+    sqlFinanceiroCompromissoVALOR_OUTRAS_TAXAS: TBCDField;
+    sqlLancamentoFavoritoVALOR_OUTRAS_TAXAS: TBCDField;
     sqlLancamentoFavoritoCONTABIL_RL: TStringField;
     sqlLancamentoFavoritoCONTABIL_HISTORICO: TStringField;
     sqlLancamentoFavoritoCONTABIL_PESSOA_NOME: TStringField;
@@ -576,7 +577,7 @@ type
     Procedure MontarPrevisarResumida(vpOperacao : String; vpRealizados : Boolean = False);
     procedure ParametrosRelatorio;
     procedure MarcarDesmarcarItensSimpleDataSetFaturamento(vpMarcar: String;
-      vpSimpleDataset: TSimpleDataSet);
+      vpSimpleDataset: TI9Query);
     Function VerificarItensAbetroFaturamento:Boolean;
   public
     vgAbrindoForm, vgAtualizarTarefa : Boolean;
@@ -636,7 +637,7 @@ begin
     ParamByName('DATA_VENCIMENTO').AsString := TrocaBarraPPonto(viDataVencimento);
     ParamByName('DATA_HISTORICO').AsString  := sqlFinanceiroCompromissoDATA_HISTORICO.AsString + '*' +sqlFinanceiroCompromissoDATA_VENCIMENTO.AsString;
 
-    ExecSQL(FALSE);
+    ExecSQL;
   end;
   sqlFinanceiroCompromisso.Refresh;
 end;
@@ -693,7 +694,7 @@ begin
   begin
     ParamByName('VALOR_DOCUMENTO').AsCurrency := viValorAnterior;
     ParamByName('VALOR_AGENDADO').AsCurrency  := StrToCurr(viValorPrevisto);
-    ExecSQL(FALSE);
+    ExecSQL;
   end;
 
   sqlFinanceiroCompromisso.Refresh;
@@ -820,7 +821,7 @@ begin
     with dtmControles.sqlAuxiliar do
     begin
       ParamByName('VALOR').AsCurrency := vgDadosLivroCaixa.ValorPago;
-      ExecSQL(FALSE);
+      ExecSQL;
       sqlLancamentoFavorito.Refresh;
     end;
   end;
@@ -1249,7 +1250,7 @@ begin
 end;
 
 procedure TfrmPrevisao.MarcarDesmarcarItensSimpleDataSetFaturamento(
-  vpMarcar: String; vpSimpleDataset: TSimpleDataSet);
+  vpMarcar: String; vpSimpleDataset: TI9Query);
 var
   viPosicao: Integer;
 begin
@@ -2133,7 +2134,7 @@ var
     sqlFinanceiroCompromisso.OnCalcFields := nil;
 
     sqlFinanceiroCompromisso.Active := False;
-    sqlFinanceiroCompromisso.DataSet.CommandText := viSql;
+    sqlFinanceiroCompromisso.SQL.Text := viSql;
     sqlFinanceiroCompromisso.Active := True;
 
     sqlFinanceiroCompromisso.AfterScroll  := sqlFinanceiroCompromissoAfterScroll;
@@ -2324,7 +2325,7 @@ var
              ' WHERE LF.SITUACAO = 1 AND '+vlCondicaoData +
              ' GROUP BY LF.BALANCETE_GRUPO_ID, LF.CENTRO_CUSTO_ID, P.NOME, P.IDENTIFICACAO, LF.TIPO_CARGA_ID, LF.OPERACAO, LF.PESSOA_ID ';
     sqlFinanceiroAgrupada.Active := False;
-    sqlFinanceiroAgrupada.DataSet.CommandText := viSql;
+    sqlFinanceiroAgrupada.SQL.Text := viSql;
     sqlFinanceiroAgrupada.Active := True;
   end;
   {$ENDREGION}

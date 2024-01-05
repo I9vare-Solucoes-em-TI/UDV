@@ -3,6 +3,7 @@ unit SeloSelecao;
 interface
 
 uses
+  I9Query,
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, cxStyles, cxGraphics, cxEdit, dxSkinsCore, dxSkinBlack, dxSkinBlue,
   dxSkinCaramel, dxSkinCoffee, dxSkinDarkSide, dxSkinGlassOceans,
@@ -23,10 +24,10 @@ uses
 type
   TfrmSeloSelecao = class(TForm)
     dtsSeloItens: TDataSource;
-    sqlSeloItens: TSimpleDataSet;
+    sqlSeloItens: TI9Query;
     DBCtrlGrid1: TDBCtrlGrid;
     DBText1: TDBText;
-    sqlSeloItensSELO_LIVRO_ID: TFMTBCDField;
+    sqlSeloItensSELO_LIVRO_ID: TBCDField;
     Panel1: TPanel;
     sqlSeloItensNUMERO: TStringField;
     btnCancelar: TcxButton;
@@ -87,7 +88,7 @@ begin
   sqlSeloItens.Connection := dtmControles.DB;
 
   sqlSeloItens.Active := False;
-  sqlSeloItens.DataSet.ParamByName('SELO_GRUPO_ID').AsBCD := vgDadosSelo.SeloGrupoId;
+  sqlSeloItens.ParamByName('SELO_GRUPO_ID').AsBCD := vgDadosSelo.SeloGrupoId;
   sqlSeloItens.Active := True;
 end;
 

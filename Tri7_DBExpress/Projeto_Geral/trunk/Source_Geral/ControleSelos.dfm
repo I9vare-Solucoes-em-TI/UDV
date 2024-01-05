@@ -648,10 +648,10 @@ object frmControleSelos: TfrmControleSelos
       end
     end
   end
-  object sqlSelos: TSimpleDataSet
+  object sqlSelos: TI9Query
     Aggregates = <>
     Connection = dtmControles.DB
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT CAST(SL.DATA AS DATE) AS DATA,'#13#10'       SL.CAMPO_ID,'#13#10'    ' +
       '   SL.TABELA,'#13#10'       SG.DESCRICAO_COMPLETA AS TIPO_SELO,'#13#10'     ' +
       '  SL.APRESENTANTE,'#13#10'       SL.DESCRICAO,'#13#10'       LPAD(CAST(SL.NU' +
@@ -662,14 +662,13 @@ object frmControleSelos: TfrmControleSelos
       'X,'#13#10'       SL.DATA_MODIFICADA'#13#10'FROM G_SELO_LIVRO SL'#13#10'  LEFT JOIN' +
       ' G_SELO_LOTE SO ON'#13#10'  SL.SELO_LOTE_ID = SO.SELO_LOTE_ID'#13#10'  LEFT ' +
       'JOIN G_SELO_GRUPO SG ON'#13#10'  SO.SELO_GRUPO_ID = SG.SELO_GRUPO_ID'#13#10 +
-      'WHERE NOT SG.TIPO_CARTORIO IS NULL'#13#10'  AND SL.SELO_LIVRO_ID = 0'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <>
+      'WHERE NOT SG.TIPO_CARTORIO IS NULL'#13#10'  AND SL.SELO_LIVRO_ID = 0')
+    ParamData = <>
     Filter = 'CALC_SELECIONADO = TRUE'
     Params = <>
     Left = 460
     Top = 157
-    object sqlSelosCAMPO_ID: TFMTBCDField
+    object sqlSelosCAMPO_ID: TBCDField
       FieldName = 'CAMPO_ID'
       Precision = 15
       Size = 2
@@ -698,12 +697,12 @@ object frmControleSelos: TfrmControleSelos
       FieldName = 'LOTE_SELO'
       Size = 30
     end
-    object sqlSelosVALOR_EMOLUMENTO: TFMTBCDField
+    object sqlSelosVALOR_EMOLUMENTO: TBCDField
       FieldName = 'VALOR_EMOLUMENTO'
       Precision = 15
       Size = 3
     end
-    object sqlSelosVALOR_TAXA_JUDICIARIA: TFMTBCDField
+    object sqlSelosVALOR_TAXA_JUDICIARIA: TBCDField
       FieldName = 'VALOR_TAXA_JUDICIARIA'
       Precision = 15
       Size = 3
@@ -712,7 +711,7 @@ object frmControleSelos: TfrmControleSelos
       FieldKind = fkInternalCalc
       FieldName = 'CALC_SELECIONADO'
     end
-    object sqlSelosVALOR_FUNDESP: TFMTBCDField
+    object sqlSelosVALOR_FUNDESP: TBCDField
       FieldName = 'VALOR_FUNDESP'
       Precision = 15
       Size = 3
@@ -733,7 +732,7 @@ object frmControleSelos: TfrmControleSelos
     object sqlSelosDATA_EXPORTACAO: TSQLTimeStampField
       FieldName = 'DATA_EXPORTACAO'
     end
-    object sqlSelosSELO_LIVRO_ID: TFMTBCDField
+    object sqlSelosSELO_LIVRO_ID: TBCDField
       FieldName = 'SELO_LIVRO_ID'
       Required = True
       Precision = 20

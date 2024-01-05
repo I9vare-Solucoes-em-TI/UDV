@@ -1153,7 +1153,6 @@ object frmCalculoRapido: TfrmCalculoRapido
     FetchOptions.AssignedValues = [evMode]
     FetchOptions.Mode = fmAll
     SQL.Strings = (
-      
         'SELECT NT.*, NS.*'#13#10'FROM G_NATUREZA_TITULO NT RIGHT OUTER JOIN'#13#10' ' +
         '    G_NATUREZA_TITULO_EM_SEQUENCIA NS'#13#10'  ON NT.NATUREZA_TITULO_I' +
         'D = NS.NATUREZA_TITULO2_ID'#13#10'WHERE NS.NATUREZA_TITULO_ID = :NATUR' +
@@ -1236,7 +1235,6 @@ object frmCalculoRapido: TfrmCalculoRapido
     FetchOptions.AssignedValues = [evMode]
     FetchOptions.Mode = fmAll
     SQL.Strings = (
-      
         'SELECT NATUREZA_TITULO_ID, DESCRICAO, EMOLUMENTO_ID'#13#10'FROM G_NATU' +
         'REZA_TITULO'#13#10'WHERE SISTEMA_ID = :SISTEMA_ID'#13#10'  AND SITUACAO = '#39'A' +
         #39#13#10'ORDER BY'#13#10'DESCRICAO')
@@ -1274,7 +1272,6 @@ object frmCalculoRapido: TfrmCalculoRapido
     FetchOptions.AssignedValues = [evMode]
     FetchOptions.Mode = fmAll
     SQL.Strings = (
-      
         'SELECT * FROM G_EMOLUMENTO'#13#10'WHERE SISTEMA_ID = :SISTEMA_ID'#13#10'  AN' +
         'D (SITUACAO IS NULL OR SITUACAO <> '#39'I'#39')'#13#10'ORDER BY DESCRICAO')
     Left = 481

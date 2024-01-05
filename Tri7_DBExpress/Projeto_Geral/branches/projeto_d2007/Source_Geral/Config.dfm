@@ -2465,8 +2465,8 @@ inherited frmConfig: TfrmConfig
     Left = 621
     Top = 282
   end
-  inherited DataSetAncestral: TSQLDataSet
-    CommandText = 'SELECT *'#13#10'FROM G_CONFIG'#13#10'ORDER BY SECAO, TERMINAL, NOME'
+  inherited DataSetAncestral: TI9Query
+    SQL.Strings = ('SELECT *'#13#10'FROM G_CONFIG'#13#10'ORDER BY SECAO, TERMINAL, NOME')
     Left = 651
     Top = 282
   end
@@ -2484,18 +2484,18 @@ inherited frmConfig: TfrmConfig
     OnCalcFields = ClientAncestralCalcFields
     Left = 715
     Top = 282
-    object ClientAncestralCONFIG_ID: TFMTBCDField
+    object ClientAncestralCONFIG_ID: TBCDField
       FieldName = 'CONFIG_ID'
       Required = True
       Precision = 15
       Size = 2
     end
-    object ClientAncestralCONFIG_GRUPO_ID: TFMTBCDField
+    object ClientAncestralCONFIG_GRUPO_ID: TBCDField
       FieldName = 'CONFIG_GRUPO_ID'
       Precision = 15
       Size = 2
     end
-    object ClientAncestralCONFIG_PADRAO_ID: TFMTBCDField
+    object ClientAncestralCONFIG_PADRAO_ID: TBCDField
       FieldName = 'CONFIG_PADRAO_ID'
       Precision = 15
       Size = 2
@@ -2543,16 +2543,15 @@ inherited frmConfig: TfrmConfig
     Left = 747
     Top = 282
   end
-  object sqlConfigGrupo: TSimpleDataSet
+  object sqlConfigGrupo: TI9Query
     Aggregates = <>
     Connection = dtmControles.DB
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT * '#13#10'FROM G_CONFIG_GRUPO'#13#10'WHERE SISTEMA_ID = :SISTEMA_ID'#13#10 +
-      'ORDER BY DESCRICAO'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <
+      'ORDER BY DESCRICAO')
+    ParamData = <
       item
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Name = 'SISTEMA_ID'
         ParamType = ptInput
       end>
@@ -2560,7 +2559,7 @@ inherited frmConfig: TfrmConfig
     AfterScroll = sqlConfigGrupoAfterScroll
     Left = 714
     Top = 317
-    object sqlConfigGrupoCONFIG_GRUPO_ID: TFMTBCDField
+    object sqlConfigGrupoCONFIG_GRUPO_ID: TBCDField
       FieldName = 'CONFIG_GRUPO_ID'
       Required = True
       Precision = 15
@@ -2576,14 +2575,13 @@ inherited frmConfig: TfrmConfig
     Left = 746
     Top = 317
   end
-  object sqlValoresPadrao: TSimpleDataSet
+  object sqlValoresPadrao: TI9Query
     Aggregates = <>
     Connection = dtmControles.DB
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT CV.*'#13#10'FROM G_CONFIG_PADRAO_VALOR CV'#13#10'WHERE CV.CONFIG_PADR' +
-      'AO_ID = :CONFIG_PADRAO_ID'#13#10'ORDER BY CV.VALOR'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <
+      'AO_ID = :CONFIG_PADRAO_ID'#13#10'ORDER BY CV.VALOR')
+    ParamData = <
       item
         DataType = ftInteger
         Name = 'CONFIG_PADRAO_ID'
@@ -2593,13 +2591,13 @@ inherited frmConfig: TfrmConfig
     Params = <>
     Left = 530
     Top = 266
-    object sqlValoresPadraoCONFIG_PADRAO_VALOR_ID: TFMTBCDField
+    object sqlValoresPadraoCONFIG_PADRAO_VALOR_ID: TBCDField
       FieldName = 'CONFIG_PADRAO_VALOR_ID'
       Required = True
       Precision = 15
       Size = 2
     end
-    object sqlValoresPadraoCONFIG_PADRAO_ID: TFMTBCDField
+    object sqlValoresPadraoCONFIG_PADRAO_ID: TBCDField
       FieldName = 'CONFIG_PADRAO_ID'
       Precision = 15
       Size = 2
@@ -2618,12 +2616,11 @@ inherited frmConfig: TfrmConfig
     Left = 562
     Top = 266
   end
-  object sqlValoresTabela: TSimpleDataSet
+  object sqlValoresTabela: TI9Query
     Aggregates = <>
     Connection = dtmControles.DB
     DataSet.DataSource = dtsValoresTabela
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <>
+    ParamData = <>
     Params = <>
     Left = 531
     Top = 299

@@ -553,7 +553,7 @@ inherited frmValoresDiversos: TfrmValoresDiversos
       LookAndFeel.SkinName = ''
     end
   end
-  inherited DataSetAncestral: TSQLDataSet
+  inherited DataSetAncestral: TI9Query
     Left = 496
     Top = 76
   end
@@ -603,19 +603,18 @@ inherited frmValoresDiversos: TfrmValoresDiversos
     Left = 65
     Top = 159
   end
-  object sqlImoveis: TSimpleDataSet
+  object sqlImoveis: TI9Query
     Aggregates = <>
     Connection = dtmControles.DB
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT V.*,'#13#10'       I.TIPO_CLASSE, I.NUMERO, I.UF, TB_BAIRRO_ID,' +
       ' I.IMOVEL_ID,'#13#10'       U.NUMERO_UNIDADE, U.QUADRA, U.AREA, U.TIPO' +
       '_IMOVEL,'#13#10'       U.LOGRADOURO, U.CARACTERISTICA, U.COMPLEMENTO'#13#10 +
       'FROM T_ATO_VINCULOIMOVEL V'#13#10'LEFT OUTER JOIN T_IMOVEL_UNIDADE U'#13#10 +
       '  ON V.IMOVEL_UNIDADE_ID = U.IMOVEL_UNIDADE_ID'#13#10'LEFT OUTER JOIN ' +
       'T_IMOVEL I'#13#10'  ON U.IMOVEL_ID = I.IMOVEL_ID'#13#10'WHERE V.ATO_ID = :AT' +
-      'O_ID'#13#10'ORDER BY V.ATO_VINCULOIMOVEL_ID'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <
+      'O_ID'#13#10'ORDER BY V.ATO_VINCULOIMOVEL_ID')
+    ParamData = <
       item
         DataType = ftBCD
         Name = 'ATO_ID'
@@ -624,13 +623,13 @@ inherited frmValoresDiversos: TfrmValoresDiversos
     Params = <>
     Left = 33
     Top = 198
-    object sqlImoveisATO_VINCULOIMOVEL_ID: TFMTBCDField
+    object sqlImoveisATO_VINCULOIMOVEL_ID: TBCDField
       FieldName = 'ATO_VINCULOIMOVEL_ID'
       Required = True
       Precision = 15
       Size = 2
     end
-    object sqlImoveisATO_ID: TFMTBCDField
+    object sqlImoveisATO_ID: TBCDField
       FieldName = 'ATO_ID'
       Precision = 15
       Size = 2
@@ -639,7 +638,7 @@ inherited frmValoresDiversos: TfrmValoresDiversos
       FieldName = 'REGISTRO_NUMERO'
       Size = 15
     end
-    object sqlImoveisIMOVEL_UNIDADE_ID: TFMTBCDField
+    object sqlImoveisIMOVEL_UNIDADE_ID: TBCDField
       FieldName = 'IMOVEL_UNIDADE_ID'
       Precision = 15
       Size = 2
@@ -648,7 +647,7 @@ inherited frmValoresDiversos: TfrmValoresDiversos
       FieldName = 'TIPO_CLASSE'
       Size = 1
     end
-    object sqlImoveisNUMERO: TFMTBCDField
+    object sqlImoveisNUMERO: TBCDField
       FieldName = 'NUMERO'
       Precision = 15
       Size = 2
@@ -657,12 +656,12 @@ inherited frmValoresDiversos: TfrmValoresDiversos
       FieldName = 'UF'
       Size = 3
     end
-    object sqlImoveisTB_BAIRRO_ID: TFMTBCDField
+    object sqlImoveisTB_BAIRRO_ID: TBCDField
       FieldName = 'TB_BAIRRO_ID'
       Precision = 15
       Size = 2
     end
-    object sqlImoveisIMOVEL_ID: TFMTBCDField
+    object sqlImoveisIMOVEL_ID: TBCDField
       FieldName = 'IMOVEL_ID'
       Precision = 15
       Size = 2
@@ -675,12 +674,12 @@ inherited frmValoresDiversos: TfrmValoresDiversos
       FieldName = 'QUADRA'
       Size = 15
     end
-    object sqlImoveisAREA: TFMTBCDField
+    object sqlImoveisAREA: TBCDField
       FieldName = 'AREA'
       Precision = 15
       Size = 2
     end
-    object sqlImoveisTIPO_IMOVEL: TFMTBCDField
+    object sqlImoveisTIPO_IMOVEL: TBCDField
       FieldName = 'TIPO_IMOVEL'
       Precision = 15
       Size = 2

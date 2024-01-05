@@ -1,4 +1,4 @@
-ï»¿{ Unit de cÃ¡lculo de tempo de execuÃ§Ã£o para Delphi em plataforma Windows
+{ Unit de cálculo de tempo de execução para Delphi em plataforma Windows
   https://gist.github.com/matheusd/8726e1b9a6d3f0cb895d4ebbcd5ce470
   Matheus Degiovani matheusd
   Technologist and problem solver
@@ -13,7 +13,7 @@ uses
   SysUtils;
 
 type
-    {: Um contador de alta performance, utilizado para realizar mediÃ§Ãµes de
+    {: Um contador de alta performance, utilizado para realizar medições de
     tempo/velocidade. }
   TPerformanceCounter = class(TObject)
   private
@@ -24,51 +24,51 @@ type
   public
     constructor create;
 
-    {: Inicia o cronÃ´metro interno. }
+    {: Inicia o cronômetro interno. }
     procedure start;
 
-    {: Finaliza o cronÃ´metro interno. }
+    {: Finaliza o cronômetro interno. }
     procedure stop;
 
-    {: Retorna (em milisegundos) o tempo da Ãºltima "corrida" do cronÃ´metro.
-    Ã‰ preciso que os mÃ©todos start() e stop() tenham sido chamados
+    {: Retorna (em milisegundos) o tempo da última "corrida" do cronômetro.
+    É preciso que os métodos start() e stop() tenham sido chamados
     anteriormente. }
     function lastMs: double;
 
-    {: Retorna (em milisegundos) o tempo entre o Ãºltimo start() e agora. }
+    {: Retorna (em milisegundos) o tempo entre o último start() e agora. }
     function currentMs: double;
 
-    {: Retorna a quantidade de execuÃ§Ãµes por segundo (baseado no acumulador). }
+    {: Retorna a quantidade de execuções por segundo (baseado no acumulador). }
     function execsPerSec: double;
 
-    {: Reinicializa o contador de execuÃ§Ãµes. }
+    {: Reinicializa o contador de execuções. }
     procedure zeroExecs;
 
-    {: Zera a quantidade de execuÃ§Ãµes e o acumulador. }
+    {: Zera a quantidade de execuções e o acumulador. }
     procedure zeroExecsAccum;
 
-    {: Incrementa o contador de execuÃ§Ãµes em 1. }
+    {: Incrementa o contador de execuções em 1. }
     procedure incExecs;
 
-    {: Indica se jÃ¡ iniciou o timer. }
+    {: Indica se já iniciou o timer. }
     function started: boolean;
 
     {: Acumula o lastMs atual em um acumulador interno. }
     procedure accumulate;
 
-    {: Para a execuÃ§Ã£o e acumula o que foi gasto. }
+    {: Para a execução e acumula o que foi gasto. }
     procedure stopAndAccumulate;
 
     {: Retorna o tempo acumulado em millisegundos. }
     function currentAccumMS: double;
 
-    {: Rertorna a mÃ©dia do acumulado pelo nÃºmero de execuÃ§Ãµes. }
+    {: Rertorna a média do acumulado pelo número de execuções. }
     function avgAccumMs: double;
 
     {: Zera o acumulador. }
     procedure zeroAccum;
 
-    {: Retorna a quantidade de eventos acontecida em um determinado perÃ­odo. }
+    {: Retorna a quantidade de eventos acontecida em um determinado período. }
     function execCount: integer;
 
     {: Executa um writeln com o currentMs() }

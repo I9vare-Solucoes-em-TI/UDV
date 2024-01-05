@@ -20,7 +20,7 @@ uses
 
 type
   TfrmCadDocumento = class(TfrmCadBasico)
-    ClientAncestralTB_DOCUMENTOTIPO_ID: TFMTBCDField;
+    ClientAncestralTB_DOCUMENTOTIPO_ID: TBCDField;
     ClientAncestralDESCRICAO: TStringField;
     ClientAncestralTEXTO: TBlobField;
     ClientAncestralSITUACAO: TStringField;

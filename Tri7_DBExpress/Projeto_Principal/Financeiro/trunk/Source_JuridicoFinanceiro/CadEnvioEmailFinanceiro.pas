@@ -3,6 +3,7 @@ unit CadEnvioEmailFinanceiro;
 interface
 
 uses
+  I9Query,
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs,  Menus, FMTBcd,
   DB, DBClient, Provider, SqlExpr, StdCtrls, cxButtons, cxTextEdit, cxDBEdit,
@@ -53,7 +54,7 @@ type
     tabRodape: TcxTabSheet;
     memTextoRodape: TMemo;
     Panel1: TPanel;
-    DataSetAncestral: TSQLDataSet;
+    DataSetAncestral: TI9Query;
     ProviderAncestral: TDataSetProvider;
     ClientAncestral: TClientDataSet;
     SourceAncestral: TDataSource;
@@ -73,7 +74,7 @@ type
     mxStringsExport1: TmxStringsExport;
     memTextoPadrao: TRichEdit;
     chxAssinaturaUsuario: TcxDBCheckBox;
-    ClientAncestralEMAIL_CONFIG_ID: TFMTBCDField;
+    ClientAncestralEMAIL_CONFIG_ID: TBCDField;
     ClientAncestralTEXTO_EMAIL: TBlobField;
     ClientAncestralHOST_SMTP: TStringField;
     ClientAncestralPORTA: TStringField;
@@ -81,18 +82,18 @@ type
     ClientAncestralPASSWORD: TStringField;
     ClientAncestralAUTENTICAR_SERVIDOR: TStringField;
     ClientAncestralTEXTO_RODAPE: TBlobField;
-    ClientAncestralESPACO_TEXTO_RODAPE: TFMTBCDField;
+    ClientAncestralESPACO_TEXTO_RODAPE: TBCDField;
     ClientAncestralASSUNTO_PADRAO: TStringField;
     ClientAncestralEMAIL_PADRAO: TStringField;
     ClientAncestralUSAR_EMAIL_USUARIO: TStringField;
     ClientAncestralADICIONAR_ASSINATURA_USUARIO: TStringField;
-    ClientAncestralEMAIL_TEXTO_PADRAO_ID: TFMTBCDField;
-    sqlBoletos: TSimpleDataSet;
-    sqlPessoa: TSimpleDataSet;
-    sqlPessoaPESSOA_ID: TFMTBCDField;
-    sqlBoletosBOLETO_ID: TFMTBCDField;
+    ClientAncestralEMAIL_TEXTO_PADRAO_ID: TBCDField;
+    sqlBoletos: TI9Query;
+    sqlPessoa: TI9Query;
+    sqlPessoaPESSOA_ID: TBCDField;
+    sqlBoletosBOLETO_ID: TBCDField;
     sqlBoletosDATA_BOLETA: TSQLTimeStampField;
-    sqlBoletosNOSSO_NUMERO: TFMTBCDField;
+    sqlBoletosNOSSO_NUMERO: TBCDField;
     sqlBoletosBOLETO_DESCRICAO: TStringField;
     sqlBoletosNOME: TStringField;
     sqlBoletosEMAIL1: TStringField;
@@ -276,7 +277,7 @@ var
       ParamByName('PESSOA_DESCRICAO').AsString  := sqlBoletosNOME.AsString;
       ParamByName('PESSOA_ID').AsInteger        := sqlPessoaPESSOA_ID.AsInteger;
       ParamByName('BOLETOS').AsString           := viBoleto;
-      ExecSQL(FALSE);
+      ExecSQL;
     end;
   end;
   {$ENDREGION}
@@ -288,7 +289,7 @@ begin
   while not sqlPessoa.Eof do begin
 
     sqlBoletos.Active := False;
-    sqlBoletos.DataSet.ParamByName('PESSOA_ID').AsString := sqlPessoaPESSOA_ID.AsString;
+    sqlBoletos.ParamByName('PESSOA_ID').AsString := sqlPessoaPESSOA_ID.AsString;
     sqlBoletos.Active := True;
 
     if sqlBoletos.IsEmpty then

@@ -3,6 +3,7 @@ unit RegistrarSelo;
 interface
 
 uses
+  I9Query,
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, CadAuxiliar, Menus, FMTBcd,
   cxDropDownEdit, cxLookupEdit,
@@ -37,8 +38,8 @@ type
     btnConfirmar: TcxButton;
     lbxUsuario: TcxLookupComboBox;
     lblUsuario: TcxLabel;
-    sqlUsuarioSistema: TSimpleDataSet;
-    sqlUsuarioSistemaUSUARIO_ID: TFMTBCDField;
+    sqlUsuarioSistema: TI9Query;
+    sqlUsuarioSistemaUSUARIO_ID: TBCDField;
     sqlUsuarioSistemaLOGIN: TStringField;
     dtsUsuarioSistema: TDataSource;
     procedure btnConfirmarClick(Sender: TObject);

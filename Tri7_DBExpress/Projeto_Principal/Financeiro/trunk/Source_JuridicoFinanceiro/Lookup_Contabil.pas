@@ -3,6 +3,7 @@ unit Lookup_Contabil;
 interface
 
 uses
+  I9Query,
   SysUtils, Classes, cxDBEditRepository, DB, DBClient, SimpleDS,
   cxEditRepositoryItems, cxEdit, cxDropDownEdit, Forms, Windows, Controls, cxPC,
   cxStyles, cxDBEdit, cxClasses, dxBarExtItems, ImgList, DbxDevartInterBase, cxBarEditItem, dxBaR;
@@ -39,28 +40,28 @@ type
     cxEditRepository1: TcxEditRepository;
     Combo_EntradaSaida: TcxEditRepositoryImageComboBoxItem;
     Combo_OperacaoContabil: TcxEditRepositoryImageComboBoxItem;
-    sqlGrupoContabilTodos: TSimpleDataSet;
+    sqlGrupoContabilTodos: TI9Query;
     dtsGrupoContabilTodos: TDataSource;
-    sqlGrupoContabilAtivos: TSimpleDataSet;
+    sqlGrupoContabilAtivos: TI9Query;
     dtsGrupoContabiAtivos: TDataSource;
     Lista_GrupoContabilTodos: TcxEditRepositoryLookupComboBoxItem;
     Lista_GrupoContabilAtivos: TcxEditRepositoryLookupComboBoxItem;
-    sqlGrupoContabilSaidas: TSimpleDataSet;
+    sqlGrupoContabilSaidas: TI9Query;
     dtsGrupoContabilSaidas: TDataSource;
-    sqlGrupoContabilEntradas: TSimpleDataSet;
+    sqlGrupoContabilEntradas: TI9Query;
     dtsGrupoContabiEntradas: TDataSource;
     Lista_GrupoContabilSaidas: TcxEditRepositoryLookupComboBoxItem;
     Lista_GrupoContabilEntradas: TcxEditRepositoryLookupComboBoxItem;
-    sqlBalanceteGrupo: TSimpleDataSet;
+    sqlBalanceteGrupo: TI9Query;
     dtsBalanceteGrupo: TDataSource;
     Lista_BalanceteGrupoDescricao: TcxEditRepositoryLookupComboBoxItem;
-    sqlPlanoContasAtivo: TSimpleDataSet;
+    sqlPlanoContasAtivo: TI9Query;
     dtsPlanoContasAtivo: TDataSource;
-    sqlPlanoContasTodos: TSimpleDataSet;
+    sqlPlanoContasTodos: TI9Query;
     dtsPlanoContasTodos: TDataSource;
     Lista_PlanoContasAtivo: TcxEditRepositoryLookupComboBoxItem;
     Lista_PlanoContasTodos: TcxEditRepositoryLookupComboBoxItem;
-    sqlPlanoContasReceitas: TSimpleDataSet;
+    sqlPlanoContasReceitas: TI9Query;
     dtsPlanoContasReceitas: TDataSource;
     Lista_PlanoContasReceitas: TcxEditRepositoryLookupComboBoxItem;
     Combo_Periodo: TcxEditRepositoryImageComboBoxItem;
@@ -70,98 +71,98 @@ type
     Combo_PeriodoLimitado: TcxEditRepositoryImageComboBoxItem;
     Combo_SituacaoCompGeral: TcxEditRepositoryImageComboBoxItem;
     Lista_BalanceteGrupoSigla: TcxEditRepositoryLookupComboBoxItem;
-    sqlCentroCustoTodos: TSimpleDataSet;
+    sqlCentroCustoTodos: TI9Query;
     dtsCentroCustoTodos: TDataSource;
-    sqlCentroCustoAtivo: TSimpleDataSet;
+    sqlCentroCustoAtivo: TI9Query;
     dtsCentroCustoAtivo: TDataSource;
     Lista_CentroCustoTodos: TcxEditRepositoryLookupComboBoxItem;
     Lista_CentroCustoAtivo: TcxEditRepositoryLookupComboBoxItem;
-    sqlCompReceitaTodos: TSimpleDataSet;
+    sqlCompReceitaTodos: TI9Query;
     dtsCompReceitaTodos: TDataSource;
     Lista_CompReceitassTodos: TcxEditRepositoryLookupComboBoxItem;
     Combo_SituacaoBoleto: TcxEditRepositoryImageComboBoxItem;
-    sqlPlanoContasDespesasTodos: TSimpleDataSet;
+    sqlPlanoContasDespesasTodos: TI9Query;
     dtsPlanoContasDespesasTodos: TDataSource;
     dtsPlanoContasDespesasAtivo: TDataSource;
-    sqlPlanoContasDespesasAtivo: TSimpleDataSet;
+    sqlPlanoContasDespesasAtivo: TI9Query;
     Lista_PlanoContasDespTodas: TcxEditRepositoryLookupComboBoxItem;
     Lista_PlanoContasDespAtivos: TcxEditRepositoryLookupComboBoxItem;
     cxStyleRepository1: TcxStyleRepository;
     cxStyle1: TcxStyle;
-    sqlCompSaidaTodos: TSimpleDataSet;
+    sqlCompSaidaTodos: TI9Query;
     dtsCompSaidaTodos: TDataSource;
     Lista_CompSaidasTodos: TcxEditRepositoryLookupComboBoxItem;
-    sqlCabecalho: TSimpleDataSet;
+    sqlCabecalho: TI9Query;
     dtsCabecalho: TDataSource;
     sqlGrupoContabilAtivosDESCRICAO: TStringField;
-    sqlGrupoContabilAtivosCONTABIL_GRUPO_ID: TFMTBCDField;
-    sqlGrupoContabilAtivosBALANCETE_GRUPO_ID: TFMTBCDField;
+    sqlGrupoContabilAtivosCONTABIL_GRUPO_ID: TBCDField;
+    sqlGrupoContabilAtivosBALANCETE_GRUPO_ID: TBCDField;
     sqlGrupoContabilTodosDESCRICAO: TStringField;
-    sqlGrupoContabilTodosCONTABIL_GRUPO_ID: TFMTBCDField;
-    sqlGrupoContabilTodosBALANCETE_GRUPO_ID: TFMTBCDField;
+    sqlGrupoContabilTodosCONTABIL_GRUPO_ID: TBCDField;
+    sqlGrupoContabilTodosBALANCETE_GRUPO_ID: TBCDField;
     sqlGrupoContabilEntradasDESCRICAO: TStringField;
-    sqlGrupoContabilEntradasCONTABIL_GRUPO_ID: TFMTBCDField;
-    sqlGrupoContabilEntradasBALANCETE_GRUPO_ID: TFMTBCDField;
+    sqlGrupoContabilEntradasCONTABIL_GRUPO_ID: TBCDField;
+    sqlGrupoContabilEntradasBALANCETE_GRUPO_ID: TBCDField;
     sqlBalanceteGrupoDESCRICAO: TStringField;
-    sqlBalanceteGrupoBALANCETE_GRUPO_ID: TFMTBCDField;
+    sqlBalanceteGrupoBALANCETE_GRUPO_ID: TBCDField;
     sqlBalanceteGrupoSIGLA: TStringField;
     sqlCentroCustoTodosDESCRICAO: TStringField;
-    sqlCentroCustoTodosCENTRO_CUSTO_ID: TFMTBCDField;
-    sqlCentroCustoTodosBALANCETE_GRUPO_ID: TFMTBCDField;
-    sqlPlanoContasReceitasCONTABIL_CONTA_ID: TFMTBCDField;
+    sqlCentroCustoTodosCENTRO_CUSTO_ID: TBCDField;
+    sqlCentroCustoTodosBALANCETE_GRUPO_ID: TBCDField;
+    sqlPlanoContasReceitasCONTABIL_CONTA_ID: TBCDField;
     sqlPlanoContasReceitasDESCRICAO: TStringField;
-    sqlPlanoContasReceitasBALANCETE_GRUPO_ID: TFMTBCDField;
-    sqlPlanoContasAtivoCONTABIL_CONTA_ID: TFMTBCDField;
+    sqlPlanoContasReceitasBALANCETE_GRUPO_ID: TBCDField;
+    sqlPlanoContasAtivoCONTABIL_CONTA_ID: TBCDField;
     sqlPlanoContasAtivoDESCRICAO: TStringField;
     sqlCompReceitaTodosDESCRICAO: TStringField;
-    sqlCompReceitaTodosCONTABIL_CONTA_ID: TFMTBCDField;
+    sqlCompReceitaTodosCONTABIL_CONTA_ID: TBCDField;
     sqlPlanoContasDespesasTodosDESCRICAO: TStringField;
-    sqlPlanoContasDespesasTodosCONTABIL_CONTA_ID: TFMTBCDField;
-    sqlPlanoContasDespesasTodosBALANCETE_GRUPO_ID: TFMTBCDField;
+    sqlPlanoContasDespesasTodosCONTABIL_CONTA_ID: TBCDField;
+    sqlPlanoContasDespesasTodosBALANCETE_GRUPO_ID: TBCDField;
     sqlPlanoContasDespesasAtivoDESCRICAO: TStringField;
-    sqlPlanoContasDespesasAtivoCONTABIL_CONTA_ID: TFMTBCDField;
-    sqlPlanoContasDespesasAtivoBALANCETE_GRUPO_ID: TFMTBCDField;
-    sqlPlanoContasTodosCONTABIL_CONTA_ID: TFMTBCDField;
+    sqlPlanoContasDespesasAtivoCONTABIL_CONTA_ID: TBCDField;
+    sqlPlanoContasDespesasAtivoBALANCETE_GRUPO_ID: TBCDField;
+    sqlPlanoContasTodosCONTABIL_CONTA_ID: TBCDField;
     sqlPlanoContasTodosDESCRICAO: TStringField;
-    sqlCabecalhoBALANCETE_GRUPO_ID: TFMTBCDField;
+    sqlCabecalhoBALANCETE_GRUPO_ID: TBCDField;
     sqlCabecalhoCABECALHO: TBlobField;
     sqlCabecalhoTEXTO_CABECALHO: TBlobField;
     sqlCompSaidaTodosDESCRICAO: TStringField;
-    sqlCompSaidaTodosCONTABIL_CONTA_ID: TFMTBCDField;
+    sqlCompSaidaTodosCONTABIL_CONTA_ID: TBCDField;
     sqlCentroCustoAtivoDESCRICAO: TStringField;
-    sqlCentroCustoAtivoCENTRO_CUSTO_ID: TFMTBCDField;
-    sqlCentroCustoAtivoBALANCETE_GRUPO_ID: TFMTBCDField;
+    sqlCentroCustoAtivoCENTRO_CUSTO_ID: TBCDField;
+    sqlCentroCustoAtivoBALANCETE_GRUPO_ID: TBCDField;
     sqlGrupoContabilSaidasDESCRICAO: TStringField;
-    sqlGrupoContabilSaidasCONTABIL_GRUPO_ID: TFMTBCDField;
-    sqlGrupoContabilSaidasBALANCETE_GRUPO_ID: TFMTBCDField;
+    sqlGrupoContabilSaidasCONTABIL_GRUPO_ID: TBCDField;
+    sqlGrupoContabilSaidasBALANCETE_GRUPO_ID: TBCDField;
     ComboEspeciePagamento: TcxEditRepositoryImageComboBoxItem;
     ComboSituacaoPagamento: TcxEditRepositoryImageComboBoxItem;
     ComboDespesaReceitaOutros: TcxEditRepositoryImageComboBoxItem;
     Combo_OperacaoLivroCaixa: TcxEditRepositoryImageComboBoxItem;
-    sqlCaixa: TSimpleDataSet;
+    sqlCaixa: TI9Query;
     dtsCaixa: TDataSource;
     sqlCaixaDESCRICAO: TStringField;
-    sqlCaixaCAIXA_ID: TFMTBCDField;
+    sqlCaixaCAIXA_ID: TBCDField;
     Lista_CaixaTodos: TcxEditRepositoryLookupComboBoxItem;
     imgCaixa: TImageList;
     Combo_CaixaSituacao: TcxEditRepositoryImageComboBoxItem;
-    sqlPessoasTodas: TSimpleDataSet;
+    sqlPessoasTodas: TI9Query;
     sqlPessoasTodasNOME: TStringField;
-    sqlPessoasTodasPESSOA_ID: TFMTBCDField;
+    sqlPessoasTodasPESSOA_ID: TBCDField;
     dtsPessoasTodas: TDataSource;
     Lista_PessoaTodas: TcxEditRepositoryLookupComboBoxItem;
     Combo_HonorarioPeriodo: TcxEditRepositoryImageComboBoxItem;
     Combo_ContratoItemSituacao: TcxEditRepositoryImageComboBoxItem;
     ComboDespesaReceitaSomente: TcxEditRepositoryImageComboBoxItem;
     dtsCaixaAtivos: TDataSource;
-    sqlCaixaAtivos: TSimpleDataSet;
+    sqlCaixaAtivos: TI9Query;
     StringField1: TStringField;
-    FMTBCDField1: TFMTBCDField;
+    FMTBCDField1: TBCDField;
     Lista_CaixaAtivos: TcxEditRepositoryLookupComboBoxItem;
-    sqlCaixaTodosAtivos: TSimpleDataSet;
+    sqlCaixaTodosAtivos: TI9Query;
     dtsCaixaTodosAtivos: TDataSource;
     sqlCaixaTodosAtivosDESCRICAO: TStringField;
-    sqlCaixaTodosAtivosCAIXA_ID: TFMTBCDField;
+    sqlCaixaTodosAtivosCAIXA_ID: TBCDField;
     Lista_CaixaTodosAtivos: TcxEditRepositoryLookupComboBoxItem;
     Combo_DocumentoTipo: TcxEditRepositoryImageComboBoxItem;
     Combo_ReferenciaTipo: TcxEditRepositoryImageComboBoxItem;
@@ -169,15 +170,15 @@ type
     sqlCaixaTodosAtivosRESUMO: TStringField;
     Lista_CaixaResumo: TcxEditRepositoryLookupComboBoxItem;
     sqlCaixaRESUMO: TStringField;
-    sqlTipoModalidade: TSimpleDataSet;
-    sqlTipoModalidadeTIPO_MODALIDADE_ID: TFMTBCDField;
+    sqlTipoModalidade: TI9Query;
+    sqlTipoModalidadeTIPO_MODALIDADE_ID: TBCDField;
     sqlTipoModalidadeDESCRICAO: TStringField;
     sqlTipoModalidadeTIPO: TStringField;
     sqlTipoModalidadeSITUACAO: TStringField;
     dtsTipoModalidade: TDataSource;
-    sqlTipoCarga: TSimpleDataSet;
+    sqlTipoCarga: TI9Query;
     dtsTipoCarga: TDataSource;
-    sqlTipoCargaTIPO_CARGA_ID: TFMTBCDField;
+    sqlTipoCargaTIPO_CARGA_ID: TBCDField;
     sqlTipoCargaDESCRICAO: TStringField;
     sqlTipoCargaSITUACAO: TStringField;
     Lista_TipoCarga: TcxEditRepositoryLookupComboBoxItem;
@@ -187,10 +188,10 @@ type
     sqlCentroCustoAtivoTIPO_ITEM: TStringField;
     Combo_TipoCentroCusto: TcxEditRepositoryImageComboBoxItem;
     sqlPessoasTodasUTILIZA_BOLETO: TStringField;
-    sqlCentroCustoTipo1: TSimpleDataSet;
+    sqlCentroCustoTipo1: TI9Query;
     StringField2: TStringField;
-    FMTBCDField2: TFMTBCDField;
-    FMTBCDField3: TFMTBCDField;
+    FMTBCDField2: TBCDField;
+    FMTBCDField3: TBCDField;
     dtsCentroCustoTipo1: TDataSource;
     Lista_CentroCustoTipo1: TcxEditRepositoryLookupComboBoxItem;
     ClientPrevisaoCaixa: TClientDataSet;
@@ -209,8 +210,8 @@ type
     Function InclementarAnoMes(vpAnoMes : String):String;
     Function DeclementarAnoMes(vpAnoMes : String; vpQtd : Integer = 1):String;
     Function FormatarAnoMes(vpAnoMes : String; vpTirarBarra : String = ''):String;
-    procedure MarcarDesmarcarCompromissos(vpSqlDataSet : TSimpleDataSet; vpMarcar : Boolean);
-    procedure MarcarDesmarcarCompromissosClient(vpSqlDataSet : TClientDataSet; vpMarcar : Boolean);
+    procedure MarcarDesmarcarCompromissos(vpI9Query : TI9Query; vpMarcar : Boolean);
+    procedure MarcarDesmarcarCompromissosClient(vpI9Query : TClientDataSet; vpMarcar : Boolean);
     Function CalcularPeriodoFinalAnoMes(vpAnoMes : String; vpQtd : Integer; vpAdicionarBarra : Boolean = False):String;
 
     // Compromissos
@@ -223,7 +224,7 @@ type
     // Balancete
     procedure CarregarTabBalancete(vpTabBalancete : TcxTabControl);
     Function SetarBalanceteItem(vpBalanceteId : Integer):Integer;
-    procedure FiltrarGrupoContasBalancete(vpSimpleDataSet : TSimpleDataSet; vpBalanceteId : Integer;
+    procedure FiltrarGrupoContasBalancete(vpSimpleDataSet : TI9Query; vpBalanceteId : Integer;
            vpFiltrar : Boolean);
 
     procedure GerarBoleto(vpData : String; vpTodos : Boolean; vpPessoa : String = ''; vpGrupo : String = '');
@@ -704,7 +705,7 @@ end;
 procedure TdtmLookupContabil.CarregarCabecalho(vpBalanceteId: Integer);
 begin
   sqlCabecalho.Active := False;
-  sqlCabecalho.DataSet.ParamByName('BALANCETE_GRUPO_ID').AsBCD := vpBalanceteId;
+  sqlCabecalho.ParamByName('BALANCETE_GRUPO_ID').AsBCD := vpBalanceteId;
   sqlCabecalho.Active := True;
 
   sqlCabecalho.Edit;
@@ -1100,7 +1101,7 @@ begin
   Result := (IntToStr(viAno)+ FormatFloat('00', viMes));
 end;
 
-procedure TdtmLookupContabil.FiltrarGrupoContasBalancete(vpSimpleDataSet : TSimpleDataSet; vpBalanceteId : Integer;
+procedure TdtmLookupContabil.FiltrarGrupoContasBalancete(vpSimpleDataSet : TI9Query; vpBalanceteId : Integer;
            vpFiltrar : Boolean);
 begin
   vpSimpleDataSet.Filtered := False;
@@ -1244,36 +1245,36 @@ begin
   end;
 end;
 
-procedure TdtmLookupContabil.MarcarDesmarcarCompromissos(vpSqlDataSet: TSimpleDataSet;
+procedure TdtmLookupContabil.MarcarDesmarcarCompromissos(vpI9Query: TI9Query;
   vpMarcar: Boolean);
 begin
-  vpSqlDataSet.DisableControls;
-  vpSqlDataSet.First;
-  while not vpSqlDataSet.eof do
+  vpI9Query.DisableControls;
+  vpI9Query.First;
+  while not vpI9Query.eof do
   begin
-    vpSqlDataSet.Edit;
-    vpSqlDataSet.FieldByName('Selecionar').AsBoolean := vpMarcar;
-    vpSqlDataSet.post;
-    vpSqlDataSet.next;
+    vpI9Query.Edit;
+    vpI9Query.FieldByName('Selecionar').AsBoolean := vpMarcar;
+    vpI9Query.post;
+    vpI9Query.next;
   end;
-  vpSqlDataSet.First;
-  vpSqlDataSet.EnableControls;
+  vpI9Query.First;
+  vpI9Query.EnableControls;
 end;
 
 procedure TdtmLookupContabil.MarcarDesmarcarCompromissosClient(
-  vpSqlDataSet: TClientDataSet; vpMarcar: Boolean);
+  vpI9Query: TClientDataSet; vpMarcar: Boolean);
 begin
-  vpSqlDataSet.DisableControls;
-  vpSqlDataSet.First;
-  while not vpSqlDataSet.eof do
+  vpI9Query.DisableControls;
+  vpI9Query.First;
+  while not vpI9Query.eof do
   begin
-    vpSqlDataSet.Edit;
-    vpSqlDataSet.FieldByName('Selecionar').AsBoolean := vpMarcar;
-    vpSqlDataSet.post;
-    vpSqlDataSet.next;
+    vpI9Query.Edit;
+    vpI9Query.FieldByName('Selecionar').AsBoolean := vpMarcar;
+    vpI9Query.post;
+    vpI9Query.next;
   end;
-  vpSqlDataSet.First;
-  vpSqlDataSet.EnableControls;
+  vpI9Query.First;
+  vpI9Query.EnableControls;
 end;
 
 function TdtmLookupContabil.MesAnoReferencia(vpData: String): String;
@@ -1476,7 +1477,7 @@ begin
       ParamByName('CAIXA_ID').AsInteger           := vgCompromissoVencido.CaixaID;
       ParamByName('SITUACAO').AsString            := vgCompromissoVencido.SituacaoLocal;
       ParamByName('USUARIO_ID').AsString          := vgUsuarioID;
-      ExecSQL(FALSE);
+      ExecSQL;
     end;
   end
   else
@@ -1668,7 +1669,7 @@ procedure TdtmLookupContabil.RegistrarRecebimentoFinanceiro(vpTransferenciaId : 
         ParamByName('DOCUMENTO_NUMERO').AsString    := vgDadosLivroCaixa.DocumentoNumero;
         ParamByName('DOC_TIPO').AsString            := vgDadosLivroCaixa.DocTipo;
         ParamByName('OBSERVACAO').AsString          := vgDadosLivroCaixa.Observacao;
-        ExecSQL(FALSE);
+        ExecSQL;
       end;
     except
       on E: exception do

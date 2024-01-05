@@ -3,6 +3,7 @@ unit BoletoBanco;
 interface
 
 uses
+  I9Query,
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, CadBasico, cxLookAndFeelPainters, FMTBcd, cxStyles,
   cxCustomData, cxGraphics, cxFilter, cxData, cxDataStorage, cxEdit, DB,
@@ -48,7 +49,7 @@ type
     cxDBTextEdit4: TcxDBTextEdit;
     cxDBTextEdit6: TcxDBTextEdit;
     lcbModeloBoleto: TcxDBLookupComboBox;
-    ClientAncestralBOLETO_BANCO_ID: TFMTBCDField;
+    ClientAncestralBOLETO_BANCO_ID: TBCDField;
     ClientAncestralDB_NOME_BANCO: TStringField;
     ClientAncestralDB_CODIGO_BANCO: TStringField;
     ClientAncestralDB_AGENCIA: TStringField;
@@ -58,10 +59,10 @@ type
     ClientAncestralDB_CARTEIRA: TStringField;
     ClientAncestralDB_CONVENIO: TStringField;
     ClientAncestralDB_DIGITO_BANCO: TStringField;
-    ClientAncestralCONFIG_RELATORIO_ID: TFMTBCDField;
-    sqlRelatorio: TSimpleDataSet;
+    ClientAncestralCONFIG_RELATORIO_ID: TBCDField;
+    sqlRelatorio: TI9Query;
     sqlRelatorioDESCRICAO: TStringField;
-    sqlRelatorioCONFIG_RELATORIO_ID: TFMTBCDField;
+    sqlRelatorioCONFIG_RELATORIO_ID: TBCDField;
     dtsRelatorio: TDataSource;
     chbSituacao: TcxDBCheckBox;
     ClientAncestralSITUACAO: TStringField;

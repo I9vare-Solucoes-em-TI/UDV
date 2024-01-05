@@ -3,6 +3,7 @@ unit MedidaAgraria;
 interface
 
 uses
+  I9Query,
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, CadBasico, cxLookAndFeelPainters, FMTBcd, cxStyles,
   cxCustomData, cxGraphics, cxFilter, cxData, cxDataStorage, cxEdit, DB,
@@ -29,15 +30,15 @@ type
     cxGridBasicaDBTipoMedida: TcxGridDBColumn;
     cxGridBasicaDBValor: TcxGridDBColumn;
     grdMedidaItemLevel1: TcxGridLevel;
-    ClientAncestralMEDIDA_AGRARIA_ID: TFMTBCDField;
+    ClientAncestralMEDIDA_AGRARIA_ID: TBCDField;
     ClientAncestralDESCRICAO: TStringField;
     ClientAncestralSITUACAO: TStringField;
     dtsMedidaItem: TDataSource;
-    sqlMedidaItem: TSimpleDataSet;
-    sqlMedidaItemMEDIDA_ITEM_ID: TFMTBCDField;
-    sqlMedidaItemVALOR: TFMTBCDField;
-    sqlMedidaItemMEDIDA_AGRARIA_ID: TFMTBCDField;
-    sqlMedidaItemMEDIDA_TIPO_ID: TFMTBCDField;
+    sqlMedidaItem: TI9Query;
+    sqlMedidaItemMEDIDA_ITEM_ID: TBCDField;
+    sqlMedidaItemVALOR: TBCDField;
+    sqlMedidaItemMEDIDA_AGRARIA_ID: TBCDField;
+    sqlMedidaItemMEDIDA_TIPO_ID: TBCDField;
     grdMedidaAgraria: TcxGrid;
     cxGridDBTableView1: TcxGridDBTableView;
     cxGridDBColumn1: TcxGridDBColumn;

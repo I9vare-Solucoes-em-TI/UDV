@@ -422,14 +422,13 @@ inherited frmTextoModelo: TfrmTextoModelo
       Visible = False
     end
   end
-  inherited DataSetAncestral: TSQLDataSet
-    SchemaName = 'sysdba'
-    CommandText = 
+  inherited DataSetAncestral: TI9Query
+    SQL.Strings = (
       'SELECT FIRST 50 * '#13#10'FROM G_TEXTO_MODELO'#13#10'WHERE SISTEMA_ID = :SIS' +
-      'TEMA_ID'#13#10'ORDER BY DESCRICAO'
+      'TEMA_ID'#13#10'ORDER BY DESCRICAO')
     Params = <
       item
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Name = 'SISTEMA_ID'
         ParamType = ptInput
       end>
@@ -447,7 +446,7 @@ inherited frmTextoModelo: TfrmTextoModelo
     AfterScroll = ClientAncestralAfterScroll
     Left = 667
     Top = 26
-    object ClientAncestralTEXTO_MODELO_ID: TFMTBCDField
+    object ClientAncestralTEXTO_MODELO_ID: TBCDField
       FieldName = 'TEXTO_MODELO_ID'
       Required = True
       Precision = 15
@@ -461,12 +460,12 @@ inherited frmTextoModelo: TfrmTextoModelo
       FieldName = 'TEXTO'
       Size = 1
     end
-    object ClientAncestralTB_TXMODELOGRUPO_ID: TFMTBCDField
+    object ClientAncestralTB_TXMODELOGRUPO_ID: TBCDField
       FieldName = 'TB_TXMODELOGRUPO_ID'
       Precision = 15
       Size = 2
     end
-    object ClientAncestralSISTEMA_ID: TFMTBCDField
+    object ClientAncestralSISTEMA_ID: TBCDField
       FieldName = 'SISTEMA_ID'
       Precision = 15
       Size = 2

@@ -38,11 +38,11 @@ type
     lcxRegimeBens: TcxDBLookupComboBox;
     chbSituacao: TcxDBCheckBox;
     grdBasicaDBTableView1Column1: TcxGridDBColumn;
-    ClientAncestralTB_REGIMECOMUNHAO_ID: TFMTBCDField;
+    ClientAncestralTB_REGIMECOMUNHAO_ID: TBCDField;
     ClientAncestralDESCRICAO: TStringField;
     ClientAncestralTEXTO: TBlobField;
     ClientAncestralSITUACAO: TStringField;
-    ClientAncestralTB_REGIMEBENS_ID: TFMTBCDField;
+    ClientAncestralTB_REGIMEBENS_ID: TBCDField;
     procedure ExecuteIncluirExecute(Sender: TObject);
     procedure ExecuteAlterarExecute(Sender: TObject);
     procedure FormCreate(Sender: TObject);

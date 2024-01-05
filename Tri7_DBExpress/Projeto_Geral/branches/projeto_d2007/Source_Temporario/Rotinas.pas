@@ -1864,7 +1864,34 @@ end;
 
 procedure SetarAtributosArquivo(vpArquivo : String; vpReadOnly, vpArchive, vpSysFile, vpHidden : Boolean);
 var
-  Attributes, NewAttributes: Word;begin  Attributes := FileGetAttr(vpArquivo);  NewAttributes := Attributes;  if vpReadOnly then    NewAttributes := NewAttributes or SysUtils.faReadOnly  else    NewAttributes := NewAttributes and not SysUtils.faReadOnly;  if vpArchive then    NewAttributes := NewAttributes or faArchive  else    NewAttributes := NewAttributes and not faArchive;  if vpSysFile then    NewAttributes := NewAttributes or faSysFile  else    NewAttributes := NewAttributes and not faSysFile;  if vpHidden then    NewAttributes := NewAttributes or faHidden  else    NewAttributes := NewAttributes and not faHidden;  if NewAttributes <> Attributes then    FileSetAttr(vpArquivo, NewAttributes);end;
+  Attributes, NewAttributes: Word;
+begin
+  Attributes := FileGetAttr(vpArquivo);
+  NewAttributes := Attributes;
+
+  if vpReadOnly then
+    NewAttributes := NewAttributes or SysUtils.faReadOnly
+  else
+    NewAttributes := NewAttributes and not SysUtils.faReadOnly;
+
+  if vpArchive then
+    NewAttributes := NewAttributes or faArchive
+  else
+    NewAttributes := NewAttributes and not faArchive;
+
+  if vpSysFile then
+    NewAttributes := NewAttributes or faSysFile
+  else
+    NewAttributes := NewAttributes and not faSysFile;
+
+  if vpHidden then
+    NewAttributes := NewAttributes or faHidden
+  else
+    NewAttributes := NewAttributes and not faHidden;
+
+  if NewAttributes <> Attributes then
+    FileSetAttr(vpArquivo, NewAttributes);
+end;
 
 Function VerifyBarCodeTable(iTypeSearch :Integer; sCaracter: String = ''; lBarCodePosition: Integer = 0 ): Variant;
 //Função para retornar o valor correspondente na tabela dos códigos de barras

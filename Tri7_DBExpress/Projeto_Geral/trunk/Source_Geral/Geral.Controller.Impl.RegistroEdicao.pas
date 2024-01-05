@@ -3,6 +3,8 @@ unit Geral.Controller.Impl.RegistroEdicao;
 interface
 
 uses
+  I9Query,
+  I9Connection,
   Geral.Controller.Spec.RegistroEdicao,
   System.JSON,
   Geral.Model.Entity.Spec.Maybe,
@@ -106,18 +108,18 @@ var
   viResult: Integer;
 {$ENDREGION}
 begin
-  TDataSetAPI<TSQLDataSet>.New(
-    TSQLDataSet.Create(
+  TDataSetAPI<TI9Query>.New(
+    TI9Query.Create(
       nil))
   .AutoClose
   .AutoDestroy
   .ExecuteAction(
     procedure(
-      const vpSQLDataSet: TSQLDataSet)
+      const vpI9Query: TI9Query)
     begin
-      vpSQLDataSet.SQLConnection := dtmControles.DB;
+      vpI9Query.Connection := dtmControles.DB;
 
-      vpSQLDataSet.CommandText := {$REGION 'Comando SQL INSERT'}
+      vpI9Query.SQL.Text := {$REGION 'Comando SQL INSERT'}
         'INSERT ' +
 
         {$REGION 'Cláusula INTO'}
@@ -155,40 +157,40 @@ begin
         {$ENDREGION}
 
       {$REGION 'Preencher valores dos parâmetros'}
-      vpSQLDataSet.ParamByName(
+      vpI9Query.ParamByName(
         'P_REGISTRO_EDICAO_ID').AsInteger := vpRegistroEdicao.FieldByName(
           'REGISTRO_EDICAO_ID').AsInteger;
 
-      vpSQLDataSet.ParamByName(
+      vpI9Query.ParamByName(
         'P_TABELA').AsString := vpRegistroEdicao.FieldByName(
           'TABELA').AsString;
 
-      vpSQLDataSet.ParamByName(
+      vpI9Query.ParamByName(
         'P_CHAVE').AsInteger := vpRegistroEdicao.FieldByName(
           'CHAVE').AsInteger;
 
-      vpSQLDataSet.ParamByName(
+      vpI9Query.ParamByName(
         'P_CAMPO').AsString := vpRegistroEdicao.FieldByName(
           'CAMPO').AsString;
 
-      vpSQLDataSet.ParamByName(
+      vpI9Query.ParamByName(
         'P_USUARIO_ID').AsInteger := vpRegistroEdicao.FieldByName(
           'USUARIO_ID').AsInteger;
 
-      vpSQLDataSet.ParamByName(
+      vpI9Query.ParamByName(
         'P_DATA').AsDateTime := vpRegistroEdicao.FieldByName(
           'DATA').AsDateTime;
 
-      vpSQLDataSet.ParamByName(
+      vpI9Query.ParamByName(
         'P_IP_MAQUINA').AsString := vpRegistroEdicao.FieldByName(
           'IP_MAQUINA').AsString;
 
-      vpSQLDataSet.ParamByName(
+      vpI9Query.ParamByName(
         'P_NOME_ESTACAO').AsString := vpRegistroEdicao.FieldByName(
           'NOME_ESTACAO').AsString;
       {$ENDREGION}
 
-      viResult := vpSQLDataSet.ExecSQL;
+      viResult := vpI9Query.ExecSQL;
     end);
 
   Result := viResult;
@@ -208,7 +210,7 @@ end;
 function TRegistroEdicao.RegistroEdicao: IDataSetAPI<TDataSet>;
 begin
   Result := TDataSetAPI<TDataSet>.New(
-    TSQLDataSet.Create(
+    TI9Query.Create(
       nil))
   .AutoClose
   .AutoDestroy
@@ -217,15 +219,15 @@ begin
       const vpDataSet: TDataSet)
     {$REGION 'Variáveis'}
     var
-      viSQLDataSet: TSQLDataSet;
+      viSQLDataSet: TI9Query;
     {$ENDREGION}
     begin
-      viSQLDataSet := TSQLDataSet(
+      viSQLDataSet := TI9Query(
         vpDataSet);
 
-      viSQLDataSet.SQLConnection := dtmControles.DB;
+      viSQLDataSet.Connection := dtmControles.DB;
 
-      viSQLDataSet.CommandText := {$REGION 'Comando SQL SELECT'}
+      viSQLDataSet.SQL.Text := {$REGION 'Comando SQL SELECT'}
         'SELECT ' +
 
         {$REGION 'Colunas'}
@@ -398,17 +400,17 @@ var
   viResult: Integer;
 {$ENDREGION}
 begin
-  TDataSetAPI<TSQLDataSet>.New(
-    TSQLDataSet.Create(
+  TDataSetAPI<TI9Query>.New(
+    TI9Query.Create(
       nil))
   .AutoDestroy
   .ExecuteAction(
     procedure(
-      const vpSQLDataSet: TSQLDataSet)
+      const vpI9Query: TI9Query)
     begin
-      vpSQLDataSet.SQLConnection := dtmControles.DB;
+      vpI9Query.Connection := dtmControles.DB;
 
-      vpSQLDataSet.CommandText := {$REGION 'Comando SQL DELETE'}
+      vpI9Query.SQL.Text := {$REGION 'Comando SQL DELETE'}
         'DELETE ' +
 
         {$REGION 'Cláusula FROM'}
@@ -427,20 +429,20 @@ begin
       {$ENDREGION}
 
       {$REGION 'Preencher valores dos parâmetros'}
-      vpSQLDataSet.ParamByName(
+      vpI9Query.ParamByName(
         'P_TABELA').AsString := FTabela;
 
-      vpSQLDataSet.ParamByName(
+      vpI9Query.ParamByName(
         'P_CHAVE').AsInteger := FChave;
 
-      vpSQLDataSet.ParamByName(
+      vpI9Query.ParamByName(
         'P_CAMPO').AsString := FCampo;
 
-      vpSQLDataSet.ParamByName(
+      vpI9Query.ParamByName(
         'P_USUARIO_ID').AsInteger := FUsuarioID;
       {$ENDREGION}
 
-      viResult := vpSQLDataSet.ExecSQL;
+      viResult := vpI9Query.ExecSQL;
     end);
 
   Result := viResult;

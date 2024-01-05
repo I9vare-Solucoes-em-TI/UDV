@@ -3,6 +3,7 @@ unit DespesasCaixaCartorio;
 interface
 
 uses
+  I9Query,
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, Menus, cxLookAndFeelPainters, dxSkinsCore, dxSkinBlack, dxSkinBlue,
   dxSkinCaramel, dxSkinCoffee, dxSkinDarkSide, dxSkinGlassOceans,
@@ -39,12 +40,12 @@ type
     cxGridPesquisaColumn3: TcxGridDBColumn;
     cxGridPesquisaColumn4: TcxGridDBColumn;
     dtsDespesas: TDataSource;
-    sqlDespesas: TSimpleDataSet;
-    sqlDespesasCAIXA_ITEM_ID: TFMTBCDField;
-    sqlDespesasCAIXA_SERVICO_ID: TFMTBCDField;
+    sqlDespesas: TI9Query;
+    sqlDespesasCAIXA_ITEM_ID: TBCDField;
+    sqlDespesasCAIXA_SERVICO_ID: TBCDField;
     sqlDespesasDESCRICAO: TStringField;
     sqlDespesasDATA_PAGAMENTO: TSQLTimeStampField;
-    sqlDespesasVALOR_PAGO: TFMTBCDField;
+    sqlDespesasVALOR_PAGO: TBCDField;
     sqlDespesasIMPORTADO: TStringField;
     sqlDespesascalc_Selecionar: TBooleanField;
     lblMarcarTodos: TcxLabel;
@@ -89,7 +90,7 @@ begin
            ' WHERE TIPO_TRANSACAO = '+QuotedStr('D') +
            '  AND DATA_PAGAMENTO ' + MontarSqlData(edtPesqDataInicial.Date, edtPesqDataFinal.Date);
   sqlDespesas.Active := False;
-  sqlDespesas.DataSet.CommandText := viSql;
+  sqlDespesas.SQL.Text := viSql;
   sqlDespesas.Active := True;
 
   Screen.Cursor := crDefault;

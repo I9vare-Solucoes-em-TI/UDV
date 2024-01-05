@@ -3,6 +3,7 @@ unit ExportarSelo;
 interface
 
 uses
+  I9Query,
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, Menus, ComObj, cxGraphics,
   cxControls, cxContainer, cxEdit,
@@ -25,21 +26,21 @@ type
   TfrmExportarSelo = class(TForm)
     pnlConvenio: TPanel;
     Panel4: TPanel;
-    sqlSelos: TSimpleDataSet;
+    sqlSelos: TI9Query;
     dtsSelos: TDataSource;
     sqlSelosNOTA_FISCAL: TStringField;
     sqlSelosNUMERO_AGRUPADOR: TStringField;
     sqlSelosSIGLA: TStringField;
-    sqlSelosNUMERO: TFMTBCDField;
-    sqlSelosTIPO_ATO: TFMTBCDField;
+    sqlSelosNUMERO: TBCDField;
+    sqlSelosTIPO_ATO: TBCDField;
     sqlSelosAPRESENTANTE: TStringField;
     sqlSelosNOME_COMPLETO: TStringField;
     sqlSelosDATA: TSQLTimeStampField;
     sqlSelosIP_MAQUINA: TStringField;
-    sqlSelosVALOR_TOTAL: TFMTBCDField;
-    sqlSelosVALOR_EMOLUMENTO: TFMTBCDField;
-    sqlSelosVALOR_TAXA_JUDICIARIA: TFMTBCDField;
-    sqlSelosVALOR_FUNDESP: TFMTBCDField;
+    sqlSelosVALOR_TOTAL: TBCDField;
+    sqlSelosVALOR_EMOLUMENTO: TBCDField;
+    sqlSelosVALOR_TAXA_JUDICIARIA: TBCDField;
+    sqlSelosVALOR_FUNDESP: TBCDField;
     sqlSeloscal_numero_selo: TStringField;
     SaveDialog1: TSaveDialog;
     gbxPeriodo: TcxPageControl;
@@ -56,11 +57,11 @@ type
     rdbPeriodoSelecionado: TcxRadioButton;
     rdbPeriodoQualquer: TcxRadioButton;
     sqlSelosCALC_SELECIONADO: TBooleanField;
-    sqlSelosSELO_LIVRO_ID: TFMTBCDField;
+    sqlSelosSELO_LIVRO_ID: TBCDField;
     btnMarcar: TcxButton;
     btnDesmarcar: TcxButton;
     sqlSelosCALC_EXPORTADO: TBooleanField;
-    sqlSelosCODIGO_EXPORTACAO: TFMTBCDField;
+    sqlSelosCODIGO_EXPORTACAO: TBCDField;
     Panel11: TPanel;
     cxLabel10: TcxLabel;
     cxLabel5: TcxLabel;
@@ -105,17 +106,17 @@ type
     N1: TMenuItem;
     CorrigirTodosPesquisados1: TMenuItem;
     pnlImpressaoTexto: TPanel;
-    sqlTipoSelo: TSimpleDataSet;
-    sqlTipoSeloSELO_GRUPO_ID: TFMTBCDField;
+    sqlTipoSelo: TI9Query;
+    sqlTipoSeloSELO_GRUPO_ID: TBCDField;
     sqlTipoSeloDESCRICAO_COMPLETA: TStringField;
     dtsTipoSelo: TDataSource;
     chxFiltroSistema: TCheckBox;
-    sqlTipoSeloNUMERO: TFMTBCDField;
-    sqlSeloLote: TSimpleDataSet;
+    sqlTipoSeloNUMERO: TBCDField;
+    sqlSeloLote: TI9Query;
     dtsSeloLote: TDataSource;
-    sqlSeloLoteSELO_LOTE_ID: TFMTBCDField;
+    sqlSeloLoteSELO_LOTE_ID: TBCDField;
     sqlSeloLoteNOTA_FISCAL: TStringField;
-    sqlSeloLoteSELO_GRUPO_ID: TFMTBCDField;
+    sqlSeloLoteSELO_GRUPO_ID: TBCDField;
     CorrigirServenturio1: TMenuItem;
     cxBtnFechar: TcxButton;
     btnPesquisar: TcxButton;
@@ -125,30 +126,30 @@ type
     cdsSelosNOTA_FISCAL: TStringField;
     cdsSelosNUMERO_AGRUPADOR: TStringField;
     cdsSelosSIGLA: TStringField;
-    cdsSelosNUMERO: TFMTBCDField;
-    cdsSelosTIPO_ATO: TFMTBCDField;
+    cdsSelosNUMERO: TBCDField;
+    cdsSelosTIPO_ATO: TBCDField;
     cdsSelosAPRESENTANTE: TStringField;
     cdsSelosNOME_COMPLETO: TStringField;
     cdsSelosDATA: TSQLTimeStampField;
     cdsSelosIP_MAQUINA: TStringField;
-    cdsSelosVALOR_TOTAL: TFMTBCDField;
-    cdsSelosVALOR_EMOLUMENTO: TFMTBCDField;
-    cdsSelosVALOR_TAXA_JUDICIARIA: TFMTBCDField;
-    cdsSelosVALOR_FUNDESP: TFMTBCDField;
+    cdsSelosVALOR_TOTAL: TBCDField;
+    cdsSelosVALOR_EMOLUMENTO: TBCDField;
+    cdsSelosVALOR_TAXA_JUDICIARIA: TBCDField;
+    cdsSelosVALOR_FUNDESP: TBCDField;
     cdsSeloscal_numero_selo: TStringField;
     cdsSelosCALC_SELECIONADO: TBooleanField;
-    cdsSelosSELO_LIVRO_ID: TFMTBCDField;
+    cdsSelosSELO_LIVRO_ID: TBCDField;
     cdsSelosCALC_EXPORTADO: TBooleanField;
-    cdsSelosCODIGO_EXPORTACAO: TFMTBCDField;
+    cdsSelosCODIGO_EXPORTACAO: TBCDField;
     cdsSelosNOME_CORRIGIDO: TStringField;
     N2: TMenuItem;
     ExportarparaExcel1: TMenuItem;
     ProgressBar: TcxProgressBar;
     mmoLista: TcxMemo;
-    sqlTipoCodigo: TSimpleDataSet;
+    sqlTipoCodigo: TI9Query;
     dtsTipoCodigo: TDataSource;
-    sqlTipoCodigoSELO_GRUPO_ID: TFMTBCDField;
-    sqlTipoCodigoNUMERO: TFMTBCDField;
+    sqlTipoCodigoSELO_GRUPO_ID: TBCDField;
+    sqlTipoCodigoNUMERO: TBCDField;
     chxTribunal: TcxCheckBox;
     cxGroupBox1: TcxGroupBox;
     lcxTipoCodigo: TcxLookupComboBox;
@@ -161,17 +162,17 @@ type
     SpeedButton2: TSpeedButton;
     cdsSelosORDEM: TIntegerField;
     gridSelosColumn2: TcxGridDBColumn;
-    sqlSelosCODIGO_GRATUITO: TFMTBCDField;
+    sqlSelosCODIGO_GRATUITO: TBCDField;
     cdsSelosCODIGO_GRATUITO: TIntegerField;
     sqlSelosVALIDADO: TStringField;
     gridSelosColumn3: TcxGridDBColumn;
     cdsSelosVALIDADO: TStringField;
     btnValidar: TcxButton;
     cdsSelosVALIDADO_TJ: TStringField;
-    sqlSelosPROTOCOLO: TFMTBCDField;
+    sqlSelosPROTOCOLO: TBCDField;
     cdsSelosPROTOCOLO: TIntegerField;
-    sqlSelosSISTEMA_ID: TFMTBCDField;
-    cdsSelosSISTEMA_ID: TFMTBCDField;
+    sqlSelosSISTEMA_ID: TBCDField;
+    cdsSelosSISTEMA_ID: TBCDField;
     chxListaSelos: TcxCheckBox;
     chxSelosNaoValidados: TcxCheckBox;
     chxVerificarSelos: TcxCheckBox;
@@ -347,7 +348,7 @@ var
       begin
         ParamByName('DATA_EXPORTACAO').AsString    := dtmControles.DataHoraBanco(5);
         ParamByName('CODIGO_EXPORTACAO').AsInteger := viCodigoExportacao;
-        ExecSQL(FALSE);
+        ExecSQL;
       end;
       viSelos := '';
       viCont  := 0;
@@ -744,7 +745,7 @@ begin
 
     viSql := viSql + ' ORDER BY SL.NUMERO_AGRUPADOR ';
 
-    sqlSelos.DataSet.CommandText := viSql;
+    sqlSelos.SQL.Text := viSql;
     sqlSelos.Open;
 
     ProgressBar.Properties.Max := sqlSelos.RecordCount;
@@ -790,7 +791,7 @@ begin
         viSeloNumero := Copy(viSeloLista,18, 6);
 
         sqlSelos.Close;
-        sqlSelos.DataSet.CommandText := viSql + ' AND SL.SIGLA = ' + QuotedStr(viSeloSigla) +
+        sqlSelos.SQL.Text := viSql + ' AND SL.SIGLA = ' + QuotedStr(viSeloSigla) +
                                                 ' AND SL.NUMERO = ' + viSeloNumero +
                                                 ' ORDER BY SL.NUMERO_AGRUPADOR, TIPO_ATO ';;
         sqlSelos.Open;
@@ -1004,8 +1005,8 @@ begin
     sqlTipoCodigo.Active  := False;
     if icxTipoSistema.EditValue <> null then
     begin
-      sqlTipoSelo.DataSet.ParamByName('TIPO_CARTORIO').AsString   := icxTipoSistema.EditValue;
-      sqlTipoCodigo.DataSet.ParamByName('TIPO_CARTORIO').AsString := icxTipoSistema.EditValue;
+      sqlTipoSelo.ParamByName('TIPO_CARTORIO').AsString   := icxTipoSistema.EditValue;
+      sqlTipoCodigo.ParamByName('TIPO_CARTORIO').AsString := icxTipoSistema.EditValue;
       sqlTipoSelo.Active    := True;
       sqlTipoCodigo.Active  := True;
 

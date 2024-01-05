@@ -802,13 +802,12 @@ object dtmLookupContabil: TdtmLookupContabil
       Properties.ListSource = dtsCentroCustoTipo1
     end
   end
-  object sqlGrupoContabilTodos: TSimpleDataSet
+  object sqlGrupoContabilTodos: TI9Query
     Aggregates = <>
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT DESCRICAO, CONTABIL_GRUPO_ID, BALANCETE_GRUPO_ID'#13#10'FROM J_' +
-      'CONTABIL_GRUPO'#13#10'ORDER BY DESCRICAO'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <>
+      'CONTABIL_GRUPO'#13#10'ORDER BY DESCRICAO')
+    ParamData = <>
     Params = <>
     Left = 296
     Top = 16
@@ -816,12 +815,12 @@ object dtmLookupContabil: TdtmLookupContabil
       FieldName = 'DESCRICAO'
       Size = 90
     end
-    object sqlGrupoContabilTodosCONTABIL_GRUPO_ID: TFMTBCDField
+    object sqlGrupoContabilTodosCONTABIL_GRUPO_ID: TBCDField
       FieldName = 'CONTABIL_GRUPO_ID'
       Precision = 20
       Size = 2
     end
-    object sqlGrupoContabilTodosBALANCETE_GRUPO_ID: TFMTBCDField
+    object sqlGrupoContabilTodosBALANCETE_GRUPO_ID: TBCDField
       FieldName = 'BALANCETE_GRUPO_ID'
       Precision = 20
       Size = 2
@@ -832,13 +831,12 @@ object dtmLookupContabil: TdtmLookupContabil
     Left = 296
     Top = 72
   end
-  object sqlGrupoContabilAtivos: TSimpleDataSet
+  object sqlGrupoContabilAtivos: TI9Query
     Aggregates = <>
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT DESCRICAO, CONTABIL_GRUPO_ID, BALANCETE_GRUPO_ID'#13#10'FROM J_' +
-      'CONTABIL_GRUPO'#13#10'WHERE SITUACAO = '#39'A'#39#13#10'ORDER BY DESCRICAO'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <>
+      'CONTABIL_GRUPO'#13#10'WHERE SITUACAO = '#39'A'#39#13#10'ORDER BY DESCRICAO')
+    ParamData = <>
     Params = <>
     Left = 176
     Top = 16
@@ -846,12 +844,12 @@ object dtmLookupContabil: TdtmLookupContabil
       FieldName = 'DESCRICAO'
       Size = 90
     end
-    object sqlGrupoContabilAtivosCONTABIL_GRUPO_ID: TFMTBCDField
+    object sqlGrupoContabilAtivosCONTABIL_GRUPO_ID: TBCDField
       FieldName = 'CONTABIL_GRUPO_ID'
       Precision = 20
       Size = 2
     end
-    object sqlGrupoContabilAtivosBALANCETE_GRUPO_ID: TFMTBCDField
+    object sqlGrupoContabilAtivosBALANCETE_GRUPO_ID: TBCDField
       FieldName = 'BALANCETE_GRUPO_ID'
       Precision = 20
       Size = 2
@@ -862,14 +860,13 @@ object dtmLookupContabil: TdtmLookupContabil
     Left = 176
     Top = 72
   end
-  object sqlGrupoContabilSaidas: TSimpleDataSet
+  object sqlGrupoContabilSaidas: TI9Query
     Aggregates = <>
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT DESCRICAO, CONTABIL_GRUPO_ID, BALANCETE_GRUPO_ID'#13#10'FROM J_' +
       'CONTABIL_GRUPO'#13#10'WHERE SITUACAO = '#39'A'#39' '#13#10'     AND TIPO = '#39'1'#39#13#10'ORDE' +
-      'R BY DESCRICAO'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <>
+      'R BY DESCRICAO')
+    ParamData = <>
     Params = <>
     Left = 420
     Top = 16
@@ -877,12 +874,12 @@ object dtmLookupContabil: TdtmLookupContabil
       FieldName = 'DESCRICAO'
       Size = 90
     end
-    object sqlGrupoContabilSaidasCONTABIL_GRUPO_ID: TFMTBCDField
+    object sqlGrupoContabilSaidasCONTABIL_GRUPO_ID: TBCDField
       FieldName = 'CONTABIL_GRUPO_ID'
       Precision = 20
       Size = 2
     end
-    object sqlGrupoContabilSaidasBALANCETE_GRUPO_ID: TFMTBCDField
+    object sqlGrupoContabilSaidasBALANCETE_GRUPO_ID: TBCDField
       FieldName = 'BALANCETE_GRUPO_ID'
       Precision = 20
       Size = 2
@@ -893,14 +890,13 @@ object dtmLookupContabil: TdtmLookupContabil
     Left = 420
     Top = 72
   end
-  object sqlGrupoContabilEntradas: TSimpleDataSet
+  object sqlGrupoContabilEntradas: TI9Query
     Aggregates = <>
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT DESCRICAO, CONTABIL_GRUPO_ID, BALANCETE_GRUPO_ID'#13#10'FROM J_' +
       'CONTABIL_GRUPO'#13#10'WHERE SITUACAO = '#39'A'#39' '#13#10'     AND TIPO = '#39'2'#39#13#10'ORDE' +
-      'R BY DESCRICAO'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <>
+      'R BY DESCRICAO')
+    ParamData = <>
     Params = <>
     Left = 562
     Top = 16
@@ -908,12 +904,12 @@ object dtmLookupContabil: TdtmLookupContabil
       FieldName = 'DESCRICAO'
       Size = 90
     end
-    object sqlGrupoContabilEntradasCONTABIL_GRUPO_ID: TFMTBCDField
+    object sqlGrupoContabilEntradasCONTABIL_GRUPO_ID: TBCDField
       FieldName = 'CONTABIL_GRUPO_ID'
       Precision = 20
       Size = 2
     end
-    object sqlGrupoContabilEntradasBALANCETE_GRUPO_ID: TFMTBCDField
+    object sqlGrupoContabilEntradasBALANCETE_GRUPO_ID: TBCDField
       FieldName = 'BALANCETE_GRUPO_ID'
       Precision = 20
       Size = 2
@@ -924,13 +920,12 @@ object dtmLookupContabil: TdtmLookupContabil
     Left = 562
     Top = 72
   end
-  object sqlBalanceteGrupo: TSimpleDataSet
+  object sqlBalanceteGrupo: TI9Query
     Aggregates = <>
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT DESCRICAO, BALANCETE_GRUPO_ID, SIGLA'#13#10'FROM J_BALANCETE_GR' +
-      'UPO'#13#10'ORDER BY DESCRICAO'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <>
+      'UPO'#13#10'ORDER BY DESCRICAO')
+    ParamData = <>
     Params = <>
     Left = 722
     Top = 16
@@ -938,7 +933,7 @@ object dtmLookupContabil: TdtmLookupContabil
       FieldName = 'DESCRICAO'
       Size = 60
     end
-    object sqlBalanceteGrupoBALANCETE_GRUPO_ID: TFMTBCDField
+    object sqlBalanceteGrupoBALANCETE_GRUPO_ID: TBCDField
       FieldName = 'BALANCETE_GRUPO_ID'
       Precision = 20
       Size = 2
@@ -953,17 +948,16 @@ object dtmLookupContabil: TdtmLookupContabil
     Left = 722
     Top = 68
   end
-  object sqlPlanoContasAtivo: TSimpleDataSet
+  object sqlPlanoContasAtivo: TI9Query
     Aggregates = <>
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT CONTABIL_CONTA_ID, DESCRICAO'#13#10'FROM J_CONTABIL_CONTA'#13#10'WHER' +
-      'E SITUACAO = '#39'A'#39#13#10'ORDER BY DESCRICAO'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <>
+      'E SITUACAO = '#39'A'#39#13#10'ORDER BY DESCRICAO')
+    ParamData = <>
     Params = <>
     Left = 296
     Top = 138
-    object sqlPlanoContasAtivoCONTABIL_CONTA_ID: TFMTBCDField
+    object sqlPlanoContasAtivoCONTABIL_CONTA_ID: TBCDField
       FieldName = 'CONTABIL_CONTA_ID'
       Precision = 20
       Size = 2
@@ -978,17 +972,16 @@ object dtmLookupContabil: TdtmLookupContabil
     Left = 300
     Top = 192
   end
-  object sqlPlanoContasTodos: TSimpleDataSet
+  object sqlPlanoContasTodos: TI9Query
     Aggregates = <>
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT CONTABIL_CONTA_ID, DESCRICAO'#13#10'FROM J_CONTABIL_CONTA'#13#10'ORDE' +
-      'R BY DESCRICAO'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <>
+      'R BY DESCRICAO')
+    ParamData = <>
     Params = <>
     Left = 862
     Top = 139
-    object sqlPlanoContasTodosCONTABIL_CONTA_ID: TFMTBCDField
+    object sqlPlanoContasTodosCONTABIL_CONTA_ID: TBCDField
       FieldName = 'CONTABIL_CONTA_ID'
       Precision = 20
       Size = 2
@@ -1003,19 +996,18 @@ object dtmLookupContabil: TdtmLookupContabil
     Left = 862
     Top = 191
   end
-  object sqlPlanoContasReceitas: TSimpleDataSet
+  object sqlPlanoContasReceitas: TI9Query
     Aggregates = <>
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT CC.CONTABIL_CONTA_ID, CC.DESCRICAO, CB.BALANCETE_GRUPO_ID' +
       #13#10'FROM J_CONTABIL_CONTA CC LEFT OUTER JOIN  J_CONTABIL_GRUPO CB ' +
       'ON'#13#10'   CC.CONTABIL_GRUPO_ID = CB.CONTABIL_GRUPO_ID'#13#10'WHERE CC.SIT' +
-      'UACAO = '#39'A'#39#13#10'    AND CB.OPERACAO = 4'#13#10'ORDER BY DESCRICAO'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <>
+      'UACAO = '#39'A'#39#13#10'    AND CB.OPERACAO = 4'#13#10'ORDER BY DESCRICAO')
+    ParamData = <>
     Params = <>
     Left = 176
     Top = 144
-    object sqlPlanoContasReceitasCONTABIL_CONTA_ID: TFMTBCDField
+    object sqlPlanoContasReceitasCONTABIL_CONTA_ID: TBCDField
       FieldName = 'CONTABIL_CONTA_ID'
       Precision = 20
       Size = 2
@@ -1024,7 +1016,7 @@ object dtmLookupContabil: TdtmLookupContabil
       FieldName = 'DESCRICAO'
       Size = 60
     end
-    object sqlPlanoContasReceitasBALANCETE_GRUPO_ID: TFMTBCDField
+    object sqlPlanoContasReceitasBALANCETE_GRUPO_ID: TBCDField
       FieldName = 'BALANCETE_GRUPO_ID'
       Precision = 20
       Size = 2
@@ -1035,13 +1027,12 @@ object dtmLookupContabil: TdtmLookupContabil
     Left = 176
     Top = 196
   end
-  object sqlCentroCustoTodos: TSimpleDataSet
+  object sqlCentroCustoTodos: TI9Query
     Aggregates = <>
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT DESCRICAO, CENTRO_CUSTO_ID, BALANCETE_GRUPO_ID'#13#10'FROM J_CE' +
-      'NTRO_CUSTO'#13#10'ORDER BY DESCRICAO'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <>
+      'NTRO_CUSTO'#13#10'ORDER BY DESCRICAO')
+    ParamData = <>
     Params = <>
     Left = 861
     Top = 16
@@ -1049,12 +1040,12 @@ object dtmLookupContabil: TdtmLookupContabil
       FieldName = 'DESCRICAO'
       Size = 120
     end
-    object sqlCentroCustoTodosCENTRO_CUSTO_ID: TFMTBCDField
+    object sqlCentroCustoTodosCENTRO_CUSTO_ID: TBCDField
       FieldName = 'CENTRO_CUSTO_ID'
       Precision = 20
       Size = 2
     end
-    object sqlCentroCustoTodosBALANCETE_GRUPO_ID: TFMTBCDField
+    object sqlCentroCustoTodosBALANCETE_GRUPO_ID: TBCDField
       FieldName = 'BALANCETE_GRUPO_ID'
       Precision = 20
       Size = 2
@@ -1065,14 +1056,13 @@ object dtmLookupContabil: TdtmLookupContabil
     Left = 861
     Top = 68
   end
-  object sqlCentroCustoAtivo: TSimpleDataSet
+  object sqlCentroCustoAtivo: TI9Query
     Aggregates = <>
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT DESCRICAO, CENTRO_CUSTO_ID, BALANCETE_GRUPO_ID, '#13#10'    PER' +
       'SONALIZADO, TIPO_ITEM'#13#10'FROM J_CENTRO_CUSTO'#13#10'WHERE SITUACAO = '#39'A'#39 +
-      ' '#13#10'  AND TIPO_CENTRO = '#39'1'#39#13#10'ORDER BY DESCRICAO'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <>
+      ' '#13#10'  AND TIPO_CENTRO = '#39'1'#39#13#10'ORDER BY DESCRICAO')
+    ParamData = <>
     Params = <>
     Left = 425
     Top = 270
@@ -1080,12 +1070,12 @@ object dtmLookupContabil: TdtmLookupContabil
       FieldName = 'DESCRICAO'
       Size = 120
     end
-    object sqlCentroCustoAtivoCENTRO_CUSTO_ID: TFMTBCDField
+    object sqlCentroCustoAtivoCENTRO_CUSTO_ID: TBCDField
       FieldName = 'CENTRO_CUSTO_ID'
       Precision = 20
       Size = 2
     end
-    object sqlCentroCustoAtivoBALANCETE_GRUPO_ID: TFMTBCDField
+    object sqlCentroCustoAtivoBALANCETE_GRUPO_ID: TBCDField
       FieldName = 'BALANCETE_GRUPO_ID'
       Precision = 20
       Size = 2
@@ -1104,17 +1094,16 @@ object dtmLookupContabil: TdtmLookupContabil
     Left = 425
     Top = 322
   end
-  object sqlCompReceitaTodos: TSimpleDataSet
+  object sqlCompReceitaTodos: TI9Query
     Aggregates = <>
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT (CC.DESCRICAO  || '#39' >> '#39' || BG.SIGLA) AS DESCRICAO, CC.CO' +
       'NTABIL_CONTA_ID'#13#10'FROM J_CONTABIL_CONTA CC LEFT OUTER JOIN J_BALA' +
       'NCETE_GRUPO BG'#13#10'  ON CC.BALANCETE_GRUPO_ID = BG.BALANCETE_GRUPO_' +
       'ID'#13#10'  LEFT OUTER JOIN J_CONTABIL_GRUPO CB'#13#10'  ON CC.CONTABIL_GRUP' +
       'O_ID = CB.CONTABIL_GRUPO_ID'#13#10'WHERE CC.SITUACAO = '#39'A'#39#13#10'  AND CB.O' +
-      'PERACAO = 4'#13#10'ORDER BY CC.DESCRICAO'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <>
+      'PERACAO = 4'#13#10'ORDER BY CC.DESCRICAO')
+    ParamData = <>
     Params = <>
     Left = 424
     Top = 140
@@ -1122,7 +1111,7 @@ object dtmLookupContabil: TdtmLookupContabil
       FieldName = 'DESCRICAO'
       Size = 67
     end
-    object sqlCompReceitaTodosCONTABIL_CONTA_ID: TFMTBCDField
+    object sqlCompReceitaTodosCONTABIL_CONTA_ID: TBCDField
       FieldName = 'CONTABIL_CONTA_ID'
       Precision = 20
       Size = 2
@@ -1133,15 +1122,14 @@ object dtmLookupContabil: TdtmLookupContabil
     Left = 424
     Top = 196
   end
-  object sqlPlanoContasDespesasTodos: TSimpleDataSet
+  object sqlPlanoContasDespesasTodos: TI9Query
     Aggregates = <>
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT CC.CONTABIL_CONTA_ID, CC.DESCRICAO, CB.BALANCETE_GRUPO_ID' +
       #13#10'FROM J_CONTABIL_CONTA CC LEFT OUTER JOIN  J_CONTABIL_GRUPO CB ' +
       'ON'#13#10'   CC.CONTABIL_GRUPO_ID = CB.CONTABIL_GRUPO_ID'#13#10'WHERE CC.SIT' +
-      'UACAO = '#39'A'#39#13#10'ORDER BY DESCRICAO'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <>
+      'UACAO = '#39'A'#39#13#10'ORDER BY DESCRICAO')
+    ParamData = <>
     Params = <>
     Left = 563
     Top = 139
@@ -1149,12 +1137,12 @@ object dtmLookupContabil: TdtmLookupContabil
       FieldName = 'DESCRICAO'
       Size = 60
     end
-    object sqlPlanoContasDespesasTodosCONTABIL_CONTA_ID: TFMTBCDField
+    object sqlPlanoContasDespesasTodosCONTABIL_CONTA_ID: TBCDField
       FieldName = 'CONTABIL_CONTA_ID'
       Precision = 20
       Size = 2
     end
-    object sqlPlanoContasDespesasTodosBALANCETE_GRUPO_ID: TFMTBCDField
+    object sqlPlanoContasDespesasTodosBALANCETE_GRUPO_ID: TBCDField
       FieldName = 'BALANCETE_GRUPO_ID'
       Precision = 20
       Size = 2
@@ -1170,15 +1158,14 @@ object dtmLookupContabil: TdtmLookupContabil
     Left = 722
     Top = 192
   end
-  object sqlPlanoContasDespesasAtivo: TSimpleDataSet
+  object sqlPlanoContasDespesasAtivo: TI9Query
     Aggregates = <>
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT CC.CONTABIL_CONTA_ID, CC.DESCRICAO, CB.BALANCETE_GRUPO_ID' +
       #13#10'FROM J_CONTABIL_CONTA CC LEFT OUTER JOIN  J_CONTABIL_GRUPO CB ' +
       'ON'#13#10'   CC.CONTABIL_GRUPO_ID = CB.CONTABIL_GRUPO_ID'#13#10'WHERE CC.SIT' +
-      'UACAO = '#39'A'#39#13#10'    AND CB.OPERACAO = 3'#13#10'ORDER BY DESCRICAO'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <>
+      'UACAO = '#39'A'#39#13#10'    AND CB.OPERACAO = 3'#13#10'ORDER BY DESCRICAO')
+    ParamData = <>
     Params = <>
     Left = 722
     Top = 136
@@ -1186,12 +1173,12 @@ object dtmLookupContabil: TdtmLookupContabil
       FieldName = 'DESCRICAO'
       Size = 60
     end
-    object sqlPlanoContasDespesasAtivoCONTABIL_CONTA_ID: TFMTBCDField
+    object sqlPlanoContasDespesasAtivoCONTABIL_CONTA_ID: TBCDField
       FieldName = 'CONTABIL_CONTA_ID'
       Precision = 20
       Size = 2
     end
-    object sqlPlanoContasDespesasAtivoBALANCETE_GRUPO_ID: TFMTBCDField
+    object sqlPlanoContasDespesasAtivoBALANCETE_GRUPO_ID: TBCDField
       FieldName = 'BALANCETE_GRUPO_ID'
       Precision = 20
       Size = 2
@@ -1206,17 +1193,16 @@ object dtmLookupContabil: TdtmLookupContabil
       TextColor = clRed
     end
   end
-  object sqlCompSaidaTodos: TSimpleDataSet
+  object sqlCompSaidaTodos: TI9Query
     Aggregates = <>
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT (CC.DESCRICAO  || '#39' >> '#39' || BG.SIGLA) AS DESCRICAO, CC.CO' +
       'NTABIL_CONTA_ID'#13#10'FROM J_CONTABIL_CONTA CC LEFT OUTER JOIN J_BALA' +
       'NCETE_GRUPO BG'#13#10'  ON CC.BALANCETE_GRUPO_ID = BG.BALANCETE_GRUPO_' +
       'ID'#13#10'  LEFT OUTER JOIN J_CONTABIL_GRUPO CB'#13#10'  ON CC.CONTABIL_GRUP' +
       'O_ID = CB.CONTABIL_GRUPO_ID'#13#10'WHERE CC.SITUACAO = '#39'A'#39#13#10'  AND CB.O' +
-      'PERACAO <> 4'#13#10'ORDER BY CC.DESCRICAO'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <>
+      'PERACAO <> 4'#13#10'ORDER BY CC.DESCRICAO')
+    ParamData = <>
     Params = <>
     Left = 304
     Top = 268
@@ -1224,7 +1210,7 @@ object dtmLookupContabil: TdtmLookupContabil
       FieldName = 'DESCRICAO'
       Size = 67
     end
-    object sqlCompSaidaTodosCONTABIL_CONTA_ID: TFMTBCDField
+    object sqlCompSaidaTodosCONTABIL_CONTA_ID: TBCDField
       FieldName = 'CONTABIL_CONTA_ID'
       Precision = 20
       Size = 2
@@ -1235,22 +1221,21 @@ object dtmLookupContabil: TdtmLookupContabil
     Left = 304
     Top = 324
   end
-  object sqlCabecalho: TSimpleDataSet
+  object sqlCabecalho: TI9Query
     Aggregates = <>
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT BALANCETE_GRUPO_ID, CABECALHO'#13#10'FROM J_BALANCETE_GRUPO'#13#10'WH' +
-      'ERE BALANCETE_GRUPO_ID = :BALANCETE_GRUPO_ID'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <
+      'ERE BALANCETE_GRUPO_ID = :BALANCETE_GRUPO_ID')
+    ParamData = <
       item
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Name = 'BALANCETE_GRUPO_ID'
         ParamType = ptInput
       end>
     Params = <>
     Left = 176
     Top = 268
-    object sqlCabecalhoBALANCETE_GRUPO_ID: TFMTBCDField
+    object sqlCabecalhoBALANCETE_GRUPO_ID: TBCDField
       FieldName = 'BALANCETE_GRUPO_ID'
       Precision = 20
       Size = 2
@@ -1268,13 +1253,12 @@ object dtmLookupContabil: TdtmLookupContabil
     Left = 176
     Top = 324
   end
-  object sqlCaixa: TSimpleDataSet
+  object sqlCaixa: TI9Query
     Aggregates = <>
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT DESCRICAO, CAIXA_ID, RESUMO'#13#10'FROM J_CAIXA'#13#10'ORDER BY DESCR' +
-      'ICAO'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <>
+      'ICAO')
+    ParamData = <>
     Params = <>
     Left = 529
     Top = 270
@@ -1282,7 +1266,7 @@ object dtmLookupContabil: TdtmLookupContabil
       FieldName = 'DESCRICAO'
       Size = 30
     end
-    object sqlCaixaCAIXA_ID: TFMTBCDField
+    object sqlCaixaCAIXA_ID: TBCDField
       FieldName = 'CAIXA_ID'
       Required = True
       Precision = 15
@@ -1575,13 +1559,12 @@ object dtmLookupContabil: TdtmLookupContabil
       0000000000000000000000000000000000000000000000000000000000000000
       000000000000}
   end
-  object sqlPessoasTodas: TSimpleDataSet
+  object sqlPessoasTodas: TI9Query
     Aggregates = <>
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT NOME, PESSOA_ID, UTILIZA_BOLETO'#13#10'FROM J_PESSOA'#13#10'ORDER BY ' +
-      'NOME'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <>
+      'NOME')
+    ParamData = <>
     Params = <>
     Left = 752
     Top = 272
@@ -1589,7 +1572,7 @@ object dtmLookupContabil: TdtmLookupContabil
       FieldName = 'NOME'
       Size = 120
     end
-    object sqlPessoasTodasPESSOA_ID: TFMTBCDField
+    object sqlPessoasTodasPESSOA_ID: TBCDField
       FieldName = 'PESSOA_ID'
       Precision = 20
       Size = 2
@@ -1609,13 +1592,12 @@ object dtmLookupContabil: TdtmLookupContabil
     Left = 622
     Top = 321
   end
-  object sqlCaixaAtivos: TSimpleDataSet
+  object sqlCaixaAtivos: TI9Query
     Aggregates = <>
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT DESCRICAO, CAIXA_ID'#13#10'FROM J_CAIXA'#13#10'WHERE SITUACAO = '#39'A'#39#13#10 +
-      '  AND (INTERNO IS NULL OR INTERNO = '#39'N'#39')'#13#10'ORDER BY DESCRICAO'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <>
+      '  AND (INTERNO IS NULL OR INTERNO = '#39'N'#39')'#13#10'ORDER BY DESCRICAO')
+    ParamData = <>
     Params = <>
     Left = 622
     Top = 269
@@ -1623,20 +1605,19 @@ object dtmLookupContabil: TdtmLookupContabil
       FieldName = 'DESCRICAO'
       Size = 30
     end
-    object FMTBCDField1: TFMTBCDField
+    object FMTBCDField1: TBCDField
       FieldName = 'CAIXA_ID'
       Required = True
       Precision = 15
       Size = 2
     end
   end
-  object sqlCaixaTodosAtivos: TSimpleDataSet
+  object sqlCaixaTodosAtivos: TI9Query
     Aggregates = <>
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT DESCRICAO, CAIXA_ID, RESUMO'#13#10'FROM J_CAIXA'#13#10'WHERE SITUACAO' +
-      ' = '#39'A'#39#13#10'ORDER BY DESCRICAO'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <>
+      ' = '#39'A'#39#13#10'ORDER BY DESCRICAO')
+    ParamData = <>
     Params = <>
     Left = 854
     Top = 280
@@ -1644,7 +1625,7 @@ object dtmLookupContabil: TdtmLookupContabil
       FieldName = 'DESCRICAO'
       Size = 60
     end
-    object sqlCaixaTodosAtivosCAIXA_ID: TFMTBCDField
+    object sqlCaixaTodosAtivosCAIXA_ID: TBCDField
       FieldName = 'CAIXA_ID'
       Required = True
       Precision = 20
@@ -1660,15 +1641,14 @@ object dtmLookupContabil: TdtmLookupContabil
     Left = 854
     Top = 329
   end
-  object sqlTipoModalidade: TSimpleDataSet
+  object sqlTipoModalidade: TI9Query
     Aggregates = <>
-    DataSet.CommandText = 'SELECT *'#13#10'FROM J_TIPO_MODALIDADE'#13#10'ORDER BY DESCRICAO'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <>
+    SQL.Strings = ('SELECT *'#13#10'FROM J_TIPO_MODALIDADE'#13#10'ORDER BY DESCRICAO')
+    ParamData = <>
     Params = <>
     Left = 181
     Top = 407
-    object sqlTipoModalidadeTIPO_MODALIDADE_ID: TFMTBCDField
+    object sqlTipoModalidadeTIPO_MODALIDADE_ID: TBCDField
       FieldName = 'TIPO_MODALIDADE_ID'
       Required = True
       Precision = 20
@@ -1692,15 +1672,14 @@ object dtmLookupContabil: TdtmLookupContabil
     Left = 173
     Top = 453
   end
-  object sqlTipoCarga: TSimpleDataSet
+  object sqlTipoCarga: TI9Query
     Aggregates = <>
-    DataSet.CommandText = 'SELECT *'#13#10'FROM J_TIPO_CARGA'#13#10'ORDER BY DESCRICAO'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <>
+    SQL.Strings = ('SELECT *'#13#10'FROM J_TIPO_CARGA'#13#10'ORDER BY DESCRICAO')
+    ParamData = <>
     Params = <>
     Left = 301
     Top = 407
-    object sqlTipoCargaTIPO_CARGA_ID: TFMTBCDField
+    object sqlTipoCargaTIPO_CARGA_ID: TBCDField
       FieldName = 'TIPO_CARGA_ID'
       Required = True
       Precision = 20
@@ -1720,14 +1699,13 @@ object dtmLookupContabil: TdtmLookupContabil
     Left = 301
     Top = 461
   end
-  object sqlCentroCustoTipo1: TSimpleDataSet
+  object sqlCentroCustoTipo1: TI9Query
     Aggregates = <>
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT DESCRICAO, CENTRO_CUSTO_ID, BALANCETE_GRUPO_ID'#13#10'FROM J_CE' +
       'NTRO_CUSTO'#13#10'WHERE TIPO_ITEM = '#39'1'#39#13#10'  AND TIPO_CENTRO = '#39'1'#39#13#10'ORDE' +
-      'R BY DESCRICAO'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <>
+      'R BY DESCRICAO')
+    ParamData = <>
     Params = <>
     Left = 410
     Top = 405
@@ -1735,12 +1713,12 @@ object dtmLookupContabil: TdtmLookupContabil
       FieldName = 'DESCRICAO'
       Size = 120
     end
-    object FMTBCDField2: TFMTBCDField
+    object FMTBCDField2: TBCDField
       FieldName = 'CENTRO_CUSTO_ID'
       Precision = 20
       Size = 2
     end
-    object FMTBCDField3: TFMTBCDField
+    object FMTBCDField3: TBCDField
       FieldName = 'BALANCETE_GRUPO_ID'
       Precision = 20
       Size = 2

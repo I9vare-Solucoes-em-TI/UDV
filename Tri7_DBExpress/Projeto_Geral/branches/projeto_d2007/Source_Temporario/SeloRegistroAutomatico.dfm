@@ -1069,10 +1069,9 @@ object frmSeloRegistroAutomatico: TfrmSeloRegistroAutomatico
     Left = 144
     Top = 56
   end
-  object sqlPesquisa: TSQLQuery
-    MaxBlobSize = -1
+  object sqlPesquisa: TI9Query
     Params = <>
-    SQLConnection = dtmControles.DB
+    Connection = dtmControles.DB
     Left = 112
     Top = 96
   end

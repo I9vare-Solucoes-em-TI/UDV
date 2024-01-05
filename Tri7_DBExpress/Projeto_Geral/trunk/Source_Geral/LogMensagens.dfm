@@ -511,28 +511,27 @@ object frmLogMensagens: TfrmLogMensagens
     ScrollBars = ssVertical
     TabOrder = 3
   end
-  object sqlLogChat: TSimpleDataSet
+  object sqlLogChat: TI9Query
     Aggregates = <>
-    DataSet.CommandText = 'SELECT * FROM G_CHAT'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <>
+    SQL.Strings = ('SELECT * FROM G_CHAT')
+    ParamData = <>
     Params = <>
     AfterScroll = sqlLogChatAfterScroll
     OnCalcFields = sqlLogChatCalcFields
     Left = 301
     Top = 424
-    object sqlLogChatCHAT_ID: TFMTBCDField
+    object sqlLogChatCHAT_ID: TBCDField
       FieldName = 'CHAT_ID'
       Required = True
       Precision = 15
       Size = 2
     end
-    object sqlLogChatUSUARIO_RECEBEU_ID: TFMTBCDField
+    object sqlLogChatUSUARIO_RECEBEU_ID: TBCDField
       FieldName = 'USUARIO_RECEBEU_ID'
       Precision = 15
       Size = 2
     end
-    object sqlLogChatUSUARIO_ENVIOU_ID: TFMTBCDField
+    object sqlLogChatUSUARIO_ENVIOU_ID: TBCDField
       FieldName = 'USUARIO_ENVIOU_ID'
       Precision = 15
       Size = 2
@@ -556,7 +555,7 @@ object frmLogMensagens: TfrmLogMensagens
       FieldName = 'GRAVAR_PARA_CONSULTA'
       Size = 1
     end
-    object sqlLogChatID_CONTROLE: TFMTBCDField
+    object sqlLogChatID_CONTROLE: TBCDField
       FieldName = 'ID_CONTROLE'
       Precision = 15
       Size = 2

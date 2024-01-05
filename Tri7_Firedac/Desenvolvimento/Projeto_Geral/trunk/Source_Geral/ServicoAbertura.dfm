@@ -287,13 +287,13 @@ inherited frmServicoAbertura: TfrmServicoAbertura
       end
       item
         Name = 'DOCUMENTO_ID'
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Precision = 15
         Size = 2
       end
       item
         Name = 'NUMERO_REGISTRO'
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Precision = 15
         Size = 2
       end
@@ -304,13 +304,13 @@ inherited frmServicoAbertura: TfrmServicoAbertura
       end
       item
         Name = 'NUMERO_PAGINAS'
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Precision = 15
         Size = 2
       end
       item
         Name = 'NUMERO_VIAS'
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Precision = 15
         Size = 2
       end
@@ -330,55 +330,55 @@ inherited frmServicoAbertura: TfrmServicoAbertura
       end
       item
         Name = 'VALOR_DOCUMENTO'
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Precision = 15
         Size = 3
       end
       item
         Name = 'TAXA_JUDICIARIA'
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Precision = 15
         Size = 3
       end
       item
         Name = 'VALOR_CUSTAS'
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Precision = 15
         Size = 3
       end
       item
         Name = 'TIPO_DOCUMENTO_ID'
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Precision = 15
         Size = 2
       end
       item
         Name = 'EMOLUMENTO_ID'
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Precision = 15
         Size = 2
       end
       item
         Name = 'VALOR_TOTAL'
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Precision = 15
         Size = 3
       end
       item
         Name = 'LIVRO_NUMERO'
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Precision = 15
         Size = 2
       end
       item
         Name = 'LIVRO_PAGINA'
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Precision = 15
         Size = 2
       end
       item
         Name = 'NUMERO_PESSOAS'
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Precision = 15
         Size = 2
       end>

@@ -3,6 +3,7 @@ unit MunicipioDAOImpl;
 interface
 
 uses
+  I9Connection,
   MunicipioDAO,
   FireDAC.Comp.Client,
   Data.DB,
@@ -12,10 +13,10 @@ uses
 type
   TMunicipioDAO = class(TInterfacedObject, IMunicipioDAO)
   private
-    FFDConnection: TFDConnection;
+    FFDConnection: TI9Connection;
   public
     constructor Create(
-      const vpFDConnection: TFDConnection); reintroduce;
+      const vpFDConnection: TI9Connection); reintroduce;
 
     function Get(
       const vpValue: TDataSet): IMunicipio;
@@ -43,7 +44,7 @@ uses
 { TMunicipioDAO }
 
 constructor TMunicipioDAO.Create(
-  const vpFDConnection: TFDConnection);
+  const vpFDConnection: TI9Connection);
 begin
   inherited Create;
   FFDConnection := vpFDConnection;

@@ -3,6 +3,7 @@ unit DocumentoTipoDAOImpl;
 interface
 
 uses
+  I9Connection,
   DocumentoTipoDAO,
   Data.SqlExpr,
   Data.DB,
@@ -12,10 +13,10 @@ uses
 type
   TDocumentoTipoDAO = class(TInterfacedObject, IDocumentoTipoDAO)
   private
-    FSQLConnection: TSQLConnection;
+    FConnection: TI9Connection;
   public
     constructor Create(
-      const vpSQLConnection: TSQLConnection); reintroduce;
+      const vpConnection: TI9Connection); reintroduce;
 
     function Get(
       const vpValue: TDataSet): IDocumentoTipo; overload;
@@ -49,10 +50,10 @@ uses
 { TDocumentoTipoDAO }
 
 constructor TDocumentoTipoDAO.Create(
-  const vpSQLConnection: TSQLConnection);
+  const vpConnection: TI9Connection);
 begin
   inherited Create;
-  FSQLConnection := FSQLConnection;
+  FConnection := FConnection;
 end;
 
 function TDocumentoTipoDAO.Get(

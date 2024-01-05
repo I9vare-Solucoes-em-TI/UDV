@@ -1458,17 +1458,15 @@ object frmImpressaoLivro: TfrmImpressaoLivro
       A5FFE7C6A5FFE7C6A5FFE7C6A5FFE7C6A5FFE7C6A5FFE7C6A5FFE7C6A5FFE7C6
       A5FFE7C6A5FFE7C6A5FFE7C6A5FFE7C6A5FFE7C6A5FFE7C6A5FF}
   end
-  object sqlPesquisa: TSimpleDataSet
+  object sqlPesquisa: TI9Query
     Aggregates = <>
-    DataSet.CommandText = 'SELECT *'#13#10'FROM C_REGISTRO_DIARIO'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <>
-    PacketRecords = 7
+    SQL.Strings = ('SELECT *'#13#10'FROM C_REGISTRO_DIARIO')
+    ParamData = <>
     Params = <>
     OnCalcFields = sqlPesquisaCalcFields
     Left = 341
     Top = 92
-    object sqlPesquisaREGISTRO_DIARIO_ID: TFMTBCDField
+    object sqlPesquisaREGISTRO_DIARIO_ID: TBCDField
       FieldName = 'REGISTRO_DIARIO_ID'
       Precision = 20
       Size = 2
@@ -1481,7 +1479,7 @@ object frmImpressaoLivro: TfrmImpressaoLivro
       FieldName = 'APRESENTANTE'
       Size = 120
     end
-    object sqlPesquisaVALOR: TFMTBCDField
+    object sqlPesquisaVALOR: TBCDField
       FieldName = 'VALOR'
       Precision = 20
       Size = 2
@@ -1490,12 +1488,12 @@ object frmImpressaoLivro: TfrmImpressaoLivro
       FieldName = 'OPERACAO'
       Size = 1
     end
-    object sqlPesquisaUSUARIO_ID: TFMTBCDField
+    object sqlPesquisaUSUARIO_ID: TBCDField
       FieldName = 'USUARIO_ID'
       Precision = 20
       Size = 2
     end
-    object sqlPesquisaPROTOCOLO: TFMTBCDField
+    object sqlPesquisaPROTOCOLO: TBCDField
       FieldName = 'PROTOCOLO'
       Precision = 20
       Size = 2
@@ -1503,17 +1501,17 @@ object frmImpressaoLivro: TfrmImpressaoLivro
     object sqlPesquisaDATA: TSQLTimeStampField
       FieldName = 'DATA'
     end
-    object sqlPesquisaCONTROLE_ID: TFMTBCDField
+    object sqlPesquisaCONTROLE_ID: TBCDField
       FieldName = 'CONTROLE_ID'
       Precision = 20
       Size = 2
     end
-    object sqlPesquisaQTD: TFMTBCDField
+    object sqlPesquisaQTD: TBCDField
       FieldName = 'QTD'
       Precision = 20
       Size = 2
     end
-    object sqlPesquisaESCREVENTE: TFMTBCDField
+    object sqlPesquisaESCREVENTE: TBCDField
       FieldName = 'ESCREVENTE'
       Precision = 20
       Size = 2
@@ -1522,7 +1520,7 @@ object frmImpressaoLivro: TfrmImpressaoLivro
       FieldName = 'SERVENTIA'
       Size = 1
     end
-    object sqlPesquisaCAIXA_SERVICO_ID: TFMTBCDField
+    object sqlPesquisaCAIXA_SERVICO_ID: TBCDField
       FieldName = 'CAIXA_SERVICO_ID'
       Precision = 20
       Size = 2

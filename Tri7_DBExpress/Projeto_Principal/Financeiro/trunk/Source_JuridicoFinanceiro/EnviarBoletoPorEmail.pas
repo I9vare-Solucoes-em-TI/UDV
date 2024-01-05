@@ -3,6 +3,7 @@ unit EnviarBoletoPorEmail;
 interface
 
 uses
+  I9Query,
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, cxGraphics, cxControls, cxLookAndFeels,
   cxLookAndFeelPainters, cxContainer, cxEdit, cxStyles, cxCustomData, cxFilter,
@@ -25,7 +26,7 @@ type
     btnConfirmar: TcxButton;
     btnCancelar: TcxButton;
     dtsBoletos: TDataSource;
-    sqlBoletos: TSimpleDataSet;
+    sqlBoletos: TI9Query;
     cxGridCliente: TcxGrid;
     cxGridClienteDBTableView2: TcxGridDBTableView;
     cxGridLevel2: TcxGridLevel;
@@ -38,18 +39,18 @@ type
     chxAgruparDesagrupar: TcxCheckBox;
     cxGridClienteDBTableView2VALOR_AGENDADO: TcxGridDBColumn;
     sqlBoletosCALC_EMAIL: TStringField;
-    sqlBoletosNOSSO_NUMERO: TFMTBCDField;
-    sqlBoletosPESSOA_ID: TFMTBCDField;
+    sqlBoletosNOSSO_NUMERO: TBCDField;
+    sqlBoletosPESSOA_ID: TBCDField;
     sqlBoletosNOME: TStringField;
     sqlBoletosCPFCNPJ: TStringField;
     sqlBoletosEMAIL1: TStringField;
     sqlBoletosSELECIONADO: TStringField;
-    sqlBoletosVALOR: TFMTBCDField;
+    sqlBoletosVALOR: TBCDField;
     sqlBoletosDATA_EMISSAO: TSQLTimeStampField;
     sqlBoletosDATA_VENCIMENTO: TSQLTimeStampField;
     sqlBoletosBOLETO_EMAIL: TStringField;
     sqlBoletosBOLETO_DESCRICAO: TStringField;
-    sqlBoletosBOLETO_ID: TFMTBCDField;
+    sqlBoletosBOLETO_ID: TBCDField;
     sqlBoletosPATH_GERARPDF: TStringField;
     btnLimpar: TcxButton;
     procedure btnCancelarClick(Sender: TObject);

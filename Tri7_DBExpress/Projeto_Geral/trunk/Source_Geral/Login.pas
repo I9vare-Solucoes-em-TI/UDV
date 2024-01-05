@@ -180,7 +180,7 @@ begin
     with dtmControles.sqlG_Agenda do
     begin
       Active := False;
-      DataSet.Params[0].AsCurrency := StrToInt(vgUsuarioID);
+      Params[0].AsCurrency := StrToInt(vgUsuarioID);
       Active := True;
       dtmControles.timerAgendaTimer(Self);
     end;
@@ -267,7 +267,7 @@ begin
     with dtmControles.sqlG_Agenda do
     begin
       Active := False;
-      DataSet.Params[0].AsCurrency := StrToInt(vgUsuarioID);
+      Params[0].AsCurrency := StrToInt(vgUsuarioID);
       Active := True;
       dtmControles.timerAgendaTimer(Self);
     end;

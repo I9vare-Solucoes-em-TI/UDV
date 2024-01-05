@@ -3,6 +3,7 @@ unit Agenda;
 interface
 
 uses
+  I9Query,
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs,
   cxEdit, DB,
@@ -30,16 +31,16 @@ type
     tbsCadastro: TcxTabSheet;
     pnlCadastro: TPanel;
     btnFechar: TcxButton;
-    sqlG_Agenda: TSimpleDataSet;
-    sqlG_AgendaAGENDA_ID: TFMTBCDField;
-    sqlG_AgendaTIPO_EVENTO: TFMTBCDField;
+    sqlG_Agenda: TI9Query;
+    sqlG_AgendaAGENDA_ID: TBCDField;
+    sqlG_AgendaTIPO_EVENTO: TBCDField;
     sqlG_AgendaDATA_INICIO: TSQLTimeStampField;
     sqlG_AgendaDATA_FIM: TSQLTimeStampField;
     sqlG_AgendaASSUNTO: TStringField;
     sqlG_AgendaMENSAGEM: TStringField;
-    sqlG_AgendaCOR: TFMTBCDField;
-    sqlG_AgendaOPCAO: TFMTBCDField;
-    sqlG_AgendaSTATUS: TFMTBCDField;
+    sqlG_AgendaCOR: TBCDField;
+    sqlG_AgendaOPCAO: TBCDField;
+    sqlG_AgendaSTATUS: TBCDField;
     dtsG_Agenda: TDataSource;
     SchedulerDBStorage: TcxSchedulerDBStorage;
     Panel1: TPanel;
@@ -48,8 +49,8 @@ type
     rdbSemanal: TcxRadioButton;
     rdbMensal: TcxRadioButton;
     Scheduler: TcxScheduler;
-    sqlG_AgendaUSUARIO_ID: TFMTBCDField;
-    sqlG_AgendaUSUARIO_AGENDOU_ID: TFMTBCDField;
+    sqlG_AgendaUSUARIO_ID: TBCDField;
+    sqlG_AgendaUSUARIO_AGENDOU_ID: TBCDField;
     sqlG_AgendaMENSAGEM_FINALIZADO: TBlobField;
     cxLabel2: TcxLabel;
     lcxUsuarioAgenda: TcxLookupComboBox;
@@ -58,19 +59,19 @@ type
     sqlG_AgendaDATA_HORA_FINALIZADO: TSQLTimeStampField;
     sqlG_AgendaDATA_HORA_AVISADO: TSQLTimeStampField;
     sqlG_AgendaUsuarioAgendouCalc: TStringField;
-    sqlG_AgendaTemp: TSimpleDataSet;
+    sqlG_AgendaTemp: TI9Query;
     dtsG_AgendaTemp: TDataSource;
-    sqlG_AgendaTempAGENDA_ID: TFMTBCDField;
-    sqlG_AgendaTempTIPO_EVENTO: TFMTBCDField;
+    sqlG_AgendaTempAGENDA_ID: TBCDField;
+    sqlG_AgendaTempTIPO_EVENTO: TBCDField;
     sqlG_AgendaTempDATA_INICIO: TSQLTimeStampField;
     sqlG_AgendaTempDATA_FIM: TSQLTimeStampField;
     sqlG_AgendaTempASSUNTO: TStringField;
     sqlG_AgendaTempMENSAGEM: TStringField;
-    sqlG_AgendaTempCOR: TFMTBCDField;
-    sqlG_AgendaTempOPCAO: TFMTBCDField;
-    sqlG_AgendaTempSTATUS: TFMTBCDField;
-    sqlG_AgendaTempUSUARIO_ID: TFMTBCDField;
-    sqlG_AgendaTempUSUARIO_AGENDOU_ID: TFMTBCDField;
+    sqlG_AgendaTempCOR: TBCDField;
+    sqlG_AgendaTempOPCAO: TBCDField;
+    sqlG_AgendaTempSTATUS: TBCDField;
+    sqlG_AgendaTempUSUARIO_ID: TBCDField;
+    sqlG_AgendaTempUSUARIO_AGENDOU_ID: TBCDField;
     sqlG_AgendaTempDATA_HORA_CADASTRO: TSQLTimeStampField;
     sqlG_AgendaTempDATA_HORA_ENVIADO: TSQLTimeStampField;
     sqlG_AgendaTempDATA_HORA_FINALIZADO: TSQLTimeStampField;
@@ -226,7 +227,7 @@ end;
 procedure TfrmAgenda.lcxUsuarioAgendaPropertiesChange(Sender: TObject);
 begin
   sqlG_Agenda.Close;
-  sqlG_Agenda.DataSet.Params[0].AsCurrency := lcxUsuarioAgenda.EditValue;
+  sqlG_Agenda.Params[0].AsCurrency := lcxUsuarioAgenda.EditValue;
   sqlG_Agenda.Open;
 end;
 

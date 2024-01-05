@@ -3,6 +3,7 @@ unit CadastroAuxSimplificado;
 interface
 
 uses
+  I9Query,
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs,  Menus, StdCtrls, cxButtons,
   ExtCtrls,
@@ -12,7 +13,10 @@ uses
   cxLookAndFeelPainters, dxSkinsCore, dxSkinBlack, dxSkinDevExpressDarkStyle,
   dxSkinDevExpressStyle, dxSkinMcSkin, dxSkinOffice2007Black,
   dxSkinOffice2007Blue, dxSkinOffice2007Green, dxSkinOffice2007Pink,
-  dxSkinOffice2007Silver, dxSkinsDefaultPainters;
+  dxSkinOffice2007Silver, dxSkinsDefaultPainters, FireDAC.Stan.Intf,
+  FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS,
+  FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt,
+  FireDAC.Comp.DataSet, FireDAC.Comp.Client;
 
 type
 
@@ -22,7 +26,7 @@ type
     Panel4: TPanel;
     imgTitulo: TImage;
     Panel1: TPanel;
-    DataSetAncestral: TSQLDataSet;
+    DataSetAncestral: TI9Query;
     ProviderAncestral: TDataSetProvider;
     ClientAncestral: TClientDataSet;
     SourceAncestral: TDataSource;
@@ -87,7 +91,7 @@ begin
     exit;
 
   ClientAncestral.Active := False;
-  DataSetAncestral.CommandText := 'SELECT * FROM ' + vgDadosCadastro.Tabela +
+  DataSetAncestral.SQL.Text := 'SELECT * FROM ' + vgDadosCadastro.Tabela +
     ' WHERE ' + vgDadosCadastro.CampoId + ' = :' + vgDadosCadastro.CampoId;
 
   if vgDadosCadastro.ChaveIdPrincipal > 0 then

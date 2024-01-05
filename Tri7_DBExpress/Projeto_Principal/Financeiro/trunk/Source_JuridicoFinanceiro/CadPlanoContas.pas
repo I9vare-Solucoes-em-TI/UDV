@@ -3,6 +3,7 @@ unit CadPlanoContas;
 interface
 
 uses
+  I9Query,
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, CadBasico, Menus, cxLookAndFeelPainters, FMTBcd, DB, DBClient,
   Provider, SqlExpr, ActnList, ComCtrls, StdCtrls, cxButtons, ExtCtrls,
@@ -45,18 +46,18 @@ type
     cxGridPesquisaColumn2: TcxGridDBColumn;
     cxGridPesquisaColumn7: TcxGridDBColumn;
     grdBasicaLevel1: TcxGridLevel;
-    ClientAncestralCONTABIL_CONTA_ID: TFMTBCDField;
+    ClientAncestralCONTABIL_CONTA_ID: TBCDField;
     ClientAncestralDESCRICAO: TStringField;
     ClientAncestralGRUPO: TStringField;
     ClientAncestralSITUACAO: TStringField;
-    ClientAncestralBALANCETE_GRUPO_ID: TFMTBCDField;
-    ClientAncestralCONTABIL_GRUPO_ID: TFMTBCDField;
+    ClientAncestralBALANCETE_GRUPO_ID: TBCDField;
+    ClientAncestralCONTABIL_GRUPO_ID: TBCDField;
     ClientAncestralINTERNO: TStringField;
     ClientAncestralEXIGE_CONTRATO: TStringField;
-    sqlGrupoContabil: TSimpleDataSet;
+    sqlGrupoContabil: TI9Query;
     sqlGrupoContabilDESCRICAO: TStringField;
-    sqlGrupoContabilCONTABIL_GRUPO_ID: TFMTBCDField;
-    sqlGrupoContabilBALANCETE_GRUPO_ID: TFMTBCDField;
+    sqlGrupoContabilCONTABIL_GRUPO_ID: TBCDField;
+    sqlGrupoContabilBALANCETE_GRUPO_ID: TBCDField;
     dtsGrupoContabil: TDataSource;
     cxLabel3: TcxLabel;
     lcxItem: TcxLabel;
@@ -341,7 +342,7 @@ var
       ParamByName('CNJ').AsString                 := ClientAncestralCNJ.AsString;
       ParamByName('IR').AsString                  := ClientAncestralIR.AsString;
       ParamByName('TIPO_GLOBAL').AsString         := ClientAncestralTIPO_GLOBAL.AsString;
-      ExecSQL(FALSE);
+      ExecSQL;
     end;
   end;
   {$ENDREGION}
@@ -462,8 +463,8 @@ begin
   if icxTipo.Text = '' then
     exit;
 
-  sqlGrupoContabil.DataSet.ParamByName('TIPO').AsString                := icxTipo.EditValue;
-  sqlGrupoContabil.DataSet.ParamByName('BALANCETE_GRUPO_ID').AsInteger := vgTabBalancete[tabBalancete.TabIndex];
+  sqlGrupoContabil.ParamByName('TIPO').AsString                := icxTipo.EditValue;
+  sqlGrupoContabil.ParamByName('BALANCETE_GRUPO_ID').AsInteger := vgTabBalancete[tabBalancete.TabIndex];
 
   ClientAncestral.Open;
   sqlGrupoContabil.Active := True;

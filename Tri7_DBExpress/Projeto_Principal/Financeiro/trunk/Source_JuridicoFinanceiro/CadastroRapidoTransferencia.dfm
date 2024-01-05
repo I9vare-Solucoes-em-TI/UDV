@@ -377,8 +377,7 @@ inherited frmCadastroRapidoTransferencia: TfrmCadastroRapidoTransferencia
     ParentFont = False
     TabOrder = 2
   end
-  inherited DataSetAncestral: TSQLDataSet
-    SchemaName = 'SYSDBA'
+  inherited DataSetAncestral: TI9Query
     Left = 340
     Top = 83
   end
@@ -399,18 +398,17 @@ inherited frmCadastroRapidoTransferencia: TfrmCadastroRapidoTransferencia
     Left = 224
     Top = 125
   end
-  object sqlPlanoContas: TSimpleDataSet
+  object sqlPlanoContas: TI9Query
     Aggregates = <>
     Connection = dtmControles.DB
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT CC.CONTABIL_CONTA_ID, CC.DESCRICAO, CC.CONTABIL_GRUPO_ID'#13 +
       #10'FROM J_CONTABIL_CONTA CC LEFT OUTER JOIN J_CONTABIL_GRUPO CG ON' +
       #13#10'  CC.CONTABIL_GRUPO_ID = CG.CONTABIL_GRUPO_ID'#13#10'WHERE CC.SITUAC' +
       'AO = '#39'A'#39#13#10'  AND ((CC.BALANCETE_GRUPO_ID = :BALANCETE_GRUPO_ID)'#13#10 +
       '    OR (CC.TIPO_GLOBAL = '#39'S'#39')) '#13#10'  AND CG.OPERACAO = '#39'7'#39#13#10'ORDER ' +
-      'BY CC.DESCRICAO'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <
+      'BY CC.DESCRICAO')
+    ParamData = <
       item
         DataType = ftUnknown
         Name = 'BALANCETE_GRUPO_ID'
@@ -419,7 +417,7 @@ inherited frmCadastroRapidoTransferencia: TfrmCadastroRapidoTransferencia
     Params = <>
     Left = 224
     Top = 79
-    object sqlPlanoContasCONTABIL_CONTA_ID: TFMTBCDField
+    object sqlPlanoContasCONTABIL_CONTA_ID: TBCDField
       FieldName = 'CONTABIL_CONTA_ID'
       Precision = 20
       Size = 2
@@ -428,7 +426,7 @@ inherited frmCadastroRapidoTransferencia: TfrmCadastroRapidoTransferencia
       FieldName = 'DESCRICAO'
       Size = 60
     end
-    object sqlPlanoContasCONTABIL_GRUPO_ID: TFMTBCDField
+    object sqlPlanoContasCONTABIL_GRUPO_ID: TBCDField
       FieldName = 'CONTABIL_GRUPO_ID'
       Precision = 15
       Size = 2

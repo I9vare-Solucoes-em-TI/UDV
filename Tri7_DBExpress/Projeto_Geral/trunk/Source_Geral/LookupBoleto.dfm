@@ -14,6 +14,7 @@ object dtmLookupBoleto: TdtmLookupBoleto
     Banco.DensidadeGravacao = '0'
     Cedente.TipoCarteira = tctRegistrada
     Cedente.TipoInscricao = pJuridica
+    Cedente.PIX.TipoChavePIX = tchNenhuma
     DirArqRemessa = 'c:\TEMP\REMESSA_TESTE.TXT'
     NumeroArquivo = 0
     LayoutRemessa = c240
@@ -26,33 +27,32 @@ object dtmLookupBoleto: TdtmLookupBoleto
     Left = 153
     Top = 119
   end
-  object sqlRemessa: TSimpleDataSet
-    Aggregates = <>
+  object sqlRemessa: TI9Query
     Connection = dtmControles.DB
-    DataSet.CommandText = 
-      'SELECT BO.VALOR, BO.BOLETA_ID, BO.PESSOA_ID, BO.PESSOA_GRUPO_ID,' +
-      #13#10'             BO.DATA_VENCIMENTO, BO.DATA_EMISSAO,'#13#10'           ' +
-      '  BO.REMESSA_SITUACAO'#13#10'FROM T_BOLETA BO'#13#10'WHERE (((NOT REMESSA_SI' +
-      'TUACAO IS NULl) AND (BO.SITUACAO = '#39'1'#39')) OR'#13#10'      ((NOT REMESSA' +
-      '_SITUACAO IS NULl) AND (BO.SITUACAO = '#39'3'#39') AND (NOT BO.REMESSA_I' +
-      'D IS NULL)))'#13#10'   AND FATURA_TIPO = '#39'B'#39
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <>
-    Params = <>
+    FetchOptions.AssignedValues = [evMode]
+    FetchOptions.Mode = fmAll
+    SQL.Strings = (
+      
+        'SELECT BO.VALOR, BO.BOLETA_ID, BO.PESSOA_ID, BO.PESSOA_GRUPO_ID,' +
+        #13#10'             BO.DATA_VENCIMENTO, BO.DATA_EMISSAO,'#13#10'           ' +
+        '  BO.REMESSA_SITUACAO'#13#10'FROM T_BOLETA BO'#13#10'WHERE (((NOT REMESSA_SI' +
+        'TUACAO IS NULl) AND (BO.SITUACAO = '#39'1'#39')) OR'#13#10'      ((NOT REMESSA' +
+        '_SITUACAO IS NULl) AND (BO.SITUACAO = '#39'3'#39') AND (NOT BO.REMESSA_I' +
+        'D IS NULL)))'#13#10'   AND FATURA_TIPO = '#39'B'#39)
     Left = 338
     Top = 96
-    object sqlRemessaVALOR: TFMTBCDField
+    object sqlRemessaVALOR: TBCDField
       FieldName = 'VALOR'
       Precision = 20
       Size = 3
     end
-    object sqlRemessaBOLETA_ID: TFMTBCDField
+    object sqlRemessaBOLETA_ID: TBCDField
       FieldName = 'BOLETA_ID'
       Required = True
       Precision = 20
       Size = 2
     end
-    object sqlRemessaPESSOA_ID: TFMTBCDField
+    object sqlRemessaPESSOA_ID: TBCDField
       FieldName = 'PESSOA_ID'
       Precision = 20
       Size = 3
@@ -67,7 +67,7 @@ object dtmLookupBoleto: TdtmLookupBoleto
       FieldName = 'REMESSA_SITUACAO'
       Size = 1
     end
-    object sqlRemessaPESSOA_GRUPO_ID: TFMTBCDField
+    object sqlRemessaPESSOA_GRUPO_ID: TBCDField
       FieldName = 'PESSOA_GRUPO_ID'
       Precision = 20
       Size = 2

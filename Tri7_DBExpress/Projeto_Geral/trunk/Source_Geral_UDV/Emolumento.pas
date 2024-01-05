@@ -3,6 +3,7 @@ unit Emolumento;
 interface
 
 uses
+  I9Query,
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, cxLookAndFeelPainters, cxStyles, cxCustomData, cxGraphics,
   cxFilter, cxData, cxDataStorage, cxEdit, DB, cxDBData, cxImageComboBox,
@@ -48,39 +49,39 @@ type
     cxGridDBTableViewTxEmol: TcxGridDBColumn;
     cxGridDBTableView1DBColumn5: TcxGridDBColumn;
     cxGridDBTableView1DBColumn6: TcxGridDBColumn;
-    sqlG_Emolumento: TSimpleDataSet;
+    sqlG_Emolumento: TI9Query;
     dtsG_Emolumento: TDataSource;
-    sqlG_Emolumento_Item: TSimpleDataSet;
+    sqlG_Emolumento_Item: TI9Query;
     sqlG_Emolumento_ItemTotal_Item: TCurrencyField;
     dtsG_Emolumento_Item: TDataSource;
-    sqlG_Emolumento_Periodo: TSimpleDataSet;
+    sqlG_Emolumento_Periodo: TI9Query;
     dtsG_Emolumento_Periodo: TDataSource;
-    sqlG_Emolumento_PeriodoEMOLUMENTO_PERIODO_ID: TFMTBCDField;
+    sqlG_Emolumento_PeriodoEMOLUMENTO_PERIODO_ID: TBCDField;
     sqlG_Emolumento_PeriodoDESCRICAO: TStringField;
     sqlG_Emolumento_PeriodoSITUACAO: TStringField;
-    sqlG_EmolumentoEMOLUMENTO_ID: TFMTBCDField;
+    sqlG_EmolumentoEMOLUMENTO_ID: TBCDField;
     sqlG_EmolumentoDESCRICAO: TStringField;
     sqlG_EmolumentoTIPO: TStringField;
-    sqlG_EmolumentoSISTEMA_ID: TFMTBCDField;
-    sqlG_Emolumento_ItemVALOR_EMOLUMENTO: TFMTBCDField;
-    sqlG_Emolumento_ItemEMOLUMENTO_ITEM_ID: TFMTBCDField;
-    sqlG_Emolumento_ItemEMOLUMENTO_ID: TFMTBCDField;
-    sqlG_Emolumento_ItemVALOR_INICIO: TFMTBCDField;
-    sqlG_Emolumento_ItemVALOR_FIM: TFMTBCDField;
-    sqlG_Emolumento_ItemVALOR_TAXA_JUDICIARIA: TFMTBCDField;
-    sqlG_Emolumento_ItemEMOLUMENTO_PERIODO_ID: TFMTBCDField;
-    sqlG_Emolumento_ItemCODIGO: TFMTBCDField;
+    sqlG_EmolumentoSISTEMA_ID: TBCDField;
+    sqlG_Emolumento_ItemVALOR_EMOLUMENTO: TBCDField;
+    sqlG_Emolumento_ItemEMOLUMENTO_ITEM_ID: TBCDField;
+    sqlG_Emolumento_ItemEMOLUMENTO_ID: TBCDField;
+    sqlG_Emolumento_ItemVALOR_INICIO: TBCDField;
+    sqlG_Emolumento_ItemVALOR_FIM: TBCDField;
+    sqlG_Emolumento_ItemVALOR_TAXA_JUDICIARIA: TBCDField;
+    sqlG_Emolumento_ItemEMOLUMENTO_PERIODO_ID: TBCDField;
+    sqlG_Emolumento_ItemCODIGO: TBCDField;
     Panel4: TPanel;
     Label1: TLabel;
     cxDBTextEdit1: TcxDBTextEdit;
-    sqlG_Emolumento_ItemPAGINA_EXTRA: TFMTBCDField;
-    sqlG_Emolumento_ItemVALOR_PAGINA_EXTRA: TFMTBCDField;
+    sqlG_Emolumento_ItemPAGINA_EXTRA: TBCDField;
+    sqlG_Emolumento_ItemVALOR_PAGINA_EXTRA: TBCDField;
     cxGridDBTableView1DBColumn7: TcxGridDBColumn;
     cxGridDBTableView1DBColumn8: TcxGridDBColumn;
-    sqlG_Emolumento_ItemVALOR_OUTRA_TAXA1: TFMTBCDField;
+    sqlG_Emolumento_ItemVALOR_OUTRA_TAXA1: TBCDField;
     cxGridDBTableViewTxOutraTx: TcxGridDBColumn;
     sqlEmolMemoria: TClientDataSet;
-    sqlG_EmolumentoSELO_GRUPO_ID: TFMTBCDField;
+    sqlG_EmolumentoSELO_GRUPO_ID: TBCDField;
     spnDesvincularSelo: TSpeedButton;
     PopExclusao: TPopupMenu;
     AdicionarDescrioComplementar1: TMenuItem;
@@ -99,7 +100,7 @@ type
     ActAtivarEmolumento: TMenuItem;
     sqlG_Emolumento_ItemCALC_FUNDESP: TCurrencyField;
     cxGridDBTableViewTxFundesp: TcxGridDBColumn;
-    sqlG_EmolumentoSERVICO_CAIXA_ID: TFMTBCDField;
+    sqlG_EmolumentoSERVICO_CAIXA_ID: TBCDField;
     cxGridDBTableEmolumentoColumn2: TcxGridDBColumn;
     SpeedButton1: TSpeedButton;
     btnFechar: TcxButton;
@@ -166,10 +167,10 @@ begin
   with sqlG_Emolumento do
   begin
     Active := False;
-    DataSet.CommandText := ' SELECT * FROM G_EMOLUMENTO '+
+    SQL.Text := ' SELECT * FROM G_EMOLUMENTO '+
                            ' WHERE SISTEMA_ID = :SISTEMA_ID '+
                            ' ORDER BY DESCRICAO ';
-    DataSet.Params[0].AsCurrency := vgId;
+    Params[0].AsCurrency := vgId;
     Active := True;
   end;
   Screen.Cursor := crDefault;
@@ -278,8 +279,8 @@ begin
   with sqlG_Emolumento_Item do
   begin
     Active := False;
-    DataSet.Params.ParamByName('EMOLUMENTO_ID').AsCurrency := sqlG_EmolumentoEMOLUMENTO_ID.AsCurrency;
-    DataSet.Params.ParamByName('EMOLUMENTO_PERIODO_ID').AsCurrency := lcxEmolumentoPeriodo.EditValue;
+    Params.ParamByName('EMOLUMENTO_ID').AsCurrency := sqlG_EmolumentoEMOLUMENTO_ID.AsCurrency;
+    Params.ParamByName('EMOLUMENTO_PERIODO_ID').AsCurrency := lcxEmolumentoPeriodo.EditValue;
     Active := True;
   end;
 end;

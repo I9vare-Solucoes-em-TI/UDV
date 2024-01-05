@@ -5062,18 +5062,17 @@ object frmConciliacaoBancaria: TfrmConciliacaoBancaria
     Left = 575
     Top = 238
   end
-  object sqlVinculoEncontrado: TSimpleDataSet
+  object sqlVinculoEncontrado: TI9Query
     Aggregates = <>
     Connection = dtmControles.DB
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT LC.LIVRO_CAIXA_ID AS ID,'#13#10'       LC.DATA_PAGAMENTO AS DAT' +
       'A,'#13#10'       LC.BALANCETE_GRUPO_ID,'#13#10'       LC.CONTABIL_CONTA_ID,'#13 +
       #10'       LC.HISTORICO,'#13#10'       LC.DOCUMENTO_NUMERO,'#13#10'       LC.CA' +
       'IXA_ID,'#13#10'       LC.OPERACAO,'#13#10'       LC.PESSOA_ID,'#13#10'       LC.US' +
       'UARIO_ID,'#13#10'       LC.VALOR,'#13#10'       LC.CONCILIACAO_IDENTIFICADOR' +
-      #13#10'FROM J_LIVRO_CAIXA LC'#13#10'WHERE LC.CONCILIACAO_REGISTRADO_ID= :ID'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <
+      #13#10'FROM J_LIVRO_CAIXA LC'#13#10'WHERE LC.CONCILIACAO_REGISTRADO_ID= :ID')
+    ParamData = <
       item
         DataType = ftUnknown
         Name = 'ID'
@@ -5083,7 +5082,7 @@ object frmConciliacaoBancaria: TfrmConciliacaoBancaria
     OnCalcFields = sqlVinculoEncontradoCalcFields
     Left = 576
     Top = 295
-    object sqlVinculoEncontradoID: TFMTBCDField
+    object sqlVinculoEncontradoID: TBCDField
       FieldName = 'ID'
       Required = True
       Precision = 20
@@ -5092,12 +5091,12 @@ object frmConciliacaoBancaria: TfrmConciliacaoBancaria
     object sqlVinculoEncontradoDATA: TSQLTimeStampField
       FieldName = 'DATA'
     end
-    object sqlVinculoEncontradoBALANCETE_GRUPO_ID: TFMTBCDField
+    object sqlVinculoEncontradoBALANCETE_GRUPO_ID: TBCDField
       FieldName = 'BALANCETE_GRUPO_ID'
       Precision = 20
       Size = 2
     end
-    object sqlVinculoEncontradoCONTABIL_CONTA_ID: TFMTBCDField
+    object sqlVinculoEncontradoCONTABIL_CONTA_ID: TBCDField
       FieldName = 'CONTABIL_CONTA_ID'
       Precision = 20
       Size = 2
@@ -5110,7 +5109,7 @@ object frmConciliacaoBancaria: TfrmConciliacaoBancaria
       FieldName = 'DOCUMENTO_NUMERO'
       Size = 60
     end
-    object sqlVinculoEncontradoCAIXA_ID: TFMTBCDField
+    object sqlVinculoEncontradoCAIXA_ID: TBCDField
       FieldName = 'CAIXA_ID'
       Precision = 20
       Size = 2
@@ -5119,12 +5118,12 @@ object frmConciliacaoBancaria: TfrmConciliacaoBancaria
       FieldName = 'OPERACAO'
       Size = 3
     end
-    object sqlVinculoEncontradoPESSOA_ID: TFMTBCDField
+    object sqlVinculoEncontradoPESSOA_ID: TBCDField
       FieldName = 'PESSOA_ID'
       Precision = 20
       Size = 2
     end
-    object sqlVinculoEncontradoVALOR: TFMTBCDField
+    object sqlVinculoEncontradoVALOR: TBCDField
       FieldName = 'VALOR'
       Precision = 20
       Size = 3
@@ -5140,21 +5139,20 @@ object frmConciliacaoBancaria: TfrmConciliacaoBancaria
       FieldName = 'CONCILIACAO_IDENTIFICADOR'
       Size = 90
     end
-    object sqlVinculoEncontradoUSUARIO_ID: TFMTBCDField
+    object sqlVinculoEncontradoUSUARIO_ID: TBCDField
       FieldName = 'USUARIO_ID'
       Precision = 20
       Size = 2
     end
   end
-  object sqlContasBancarias: TSimpleDataSet
+  object sqlContasBancarias: TI9Query
     Aggregates = <>
     Connection = dtmControles.DB
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT DESCRICAO, CAIXA_ID'#13#10'FROM J_CAIXA'#13#10'WHERE SITUACAO = '#39'A'#39#13#10 +
       '  AND TIPO_CAIXA = '#39'1'#39#13#10'  AND CONCILIACAO_REALIZAR = '#39'S'#39#13#10'ORDER ' +
-      'BY DESCRICAO'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <>
+      'BY DESCRICAO')
+    ParamData = <>
     Params = <>
     Left = 202
     Top = 242
@@ -5162,7 +5160,7 @@ object frmConciliacaoBancaria: TfrmConciliacaoBancaria
       FieldName = 'DESCRICAO'
       Size = 30
     end
-    object FMTBCDField1: TFMTBCDField
+    object FMTBCDField1: TBCDField
       FieldName = 'CAIXA_ID'
       Required = True
       Precision = 15
@@ -5174,10 +5172,10 @@ object frmConciliacaoBancaria: TfrmConciliacaoBancaria
     Left = 196
     Top = 293
   end
-  object sqlLivroCaixa: TSimpleDataSet
+  object sqlLivroCaixa: TI9Query
     Aggregates = <>
     Connection = dtmControles.DB
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT LC.*,'#13#10'       LF.PROCESSO_CONTRATO_ITEM_ID, LF.LIVRO_REMU' +
       'NERACAO_ID, LF.LIVRO_AGENDAMENTO_ID,'#13#10'       LF.LIVRO_AGENDAMENT' +
       'O_ID,'#13#10'       CC.DESCRICAO AS CONTABIL_CONTA_DESCRICAO,'#13#10'       ' +
@@ -5190,9 +5188,8 @@ object frmConciliacaoBancaria: TfrmConciliacaoBancaria
       'GRUPO_ID = CC.CONTABIL_GRUPO_ID'#13#10'  LEFT OUTER JOIN J_PESSOA P ON' +
       #13#10'  LC.PESSOA_ID = P.PESSOA_ID'#13#10'  LEFT OUTER JOIN J_PESSOA A ON'#13 +
       #10'  LC.RESPONSAVEL_ID = A.PESSOA_ID'#13#10'WHERE LC.LIVRO_CAIXA_ID = :L' +
-      'IVRO_CAIXA_ID'#13#10'ORDER BY LC.LIVRO_CAIXA_ID'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <
+      'IVRO_CAIXA_ID'#13#10'ORDER BY LC.LIVRO_CAIXA_ID')
+    ParamData = <
       item
         DataType = ftInteger
         Name = 'LIVRO_CAIXA_ID'
@@ -5216,18 +5213,18 @@ object frmConciliacaoBancaria: TfrmConciliacaoBancaria
     object sqlLivroCaixaDATA_PAGAMENTO: TSQLTimeStampField
       FieldName = 'DATA_PAGAMENTO'
     end
-    object sqlLivroCaixaLIVRO_CAIXA_ID: TFMTBCDField
+    object sqlLivroCaixaLIVRO_CAIXA_ID: TBCDField
       FieldName = 'LIVRO_CAIXA_ID'
       Required = True
       Precision = 20
       Size = 2
     end
-    object sqlLivroCaixaCAIXA_ID: TFMTBCDField
+    object sqlLivroCaixaCAIXA_ID: TBCDField
       FieldName = 'CAIXA_ID'
       Precision = 20
       Size = 2
     end
-    object sqlLivroCaixaVALOR: TFMTBCDField
+    object sqlLivroCaixaVALOR: TBCDField
       FieldName = 'VALOR'
       Precision = 20
       Size = 3
@@ -5236,7 +5233,7 @@ object frmConciliacaoBancaria: TfrmConciliacaoBancaria
       FieldName = 'OPERACAO'
       Size = 1
     end
-    object sqlLivroCaixaPESSOA_ID: TFMTBCDField
+    object sqlLivroCaixaPESSOA_ID: TBCDField
       FieldName = 'PESSOA_ID'
       Precision = 20
       Size = 2
@@ -5249,12 +5246,12 @@ object frmConciliacaoBancaria: TfrmConciliacaoBancaria
       FieldName = 'OBSERVACAO'
       Size = 260
     end
-    object sqlLivroCaixaCONTABIL_CONTA_ID: TFMTBCDField
+    object sqlLivroCaixaCONTABIL_CONTA_ID: TBCDField
       FieldName = 'CONTABIL_CONTA_ID'
       Precision = 20
       Size = 2
     end
-    object sqlLivroCaixaCENTRO_CUSTO_ID: TFMTBCDField
+    object sqlLivroCaixaCENTRO_CUSTO_ID: TBCDField
       FieldName = 'CENTRO_CUSTO_ID'
       Precision = 20
       Size = 2
@@ -5295,17 +5292,17 @@ object frmConciliacaoBancaria: TfrmConciliacaoBancaria
       FieldName = 'DOCUMENTO_DESCRICAO'
       Size = 30
     end
-    object sqlLivroCaixaBALANCETE_GRUPO_ID: TFMTBCDField
+    object sqlLivroCaixaBALANCETE_GRUPO_ID: TBCDField
       FieldName = 'BALANCETE_GRUPO_ID'
       Precision = 20
       Size = 2
     end
-    object sqlLivroCaixaLIVRO_FINANCEIRO_ID: TFMTBCDField
+    object sqlLivroCaixaLIVRO_FINANCEIRO_ID: TBCDField
       FieldName = 'LIVRO_FINANCEIRO_ID'
       Precision = 20
       Size = 2
     end
-    object sqlLivroCaixaPROCESSO_ID: TFMTBCDField
+    object sqlLivroCaixaPROCESSO_ID: TBCDField
       FieldName = 'PROCESSO_ID'
       Precision = 20
       Size = 2
@@ -5321,17 +5318,17 @@ object frmConciliacaoBancaria: TfrmConciliacaoBancaria
     object sqlLivroCaixaDATA_VENCIMENTO: TSQLTimeStampField
       FieldName = 'DATA_VENCIMENTO'
     end
-    object sqlLivroCaixaPROCESSO_CONTRATO_ITEM_ID: TFMTBCDField
+    object sqlLivroCaixaPROCESSO_CONTRATO_ITEM_ID: TBCDField
       FieldName = 'PROCESSO_CONTRATO_ITEM_ID'
       Precision = 20
       Size = 2
     end
-    object sqlLivroCaixaLIVRO_AGENDAMENTO_ID: TFMTBCDField
+    object sqlLivroCaixaLIVRO_AGENDAMENTO_ID: TBCDField
       FieldName = 'LIVRO_AGENDAMENTO_ID'
       Precision = 20
       Size = 2
     end
-    object sqlLivroCaixaLIVRO_REMUNERACAO_ID: TFMTBCDField
+    object sqlLivroCaixaLIVRO_REMUNERACAO_ID: TBCDField
       FieldName = 'LIVRO_REMUNERACAO_ID'
       Precision = 20
       Size = 2
@@ -5353,7 +5350,7 @@ object frmConciliacaoBancaria: TfrmConciliacaoBancaria
       FieldName = 'calc_ValorMovimento'
       Calculated = True
     end
-    object sqlLivroCaixaCAIXA_TRANSFERENCIA_ID: TFMTBCDField
+    object sqlLivroCaixaCAIXA_TRANSFERENCIA_ID: TBCDField
       FieldName = 'CAIXA_TRANSFERENCIA_ID'
       Precision = 15
       Size = 2
@@ -5384,17 +5381,17 @@ object frmConciliacaoBancaria: TfrmConciliacaoBancaria
       FieldName = 'AUTOMATICO'
       Size = 1
     end
-    object sqlLivroCaixaORCAMENTO_ID: TFMTBCDField
+    object sqlLivroCaixaORCAMENTO_ID: TBCDField
       FieldName = 'ORCAMENTO_ID'
       Precision = 20
       Size = 2
     end
-    object sqlLivroCaixaINDICE_IMAGEM: TFMTBCDField
+    object sqlLivroCaixaINDICE_IMAGEM: TBCDField
       FieldName = 'INDICE_IMAGEM'
       Precision = 20
       Size = 2
     end
-    object sqlLivroCaixaIDENTIFICADOR_ID: TFMTBCDField
+    object sqlLivroCaixaIDENTIFICADOR_ID: TBCDField
       FieldName = 'IDENTIFICADOR_ID'
       Precision = 20
       Size = 2
@@ -5416,7 +5413,7 @@ object frmConciliacaoBancaria: TfrmConciliacaoBancaria
       FieldName = 'FAVORITO_SITUACAO'
       Size = 1
     end
-    object sqlLivroCaixaTIPO_MODALIDADE_ID: TFMTBCDField
+    object sqlLivroCaixaTIPO_MODALIDADE_ID: TBCDField
       FieldName = 'TIPO_MODALIDADE_ID'
       Precision = 20
       Size = 2
@@ -5433,7 +5430,7 @@ object frmConciliacaoBancaria: TfrmConciliacaoBancaria
       FieldName = 'IDENTIFICADOR_TIPO'
       Size = 3
     end
-    object sqlLivroCaixaRESPONSAVEL_ID: TFMTBCDField
+    object sqlLivroCaixaRESPONSAVEL_ID: TBCDField
       FieldName = 'RESPONSAVEL_ID'
       Precision = 20
       Size = 2
@@ -5442,7 +5439,7 @@ object frmConciliacaoBancaria: TfrmConciliacaoBancaria
       FieldName = 'CONFERIDO'
       Size = 1
     end
-    object sqlLivroCaixaCENTRO_RESERVA_ID: TFMTBCDField
+    object sqlLivroCaixaCENTRO_RESERVA_ID: TBCDField
       FieldName = 'CENTRO_RESERVA_ID'
       Precision = 20
       Size = 2
@@ -5451,27 +5448,27 @@ object frmConciliacaoBancaria: TfrmConciliacaoBancaria
       FieldName = 'FATURAMENTO'
       Size = 1
     end
-    object sqlLivroCaixaORDEM: TFMTBCDField
+    object sqlLivroCaixaORDEM: TBCDField
       FieldName = 'ORDEM'
       Precision = 20
       Size = 2
     end
-    object sqlLivroCaixaCONTABIL_GRUPO_ID: TFMTBCDField
+    object sqlLivroCaixaCONTABIL_GRUPO_ID: TBCDField
       FieldName = 'CONTABIL_GRUPO_ID'
       Precision = 20
       Size = 2
     end
-    object sqlLivroCaixaVALOR_DESCONTO: TFMTBCDField
+    object sqlLivroCaixaVALOR_DESCONTO: TBCDField
       FieldName = 'VALOR_DESCONTO'
       Precision = 20
       Size = 3
     end
-    object sqlLivroCaixaVALOR_JUROS: TFMTBCDField
+    object sqlLivroCaixaVALOR_JUROS: TBCDField
       FieldName = 'VALOR_JUROS'
       Precision = 20
       Size = 3
     end
-    object sqlLivroCaixaVALOR_MULTA: TFMTBCDField
+    object sqlLivroCaixaVALOR_MULTA: TBCDField
       FieldName = 'VALOR_MULTA'
       Precision = 20
       Size = 3
@@ -5480,12 +5477,12 @@ object frmConciliacaoBancaria: TfrmConciliacaoBancaria
       FieldName = 'OBSERVACAO_MONETARIA'
       Size = 120
     end
-    object sqlLivroCaixaVALOR_OUTRA_DEDUCAO: TFMTBCDField
+    object sqlLivroCaixaVALOR_OUTRA_DEDUCAO: TBCDField
       FieldName = 'VALOR_OUTRA_DEDUCAO'
       Precision = 20
       Size = 3
     end
-    object sqlLivroCaixaVALOR_FATURADO: TFMTBCDField
+    object sqlLivroCaixaVALOR_FATURADO: TBCDField
       FieldName = 'VALOR_FATURADO'
       Precision = 20
       Size = 3
@@ -5494,7 +5491,7 @@ object frmConciliacaoBancaria: TfrmConciliacaoBancaria
       FieldName = 'CONTABIL_RL'
       Size = 1
     end
-    object sqlLivroCaixaVALOR_OUTRAS_TAXAS: TFMTBCDField
+    object sqlLivroCaixaVALOR_OUTRAS_TAXAS: TBCDField
       FieldName = 'VALOR_OUTRAS_TAXAS'
       Precision = 20
       Size = 3
@@ -5505,10 +5502,10 @@ object frmConciliacaoBancaria: TfrmConciliacaoBancaria
     Left = 256
     Top = 462
   end
-  object sqlFinanceiroCompromisso: TSimpleDataSet
+  object sqlFinanceiroCompromisso: TI9Query
     Aggregates = <>
     Connection = dtmControles.DB
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT LF.*, P.NOME, P.IDENTIFICACAO, P.TIPO,  P.UTILIZA_BOLETO,' +
       ' '#13#10'    LA.PERIODO, LA.QTD, LA.PARCELA_INICIAL, LA.DOC_TIPO, LA.R' +
       'EFERENCIA_PERIODO,'#13#10'coalesce((SELECT SUM(LC1.VALOR) FROM J_LIVRO' +
@@ -5535,9 +5532,8 @@ object frmConciliacaoBancaria: TfrmConciliacaoBancaria
       'A ON'#13#10'LF.LIVRO_AGENDAMENTO_ID = LA.LIVRO_AGENDAMENTO_ID'#13#10#13#10'WHERE' +
       ' LF.SITUACAO IN ('#39'1'#39','#39'2'#39')'#13#10' AND LF.LIVRO_FINANCEIRO_ID = :LIVRO_' +
       'FINANCEIRO_ID'#13#10#13#10'ORDER BY LF.DATA_VENCIMENTO, LF.PROCESSO_CONTRA' +
-      'TO_ITEM_ID, LF.DATA_VENCIMENTO, LF.ANO_MES_REFERENCIA'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <
+      'TO_ITEM_ID, LF.DATA_VENCIMENTO, LF.ANO_MES_REFERENCIA')
+    ParamData = <
       item
         DataType = ftUnknown
         Name = 'LIVRO_FINANCEIRO_ID'
@@ -5546,7 +5542,7 @@ object frmConciliacaoBancaria: TfrmConciliacaoBancaria
     Params = <>
     Left = 364
     Top = 403
-    object sqlFinanceiroCompromissoLIVRO_FINANCEIRO_ID: TFMTBCDField
+    object sqlFinanceiroCompromissoLIVRO_FINANCEIRO_ID: TBCDField
       FieldName = 'LIVRO_FINANCEIRO_ID'
       Precision = 20
       Size = 2
@@ -5554,7 +5550,7 @@ object frmConciliacaoBancaria: TfrmConciliacaoBancaria
     object sqlFinanceiroCompromissoDATA_VENCIMENTO: TSQLTimeStampField
       FieldName = 'DATA_VENCIMENTO'
     end
-    object sqlFinanceiroCompromissoVALOR_AGENDADO: TFMTBCDField
+    object sqlFinanceiroCompromissoVALOR_AGENDADO: TBCDField
       FieldName = 'VALOR_AGENDADO'
       Precision = 20
       Size = 3
@@ -5569,12 +5565,12 @@ object frmConciliacaoBancaria: TfrmConciliacaoBancaria
       Size = 10
       Calculated = True
     end
-    object sqlFinanceiroCompromissoCONTABIL_CONTA_ID: TFMTBCDField
+    object sqlFinanceiroCompromissoCONTABIL_CONTA_ID: TBCDField
       FieldName = 'CONTABIL_CONTA_ID'
       Precision = 20
       Size = 2
     end
-    object sqlFinanceiroCompromissoCENTRO_CUSTO_ID: TFMTBCDField
+    object sqlFinanceiroCompromissoCENTRO_CUSTO_ID: TBCDField
       FieldName = 'CENTRO_CUSTO_ID'
       Precision = 20
       Size = 2
@@ -5583,7 +5579,7 @@ object frmConciliacaoBancaria: TfrmConciliacaoBancaria
       FieldName = 'ANO_MES_REFERENCIA'
       Size = 10
     end
-    object sqlFinanceiroCompromissoBALANCETE_GRUPO_ID: TFMTBCDField
+    object sqlFinanceiroCompromissoBALANCETE_GRUPO_ID: TBCDField
       FieldName = 'BALANCETE_GRUPO_ID'
       Precision = 20
       Size = 2
@@ -5592,7 +5588,7 @@ object frmConciliacaoBancaria: TfrmConciliacaoBancaria
       FieldName = 'ESPECIE'
       Size = 1
     end
-    object sqlFinanceiroCompromissoBOLETA_ID: TFMTBCDField
+    object sqlFinanceiroCompromissoBOLETA_ID: TBCDField
       FieldName = 'BOLETA_ID'
       Precision = 20
       Size = 2
@@ -5605,7 +5601,7 @@ object frmConciliacaoBancaria: TfrmConciliacaoBancaria
       FieldName = 'OPERACAO'
       Size = 1
     end
-    object sqlFinanceiroCompromissoPESSOA_ID: TFMTBCDField
+    object sqlFinanceiroCompromissoPESSOA_ID: TBCDField
       FieldName = 'PESSOA_ID'
       Precision = 20
       Size = 2
@@ -5614,7 +5610,7 @@ object frmConciliacaoBancaria: TfrmConciliacaoBancaria
       FieldKind = fkInternalCalc
       FieldName = 'calc_Selecionado'
     end
-    object sqlFinanceiroCompromissoVALOR_DOCUMENTO: TFMTBCDField
+    object sqlFinanceiroCompromissoVALOR_DOCUMENTO: TBCDField
       FieldName = 'VALOR_DOCUMENTO'
       Precision = 20
       Size = 3
@@ -5655,12 +5651,12 @@ object frmConciliacaoBancaria: TfrmConciliacaoBancaria
       FieldName = 'OBSERVACAO'
       Size = 260
     end
-    object sqlFinanceiroCompromissoLIVRO_AGENDAMENTO_ID: TFMTBCDField
+    object sqlFinanceiroCompromissoLIVRO_AGENDAMENTO_ID: TBCDField
       FieldName = 'LIVRO_AGENDAMENTO_ID'
       Precision = 20
       Size = 2
     end
-    object sqlFinanceiroCompromissoPROCESSO_CONTRATO_ITEM_ID: TFMTBCDField
+    object sqlFinanceiroCompromissoPROCESSO_CONTRATO_ITEM_ID: TBCDField
       FieldName = 'PROCESSO_CONTRATO_ITEM_ID'
       Precision = 15
       Size = 2
@@ -5683,7 +5679,7 @@ object frmConciliacaoBancaria: TfrmConciliacaoBancaria
       FieldName = 'CNJ'
       Size = 1
     end
-    object sqlFinanceiroCompromissoCAIXA_ID: TFMTBCDField
+    object sqlFinanceiroCompromissoCAIXA_ID: TBCDField
       FieldName = 'CAIXA_ID'
       Precision = 15
       Size = 2
@@ -5696,7 +5692,7 @@ object frmConciliacaoBancaria: TfrmConciliacaoBancaria
       FieldName = 'REGISTRO_PARCIAL'
       Size = 1
     end
-    object sqlFinanceiroCompromissoVALOR_PAGO_SOMA: TFMTBCDField
+    object sqlFinanceiroCompromissoVALOR_PAGO_SOMA: TBCDField
       FieldName = 'VALOR_PAGO_SOMA'
       Precision = 15
       Size = 3
@@ -5705,17 +5701,17 @@ object frmConciliacaoBancaria: TfrmConciliacaoBancaria
       FieldName = 'UTILIZA_BOLETO'
       Size = 1
     end
-    object sqlFinanceiroCompromissoORCAMENTO_ID: TFMTBCDField
+    object sqlFinanceiroCompromissoORCAMENTO_ID: TBCDField
       FieldName = 'ORCAMENTO_ID'
       Precision = 20
       Size = 2
     end
-    object sqlFinanceiroCompromissoVALOR_ORCAMENTO_COMPROMETIDO: TFMTBCDField
+    object sqlFinanceiroCompromissoVALOR_ORCAMENTO_COMPROMETIDO: TBCDField
       FieldName = 'VALOR_ORCAMENTO_COMPROMETIDO'
       Precision = 20
       Size = 3
     end
-    object sqlFinanceiroCompromissoVALOR_ORCAMENTO_PAGO: TFMTBCDField
+    object sqlFinanceiroCompromissoVALOR_ORCAMENTO_PAGO: TBCDField
       FieldName = 'VALOR_ORCAMENTO_PAGO'
       Precision = 20
       Size = 3
@@ -5747,12 +5743,12 @@ object frmConciliacaoBancaria: TfrmConciliacaoBancaria
       FieldName = 'calc_orcamento'
       Calculated = True
     end
-    object sqlFinanceiroCompromissoVALOR_RESERVA_ENTRADA: TFMTBCDField
+    object sqlFinanceiroCompromissoVALOR_RESERVA_ENTRADA: TBCDField
       FieldName = 'VALOR_RESERVA_ENTRADA'
       Precision = 20
       Size = 3
     end
-    object sqlFinanceiroCompromissoVALOR_RESERVA_SAIDA: TFMTBCDField
+    object sqlFinanceiroCompromissoVALOR_RESERVA_SAIDA: TBCDField
       FieldName = 'VALOR_RESERVA_SAIDA'
       Precision = 20
       Size = 3
@@ -5765,17 +5761,17 @@ object frmConciliacaoBancaria: TfrmConciliacaoBancaria
       FieldName = 'PERIODO'
       Size = 1
     end
-    object sqlFinanceiroCompromissoPARCELA: TFMTBCDField
+    object sqlFinanceiroCompromissoPARCELA: TBCDField
       FieldName = 'PARCELA'
       Precision = 20
       Size = 2
     end
-    object sqlFinanceiroCompromissoQTD: TFMTBCDField
+    object sqlFinanceiroCompromissoQTD: TBCDField
       FieldName = 'QTD'
       Precision = 20
       Size = 2
     end
-    object sqlFinanceiroCompromissoPARCELA_INICIAL: TFMTBCDField
+    object sqlFinanceiroCompromissoPARCELA_INICIAL: TBCDField
       FieldName = 'PARCELA_INICIAL'
       Precision = 20
       Size = 2
@@ -5794,7 +5790,7 @@ object frmConciliacaoBancaria: TfrmConciliacaoBancaria
       FieldName = 'REFERENCIA_PERIODO'
       Size = 1
     end
-    object sqlFinanceiroCompromissoNOSSO_NUMERO: TFMTBCDField
+    object sqlFinanceiroCompromissoNOSSO_NUMERO: TBCDField
       FieldName = 'NOSSO_NUMERO'
       Precision = 20
       Size = 2
@@ -5807,12 +5803,12 @@ object frmConciliacaoBancaria: TfrmConciliacaoBancaria
       FieldName = 'TIPO'
       Size = 90
     end
-    object sqlFinanceiroCompromissoTIPO_MODALIDADE_ID: TFMTBCDField
+    object sqlFinanceiroCompromissoTIPO_MODALIDADE_ID: TBCDField
       FieldName = 'TIPO_MODALIDADE_ID'
       Precision = 20
       Size = 2
     end
-    object sqlFinanceiroCompromissoTIPO_CARGA_ID: TFMTBCDField
+    object sqlFinanceiroCompromissoTIPO_CARGA_ID: TBCDField
       FieldName = 'TIPO_CARGA_ID'
       Precision = 20
       Size = 2
@@ -5830,7 +5826,7 @@ object frmConciliacaoBancaria: TfrmConciliacaoBancaria
       FieldName = 'CONFERIDO'
       Size = 1
     end
-    object sqlFinanceiroCompromissoCENTRO_RESERVA_ID: TFMTBCDField
+    object sqlFinanceiroCompromissoCENTRO_RESERVA_ID: TBCDField
       FieldName = 'CENTRO_RESERVA_ID'
       Precision = 20
       Size = 2
@@ -5839,27 +5835,27 @@ object frmConciliacaoBancaria: TfrmConciliacaoBancaria
       FieldName = 'CONTABIL_RL'
       Size = 1
     end
-    object sqlFinanceiroCompromissoVALOR_DESCONTO: TFMTBCDField
+    object sqlFinanceiroCompromissoVALOR_DESCONTO: TBCDField
       FieldName = 'VALOR_DESCONTO'
       Precision = 20
       Size = 3
     end
-    object sqlFinanceiroCompromissoVALOR_JUROS: TFMTBCDField
+    object sqlFinanceiroCompromissoVALOR_JUROS: TBCDField
       FieldName = 'VALOR_JUROS'
       Precision = 20
       Size = 3
     end
-    object sqlFinanceiroCompromissoVALOR_MULTA: TFMTBCDField
+    object sqlFinanceiroCompromissoVALOR_MULTA: TBCDField
       FieldName = 'VALOR_MULTA'
       Precision = 20
       Size = 3
     end
-    object sqlFinanceiroCompromissoVALOR_OUTRA_DEDUCAO: TFMTBCDField
+    object sqlFinanceiroCompromissoVALOR_OUTRA_DEDUCAO: TBCDField
       FieldName = 'VALOR_OUTRA_DEDUCAO'
       Precision = 20
       Size = 3
     end
-    object sqlFinanceiroCompromissoVALOR_CALCULO: TFMTBCDField
+    object sqlFinanceiroCompromissoVALOR_CALCULO: TBCDField
       FieldName = 'VALOR_CALCULO'
       Precision = 20
       Size = 3
@@ -5868,7 +5864,7 @@ object frmConciliacaoBancaria: TfrmConciliacaoBancaria
       FieldName = 'OBSERVACAO_MONETARIA'
       Size = 120
     end
-    object sqlFinanceiroCompromissoVALOR_OUTRAS_TAXAS: TFMTBCDField
+    object sqlFinanceiroCompromissoVALOR_OUTRAS_TAXAS: TBCDField
       FieldName = 'VALOR_OUTRAS_TAXAS'
       Precision = 20
       Size = 3
@@ -5879,17 +5875,16 @@ object frmConciliacaoBancaria: TfrmConciliacaoBancaria
     Left = 364
     Top = 459
   end
-  object sqlPesquisaConciliacao: TSimpleDataSet
+  object sqlPesquisaConciliacao: TI9Query
     Aggregates = <>
     Connection = dtmControles.DB
-    DataSet.CommandText = 'SELECT *'#13#10'FROM J_CONCILIACAO'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <>
+    SQL.Strings = ('SELECT *'#13#10'FROM J_CONCILIACAO')
+    ParamData = <>
     Params = <>
     AfterScroll = sqlPesquisaConciliacaoAfterScroll
     Left = 54
     Top = 245
-    object sqlPesquisaConciliacaoCONCILIACAO_ID: TFMTBCDField
+    object sqlPesquisaConciliacaoCONCILIACAO_ID: TBCDField
       FieldName = 'CONCILIACAO_ID'
       Required = True
       Precision = 20
@@ -5913,7 +5908,7 @@ object frmConciliacaoBancaria: TfrmConciliacaoBancaria
       FieldKind = fkInternalCalc
       FieldName = 'CALC_SELECIONADO'
     end
-    object sqlPesquisaConciliacaoCAIXA_ID: TFMTBCDField
+    object sqlPesquisaConciliacaoCAIXA_ID: TBCDField
       FieldName = 'CAIXA_ID'
       Precision = 20
       Size = 2
@@ -5924,16 +5919,15 @@ object frmConciliacaoBancaria: TfrmConciliacaoBancaria
     Left = 54
     Top = 297
   end
-  object sqlDadosConciliacao: TSimpleDataSet
+  object sqlDadosConciliacao: TI9Query
     Aggregates = <>
     Connection = dtmControles.DB
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT *'#13#10'FROM J_CONCILIACAO_REGISTRADO'#13#10'WHERE CONCILIACAO_ID = ' +
-      ':CONCILIACAO_ID'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <
+      ':CONCILIACAO_ID')
+    ParamData = <
       item
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Name = 'CONCILIACAO_ID'
         ParamType = ptInput
       end>
@@ -5956,12 +5950,12 @@ object frmConciliacaoBancaria: TfrmConciliacaoBancaria
       FieldName = 'DESCRICAO'
       Size = 120
     end
-    object sqlDadosConciliacaoVALOR: TFMTBCDField
+    object sqlDadosConciliacaoVALOR: TBCDField
       FieldName = 'VALOR'
       Precision = 20
       Size = 3
     end
-    object sqlDadosConciliacaoLANCAMENTO_ID: TFMTBCDField
+    object sqlDadosConciliacaoLANCAMENTO_ID: TBCDField
       FieldName = 'LANCAMENTO_ID'
       Precision = 20
       Size = 2
@@ -5990,7 +5984,7 @@ object frmConciliacaoBancaria: TfrmConciliacaoBancaria
       FieldName = 'CONCILIACAO_VINCULO_ID'
       Size = 15
     end
-    object sqlDadosConciliacaoCONCILIACAO_ID: TFMTBCDField
+    object sqlDadosConciliacaoCONCILIACAO_ID: TBCDField
       FieldName = 'CONCILIACAO_ID'
       Precision = 20
       Size = 2
@@ -6018,24 +6012,23 @@ object frmConciliacaoBancaria: TfrmConciliacaoBancaria
     Left = 694
     Top = 289
   end
-  object sqlModelosProgramados: TSimpleDataSet
+  object sqlModelosProgramados: TI9Query
     Aggregates = <>
     Connection = dtmControles.DB
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT LC.LIVRO_CAIXA_ID AS ID,'#13#10'       LC.DATA_PAGAMENTO AS DAT' +
       'A,'#13#10'       LC.BALANCETE_GRUPO_ID,'#13#10'       LC.CONTABIL_CONTA_ID,'#13 +
       #10'       LC.HISTORICO,'#13#10'       LC.DOCUMENTO_NUMERO,'#13#10'       LC.CA' +
       'IXA_ID,'#13#10'       LC.OPERACAO,'#13#10'       LC.PESSOA_ID,'#13#10'       LC.US' +
       'UARIO_ID,'#13#10'       LC.VALOR,'#13#10'       LC.CONCILIACAO_IDENTIFICADOR' +
-      #13#10'FROM J_LIVRO_CAIXA LC'#13#10'WHERE LC.CONCILIACAO_MODELO = '#39'S'#39
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <>
+      #13#10'FROM J_LIVRO_CAIXA LC'#13#10'WHERE LC.CONCILIACAO_MODELO = '#39'S'#39)
+    ParamData = <>
     Params = <>
     AfterScroll = sqlModelosProgramadosAfterScroll
     OnCalcFields = sqlVinculoEncontradoCalcFields
     Left = 696
     Top = 231
-    object sqlModelosProgramadosID: TFMTBCDField
+    object sqlModelosProgramadosID: TBCDField
       FieldName = 'ID'
       Required = True
       Precision = 20
@@ -6044,12 +6037,12 @@ object frmConciliacaoBancaria: TfrmConciliacaoBancaria
     object sqlModelosProgramadosDATA: TSQLTimeStampField
       FieldName = 'DATA'
     end
-    object sqlModelosProgramadosBALANCETE_GRUPO_ID: TFMTBCDField
+    object sqlModelosProgramadosBALANCETE_GRUPO_ID: TBCDField
       FieldName = 'BALANCETE_GRUPO_ID'
       Precision = 20
       Size = 2
     end
-    object sqlModelosProgramadosCONTABIL_CONTA_ID: TFMTBCDField
+    object sqlModelosProgramadosCONTABIL_CONTA_ID: TBCDField
       FieldName = 'CONTABIL_CONTA_ID'
       Precision = 20
       Size = 2
@@ -6062,7 +6055,7 @@ object frmConciliacaoBancaria: TfrmConciliacaoBancaria
       FieldName = 'DOCUMENTO_NUMERO'
       Size = 60
     end
-    object sqlModelosProgramadosCAIXA_ID: TFMTBCDField
+    object sqlModelosProgramadosCAIXA_ID: TBCDField
       FieldName = 'CAIXA_ID'
       Precision = 20
       Size = 2
@@ -6071,12 +6064,12 @@ object frmConciliacaoBancaria: TfrmConciliacaoBancaria
       FieldName = 'OPERACAO'
       Size = 3
     end
-    object sqlModelosProgramadosPESSOA_ID: TFMTBCDField
+    object sqlModelosProgramadosPESSOA_ID: TBCDField
       FieldName = 'PESSOA_ID'
       Precision = 20
       Size = 2
     end
-    object sqlModelosProgramadosVALOR: TFMTBCDField
+    object sqlModelosProgramadosVALOR: TBCDField
       FieldName = 'VALOR'
       Precision = 20
       Size = 3
@@ -6092,7 +6085,7 @@ object frmConciliacaoBancaria: TfrmConciliacaoBancaria
       FieldName = 'CONCILIACAO_IDENTIFICADOR'
       Size = 90
     end
-    object sqlModelosProgramadosUSUARIO_ID: TFMTBCDField
+    object sqlModelosProgramadosUSUARIO_ID: TBCDField
       FieldName = 'USUARIO_ID'
       Precision = 20
       Size = 2

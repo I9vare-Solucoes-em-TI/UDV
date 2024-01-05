@@ -3,6 +3,8 @@ unit EmolumentoItemDAOImpl;
 interface
 
 uses
+  I9Query,
+  I9Connection,
   EmolumentoItemDAO,
   FireDAC.Comp.Client,
   Data.DB,
@@ -14,10 +16,10 @@ uses
 type
   TEmolumentoItemDAO = class(TInterfacedObject, IEmolumentoItemDAO)
   private
-    FFDConnection: TFDConnection;
+    FFDConnection: TI9Connection;
   public
     constructor Create(
-      const vpFDConnection: TFDConnection); reintroduce;
+      const vpFDConnection: TI9Connection); reintroduce;
 
     function Get(
       const vpValue: TDataSet): IEmolumentoItem;
@@ -53,7 +55,7 @@ uses
 { TEmolumentoItemDAO }
 
 constructor TEmolumentoItemDAO.Create(
-  const vpFDConnection: TFDConnection);
+  const vpFDConnection: TI9Connection);
 begin
   inherited Create;
   FFDConnection := vpFDConnection;
@@ -147,12 +149,12 @@ const
 
 {$REGION 'Variáveis'}
 var
-  viFDQuery: TFDQuery;
+  viFDQuery: TI9Query;
 {$ENDREGION}
 begin
   Result := nil;
 
-  viFDQuery := TFDQuery.Create(nil);
+  viFDQuery := TI9Query.Create(nil);
   viFDQuery.Connection := FFDConnection;
 
   try

@@ -3,6 +3,7 @@ unit SeloSituacaoDAOImpl;
 interface
 
 uses
+  I9Connection,
   SeloSituacaoDAO,
   FireDAC.Comp.Client,
   Data.DB,
@@ -12,10 +13,10 @@ uses
 type
   TSeloSituacaoDAO = class(TInterfacedObject, ISeloSituacaoDAO)
   private
-    FFDConnection: TFDConnection;
+    FFDConnection: TI9Connection;
   public
     constructor Create(
-      const vpFDConnection: TFDConnection); reintroduce;
+      const vpFDConnection: TI9Connection); reintroduce;
 
     function Get(
       const vpValue: TDataSet): ISeloSituacao;
@@ -44,7 +45,7 @@ uses
 { TSeloSituacaoDAO }
 
 constructor TSeloSituacaoDAO.Create(
-  const vpFDConnection: TFDConnection);
+  const vpFDConnection: TI9Connection);
 begin
   inherited Create;
   FFDConnection := vpFDConnection;

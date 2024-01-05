@@ -238,19 +238,18 @@ object frmRelatorio: TfrmRelatorio
       OnClick = cxButton2Click
     end
   end
-  object sqlRelatorio: TSimpleDataSet
+  object sqlRelatorio: TI9Query
     Aggregates = <>
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT GR.DESCRICAO AS GRUPO,'#13#10'       CR.CONFIG_RELATORIO_ID,'#13#10' ' +
       '      CR.DESCRICAO,'#13#10'       CR.RELATORIO'#13#10'FROM G_CONFIG_RELATORI' +
       'O CR'#13#10'LEFT JOIN G_GRUPO_RELATORIO GR ON'#13#10'   CR.GRUPO_RELATORIO_I' +
       'D = GR.GRUPO_RELATORIO_ID'#13#10'WHERE CR.SITUACAO = '#39'A'#39' AND'#13#10'        ' +
       '       CR.INTERNO <> '#39'S'#39' AND'#13#10'               CR.SISTEMA_ID = :SI' +
-      'STEMA_ID'#13#10'ORDER BY GR.DESCRICAO, CR.DESCRICAO'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <
+      'STEMA_ID'#13#10'ORDER BY GR.DESCRICAO, CR.DESCRICAO')
+    ParamData = <
       item
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Name = 'SISTEMA_ID'
         ParamType = ptInput
         Value = '0'
@@ -262,7 +261,7 @@ object frmRelatorio: TfrmRelatorio
       FieldName = 'GRUPO'
       Size = 60
     end
-    object sqlRelatorioCONFIG_RELATORIO_ID: TFMTBCDField
+    object sqlRelatorioCONFIG_RELATORIO_ID: TBCDField
       FieldName = 'CONFIG_RELATORIO_ID'
       Required = True
       Precision = 15

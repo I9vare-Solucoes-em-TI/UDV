@@ -399,13 +399,13 @@ inherited frmAtoAndamento: TfrmAtoAndamento
       Visible = False
     end
   end
-  inherited DataSetAncestral: TSQLDataSet
-    CommandText = 
+  inherited DataSetAncestral: TI9Query
+    SQL.Strings = (
       'SELECT * '#13#10'FROM T_ATO_ANDAMENTO'#13#10'WHERE ATO_ID = :ATO_ID'#13#10'ORDER B' +
-      'Y ATO_ANDAMENTO_ID'
+      'Y ATO_ANDAMENTO_ID')
     Params = <
       item
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Name = 'ATO_ID'
         ParamType = ptInput
       end>
@@ -424,23 +424,23 @@ inherited frmAtoAndamento: TfrmAtoAndamento
     OnCalcFields = ClientAncestralCalcFields
     Left = 539
     Top = 266
-    object ClientAncestralATO_ANDAMENTO_ID: TFMTBCDField
+    object ClientAncestralATO_ANDAMENTO_ID: TBCDField
       FieldName = 'ATO_ANDAMENTO_ID'
       Required = True
       Precision = 15
       Size = 2
     end
-    object ClientAncestralTB_ANDAMENTOSERVICO_ID: TFMTBCDField
+    object ClientAncestralTB_ANDAMENTOSERVICO_ID: TBCDField
       FieldName = 'TB_ANDAMENTOSERVICO_ID'
       Precision = 15
       Size = 2
     end
-    object ClientAncestralATO_ID: TFMTBCDField
+    object ClientAncestralATO_ID: TBCDField
       FieldName = 'ATO_ID'
       Precision = 15
       Size = 2
     end
-    object ClientAncestralUSUARIO_ID: TFMTBCDField
+    object ClientAncestralUSUARIO_ID: TBCDField
       FieldName = 'USUARIO_ID'
       Precision = 15
       Size = 2
@@ -466,16 +466,15 @@ inherited frmAtoAndamento: TfrmAtoAndamento
     Left = 571
     Top = 266
   end
-  object sqlAndamentoServcoGeral: TSimpleDataSet
+  object sqlAndamentoServcoGeral: TI9Query
     Aggregates = <>
     Connection = dtmControles.DB
-    DataSet.CommandText = 'SELECT *'#13#10'FROM T_TB_ANDAMENTOSERVICO'#13#10'ORDER BY DESCRICAO'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <>
+    SQL.Strings = ('SELECT *'#13#10'FROM T_TB_ANDAMENTOSERVICO'#13#10'ORDER BY DESCRICAO')
+    ParamData = <>
     Params = <>
     Left = 448
     Top = 304
-    object sqlAndamentoServcoGeralTB_ANDAMENTOSERVICO_ID: TFMTBCDField
+    object sqlAndamentoServcoGeralTB_ANDAMENTOSERVICO_ID: TBCDField
       FieldName = 'TB_ANDAMENTOSERVICO_ID'
       Required = True
       Precision = 15
@@ -499,18 +498,17 @@ inherited frmAtoAndamento: TfrmAtoAndamento
     Left = 480
     Top = 304
   end
-  object sqlAndamentoServico: TSimpleDataSet
+  object sqlAndamentoServico: TI9Query
     Aggregates = <>
     Connection = dtmControles.DB
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT *'#13#10'FROM T_TB_ANDAMENTOSERVICO'#13#10'WHERE SITUACAO = '#39'A'#39#13#10'    ' +
-      ' AND TIPO = '#39'G'#39
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <>
+      ' AND TIPO = '#39'G'#39)
+    ParamData = <>
     Params = <>
     Left = 396
     Top = 264
-    object sqlAndamentoServicoTB_ANDAMENTOSERVICO_ID: TFMTBCDField
+    object sqlAndamentoServicoTB_ANDAMENTOSERVICO_ID: TBCDField
       FieldName = 'TB_ANDAMENTOSERVICO_ID'
       Required = True
       Precision = 15

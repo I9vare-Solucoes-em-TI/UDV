@@ -3,6 +3,8 @@ unit RegimeComunhaoDAOImpl;
 interface
 
 uses
+  I9Query,
+  I9Connection,
   RegimeComunhaoDAO,
   Data.SqlExpr,
   Data.DB,
@@ -12,10 +14,10 @@ uses
 type
   TRegimeComunhaoDAO = class(TInterfacedObject, IRegimeComunhaoDAO)
   private
-    FSQLConnection: TSQLConnection;
+    FConnection: TI9Connection;
   public
     constructor Create(
-      const vpSQLConnection: TSQLConnection); reintroduce;
+      const vpConnection: TI9Connection); reintroduce;
 
     function Get(
       const vpValue: TDataSet): IRegimeComunhao; overload;
@@ -54,10 +56,10 @@ uses
 { TRegimeComunhaoDAO }
 
 constructor TRegimeComunhaoDAO.Create(
-  const vpSQLConnection: TSQLConnection);
+  const vpConnection: TI9Connection);
 begin
   inherited Create;
-  FSQLConnection := vpSQLConnection;
+  FConnection := vpConnection;
 end;
 
 function TRegimeComunhaoDAO.Get(
@@ -91,7 +93,7 @@ begin
     if Assigned(viField) and
       viField.IsNull.&Not then
     begin
-      viRegimeBensDAO := TRegimeBensDAO.Create(FSQLConnection);
+      viRegimeBensDAO := TRegimeBensDAO.Create(FConnection);
       try
         RegimeBens := viRegimeBensDAO.Get(vpValue);
       finally
@@ -134,7 +136,7 @@ begin
     if Assigned(viField) and
       viField.IsNull.&Not then
     begin
-      viRegimeBensDAO := TRegimeBensDAO.Create(FSQLConnection);
+      viRegimeBensDAO := TRegimeBensDAO.Create(FConnection);
       try
         RegimeBens := viRegimeBensDAO.Get(vpValue, vpPrefix);
       finally
@@ -154,8 +156,8 @@ const
 {$REGION 'Variáveis'}
 var
   viSQL: TStrings;
-  viCommandText: string;
-  viSQLDataSet: TSQLDataSet;
+  viSQLText: string;
+  viSQLDataSet: TI9Query;
 {$ENDREGION}
 begin
   Result := nil;
@@ -201,18 +203,18 @@ begin
 
       {$ENDREGION}
 
-      viCommandText := Text;
+      viSQLText := Text;
     end;
   finally
     FreeAndNil(viSQL);
   end;
 
-  viSQLDataSet := TSQLDataSet.Create(nil);
+  viSQLDataSet := TI9Query.Create(nil);
   try
     with viSQLDataSet do
     begin
-      SQLConnection := FSQLConnection;
-      CommandText := viCommandText;
+      Connection := FConnection;
+      SQL.Text := viSQLText;
 
       {$REGION 'Preencher valores dos parâmetros'}
       ParamByName('P_TB_REGIMECOMUNHAO_ID').AsInteger := vpValue;
@@ -246,8 +248,8 @@ const
 {$REGION 'Variáveis'}
 var
   viSQL: TStrings;
-  viCommandText: string;
-  viSQLDataSet: TSQLDataSet;
+  viSQLText: string;
+  viSQLDataSet: TI9Query;
   viRegimeComunhao: IRegimeComunhao;
 {$ENDREGION}
 begin
@@ -294,18 +296,18 @@ begin
 
       {$ENDREGION}
 
-      viCommandText := Text;
+      viSQLText := Text;
     end;
   finally
     FreeAndNil(viSQL);
   end;
 
-  viSQLDataSet := TSQLDataSet.Create(nil);
+  viSQLDataSet := TI9Query.Create(nil);
   try
     with viSQLDataSet do
     begin
-      SQLConnection := FSQLConnection;
-      CommandText := viCommandText;
+      Connection := FConnection;
+      SQL.Text := viSQLText;
 
       {$REGION 'Preencher valores dos parâmetros'}
       ParamByName('P_SITUACAO').AsString := vpValue.ToCharAtivoInativo;

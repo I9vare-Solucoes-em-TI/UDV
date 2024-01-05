@@ -3,6 +3,7 @@ unit ImportarSelo;
 interface
 
 uses
+  I9Query,
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, Menus, cxLookAndFeelPainters, cxStyles, dxSkinsCore, dxSkinBlack,
   dxSkinBlue, dxSkinCaramel, dxSkinCoffee, dxSkinDarkSide, dxSkinGlassOceans,
@@ -49,7 +50,7 @@ type
     gridSelosselo_inicial: TcxGridDBColumn;
     gridSelosselo_final: TcxGridDBColumn;
     gridSelosdescricao_tipo_ato: TcxGridDBColumn;
-    sqlPesquisa: TSimpleDataSet;
+    sqlPesquisa: TI9Query;
     cxLabel1: TcxLabel;
     ProgressBar2: TcxProgressBar;
     cxLabel2: TcxLabel;
@@ -202,7 +203,7 @@ begin
   viSql := 'SELECT SELO_LOTE_ID FROM G_SELO_LOTE WHERE NOTA_FISCAL = ' + sqlSelosidentificacao_pedido.AsString;
 
   sqlPesquisa.Close;
-  sqlPesquisa.DataSet.CommandText := viSql;
+  sqlPesquisa.SQL.Text := viSql;
   sqlPesquisa.Open;
 
   if sqlPesquisa.IsEmpty then

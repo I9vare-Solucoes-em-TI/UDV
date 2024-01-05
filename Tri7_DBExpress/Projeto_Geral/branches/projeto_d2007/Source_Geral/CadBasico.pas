@@ -3,6 +3,8 @@ unit CadBasico;
 interface
 
 uses
+  I9Query,
+  I9Connection,
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, ActnList, ComCtrls, ExtCtrls, StdCtrls, cxButtons, DB, DBClient,
   Provider, SqlExpr, WPCTRRich, DBCtrls, Wpdbrich, DBGrids, Controles,
@@ -41,7 +43,7 @@ type
     ExecuteCancelar: TAction;
     ExecutePesquisa: TAction;
     ExecuteFechar: TAction;
-    DataSetAncestral: TSQLDataSet;
+    DataSetAncestral: TI9Query;
     ProviderAncestral: TDataSetProvider;
     ClientAncestral: TClientDataSet;
     SourceAncestral: TDataSource;
@@ -272,7 +274,7 @@ begin
      StatusBar.Panels[1].Text := 'Atalho: ' + vgCodAtalho
   else StatusBar.Panels[1].Text := '';
 
-  DataSetAncestral.SQLConnection := dtmControles.DB;
+  DataSetAncestral.Connection := dtmControles.DB;
   vgChave := '';
   ExecExcluir := nil;
   ExecGravar  := nil;

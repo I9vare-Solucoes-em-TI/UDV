@@ -201,13 +201,13 @@ inherited frmUsuarioSistema: TfrmUsuarioSistema
     Left = 85
     Top = 202
   end
-  inherited DataSetAncestral: TSQLDataSet
-    CommandText = 
+  inherited DataSetAncestral: TI9Query
+    SQL.Strings = (
       'select * from G_USUARIO_SISTEMA'#13#10'where SISTEMA_ID = :SISTEMA_ID'#13 +
-      #10'order by USUARIO_GRUPO_ID'
+      #10'order by USUARIO_GRUPO_ID')
     Params = <
       item
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Name = 'SISTEMA_ID'
         ParamType = ptInput
       end>
@@ -221,19 +221,19 @@ inherited frmUsuarioSistema: TfrmUsuarioSistema
   inherited ClientAncestral: TClientDataSet
     Left = 179
     Top = 202
-    object ClientAncestralSISTEMA_ID: TFMTBCDField
+    object ClientAncestralSISTEMA_ID: TBCDField
       FieldName = 'SISTEMA_ID'
       Required = True
       Precision = 15
       Size = 2
     end
-    object ClientAncestralUSUARIO_ID: TFMTBCDField
+    object ClientAncestralUSUARIO_ID: TBCDField
       FieldName = 'USUARIO_ID'
       Required = True
       Precision = 15
       Size = 2
     end
-    object ClientAncestralUSUARIO_GRUPO_ID: TFMTBCDField
+    object ClientAncestralUSUARIO_GRUPO_ID: TBCDField
       FieldName = 'USUARIO_GRUPO_ID'
       Precision = 15
       Size = 2
@@ -243,18 +243,17 @@ inherited frmUsuarioSistema: TfrmUsuarioSistema
     Left = 211
     Top = 202
   end
-  object sqlGrupo: TSimpleDataSet
+  object sqlGrupo: TI9Query
     Aggregates = <>
     Connection = dtmControles.DB
-    DataSet.CommandText = 
+    SQL.Strings = (
       'select * from G_USUARIO_GRUPO'#13#10'where SITUACAO = '#39'A'#39#13#10'order by DE' +
-      'SCRICAO'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <>
+      'SCRICAO')
+    ParamData = <>
     Params = <>
     Left = 601
     Top = 68
-    object sqlGrupoUSUARIO_GRUPO_ID: TFMTBCDField
+    object sqlGrupoUSUARIO_GRUPO_ID: TBCDField
       FieldName = 'USUARIO_GRUPO_ID'
       Required = True
       Precision = 15
@@ -269,18 +268,17 @@ inherited frmUsuarioSistema: TfrmUsuarioSistema
       Size = 1
     end
   end
-  object sqlUsuario: TSimpleDataSet
+  object sqlUsuario: TI9Query
     Aggregates = <>
     Connection = dtmControles.DB
-    DataSet.CommandText = 
+    SQL.Strings = (
       'select USUARIO_ID, NOME_COMPLETO from G_USUARIO '#13#10'where SITUACAO' +
-      ' = '#39'A'#39#13#10'order by NOME_COMPLETO'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <>
+      ' = '#39'A'#39#13#10'order by NOME_COMPLETO')
+    ParamData = <>
     Params = <>
     Left = 601
     Top = 100
-    object sqlUsuarioUSUARIO_ID: TFMTBCDField
+    object sqlUsuarioUSUARIO_ID: TBCDField
       FieldName = 'USUARIO_ID'
       Required = True
       Precision = 15

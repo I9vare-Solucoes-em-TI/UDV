@@ -494,7 +494,7 @@ object frmSuporteAtualizacaoEmolumentoItem: TfrmSuporteAtualizacaoEmolumentoItem
       end
     end
   end
-  object qryEmolumentoItem: TFDQuery
+  object qryEmolumentoItem: TI9Query
     Connection = dtmFD.FDConnection
     SQL.Strings = (
       'SELECT'
@@ -506,10 +506,8 @@ object frmSuporteAtualizacaoEmolumentoItem: TfrmSuporteAtualizacaoEmolumentoItem
       '    G_S.DESCRICAO,'
       '    C.VALOR_EMOLUMENTO AS VALOR_EMOLUMENTO_TJ,'
       '    C.VALOR_TAXA_JUDICIARIA AS VALOR_TAXA_JUDICIARIA_TJ,'
-      
         '    C.VALOR_EMOLUMENTO - G_EI.VALOR_EMOLUMENTO AS CORRECAO_VALOR' +
         '_EMOLUMENTO,'
-      
         '    C.VALOR_TAXA_JUDICIARIA - G_EI.VALOR_TAXA_JUDICIARIA AS CORR' +
         'ECAO_VALOR_TAXA_JUDICIARIA'
       'FROM'
@@ -627,7 +625,7 @@ object frmSuporteAtualizacaoEmolumentoItem: TfrmSuporteAtualizacaoEmolumentoItem
     Left = 48
     Top = 168
   end
-  object qryEmolumentoPeriodo: TFDQuery
+  object qryEmolumentoPeriodo: TI9Query
     Connection = dtmFD.FDConnection
     SQL.Strings = (
       'SELECT'
@@ -657,7 +655,7 @@ object frmSuporteAtualizacaoEmolumentoItem: TfrmSuporteAtualizacaoEmolumentoItem
     Left = 162
     Top = 168
   end
-  object qrySeloGrupo: TFDQuery
+  object qrySeloGrupo: TI9Query
     Connection = dtmFD.FDConnection
     SQL.Strings = (
       'SELECT'

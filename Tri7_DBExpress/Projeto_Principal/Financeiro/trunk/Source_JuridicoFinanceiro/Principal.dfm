@@ -7707,7 +7707,6 @@ object frmPrincipal: TfrmPrincipal
         ToolBarIndex = 1
         OfficeHint.Title = 'Atendimento'
         OfficeHint.Notes.Strings = (
-          
             'Controla as principais funcionalidade de atendimento no cart'#243'rio' +
             '.')
         OfficeHint.Picture.Data = {
@@ -11291,7 +11290,6 @@ object frmPrincipal: TfrmPrincipal
         ShowHint = False
         ToolBarIndex = 0
         OfficeHint.Notes.Strings = (
-          
             'Impress'#227'o das notifica'#231#245'es assim como dos recibos e das estat'#237'st' +
             'icas das mesmas.')
         OfficeHint.Picture.Data = {
@@ -13114,7 +13112,6 @@ object frmPrincipal: TfrmPrincipal
         ShowHint = False
         ToolBarIndex = 3
         OfficeHint.Notes.Strings = (
-          
             'Impress'#227'o das notifica'#231#245'es assim como dos recibos e das estat'#237'st' +
             'icas das mesmas.')
         OfficeHint.Picture.Data = {
@@ -13450,7 +13447,6 @@ object frmPrincipal: TfrmPrincipal
         ShowHint = False
         ToolBarIndex = 2
         OfficeHint.Notes.Strings = (
-          
             'Impress'#227'o das notifica'#231#245'es assim como dos recibos e das estat'#237'st' +
             'icas das mesmas.')
         OfficeHint.Picture.Data = {
@@ -27305,7 +27301,6 @@ object frmPrincipal: TfrmPrincipal
         ToolBarIndex = 1
         OfficeHint.Title = 'Impress'#245'es'
         OfficeHint.Notes.Strings = (
-          
             'Impress'#227'o das notifica'#231#245'es assim como dos recibos e das estat'#237'st' +
             'icas das mesmas.')
         OfficeHint.Picture.Data = {
@@ -40704,29 +40699,28 @@ object frmPrincipal: TfrmPrincipal
       OnClick = MenuItem1Click
     end
   end
-  object sqlLancamentoFavorito: TSimpleDataSet
+  object sqlLancamentoFavorito: TI9Query
     Aggregates = <>
     Connection = dtmControles.DB
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT LC.*'#13#10'FROM J_LIVRO_CAIXA LC'#13#10'WHERE LC.FAVORITO_SITUACAO =' +
-      ' '#39'S'#39#13#10'ORDER BY LC.LIVRO_CAIXA_ID'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <>
+      ' '#39'S'#39#13#10'ORDER BY LC.LIVRO_CAIXA_ID')
+    ParamData = <>
     Params = <>
     Left = 354
     Top = 185
-    object sqlLancamentoFavoritoLIVRO_CAIXA_ID: TFMTBCDField
+    object sqlLancamentoFavoritoLIVRO_CAIXA_ID: TBCDField
       FieldName = 'LIVRO_CAIXA_ID'
       Required = True
       Precision = 20
       Size = 2
     end
-    object sqlLancamentoFavoritoCAIXA_ID: TFMTBCDField
+    object sqlLancamentoFavoritoCAIXA_ID: TBCDField
       FieldName = 'CAIXA_ID'
       Precision = 20
       Size = 2
     end
-    object sqlLancamentoFavoritoVALOR: TFMTBCDField
+    object sqlLancamentoFavoritoVALOR: TBCDField
       FieldName = 'VALOR'
       Precision = 20
       Size = 3
@@ -40735,7 +40729,7 @@ object frmPrincipal: TfrmPrincipal
       FieldName = 'OPERACAO'
       Size = 3
     end
-    object sqlLancamentoFavoritoPESSOA_ID: TFMTBCDField
+    object sqlLancamentoFavoritoPESSOA_ID: TBCDField
       FieldName = 'PESSOA_ID'
       Precision = 20
       Size = 2
@@ -40751,12 +40745,12 @@ object frmPrincipal: TfrmPrincipal
       FieldName = 'OBSERVACAO'
       Size = 260
     end
-    object sqlLancamentoFavoritoCONTABIL_CONTA_ID: TFMTBCDField
+    object sqlLancamentoFavoritoCONTABIL_CONTA_ID: TBCDField
       FieldName = 'CONTABIL_CONTA_ID'
       Precision = 20
       Size = 2
     end
-    object sqlLancamentoFavoritoCENTRO_CUSTO_ID: TFMTBCDField
+    object sqlLancamentoFavoritoCENTRO_CUSTO_ID: TBCDField
       FieldName = 'CENTRO_CUSTO_ID'
       Precision = 20
       Size = 2
@@ -40769,12 +40763,12 @@ object frmPrincipal: TfrmPrincipal
       FieldName = 'DOCUMENTO_DESCRICAO'
       Size = 30
     end
-    object sqlLancamentoFavoritoBALANCETE_GRUPO_ID: TFMTBCDField
+    object sqlLancamentoFavoritoBALANCETE_GRUPO_ID: TBCDField
       FieldName = 'BALANCETE_GRUPO_ID'
       Precision = 20
       Size = 2
     end
-    object sqlLancamentoFavoritoLIVRO_FINANCEIRO_ID: TFMTBCDField
+    object sqlLancamentoFavoritoLIVRO_FINANCEIRO_ID: TBCDField
       FieldName = 'LIVRO_FINANCEIRO_ID'
       Precision = 20
       Size = 2
@@ -40794,7 +40788,7 @@ object frmPrincipal: TfrmPrincipal
       FieldName = 'SITUACAO'
       Size = 1
     end
-    object sqlLancamentoFavoritoCAIXA_TRANSFERENCIA_ID: TFMTBCDField
+    object sqlLancamentoFavoritoCAIXA_TRANSFERENCIA_ID: TBCDField
       FieldName = 'CAIXA_TRANSFERENCIA_ID'
       Precision = 20
       Size = 2
@@ -40807,7 +40801,7 @@ object frmPrincipal: TfrmPrincipal
       FieldName = 'CNJ'
       Size = 1
     end
-    object sqlLancamentoFavoritoCONTABIL_GRUPO_ID: TFMTBCDField
+    object sqlLancamentoFavoritoCONTABIL_GRUPO_ID: TBCDField
       FieldName = 'CONTABIL_GRUPO_ID'
       Precision = 20
       Size = 2
@@ -40820,12 +40814,12 @@ object frmPrincipal: TfrmPrincipal
       FieldName = 'AUTOMATICO'
       Size = 1
     end
-    object sqlLancamentoFavoritoCODIGO_FINALIZACAO: TFMTBCDField
+    object sqlLancamentoFavoritoCODIGO_FINALIZACAO: TBCDField
       FieldName = 'CODIGO_FINALIZACAO'
       Precision = 20
       Size = 2
     end
-    object sqlLancamentoFavoritoORCAMENTO_ID: TFMTBCDField
+    object sqlLancamentoFavoritoORCAMENTO_ID: TBCDField
       FieldName = 'ORCAMENTO_ID'
       Precision = 20
       Size = 2
@@ -40841,27 +40835,27 @@ object frmPrincipal: TfrmPrincipal
       FieldName = 'FAVORITO_SITUACAO'
       Size = 1
     end
-    object sqlLancamentoFavoritoFAVORITO_VALOR: TFMTBCDField
+    object sqlLancamentoFavoritoFAVORITO_VALOR: TBCDField
       FieldName = 'FAVORITO_VALOR'
       Precision = 20
       Size = 3
     end
-    object sqlLancamentoFavoritoTIPO_MODALIDADE_ID: TFMTBCDField
+    object sqlLancamentoFavoritoTIPO_MODALIDADE_ID: TBCDField
       FieldName = 'TIPO_MODALIDADE_ID'
       Precision = 20
       Size = 2
     end
-    object sqlLancamentoFavoritoTIPO_CARGA_ID: TFMTBCDField
+    object sqlLancamentoFavoritoTIPO_CARGA_ID: TBCDField
       FieldName = 'TIPO_CARGA_ID'
       Precision = 20
       Size = 2
     end
-    object sqlLancamentoFavoritoCENTRO_RESERVA_ID: TFMTBCDField
+    object sqlLancamentoFavoritoCENTRO_RESERVA_ID: TBCDField
       FieldName = 'CENTRO_RESERVA_ID'
       Precision = 20
       Size = 2
     end
-    object sqlLancamentoFavoritoORDEM: TFMTBCDField
+    object sqlLancamentoFavoritoORDEM: TBCDField
       FieldName = 'ORDEM'
       Precision = 20
       Size = 2
@@ -40870,17 +40864,17 @@ object frmPrincipal: TfrmPrincipal
       FieldName = 'FATURAMENTO'
       Size = 1
     end
-    object sqlLancamentoFavoritoVALOR_DESCONTO: TFMTBCDField
+    object sqlLancamentoFavoritoVALOR_DESCONTO: TBCDField
       FieldName = 'VALOR_DESCONTO'
       Precision = 20
       Size = 3
     end
-    object sqlLancamentoFavoritoVALOR_JUROS: TFMTBCDField
+    object sqlLancamentoFavoritoVALOR_JUROS: TBCDField
       FieldName = 'VALOR_JUROS'
       Precision = 20
       Size = 3
     end
-    object sqlLancamentoFavoritoVALOR_MULTA: TFMTBCDField
+    object sqlLancamentoFavoritoVALOR_MULTA: TBCDField
       FieldName = 'VALOR_MULTA'
       Precision = 20
       Size = 3
@@ -40889,12 +40883,12 @@ object frmPrincipal: TfrmPrincipal
       FieldName = 'OBSERVACAO_MONETARIA'
       Size = 120
     end
-    object sqlLancamentoFavoritoVALOR_OUTRA_DEDUCAO: TFMTBCDField
+    object sqlLancamentoFavoritoVALOR_OUTRA_DEDUCAO: TBCDField
       FieldName = 'VALOR_OUTRA_DEDUCAO'
       Precision = 20
       Size = 3
     end
-    object sqlLancamentoFavoritoVALOR_FATURADO: TFMTBCDField
+    object sqlLancamentoFavoritoVALOR_FATURADO: TBCDField
       FieldName = 'VALOR_FATURADO'
       Precision = 20
       Size = 3
@@ -40903,7 +40897,7 @@ object frmPrincipal: TfrmPrincipal
       FieldName = 'CONTABIL_RL'
       Size = 1
     end
-    object sqlLancamentoFavoritoVALOR_OUTRAS_TAXAS: TFMTBCDField
+    object sqlLancamentoFavoritoVALOR_OUTRAS_TAXAS: TBCDField
       FieldName = 'VALOR_OUTRAS_TAXAS'
       Precision = 20
       Size = 3

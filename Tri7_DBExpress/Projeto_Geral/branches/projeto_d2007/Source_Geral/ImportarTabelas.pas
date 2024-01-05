@@ -3,6 +3,8 @@ unit ImportarTabelas;
 interface
 
 uses
+  I9Query,
+  I9Connection,
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, CadAuxiliar, Menus, cxLookAndFeelPainters, FMTBcd, cxGraphics,
   DB, DBClient, Provider, SqlExpr, cxButtons, ExtCtrls, SimpleDS, ComCtrls,
@@ -15,7 +17,7 @@ uses
 
 type
   TfrmImportarTabelas = class(TfrmCadAuxiliar)
-    sqlG_Emolumento_Periodo: TSimpleDataSet;
+    sqlG_Emolumento_Periodo: TI9Query;
     dtsG_Emolumento_Periodo: TDataSource;
     gbxTabelas: TcxGroupBox;
     lblAviso: TcxLabel;
@@ -24,7 +26,7 @@ type
     lcxTabelaOrigem: TcxLookupComboBox;
     Label14: TLabel;
     AdvSmoothProgressBar1: TAdvSmoothProgressBar;
-    sqlG_Emolumento_PeriodoEMOLUMENTO_ID: TFMTBCDField;
+    sqlG_Emolumento_PeriodoEMOLUMENTO_ID: TBCDField;
     sqlG_Emolumento_PeriodoDESCRICAO: TStringField;
     lblAvisoVazio: TcxLabel;
     gbxOpcoes: TcxGroupBox;
@@ -46,7 +48,7 @@ type
   private
     { Private declarations }
     vlAlterar : Boolean;
-    QueryTabelaItem : TSQLQuery;
+    QueryTabelaItem : TI9Query;
     procedure CarregaEmolumentoItem(periodoId : integer; emolumentoId : string);
     procedure StatusOpcoesTela(AtivaDesativa : boolean); // desabilitar ou habilitar as opcoes existentes na tela em caso de estar processando a duplicação
     procedure VerificaSeExisteDadosTabelaDestino;
@@ -113,7 +115,7 @@ end;
 
 procedure TfrmImportarTabelas.ImportarTabela;
 var
-  QueryInserir_Emol_Item : TSQLQuery;
+  QueryInserir_Emol_Item : TI9Query;
   vlMsg : String;
 begin
   try
@@ -137,9 +139,9 @@ begin
       Exit;
     {$ENDREGION}
     //instanciando componente
-    QueryInserir_Emol_Item               := TSQLQuery.Create(nil);
+    QueryInserir_Emol_Item               := TI9Query.Create(nil);
     //conectando componente
-    QueryInserir_Emol_Item.SQLConnection := dtmControles.DB;
+    QueryInserir_Emol_Item.Connection := dtmControles.DB;
     //
     with QueryTabelaItem do
     begin
@@ -172,7 +174,7 @@ begin
             SQL.Add('DELETE FROM G_EMOLUMENTO_ITEM ');
             SQL.Add('WHERE EMOLUMENTO_PERIODO_ID = ' + FloatToStr(frmEmolumento.lcxEmolumentoPeriodo.EditValue));
             SQL.Add('  AND EMOLUMENTO_ID         = ' + FloatToStr(lcxTabelaDestino.EditValue));
-            ExecSQL(False);
+            ExecSQL;
             dtmControles.Commit;
           end;
         end
@@ -311,8 +313,8 @@ procedure TfrmImportarTabelas.FormCreate(Sender: TObject);
 begin
   inherited;
   vlAlterar := True;
-  QueryTabelaItem               := TSQLQuery.Create(nil);
-  QueryTabelaItem.SQLConnection := dtmControles.DB;
+  QueryTabelaItem               := TI9Query.Create(nil);
+  QueryTabelaItem.Connection := dtmControles.DB;
 
   caption   := 'Importar do Período: " ' + frmEmolumento.lcxEmolumentoPeriodo.Text + ' "';
 end;

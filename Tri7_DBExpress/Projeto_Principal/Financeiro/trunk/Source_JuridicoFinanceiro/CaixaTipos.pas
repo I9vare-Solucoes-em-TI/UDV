@@ -30,10 +30,10 @@ type
     grdServicoDBTableView1DESCRICAO: TcxGridDBColumn;
     grdServicoDBTableView1SITUACAO: TcxGridDBColumn;
     Label2: TLabel;
-    ClientAncestralCAIXA_ID: TFMTBCDField;
+    ClientAncestralCAIXA_ID: TBCDField;
     ClientAncestralDESCRICAO: TStringField;
     ClientAncestralSITUACAO: TStringField;
-    ClientAncestralRESPONSAVEL_ID: TFMTBCDField;
+    ClientAncestralRESPONSAVEL_ID: TBCDField;
     edtDescricao: TcxDBTextEdit;
     cxDBLookupComboBox1: TcxDBLookupComboBox;
     chbSituacao: TcxDBCheckBox;

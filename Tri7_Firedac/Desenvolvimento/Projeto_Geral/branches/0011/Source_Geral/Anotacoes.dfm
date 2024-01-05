@@ -394,7 +394,6 @@ object frmAnotacoes: TfrmAnotacoes
     FetchOptions.AssignedValues = [evMode]
     FetchOptions.Mode = fmAll
     SQL.Strings = (
-      
         'SELECT * FROM G_ANOTACAO'#13#10'WHERE USUARIO_ID = :USUARIO_ID'#13#10'ORDER ' +
         'BY TITULO')
     Left = 305

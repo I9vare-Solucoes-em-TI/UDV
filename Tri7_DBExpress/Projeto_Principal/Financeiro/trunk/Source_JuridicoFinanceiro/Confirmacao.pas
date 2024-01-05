@@ -3,6 +3,7 @@ unit Confirmacao;
 interface
 
 uses
+  I9Query,
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, dxSkinsCore, dxSkinBlack, dxSkinBlue, dxSkinCaramel, dxSkinCoffee,
   dxSkinDarkSide, dxSkinGlassOceans, dxSkiniMaginary, dxSkinLilian,
@@ -70,19 +71,19 @@ type
     lcxNovaModalidade: TcxLookupComboBox;
     edtNovaObservacao: TcxTextEdit;
     cxLabel7: TcxLabel;
-    sqlPlanoContas: TSimpleDataSet;
-    sqlPlanoContasCONTABIL_CONTA_ID: TFMTBCDField;
+    sqlPlanoContas: TI9Query;
+    sqlPlanoContasCONTABIL_CONTA_ID: TBCDField;
     sqlPlanoContasDESCRICAO: TStringField;
     sqlPlanoContasIR: TStringField;
     sqlPlanoContasCNJ: TStringField;
     dtsPlanoContas: TDataSource;
-    sqlGrupoContabil: TSimpleDataSet;
+    sqlGrupoContabil: TI9Query;
     sqlGrupoContabilDESCRICAO: TStringField;
-    sqlGrupoContabilCONTABIL_GRUPO_ID: TFMTBCDField;
-    sqlGrupoContabilBALANCETE_GRUPO_ID: TFMTBCDField;
+    sqlGrupoContabilCONTABIL_GRUPO_ID: TBCDField;
+    sqlGrupoContabilBALANCETE_GRUPO_ID: TBCDField;
     dtsGrupoContabil: TDataSource;
-    sqlTipoModalidade: TSimpleDataSet;
-    sqlTipoModalidadeTIPO_MODALIDADE_ID: TFMTBCDField;
+    sqlTipoModalidade: TI9Query;
+    sqlTipoModalidadeTIPO_MODALIDADE_ID: TBCDField;
     sqlTipoModalidadeDESCRICAO: TStringField;
     sqlTipoModalidadeTIPO: TStringField;
     sqlTipoModalidadeSITUACAO: TStringField;
@@ -381,12 +382,12 @@ begin
   chxAgrupadoClick(self);
 
   sqlGrupoContabil.Active  := False;
-  sqlGrupoContabil.DataSet.ParamByName('TIPO').AsString                := IntToStr((icxOperacao.ItemIndex+1));
-  sqlGrupoContabil.DataSet.ParamByName('BALANCETE_GRUPO_ID').AsInteger := dtmLookupFinanceiro.ClientItemBALANCETE_GRUPO_ID.AsInteger;
+  sqlGrupoContabil.ParamByName('TIPO').AsString                := IntToStr((icxOperacao.ItemIndex+1));
+  sqlGrupoContabil.ParamByName('BALANCETE_GRUPO_ID').AsInteger := dtmLookupFinanceiro.ClientItemBALANCETE_GRUPO_ID.AsInteger;
   sqlGrupoContabil.Active := True;
 
   sqlTipoModalidade.Active := False;
-  sqlTipoModalidade.DataSet.ParamByName('TIPO').AsString := dtmLookupFinanceiro.ClientItemOPERACAO.AsString;
+  sqlTipoModalidade.ParamByName('TIPO').AsString := dtmLookupFinanceiro.ClientItemOPERACAO.AsString;
   sqlTipoModalidade.Active := True;
 
   edtDataPagamento.SetFocus;
@@ -415,7 +416,7 @@ procedure TfrmConfirmacao.lcxNovoGrupoContabilPropertiesEditValueChanged(
   Sender: TObject);
 begin
   sqlPlanoContas.Active := False;
-  sqlPlanoContas.DataSet.ParamByName('CONTABIL_GRUPO_ID').AsInteger := lcxNovoGrupoContabil.EditValue;
+  sqlPlanoContas.ParamByName('CONTABIL_GRUPO_ID').AsInteger := lcxNovoGrupoContabil.EditValue;
   sqlPlanoContas.Active  := True;
   lcxCompromisso.Enabled := True;
 

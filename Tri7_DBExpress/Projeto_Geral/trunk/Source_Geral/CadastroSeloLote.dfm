@@ -1777,9 +1777,8 @@ inherited frmCadSeloLote: TfrmCadSeloLote
       Visible = False
     end
   end
-  inherited DataSetAncestral: TSQLDataSet
-    SchemaName = 'SYSDBA'
-    CommandText = 'SELECT *'#13#10'FROM G_SELO_LOTE'#13#10'ORDER BY SELO_GRUPO_ID, DATA_LOTE'
+  inherited DataSetAncestral: TI9Query
+    SQL.Strings = ('SELECT *'#13#10'FROM G_SELO_LOTE'#13#10'ORDER BY SELO_GRUPO_ID, DATA_LOTE')
     Left = 475
     Top = 338
   end
@@ -1796,14 +1795,14 @@ inherited frmCadSeloLote: TfrmCadSeloLote
       FieldName = 'SITUACAO'
       Size = 1
     end
-    object ClientAncestralSELO_LOTE_ID: TFMTBCDField
+    object ClientAncestralSELO_LOTE_ID: TBCDField
       FieldName = 'SELO_LOTE_ID'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
       Required = True
       Precision = 15
       Size = 2
     end
-    object ClientAncestralSELO_GRUPO_ID: TFMTBCDField
+    object ClientAncestralSELO_GRUPO_ID: TBCDField
       FieldName = 'SELO_GRUPO_ID'
       Precision = 15
       Size = 2
@@ -1812,12 +1811,12 @@ inherited frmCadSeloLote: TfrmCadSeloLote
       FieldName = 'OBSERVACAO'
       Size = 120
     end
-    object ClientAncestralNUMERO_INICIAL: TFMTBCDField
+    object ClientAncestralNUMERO_INICIAL: TBCDField
       FieldName = 'NUMERO_INICIAL'
       Precision = 15
       Size = 2
     end
-    object ClientAncestralNUMERO_FINAL: TFMTBCDField
+    object ClientAncestralNUMERO_FINAL: TBCDField
       FieldName = 'NUMERO_FINAL'
       Precision = 15
       Size = 2
@@ -1852,16 +1851,15 @@ inherited frmCadSeloLote: TfrmCadSeloLote
     Left = 571
     Top = 338
   end
-  object sqlSeloLivro: TSimpleDataSet
+  object sqlSeloLivro: TI9Query
     Aggregates = <>
     Connection = dtmControles.DB
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT * '#13#10'FROM G_SELO_LIVRO'#13#10'WHERE SELO_LOTE_ID = :SELO_LOTE_ID' +
-      #13#10'ORDER BY NUMERO'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <
+      #13#10'ORDER BY NUMERO')
+    ParamData = <
       item
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Name = 'SELO_LOTE_ID'
         ParamType = ptInput
       end>
@@ -1869,18 +1867,18 @@ inherited frmCadSeloLote: TfrmCadSeloLote
     OnCalcFields = sqlSeloLivroCalcFields
     Left = 699
     Top = 299
-    object sqlSeloLivroSELO_LIVRO_ID: TFMTBCDField
+    object sqlSeloLivroSELO_LIVRO_ID: TBCDField
       FieldName = 'SELO_LIVRO_ID'
       Required = True
       Precision = 15
       Size = 2
     end
-    object sqlSeloLivroNUMERO: TFMTBCDField
+    object sqlSeloLivroNUMERO: TBCDField
       FieldName = 'NUMERO'
       Precision = 15
       Size = 2
     end
-    object sqlSeloLivroSELO_SITUACAO_ID: TFMTBCDField
+    object sqlSeloLivroSELO_SITUACAO_ID: TBCDField
       FieldName = 'SELO_SITUACAO_ID'
       Precision = 15
       Size = 2
@@ -1889,7 +1887,7 @@ inherited frmCadSeloLote: TfrmCadSeloLote
       FieldName = 'OBSERVACAO'
       Size = 90
     end
-    object sqlSeloLivroSELO_LOTE_ID: TFMTBCDField
+    object sqlSeloLivroSELO_LOTE_ID: TBCDField
       FieldName = 'SELO_LOTE_ID'
       Precision = 15
       Size = 2
@@ -1905,7 +1903,7 @@ inherited frmCadSeloLote: TfrmCadSeloLote
       FieldName = 'TABELA'
       Size = 30
     end
-    object sqlSeloLivroCAMPO_ID: TFMTBCDField
+    object sqlSeloLivroCAMPO_ID: TBCDField
       FieldName = 'CAMPO_ID'
       Precision = 20
       Size = 2
@@ -1916,7 +1914,7 @@ inherited frmCadSeloLote: TfrmCadSeloLote
       FieldName = 'CALC_PROTOCOLO'
       Size = 10
     end
-    object sqlSeloLivroUSUARIO_ID: TFMTBCDField
+    object sqlSeloLivroUSUARIO_ID: TBCDField
       FieldName = 'USUARIO_ID'
       Precision = 20
       Size = 2
@@ -1936,12 +1934,12 @@ inherited frmCadSeloLote: TfrmCadSeloLote
       FieldName = 'DESCRICAO'
       Size = 120
     end
-    object sqlSeloLivroUSUARIO_ATO_ID: TFMTBCDField
+    object sqlSeloLivroUSUARIO_ATO_ID: TBCDField
       FieldName = 'USUARIO_ATO_ID'
       Precision = 20
       Size = 2
     end
-    object sqlSeloLivroUSUARIO_RESERVA_ID: TFMTBCDField
+    object sqlSeloLivroUSUARIO_RESERVA_ID: TBCDField
       FieldName = 'USUARIO_RESERVA_ID'
       Precision = 20
       Size = 2
@@ -1952,19 +1950,18 @@ inherited frmCadSeloLote: TfrmCadSeloLote
     Left = 787
     Top = 299
   end
-  object sqlSeloGrupo: TSimpleDataSet
+  object sqlSeloGrupo: TI9Query
     Aggregates = <>
     Connection = dtmControles.DB
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT SG.* , ST.DESCRICAO AS DESCRICAO_TIPO_CARTORIO'#13#10'FROM G_SE' +
       'LO_GRUPO SG'#13#10'LEFT JOIN G_SELO_TIPO_CARTORIO ST ON'#13#10'   SG.TIPO_CA' +
-      'RTORIO = ST.SELO_TIPO_CARTORIO_ID'#13#10'ORDER BY SG.DESCRICAO'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <>
+      'RTORIO = ST.SELO_TIPO_CARTORIO_ID'#13#10'ORDER BY SG.DESCRICAO')
+    ParamData = <>
     Params = <>
     Left = 708
     Top = 250
-    object sqlSeloGrupoSELO_GRUPO_ID: TFMTBCDField
+    object sqlSeloGrupoSELO_GRUPO_ID: TBCDField
       FieldName = 'SELO_GRUPO_ID'
       Required = True
       Precision = 15
@@ -1978,7 +1975,7 @@ inherited frmCadSeloLote: TfrmCadSeloLote
       FieldName = 'SITUACAO'
       Size = 1
     end
-    object sqlSeloGrupoNUMERO: TFMTBCDField
+    object sqlSeloGrupoNUMERO: TBCDField
       FieldName = 'NUMERO'
       Precision = 20
       Size = 2
@@ -2001,16 +1998,15 @@ inherited frmCadSeloLote: TfrmCadSeloLote
     Left = 795
     Top = 251
   end
-  object sqlSeloSituacao: TSimpleDataSet
+  object sqlSeloSituacao: TI9Query
     Aggregates = <>
     Connection = dtmControles.DB
-    DataSet.CommandText = 'SELECT * '#13#10'FROM G_SELO_SITUACAO'#13#10'ORDER BY DESCRICAO'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <>
+    SQL.Strings = ('SELECT * '#13#10'FROM G_SELO_SITUACAO'#13#10'ORDER BY DESCRICAO')
+    ParamData = <>
     Params = <>
     Left = 371
     Top = 339
-    object sqlSeloSituacaoSELO_SITUACAO_ID: TFMTBCDField
+    object sqlSeloSituacaoSELO_SITUACAO_ID: TBCDField
       FieldName = 'SELO_SITUACAO_ID'
       Precision = 20
       Size = 2
@@ -2042,10 +2038,10 @@ inherited frmCadSeloLote: TfrmCadSeloLote
     Left = 900
     Top = 120
   end
-  object sqlSelos: TSimpleDataSet
+  object sqlSelos: TI9Query
     Aggregates = <>
     Connection = dtmControles.DB
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT SO.NOTA_FISCAL,'#13#10'       SL.SELO_LIVRO_ID,'#13#10'       SL.CODI' +
       'GO_EXPORTACAO,'#13#10'       SL.NUMERO_AGRUPADOR,'#13#10'       SL.SIGLA, SL' +
       '.NUMERO,'#13#10'       SG.NUMERO AS TIPO_ATO,'#13#10'       SG.SELO_GRUPO_ID' +
@@ -2058,9 +2054,8 @@ inherited frmCadSeloLote: TfrmCadSeloLote
       'OTE SO ON'#13#10'  SL.SELO_LOTE_ID = SO.SELO_LOTE_ID'#13#10'LEFT JOIN G_SELO' +
       '_GRUPO SG ON'#13#10'  SO.SELO_GRUPO_ID = SG.SELO_GRUPO_ID'#13#10'LEFT JOIN G' +
       '_USUARIO U ON'#13#10'  SL.USUARIO_ID = U.USUARIO_ID'#13#10'WHERE SL.CAMPO_ID' +
-      ' = 4120'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <>
+      ' = 4120')
+    ParamData = <>
     Params = <>
     OnCalcFields = sqlSelosCalcFields
     Left = 845
@@ -2077,12 +2072,12 @@ inherited frmCadSeloLote: TfrmCadSeloLote
       FieldName = 'SIGLA'
       Size = 30
     end
-    object sqlSelosNUMERO: TFMTBCDField
+    object sqlSelosNUMERO: TBCDField
       FieldName = 'NUMERO'
       Precision = 20
       Size = 2
     end
-    object sqlSelosTIPO_ATO: TFMTBCDField
+    object sqlSelosTIPO_ATO: TBCDField
       FieldName = 'TIPO_ATO'
       Precision = 20
       Size = 2
@@ -2102,41 +2097,41 @@ inherited frmCadSeloLote: TfrmCadSeloLote
       FieldName = 'IP_MAQUINA'
       Size = 30
     end
-    object sqlSelosVALOR_TOTAL: TFMTBCDField
+    object sqlSelosVALOR_TOTAL: TBCDField
       FieldName = 'VALOR_TOTAL'
       currency = True
       Precision = 20
       Size = 3
     end
-    object sqlSelosVALOR_EMOLUMENTO: TFMTBCDField
+    object sqlSelosVALOR_EMOLUMENTO: TBCDField
       FieldName = 'VALOR_EMOLUMENTO'
       currency = True
       Precision = 20
       Size = 3
     end
-    object sqlSelosVALOR_TAXA_JUDICIARIA: TFMTBCDField
+    object sqlSelosVALOR_TAXA_JUDICIARIA: TBCDField
       FieldName = 'VALOR_TAXA_JUDICIARIA'
       currency = True
       Precision = 20
       Size = 3
     end
-    object sqlSelosVALOR_FUNDESP: TFMTBCDField
+    object sqlSelosVALOR_FUNDESP: TBCDField
       FieldName = 'VALOR_FUNDESP'
       currency = True
       Precision = 20
       Size = 3
     end
-    object sqlSelosSELO_LIVRO_ID: TFMTBCDField
+    object sqlSelosSELO_LIVRO_ID: TBCDField
       FieldName = 'SELO_LIVRO_ID'
       Precision = 20
       Size = 2
     end
-    object sqlSelosSELO_GRUPO_ID: TFMTBCDField
+    object sqlSelosSELO_GRUPO_ID: TBCDField
       FieldName = 'SELO_GRUPO_ID'
       Precision = 15
       Size = 2
     end
-    object sqlSelosSELO_SITUACAO_ID: TFMTBCDField
+    object sqlSelosSELO_SITUACAO_ID: TBCDField
       FieldName = 'SELO_SITUACAO_ID'
       Precision = 15
       Size = 2
@@ -2149,7 +2144,7 @@ inherited frmCadSeloLote: TfrmCadSeloLote
       FieldName = 'TABELA'
       Size = 30
     end
-    object sqlSelosCAMPO_ID: TFMTBCDField
+    object sqlSelosCAMPO_ID: TBCDField
       FieldName = 'CAMPO_ID'
       Precision = 15
       Size = 2
@@ -2171,7 +2166,7 @@ inherited frmCadSeloLote: TfrmCadSeloLote
       FieldName = 'CALC_PROTOCOLO'
       Size = 10
     end
-    object sqlSelosPROTOCOLO: TFMTBCDField
+    object sqlSelosPROTOCOLO: TBCDField
       FieldName = 'PROTOCOLO'
       Precision = 20
       Size = 2
@@ -2227,13 +2222,13 @@ inherited frmCadSeloLote: TfrmCadSeloLote
       end
       item
         Name = 'NUMERO'
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Precision = 20
         Size = 2
       end
       item
         Name = 'TIPO_ATO'
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Precision = 20
         Size = 2
       end
@@ -2258,43 +2253,43 @@ inherited frmCadSeloLote: TfrmCadSeloLote
       end
       item
         Name = 'VALOR_TOTAL'
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Precision = 20
         Size = 3
       end
       item
         Name = 'VALOR_EMOLUMENTO'
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Precision = 20
         Size = 3
       end
       item
         Name = 'VALOR_TAXA_JUDICIARIA'
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Precision = 20
         Size = 3
       end
       item
         Name = 'VALOR_FUNDESP'
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Precision = 20
         Size = 3
       end
       item
         Name = 'SELO_LIVRO_ID'
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Precision = 20
         Size = 2
       end
       item
         Name = 'SELO_GRUPO_ID'
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Precision = 15
         Size = 2
       end
       item
         Name = 'SELO_SITUACAO_ID'
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Precision = 15
         Size = 2
       end
@@ -2310,7 +2305,7 @@ inherited frmCadSeloLote: TfrmCadSeloLote
       end
       item
         Name = 'CAMPO_ID'
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Precision = 15
         Size = 2
       end
@@ -2346,12 +2341,12 @@ inherited frmCadSeloLote: TfrmCadSeloLote
       FieldName = 'SIGLA'
       Size = 30
     end
-    object cdsSelosNUMERO: TFMTBCDField
+    object cdsSelosNUMERO: TBCDField
       FieldName = 'NUMERO'
       Precision = 20
       Size = 2
     end
-    object cdsSelosTIPO_ATO: TFMTBCDField
+    object cdsSelosTIPO_ATO: TBCDField
       FieldName = 'TIPO_ATO'
       Precision = 20
       Size = 2
@@ -2371,41 +2366,41 @@ inherited frmCadSeloLote: TfrmCadSeloLote
       FieldName = 'IP_MAQUINA'
       Size = 30
     end
-    object cdsSelosVALOR_TOTAL: TFMTBCDField
+    object cdsSelosVALOR_TOTAL: TBCDField
       FieldName = 'VALOR_TOTAL'
       currency = True
       Precision = 20
       Size = 3
     end
-    object cdsSelosVALOR_EMOLUMENTO: TFMTBCDField
+    object cdsSelosVALOR_EMOLUMENTO: TBCDField
       FieldName = 'VALOR_EMOLUMENTO'
       currency = True
       Precision = 20
       Size = 3
     end
-    object cdsSelosVALOR_TAXA_JUDICIARIA: TFMTBCDField
+    object cdsSelosVALOR_TAXA_JUDICIARIA: TBCDField
       FieldName = 'VALOR_TAXA_JUDICIARIA'
       currency = True
       Precision = 20
       Size = 3
     end
-    object cdsSelosVALOR_FUNDESP: TFMTBCDField
+    object cdsSelosVALOR_FUNDESP: TBCDField
       FieldName = 'VALOR_FUNDESP'
       currency = True
       Precision = 20
       Size = 3
     end
-    object cdsSelosSELO_LIVRO_ID: TFMTBCDField
+    object cdsSelosSELO_LIVRO_ID: TBCDField
       FieldName = 'SELO_LIVRO_ID'
       Precision = 20
       Size = 2
     end
-    object cdsSelosSELO_GRUPO_ID: TFMTBCDField
+    object cdsSelosSELO_GRUPO_ID: TBCDField
       FieldName = 'SELO_GRUPO_ID'
       Precision = 15
       Size = 2
     end
-    object cdsSelosSELO_SITUACAO_ID: TFMTBCDField
+    object cdsSelosSELO_SITUACAO_ID: TBCDField
       FieldName = 'SELO_SITUACAO_ID'
       Precision = 15
       Size = 2
@@ -2418,7 +2413,7 @@ inherited frmCadSeloLote: TfrmCadSeloLote
       FieldName = 'TABELA'
       Size = 30
     end
-    object cdsSelosCAMPO_ID: TFMTBCDField
+    object cdsSelosCAMPO_ID: TBCDField
       FieldName = 'CAMPO_ID'
       Precision = 15
       Size = 2

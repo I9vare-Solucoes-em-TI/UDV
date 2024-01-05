@@ -720,14 +720,13 @@ inherited frmCadPlanoContas: TfrmCadPlanoContas
     Left = 371
     Top = 244
   end
-  inherited DataSetAncestral: TSQLDataSet
-    SchemaName = 'SYSDBA'
-    CommandText = 
+  inherited DataSetAncestral: TI9Query
+    SQL.Strings = (
       'SELECT CC.*, CG.TIPO'#13#10'FROM J_CONTABIL_CONTA CC'#13#10'  LEFT OUTER JOI' +
       'N J_CONTABIL_GRUPO CG ON'#13#10'  CC.CONTABIL_GRUPO_ID = CG.CONTABIL_G' +
       'RUPO_ID'#13#10'WHERE ((CC.BALANCETE_GRUPO_ID  = :BALANCETE_GRUPO_ID)'#13#10 +
       '      OR (CC.TIPO_GLOBAL = '#39'S'#39'))'#13#10'      AND CG.SITUACAO = '#39'A'#39#13#10'O' +
-      'RDER BY CC.DESCRICAO'
+      'RDER BY CC.DESCRICAO')
     Params = <
       item
         DataType = ftBCD
@@ -744,7 +743,7 @@ inherited frmCadPlanoContas: TfrmCadPlanoContas
   inherited ClientAncestral: TClientDataSet
     Left = 701
     Top = 334
-    object ClientAncestralCONTABIL_CONTA_ID: TFMTBCDField
+    object ClientAncestralCONTABIL_CONTA_ID: TBCDField
       FieldName = 'CONTABIL_CONTA_ID'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
       Precision = 20
@@ -762,12 +761,12 @@ inherited frmCadPlanoContas: TfrmCadPlanoContas
       FieldName = 'SITUACAO'
       Size = 1
     end
-    object ClientAncestralBALANCETE_GRUPO_ID: TFMTBCDField
+    object ClientAncestralBALANCETE_GRUPO_ID: TBCDField
       FieldName = 'BALANCETE_GRUPO_ID'
       Precision = 20
       Size = 2
     end
-    object ClientAncestralCONTABIL_GRUPO_ID: TFMTBCDField
+    object ClientAncestralCONTABIL_GRUPO_ID: TBCDField
       FieldName = 'CONTABIL_GRUPO_ID'
       Precision = 20
       Size = 2
@@ -805,16 +804,15 @@ inherited frmCadPlanoContas: TfrmCadPlanoContas
     Left = 703
     Top = 382
   end
-  object sqlGrupoContabil: TSimpleDataSet
+  object sqlGrupoContabil: TI9Query
     Aggregates = <>
     Connection = dtmControles.DB
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT DESCRICAO, CONTABIL_GRUPO_ID, BALANCETE_GRUPO_ID'#13#10'FROM J_' +
       'CONTABIL_GRUPO'#13#10'WHERE SITUACAO = '#39'A'#39' '#13#10'     AND TIPO = :TIPO'#13#10'  ' +
       '   AND ((BALANCETE_GRUPO_ID = :BALANCETE_GRUPO_ID)'#13#10'      OR (TI' +
-      'PO_GLOBAL = '#39'S'#39'))'#13#10'ORDER BY DESCRICAO'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <
+      'PO_GLOBAL = '#39'S'#39'))'#13#10'ORDER BY DESCRICAO')
+    ParamData = <
       item
         DataType = ftString
         Name = 'TIPO'
@@ -832,12 +830,12 @@ inherited frmCadPlanoContas: TfrmCadPlanoContas
       FieldName = 'DESCRICAO'
       Size = 90
     end
-    object sqlGrupoContabilCONTABIL_GRUPO_ID: TFMTBCDField
+    object sqlGrupoContabilCONTABIL_GRUPO_ID: TBCDField
       FieldName = 'CONTABIL_GRUPO_ID'
       Precision = 20
       Size = 2
     end
-    object sqlGrupoContabilBALANCETE_GRUPO_ID: TFMTBCDField
+    object sqlGrupoContabilBALANCETE_GRUPO_ID: TBCDField
       FieldName = 'BALANCETE_GRUPO_ID'
       Precision = 20
       Size = 2

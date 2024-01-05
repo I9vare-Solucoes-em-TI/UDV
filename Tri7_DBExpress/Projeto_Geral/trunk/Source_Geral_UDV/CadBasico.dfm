@@ -673,12 +673,11 @@ object frmCadBasico: TfrmCadBasico
       OnExecute = ExecuteFecharExecute
     end
   end
-  object DataSetAncestral: TSQLDataSet
+  object DataSetAncestral: TI9Query
     DbxCommandType = 'Dbx.SQL'
     DataSource = SourceAncestral
-    MaxBlobSize = -1
     Params = <>
-    SQLConnection = dtmControles.DB
+    Connection = dtmControles.DB
     Left = 123
     Top = 98
   end

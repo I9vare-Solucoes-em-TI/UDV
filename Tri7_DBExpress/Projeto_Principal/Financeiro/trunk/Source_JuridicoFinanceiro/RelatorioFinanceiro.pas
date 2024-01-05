@@ -3,6 +3,7 @@ unit RelatorioFinanceiro;
 interface
 
 uses
+  I9Query,
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, CadastroAuxSimplificado, cxGraphics, cxControls, cxLookAndFeels,
   cxLookAndFeelPainters, cxContainer, cxEdit, dxSkinsCore, dxSkinBlack,
@@ -25,51 +26,51 @@ uses
 
 type
   TfrmCadRelatorioFinanceiro = class(TfrmCadastroAuxSimplificado)
-    sqlRelatorioAnalitico: TSimpleDataSet;
+    sqlRelatorioAnalitico: TI9Query;
     dtsRelatorioAnalitico: TDataSource;
     dtsRelatorioSimplificado: TDataSource;
-    sqlRelatorioSimplificado: TSimpleDataSet;
+    sqlRelatorioSimplificado: TI9Query;
     frxReport1: TfrxReport;
     frxDBDataSetDemonstrativo: TfrxDBDataset;
     frxDBDataSetFinanceiroSintetico: TfrxDBDataset;
     btnRelatorio: TcxButton;
-    sqlRelatorioAnaliticoLIVRO_CAIXA_ID: TFMTBCDField;
-    sqlRelatorioAnaliticoCAIXA_ID: TFMTBCDField;
-    sqlRelatorioAnaliticoVALOR: TFMTBCDField;
+    sqlRelatorioAnaliticoLIVRO_CAIXA_ID: TBCDField;
+    sqlRelatorioAnaliticoCAIXA_ID: TBCDField;
+    sqlRelatorioAnaliticoVALOR: TBCDField;
     sqlRelatorioAnaliticoOPERACAO: TStringField;
-    sqlRelatorioAnaliticoPESSOA_ID: TFMTBCDField;
+    sqlRelatorioAnaliticoPESSOA_ID: TBCDField;
     sqlRelatorioAnaliticoDATA_PAGAMENTO: TSQLTimeStampField;
     sqlRelatorioAnaliticoREFERENCIA: TStringField;
     sqlRelatorioAnaliticoOBSERVACAO: TStringField;
-    sqlRelatorioAnaliticoCONTABIL_CONTA_ID: TFMTBCDField;
-    sqlRelatorioAnaliticoCENTRO_CUSTO_ID: TFMTBCDField;
+    sqlRelatorioAnaliticoCONTABIL_CONTA_ID: TBCDField;
+    sqlRelatorioAnaliticoCENTRO_CUSTO_ID: TBCDField;
     sqlRelatorioAnaliticoESPECIE: TStringField;
     sqlRelatorioAnaliticoDOCUMENTO_DESCRICAO: TStringField;
-    sqlRelatorioAnaliticoBALANCETE_GRUPO_ID: TFMTBCDField;
-    sqlRelatorioAnaliticoLIVRO_FINANCEIRO_ID: TFMTBCDField;
-    sqlRelatorioAnaliticoPROCESSO_ID: TFMTBCDField;
+    sqlRelatorioAnaliticoBALANCETE_GRUPO_ID: TBCDField;
+    sqlRelatorioAnaliticoLIVRO_FINANCEIRO_ID: TBCDField;
+    sqlRelatorioAnaliticoPROCESSO_ID: TBCDField;
     sqlRelatorioAnaliticoHISTORICO: TStringField;
     sqlRelatorioAnaliticoANO_MES_REGISTRO: TStringField;
     sqlRelatorioAnaliticoDATA_VENCIMENTO: TSQLTimeStampField;
-    sqlRelatorioAnaliticoPROCESSO_CONTRATO_ITEM_ID: TFMTBCDField;
-    sqlRelatorioAnaliticoLIVRO_AGENDAMENTO_ID: TFMTBCDField;
-    sqlRelatorioAnaliticoLIVRO_REMUNERACAO_ID: TFMTBCDField;
+    sqlRelatorioAnaliticoPROCESSO_CONTRATO_ITEM_ID: TBCDField;
+    sqlRelatorioAnaliticoLIVRO_AGENDAMENTO_ID: TBCDField;
+    sqlRelatorioAnaliticoLIVRO_REMUNERACAO_ID: TBCDField;
     sqlRelatorioAnaliticoCONTABIL_CONTA_DESCRICAO: TStringField;
     sqlRelatorioAnaliticoGRUPO_SECUDARIO: TStringField;
     sqlRelatorioAnaliticoGRUPO_PRINCIPAL: TStringField;
     sqlRelatorioAnaliticoNOME: TStringField;
     sqlRelatorioAnaliticoCLIENTE: TStringField;
-    sqlRelatorioSimplificadoVALOR: TFMTBCDField;
+    sqlRelatorioSimplificadoVALOR: TBCDField;
     sqlRelatorioSimplificadoOPERACAO: TStringField;
     sqlRelatorioSimplificadoCONTABIL_CONTA_DESCRICAO: TStringField;
     sqlRelatorioSimplificadoGRUPO_SECUDARIO: TStringField;
     sqlRelatorioSimplificadoGRUPO_PRINCIPAL: TStringField;
     sqlRelatorioAnaliticoBALANCETE_GRUPO: TStringField;
     sqlRelatorioSimplificadoBALANCETE_GRUPO: TStringField;
-    sqlRelatorioSimplificadoBALANCETE_GRUPO_ID: TFMTBCDField;
+    sqlRelatorioSimplificadoBALANCETE_GRUPO_ID: TBCDField;
     sqlRelatorioAnaliticoCAIXA: TStringField;
     sqlRelatorioAnaliticoDOCUMENTO_NUMERO: TStringField;
-    sqlRelatorioDiario: TSimpleDataSet;
+    sqlRelatorioDiario: TI9Query;
     dtsRelatorioDiario: TDataSource;
     sqlRelatorioDiarioCAIXA: TStringField;
     sqlRelatorioDiarioDATA_PAGAMENTO: TSQLTimeStampField;
@@ -83,15 +84,15 @@ type
     sqlRelatorioDiarioOBSERVACAO: TStringField;
     frxDBDatasetDiario: TfrxDBDataset;
     sqlRelatorioDiarioOPERACAO: TStringField;
-    sqlRelatorioDiarioCAIXA_ID: TFMTBCDField;
+    sqlRelatorioDiarioCAIXA_ID: TBCDField;
     sqlRelatorioDiarioCAIXA_DESTINO: TStringField;
     dtsGrupoContabil: TDataSource;
-    sqlGrupoContabil: TSimpleDataSet;
+    sqlGrupoContabil: TI9Query;
     sqlGrupoContabilDESCRICAO: TStringField;
-    sqlGrupoContabilCONTABIL_GRUPO_ID: TFMTBCDField;
-    sqlGrupoContabilBALANCETE_GRUPO_ID: TFMTBCDField;
-    sqlPlanoContas: TSimpleDataSet;
-    sqlPlanoContasCONTABIL_CONTA_ID: TFMTBCDField;
+    sqlGrupoContabilCONTABIL_GRUPO_ID: TBCDField;
+    sqlGrupoContabilBALANCETE_GRUPO_ID: TBCDField;
+    sqlPlanoContas: TI9Query;
+    sqlPlanoContasCONTABIL_CONTA_ID: TBCDField;
     sqlPlanoContasDESCRICAO: TStringField;
     sqlPlanoContasIR: TStringField;
     sqlPlanoContasCNJ: TStringField;
@@ -116,7 +117,7 @@ type
     dtsCaixa: TDataSource;
     ClientCaixaRESUMO: TStringField;
     sqlRelatorioSimplificadoQTD: TIntegerField;
-    sqlRelatorioCentroCusto: TSimpleDataSet;
+    sqlRelatorioCentroCusto: TI9Query;
     StringField1: TStringField;
     SQLTimeStampField1: TSQLTimeStampField;
     StringField2: TStringField;
@@ -127,13 +128,13 @@ type
     StringField7: TStringField;
     StringField8: TStringField;
     StringField9: TStringField;
-    FMTBCDField1: TFMTBCDField;
+    FMTBCDField1: TBCDField;
     StringField10: TStringField;
-    FMTBCDField2: TFMTBCDField;
+    FMTBCDField2: TBCDField;
     StringField11: TStringField;
     dtsCentroCusto: TDataSource;
-    sqlRelatorioCentroCustoVALOR_REGISTRADO: TFMTBCDField;
-    sqlRelatorioCentroCustoPERCENTUAL_REGISTRADO: TFMTBCDField;
+    sqlRelatorioCentroCustoVALOR_REGISTRADO: TBCDField;
+    sqlRelatorioCentroCustoPERCENTUAL_REGISTRADO: TBCDField;
     sqlRelatorioCentroCustoCENTRO_CUSTO_REGISTRADO: TStringField;
     frxDBDatasetDiarioCentroCusto: TfrxDBDataset;
     cxLabel13: TcxLabel;
@@ -182,24 +183,24 @@ type
     rdbCrescente: TcxRadioButton;
     rdbDeCrescente: TcxRadioButton;
     chxSomarExcluidos: TcxCheckBox;
-    sqlConciliacaoBancaria: TSimpleDataSet;
+    sqlConciliacaoBancaria: TI9Query;
     dtsConciliacaoBancaria: TDataSource;
     frxDBDatasetConciliacaoBancaria: TfrxDBDataset;
     sqlConciliacaoBancariaCONCILIACAO_REGISTRADO_ID: TStringField;
     sqlConciliacaoBancariaCAIXA: TStringField;
-    sqlConciliacaoBancariaVALOR: TFMTBCDField;
+    sqlConciliacaoBancariaVALOR: TBCDField;
     sqlConciliacaoBancariaOPERACAO: TStringField;
     sqlConciliacaoBancariaDOCUMENTO_NUMERO: TStringField;
     sqlConciliacaoBancariaHISTORICO: TStringField;
     sqlConciliacaoBancariaOBSERVACAO: TStringField;
-    sqlConciliacaoBancariaCAIXA_ID: TFMTBCDField;
+    sqlConciliacaoBancariaCAIXA_ID: TBCDField;
     sqlConciliacaoBancariaCONTABIL_CONTA_DESCRICAO: TStringField;
     sqlConciliacaoBancariaGRUPO_SECUDARIO: TStringField;
     sqlConciliacaoBancariaGRUPO_PRINCIPAL: TStringField;
     sqlConciliacaoBancariaNOME: TStringField;
     sqlConciliacaoBancariaBALANCETE_GRUPO: TStringField;
     sqlConciliacaoBancariaCONC_DESCRICAO: TStringField;
-    sqlConciliacaoBancariaCONCVALOR: TFMTBCDField;
+    sqlConciliacaoBancariaCONCVALOR: TBCDField;
     sqlConciliacaoBancariaCONC_OBSERVACAO: TStringField;
     sqlConciliacaoBancariaDATA_PAGAMENTO: TSQLTimeStampField;
     sqlConciliacaoBancariaCONTABIL_RL: TStringField;
@@ -210,27 +211,27 @@ type
     sqlRelatorioCentroCustoESPECIE: TStringField;
     sqlRelatorioCentroCustoCONTABIL_RL: TStringField;
     sqlRelatorioCentroCustoCONTABIL_HISTORICO: TStringField;
-    sqlRelatorioDiarioVALOR: TFMTBCDField;
+    sqlRelatorioDiarioVALOR: TBCDField;
     sqlRelatorioDiarioCONTABIL_HISTORICO: TStringField;
     sqlRelatorioDiarioCONTABIL_PESSOA_NOME: TStringField;
     sqlRelatorioCentroCustoCONTABIL_PESSOA_NOME: TStringField;
     sqlRelatorioDiarioDOC_TIPO: TStringField;
     sqlRelatorioCentroCustoDOC_TIPO: TStringField;
-    sqlFaturamentoDetalhado: TSimpleDataSet;
+    sqlFaturamentoDetalhado: TI9Query;
     dtsFaturamentoDetalhado: TDataSource;
     sqlFaturamentoDetalhadoDATA_FATURAMENTO: TSQLTimeStampField;
     sqlFaturamentoDetalhadoHISTORICO: TStringField;
-    sqlFaturamentoDetalhadoLIVRO_CAIXA_FATURADO_ID: TFMTBCDField;
+    sqlFaturamentoDetalhadoLIVRO_CAIXA_FATURADO_ID: TBCDField;
     sqlFaturamentoDetalhadoMODALIDADE: TStringField;
-    sqlFaturamentoDetalhadoCONTABIL_CONTA_ID: TFMTBCDField;
-    sqlFaturamentoDetalhadoVALOR: TFMTBCDField;
+    sqlFaturamentoDetalhadoCONTABIL_CONTA_ID: TBCDField;
+    sqlFaturamentoDetalhadoVALOR: TBCDField;
     sqlFaturamentoDetalhadoOPERACAO: TStringField;
     sqlFaturamentoDetalhadoNOME: TStringField;
     sqlFaturamentoDetalhadoCOMPROMISSO: TStringField;
     frxDBDataSetFaturamentoDetalhado: TfrxDBDataset;
-    sqlFaturamentoDetalhadoVALOR_PAGO: TFMTBCDField;
+    sqlFaturamentoDetalhadoVALOR_PAGO: TBCDField;
     sqlFaturamentoDetalhadoDATA_PAGAMENTO: TMemoField;
-    sqlFaturamentoDetalhadoLIVRO_FINANCEIRO_ID: TFMTBCDField;
+    sqlFaturamentoDetalhadoLIVRO_FINANCEIRO_ID: TBCDField;
     procedure FormCreate(Sender: TObject);
     procedure pgcPeriodoChange(Sender: TObject);
     procedure FormActivate(Sender: TObject);
@@ -608,7 +609,7 @@ var
 
   {$REGION 'PreencherDadosRelatorio'}
   procedure PreencherDadosRelatorio(vpModelo : Integer; vpParametro : string;
-       vpSqlRelatorio : TSimpleDataSet);
+       vpSqlRelatorio : TI9Query);
    begin
      case vpModelo of
        1,4 : PreencherDadosSintetico;
@@ -619,7 +620,7 @@ var
       end;
 
      vpSqlRelatorio.Active := False;
-     vpSqlRelatorio.DataSet.CommandText := viSql;
+     vpSqlRelatorio.SQL.Text := viSql;
      vpSqlRelatorio.Active := True;
      viRelatorioId := dtmControles.BuscarConfig('FINANCEIRO', 'RELATORIO',vpParametro, 'S');
    end;
@@ -728,7 +729,7 @@ begin
   viSql := viSql + ' ORDER BY CC.DESCRICAO ';
 
   sqlPlanoContas.Active  := False;
-  sqlPlanoContas.DataSet.CommandText := viSql;
+  sqlPlanoContas.SQL.Text := viSql;
   sqlPlanoContas.Active  := True;
   lcxCompromisso.Enabled := True;
 
@@ -1050,7 +1051,7 @@ begin
 
   viSql := viSql + ' ORDER BY DESCRICAO ';
   sqlGrupoContabil.Active := False;
-  sqlGrupoContabil.DataSet.CommandText := viSql;
+  sqlGrupoContabil.SQL.Text := viSql;
   sqlGrupoContabil.Active := True;
 
   if not vlCriandoForm then

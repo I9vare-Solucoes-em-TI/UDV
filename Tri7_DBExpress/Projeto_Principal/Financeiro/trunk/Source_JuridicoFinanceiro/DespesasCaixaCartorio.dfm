@@ -1299,24 +1299,23 @@ object frmDespesasCaixa: TfrmDespesasCaixa
     Left = 472
     Top = 168
   end
-  object sqlDespesas: TSimpleDataSet
+  object sqlDespesas: TI9Query
     Aggregates = <>
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT CAIXA_ITEM_ID, '#13#10'             CAIXA_SERVICO_ID, '#13#10'       ' +
       '      DESCRICAO, '#13#10'             DATA_PAGAMENTO, '#13#10'             V' +
       'ALOR_PAGO,'#13#10'             IMPORTADO'#13#10'FROM C_CAIXA_ITEM'#13#10'WHERE TIP' +
-      'O_TRANSACAO = '#39'D'#39
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <>
+      'O_TRANSACAO = '#39'D'#39)
+    ParamData = <>
     Params = <>
     Left = 504
     Top = 168
-    object sqlDespesasCAIXA_ITEM_ID: TFMTBCDField
+    object sqlDespesasCAIXA_ITEM_ID: TBCDField
       FieldName = 'CAIXA_ITEM_ID'
       Precision = 20
       Size = 2
     end
-    object sqlDespesasCAIXA_SERVICO_ID: TFMTBCDField
+    object sqlDespesasCAIXA_SERVICO_ID: TBCDField
       FieldName = 'CAIXA_SERVICO_ID'
       Precision = 20
       Size = 2
@@ -1328,7 +1327,7 @@ object frmDespesasCaixa: TfrmDespesasCaixa
     object sqlDespesasDATA_PAGAMENTO: TSQLTimeStampField
       FieldName = 'DATA_PAGAMENTO'
     end
-    object sqlDespesasVALOR_PAGO: TFMTBCDField
+    object sqlDespesasVALOR_PAGO: TBCDField
       FieldName = 'VALOR_PAGO'
       Precision = 20
       Size = 3

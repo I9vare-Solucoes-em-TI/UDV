@@ -3,6 +3,7 @@ unit Config;
 interface
 
 uses
+  I9Query,
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, CadBasico, FMTBcd, DB, DBClient,
   Provider, SqlExpr, ActnList, ComCtrls, StdCtrls, cxButtons, ExtCtrls,
@@ -19,7 +20,9 @@ uses
   Geral.Model.Entity.Spec.Maybe,
   Geral.Model.Entity.Spec.List,
   Geral.Model.Entity.Spec.Configuracao,
-  Geral.Model.Entity.Spec.Sistema;
+  Geral.Model.Entity.Spec.Sistema, dxSkinsCore, dxSkinOffice2007Black, dxSkinOffice2007Blue, dxSkinOffice2007Green, dxSkinOffice2007Pink,
+  dxSkinOffice2007Silver, FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
+  FireDAC.Stan.Async, FireDAC.DApt, dxSkinscxPCPainter, FireDAC.Comp.DataSet, FireDAC.Comp.Client;
 
 type
   TtipoParametro = array[1..6] of string[15];
@@ -27,9 +30,8 @@ type
 type
   TfrmConfig = class(TfrmCadBasico)
     cxSplitter1: TcxSplitter;
-    sqlConfigGrupo: TSimpleDataSet;
+    sqlConfigGrupo: TI9Query;
     dtsConfigGrupo: TDataSource;
-    sqlConfigGrupoCONFIG_GRUPO_ID: TFMTBCDField;
     sqlConfigGrupoDESCRICAO: TStringField;
     PanelGrids: TPanel;
     pgcPesquisa: TPageControl;
@@ -47,21 +49,21 @@ type
     cxGridDBColumn1: TcxGridDBColumn;
     cxGridLevel1: TcxGridLevel;
     cxGridBasicaDBConfiguracao: TcxGridDBColumn;
-    ClientAncestralCONFIG_ID: TFMTBCDField;
-    ClientAncestralCONFIG_GRUPO_ID: TFMTBCDField;
-    ClientAncestralCONFIG_PADRAO_ID: TFMTBCDField;
+    ClientAncestralCONFIG_ID: TBCDField;
+    ClientAncestralCONFIG_GRUPO_ID: TBCDField;
+    ClientAncestralCONFIG_PADRAO_ID: TBCDField;
     ClientAncestralSECAO: TStringField;
     ClientAncestralNOME: TStringField;
     ClientAncestralTEXTO: TBlobField;
     ClientAncestralTERMINAL: TStringField;
-    sqlValoresPadrao: TSimpleDataSet;
+    sqlValoresPadrao: TI9Query;
     dtsValoresPadrao: TDataSource;
-    sqlValoresTabela: TSimpleDataSet;
+    sqlValoresTabela: TI9Query;
     dtsValoresTabela: TDataSource;
     ColorDialog: TColorDialog;
     ClientAncestralTIPO_VALOR: TStringField;
-    sqlValoresPadraoCONFIG_PADRAO_VALOR_ID: TFMTBCDField;
-    sqlValoresPadraoCONFIG_PADRAO_ID: TFMTBCDField;
+    sqlValoresPadraoCONFIG_PADRAO_VALOR_ID: TBCDField;
+    sqlValoresPadraoCONFIG_PADRAO_ID: TBCDField;
     sqlValoresPadraoVALOR: TStringField;
     pgcValores: TPageControl;
     tabImpressora: TTabSheet;
@@ -128,8 +130,9 @@ type
     ClientAncestralVALOR: TStringField;
     ClientAncestralOBRIGATORIO: TStringField;
     cxGridBasicaDBTableView1OBRIGATORIO: TcxGridDBColumn;
-    sqlConfigGrupoSISTEMA_ID: TFMTBCDField;
+    sqlConfigGrupoSISTEMA_ID: TBCDField;
     cxGridDBTableView1SISTEMA_ID: TcxGridDBColumn;
+    sqlConfigGrupoCONFIG_GRUPO_ID: TBCDField;
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure ExecuteGravarExecute(Sender: TObject);
@@ -313,7 +316,7 @@ begin
 
   ClientAncestral.AfterScroll := nil;
   ClientAncestral.Active := False;
-  DataSetAncestral.CommandText := viSql;
+  DataSetAncestral.SQL.Text := viSql;
   ClientAncestral.Active := True;
 
   ClientAncestral.AfterScroll := ClientAncestralAfterScroll;
@@ -432,7 +435,7 @@ procedure TfrmConfig.ClientAncestralAfterScroll(DataSet: TDataSet);
   procedure ConfigurarValoresPadrao;
   begin
     sqlValoresPadrao.Active := False;
-    sqlValoresPadrao.DataSet.ParamByName('CONFIG_PADRAO_ID').AsBCD := ClientAncestralCONFIG_PADRAO_ID.AsCurrency;
+    sqlValoresPadrao.ParamByName('CONFIG_PADRAO_ID').AsBCD := ClientAncestralCONFIG_PADRAO_ID.AsCurrency;
     sqlValoresPadrao.Active := True;
 
     HabilitaTab(False, False, True, False, False, False, False);
@@ -450,7 +453,7 @@ procedure TfrmConfig.ClientAncestralAfterScroll(DataSet: TDataSet);
 
       // Montar o sql dos Valores da Tabela Padrao
       sqlValoresTabela.Active := False;
-      sqlValoresTabela.DataSet.CommandText := ' SELECT '+  dtmControles.SimpleAuxiliar.FieldByName('KEYFIELD').AsString+', '+
+      sqlValoresTabela.SQL.Text := ' SELECT '+  dtmControles.SimpleAuxiliar.FieldByName('KEYFIELD').AsString+', '+
                                                            dtmControles.SimpleAuxiliar.FieldByName('LISTFIELD').AsString+
                                               ' FROM '+ dtmControles.SimpleAuxiliar.FieldByName('TABELA').AsString+
                                               ' ORDER BY '+dtmControles.SimpleAuxiliar.FieldByName('LISTFIELD').AsString;
@@ -827,7 +830,7 @@ var
       ParamByName('TEXTO').AsString           := dtmControles.SimpleAuxiliar.FieldByName('TEXTO').AsString;
       ParamByName('TERMINAL').AsString      := cbxTerminais.Text;
       ParamByName('TIPO_VALOR').AsString    := dtmControles.SimpleAuxiliar.FieldByName('TIPO_VALOR').AsString;
-      ExecSQL(FALSE);
+      ExecSQL;
     end;
   end;
 
@@ -961,7 +964,7 @@ begin
   sqlConfigGrupo.AfterScroll := nil;
 
   sqlConfigGrupo.Active := False;
-  sqlConfigGrupo.DataSet.CommandText := viSql;
+  sqlConfigGrupo.SQL.Text := viSql;
   sqlConfigGrupo.Active := True;
 
   sqlConfigGrupo.AfterScroll := sqlConfigGrupoAfterScroll;

@@ -3,24 +3,26 @@ unit dmChat;
 interface
 
 uses
+  I9Query,
+  I9Connection,
   SysUtils, Classes, DB, DBClient, SimpleDS, Forms, Windows, ExtCtrls, MSNPopUp,
   FMTBcd, SqlExpr;
 
 type
   TdtmChat = class(TDataModule)
-    sqlChat: TSimpleDataSet;
+    sqlChat: TI9Query;
     timerChat: TTimer;
     msnChatEmail: TMSNPopUp;
     sqlChatNomeUsuario: TStringField;
-    sqlChatCHAT_ID: TFMTBCDField;
+    sqlChatCHAT_ID: TBCDField;
     sqlChatDATA: TSQLTimeStampField;
-    sqlChatUSUARIO_RECEBEU_ID: TFMTBCDField;
-    sqlChatUSUARIO_ENVIOU_ID: TFMTBCDField;
+    sqlChatUSUARIO_RECEBEU_ID: TBCDField;
+    sqlChatUSUARIO_ENVIOU_ID: TBCDField;
     sqlChatRECEBEU: TStringField;
     sqlChatMENSAGEM_BLOB: TBlobField;
-    sqlTimerChat: TSQLQuery;
-    sqlAuxiliarChat: TSQLQuery;
-    SimpleAuxiliarChat: TSimpleDataSet;
+    sqlTimerChat: TI9Query;
+    sqlAuxiliarChat: TI9Query;
+    SimpleAuxiliarChat: TI9Query;
     procedure EnviarMensagem;
     procedure DataModuleCreate(Sender: TObject);
     procedure sqlChatCalcFields(DataSet: TDataSet);
@@ -47,8 +49,8 @@ procedure TdtmChat.DataModuleCreate(Sender: TObject);
 begin
   sqlChat.Connection := dtmControles.DB;
   SimpleAuxiliarChat.Connection := dtmControles.DB;
-  sqlAuxiliarChat.SQLConnection := dtmControles.DB;
-  sqlTimerChat.SQLConnection := dtmControles.DB;
+  sqlAuxiliarChat.Connection := dtmControles.DB;
+  sqlTimerChat.Connection := dtmControles.DB;
 end;
 
 procedure TdtmChat.EnviarMensagem;
@@ -74,7 +76,7 @@ var
       Params[4].AsBlob   := CompressString(frmChat.edtNovaMensagem.Text);
       Params[5].AsString := dtmControles.DataHoraBanco(5);
       Params[6].AsString := 'N';
-      ExecSql(False);
+      ExecSQL;
       Active := False;
     end;
 
@@ -121,7 +123,7 @@ begin
         with SimpleAuxiliarChat do
         begin
           Active := False;
-          DataSet.CommandText := 'SELECT USUARIO_ID FROM G_USUARIO '+
+          SQL.Text := 'SELECT USUARIO_ID FROM G_USUARIO '+
                                  ' WHERE SITUACAO = ''A''' +
                                  ' AND (NAO_RECEBER_CHAT_TODOS IS NULL '+
                                  ' OR NAO_RECEBER_CHAT_TODOS = ''N'')';
@@ -180,8 +182,8 @@ begin
   with sqlChat do
   begin
     Active := False;
-    Dataset.CommandText := 'SELECT * FROM R_ATUALIZA_CHAT_NOVO(:USUARIO_ID)';
-    DataSet.Params[0].AsString := vgUsuarioID;
+    SQL.Text := 'SELECT * FROM R_ATUALIZA_CHAT_NOVO(:USUARIO_ID)';
+    Params[0].AsString := vgUsuarioID;
     Active := True;
 
     First;
@@ -214,7 +216,7 @@ begin
           ' WHERE CHAT_ID = ' + sqlChatCHAT_ID.AsString
         );
 
-        ExecSql(False);
+        ExecSQL;
         Active := False;        
       end;
 

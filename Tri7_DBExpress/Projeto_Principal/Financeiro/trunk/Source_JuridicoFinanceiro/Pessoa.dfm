@@ -1726,12 +1726,11 @@ inherited frmCadPessoa: TfrmCadPessoa
     Left = 449
     Top = 252
   end
-  inherited DataSetAncestral: TSQLDataSet
-    SchemaName = 'SYSDBA'
-    CommandText = 'SELECT * FROM J_PESSOA'#13#10'WHERE PESSOA_ID = :PESSOA_ID'
+  inherited DataSetAncestral: TI9Query
+    SQL.Strings = ('SELECT * FROM J_PESSOA'#13#10'WHERE PESSOA_ID = :PESSOA_ID')
     Params = <
       item
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Name = 'PESSOA_ID'
         ParamType = ptInput
       end>
@@ -1748,7 +1747,7 @@ inherited frmCadPessoa: TfrmCadPessoa
     OnCalcFields = ClientAncestralCalcFields
     Left = 543
     Top = 249
-    object ClientAncestralPESSOA_ID: TFMTBCDField
+    object ClientAncestralPESSOA_ID: TBCDField
       FieldName = 'PESSOA_ID'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
       Precision = 20
@@ -1782,7 +1781,7 @@ inherited frmCadPessoa: TfrmCadPessoa
       FieldName = 'EMAIL1'
       Size = 90
     end
-    object ClientAncestralTIPO_DOCUMENTO_ID: TFMTBCDField
+    object ClientAncestralTIPO_DOCUMENTO_ID: TBCDField
       FieldName = 'TIPO_DOCUMENTO_ID'
       Precision = 20
       Size = 2
@@ -1803,7 +1802,7 @@ inherited frmCadPessoa: TfrmCadPessoa
       FieldName = 'TIPO_PARTICIPANTE'
       Size = 1
     end
-    object ClientAncestralPESSOA_FUNCAO_ID: TFMTBCDField
+    object ClientAncestralPESSOA_FUNCAO_ID: TBCDField
       FieldName = 'PESSOA_FUNCAO_ID'
       Precision = 20
       Size = 2
@@ -1816,7 +1815,7 @@ inherited frmCadPessoa: TfrmCadPessoa
       FieldName = 'ENDERECO_LOGRADOURO'
       Size = 120
     end
-    object ClientAncestralENDERECO_CIDADE_ID: TFMTBCDField
+    object ClientAncestralENDERECO_CIDADE_ID: TBCDField
       FieldName = 'ENDERECO_CIDADE_ID'
       Precision = 20
       Size = 2
@@ -1829,7 +1828,7 @@ inherited frmCadPessoa: TfrmCadPessoa
       FieldName = 'ENDERECO_CEP'
       Size = 15
     end
-    object ClientAncestralNATURALIDADE_ID: TFMTBCDField
+    object ClientAncestralNATURALIDADE_ID: TBCDField
       FieldName = 'NATURALIDADE_ID'
       Precision = 20
       Size = 2
@@ -1853,12 +1852,12 @@ inherited frmCadPessoa: TfrmCadPessoa
       FieldName = 'ENDERECO_BAIRRO'
       Size = 60
     end
-    object ClientAncestralTB_PROFISSAO_ID: TFMTBCDField
+    object ClientAncestralTB_PROFISSAO_ID: TBCDField
       FieldName = 'TB_PROFISSAO_ID'
       Precision = 20
       Size = 2
     end
-    object ClientAncestralTB_ESTADOCIVIL_ID: TFMTBCDField
+    object ClientAncestralTB_ESTADOCIVIL_ID: TBCDField
       FieldName = 'TB_ESTADOCIVIL_ID'
       Precision = 20
       Size = 2
@@ -1912,14 +1911,13 @@ inherited frmCadPessoa: TfrmCadPessoa
     Left = 575
     Top = 252
   end
-  object sqlCidadeEndereco: TSimpleDataSet
+  object sqlCidadeEndereco: TI9Query
     Aggregates = <>
     Connection = dtmControles.DB
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT MUNICIPIO_ID, MUNICIPIO'#13#10'FROM G_MUNICIPIO'#13#10'WHERE SIGLA = ' +
-      ':UF'#13#10'ORDER BY MUNICIPIO'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <
+      ':UF'#13#10'ORDER BY MUNICIPIO')
+    ParamData = <
       item
         DataType = ftString
         Name = 'UF'
@@ -1928,7 +1926,7 @@ inherited frmCadPessoa: TfrmCadPessoa
     Params = <>
     Left = 572
     Top = 309
-    object sqlCidadeEnderecoMUNICIPIO_ID: TFMTBCDField
+    object sqlCidadeEnderecoMUNICIPIO_ID: TBCDField
       FieldName = 'MUNICIPIO_ID'
       Precision = 20
       Size = 2
@@ -1943,14 +1941,13 @@ inherited frmCadPessoa: TfrmCadPessoa
     Left = 572
     Top = 341
   end
-  object sqlCidadeNaturalidade: TSimpleDataSet
+  object sqlCidadeNaturalidade: TI9Query
     Aggregates = <>
     Connection = dtmControles.DB
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT MUNICIPIO_ID, MUNICIPIO'#13#10'FROM G_MUNICIPIO'#13#10'WHERE SIGLA = ' +
-      ':UF'#13#10'ORDER BY MUNICIPIO'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <
+      ':UF'#13#10'ORDER BY MUNICIPIO')
+    ParamData = <
       item
         DataType = ftString
         Name = 'UF'
@@ -1959,7 +1956,7 @@ inherited frmCadPessoa: TfrmCadPessoa
     Params = <>
     Left = 542
     Top = 309
-    object FMTBCDField1: TFMTBCDField
+    object FMTBCDField1: TBCDField
       FieldName = 'MUNICIPIO_ID'
       Precision = 20
       Size = 2
@@ -1974,14 +1971,13 @@ inherited frmCadPessoa: TfrmCadPessoa
     Left = 540
     Top = 339
   end
-  object sqlPessoaDocumento: TSimpleDataSet
+  object sqlPessoaDocumento: TI9Query
     Aggregates = <>
     Connection = dtmControles.DB
-    DataSet.CommandText = 'SELECT *'#13#10'FROM J_PESSOA_DOCUMENTO'#13#10'WHERE PESSOA_ID = :PESSOA_ID'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <
+    SQL.Strings = ('SELECT *'#13#10'FROM J_PESSOA_DOCUMENTO'#13#10'WHERE PESSOA_ID = :PESSOA_ID')
+    ParamData = <
       item
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Name = 'PESSOA_ID'
         ParamType = ptInput
       end>
@@ -1989,18 +1985,18 @@ inherited frmCadPessoa: TfrmCadPessoa
     AfterScroll = sqlPessoaDocumentoAfterScroll
     Left = 508
     Top = 309
-    object sqlPessoaDocumentoPESSOA_DOCUMENTO_ID: TFMTBCDField
+    object sqlPessoaDocumentoPESSOA_DOCUMENTO_ID: TBCDField
       FieldName = 'PESSOA_DOCUMENTO_ID'
       Required = True
       Precision = 20
       Size = 2
     end
-    object sqlPessoaDocumentoPESSOA_ID: TFMTBCDField
+    object sqlPessoaDocumentoPESSOA_ID: TBCDField
       FieldName = 'PESSOA_ID'
       Precision = 20
       Size = 2
     end
-    object sqlPessoaDocumentoTIPO_DOCUMENTO_ID: TFMTBCDField
+    object sqlPessoaDocumentoTIPO_DOCUMENTO_ID: TBCDField
       FieldName = 'TIPO_DOCUMENTO_ID'
       Precision = 20
       Size = 2

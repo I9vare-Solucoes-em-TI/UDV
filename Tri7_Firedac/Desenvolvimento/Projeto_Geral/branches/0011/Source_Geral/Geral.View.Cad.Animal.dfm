@@ -3872,7 +3872,6 @@ object frmAnimal: TfrmAnimal
     FetchOptions.AssignedValues = [evMode]
     FetchOptions.Mode = fmAll
     SQL.Strings = (
-      
         'SELECT '#13#10'  *'#13#10'FROM '#13#10'  G_GUARDIAO'#13#10'WHERE '#13#10'  ANIMAL_ID = :ANIMAL' +
         '_ID AND'#13#10'  SISTEMA_ID = :SISTEMA_ID')
     Left = 184

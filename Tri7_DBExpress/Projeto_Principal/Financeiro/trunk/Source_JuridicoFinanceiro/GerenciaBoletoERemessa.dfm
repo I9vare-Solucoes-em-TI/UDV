@@ -2429,18 +2429,17 @@ object frmGerenciaBoletoRemessa: TfrmGerenciaBoletoRemessa
       end
     end
   end
-  object sqlPessoa: TSimpleDataSet
+  object sqlPessoa: TI9Query
     Aggregates = <>
     Connection = dtmControles.DB
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT'#13#10' P.PESSOA_ID,'#13#10' P.NOME,'#13#10' P.SELECIONADO,'#13#10' LF.ANO_MES_RE' +
       'FERENCIA,'#13#10' LF.DATA_VENCIMENTO'#13#10'FROM'#13#10'  J_PESSOA P'#13#10#13#10'INNER JOIN' +
       ' J_LIVRO_FINANCEIRO LF'#13#10'ON LF.PESSOA_ID = P.PESSOA_ID'#13#10#13#10'WHERE P' +
       '.UTILIZA_BOLETO = '#39'S'#39#13#10'AND LF.SITUACAO IN ('#39'1'#39','#39'2'#39')'#13#10#13#10'GROUP BY'#13 +
       #10' P.PESSOA_ID,'#13#10' P.NOME,'#13#10' P.SELECIONADO,'#13#10' LF.ANO_MES_REFERENCI' +
-      'A,'#13#10' LF.DATA_VENCIMENTO'#13#10#13#10'ORDER BY '#13#10'  P.NOME DESC'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <>
+      'A,'#13#10' LF.DATA_VENCIMENTO'#13#10#13#10'ORDER BY '#13#10'  P.NOME DESC')
+    ParamData = <>
     Params = <>
     Left = 120
     Top = 295
@@ -2492,10 +2491,10 @@ object frmGerenciaBoletoRemessa: TfrmGerenciaBoletoRemessa
       OnClick = VisualizarImprimiBoletoClick
     end
   end
-  object sqlCompromisso: TSimpleDataSet
+  object sqlCompromisso: TI9Query
     Aggregates = <>
     Connection = dtmControles.DB
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT'#13#10'  LF.*,'#13#10'  BC.BANCO_ID,'#13#10'  P.NOME,'#13#10'  P.BOLETO_DESCRICAO' +
       ','#13#10'  B.DATA_VENCIMENTO AS DATA_BOLETA,'#13#10'  B.NOSSO_NUMERO,'#13#10'  B.E' +
       'NVIO_EMAIL, '#13#10'  coalesce((SELECT SUM(VALOR) FROM J_LIVRO_CAIXA W' +
@@ -2505,15 +2504,14 @@ object frmGerenciaBoletoRemessa: TfrmGerenciaBoletoRemessa
       'BOLETA_ID = B.BOLETO_ID'#13#10'INNER JOIN J_CAIXA C'#13#10'ON LF.CAIXA_ID = ' +
       'C.CAIXA_ID'#13#10'INNER JOIN J_BANCO BC'#13#10'ON C.BANCO_ID = BC.BANCO_ID'#13#10 +
       #13#10'WHERE LF.SITUACAO IN ('#39'1'#39','#39'2'#39')'#13#10#13#10'ORDER BY'#13#10'  LF.CONTABIL_CONT' +
-      'A_ID,'#13#10'  LF.DATA_VENCIMENTO,'#13#10'  LF.ANO_MES_REFERENCIA'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <>
+      'A_ID,'#13#10'  LF.DATA_VENCIMENTO,'#13#10'  LF.ANO_MES_REFERENCIA')
+    ParamData = <>
     Params = <>
     AfterScroll = sqlCompromissoAfterScroll
     OnCalcFields = sqlCompromissoCalcFields
     Left = 752
     Top = 207
-    object sqlCompromissoLIVRO_FINANCEIRO_ID: TFMTBCDField
+    object sqlCompromissoLIVRO_FINANCEIRO_ID: TBCDField
       FieldName = 'LIVRO_FINANCEIRO_ID'
       Required = True
       Precision = 20
@@ -2522,7 +2520,7 @@ object frmGerenciaBoletoRemessa: TfrmGerenciaBoletoRemessa
     object sqlCompromissoDATA_VENCIMENTO: TSQLTimeStampField
       FieldName = 'DATA_VENCIMENTO'
     end
-    object sqlCompromissoVALOR_AGENDADO: TFMTBCDField
+    object sqlCompromissoVALOR_AGENDADO: TBCDField
       FieldName = 'VALOR_AGENDADO'
       Precision = 20
       Size = 3
@@ -2531,12 +2529,12 @@ object frmGerenciaBoletoRemessa: TfrmGerenciaBoletoRemessa
       FieldName = 'SITUACAO'
       Size = 1
     end
-    object sqlCompromissoCONTABIL_CONTA_ID: TFMTBCDField
+    object sqlCompromissoCONTABIL_CONTA_ID: TBCDField
       FieldName = 'CONTABIL_CONTA_ID'
       Precision = 20
       Size = 2
     end
-    object sqlCompromissoCENTRO_CUSTO_ID: TFMTBCDField
+    object sqlCompromissoCENTRO_CUSTO_ID: TBCDField
       FieldName = 'CENTRO_CUSTO_ID'
       Precision = 20
       Size = 2
@@ -2545,7 +2543,7 @@ object frmGerenciaBoletoRemessa: TfrmGerenciaBoletoRemessa
       FieldName = 'ANO_MES_REFERENCIA'
       Size = 10
     end
-    object sqlCompromissoBALANCETE_GRUPO_ID: TFMTBCDField
+    object sqlCompromissoBALANCETE_GRUPO_ID: TBCDField
       FieldName = 'BALANCETE_GRUPO_ID'
       Precision = 20
       Size = 2
@@ -2554,7 +2552,7 @@ object frmGerenciaBoletoRemessa: TfrmGerenciaBoletoRemessa
       FieldName = 'ESPECIE'
       Size = 1
     end
-    object sqlCompromissoBOLETA_ID: TFMTBCDField
+    object sqlCompromissoBOLETA_ID: TBCDField
       FieldName = 'BOLETA_ID'
       Precision = 20
       Size = 2
@@ -2563,17 +2561,17 @@ object frmGerenciaBoletoRemessa: TfrmGerenciaBoletoRemessa
       FieldName = 'ATUALIZADO'
       Size = 1
     end
-    object sqlCompromissoVALOR_PAGO: TFMTBCDField
+    object sqlCompromissoVALOR_PAGO: TBCDField
       FieldName = 'VALOR_PAGO'
       Precision = 20
       Size = 3
     end
-    object sqlCompromissoPROCESSO_CONTRATO_ITEM_ID: TFMTBCDField
+    object sqlCompromissoPROCESSO_CONTRATO_ITEM_ID: TBCDField
       FieldName = 'PROCESSO_CONTRATO_ITEM_ID'
       Precision = 20
       Size = 2
     end
-    object sqlCompromissoPROCESSO_CONTRATO_ID: TFMTBCDField
+    object sqlCompromissoPROCESSO_CONTRATO_ID: TBCDField
       FieldName = 'PROCESSO_CONTRATO_ID'
       Precision = 20
       Size = 2
@@ -2582,12 +2580,12 @@ object frmGerenciaBoletoRemessa: TfrmGerenciaBoletoRemessa
       FieldName = 'OPERACAO'
       Size = 1
     end
-    object sqlCompromissoPESSOA_ID: TFMTBCDField
+    object sqlCompromissoPESSOA_ID: TBCDField
       FieldName = 'PESSOA_ID'
       Precision = 20
       Size = 2
     end
-    object sqlCompromissoVALOR_DOCUMENTO: TFMTBCDField
+    object sqlCompromissoVALOR_DOCUMENTO: TBCDField
       FieldName = 'VALOR_DOCUMENTO'
       Precision = 20
       Size = 3
@@ -2603,12 +2601,12 @@ object frmGerenciaBoletoRemessa: TfrmGerenciaBoletoRemessa
     object sqlCompromissoDATA_OPERACAO: TSQLTimeStampField
       FieldName = 'DATA_OPERACAO'
     end
-    object sqlCompromissoLIVRO_AGENDAMENTO_ID: TFMTBCDField
+    object sqlCompromissoLIVRO_AGENDAMENTO_ID: TBCDField
       FieldName = 'LIVRO_AGENDAMENTO_ID'
       Precision = 20
       Size = 2
     end
-    object sqlCompromissoDESCONTO: TFMTBCDField
+    object sqlCompromissoDESCONTO: TBCDField
       FieldName = 'DESCONTO'
       Precision = 20
       Size = 3
@@ -2625,7 +2623,7 @@ object frmGerenciaBoletoRemessa: TfrmGerenciaBoletoRemessa
       FieldName = 'DOCUMENTO_NUMERO'
       Size = 60
     end
-    object sqlCompromissoCAIXA_ID: TFMTBCDField
+    object sqlCompromissoCAIXA_ID: TBCDField
       FieldName = 'CAIXA_ID'
       Precision = 20
       Size = 2
@@ -2642,7 +2640,7 @@ object frmGerenciaBoletoRemessa: TfrmGerenciaBoletoRemessa
       FieldName = 'NOME'
       Size = 120
     end
-    object sqlCompromissoVALOR_PAGO_SOMA: TFMTBCDField
+    object sqlCompromissoVALOR_PAGO_SOMA: TBCDField
       FieldName = 'VALOR_PAGO_SOMA'
       Precision = 20
       Size = 3
@@ -2666,7 +2664,7 @@ object frmGerenciaBoletoRemessa: TfrmGerenciaBoletoRemessa
     object sqlCompromissoDATA_BOLETA: TSQLTimeStampField
       FieldName = 'DATA_BOLETA'
     end
-    object sqlCompromissoNOSSO_NUMERO: TFMTBCDField
+    object sqlCompromissoNOSSO_NUMERO: TBCDField
       FieldName = 'NOSSO_NUMERO'
       Precision = 20
       Size = 2
@@ -2679,33 +2677,33 @@ object frmGerenciaBoletoRemessa: TfrmGerenciaBoletoRemessa
       FieldName = 'ENVIO_EMAIL'
       Size = 1
     end
-    object sqlCompromissoBANCO_ID: TFMTBCDField
+    object sqlCompromissoBANCO_ID: TBCDField
       FieldName = 'BANCO_ID'
       Required = True
       Precision = 20
       Size = 2
     end
-    object sqlCompromissoVALOR_DESCONTO: TFMTBCDField
+    object sqlCompromissoVALOR_DESCONTO: TBCDField
       FieldName = 'VALOR_DESCONTO'
       Precision = 20
       Size = 3
     end
-    object sqlCompromissoVALOR_JUROS: TFMTBCDField
+    object sqlCompromissoVALOR_JUROS: TBCDField
       FieldName = 'VALOR_JUROS'
       Precision = 20
       Size = 3
     end
-    object sqlCompromissoVALOR_MULTA: TFMTBCDField
+    object sqlCompromissoVALOR_MULTA: TBCDField
       FieldName = 'VALOR_MULTA'
       Precision = 20
       Size = 3
     end
-    object sqlCompromissoVALOR_OUTRA_DEDUCAO: TFMTBCDField
+    object sqlCompromissoVALOR_OUTRA_DEDUCAO: TBCDField
       FieldName = 'VALOR_OUTRA_DEDUCAO'
       Precision = 20
       Size = 3
     end
-    object sqlCompromissoVALOR_CALCULO: TFMTBCDField
+    object sqlCompromissoVALOR_CALCULO: TBCDField
       FieldName = 'VALOR_CALCULO'
       Precision = 20
       Size = 3
@@ -2725,7 +2723,7 @@ object frmGerenciaBoletoRemessa: TfrmGerenciaBoletoRemessa
       Size = 120
       Calculated = True
     end
-    object sqlCompromissoVALOR_OUTRAS_TAXAS: TFMTBCDField
+    object sqlCompromissoVALOR_OUTRAS_TAXAS: TBCDField
       FieldName = 'VALOR_OUTRAS_TAXAS'
       Precision = 20
       Size = 3
@@ -2791,10 +2789,10 @@ object frmGerenciaBoletoRemessa: TfrmGerenciaBoletoRemessa
       Size = 60
     end
   end
-  object sqlPesqCompromisso: TSimpleDataSet
+  object sqlPesqCompromisso: TI9Query
     Aggregates = <>
     Connection = dtmControles.DB
-    DataSet.CommandText = 
+    SQL.Strings = (
       'select   P.NOME,   P.CPFCNPJ,   P.ENDERECO_CIDADE_ID, P.PESSOA_I' +
       'D, '#13#10'         P.ENDERECO_LOGRADOURO,   P.ENDERECO_BAIRRO,'#13#10'     ' +
       '    P.ENDERECO_CIDADE_UF,   P.ENDERECO_CEP,'#13#10'         P.EMAIL1, ' +
@@ -2804,9 +2802,8 @@ object frmGerenciaBoletoRemessa: TfrmGerenciaBoletoRemessa
       'rom  J_BOLETO BO '#13#10'  inner join J_PESSOA P  on'#13#10'  BO.PESSOA_ID =' +
       ' P.PESSOA_ID'#13#10'  inner join J_BANCO B  on'#13#10'  BO.BANCO_ID = B.BANC' +
       'O_ID'#13#10'where BO.SITUACAO <> '#39'2'#39#13#10'  and BO.CONT_REMESSA is null'#13#10' ' +
-      ' and BO.BANCO_ID = 1'#13#10'order by BO.NOSSO_NUMERO'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <>
+      ' and BO.BANCO_ID = 1'#13#10'order by BO.NOSSO_NUMERO')
+    ParamData = <>
     Params = <>
     Left = 912
     Top = 200
@@ -2818,7 +2815,7 @@ object frmGerenciaBoletoRemessa: TfrmGerenciaBoletoRemessa
       FieldName = 'CPFCNPJ'
       Size = 15
     end
-    object sqlPesqCompromissoENDERECO_CIDADE_ID: TFMTBCDField
+    object sqlPesqCompromissoENDERECO_CIDADE_ID: TBCDField
       FieldName = 'ENDERECO_CIDADE_ID'
       Precision = 20
       Size = 2
@@ -2851,13 +2848,13 @@ object frmGerenciaBoletoRemessa: TfrmGerenciaBoletoRemessa
       FieldName = 'SITUACAO'
       Size = 1
     end
-    object sqlPesqCompromissoBOLETO_ID: TFMTBCDField
+    object sqlPesqCompromissoBOLETO_ID: TBCDField
       FieldName = 'BOLETO_ID'
       Required = True
       Precision = 20
       Size = 2
     end
-    object sqlPesqCompromissoNOSSO_NUMERO: TFMTBCDField
+    object sqlPesqCompromissoNOSSO_NUMERO: TBCDField
       FieldName = 'NOSSO_NUMERO'
       Precision = 20
       Size = 2
@@ -2876,12 +2873,12 @@ object frmGerenciaBoletoRemessa: TfrmGerenciaBoletoRemessa
       FieldName = 'CARTEIRA'
       Size = 3
     end
-    object sqlPesqCompromissoVALOR_AGENDADO: TFMTBCDField
+    object sqlPesqCompromissoVALOR_AGENDADO: TBCDField
       FieldName = 'VALOR_AGENDADO'
       Precision = 20
       Size = 3
     end
-    object sqlPesqCompromissoPESSOA_ID: TFMTBCDField
+    object sqlPesqCompromissoPESSOA_ID: TBCDField
       FieldName = 'PESSOA_ID'
       Required = True
       Precision = 20
@@ -2900,17 +2897,16 @@ object frmGerenciaBoletoRemessa: TfrmGerenciaBoletoRemessa
       Caption = 'Gerar Remessa'
     end
   end
-  object sqlAgruparReferencia: TSimpleDataSet
+  object sqlAgruparReferencia: TI9Query
     Aggregates = <>
     Connection = dtmControles.DB
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT'#13#10'  ANO_MES_REFERENCIA,'#13#10'  sum(VALOR_AGENDADO) AS VALOR,'#13#10 +
       '  LIST(CAST(LIVRO_FINANCEIRO_ID AS INTEGER)) AS LIVRO_FINANCEIRO' +
       '_ID'#13#10'FROM'#13#10'  J_LIVRO_FINANCEIRO'#13#10#13#10'WHERE SITUACAO IN ('#39'1'#39','#39'2'#39')'#13#10 +
       'AND SELECIONADO = '#39'S'#39#13#10'AND PESSOA_ID = :PESSOA_ID'#13#10'GROUP BY'#13#10'  P' +
-      'ESSOA_ID,'#13#10'  ANO_MES_REFERENCIA'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <
+      'ESSOA_ID,'#13#10'  ANO_MES_REFERENCIA')
+    ParamData = <
       item
         DataType = ftUnknown
         Name = 'PESSOA_ID'
@@ -2923,7 +2919,7 @@ object frmGerenciaBoletoRemessa: TfrmGerenciaBoletoRemessa
       FieldName = 'ANO_MES_REFERENCIA'
       Size = 10
     end
-    object sqlAgruparReferenciaVALOR: TFMTBCDField
+    object sqlAgruparReferenciaVALOR: TBCDField
       FieldName = 'VALOR'
       Precision = 20
       Size = 3
@@ -3140,21 +3136,20 @@ object frmGerenciaBoletoRemessa: TfrmGerenciaBoletoRemessa
     Left = 466
     Top = 279
   end
-  object sqlBanco: TSimpleDataSet
+  object sqlBanco: TI9Query
     Aggregates = <>
     Connection = dtmControles.DB
-    DataSet.CommandText = 
+    SQL.Strings = (
       'select '#13#10'  BANCO_ID,'#13#10'  BANCO_NUMERO,'#13#10'  BANCO_DIGITO,'#13#10'  BANCO_' +
       'NOME,'#13#10'  AGENCIA_NOME,'#13#10'  AGENCIA_NUMERO,'#13#10'  AGENCIA_DIGITO,'#13#10'  ' +
       'CONTA_NUMERO,'#13#10'  CONTA_DIGITO,'#13#10'  AGENCIA_UF,'#13#10'  CEDENTE_ID'#13#10'fro' +
       'm '#13#10'  J_BANCO'#13#10'ORDER BY '#13#10'  BANCO_ID,'#13#10'  BANCO_NOME, '#13#10'  AGENCIA' +
-      '_UF'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <>
+      '_UF')
+    ParamData = <>
     Params = <>
     Left = 464
     Top = 232
-    object sqlBancoBANCO_ID: TFMTBCDField
+    object sqlBancoBANCO_ID: TBCDField
       FieldName = 'BANCO_ID'
       Required = True
       Precision = 20
@@ -3196,7 +3191,7 @@ object frmGerenciaBoletoRemessa: TfrmGerenciaBoletoRemessa
       FieldName = 'AGENCIA_DIGITO'
       Size = 3
     end
-    object sqlBancoCEDENTE_ID: TFMTBCDField
+    object sqlBancoCEDENTE_ID: TBCDField
       FieldName = 'CEDENTE_ID'
       Precision = 20
       Size = 2
@@ -3257,18 +3252,17 @@ object frmGerenciaBoletoRemessa: TfrmGerenciaBoletoRemessa
     Left = 780
     Top = 373
   end
-  object sqlHistoricoEmail: TSimpleDataSet
+  object sqlHistoricoEmail: TI9Query
     Aggregates = <>
     Connection = dtmControles.DB
-    DataSet.CommandText = 'SELECT *'#13#10'FROM G_EMAIL_ENVIADO'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <>
+    SQL.Strings = ('SELECT *'#13#10'FROM G_EMAIL_ENVIADO')
+    ParamData = <>
     Params = <>
     AfterScroll = sqlCompromissoAfterScroll
     OnCalcFields = sqlCompromissoCalcFields
     Left = 578
     Top = 258
-    object sqlHistoricoEmailEMAIL_ENVIADO_ID: TFMTBCDField
+    object sqlHistoricoEmailEMAIL_ENVIADO_ID: TBCDField
       FieldName = 'EMAIL_ENVIADO_ID'
       Required = True
       Precision = 20
@@ -3281,7 +3275,7 @@ object frmGerenciaBoletoRemessa: TfrmGerenciaBoletoRemessa
     object sqlHistoricoEmailDATA: TSQLTimeStampField
       FieldName = 'DATA'
     end
-    object sqlHistoricoEmailUSUARIO_ID: TFMTBCDField
+    object sqlHistoricoEmailUSUARIO_ID: TBCDField
       FieldName = 'USUARIO_ID'
       Precision = 20
       Size = 2
@@ -3309,7 +3303,7 @@ object frmGerenciaBoletoRemessa: TfrmGerenciaBoletoRemessa
       FieldName = 'PESSOA_DESCRICAO'
       Size = 120
     end
-    object sqlHistoricoEmailPESSOA_ID: TFMTBCDField
+    object sqlHistoricoEmailPESSOA_ID: TBCDField
       FieldName = 'PESSOA_ID'
       Precision = 20
       Size = 2

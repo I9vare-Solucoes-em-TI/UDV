@@ -3,6 +3,7 @@ unit Usuario;
 interface
 
 uses
+  I9Query,
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, CadBasico, FMTBcd, DB, DBClient,
   Provider, SqlExpr, ActnList, ComCtrls, StdCtrls, cxButtons, ExtCtrls,
@@ -26,19 +27,19 @@ type
     pagPrincipal: TcxPageControl;
     tbsUsuario: TcxTabSheet;
     tbsPermissao: TcxTabSheet;
-    sqlGrupo: TSimpleDataSet;
-    sqlGrupoUSUARIO_GRUPO_ID: TFMTBCDField;
+    sqlGrupo: TI9Query;
+    sqlGrupoUSUARIO_GRUPO_ID: TBCDField;
     sqlGrupoDESCRICAO: TStringField;
     sqlGrupoSITUACAO: TStringField;
     dtsGrupo: TDataSource;
     dsRotina: TDataSource;
-    sqlGrupoUsuario: TSimpleDataSet;
-    FMTBCDField1: TFMTBCDField;
+    sqlGrupoUsuario: TI9Query;
+    FMTBCDField1: TBCDField;
     StringField1: TStringField;
     StringField2: TStringField;
     dtsGrupoUsuario: TDataSource;
     ImageList1: TImageList;
-    ClientAncestralUSUARIO_ID: TFMTBCDField;
+    ClientAncestralUSUARIO_ID: TBCDField;
     ClientAncestralTROCARSENHA: TStringField;
     ClientAncestralLOGIN: TStringField;
     ClientAncestralSENHA: TStringField;
@@ -47,11 +48,11 @@ type
     ClientAncestralFUNCAO: TStringField;
     ClientAncestralASSINA: TStringField;
     ClientAncestralSIGLA: TStringField;
-    sqlMenu: TSimpleDataSet;
+    sqlMenu: TI9Query;
     dtsMenu: TDataSource;
-    sqlMenuSISTEMA_MENU_ID: TFMTBCDField;
+    sqlMenuSISTEMA_MENU_ID: TBCDField;
     sqlMenuDESCRICAO: TStringField;
-    sqlMenuSISTEMA_ID: TFMTBCDField;
+    sqlMenuSISTEMA_ID: TBCDField;
     PopupMenu1: TPopupMenu;
     CopirarPermisso1: TMenuItem;
     PopupMenu2: TPopupMenu;
@@ -60,11 +61,11 @@ type
     MarcarEste1: TMenuItem;
     DesmarcarEste1: TMenuItem;
     N1: TMenuItem;
-    sqlRotina: TSimpleDataSet;
+    sqlRotina: TI9Query;
     sqlRotinaCHAVE_ROTINA: TStringField;
-    sqlRotinaSISTEMA_MENU_ID: TFMTBCDField;
+    sqlRotinaSISTEMA_MENU_ID: TBCDField;
     sqlRotinaDESCROTINA: TStringField;
-    sqlRotinaSISTEMA_ROTINA_ID: TFMTBCDField;
+    sqlRotinaSISTEMA_ROTINA_ID: TBCDField;
     sqlRotinaPERMISSAO: TStringField;
     sqlRotinapIncluir: TStringField;
     sqlRotinapAlterar: TStringField;
@@ -72,18 +73,18 @@ type
     sqlRotinapPesquisar: TStringField;
     sqlRotinapRelatorio: TStringField;
     sqlRotinapEspecial: TStringField;
-    ClientAncestralCOMISSAO: TFMTBCDField;
+    ClientAncestralCOMISSAO: TBCDField;
     ClientAncestralALERTA_SELO_MINIMO: TStringField;
     ClientAncestralEMAIL: TStringField;
     pnlDadosUsuarios: TPanel;
-    sqlUsuariosPesquisa: TSimpleDataSet;
+    sqlUsuariosPesquisa: TI9Query;
     dtsUsuariosPesquisa: TDataSource;
     sqlUsuariosPesquisaNOME_COMPLETO: TStringField;
     sqlUsuariosPesquisaLOGIN: TStringField;
     sqlUsuariosPesquisaFUNCAO: TStringField;
     sqlUsuariosPesquisaASSINA: TStringField;
     sqlUsuariosPesquisaSITUACAO: TStringField;
-    sqlUsuariosPesquisaUSUARIO_ID: TFMTBCDField;
+    sqlUsuariosPesquisaUSUARIO_ID: TBCDField;
     cxGroupBox2: TcxGroupBox;
     tabUsuarios: TcxTabControl;
     grdUsuario: TcxGrid;
@@ -98,27 +99,27 @@ type
     cxGridDBTableView1: TcxGridDBTableView;
     cxGridDBColumn1: TcxGridDBColumn;
     cxGridLevel1: TcxGridLevel;
-    sqlUsuarioSistema: TSimpleDataSet;
+    sqlUsuarioSistema: TI9Query;
     dtsUsuarioSistema: TDataSource;
-    sqlUsuarioSistemaSISTEMA_ID: TFMTBCDField;
+    sqlUsuarioSistemaSISTEMA_ID: TBCDField;
     cxGridDBTableView1Column1: TcxGridDBColumn;
     sqlUsuarioSistemaDESCRICAO: TStringField;
     OpenPictureDialog1: TOpenPictureDialog;
-    ClientAncestralANDAMENTO_PADRAO: TFMTBCDField;
-    ClientAncestralANDAMENTO_PADRAO2: TFMTBCDField;
+    ClientAncestralANDAMENTO_PADRAO: TBCDField;
+    ClientAncestralANDAMENTO_PADRAO2: TBCDField;
     ClientAncestralRECEBER_MENSAGEM_ARROLAMENTO: TStringField;
     ClientAncestralASSINA_CERTIDAO: TStringField;
     ClientAncestralRECEBER_EMAIL_PENHORA: TStringField;
     ClientAncestralFOTO: TBlobField;
     ClientAncestralNAO_RECEBER_CHAT_TODOS: TStringField;
     ClientAncestralANALISTA_DOC_DIVERSO: TStringField;
-    sqlSistemaUsuario: TSimpleDataSet;
+    sqlSistemaUsuario: TI9Query;
     dtsSistemaUsuario: TDataSource;
-    sqlSistemaUsuarioUSUARIO_ID: TFMTBCDField;
+    sqlSistemaUsuarioUSUARIO_ID: TBCDField;
     sqlSistemaUsuarioNOME_COMPLETO: TStringField;
     sqlSistemaUsuarioLOGIN: TStringField;
     sqlSistemaUsuarioFUNCAO: TStringField;
-    sqlSistemaUsuarioUSUARIO_GRUPO_ID: TFMTBCDField;
+    sqlSistemaUsuarioUSUARIO_GRUPO_ID: TBCDField;
     tbcSistemas: TcxTabControl;
     pgcPermissoes: TcxPageControl;
     cxTabSheet1: TcxTabSheet;
@@ -279,7 +280,7 @@ type
     procedure SetaPermissaoGrupo;
   public
     { Public declarations }
-    vgQuery : TSimpleDataSet;
+    vgQuery : TI9Query;
     function Permissao : String;
     procedure SetState (AState : TDataSetState);override;
     procedure LoadData; override;
@@ -768,7 +769,7 @@ begin
     exit;
 
   sqlUsuarioSistema.Active := False;
-  sqlUsuarioSistema.DataSet.ParamByName('USUARIO_ID').AsBCD := sqlUsuariosPesquisaUSUARIO_ID.AsInteger;
+  sqlUsuarioSistema.ParamByName('USUARIO_ID').AsBCD := sqlUsuariosPesquisaUSUARIO_ID.AsInteger;
   sqlUsuarioSistema.Active := True;
 
   ClientAncestral.Active := False;
@@ -779,8 +780,8 @@ end;
 procedure TfrmUsuario.tabUsuariosChange(Sender: TObject);
   procedure SetarParametros(vpSit1, vpSit2 : string);
   begin
-    sqlUsuariosPesquisa.DataSet.ParamByName('SITUACAO1').AsString := vpSit1;
-    sqlUsuariosPesquisa.DataSet.ParamByName('SITUACAO2').AsString := vpSit2;
+    sqlUsuariosPesquisa.ParamByName('SITUACAO1').AsString := vpSit1;
+    sqlUsuariosPesquisa.ParamByName('SITUACAO2').AsString := vpSit2;
   end;
 begin
   inherited;
@@ -812,11 +813,11 @@ begin
   end;
 
   sqlSistemaUsuario.Active := False;
-  sqlSistemaUsuario.DataSet.Params[0].AsBCD := vgListaSistemas[tbcSistemas.TabIndex];
+  sqlSistemaUsuario.Params[0].AsBCD := vgListaSistemas[tbcSistemas.TabIndex];
   sqlSistemaUsuario.Active := True;
 
   sqlGrupo.Close;
-  sqlGrupo.DataSet.Params[0].AsInteger := vgListaSistemas[tbcSistemas.TabIndex];
+  sqlGrupo.Params[0].AsInteger := vgListaSistemas[tbcSistemas.TabIndex];
   sqlGrupo.Open;
 
   viSql := ' select * from G_SISTEMA_MENU '+
@@ -827,7 +828,7 @@ begin
   viSql := viSql + ' order by DESCRICAO ';
 
   sqlMenu.Close;
-  sqlMenu.DataSet.CommandText := viSql;
+  sqlMenu.SQL.Text := viSql;
   sqlMenu.Open;
 
   if (pagPrincipal.ActivePageIndex = 1) and (pgcPermissoes.ActivePageIndex = 1) then
@@ -884,7 +885,7 @@ procedure TfrmUsuario.sqlMenuAfterScroll(DataSet: TDataSet);
     viSql := viSql + ' ORDER BY  R.DESCRICAO ';
 
     sqlRotina.Close;
-    sqlRotina.DataSet.CommandText := viSql;
+    sqlRotina.SQL.Text := viSql;
     sqlRotina.Open;
   end;
 

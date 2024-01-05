@@ -1805,7 +1805,6 @@ inherited frmCadSeloLote: TfrmCadSeloLote
       '       G_ST.*,'
       '       G_SG.NUMERO'
       '  FROM G_SELO_LOTE G_ST'
-      
         ' LEFT JOIN G_SELO_GRUPO G_SG ON G_SG.SELO_GRUPO_ID = G_ST.SELO_G' +
         'RUPO_ID'
       ' ORDER BY G_ST.SELO_GRUPO_ID, G_ST.DATA_LOTE  ')
@@ -1909,7 +1908,6 @@ inherited frmCadSeloLote: TfrmCadSeloLote
     FetchOptions.AssignedValues = [evMode]
     FetchOptions.Mode = fmAll
     SQL.Strings = (
-      
         'SELECT * '#13#10'FROM G_SELO_LIVRO'#13#10'WHERE SELO_LOTE_ID = :SELO_LOTE_ID' +
         #13#10'ORDER BY NUMERO')
     Left = 699
@@ -2024,7 +2022,6 @@ inherited frmCadSeloLote: TfrmCadSeloLote
     FetchOptions.AssignedValues = [evMode]
     FetchOptions.Mode = fmAll
     SQL.Strings = (
-      
         'SELECT SG.* , ST.DESCRICAO AS DESCRICAO_TIPO_CARTORIO'#13#10'FROM G_SE' +
         'LO_GRUPO SG'#13#10'LEFT JOIN G_SELO_TIPO_CARTORIO ST ON'#13#10'   SG.TIPO_CA' +
         'RTORIO = ST.SELO_TIPO_CARTORIO_ID'#13#10'ORDER BY SG.DESCRICAO')
@@ -2124,7 +2121,6 @@ inherited frmCadSeloLote: TfrmCadSeloLote
     FetchOptions.AssignedValues = [evMode]
     FetchOptions.Mode = fmAll
     SQL.Strings = (
-      
         'SELECT SO.NOTA_FISCAL,'#13#10'       SL.SELO_LIVRO_ID,'#13#10'       SL.CODI' +
         'GO_EXPORTACAO,'#13#10'       SL.NUMERO_AGRUPADOR,'#13#10'       SL.SIGLA, SL' +
         '.NUMERO,'#13#10'       SG.NUMERO AS TIPO_ATO,'#13#10'       SG.SELO_GRUPO_ID' +

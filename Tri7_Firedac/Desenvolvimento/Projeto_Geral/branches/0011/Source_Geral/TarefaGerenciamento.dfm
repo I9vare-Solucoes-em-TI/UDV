@@ -599,7 +599,6 @@ object FrmTarefaGerenciamento: TFrmTarefaGerenciamento
       '       G_TI.HORA_FINAL              AS ITEM_HORA_FINAL'
       ''
       '  FROM G_TAREFA G_TR'
-      
         ' INNER JOIN G_TAREFA_ITEM G_TI ON G_TR.TAREFA_ID = G_TI.TAREFA_I' +
         'D')
     Left = 304

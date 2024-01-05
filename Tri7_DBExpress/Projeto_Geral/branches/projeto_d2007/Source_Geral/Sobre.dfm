@@ -36,7 +36,6 @@ object frmSobre: TfrmSobre
         'Vers'#227'o 1.0.1'
         ''
         '(C) 2014 Tri7 Solu'#231#245'es em TI. Todos os direiros reservados.'
-        
           'Este '#233' um Software legalizado com Licen'#231'a de Direito de Uso dos ' +
           'Fontes para Tri7 Solu'#231#245'es em TI.'
         ''

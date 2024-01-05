@@ -890,7 +890,6 @@ object frmHoraExtra: TfrmHoraExtra
   object sqlUsuarioHorario: TI9Query
     Connection = dtmControles.DB
     SQL.Strings = (
-      
         'select USUARIO_ID, NOME_COMPLETO, HORA_FIM '#13#10'from G_USUARIO'#13#10'whe' +
         're  CONTROLE_HORARIO = '#39'S'#39#13#10'     and SITUACAO = '#39'A'#39#13#10'order by NO' +
         'ME_COMPLETO')

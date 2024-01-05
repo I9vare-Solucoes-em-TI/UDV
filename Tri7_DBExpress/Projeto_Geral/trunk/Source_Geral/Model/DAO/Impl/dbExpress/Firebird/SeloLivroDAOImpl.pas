@@ -3,6 +3,8 @@ unit SeloLivroDAOImpl;
 interface
 
 uses
+  FireDAC.Stan.Param,
+  I9Connection,
   SeloLivroDAO,
   Data.SqlExpr,
   Data.DB,
@@ -16,17 +18,17 @@ uses
 type
   TSeloLivroDAO = class(TInterfacedObject, ISeloLivroDAO)
   private
-    FSQLConnection: TSQLConnection;
+    FConnection: TI9Connection;
 
     function GetOrderBy(
       const vpCampoOrdenacaoList: TCampoOrdenacaoList): string;
 
     procedure PreencherParametros(
-      const vpParams: TParams;
+      const vpParams: TFDParams;
       const vpValue: ISeloLivro);
   public
     constructor Create(
-      const vpSQLConnection: TSQLConnection); reintroduce;
+      const vpConnection: TI9Connection); reintroduce;
 
     function Get(
       const vpValue: TDataSet): ISeloLivro;
@@ -111,7 +113,7 @@ procedure TSeloLivroDAO.Alterar(
 {$REGION 'Variáveis'}
 var
   viSQL: string;
-  viParams: TParams;
+  viParams: TFDParams;
 {$ENDREGION}
 begin
   viSQL := {$REGION 'Comando SQL UPDATE'}
@@ -152,7 +154,7 @@ begin
 
   {$ENDREGION}
 
-  viParams := TParams.Create;
+  viParams := TFDParams.Create;
   try
     with viParams do
     begin
@@ -197,7 +199,7 @@ begin
     end;
 
     PreencherParametros(viParams, vpValue);
-    FSQLConnection.Execute(viSQL, viParams);
+    FConnection.Execute(viSQL, viParams);
   finally
     FreeAndNil(viParams);
   end;
@@ -216,7 +218,7 @@ const
 {$REGION 'Variáveis'}
 var
   viSQL: string;
-  viParams: TParams;
+  viParams: TFDParams;
 
   viPaginadorList: IPaginadorList<ISeloLivro, TSeloLivroList,
     TList<TSeloLivroList>>;
@@ -247,7 +249,7 @@ begin
 
   {$ENDREGION}
 
-  viParams := TParams.Create;
+  viParams := TFDParams.Create;
   try
     with viParams do
     begin
@@ -277,7 +279,7 @@ begin
         try
           viIDs := viSeloLivroListPaginado.GetIDs;
           try
-            FSQLConnection.Execute(
+            FConnection.Execute(
               string.Format(viSQL, [viIDs.ToString(CI_SEPARATOR)]), viParams);
           finally
             FreeAndNil(viIDs);
@@ -299,7 +301,7 @@ procedure TSeloLivroDAO.AlterarValidado(
 {$REGION 'Variáveis'}
 var
   viSQL: string;
-  viParams: TParams;
+  viParams: TFDParams;
 {$ENDREGION}
 begin
   viSQL := {$REGION 'Comando SQL UPDATE'}
@@ -321,7 +323,7 @@ begin
 
   {$ENDREGION}
 
-  viParams := TParams.Create;
+  viParams := TFDParams.Create;
   try
     with viParams do
     begin
@@ -330,17 +332,17 @@ begin
     end;
 
     PreencherParametros(viParams, vpValue);
-    FSQLConnection.Execute(viSQL, viParams);
+    FConnection.Execute(viSQL, viParams);
   finally
     FreeAndNil(viParams);
   end;
 end;
 
 constructor TSeloLivroDAO.Create(
-  const vpSQLConnection: TSQLConnection);
+  const vpConnection: TI9Connection);
 begin
   inherited Create;
-  FSQLConnection := vpSQLConnection;
+  FConnection := vpConnection;
 end;
 
 function TSeloLivroDAO.Get(
@@ -368,7 +370,7 @@ begin
     if Assigned(viField) and
       viField.IsNull.&Not then
     begin
-      viSeloSituacaoDAO := TSeloSituacaoDAO.Create(FSQLConnection);
+      viSeloSituacaoDAO := TSeloSituacaoDAO.Create(FConnection);
       try
         SeloSituacao := viSeloSituacaoDAO.Get(vpValue);
       finally
@@ -384,7 +386,7 @@ begin
     if Assigned(viField) and
       viField.IsNull.&Not then
     begin
-      viSeloLoteDAO := TSeloLoteDAO.Create(FSQLConnection);
+      viSeloLoteDAO := TSeloLoteDAO.Create(FConnection);
       try
         SeloLote := viSeloLoteDAO.Get(vpValue);
       finally
@@ -412,7 +414,7 @@ begin
     if Assigned(viField) and
       viField.IsNull.&Not then
     begin
-      viUsuarioDAO := TUsuarioDAO.Create(FSQLConnection);
+      viUsuarioDAO := TUsuarioDAO.Create(FConnection);
       try
         Usuario := viUsuarioDAO.Get(vpValue);
       finally
@@ -533,7 +535,7 @@ const
 {$REGION 'Variáveis'}
 var
   viSQL: string;
-  viParams: TParams;
+  viParams: TFDParams;
   viDataSet: TDataSet;
   viOrderBy: string;
   viSeloLivro: ISeloLivro;
@@ -593,7 +595,7 @@ begin
 
   {$ENDREGION}
 
-  viParams := TParams.Create;
+  viParams := TFDParams.Create;
   try
     viParams.CreateParam(TFieldType.ftInteger, 'P_SELO_SITUACAO_ID',
       TParamType.ptInput).AsInteger := vpSeloSituacao.SeloSituacaoID;
@@ -604,7 +606,7 @@ begin
     viParams.CreateParam(TFieldType.ftDateTime, 'P_DATA',
       TParamType.ptInput).AsDateTime := vpMenorIgualData;
 
-    FSQLConnection.Execute(viSQL, viParams, viDataSet);
+    FConnection.Execute(viSQL, viParams, viDataSet);
     try
       if viDataSet.IsEmpty then
         Exit;
@@ -650,7 +652,7 @@ const
 {$REGION 'Variáveis'}
 var
   viSQL: string;
-  viParams: TParams;
+  viParams: TFDParams;
   viDataSet: TDataSet;
   viOrderBy: string;
   viSeloLivro: ISeloLivro;
@@ -710,7 +712,7 @@ begin
 
   {$ENDREGION}
 
-  viParams := TParams.Create;
+  viParams := TFDParams.Create;
   try
     viParams.CreateParam(TFieldType.ftInteger, 'P_SELO_SITUACAO_ID',
       TParamType.ptInput).AsInteger := vpSeloSituacao.SeloSituacaoID;
@@ -724,7 +726,7 @@ begin
     viParams.CreateParam(TFieldType.ftDateTime, 'P_DATA_FINAL',
       TParamType.ptInput).AsDateTime := vpIntervaloDatas.DataFinal;
 
-    FSQLConnection.Execute(viSQL, viParams, viDataSet);
+    FConnection.Execute(viSQL, viParams, viDataSet);
     try
       if viDataSet.IsEmpty then
         Exit;
@@ -784,11 +786,11 @@ begin
 end;
 
 procedure TSeloLivroDAO.PreencherParametros(
-  const vpParams: TParams;
+  const vpParams: TFDParams;
   const vpValue: ISeloLivro);
 {$REGION 'Variáveis'}
 var
-  viParam: TParam;
+  viParam: TFDParam;
 {$ENDREGION}
 begin
   with vpParams, vpValue do

@@ -1311,9 +1311,9 @@ object frmExportarSelo: TfrmExportarSelo
     TabOrder = 4
     Visible = False
   end
-  object sqlSelos: TSimpleDataSet
+  object sqlSelos: TI9Query
     Aggregates = <>
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT SO.NOTA_FISCAL,'#13#10'       SL.SELO_LIVRO_ID, '#13#10'       SL.COD' +
       'IGO_EXPORTACAO,'#13#10'       SL.NUMERO_AGRUPADOR,'#13#10'       SL.SIGLA, S' +
       'L.NUMERO,'#13#10'       SG.NUMERO AS TIPO_ATO,'#13#10'       SL.APRESENTANTE' +
@@ -1325,9 +1325,8 @@ object frmExportarSelo: TfrmExportarSelo
       ' G_SELO_LIVRO SL'#13#10'LEFT JOIN G_SELO_LOTE SO ON'#13#10'  SL.SELO_LOTE_ID' +
       ' = SO.SELO_LOTE_ID'#13#10'LEFT JOIN G_SELO_GRUPO SG ON'#13#10'  SO.SELO_GRUP' +
       'O_ID = SG.SELO_GRUPO_ID'#13#10'LEFT JOIN G_USUARIO U ON'#13#10'  SL.USUARIO_' +
-      'ID = U.USUARIO_ID'#13#10'WHERE SL.CAMPO_ID = 4120'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <>
+      'ID = U.USUARIO_ID'#13#10'WHERE SL.CAMPO_ID = 4120')
+    ParamData = <>
     Params = <>
     OnCalcFields = sqlSelosCalcFields
     Left = 11
@@ -1344,12 +1343,12 @@ object frmExportarSelo: TfrmExportarSelo
       FieldName = 'SIGLA'
       Size = 30
     end
-    object sqlSelosNUMERO: TFMTBCDField
+    object sqlSelosNUMERO: TBCDField
       FieldName = 'NUMERO'
       Precision = 20
       Size = 2
     end
-    object sqlSelosTIPO_ATO: TFMTBCDField
+    object sqlSelosTIPO_ATO: TBCDField
       FieldName = 'TIPO_ATO'
       Precision = 20
       Size = 2
@@ -1369,36 +1368,36 @@ object frmExportarSelo: TfrmExportarSelo
       FieldName = 'IP_MAQUINA'
       Size = 30
     end
-    object sqlSelosVALOR_TOTAL: TFMTBCDField
+    object sqlSelosVALOR_TOTAL: TBCDField
       FieldName = 'VALOR_TOTAL'
       currency = True
       Precision = 20
       Size = 3
     end
-    object sqlSelosVALOR_EMOLUMENTO: TFMTBCDField
+    object sqlSelosVALOR_EMOLUMENTO: TBCDField
       FieldName = 'VALOR_EMOLUMENTO'
       currency = True
       Precision = 20
       Size = 3
     end
-    object sqlSelosVALOR_TAXA_JUDICIARIA: TFMTBCDField
+    object sqlSelosVALOR_TAXA_JUDICIARIA: TBCDField
       FieldName = 'VALOR_TAXA_JUDICIARIA'
       currency = True
       Precision = 20
       Size = 3
     end
-    object sqlSelosVALOR_FUNDESP: TFMTBCDField
+    object sqlSelosVALOR_FUNDESP: TBCDField
       FieldName = 'VALOR_FUNDESP'
       currency = True
       Precision = 20
       Size = 3
     end
-    object sqlSelosCODIGO_GRATUITO: TFMTBCDField
+    object sqlSelosCODIGO_GRATUITO: TBCDField
       FieldName = 'CODIGO_GRATUITO'
       Precision = 20
       Size = 2
     end
-    object sqlSelosPROTOCOLO: TFMTBCDField
+    object sqlSelosPROTOCOLO: TBCDField
       FieldName = 'PROTOCOLO'
       Precision = 20
       Size = 2
@@ -1414,7 +1413,7 @@ object frmExportarSelo: TfrmExportarSelo
       FieldKind = fkInternalCalc
       FieldName = 'CALC_SELECIONADO'
     end
-    object sqlSelosSELO_LIVRO_ID: TFMTBCDField
+    object sqlSelosSELO_LIVRO_ID: TBCDField
       FieldName = 'SELO_LIVRO_ID'
       Precision = 20
       Size = 2
@@ -1424,7 +1423,7 @@ object frmExportarSelo: TfrmExportarSelo
       FieldName = 'CALC_EXPORTADO'
       Calculated = True
     end
-    object sqlSelosCODIGO_EXPORTACAO: TFMTBCDField
+    object sqlSelosCODIGO_EXPORTACAO: TBCDField
       FieldName = 'CODIGO_EXPORTACAO'
       Precision = 20
       Size = 2
@@ -1433,7 +1432,7 @@ object frmExportarSelo: TfrmExportarSelo
       FieldName = 'VALIDADO'
       Size = 1
     end
-    object sqlSelosSISTEMA_ID: TFMTBCDField
+    object sqlSelosSISTEMA_ID: TBCDField
       FieldName = 'SISTEMA_ID'
       Precision = 20
       Size = 2
@@ -1480,14 +1479,13 @@ object frmExportarSelo: TfrmExportarSelo
       OnClick = ExportarparaExcel1Click
     end
   end
-  object sqlTipoSelo: TSimpleDataSet
+  object sqlTipoSelo: TI9Query
     Aggregates = <>
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT SELO_GRUPO_ID, DESCRICAO_COMPLETA, NUMERO'#13#10'FROM G_SELO_GR' +
       'UPO'#13#10'WHERE TIPO_CARTORIO = :TIPO_CARTORIO'#13#10'     AND SITUACAO = '#39 +
-      'A'#39#13#10'ORDER BY NUMERO'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <
+      'A'#39#13#10'ORDER BY NUMERO')
+    ParamData = <
       item
         DataType = ftBCD
         Name = 'TIPO_CARTORIO'
@@ -1496,7 +1494,7 @@ object frmExportarSelo: TfrmExportarSelo
     Params = <>
     Left = 134
     Top = 323
-    object sqlTipoSeloSELO_GRUPO_ID: TFMTBCDField
+    object sqlTipoSeloSELO_GRUPO_ID: TBCDField
       FieldName = 'SELO_GRUPO_ID'
       Precision = 20
       Size = 2
@@ -1505,7 +1503,7 @@ object frmExportarSelo: TfrmExportarSelo
       FieldName = 'DESCRICAO_COMPLETA'
       Size = 260
     end
-    object sqlTipoSeloNUMERO: TFMTBCDField
+    object sqlTipoSeloNUMERO: TBCDField
       FieldName = 'NUMERO'
       Precision = 20
       Size = 2
@@ -1516,26 +1514,24 @@ object frmExportarSelo: TfrmExportarSelo
     Left = 135
     Top = 396
   end
-  object sqlSeloLote: TSimpleDataSet
+  object sqlSeloLote: TI9Query
     Aggregates = <>
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT SELO_LOTE_ID, NOTA_FISCAL, SELO_GRUPO_ID'#13#10'FROM G_SELO_LOT' +
-      'E'#13#10'WHERE SELO_GRUPO_ID = :SELO_GRUPO_ID'#13#10'ORDER BY NOTA_FISCAL'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <
+      'E'#13#10'WHERE SELO_GRUPO_ID = :SELO_GRUPO_ID'#13#10'ORDER BY NOTA_FISCAL')
+    ParamData = <
       item
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Name = 'SELO_GRUPO_ID'
         ParamType = ptInput
       end>
     IndexFieldNames = 'SELO_GRUPO_ID'
     MasterFields = 'SELO_GRUPO_ID'
     MasterSource = dtsTipoSelo
-    PacketRecords = 0
     Params = <>
     Left = 169
     Top = 324
-    object sqlSeloLoteSELO_LOTE_ID: TFMTBCDField
+    object sqlSeloLoteSELO_LOTE_ID: TBCDField
       FieldName = 'SELO_LOTE_ID'
       Precision = 20
       Size = 2
@@ -1544,7 +1540,7 @@ object frmExportarSelo: TfrmExportarSelo
       FieldName = 'NOTA_FISCAL'
       Size = 30
     end
-    object sqlSeloLoteSELO_GRUPO_ID: TFMTBCDField
+    object sqlSeloLoteSELO_GRUPO_ID: TBCDField
       FieldName = 'SELO_GRUPO_ID'
       Precision = 20
       Size = 2
@@ -1607,13 +1603,13 @@ object frmExportarSelo: TfrmExportarSelo
       end
       item
         Name = 'NUMERO'
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Precision = 20
         Size = 2
       end
       item
         Name = 'TIPO_ATO'
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Precision = 20
         Size = 2
       end
@@ -1638,25 +1634,25 @@ object frmExportarSelo: TfrmExportarSelo
       end
       item
         Name = 'VALOR_TOTAL'
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Precision = 20
         Size = 3
       end
       item
         Name = 'VALOR_EMOLUMENTO'
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Precision = 20
         Size = 3
       end
       item
         Name = 'VALOR_TAXA_JUDICIARIA'
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Precision = 20
         Size = 3
       end
       item
         Name = 'VALOR_FUNDESP'
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Precision = 20
         Size = 3
       end
@@ -1679,7 +1675,7 @@ object frmExportarSelo: TfrmExportarSelo
       end
       item
         Name = 'SELO_LIVRO_ID'
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Precision = 20
         Size = 2
       end
@@ -1689,7 +1685,7 @@ object frmExportarSelo: TfrmExportarSelo
       end
       item
         Name = 'CODIGO_EXPORTACAO'
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Precision = 20
         Size = 2
       end
@@ -1714,7 +1710,7 @@ object frmExportarSelo: TfrmExportarSelo
       end
       item
         Name = 'SISTEMA_ID'
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Precision = 20
         Size = 2
       end>
@@ -1742,12 +1738,12 @@ object frmExportarSelo: TfrmExportarSelo
       FieldName = 'SIGLA'
       Size = 30
     end
-    object cdsSelosNUMERO: TFMTBCDField
+    object cdsSelosNUMERO: TBCDField
       FieldName = 'NUMERO'
       Precision = 20
       Size = 2
     end
-    object cdsSelosTIPO_ATO: TFMTBCDField
+    object cdsSelosTIPO_ATO: TBCDField
       FieldName = 'TIPO_ATO'
       Precision = 20
       Size = 2
@@ -1767,25 +1763,25 @@ object frmExportarSelo: TfrmExportarSelo
       FieldName = 'IP_MAQUINA'
       Size = 30
     end
-    object cdsSelosVALOR_TOTAL: TFMTBCDField
+    object cdsSelosVALOR_TOTAL: TBCDField
       FieldName = 'VALOR_TOTAL'
       currency = True
       Precision = 20
       Size = 3
     end
-    object cdsSelosVALOR_EMOLUMENTO: TFMTBCDField
+    object cdsSelosVALOR_EMOLUMENTO: TBCDField
       FieldName = 'VALOR_EMOLUMENTO'
       currency = True
       Precision = 20
       Size = 3
     end
-    object cdsSelosVALOR_TAXA_JUDICIARIA: TFMTBCDField
+    object cdsSelosVALOR_TAXA_JUDICIARIA: TBCDField
       FieldName = 'VALOR_TAXA_JUDICIARIA'
       currency = True
       Precision = 20
       Size = 3
     end
-    object cdsSelosVALOR_FUNDESP: TFMTBCDField
+    object cdsSelosVALOR_FUNDESP: TBCDField
       FieldName = 'VALOR_FUNDESP'
       currency = True
       Precision = 20
@@ -1805,7 +1801,7 @@ object frmExportarSelo: TfrmExportarSelo
     object cdsSelosCALC_SELECIONADO: TBooleanField
       FieldName = 'CALC_SELECIONADO'
     end
-    object cdsSelosSELO_LIVRO_ID: TFMTBCDField
+    object cdsSelosSELO_LIVRO_ID: TBCDField
       FieldName = 'SELO_LIVRO_ID'
       Precision = 20
       Size = 2
@@ -1813,7 +1809,7 @@ object frmExportarSelo: TfrmExportarSelo
     object cdsSelosCALC_EXPORTADO: TBooleanField
       FieldName = 'CALC_EXPORTADO'
     end
-    object cdsSelosCODIGO_EXPORTACAO: TFMTBCDField
+    object cdsSelosCODIGO_EXPORTACAO: TBCDField
       FieldName = 'CODIGO_EXPORTACAO'
       Precision = 20
       Size = 2
@@ -1822,7 +1818,7 @@ object frmExportarSelo: TfrmExportarSelo
       FieldName = 'VALIDADO_TJ'
       Size = 1
     end
-    object cdsSelosSISTEMA_ID: TFMTBCDField
+    object cdsSelosSISTEMA_ID: TBCDField
       FieldName = 'SISTEMA_ID'
       Precision = 20
       Size = 2
@@ -1839,13 +1835,12 @@ object frmExportarSelo: TfrmExportarSelo
       Size = 1
     end
   end
-  object sqlTipoCodigo: TSimpleDataSet
+  object sqlTipoCodigo: TI9Query
     Aggregates = <>
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT SELO_GRUPO_ID, NUMERO'#13#10'FROM G_SELO_GRUPO'#13#10'WHERE TIPO_CART' +
-      'ORIO = :TIPO_CARTORIO'#13#10'     AND SITUACAO = '#39'A'#39#13#10'ORDER BY NUMERO'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <
+      'ORIO = :TIPO_CARTORIO'#13#10'     AND SITUACAO = '#39'A'#39#13#10'ORDER BY NUMERO')
+    ParamData = <
       item
         DataType = ftBCD
         Name = 'TIPO_CARTORIO'
@@ -1854,12 +1849,12 @@ object frmExportarSelo: TfrmExportarSelo
     Params = <>
     Left = 254
     Top = 308
-    object sqlTipoCodigoSELO_GRUPO_ID: TFMTBCDField
+    object sqlTipoCodigoSELO_GRUPO_ID: TBCDField
       FieldName = 'SELO_GRUPO_ID'
       Precision = 20
       Size = 2
     end
-    object sqlTipoCodigoNUMERO: TFMTBCDField
+    object sqlTipoCodigoNUMERO: TBCDField
       FieldName = 'NUMERO'
       Precision = 20
       Size = 2

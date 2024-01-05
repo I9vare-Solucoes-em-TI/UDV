@@ -1691,7 +1691,6 @@ object frmCadastroRapidoTarefa: TfrmCadastroRapidoTarefa
     SQL.Strings = (
       '  SELECT G_US.NOME_COMPLETO, G_US.USUARIO_ID'
       '    FROM G_TAREFA_RESPONSAVEL G_TR'
-      
         '   INNER JOIN G_USUARIO G_US ON G_US.USUARIO_ID = G_TR.USUARIO_I' +
         'D'
       '   WHERE G_TR.TAREFA_ID = :TAREFA_ID'

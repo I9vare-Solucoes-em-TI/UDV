@@ -3,6 +3,8 @@ unit NaturezaTituloDAO;
 interface
 
 uses
+  I9Query,
+  I9Connection,
   NaturezaTitulo,
   NaturezasTitulo;
 
@@ -33,20 +35,20 @@ function TNaturezaTituloDAO.Get(
   const vpNaturezaTituloID: Integer): TNaturezaTitulo;
 {$REGION 'Variáveis'}
 var
-  viSQLDataSet: TSQLDataSet;
+  viSQLDataSet: TI9Query;
   viConfiguracaoRelatorioDAO: TConfiguracaoRelatorioDAO;
 {$ENDREGION}
 begin
   Result := nil;
 
-  viSQLDataSet := TSQLDataSet.Create(nil);
-  viSQLDataSet.SQLConnection := dtmControles.DB;
+  viSQLDataSet := TI9Query.Create(nil);
+  viSQLDataSet.Connection := dtmControles.DB;
 
   try
     with viSQLDataSet do
     begin
       {$REGION 'Comando SQL SELECT'}
-      CommandText :=
+      SQL.Text :=
         'SELECT ' +
 
         {$REGION 'Colunas'}
@@ -111,19 +113,19 @@ function TNaturezaTituloDAO.Get(
   const vpSistemaID: Integer): TNaturezasTitulo;
 {$REGION 'Variáveis'}
 var
-  viSQLDataSet: TSQLDataSet;
+  viSQLDataSet: TI9Query;
 {$ENDREGION}
 begin
   Result := nil;
 
-  viSQLDataSet := TSQLDataSet.Create(nil);
-  viSQLDataSet.SQLConnection := dtmControles.DB;
+  viSQLDataSet := TI9Query.Create(nil);
+  viSQLDataSet.Connection := dtmControles.DB;
 
   try
     with viSQLDataSet do
     begin
       {$REGION 'Comando SQL SELECT'}
-      CommandText :=
+      SQL.Text :=
         'SELECT ' +
 
         {$REGION 'Colunas'}

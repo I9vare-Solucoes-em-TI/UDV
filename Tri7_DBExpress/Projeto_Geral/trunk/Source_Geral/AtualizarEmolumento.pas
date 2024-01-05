@@ -3,6 +3,7 @@ unit AtualizarEmolumento;
 interface
 
 uses
+  I9Query,
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, Menus, DB, DBClient, SimpleDS,
   cxControls, cxContainer, cxEdit,
@@ -22,31 +23,31 @@ type
     Panel1: TPanel;
     SpeedButton2: TSpeedButton;
     btnFechar: TcxButton;
-    sqlAtualizar: TSimpleDataSet;
+    sqlAtualizar: TI9Query;
     cdsPeriodo: TClientDataSet;
-    cdsPeriodoEMOLUMENTO_PERIODO_ID: TFMTBCDField;
+    cdsPeriodoEMOLUMENTO_PERIODO_ID: TBCDField;
     cdsPeriodoDESCRICAO: TStringField;
     cdsPeriodoSITUACAO: TStringField;
     cdsPeriodoDATA_INICIAL: TSQLTimeStampField;
     cdsEmolumento: TClientDataSet;
-    cdsEmolumentoEMOLUMENTO_ID: TFMTBCDField;
+    cdsEmolumentoEMOLUMENTO_ID: TBCDField;
     cdsEmolumentoDESCRICAO: TStringField;
     cdsEmolumentoTIPO: TStringField;
-    cdsEmolumentoSISTEMA_ID: TFMTBCDField;
-    cdsEmolumentoSELO_GRUPO_ID: TFMTBCDField;
+    cdsEmolumentoSISTEMA_ID: TBCDField;
+    cdsEmolumentoSELO_GRUPO_ID: TBCDField;
     cdsEmolumentoSITUACAO: TStringField;
     cdsEmolumentoItem: TClientDataSet;
-    cdsEmolumentoItemVALOR_EMOLUMENTO: TFMTBCDField;
-    cdsEmolumentoItemEMOLUMENTO_ITEM_ID: TFMTBCDField;
-    cdsEmolumentoItemEMOLUMENTO_ID: TFMTBCDField;
-    cdsEmolumentoItemVALOR_INICIO: TFMTBCDField;
-    cdsEmolumentoItemVALOR_FIM: TFMTBCDField;
-    cdsEmolumentoItemVALOR_TAXA_JUDICIARIA: TFMTBCDField;
-    cdsEmolumentoItemEMOLUMENTO_PERIODO_ID: TFMTBCDField;
-    cdsEmolumentoItemCODIGO: TFMTBCDField;
-    cdsEmolumentoItemPAGINA_EXTRA: TFMTBCDField;
-    cdsEmolumentoItemVALOR_PAGINA_EXTRA: TFMTBCDField;
-    cdsEmolumentoItemVALOR_OUTRA_TAXA1: TFMTBCDField;
+    cdsEmolumentoItemVALOR_EMOLUMENTO: TBCDField;
+    cdsEmolumentoItemEMOLUMENTO_ITEM_ID: TBCDField;
+    cdsEmolumentoItemEMOLUMENTO_ID: TBCDField;
+    cdsEmolumentoItemVALOR_INICIO: TBCDField;
+    cdsEmolumentoItemVALOR_FIM: TBCDField;
+    cdsEmolumentoItemVALOR_TAXA_JUDICIARIA: TBCDField;
+    cdsEmolumentoItemEMOLUMENTO_PERIODO_ID: TBCDField;
+    cdsEmolumentoItemCODIGO: TBCDField;
+    cdsEmolumentoItemPAGINA_EXTRA: TBCDField;
+    cdsEmolumentoItemVALOR_PAGINA_EXTRA: TBCDField;
+    cdsEmolumentoItemVALOR_OUTRA_TAXA1: TBCDField;
     cdsEmolumentoItemCODIGO_SELO: TStringField;
     cxGroupBox18: TcxGroupBox;
     cxGrid2: TcxGrid;
@@ -72,12 +73,12 @@ type
     dtsEmolumentoItem: TDataSource;
     Label14: TLabel;
     cxDBTextEdit1: TcxDBTextEdit;
-    sqlG_Emolumento: TSimpleDataSet;
-    sqlG_EmolumentoEMOLUMENTO_ID: TFMTBCDField;
+    sqlG_Emolumento: TI9Query;
+    sqlG_EmolumentoEMOLUMENTO_ID: TBCDField;
     sqlG_EmolumentoDESCRICAO: TStringField;
     sqlG_EmolumentoTIPO: TStringField;
-    sqlG_EmolumentoSISTEMA_ID: TFMTBCDField;
-    sqlG_EmolumentoSELO_GRUPO_ID: TFMTBCDField;
+    sqlG_EmolumentoSISTEMA_ID: TBCDField;
+    sqlG_EmolumentoSELO_GRUPO_ID: TBCDField;
     sqlG_EmolumentoSITUACAO: TStringField;
     dtsG_Emolumento: TDataSource;
     cdsEmolumentocalc_tabelasys: TIntegerField;
@@ -124,10 +125,10 @@ begin
   with sqlG_Emolumento do
   begin
     Active := False;
-    DataSet.CommandText := ' SELECT * FROM G_EMOLUMENTO '+
+    SQL.Text := ' SELECT * FROM G_EMOLUMENTO '+
                            ' WHERE SISTEMA_ID = :SISTEMA_ID '+
                            ' ORDER BY DESCRICAO ';
-    DataSet.Params[0].AsCurrency := vgId;
+    Params[0].AsCurrency := vgId;
     Active := True;
   end;
 end;

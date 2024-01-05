@@ -28,10 +28,10 @@ type
     cxGridBasicaDBDescricao: TcxGridDBColumn;
     cxGridBasicaDBSituacao: TcxGridDBColumn;
     grdBasicaLevel1: TcxGridLevel;
-    ClientAncestralSELO_GRUPO_ID: TFMTBCDField;
+    ClientAncestralSELO_GRUPO_ID: TBCDField;
     ClientAncestralDESCRICAO: TStringField;
     ClientAncestralSITUACAO: TStringField;
-    ClientAncestralNUMERO: TFMTBCDField;
+    ClientAncestralNUMERO: TBCDField;
     grdBasicaDBTableViewNUMERO: TcxGridDBColumn;
     ClientAncestralCONTROLE_AUTOMATICO: TStringField;
     grdBasicaDBTableView1Column2: TcxGridDBColumn;

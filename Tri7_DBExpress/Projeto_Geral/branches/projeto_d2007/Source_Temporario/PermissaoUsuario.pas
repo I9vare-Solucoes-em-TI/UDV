@@ -3,6 +3,7 @@ unit PermissaoUsuario;
 interface
 
 uses
+  I9Query,
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, ExtCtrls, StdCtrls, DBCtrls, ComCtrls, DB, DBClient, SimpleDS,
   ImgList, Buttons, Grids, DBGrids, cxControls, cxContainer, cxEdit,
@@ -32,19 +33,19 @@ type
     Panel2: TPanel;
     StatusBar1: TStatusBar;
     Panel3: TPanel;
-    sqlRotina: TSimpleDataSet;
-    sqlUsuario: TSimpleDataSet;
+    sqlRotina: TI9Query;
+    sqlUsuario: TI9Query;
     dsUsuario: TDataSource;
     ImageList1: TImageList;
-    sqlPermusuario: TSimpleDataSet;
+    sqlPermusuario: TI9Query;
     lcbUsuario: TcxLookupComboBox;
     grdRotinas: TcxGrid;
     grdRotinasDBTableView1: TcxGridDBTableView;
     grdRotinasLevel1: TcxGridLevel;
     dsRotina: TDataSource;
-    sqlRotinaSISTEMA_ROTINA_ID: TFMTBCDField;
+    sqlRotinaSISTEMA_ROTINA_ID: TBCDField;
     sqlRotinaDESCROTINA: TStringField;
-    sqlRotinaSISTEMA_MENU_ID: TFMTBCDField;
+    sqlRotinaSISTEMA_MENU_ID: TBCDField;
     sqlRotinaDESCMENU: TStringField;
     grdRotinasDBTableView1SISTEMA_ROTINA_ID: TcxGridDBColumn;
     grdRotinasDBTableView1DESCROTINA: TcxGridDBColumn;
@@ -52,7 +53,7 @@ type
     grdRotinasDBTableView1DESCMENU: TcxGridDBColumn;
     grdRotinasDBTableView1DBColumn1: TcxGridDBColumn;
     Label1: TLabel;
-    sqlUsuarioUSUARIO_ID: TFMTBCDField;
+    sqlUsuarioUSUARIO_ID: TBCDField;
     sqlUsuarioTROCARSENHA: TStringField;
     sqlUsuarioLOGIN: TStringField;
     sqlUsuarioSENHA: TStringField;
@@ -60,8 +61,8 @@ type
     sqlUsuarioNOME_COMPLETO: TStringField;
     sqlUsuarioFUNCAO: TStringField;
     sqlUsuarioASSINA: TStringField;
-    sqlPermusuarioSISTEMA_ROTINA_ID: TFMTBCDField;
-    sqlPermusuarioUSUARIO_ID: TFMTBCDField;
+    sqlPermusuarioSISTEMA_ROTINA_ID: TBCDField;
+    sqlPermusuarioUSUARIO_ID: TBCDField;
     sqlPermusuarioPERMISSAO: TStringField;
     GroupBox1: TcxGroupBox;
     CheckBox6: TcxCheckBox;
@@ -162,11 +163,11 @@ begin
   sqlPermusuario.Connection := dtmControles.DB;
 
   sqlRotina.Close;
-  sqlRotina.DataSet.Params[0].AsInteger := vgId;
+  sqlRotina.Params[0].AsInteger := vgId;
   sqlRotina.Open;
 
   sqlUsuario.Close;
-  sqlUsuario.DataSet.Params[0].AsInteger := vgId;
+  sqlUsuario.Params[0].AsInteger := vgId;
   sqlUsuario.Open;
 
   lcbUsuario.EditValue := sqlUsuarioUSUARIO_ID.AsInteger;
@@ -188,7 +189,7 @@ begin
    with sqlPermusuario do
    begin
       Close;
-      DataSet.Params[0].Value := lcbUsuario.EditValue;
+      Params[0].Value := lcbUsuario.EditValue;
       Open;
    end;
 end;

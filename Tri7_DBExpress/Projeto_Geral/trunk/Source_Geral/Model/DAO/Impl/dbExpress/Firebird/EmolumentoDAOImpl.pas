@@ -3,6 +3,9 @@ unit EmolumentoDAOImpl;
 interface
 
 uses
+  FireDAC.Stan.Param,
+  I9Query,
+  I9Connection,
   EmolumentoDAO,
   Data.SqlExpr,
   Data.DB,
@@ -13,14 +16,14 @@ uses
 type
   TEmolumentoDAO = class(TInterfacedObject, IEmolumentoDAO)
   private
-    FSQLConnection: TSQLConnection;
+    FConnection: TI9Connection;
 
     procedure PreencherParametros(
-      const vpSQLDataSet: TSQLDataSet;
+      const vpI9Query: TI9Query;
       const vpValue: IEmolumento);
   public
     constructor Create(
-      const vpSQLConnection: TSQLConnection); reintroduce;
+      const vpConnection: TI9Connection); reintroduce;
 
     function Get(
       const vpValue: TDataSet;
@@ -64,10 +67,10 @@ uses
 { TEmolumentoDAO }
 
 constructor TEmolumentoDAO.Create(
-  const vpSQLConnection: TSQLConnection);
+  const vpConnection: TI9Connection);
 begin
   inherited Create;
-  FSQLConnection := vpSQLConnection;
+  FConnection := vpConnection;
 end;
 
 function TEmolumentoDAO.Get(
@@ -95,7 +98,7 @@ begin
     viField := FindField(string.Format('G_S%s_SISTEMA_ID', [vpPrefixSistema]));
     if Assigned(viField) then
     begin
-      viSistemaDAO := TSistemaDAO.Create(FSQLConnection);
+      viSistemaDAO := TSistemaDAO.Create(FConnection);
       try
         Sistema := viSistemaDAO.Get(
           vpValue,
@@ -121,7 +124,7 @@ const
 {$REGION 'Variáveis'}
 var
   viSQL: string;
-  viParams: TParams;
+  viParams: TFDParams;
   viDataSet: TDataSet;
 {$ENDREGION}
 begin
@@ -155,14 +158,14 @@ begin
 
   {$ENDREGION}
 
-  viParams := TParams.Create;
+  viParams := TFDParams.Create;
   try
     viParams.CreateParam(
       TFieldType.ftInteger,
       'P_EMOLUMENTO_ID',
       TParamType.ptInput).AsInteger := vpValue;
 
-    FSQLConnection.Execute(
+    FConnection.Execute(
       viSQL,
       viParams,
       viDataSet);
@@ -206,15 +209,15 @@ end;
 function TEmolumentoDAO.GetList: TEmolumentoList;
 {$REGION 'Variáveis'}
 var
-  viSQLDataSet: TSQLDataSet;
+  viSQLDataSet: TI9Query;
   viSQL: TStrings;
   viEmolumento: IEmolumento;
 {$ENDREGION}
 begin
   Result := TEmolumentoList.Create;
 
-  viSQLDataSet := TSQLDataSet.Create(nil);
-  viSQLDataSet.SQLConnection := FSQLConnection;
+  viSQLDataSet := TI9Query.Create(nil);
+  viSQLDataSet.Connection := FConnection;
 
   viSQL := TStringList.Create;
 
@@ -254,7 +257,7 @@ begin
         {$ENDREGION}
       end;
 
-      CommandText := viSQL.Text;
+      SQL.Text := viSQL.Text;
       Open;
 
       try
@@ -290,7 +293,7 @@ const
 {$REGION 'Variáveis'}
 var
   viSQL: string;
-  viParams: TParams;
+  viParams: TFDParams;
   viDataSet: TDataSet;
   viEmolumento: IEmolumento;
 {$ENDREGION}
@@ -315,7 +318,7 @@ begin
 
   {$ENDREGION}
 
-  viParams := TParams.Create;
+  viParams := TFDParams.Create;
   try
     viParams.CreateParam(TFieldType.ftInteger,
       'P_SISTEMA_ID', TParamType.ptInput).AsInteger := vpSistema.SistemaID;
@@ -324,7 +327,7 @@ begin
       'P_SITUACAO', TParamType.ptInput).AsString :=
         vpSituacao.ToCharAtivoInativo;
 
-    FSQLConnection.Execute(viSQL, viParams, viDataSet);
+    FConnection.Execute(viSQL, viParams, viDataSet);
     try
       try
         if viDataSet.IsEmpty then
@@ -352,14 +355,14 @@ begin
 end;
 
 procedure TEmolumentoDAO.PreencherParametros(
-  const vpSQLDataSet: TSQLDataSet;
+  const vpI9Query: TI9Query;
   const vpValue: IEmolumento);
 {$REGION 'Variáveis'}
 var
-  viParam: TParam;
+  viParam: TFDParam;
 {$ENDREGION}
 begin
-  with vpSQLDataSet.Params, vpValue do
+  with vpI9Query.Params, vpValue do
   begin
     viParam := FindParam('P_EMOLUMENTO_ID');
     if Assigned(viParam) then
@@ -387,12 +390,12 @@ procedure TEmolumentoDAO.Inserir(
   const vpValue: IEmolumento);
 {$REGION 'Variáveis'}
 var
-  viSQLDataSet: TSQLDataSet;
+  viSQLDataSet: TI9Query;
   viSQL: TStrings;
 {$ENDREGION}
 begin
-  viSQLDataSet := TSQLDataSet.Create(nil);
-  viSQLDataSet.SQLConnection := FSQLConnection;
+  viSQLDataSet := TI9Query.Create(nil);
+  viSQLDataSet.Connection := FConnection;
 
   viSQL := TStringList.Create;
 
@@ -429,7 +432,7 @@ begin
         {$ENDREGION}
       end;
 
-      CommandText := viSQL.Text;
+      SQL.Text := viSQL.Text;
       PreencherParametros(viSQLDataSet, vpValue);
       ExecSQL;
     end;

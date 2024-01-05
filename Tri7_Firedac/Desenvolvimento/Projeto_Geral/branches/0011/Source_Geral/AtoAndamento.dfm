@@ -400,7 +400,6 @@ inherited frmAtoAndamento: TfrmAtoAndamento
   end
   inherited DataSetAncestral: TI9Query
     SQL.Strings = (
-      
         'SELECT * '#13#10'FROM T_ATO_ANDAMENTO'#13#10'WHERE ATO_ID = :ATO_ID'#13#10'ORDER B' +
         'Y ATO_ANDAMENTO_ID')
     Left = 475
@@ -503,7 +502,6 @@ inherited frmAtoAndamento: TfrmAtoAndamento
     FetchOptions.AssignedValues = [evMode]
     FetchOptions.Mode = fmAll
     SQL.Strings = (
-      
         'SELECT *'#13#10'FROM T_TB_ANDAMENTOSERVICO'#13#10'WHERE SITUACAO = '#39'A'#39#13#10'    ' +
         ' AND TIPO = '#39'G'#39)
     Left = 396

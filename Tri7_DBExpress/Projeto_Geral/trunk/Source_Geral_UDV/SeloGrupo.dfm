@@ -406,9 +406,8 @@ inherited frmCadSeloGrupo: TfrmCadSeloGrupo
       Visible = False
     end
   end
-  inherited DataSetAncestral: TSQLDataSet
-    SchemaName = 'SYSDBA'
-    CommandText = 'SELECT *'#13#10'FROM G_SELO_GRUPO'#13#10'ORDER BY TIPO_CARTORIO, NUMERO'
+  inherited DataSetAncestral: TI9Query
+    SQL.Strings = ('SELECT *'#13#10'FROM G_SELO_GRUPO'#13#10'ORDER BY TIPO_CARTORIO, NUMERO')
     Left = 275
     Top = 298
   end
@@ -419,7 +418,7 @@ inherited frmCadSeloGrupo: TfrmCadSeloGrupo
   inherited ClientAncestral: TClientDataSet
     Left = 339
     Top = 298
-    object ClientAncestralSELO_GRUPO_ID: TFMTBCDField
+    object ClientAncestralSELO_GRUPO_ID: TBCDField
       FieldName = 'SELO_GRUPO_ID'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
       Required = True
@@ -434,7 +433,7 @@ inherited frmCadSeloGrupo: TfrmCadSeloGrupo
       FieldName = 'SITUACAO'
       Size = 1
     end
-    object ClientAncestralNUMERO: TFMTBCDField
+    object ClientAncestralNUMERO: TBCDField
       FieldName = 'NUMERO'
       Precision = 20
       Size = 2
@@ -451,7 +450,7 @@ inherited frmCadSeloGrupo: TfrmCadSeloGrupo
       FieldName = 'DESCRICAO_COMPLETA'
       Size = 260
     end
-    object ClientAncestralESTOQUE_MINIMO: TFMTBCDField
+    object ClientAncestralESTOQUE_MINIMO: TBCDField
       FieldName = 'ESTOQUE_MINIMO'
       Precision = 20
       Size = 2

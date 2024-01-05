@@ -540,7 +540,7 @@ inherited frmContaCreditoAdicionar: TfrmContaCreditoAdicionar
       Transparent = True
     end
   end
-  inherited DataSetAncestral: TSQLDataSet
+  inherited DataSetAncestral: TI9Query
     Left = 483
     Top = 83
   end

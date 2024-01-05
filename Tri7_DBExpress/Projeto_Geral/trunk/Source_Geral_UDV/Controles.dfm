@@ -97,26 +97,23 @@ object dtmControles: TdtmControles
     Left = 262
     Top = 157
   end
-  object SimpleAuxiliar: TSimpleDataSet
+  object SimpleAuxiliar: TI9Query
     Aggregates = <>
     Connection = DB
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <>
+    ParamData = <>
     Params = <>
     Left = 129
     Top = 10
   end
-  object sqlSequencia: TSQLQuery
-    MaxBlobSize = -1
+  object sqlSequencia: TI9Query
     Params = <>
-    SQLConnection = DB
+    Connection = DB
     Left = 417
     Top = 14
   end
-  object sqlAuxiliar: TSQLQuery
-    MaxBlobSize = -1
+  object sqlAuxiliar: TI9Query
     Params = <>
-    SQLConnection = DB
+    Connection = DB
     Left = 227
     Top = 8
   end
@@ -190,17 +187,16 @@ object dtmControles: TdtmControles
     object cxEditRepository1DateItem1: TcxEditRepositoryDateItem
     end
   end
-  object sqlConfig: TSimpleDataSet
+  object sqlConfig: TI9Query
     Aggregates = <>
     Connection = DB
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT C.*, G.DESCRICAO AS GRUPO'#13#10'FROM G_CONFIG C, G_CONFIG_GRUP' +
       'O G'#13#10'WHERE C.CONFIG_GRUPO_ID = G.CONFIG_GRUPO_ID'#13#10'      AND (TER' +
       'MINAL = '#39#39' OR TERMINAL IS NULL OR UPPER(TERMINAL) = :TERMINAL)'#13#10 +
       '     AND G.SISTEMA_ID = :SISTEMA_ID'#13#10'ORDER BY C.NOME, C.TERMINAL' +
-      ' DESC'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <
+      ' DESC')
+    ParamData = <
       item
         DataType = ftString
         Name = 'TERMINAL'
@@ -214,18 +210,18 @@ object dtmControles: TdtmControles
     Params = <>
     Left = 321
     Top = 12
-    object sqlConfigCONFIG_ID: TFMTBCDField
+    object sqlConfigCONFIG_ID: TBCDField
       FieldName = 'CONFIG_ID'
       Required = True
       Precision = 15
       Size = 2
     end
-    object sqlConfigCONFIG_GRUPO_ID: TFMTBCDField
+    object sqlConfigCONFIG_GRUPO_ID: TBCDField
       FieldName = 'CONFIG_GRUPO_ID'
       Precision = 15
       Size = 2
     end
-    object sqlConfigCONFIG_PADRAO_ID: TFMTBCDField
+    object sqlConfigCONFIG_PADRAO_ID: TBCDField
       FieldName = 'CONFIG_PADRAO_ID'
       Precision = 15
       Size = 2
@@ -381,7 +377,7 @@ object dtmControles: TdtmControles
     Left = 400
     Top = 288
   end
-  object frxDBXComponents1: TfrxDBXComponents
+  object frxFDComponents1: TfrxFDComponents
     DefaultDatabase = DB
     Left = 128
     Top = 232
@@ -393,19 +389,18 @@ object dtmControles: TdtmControles
     Left = 584
     Top = 16
   end
-  object sqlRelatorio: TSimpleDataSet
+  object sqlRelatorio: TI9Query
     Aggregates = <>
     Connection = DB
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT GR.GRUPO_RELATORIO_ID,'#13#10'               GR.DESCRICAO AS GR' +
       'UPO,'#13#10'               CR.CONFIG_RELATORIO_ID,'#13#10'               CR.' +
       'DESCRICAO,'#13#10'               CR.RELATORIO'#13#10'FROM G_CONFIG_RELATORIO' +
       ' CR'#13#10'LEFT JOIN G_GRUPO_RELATORIO GR ON'#13#10'   CR.GRUPO_RELATORIO_ID' +
       ' = GR.GRUPO_RELATORIO_ID'#13#10'WHERE CR.SITUACAO = '#39'A'#39' AND           ' +
       '    '#13#10'               CR.SISTEMA_ID = :SISTEMA_ID'#13#10'ORDER BY CR.GR' +
-      'UPO_RELATORIO_ID, CR.DESCRICAO'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <
+      'UPO_RELATORIO_ID, CR.DESCRICAO')
+    ParamData = <
       item
         DataType = ftUnknown
         Name = 'SISTEMA_ID'
@@ -414,7 +409,7 @@ object dtmControles: TdtmControles
     Params = <>
     Left = 496
     Top = 16
-    object sqlRelatorioGRUPO_RELATORIO_ID: TFMTBCDField
+    object sqlRelatorioGRUPO_RELATORIO_ID: TBCDField
       FieldName = 'GRUPO_RELATORIO_ID'
       Precision = 15
       Size = 2
@@ -423,7 +418,7 @@ object dtmControles: TdtmControles
       FieldName = 'GRUPO'
       Size = 60
     end
-    object sqlRelatorioCONFIG_RELATORIO_ID: TFMTBCDField
+    object sqlRelatorioCONFIG_RELATORIO_ID: TBCDField
       FieldName = 'CONFIG_RELATORIO_ID'
       Required = True
       Precision = 15
@@ -520,27 +515,26 @@ object dtmControles: TdtmControles
     Left = 504
     Top = 80
   end
-  object sqlG_Agenda: TSimpleDataSet
+  object sqlG_Agenda: TI9Query
     Aggregates = <>
     Connection = DB
-    DataSet.CommandText = 'SELECT * FROM G_AGENDA'#13#10'WHERE USUARIO_ID = :USUARIO_ID'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <
+    SQL.Strings = ('SELECT * FROM G_AGENDA'#13#10'WHERE USUARIO_ID = :USUARIO_ID')
+    ParamData = <
       item
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Name = 'USUARIO_ID'
         ParamType = ptInput
       end>
     Params = <>
     Left = 592
     Top = 80
-    object sqlG_AgendaAGENDA_ID: TFMTBCDField
+    object sqlG_AgendaAGENDA_ID: TBCDField
       FieldName = 'AGENDA_ID'
       Required = True
       Precision = 15
       Size = 2
     end
-    object sqlG_AgendaTIPO_EVENTO: TFMTBCDField
+    object sqlG_AgendaTIPO_EVENTO: TBCDField
       FieldName = 'TIPO_EVENTO'
       Precision = 15
       Size = 2
@@ -559,27 +553,27 @@ object dtmControles: TdtmControles
       FieldName = 'MENSAGEM'
       Size = 260
     end
-    object sqlG_AgendaCOR: TFMTBCDField
+    object sqlG_AgendaCOR: TBCDField
       FieldName = 'COR'
       Precision = 15
       Size = 2
     end
-    object sqlG_AgendaOPCAO: TFMTBCDField
+    object sqlG_AgendaOPCAO: TBCDField
       FieldName = 'OPCAO'
       Precision = 15
       Size = 2
     end
-    object sqlG_AgendaSTATUS: TFMTBCDField
+    object sqlG_AgendaSTATUS: TBCDField
       FieldName = 'STATUS'
       Precision = 15
       Size = 2
     end
-    object sqlG_AgendaUSUARIO_ID: TFMTBCDField
+    object sqlG_AgendaUSUARIO_ID: TBCDField
       FieldName = 'USUARIO_ID'
       Precision = 15
       Size = 2
     end
-    object sqlG_AgendaUSUARIO_AGENDOU_ID: TFMTBCDField
+    object sqlG_AgendaUSUARIO_AGENDOU_ID: TBCDField
       FieldName = 'USUARIO_AGENDOU_ID'
       Precision = 15
       Size = 2
@@ -2840,8 +2834,7 @@ object dtmControles: TdtmControles
       E00FE00FC001FE7FF81FF81FFFFFFFFF00000000000000000000000000000000
       000000000000}
   end
-  object SP_SEQUENCIA: TSQLStoredProc
-    MaxBlobSize = -1
+  object SP_SEQUENCIA: TI9StoredProc
     Params = <
       item
         DataType = ftString
@@ -2850,14 +2843,14 @@ object dtmControles: TdtmControles
         ParamType = ptInput
       end
       item
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Precision = 10
         NumericScale = 2
         Name = 'SEQUENCIA'
         ParamType = ptOutput
         Size = 34
       end>
-    SQLConnection = DB
+    Connection = DB
     StoredProcName = 'G_SP_SEQUENCIAS'
     Left = 32
     Top = 352
@@ -2946,7 +2939,7 @@ object dtmControles: TdtmControles
     ProviderName = 'ProviderAncestral'
     Left = 219
     Top = 482
-    object ClientAncestralCONFIG_RELATORIO_ID: TFMTBCDField
+    object ClientAncestralCONFIG_RELATORIO_ID: TBCDField
       FieldName = 'CONFIG_RELATORIO_ID'
       Precision = 20
       Size = 2
@@ -2960,26 +2953,24 @@ object dtmControles: TdtmControles
     Left = 131
     Top = 482
   end
-  object DataSetAncestral: TSQLDataSet
-    SchemaName = 'SYSDBA'
-    CommandText = 
+  object DataSetAncestral: TI9Query
+    SQL.Strings = (
       'SELECT CONFIG_RELATORIO_ID, RELATORIO '#13#10'FROM G_CONFIG_RELATORIO'#13 +
       #10'WHERE SISTEMA_ID = :SISTEMA_ID'#13#10'     AND CONFIG_RELATORIO_ID = ' +
-      ':CONFIG_RELATORIO_ID'
+      ':CONFIG_RELATORIO_ID')
     DbxCommandType = 'Dbx.SQL'
-    MaxBlobSize = -1
     Params = <
       item
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Name = 'SISTEMA_ID'
         ParamType = ptInput
       end
       item
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Name = 'CONFIG_RELATORIO_ID'
         ParamType = ptInput
       end>
-    SQLConnection = DB
+    Connection = DB
     Left = 27
     Top = 482
   end
@@ -3939,7 +3930,7 @@ object dtmControles: TdtmControles
     Top = 280
     PixelsPerInch = 96
   end
-  object DB: TCRSQLConnection
+  object DB: TI9Connection
     ConnectionName = 'IBConnection'
     DriverName = 'Interbase'
     GetDriverFunc = 'getSQLDriverINTERBASE'

@@ -3,6 +3,7 @@ unit SeloGrupoDAOImpl;
 interface
 
 uses
+  I9Connection,
   SeloGrupoDAO,
   Data.SqlExpr,
   Data.DB,
@@ -12,10 +13,10 @@ uses
 type
   TSeloGrupoDAO = class(TInterfacedObject, ISeloGrupoDAO)
   private
-    FSQLConnection: TSQLConnection;
+    FConnection: TI9Connection;
   public
     constructor Create(
-      const vpSQLConnection: TSQLConnection); reintroduce;
+      const vpConnection: TI9Connection); reintroduce;
 
     function Get(
       const vpValue: TDataSet): ISeloGrupo; overload;
@@ -52,10 +53,10 @@ uses
 { TSeloGrupoDAO }
 
 constructor TSeloGrupoDAO.Create(
-  const vpSQLConnection: TSQLConnection);
+  const vpConnection: TI9Connection);
 begin
   inherited Create;
-  FSQLConnection := vpSQLConnection;
+  FConnection := vpConnection;
 end;
 
 function TSeloGrupoDAO.Get(
@@ -117,7 +118,7 @@ begin
     if Assigned(viField) and
       viField.IsNull.&Not then
     begin
-      viSistemaDAO := TSistemaDAO.Create(FSQLConnection);
+      viSistemaDAO := TSistemaDAO.Create(FConnection);
       try
         Sistema := viSistemaDAO.Get(vpValue);
       finally
@@ -195,7 +196,7 @@ begin
     if Assigned(viField) and
       viField.IsNull.&Not then
     begin
-      viSistemaDAO := TSistemaDAO.Create(FSQLConnection);
+      viSistemaDAO := TSistemaDAO.Create(FConnection);
       try
         Sistema := viSistemaDAO.Get(vpValue, vpPrefix);
       finally

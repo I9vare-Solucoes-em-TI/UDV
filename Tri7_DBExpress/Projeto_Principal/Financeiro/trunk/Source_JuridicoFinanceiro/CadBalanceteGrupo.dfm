@@ -282,9 +282,8 @@ inherited frmCadGrupoBalancete: TfrmCadGrupoBalancete
     Left = 89
     Top = 214
   end
-  inherited DataSetAncestral: TSQLDataSet
-    SchemaName = 'SYSDBA'
-    CommandText = 'SELECT *'#13#10'FROM J_BALANCETE_GRUPO'#13#10'ORDER BY DESCRICAO'
+  inherited DataSetAncestral: TI9Query
+    SQL.Strings = ('SELECT *'#13#10'FROM J_BALANCETE_GRUPO'#13#10'ORDER BY DESCRICAO')
     Left = 119
     Top = 214
   end
@@ -296,7 +295,7 @@ inherited frmCadGrupoBalancete: TfrmCadGrupoBalancete
     AfterScroll = ClientAncestralAfterScroll
     Left = 183
     Top = 214
-    object ClientAncestralBALANCETE_GRUPO_ID: TFMTBCDField
+    object ClientAncestralBALANCETE_GRUPO_ID: TBCDField
       FieldName = 'BALANCETE_GRUPO_ID'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
       Precision = 20

@@ -3,6 +3,7 @@ unit ImportarSelo;
 interface
 
 uses
+  I9Query,
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, Menus,
 
@@ -53,7 +54,7 @@ type
     gridSelosselo_inicial: TcxGridDBColumn;
     gridSelosselo_final: TcxGridDBColumn;
     gridSelosdescricao_tipo_ato: TcxGridDBColumn;
-    sqlPesquisa: TSimpleDataSet;
+    sqlPesquisa: TI9Query;
     cxLabel1: TcxLabel;
     ProgressBar2: TcxProgressBar;
     cxLabel2: TcxLabel;
@@ -229,7 +230,7 @@ begin
   viSql := 'SELECT SELO_LOTE_ID FROM G_SELO_LOTE WHERE NOTA_FISCAL = ' + QuotedStr(sqlSelosidentificacao_pedido.AsString);
 
   //sqlPesquisa.Close;
-  sqlPesquisa.DataSet.CommandText := viSql;
+  sqlPesquisa.SQL.Text := viSql;
   sqlPesquisa.Open;
   try
     if not sqlPesquisa.IsEmpty then
@@ -312,7 +313,7 @@ begin
       ' GROUP BY LI.SELO_LOTE_ID ';
 
     dtmControles.SimpleAuxiliar.Active := False;
-    dtmControles.SimpleAuxiliar.DataSet.CommandText := viSql;
+    dtmControles.SimpleAuxiliar.SQL.Text := viSql;
     dtmControles.SimpleAuxiliar.Active := True;
     dtmControles.SimpleAuxiliar.First;
 

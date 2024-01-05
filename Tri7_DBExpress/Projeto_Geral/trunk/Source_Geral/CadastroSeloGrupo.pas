@@ -18,10 +18,10 @@ uses
 
 type
   TfrmCadSeloGrupo = class(TfrmCadBasico)
-    ClientAncestralSELO_GRUPO_ID: TFMTBCDField;
+    ClientAncestralSELO_GRUPO_ID: TBCDField;
     ClientAncestralDESCRICAO: TStringField;
     ClientAncestralSITUACAO: TStringField;
-    ClientAncestralNUMERO: TFMTBCDField;
+    ClientAncestralNUMERO: TBCDField;
     ClientAncestralCONTROLE_AUTOMATICO: TStringField;
     ClientAncestralTIPO_CARTORIO: TStringField;
     ClientAncestralDESCRICAO_COMPLETA: TStringField;
@@ -30,7 +30,7 @@ type
     cxLabel2: TcxLabel;
     cxLabel5: TcxLabel;
     cxLabel6: TcxLabel;
-    ClientAncestralESTOQUE_MINIMO: TFMTBCDField;
+    ClientAncestralESTOQUE_MINIMO: TBCDField;
     tabGrupo: TcxTabControl;
     grdBasica: TcxGrid;
     grdBasicaDBTableView1: TcxGridDBTableView;
@@ -55,7 +55,7 @@ type
     ClientAncestralSELO_USUARIO: TStringField;
     lblSistema: TcxLabel;
     ibxSistema: TcxDBImageComboBox;
-    ClientAncestralSISTEMA_ID: TFMTBCDField;
+    ClientAncestralSISTEMA_ID: TBCDField;
     grdBasicaDBTableView1SISTEMA_ID: TcxGridDBColumn;
     procedure ExecuteGravarExecute(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);

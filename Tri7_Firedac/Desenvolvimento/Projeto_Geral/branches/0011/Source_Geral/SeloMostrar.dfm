@@ -113,7 +113,6 @@ inherited frmSeloMostrar: TfrmSeloMostrar
   end
   inherited DataSetAncestral: TI9Query
     SQL.Strings = (
-      
         'SELECT SL.SIGLA, CAST(SL.NUMERO AS INTEGER) AS NUMERO, SL.SELO_L' +
         'IVRO_ID,'
       '            SG.DESCRICAO_COMPLETA, SL.VALIDADOR'

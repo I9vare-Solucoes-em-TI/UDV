@@ -79,7 +79,7 @@ inherited frmCadastroRapidoRegistroParcial: TfrmCadastroRapidoRegistroParcial
       TabOrder = 3
     end
   end
-  inherited DataSetAncestral: TSQLDataSet
+  inherited DataSetAncestral: TI9Query
     Left = 47
     Top = 33
   end

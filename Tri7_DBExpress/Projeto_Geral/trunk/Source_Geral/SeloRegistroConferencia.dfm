@@ -341,10 +341,9 @@ object frmSeloRegistroConferencia: TfrmSeloRegistroConferencia
     Left = 198
     Top = 55
   end
-  object sqlPesquisa: TSQLQuery
-    MaxBlobSize = -1
+  object sqlPesquisa: TI9Query
     Params = <>
-    SQLConnection = dtmControles.DB
+    Connection = dtmControles.DB
     Left = 113
     Top = 118
   end

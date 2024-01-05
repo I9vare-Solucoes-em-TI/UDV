@@ -3,6 +3,8 @@ unit ConfiguracaoFundoDAO;
 interface
 
 uses
+  I9Query,
+  I9Connection,
   EmolumentoImpl,
   ConfiguracoesFundo,
   Data.SqlExpr;
@@ -27,19 +29,19 @@ function TConfiguracaoFundoDAO.Get(
   const vpValue: TEmolumento): TConfiguracoesFundo;
 {$REGION 'Variáveis'}
 var
-  viSQLDataSet: TSQLDataSet;
+  viSQLDataSet: TI9Query;
 {$ENDREGION}
 begin
   Result := nil;
 
-  viSQLDataSet := TSQLDataSet.Create(nil);
-  viSQLDataSet.SQLConnection := dtmControles.DB;
+  viSQLDataSet := TI9Query.Create(nil);
+  viSQLDataSet.Connection := dtmControles.DB;
 
   try
     with viSQLDataSet do
     begin
       {$REGION 'Comando SQL SELECT'}
-      CommandText :=
+      SQL.Text :=
         'SELECT ' +
 
         {$REGION 'Colunas'}

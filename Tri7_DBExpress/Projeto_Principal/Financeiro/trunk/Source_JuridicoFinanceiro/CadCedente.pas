@@ -53,7 +53,7 @@ type
     edtCEP: TcxDBMaskEdit;
     cxLabel39: TcxLabel;
     cxDBTextEdit19: TcxDBTextEdit;
-    ClientAncestralCEDENTE_ID: TFMTBCDField;
+    ClientAncestralCEDENTE_ID: TBCDField;
     ClientAncestralSITUACAO: TStringField;
     ClientAncestralPRINCIPAL: TStringField;
     ClientAncestralDESCRICAO: TStringField;

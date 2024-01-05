@@ -557,15 +557,14 @@ object frmAuditoria: TfrmAuditoria
       ExplicitHeight = 162
     end
   end
-  object sqlFuncionario: TSimpleDataSet
+  object sqlFuncionario: TI9Query
     Aggregates = <>
     Connection = dtmControles.DB
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT DISTINCT U.USUARIO_ID, U.LOGIN '#13#10'FROM G_USUARIO U'#13#10'RIGHT ' +
       'JOIN G_USUARIO_SISTEMA US ON'#13#10'      U.USUARIO_ID = US.USUARIO_ID' +
-      #13#10'WHERE US.SISTEMA_ID = :SISTEMA_ID'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <
+      #13#10'WHERE US.SISTEMA_ID = :SISTEMA_ID')
+    ParamData = <
       item
         DataType = ftBCD
         Name = 'SISTEMA_ID'
@@ -574,7 +573,7 @@ object frmAuditoria: TfrmAuditoria
     Params = <>
     Left = 72
     Top = 176
-    object sqlFuncionarioUSUARIO_ID: TFMTBCDField
+    object sqlFuncionarioUSUARIO_ID: TBCDField
       FieldName = 'USUARIO_ID'
       Precision = 15
       Size = 2
@@ -589,19 +588,18 @@ object frmAuditoria: TfrmAuditoria
     Left = 104
     Top = 176
   end
-  object sqlAuditoria: TSimpleDataSet
+  object sqlAuditoria: TI9Query
     Aggregates = <>
     Connection = dtmControles.DB
-    DataSet.CommandText = 'SELECT * FROM R_HISTORICO'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <>
+    SQL.Strings = ('SELECT * FROM R_HISTORICO')
+    ParamData = <>
     Params = <>
     BeforeOpen = sqlAuditoriaBeforeOpen
     AfterOpen = sqlAuditoriaAfterOpen
     AfterScroll = sqlAuditoriaAfterScroll
     Left = 72
     Top = 144
-    object sqlAuditoriaHISTORICO_ID: TFMTBCDField
+    object sqlAuditoriaHISTORICO_ID: TBCDField
       FieldName = 'HISTORICO_ID'
       Required = True
       Precision = 15
@@ -626,12 +624,12 @@ object frmAuditoria: TfrmAuditoria
     object sqlAuditoriaDATA: TSQLTimeStampField
       FieldName = 'DATA'
     end
-    object sqlAuditoriaUSUARIO_ID: TFMTBCDField
+    object sqlAuditoriaUSUARIO_ID: TBCDField
       FieldName = 'USUARIO_ID'
       Precision = 15
       Size = 2
     end
-    object sqlAuditoriaID: TFMTBCDField
+    object sqlAuditoriaID: TBCDField
       FieldName = 'ID'
       Precision = 15
       Size = 2

@@ -3,6 +3,8 @@ unit Geral.View.Financeiro.CalculoRapido;
 interface
 
 uses
+  I9Query,
+  I9Connection,
   Windows,
   Messages,
   SysUtils,
@@ -85,27 +87,27 @@ type
     ClientItensCalcRapidoFundesp: TCurrencyField;
     ClientItensCalcRapidoTotalCalc: TCurrencyField;
     ClientItensCalcRapidoVlrOutros: TCurrencyField;
-    sqlServicosSequenciais: TSimpleDataSet;
-    sqlServicosSequenciaisCODIGO_NATUREZA_SEF: TFMTBCDField;
-    sqlServicosSequenciaisEMOLUMENTO_ID: TFMTBCDField;
-    sqlServicosSequenciaisNATUREZA_TITULO_ID: TFMTBCDField;
+    sqlServicosSequenciais: TI9Query;
+    sqlServicosSequenciaisCODIGO_NATUREZA_SEF: TBCDField;
+    sqlServicosSequenciaisEMOLUMENTO_ID: TBCDField;
+    sqlServicosSequenciaisNATUREZA_TITULO_ID: TBCDField;
     sqlServicosSequenciaisDESCRICAO: TStringField;
-    sqlServicosSequenciaisPRAZO: TFMTBCDField;
+    sqlServicosSequenciaisPRAZO: TBCDField;
     sqlServicosSequenciaisSITUACAO: TStringField;
     sqlServicosSequenciaisABRIR_MATRICULA: TStringField;
-    sqlServicosSequenciaisSISTEMA_ID: TFMTBCDField;
-    sqlServicosSequenciaisCODIGO_DOI: TFMTBCDField;
+    sqlServicosSequenciaisSISTEMA_ID: TBCDField;
+    sqlServicosSequenciaisCODIGO_DOI: TBCDField;
     sqlServicosSequenciaisTIPO_COBRANCA: TStringField;
     sqlServicosSequenciaisTIPO_TITULO: TStringField;
     sqlServicosSequenciaisPOSSUI_VALOR: TStringField;
-    sqlServicosSequenciaisNATUREZA_TITULO2_ID: TFMTBCDField;
-    sqlServicosSequenciaisNATUREZA_TITULO_ID_1: TFMTBCDField;
+    sqlServicosSequenciaisNATUREZA_TITULO2_ID: TBCDField;
+    sqlServicosSequenciaisNATUREZA_TITULO_ID_1: TBCDField;
     ClientItensCalcRapidoNaturezaTituloId: TIntegerField;
-    sqlNaturezaTitulo: TSimpleDataSet;
+    sqlNaturezaTitulo: TI9Query;
     dtsNaturezaTitulo: TDataSource;
-    sqlNaturezaTituloNATUREZA_TITULO_ID: TFMTBCDField;
+    sqlNaturezaTituloNATUREZA_TITULO_ID: TBCDField;
     sqlNaturezaTituloDESCRICAO: TStringField;
-    sqlNaturezaTituloEMOLUMENTO_ID: TFMTBCDField;
+    sqlNaturezaTituloEMOLUMENTO_ID: TBCDField;
     tbcSistemas: TcxTabControl;
     Panel1: TPanel;
     lblNome: TcxLabel;
@@ -140,8 +142,8 @@ type
     btnConfirmar: TcxButton;
     btnSequenciais: TcxButton;
     btnImprimir: TcxButton;
-    sqlG_Emolumento: TSimpleDataSet;
-    sqlG_EmolumentoEMOLUMENTO_ID: TFMTBCDField;
+    sqlG_Emolumento: TI9Query;
+    sqlG_EmolumentoEMOLUMENTO_ID: TBCDField;
     sqlG_EmolumentoDESCRICAO: TStringField;
     sqlG_EmolumentoTIPO: TStringField;
     dtsG_Emolumento: TDataSource;
@@ -158,11 +160,11 @@ type
     btnAdItem: TcxButton;
     edtAtosAcrescidos: TcxSpinEdit;
     lblAtosAcrescidos: TcxLabel;
-    sqlEmolumentoTodos: TSimpleDataSet;
-    sqlEmolumentoTodosEMOLUMENTO_ID: TFMTBCDField;
+    sqlEmolumentoTodos: TI9Query;
+    sqlEmolumentoTodosEMOLUMENTO_ID: TBCDField;
     sqlEmolumentoTodosDESCRICAO: TStringField;
-    sqlNaturezaTituloTodos: TSimpleDataSet;
-    sqlNaturezaTituloTodosNATUREZA_TITULO_ID: TFMTBCDField;
+    sqlNaturezaTituloTodos: TI9Query;
+    sqlNaturezaTituloTodosNATUREZA_TITULO_ID: TBCDField;
     sqlNaturezaTituloTodosDESCRICAO: TStringField;
     dtsEmolumentoTodos: TDataSource;
     dtsNaturezaTituloTodos: TDataSource;
@@ -554,18 +556,18 @@ end;
 procedure TfrmCalculoRapido.CarregarNaturezaEmolumento(vpSistemaId: Integer);
 begin
   sqlNaturezaTitulo.Active := False;
-  sqlNaturezaTitulo.DataSet.ParamByName('SISTEMA_ID').AsInteger := vpSistemaId;
+  sqlNaturezaTitulo.ParamByName('SISTEMA_ID').AsInteger := vpSistemaId;
   sqlNaturezaTitulo.Active := True;
 
   sqlG_Emolumento.Active := False;
-  sqlG_Emolumento.DataSet.ParamByName('SISTEMA_ID').AsInteger := vpSistemaId;
+  sqlG_Emolumento.ParamByName('SISTEMA_ID').AsInteger := vpSistemaId;
   sqlG_Emolumento.Active := True;
 end;
 
 procedure TfrmCalculoRapido.ClientItensCalcRapidoAfterScroll(DataSet: TDataSet);
 begin
   sqlServicosSequenciais.Active := False;
-  sqlServicosSequenciais.DataSet.ParamByName('NATUREZA_TITULO_ID').AsInteger := ClientItensCalcRapidoNaturezaTituloId.AsInteger;
+  sqlServicosSequenciais.ParamByName('NATUREZA_TITULO_ID').AsInteger := ClientItensCalcRapidoNaturezaTituloId.AsInteger;
   sqlServicosSequenciais.Active := True;
 
   btnSequenciais.Enabled := (not sqlServicosSequenciais.IsEmpty) and (not ClientItensCalcRapido.IsEmpty);

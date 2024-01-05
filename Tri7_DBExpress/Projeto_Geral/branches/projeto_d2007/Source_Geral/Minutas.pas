@@ -3,6 +3,7 @@ unit Minutas;
 interface
 
 uses
+  I9Query,
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, CadBasico, cxLookAndFeelPainters, FMTBcd, DB, DBClient,
   Provider, SqlExpr, ActnList, ComCtrls, StdCtrls, cxButtons, ExtCtrls,
@@ -32,16 +33,16 @@ type
     lcxAtoModelo: TcxDBLookupComboBox;
     edtDescricao: TcxDBTextEdit;
     ImageList1: TImageList;
-    sqlAtoTipo: TSimpleDataSet;
-    sqlAtoTipoATO_TIPO_ID: TFMTBCDField;
+    sqlAtoTipo: TI9Query;
+    sqlAtoTipoATO_TIPO_ID: TBCDField;
     sqlAtoTipoDESCRICAO: TStringField;
-    sqlAtoTipoNATUREZA_ID: TFMTBCDField;
+    sqlAtoTipoNATUREZA_ID: TBCDField;
     dtsAtoModelo: TDataSource;
     cxSplitter1: TcxSplitter;
-    sqlAtoTipoTodos: TSimpleDataSet;
-    FMTBCDField3: TFMTBCDField;
+    sqlAtoTipoTodos: TI9Query;
+    FMTBCDField3: TBCDField;
     StringField1: TStringField;
-    FMTBCDField4: TFMTBCDField;
+    FMTBCDField4: TBCDField;
     dtsAtotipoTodos: TDataSource;
     lblTipo: TcxLabel;
     icxTipo: TcxImageComboBox;
@@ -52,7 +53,7 @@ type
     DataSetProvider1: TDataSetProvider;
     dtsXmlAtualizador: TDataSource;
     sqlXmlAtualizador: TClientDataSet;
-    sqlImportar: TSimpleDataSet;
+    sqlImportar: TI9Query;
     PanelPesquisa: TPanel;
     cxGridBasica: TcxGrid;
     cxGridBasicaDBTableView1: TcxGridDBTableView;
@@ -76,9 +77,9 @@ type
     rdbAtivo: TcxRadioButton;
     rdbInativo: TcxRadioButton;
     rdbTodos: TcxRadioButton;
-    sqlImportarMINUTA_ID: TFMTBCDField;
-    sqlImportarATO_TIPO_ID: TFMTBCDField;
-    sqlImportarNATUREZA_ID: TFMTBCDField;
+    sqlImportarMINUTA_ID: TBCDField;
+    sqlImportarATO_TIPO_ID: TBCDField;
+    sqlImportarNATUREZA_ID: TBCDField;
     sqlImportarDESCRICAO: TStringField;
     sqlImportarTEXTO: TBlobField;
     sqlImportarPROTEGIDA: TStringField;
@@ -166,7 +167,7 @@ begin
   ClientAncestral.Close;
   case vgId of
    1 : begin
-         DataSetAncestral.CommandText := ' SELECT MINUTA_ID, DESCRICAO, TIPO_REGISTRO, NATUREZA_ID, SITUACAO '+
+         DataSetAncestral.SQL.Text := ' SELECT MINUTA_ID, DESCRICAO, TIPO_REGISTRO, NATUREZA_ID, SITUACAO '+
                                          ' FROM R_MINUTA '+
                                          ' ORDER BY DESCRICAO';
          lblTipoAto.Visible   := False;
@@ -174,7 +175,7 @@ begin
          vlSigla_Sistema      := 'R';
        end;
    2 : begin
-         DataSetAncestral.CommandText := ' SELECT MINUTA_ID, DESCRICAO, ATO_TIPO_ID, NATUREZA_ID, PROTEGIDA, SITUACAO '+
+         DataSetAncestral.SQL.Text := ' SELECT MINUTA_ID, DESCRICAO, ATO_TIPO_ID, NATUREZA_ID, PROTEGIDA, SITUACAO '+
                                          ' FROM T_MINUTA '+
                                          ' ORDER BY DESCRICAO';
          sqlAtoTipo.Active      := True;
@@ -185,18 +186,18 @@ begin
          vlSigla_Sistema      := 'T';
        end;
    7, 12: begin
-         DataSetAncestral.CommandText := ' SELECT MINUTA_ID, DESCRICAO, NATUREZA_ID, PROTEGIDA, SITUACAO ';
+         DataSetAncestral.SQL.Text := ' SELECT MINUTA_ID, DESCRICAO, NATUREZA_ID, PROTEGIDA, SITUACAO ';
          if vgId = 7 then
          begin
-           DataSetAncestral.CommandText := DataSetAncestral.CommandText +  ' FROM D_MINUTA ';
+           DataSetAncestral.SQL.Text := DataSetAncestral.SQL.Text +  ' FROM D_MINUTA ';
            vlSigla_Sistema := 'D';
          end
          else
          begin
-           DataSetAncestral.CommandText := DataSetAncestral.CommandText +  ' FROM V_MINUTA ';
+           DataSetAncestral.SQL.Text := DataSetAncestral.SQL.Text +  ' FROM V_MINUTA ';
            vlSigla_Sistema := 'V';
          end;
-         DataSetAncestral.CommandText := DataSetAncestral.CommandText + ' ORDER BY DESCRICAO';
+         DataSetAncestral.SQL.Text := DataSetAncestral.SQL.Text + ' ORDER BY DESCRICAO';
 
          lblTipoAto.Visible   := False;
          lcxAtoModelo.Visible := False;
@@ -247,7 +248,7 @@ begin
   ExecutaSqlAuxiliar(' UPDATE '+vlSigla_Sistema+'_MINUTA SET TEXTO = :TEXTO '+
                      ' WHERE MINUTA_ID = '+ClientAncestral.FieldByName('MINUTA_ID').AsString,2);
   dtmControles.sqlAuxiliar.ParamByName('TEXTO').AsBlob := CompressString(fmeEditor.wptTexto.AsString);
-  dtmControles.sqlAuxiliar.ExecSQL(FALSE);
+  dtmControles.sqlAuxiliar.ExecSQL;
 
   // Auditoria
   dtmControles.Auditoria(vlSigla_Sistema+'_MINUTA','Minutas', 'A',CompressString(fmeEditor.wptTexto.AsString),
@@ -387,7 +388,7 @@ begin
   end;
 
   ClientAncestral.Active := False;
-  DataSetAncestral.CommandText := vlSql + viCondicao + ' ORDER BY DESCRICAO';
+  DataSetAncestral.SQL.Text := vlSql + viCondicao + ' ORDER BY DESCRICAO';
   ClientAncestral.Active := True;
 
   if not ClientAncestral.IsEmpty then
@@ -481,7 +482,7 @@ begin
     if (State in [dsEdit, dsInsert]) and (lcbNatureza.EditValue > 0) then
     begin
       sqlAtoTipo.Active := False;
-      sqlAtoTipo.DataSet.CommandText := ' SELECT A.ATO_TIPO_ID, A.DESCRICAO, LN.NATUREZA_ID '+
+      sqlAtoTipo.SQL.Text := ' SELECT A.ATO_TIPO_ID, A.DESCRICAO, LN.NATUREZA_ID '+
                                         ' FROM T_ATO_TIPO A, T_LIVRO_NATUREZA LN '+
                                         ' WHERE A.LIVRO_NATUREZA_ID = LN.LIVRO_NATUREZA_ID '+
                                         '   AND LN.NATUREZA_ID = '+ IntToStr(lcbNatureza.EditValue)+

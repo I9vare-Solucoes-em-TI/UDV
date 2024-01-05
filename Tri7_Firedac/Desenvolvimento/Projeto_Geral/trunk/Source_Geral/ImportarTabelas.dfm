@@ -333,7 +333,6 @@ inherited frmImportarTabelas: TfrmImportarTabelas
   object sqlG_Emolumento_Periodo: TI9Query
     Connection = dtmControles.DB
     SQL.Strings = (
-      
         'SELECT * FROM G_EMOLUMENTO'#13#10'WHERE EMOLUMENTO_ID <> :EMOLUMENTO_I' +
         'D')
     Left = 264

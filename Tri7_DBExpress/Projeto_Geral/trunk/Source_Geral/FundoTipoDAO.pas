@@ -3,6 +3,8 @@ unit FundoTipoDAO;
 interface
 
 uses
+  I9Query,
+  I9Connection,
   FundoTipo;
 
 type
@@ -23,19 +25,19 @@ uses
 function TFundoTipoDAO.Get: TFundoTipos;
 {$REGION 'Variáveis'}
 var
-  viSQLDataSet: TSQLDataSet;
+  viSQLDataSet: TI9Query;
 {$ENDREGION}
 begin
   Result := TFundoTipos.Create;
 
-  viSQLDataSet := TSQLDataSet.Create(nil);
-  viSQLDataSet.SQLConnection := dtmControles.DB;
+  viSQLDataSet := TI9Query.Create(nil);
+  viSQLDataSet.Connection := dtmControles.DB;
 
   try
     with viSQLDataSet do
     begin
       {$REGION 'Comando SQL SELECT'}
-      CommandText :=
+      SQL.Text :=
         'SELECT ' +
 
         {$REGION 'Colunas'}

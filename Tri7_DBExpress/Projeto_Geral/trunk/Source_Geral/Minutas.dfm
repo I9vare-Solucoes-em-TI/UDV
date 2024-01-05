@@ -546,9 +546,8 @@ inherited frmMinutas: TfrmMinutas
       ShortCut = 0
     end
   end
-  inherited DataSetAncestral: TSQLDataSet
-    SchemaName = 'SYSDBA'
-    CommandText = 'SELECT *'#13#10'FROM D_MINUTA'#13#10'ORDER BY NATUREZA_ID, DESCRICAO'
+  inherited DataSetAncestral: TI9Query
+    SQL.Strings = ('SELECT *'#13#10'FROM D_MINUTA'#13#10'ORDER BY NATUREZA_ID, DESCRICAO')
     Left = 234
     Top = 323
   end
@@ -974,18 +973,17 @@ inherited frmMinutas: TfrmMinutas
       00FF0001FC67800F81FF8001FE07801B00000000000000000000000000000000
       000000000000}
   end
-  object sqlAtoTipo: TSimpleDataSet
+  object sqlAtoTipo: TI9Query
     Aggregates = <>
     Connection = dtmControles.DB
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT A.ATO_TIPO_ID, A.DESCRICAO, LN.NATUREZA_ID'#13#10'FROM T_ATO_TI' +
       'PO A, T_LIVRO_NATUREZA LN'#13#10'WHERE A.LIVRO_NATUREZA_ID = LN.LIVRO_' +
       'NATUREZA_ID'#13#10'  AND LN.NATUREZA_ID = :NATUREZA_ID'#13#10'ORDER BY A.DES' +
-      'CRICAO'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <
+      'CRICAO')
+    ParamData = <
       item
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Name = 'NATUREZA_ID'
         ParamType = ptInput
         Value = 0c
@@ -993,7 +991,7 @@ inherited frmMinutas: TfrmMinutas
     Params = <>
     Left = 637
     Top = 407
-    object sqlAtoTipoATO_TIPO_ID: TFMTBCDField
+    object sqlAtoTipoATO_TIPO_ID: TBCDField
       FieldName = 'ATO_TIPO_ID'
       Required = True
       Precision = 15
@@ -1003,7 +1001,7 @@ inherited frmMinutas: TfrmMinutas
       FieldName = 'DESCRICAO'
       Size = 60
     end
-    object sqlAtoTipoNATUREZA_ID: TFMTBCDField
+    object sqlAtoTipoNATUREZA_ID: TBCDField
       FieldName = 'NATUREZA_ID'
       Precision = 15
       Size = 2
@@ -1014,19 +1012,18 @@ inherited frmMinutas: TfrmMinutas
     Left = 605
     Top = 407
   end
-  object sqlAtoTipoTodos: TSimpleDataSet
+  object sqlAtoTipoTodos: TI9Query
     Aggregates = <>
     Connection = dtmControles.DB
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT A.ATO_TIPO_ID, A.DESCRICAO, LN.NATUREZA_ID'#13#10'FROM T_ATO_TI' +
       'PO A, T_LIVRO_NATUREZA LN'#13#10'WHERE A.LIVRO_NATUREZA_ID = LN.LIVRO_' +
-      'NATUREZA_ID'#13#10'ORDER BY A.DESCRICAO'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <>
+      'NATUREZA_ID'#13#10'ORDER BY A.DESCRICAO')
+    ParamData = <>
     Params = <>
     Left = 637
     Top = 375
-    object FMTBCDField3: TFMTBCDField
+    object FMTBCDField3: TBCDField
       FieldName = 'ATO_TIPO_ID'
       Required = True
       Precision = 15
@@ -1036,7 +1033,7 @@ inherited frmMinutas: TfrmMinutas
       FieldName = 'DESCRICAO'
       Size = 60
     end
-    object FMTBCDField4: TFMTBCDField
+    object FMTBCDField4: TBCDField
       FieldName = 'NATUREZA_ID'
       Precision = 15
       Size = 2
@@ -1075,19 +1072,19 @@ inherited frmMinutas: TfrmMinutas
       item
         Name = 'MINUTA_ID'
         Attributes = [faRequired]
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Precision = 15
         Size = 2
       end
       item
         Name = 'ATO_TIPO_ID'
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Precision = 15
         Size = 2
       end
       item
         Name = 'NATUREZA_ID'
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Precision = 15
         Size = 2
       end
@@ -1108,12 +1105,11 @@ inherited frmMinutas: TfrmMinutas
     Left = 379
     Top = 423
   end
-  object sqlImportar: TSimpleDataSet
+  object sqlImportar: TI9Query
     Aggregates = <>
     Connection = dtmControles.DB
-    DataSet.CommandText = 'SELECT * FROM R_MINUTA'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <>
+    SQL.Strings = ('SELECT * FROM R_MINUTA')
+    ParamData = <>
     Params = <>
     Left = 286
     Top = 421

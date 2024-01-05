@@ -3,6 +3,8 @@ unit ConfiguracaoRelatorioDAO;
 interface
 
 uses
+  I9Query,
+  I9Connection,
   Data.SqlExpr,
   GrupoRelatorios,
   ConfiguracoesRelatorio,
@@ -11,10 +13,10 @@ uses
 type
   TConfiguracaoRelatorioDAO = class
   private
-    FSQLConnection: TSQLConnection;
+    FConnection: TI9Connection;
   public
     constructor Create(
-      const vpSQLConnection: TSQLConnection); reintroduce;
+      const vpConnection: TI9Connection); reintroduce;
 
     function Get(
       const vpGrupoRelatorios: TGrupoRelatorios;
@@ -35,9 +37,9 @@ uses
 { TConfiguracaoRelatorioDAO }
 
 constructor TConfiguracaoRelatorioDAO.Create(
-  const vpSQLConnection: TSQLConnection);
+  const vpConnection: TI9Connection);
 begin
-  FSQLConnection := vpSQLConnection;
+  FConnection := vpConnection;
 end;
 
 function TConfiguracaoRelatorioDAO.Get(
@@ -45,19 +47,19 @@ function TConfiguracaoRelatorioDAO.Get(
   const vpSituacao: Boolean): TConfiguracoesRelatorio;
 {$REGION 'Variáveis'}
 var
-  viSQLDataSet: TSQLDataSet;
+  viSQLDataSet: TI9Query;
 {$ENDREGION}
 begin
   Result := nil;
 
-  viSQLDataSet := TSQLDataSet.Create(nil);
-  viSQLDataSet.SQLConnection := FSQLConnection;
+  viSQLDataSet := TI9Query.Create(nil);
+  viSQLDataSet.Connection := FConnection;
 
   try
     with viSQLDataSet do
     begin
       {$REGION 'Comando SQL SELECT'}
-      CommandText :=
+      SQL.Text :=
         'SELECT ' +
 
         {$REGION 'Colunas'}
@@ -117,19 +119,19 @@ function TConfiguracaoRelatorioDAO.Get(
   const vpConfiguracaoRelatorioID: Integer): TConfiguracaoRelatorio;
 {$REGION 'Variáveis'}
 var
-  viSQLDataSet: TSQLDataSet;
+  viSQLDataSet: TI9Query;
 {$ENDREGION}
 begin
   Result := nil;
 
-  viSQLDataSet := TSQLDataSet.Create(nil);
-  viSQLDataSet.SQLConnection := FSQLConnection;
+  viSQLDataSet := TI9Query.Create(nil);
+  viSQLDataSet.Connection := FConnection;
 
   try
     with viSQLDataSet do
     begin
       {$REGION 'Comando SQL SELECT'}
-      CommandText :=
+      SQL.Text :=
         'SELECT ' +
 
         {$REGION 'Colunas'}

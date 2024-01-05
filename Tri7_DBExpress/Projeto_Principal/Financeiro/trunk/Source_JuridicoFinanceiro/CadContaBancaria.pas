@@ -3,6 +3,7 @@ unit CadContaBancaria;
 interface
 
 uses
+  I9Connection,
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, CadBasico, cxGraphics, cxLookAndFeels,
   cxLookAndFeelPainters, Vcl.Menus, Data.FMTBcd, Data.DB, Datasnap.DBClient,
@@ -28,7 +29,7 @@ uses
 
 type
   TfrmCadContaBancaria = class(TfrmCadBasico)
-    ClientAncestralBANCO_ID: TFMTBCDField;
+    ClientAncestralBANCO_ID: TBCDField;
     ClientAncestralBANCO_NUMERO: TStringField;
     ClientAncestralBANCO_DIGITO: TStringField;
     ClientAncestralBANCO_NOME: TStringField;
@@ -41,7 +42,7 @@ type
     ClientAncestralCONVENIO: TStringField;
     ClientAncestralCODIGO_CEDENTE_NUMERO: TStringField;
     ClientAncestralCODIGO_CEDENTE_DIGITO: TStringField;
-    ClientAncestralNOSSO_NUMERO: TFMTBCDField;
+    ClientAncestralNOSSO_NUMERO: TBCDField;
     ClientAncestralCARTEIRA: TStringField;
     cxLabel1: TcxLabel;
     cxLabel10: TcxLabel;
@@ -53,10 +54,10 @@ type
     cxGridBancoDBTableView1CONVENIO: TcxGridDBColumn;
     cxGridBancoDBTableView1CODIGO_CEDENTE_NUMERO: TcxGridDBColumn;
     cxGridBancoDBTableView1CARTEIRA: TcxGridDBColumn;
-    ClientAncestralCONFIG_RELATORIO_ID: TFMTBCDField;
+    ClientAncestralCONFIG_RELATORIO_ID: TBCDField;
     cxLabel2: TcxLabel;
     cxLabel3: TcxLabel;
-    ClientAncestralCEDENTE_ID: TFMTBCDField;
+    ClientAncestralCEDENTE_ID: TBCDField;
     ClientAncestralMODALIDADE: TStringField;
     ClientAncestralLOCAL_PADRAO: TStringField;
     ClientAncestralLOCAL_REMESSA: TStringField;
@@ -144,7 +145,7 @@ end;
 procedure TfrmCadContaBancaria.FormCreate(Sender: TObject);
 begin
   inherited;
-  DataSetAncestral.SQLConnection := dtmControles.DB;
+  DataSetAncestral.Connection := dtmControles.DB;
   ClientAncestral.Open;
 end;
 

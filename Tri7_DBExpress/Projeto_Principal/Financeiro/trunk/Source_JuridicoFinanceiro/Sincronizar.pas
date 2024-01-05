@@ -144,7 +144,7 @@ var
       ParamByName('DATA').AsString             := dtmControles.DataHoraBanco(5);
       ParamByName('CEDENTE_ID').AsCurrency     := vgCedenteAtivo;
       ParamByName('NOME_ARQUIVO').AsString     := ExtractFileName(OpenDialog1.FileName);
-      ExecSQL(FALSE);
+      ExecSQL;
     end;
   end;
 

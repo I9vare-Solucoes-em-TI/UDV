@@ -3,6 +3,7 @@ unit VisualizaRelatorios;
 interface
 
 uses
+  I9Query,
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, ExtCtrls, StdCtrls, Buttons, Menus, Mask, DB,
   frxClass, frxPreview, frxExportPDF, frxExportRTF, frxExportXLS, 
@@ -347,10 +348,10 @@ var Caminho,
     Historico,
     Sql,
     WPath :  string;
-    sqlRelatorio : TSimpleDataSet;
+    sqlRelatorio : TI9Query;
 begin
   Application.ProcessMessages;
-  sqlRelatorio := TSimpleDataSet.Create(Application);
+  sqlRelatorio := TI9Query.Create(Application);
 
   WPath := vgDiretorioCorrente + '\';
   with sqlRelatorio  do
@@ -361,7 +362,6 @@ begin
     vgVersao2 := DataHoraModificacao(Caminho);
 
     Active := False;
-    DataSet.Prepared := False;
 
     if vgVersao2 <> 0 then
        if vgVersao2 > vgVersao1 then
@@ -378,33 +378,30 @@ begin
                begin
                   Sql := Sql +  ' ,HISTORICO = :HISTORICO ' +
                                 ' WHERE CONFIG_RELATORIO_ID = :CONFIG_RELATORIO_ID';
-                  DataSet.CommandText := Sql;
-                  DataSet.Prepared := True;
+                  SQL.Text := Sql;
 
-                  DataSet.ParamByName('HISTORICO').ParamType := ptInput;
-                  DataSet.ParamByName('HISTORICO').DataType  := ftBlob;
-                  DataSet.ParamByName('HISTORICO').LoadFromFile(Historico, ftBlob);
-                  DataSet.ParamByName('HISTORICO').AsBlob := CompressString(DataSet.ParamByName('HISTORICO').AsString);
+                  ParamByName('HISTORICO').ParamType := ptInput;
+                  ParamByName('HISTORICO').DataType  := ftBlob;
+                  ParamByName('HISTORICO').LoadFromFile(Historico, ftBlob);
+                  ParamByName('HISTORICO').AsBlob := CompressString(DataSet.ParamByName('HISTORICO').AsString);
                end
                else begin
                     Sql := Sql + ' WHERE CONFIG_RELATORIO_ID = :CONFIG_RELATORIO_ID';
-                    DataSet.CommandText := Sql;
-                    DataSet.Prepared := True;
+                    SQL.Text := Sql;
                end;
              end
              else begin
                   Sql := Sql + ' WHERE CONFIG_RELATORIO_ID = :CONFIG_RELATORIO_ID';
-                  DataSet.CommandText := Sql;
-                  DataSet.Prepared := True;
+                  SQL.Text := Sql;
              end;
-             DataSet.ParamByName('RELATORIO').ParamType := ptInput;
-             DataSet.ParamByName('RELATORIO').DataType  := ftBlob;
-             DataSet.ParamByName('RELATORIO').LoadFromFile(Caminho, ftBlob);
-             DataSet.ParamByName('RELATORIO').AsBlob := CompressString(DataSet.ParamByName('RELATORIO').AsString);
+             ParamByName('RELATORIO').ParamType := ptInput;
+             ParamByName('RELATORIO').DataType  := ftBlob;
+             ParamByName('RELATORIO').LoadFromFile(Caminho, ftBlob);
+             ParamByName('RELATORIO').AsBlob := CompressString(DataSet.ParamByName('RELATORIO').AsString);
 
-             DataSet.ParamByName('CONFIG_RELATORIO_ID').ParamType := ptInput;
-             DataSet.ParamByName('CONFIG_RELATORIO_ID').DataType  := ftInteger;
-             DataSet.ParamByName('CONFIG_RELATORIO_ID').AsString  := ID;
+             ParamByName('CONFIG_RELATORIO_ID').ParamType := ptInput;
+             ParamByName('CONFIG_RELATORIO_ID').DataType  := ftInteger;
+             ParamByName('CONFIG_RELATORIO_ID').AsString  := ID;
              Execute;
            end
          end;

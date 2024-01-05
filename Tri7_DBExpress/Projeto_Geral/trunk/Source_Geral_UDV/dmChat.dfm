@@ -3,11 +3,10 @@ object dtmChat: TdtmChat
   OnCreate = DataModuleCreate
   Height = 197
   Width = 320
-  object sqlChat: TSimpleDataSet
+  object sqlChat: TI9Query
     Aggregates = <>
-    DataSet.CommandText = 'SELECT * FROM R_ATUALIZA_CHAT_NOVO(:USUARIO_ID)'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <
+    SQL.Strings = ('SELECT * FROM R_ATUALIZA_CHAT_NOVO(:USUARIO_ID)')
+    ParamData = <
       item
         DataType = ftString
         ParamType = ptInput
@@ -23,7 +22,7 @@ object dtmChat: TdtmChat
       FieldName = 'NomeUsuario'
       Calculated = True
     end
-    object sqlChatCHAT_ID: TFMTBCDField
+    object sqlChatCHAT_ID: TBCDField
       FieldName = 'CHAT_ID'
       Precision = 15
       Size = 2
@@ -31,12 +30,12 @@ object dtmChat: TdtmChat
     object sqlChatDATA: TSQLTimeStampField
       FieldName = 'DATA'
     end
-    object sqlChatUSUARIO_RECEBEU_ID: TFMTBCDField
+    object sqlChatUSUARIO_RECEBEU_ID: TBCDField
       FieldName = 'USUARIO_RECEBEU_ID'
       Precision = 15
       Size = 2
     end
-    object sqlChatUSUARIO_ENVIOU_ID: TFMTBCDField
+    object sqlChatUSUARIO_ENVIOU_ID: TBCDField
       FieldName = 'USUARIO_ENVIOU_ID'
       Precision = 15
       Size = 2
@@ -92,22 +91,19 @@ object dtmChat: TdtmChat
     Left = 56
     Top = 104
   end
-  object sqlTimerChat: TSQLQuery
-    MaxBlobSize = -1
+  object sqlTimerChat: TI9Query
     Params = <>
     Left = 126
     Top = 8
   end
-  object sqlAuxiliarChat: TSQLQuery
-    MaxBlobSize = -1
+  object sqlAuxiliarChat: TI9Query
     Params = <>
     Left = 127
     Top = 56
   end
-  object SimpleAuxiliarChat: TSimpleDataSet
+  object SimpleAuxiliarChat: TI9Query
     Aggregates = <>
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <>
+    ParamData = <>
     Params = <>
     Left = 193
     Top = 8

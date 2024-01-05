@@ -30,7 +30,7 @@ type
     ClientAncestralCPF_CNPJ: TStringField;
     ClientAncestralDOCUMENTO: TStringField;
     ClientAncestralPESSOA_TIPO: TStringField;
-    ClientAncestralPESSOA_ID: TFMTBCDField;
+    ClientAncestralPESSOA_ID: TBCDField;
     cxGridCPFProptio: TcxGridDBColumn;
     ClientAncestralCPF_TERCEIRO: TStringField;
     edtNome: TcxTextEdit;
@@ -145,7 +145,7 @@ begin
       else viSql := viSql + ' AND (PESSOA_TIPO = '+ QuotedStr(vgPessoa.PessoaTipo) + ' OR PESSOA_TIPO IS NULL)';
 
     viSql := viSql + ' ORDER BY NOME ';
-    DataSetAncestral.CommandText := viSql;
+    DataSetAncestral.SQL.Text := viSql;
     ClientAncestral.Open;
 
     if ClientAncestral.IsEmpty then

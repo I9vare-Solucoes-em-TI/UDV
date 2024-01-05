@@ -2,6 +2,7 @@ unit EstoqueSelo;
 interface
 
 uses
+  I9Query,
   Windows, WinInet, SysUtils, Classes, StdCtrls, ExtCtrls, Graphics, Dialogs,
   SimpleDS, MSNPopUp, Forms;
 
@@ -110,7 +111,7 @@ var
   viSql,
   viCondicao,
   viControle : string;
-  SQL: TSimpleDataSet;
+  SQL: TI9Query;
 begin
   FResumo    := '';
   viControle := '';
@@ -134,10 +135,10 @@ begin
            ' HAVING  (SG.ESTOQUE_MINIMO > COUNT(SL.SELO_LOTE_ID)) ' +
            ' ORDER BY SISTEMA, SG.DESCRICAO ';
 
-  SQL := TSimpleDataSet.Create(nil);
+  SQL := TI9Query.Create(nil);
   SQL.Connection := dtmControles.DB;
   try
-    SQL.DataSet.CommandText := viSql;
+    SQL.SQL.Text := viSql;
     SQL.Open;
     if SQL.Active then
     begin

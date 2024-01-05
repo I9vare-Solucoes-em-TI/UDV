@@ -971,9 +971,9 @@ object frmExportarDadosLivroCaixa: TfrmExportarDadosLivroCaixa
     Left = 484
     Top = 252
   end
-  object sqlPrenotacao: TSimpleDataSet
+  object sqlPrenotacao: TI9Query
     Aggregates = <>
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT FIRST 1 PI.EMOLUMENTO, PI.QTD, P.DATA_PEDIDO, ST.SERVICO_' +
       'CAIXA_ID, ST.DESCRICAO, CS.SERVENTIA_REGISTRO_DIARIO'#13#10'FROM T_SER' +
       'VICO_ITEMPEDIDO PI'#13#10'     LEFT OUTER JOIN T_SERVICO_PEDIDO P ON'#13#10 +
@@ -981,18 +981,17 @@ object frmExportarDadosLivroCaixa: TfrmExportarDadosLivroCaixa
       ' JOIN T_SERVICO_TIPO ST ON'#13#10'     PI.SERVICO_TIPO_ID = ST.SERVICO' +
       '_TIPO_ID'#13#10'     LEFT OUTER JOIN C_CAIXA_SERVICO CS ON'#13#10'     ST.SE' +
       'RVICO_CAIXA_ID = CS.CAIXA_SERVICO_ID'#13#10'WHERE PI.SITUACAO = '#39'F'#39#13#10' ' +
-      ' AND ST.LIVRO_CAIXA = '#39'3'#39
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <>
+      ' AND ST.LIVRO_CAIXA = '#39'3'#39)
+    ParamData = <>
     Params = <>
     Left = 448
     Top = 298
-    object sqlPrenotacaoEMOLUMENTO: TFMTBCDField
+    object sqlPrenotacaoEMOLUMENTO: TBCDField
       FieldName = 'EMOLUMENTO'
       Precision = 20
       Size = 3
     end
-    object sqlPrenotacaoQTD: TFMTBCDField
+    object sqlPrenotacaoQTD: TBCDField
       FieldName = 'QTD'
       Precision = 20
       Size = 2
@@ -1000,7 +999,7 @@ object frmExportarDadosLivroCaixa: TfrmExportarDadosLivroCaixa
     object sqlPrenotacaoDATA_PEDIDO: TSQLTimeStampField
       FieldName = 'DATA_PEDIDO'
     end
-    object sqlPrenotacaoSERVICO_CAIXA_ID: TFMTBCDField
+    object sqlPrenotacaoSERVICO_CAIXA_ID: TBCDField
       FieldName = 'SERVICO_CAIXA_ID'
       Precision = 20
       Size = 2

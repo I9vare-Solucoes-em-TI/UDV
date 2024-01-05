@@ -3,6 +3,7 @@ unit MarcacaoTipo;
 interface
 
 uses
+  I9Query,
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, CadBasico, FMTBcd, DB, DBClient,
   Provider, SqlExpr, ActnList, ComCtrls, StdCtrls, cxButtons, ExtCtrls,
@@ -29,13 +30,13 @@ type
     chbSituacao: TcxDBCheckBox;
     lblInfoMarcacaoInterna: TcxLabel;
     cxLabel5: TcxLabel;
-    ClientAncestralMARCACAO_TIPO_ID: TFMTBCDField;
+    ClientAncestralMARCACAO_TIPO_ID: TBCDField;
     ClientAncestralDESCRICAO: TStringField;
     ClientAncestralTEXTO: TBlobField;
     ClientAncestralNOME: TStringField;
     ClientAncestralGRUPO: TStringField;
     ClientAncestralSITUACAO: TStringField;
-    ClientAncestralSISTEMA_ID: TFMTBCDField;
+    ClientAncestralSISTEMA_ID: TBCDField;
     ClientAncestralTIPO_QUALIFICACAO: TStringField;
     ClientAncestralGRUPO_TIPO: TStringField;
     Shape1: TShape;
@@ -86,14 +87,14 @@ type
     cxDBCheckBox1: TcxDBCheckBox;
     popDuplicar: TPopupMenu;
     actDuplicarItem: TMenuItem;
-    sqlDuplicar: TSimpleDataSet;
-    sqlDuplicarMARCACAO_TIPO_ID: TFMTBCDField;
+    sqlDuplicar: TI9Query;
+    sqlDuplicarMARCACAO_TIPO_ID: TBCDField;
     sqlDuplicarDESCRICAO: TStringField;
     sqlDuplicarTEXTO: TBlobField;
     sqlDuplicarNOME: TStringField;
     sqlDuplicarGRUPO: TStringField;
     sqlDuplicarSITUACAO: TStringField;
-    sqlDuplicarSISTEMA_ID: TFMTBCDField;
+    sqlDuplicarSISTEMA_ID: TBCDField;
     sqlDuplicarGRUPO_TIPO: TStringField;
     sqlDuplicarTIPO_QUALIFICACAO: TStringField;
     sqlDuplicarCONDICAO_SQL: TStringField;
@@ -863,7 +864,7 @@ begin
 
   viSql := viSql + ' ORDER BY GRUPO, NOME ';
   ClientAncestral.Active := False;
-  DataSetAncestral.CommandText := viSql;
+  DataSetAncestral.SQL.Text := viSql;
   ClientAncestral.Active := True;
 
   if viExpandir then

@@ -3,16 +3,18 @@ unit GrupoRelatoriosDAO;
 interface
 
 uses
+  I9Query,
+  I9Connection,
   GrupoRelatorios,
   Data.SqlExpr;
 
 type
   TGrupoRelatoriosDAO = class
   private
-    FSQLConnection: TSQLConnection;
+    FConnection: TI9Connection;
   public
     constructor Create(
-      const vpSQLConnection: TSQLConnection); reintroduce;
+      const vpConnection: TI9Connection); reintroduce;
 
     function Get(
       const vpDescricao: string;
@@ -27,9 +29,9 @@ uses
 { TGrupoRelatoriosDAO }
 
 constructor TGrupoRelatoriosDAO.Create(
-  const vpSQLConnection: TSQLConnection);
+  const vpConnection: TI9Connection);
 begin
-  FSQLConnection := vpSQLConnection;
+  FConnection := vpConnection;
 end;
 
 function TGrupoRelatoriosDAO.Get(
@@ -37,19 +39,19 @@ function TGrupoRelatoriosDAO.Get(
   const vpSistemaID: Integer): TGrupoRelatorios;
 {$REGION 'Variáveis'}
 var
-  viSQLDataSet: TSQLDataSet;
+  viSQLDataSet: TI9Query;
 {$ENDREGION}
 begin
   Result := nil;
 
-  viSQLDataSet := TSQLDataSet.Create(nil);
-  viSQLDataSet.SQLConnection := FSQLConnection;
+  viSQLDataSet := TI9Query.Create(nil);
+  viSQLDataSet.Connection := FConnection;
 
   try
     with viSQLDataSet do
     begin
       {$REGION 'Comando SQL SELECT'}
-      CommandText :=
+      SQL.Text :=
         'SELECT ' +
 
         {$REGION 'Colunas'}

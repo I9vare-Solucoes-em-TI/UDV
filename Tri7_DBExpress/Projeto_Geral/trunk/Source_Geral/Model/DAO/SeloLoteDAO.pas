@@ -3,16 +3,18 @@ unit SeloLoteDAO;
 interface
 
 uses
+  I9Query,
+  I9Connection,
   Data.SqlExpr,
   SeloLote;
 
 type
   TSeloLoteDAO = class
   private
-    FSQLConnection: TSQLConnection;
+    FConnection: TI9Connection;
   public
     constructor Create(
-      const vpSQLConnection: TSQLConnection); reintroduce;
+      const vpConnection: TI9Connection); reintroduce;
 
     function Get(
       const vpSeloLoteID: Integer): ISeloLote;
@@ -33,29 +35,29 @@ uses
 { TSeloGrupoDAO }
 
 constructor TSeloLoteDAO.Create(
-  const vpSQLConnection: TSQLConnection);
+  const vpConnection: TI9Connection);
 begin
   inherited Create;
-  FSQLConnection := vpSQLConnection;
+  FConnection := vpConnection;
 end;
 
 function TSeloLoteDAO.Get(
   const vpSeloLoteID: Integer): ISeloLote;
 {$REGION 'Variáveis'}
 var
-  viSQLDataSet: TSQLDataSet;
+  viSQLDataSet: TI9Query;
 {$ENDREGION}
 begin
   Result := nil;
 
-  viSQLDataSet := TSQLDataSet.Create(nil);
-  viSQLDataSet.SQLConnection := FSQLConnection;
+  viSQLDataSet := TI9Query.Create(nil);
+  viSQLDataSet.Connection := FConnection;
 
   try
     with viSQLDataSet do
     begin
       {$REGION 'Comando SQL SELECT'}
-      CommandText :=
+      SQL.Text :=
         'SELECT ' +
 
         {$REGION 'Colunas'}
@@ -110,7 +112,7 @@ begin
           Observacao := FieldByName('OBSERVACAO').AsString;
 
           if FieldByName('SELO_GRUPO_ID').IsNull.&Not then
-            with TSeloGrupoDAO.Create(FSQLConnection) do
+            with TSeloGrupoDAO.Create(FConnection) do
               try
                 SeloGrupo := Get(FieldByName('SELO_GRUPO_ID').AsInteger);
               finally

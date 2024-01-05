@@ -267,10 +267,10 @@ inherited frmPessoaPreCadastro: TfrmPessoaPreCadastro
         07070707070707070707}
     end
   end
-  inherited DataSetAncestral: TSQLDataSet
-    CommandText = 
+  inherited DataSetAncestral: TI9Query
+    SQL.Strings = (
       'SELECT NOME, CPF_CNPJ, DOCUMENTO, PESSOA_TIPO, PESSOA_ID, CPF_TE' +
-      'RCEIRO'#13#10'FROM T_PESSOA'#13#10'ORDER BY NOME'
+      'RCEIRO'#13#10'FROM T_PESSOA'#13#10'ORDER BY NOME')
     Top = 47
   end
   inherited ProviderAncestral: TDataSetProvider
@@ -294,7 +294,7 @@ inherited frmPessoaPreCadastro: TfrmPessoaPreCadastro
       FieldName = 'PESSOA_TIPO'
       Size = 1
     end
-    object ClientAncestralPESSOA_ID: TFMTBCDField
+    object ClientAncestralPESSOA_ID: TBCDField
       FieldName = 'PESSOA_ID'
       Required = True
       Precision = 15

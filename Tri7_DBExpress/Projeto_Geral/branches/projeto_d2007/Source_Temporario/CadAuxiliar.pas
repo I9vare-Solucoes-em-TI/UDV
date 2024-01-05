@@ -3,6 +3,7 @@ unit CadAuxiliar;
 interface
 
 uses
+  I9Query,
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, ExtCtrls, cxLookAndFeelPainters, DB, DBClient, SimpleDS,
   StdCtrls, cxButtons, cxLabel, cxControls, cxContainer, cxEdit,
@@ -25,7 +26,7 @@ type
   TfrmCadAuxiliar = class(TForm)
     Panel1: TPanel;
     Shape1: TShape;
-    DataSetAncestral: TSQLDataSet;
+    DataSetAncestral: TI9Query;
     ProviderAncestral: TDataSetProvider;
     ClientAncestral: TClientDataSet;
     SourceAncestral: TDataSource;

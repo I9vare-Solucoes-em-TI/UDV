@@ -3,6 +3,7 @@ unit ConfigRelatorios;
 interface
 
 uses
+  I9Query,
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, CadBasico, FMTBcd, cxTextEdit, cxDBEdit,
   cxControls, cxContainer, cxEdit, cxLabel, DB, DBClient, Provider, SqlExpr,
@@ -73,16 +74,16 @@ type
     grdConfRelLevel1: TcxGridLevel;
     grdConfRelDBTableView1CONFIG_RELATORIO_ID: TcxGridDBColumn;
     grdConfRelDBTableView1DESCRICAO: TcxGridDBColumn;
-    ClientAncestralCONFIG_RELATORIO_ID: TFMTBCDField;
+    ClientAncestralCONFIG_RELATORIO_ID: TBCDField;
     ClientAncestralDESCRICAO: TStringField;
     cxSplitter1: TcxSplitter;
     cxLabel5: TcxLabel;
-    sqlGrupoRelatorio: TSimpleDataSet;
+    sqlGrupoRelatorio: TI9Query;
     dsGrupoRelatorio: TDataSource;
-    sqlGrupoRelatorioGRUPO_RELATORIO_ID: TFMTBCDField;
+    sqlGrupoRelatorioGRUPO_RELATORIO_ID: TBCDField;
     sqlGrupoRelatorioDESCRICAO: TStringField;
-    ClientAncestralGRUPO_RELATORIO_ID: TFMTBCDField;
-    ClientAncestralSISTEMA_ID: TFMTBCDField;
+    ClientAncestralGRUPO_RELATORIO_ID: TBCDField;
+    ClientAncestralSISTEMA_ID: TBCDField;
     grdConfRelDBTableView1GRUPO_RELATORIO_ID: TcxGridDBColumn;
     ClientAncestralSITUACAO: TStringField;
     pnlRelatorio: TPanel;
@@ -164,8 +165,8 @@ begin
   end;
 
   sqlGrupoRelatorio.Close;
-  sqlGrupoRelatorio.DataSet.Params[0].AsInteger := vlId;
-  sqlGrupoRelatorio.DataSet.Params[1].AsInteger := vlId1;
+  sqlGrupoRelatorio.Params[0].AsInteger := vlId;
+  sqlGrupoRelatorio.Params[1].AsInteger := vlId1;
   sqlGrupoRelatorio.Open;
 
   DataSetAncestral.Close;
@@ -372,7 +373,7 @@ end;
 
 procedure TfrmConfigRelatorios.ImportarRelatrio1Click(Sender: TObject);
 var
-  vSqlRelatorio : TSimpleDataSet;
+  vSqlRelatorio : TI9Query;
 begin
   inherited;
 //  if not ClientAncestral.IsEmpty then
@@ -395,27 +396,25 @@ begin
       if FileExists(OpenDialog1.FileName) then
       begin
 
-        vSqlRelatorio := TSimpleDataSet.Create(Application);
+        vSqlRelatorio := TI9Query.Create(Application);
         vSqlRelatorio.Connection := dtmControles.DB;
 
         with vSqlRelatorio do
         begin
           Active := False;
-          DataSet.Prepared := False;
 
-          DataSet.CommandText :=
+          SQL.Text :=
             'UPDATE G_CONFIG_RELATORIO '+
             ' SET RELATORIO = :RELATORIO '+
             ' WHERE CONFIG_RELATORIO_ID = :CONFIG_RELATORIO_ID ';
 
-          DataSet.Prepared := True;
 
-          DataSet.ParamByName('RELATORIO').ParamType := ptInput;
-          DataSet.ParamByName('RELATORIO').DataType  := ftBlob;
-          DataSet.ParamByName('RELATORIO').LoadFromFile(OpenDialog1.FileName, ftBlob);
-          DataSet.ParamByName('CONFIG_RELATORIO_ID').ParamType := ptInput;
-          DataSet.ParamByName('CONFIG_RELATORIO_ID').DataType  := ftInteger;
-          DataSet.ParamByName('CONFIG_RELATORIO_ID').AsString  := ClientAncestralCONFIG_RELATORIO_ID.AsString;
+          ParamByName('RELATORIO').ParamType := ptInput;
+          ParamByName('RELATORIO').DataType  := ftBlob;
+          ParamByName('RELATORIO').LoadFromFile(OpenDialog1.FileName, ftBlob);
+          ParamByName('CONFIG_RELATORIO_ID').ParamType := ptInput;
+          ParamByName('CONFIG_RELATORIO_ID').DataType  := ftInteger;
+          ParamByName('CONFIG_RELATORIO_ID').AsString  := ClientAncestralCONFIG_RELATORIO_ID.AsString;
           Execute;
         end;
 
@@ -472,12 +471,12 @@ begin
   with dtmControles.SimpleAuxiliar do
   begin
     Active := False;
-    DataSet.CommandText :=
+    SQL.Text :=
       ' SELECT ' + vCampo +
       ' FROM G_CONFIG_RELATORIO ' +
       ' WHERE CONFIG_RELATORIO_ID = :CONFIG_RELATORIO_ID ';
 
-    DataSet.Params[0].AsCurrency := ClientAncestralCONFIG_RELATORIO_ID.AsCurrency;
+    Params[0].AsCurrency := ClientAncestralCONFIG_RELATORIO_ID.AsCurrency;
     Active := True;
   end;
 

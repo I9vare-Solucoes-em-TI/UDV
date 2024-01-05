@@ -1405,7 +1405,7 @@ inherited frmTermo: TfrmTermo
       AnchorY = 13
     end
   end
-  inherited DataSetAncestral: TSQLDataSet
+  inherited DataSetAncestral: TI9Query
     Left = 75
     Top = 319
   end
@@ -1423,13 +1423,13 @@ inherited frmTermo: TfrmTermo
       end
       item
         Name = 'DOCUMENTO_ID'
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Precision = 15
         Size = 2
       end
       item
         Name = 'NUMERO_REGISTRO'
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Precision = 15
         Size = 2
       end
@@ -1440,13 +1440,13 @@ inherited frmTermo: TfrmTermo
       end
       item
         Name = 'NUMERO_PAGINAS'
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Precision = 15
         Size = 2
       end
       item
         Name = 'NUMERO_VIAS'
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Precision = 15
         Size = 2
       end
@@ -1466,55 +1466,55 @@ inherited frmTermo: TfrmTermo
       end
       item
         Name = 'VALOR_DOCUMENTO'
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Precision = 15
         Size = 3
       end
       item
         Name = 'TAXA_JUDICIARIA'
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Precision = 15
         Size = 3
       end
       item
         Name = 'VALOR_CUSTAS'
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Precision = 15
         Size = 3
       end
       item
         Name = 'TIPO_DOCUMENTO_ID'
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Precision = 15
         Size = 2
       end
       item
         Name = 'EMOLUMENTO_ID'
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Precision = 15
         Size = 2
       end
       item
         Name = 'VALOR_TOTAL'
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Precision = 15
         Size = 3
       end
       item
         Name = 'LIVRO_NUMERO'
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Precision = 15
         Size = 2
       end
       item
         Name = 'LIVRO_PAGINA'
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Precision = 15
         Size = 2
       end
       item
         Name = 'NUMERO_PESSOAS'
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Precision = 15
         Size = 2
       end>
@@ -1553,12 +1553,12 @@ inherited frmTermo: TfrmTermo
     object ClientAncestralPAGINA_ID: TIntegerField
       FieldName = 'PAGINA_ID'
     end
-    object ClientAncestralDOCUMENTO_ID: TFMTBCDField
+    object ClientAncestralDOCUMENTO_ID: TBCDField
       FieldName = 'DOCUMENTO_ID'
       Precision = 15
       Size = 2
     end
-    object ClientAncestralNUMERO_REGISTRO: TFMTBCDField
+    object ClientAncestralNUMERO_REGISTRO: TBCDField
       FieldName = 'NUMERO_REGISTRO'
       Precision = 15
       Size = 2
@@ -1567,12 +1567,12 @@ inherited frmTermo: TfrmTermo
       FieldName = 'LIVRO'
       Size = 3
     end
-    object ClientAncestralNUMERO_PAGINAS: TFMTBCDField
+    object ClientAncestralNUMERO_PAGINAS: TBCDField
       FieldName = 'NUMERO_PAGINAS'
       Precision = 15
       Size = 2
     end
-    object ClientAncestralNUMERO_VIAS: TFMTBCDField
+    object ClientAncestralNUMERO_VIAS: TBCDField
       FieldName = 'NUMERO_VIAS'
       Precision = 15
       Size = 2
@@ -1588,47 +1588,47 @@ inherited frmTermo: TfrmTermo
       FieldName = 'OBSERVACAO'
       Size = 1
     end
-    object ClientAncestralVALOR_DOCUMENTO: TFMTBCDField
+    object ClientAncestralVALOR_DOCUMENTO: TBCDField
       FieldName = 'VALOR_DOCUMENTO'
       Precision = 15
       Size = 3
     end
-    object ClientAncestralTAXA_JUDICIARIA: TFMTBCDField
+    object ClientAncestralTAXA_JUDICIARIA: TBCDField
       FieldName = 'TAXA_JUDICIARIA'
       Precision = 15
       Size = 3
     end
-    object ClientAncestralVALOR_CUSTAS: TFMTBCDField
+    object ClientAncestralVALOR_CUSTAS: TBCDField
       FieldName = 'VALOR_CUSTAS'
       Precision = 15
       Size = 3
     end
-    object ClientAncestralTIPO_DOCUMENTO_ID: TFMTBCDField
+    object ClientAncestralTIPO_DOCUMENTO_ID: TBCDField
       FieldName = 'TIPO_DOCUMENTO_ID'
       Precision = 15
       Size = 2
     end
-    object ClientAncestralEMOLUMENTO_ID: TFMTBCDField
+    object ClientAncestralEMOLUMENTO_ID: TBCDField
       FieldName = 'EMOLUMENTO_ID'
       Precision = 15
       Size = 2
     end
-    object ClientAncestralVALOR_TOTAL: TFMTBCDField
+    object ClientAncestralVALOR_TOTAL: TBCDField
       FieldName = 'VALOR_TOTAL'
       Precision = 15
       Size = 3
     end
-    object ClientAncestralLIVRO_NUMERO: TFMTBCDField
+    object ClientAncestralLIVRO_NUMERO: TBCDField
       FieldName = 'LIVRO_NUMERO'
       Precision = 15
       Size = 2
     end
-    object ClientAncestralLIVRO_PAGINA: TFMTBCDField
+    object ClientAncestralLIVRO_PAGINA: TBCDField
       FieldName = 'LIVRO_PAGINA'
       Precision = 15
       Size = 2
     end
-    object ClientAncestralNUMERO_PESSOAS: TFMTBCDField
+    object ClientAncestralNUMERO_PESSOAS: TBCDField
       FieldName = 'NUMERO_PESSOAS'
       Precision = 15
       Size = 2

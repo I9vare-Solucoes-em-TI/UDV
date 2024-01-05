@@ -299,11 +299,10 @@ inherited frmPessoaPreCadastro: TfrmPessoaPreCadastro
       OnClick = btnCadastrarClick
     end
   end
-  inherited DataSetAncestral: TSQLDataSet
-    SchemaName = 'sysdba'
-    CommandText = 
+  inherited DataSetAncestral: TI9Query
+    SQL.Strings = (
       'SELECT NOME, TIPO, CPFCNPJ, DOCUMENTO, PESSOA_ID '#13#10'FROM J_PESSOA' +
-      #13#10'ORDER BY NOME'
+      #13#10'ORDER BY NOME')
     Left = 3
     Top = 135
   end
@@ -326,7 +325,7 @@ inherited frmPessoaPreCadastro: TfrmPessoaPreCadastro
       FieldName = 'DOCUMENTO'
       Size = 30
     end
-    object ClientAncestralPESSOA_ID: TFMTBCDField
+    object ClientAncestralPESSOA_ID: TBCDField
       FieldName = 'PESSOA_ID'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
       Precision = 20

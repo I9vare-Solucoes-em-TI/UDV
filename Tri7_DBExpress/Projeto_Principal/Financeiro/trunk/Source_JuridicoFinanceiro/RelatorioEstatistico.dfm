@@ -3348,10 +3348,10 @@ object frmRelatorioEstatistico: TfrmRelatorioEstatistico
       FieldName = 'VALOR_PERCENTUAL'
     end
   end
-  object sqlDados: TSimpleDataSet
+  object sqlDados: TI9Query
     Aggregates = <>
     Connection = dtmControles.DB
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT CG.TIPO,'#13#10'       CG.DESCRICAO AS GRUPO_CONTABIL,'#13#10'       ' +
       'CC.GRUPO AS GRUPO_SECUNDARIO,'#13#10'       CC.DESCRICAO AS COMPROMISS' +
       'O,'#13#10'       LC.ANO_MES_REGISTRO,'#13#10'       SUM(COALESCE(LC.VALOR,0)' +
@@ -3361,9 +3361,8 @@ object frmRelatorioEstatistico: TfrmRelatorioEstatistico
       'G.CONTABIL_GRUPO_ID'#13#10'WHERE LC.ANO_MES_REGISTRO BETWEEN '#39'201711'#39' ' +
       'AND '#39'201802'#39#13#10'  AND (LC.OPERACAO = '#39'D'#39' OR LC.OPERACAO = '#39'R'#39')'#13#10'GR' +
       'OUP BY CG.TIPO, GRUPO_CONTABIL,GRUPO_SECUNDARIO,COMPROMISSO, ANO' +
-      '_MES_REGISTRO'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <>
+      '_MES_REGISTRO')
+    ParamData = <>
     Params = <>
     Left = 151
     Top = 334
@@ -3387,7 +3386,7 @@ object frmRelatorioEstatistico: TfrmRelatorioEstatistico
       FieldName = 'ANO_MES_REGISTRO'
       Size = 10
     end
-    object sqlDadosVALOR: TFMTBCDField
+    object sqlDadosVALOR: TBCDField
       FieldName = 'VALOR'
       Precision = 20
       Size = 3

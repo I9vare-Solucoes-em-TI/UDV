@@ -3,6 +3,7 @@ unit CadastroRapidoTransferencia;
 interface
 
 uses
+  I9Query,
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, CadastroAuxSimplificado, dxSkinsCore, dxSkinBlack, dxSkinBlue,
   dxSkinCaramel, dxSkinCoffee, dxSkinDarkSide, dxSkinGlassOceans,
@@ -33,8 +34,8 @@ type
     cxLabel5: TcxLabel;
     cxLabel4: TcxLabel;
     dtsPlanoContas: TDataSource;
-    sqlPlanoContas: TSimpleDataSet;
-    sqlPlanoContasCONTABIL_CONTA_ID: TFMTBCDField;
+    sqlPlanoContas: TI9Query;
+    sqlPlanoContasCONTABIL_CONTA_ID: TBCDField;
     sqlPlanoContasDESCRICAO: TStringField;
     cxLabel6: TcxLabel;
     lcxCompromisso: TcxLookupComboBox;
@@ -49,7 +50,7 @@ type
     lcxContaDestino: TcxLookupComboBox;
     edtValor: TcxCurrencyEdit;
     edtDataLancamento: TcxDateEdit;
-    sqlPlanoContasCONTABIL_GRUPO_ID: TFMTBCDField;
+    sqlPlanoContasCONTABIL_GRUPO_ID: TBCDField;
     pnlSalvarComo: TPanel;
     btnSalvarNovo: TcxButton;
     chxContabilRetiradaLucro: TcxCheckBox;
@@ -378,7 +379,7 @@ VAR
 begin
   inherited;
   sqlPlanoContas.Active := False;
-  sqlPlanoContas.DataSet.ParamByName('BALANCETE_GRUPO_ID').AsInteger := vgTabBalancete[tabBalancete.TabIndex];
+  sqlPlanoContas.ParamByName('BALANCETE_GRUPO_ID').AsInteger := vgTabBalancete[tabBalancete.TabIndex];
   sqlPlanoContas.Active := True;
 end;
 

@@ -3,6 +3,7 @@ unit Agendamento;
 interface
 
 uses
+  I9Query,
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, dxSkinsCore, dxSkinCoffee, dxSkinMcSkin, dxSkinOffice2007Silver,
   cxGraphics, cxLookAndFeelPainters, dxSkinscxPCPainter, Menus, cxStyles,
@@ -45,7 +46,7 @@ type
     cxBtnExcluir: TcxButton;
     cxBtnFechar: TcxButton;
     pnlDadosFiltroPersonalizado: TPanel;
-    sqlLivroAgendamento: TSimpleDataSet;
+    sqlLivroAgendamento: TI9Query;
     dtsLivroAgendamento: TDataSource;
     rdbPesquisaSimplificada: TcxRadioButton;
     rdbPesquisaPersonalizada: TcxRadioButton;
@@ -53,23 +54,23 @@ type
     cxLabel6: TcxLabel;
     Panel6: TPanel;
     cxLabel2: TcxLabel;
-    sqlLivroAgendamentoLIVRO_AGENDAMENTO_ID: TFMTBCDField;
+    sqlLivroAgendamentoLIVRO_AGENDAMENTO_ID: TBCDField;
     sqlLivroAgendamentoTIPO: TStringField;
     sqlLivroAgendamentoDATA_INICIAL: TSQLTimeStampField;
     sqlLivroAgendamentoDATA_FINAL: TSQLTimeStampField;
     sqlLivroAgendamentoPERIODO: TStringField;
-    sqlLivroAgendamentoVALOR_PARCELA: TFMTBCDField;
-    sqlLivroAgendamentoQTD: TFMTBCDField;
-    sqlLivroAgendamentoVALOR_PROLABORE: TFMTBCDField;
+    sqlLivroAgendamentoVALOR_PARCELA: TBCDField;
+    sqlLivroAgendamentoQTD: TBCDField;
+    sqlLivroAgendamentoVALOR_PROLABORE: TBCDField;
     sqlLivroAgendamentoSITUACAO: TStringField;
     sqlLivroAgendamentoESPECIE: TStringField;
-    sqlLivroAgendamentoBALANCETE_GRUPO_ID: TFMTBCDField;
+    sqlLivroAgendamentoBALANCETE_GRUPO_ID: TBCDField;
     sqlLivroAgendamentoHISTORICO: TStringField;
     sqlLivroAgendamentoOBSERVACAO: TStringField;
     sqlLivroAgendamentoOPERACAO: TStringField;
-    sqlLivroAgendamentoCONTABIL_CONTA_ID: TFMTBCDField;
-    sqlLivroAgendamentoPESSOA_ID: TFMTBCDField;
-    sqlLivroAgendamentoCENTRO_CUSTO_ID: TFMTBCDField;
+    sqlLivroAgendamentoCONTABIL_CONTA_ID: TBCDField;
+    sqlLivroAgendamentoPESSOA_ID: TBCDField;
+    sqlLivroAgendamentoCENTRO_CUSTO_ID: TBCDField;
     tabOpcoes: TcxTabControl;
     pgcDados: TcxPageControl;
     cxLabel1: TcxLabel;
@@ -78,7 +79,7 @@ type
     popContratoItem: TPopupMenu;
     mniCancelarItemContratual: TMenuItem;
     mniReativarItemContratual: TMenuItem;
-    sqlLivroAgendamentoCAIXA_ID: TFMTBCDField;
+    sqlLivroAgendamentoCAIXA_ID: TBCDField;
     dxBarManager1: TdxBarManager;
     dxBarManager1BarFinanceiro: TdxBar;
     lblPrevisaoSaldo: TcxBarEditItem;
@@ -124,24 +125,24 @@ type
     cxOrçamento: TcxButton;
     imgOperacoes: TImageList;
     dxPrevisaoOrcamento: TdxBarStatic;
-    sqlLivroAgendamentoORCAMENTO_ID: TFMTBCDField;
-    sqlLivroAgendamentoCONTABIL_GRUPO_ID: TFMTBCDField;
+    sqlLivroAgendamentoORCAMENTO_ID: TBCDField;
+    sqlLivroAgendamentoCONTABIL_GRUPO_ID: TBCDField;
     cxGridDBTableAgendaColumn4: TcxGridDBColumn;
     sqlLivroAgendamentoCALC_ORCAMENTO: TBooleanField;
     sqlLivroAgendamentoCALC_VALOR: TCurrencyField;
     N2: TMenuItem;
     mniRedefinirParcelaInicial: TMenuItem;
-    sqlLivroAgendamentoPARCELA_INICIAL: TFMTBCDField;
+    sqlLivroAgendamentoPARCELA_INICIAL: TBCDField;
     sqlLivroAgendamentoCALC_OBSERVACAO: TStringField;
     cxGridDBTableAgendaColumn5: TcxGridDBColumn;
     sqlLivroAgendamentoDATA_REGISTRO: TSQLTimeStampField;
     sqlLivroAgendamentoDATA_PROXIMA: TSQLTimeStampField;
-    sqlLivroAgendamentoVALOR_PROXIMO: TFMTBCDField;
-    sqlLivroAgendamentoUSUARIO_ID: TFMTBCDField;
+    sqlLivroAgendamentoVALOR_PROXIMO: TBCDField;
+    sqlLivroAgendamentoUSUARIO_ID: TBCDField;
     cxGridDBTableAgendaColumn6: TcxGridDBColumn;
     cxGridDBTableAgendaSelecionar: TcxGridDBColumn;
     sqlLivroAgendamentocalc_Selecionado: TBooleanField;
-    sqlLivroAgendamentoBOLETA_ID: TFMTBCDField;
+    sqlLivroAgendamentoBOLETA_ID: TBCDField;
     sqlLivroAgendamentoCALC_BOLETO: TBooleanField;
     cxGridDBTableAgendaBoleto: TcxGridDBColumn;
     cxLabel4: TcxLabel;
@@ -155,8 +156,8 @@ type
     sqlLivroAgendamentoCONTABIL_RL: TStringField;
     cxLabel5: TcxLabel;
     cxLabel7: TcxLabel;
-    sqlPlanoContas: TSimpleDataSet;
-    sqlPlanoContasCONTABIL_CONTA_ID: TFMTBCDField;
+    sqlPlanoContas: TI9Query;
+    sqlPlanoContasCONTABIL_CONTA_ID: TBCDField;
     sqlPlanoContasDESCRICAO: TStringField;
     sqlPlanoContasIR: TStringField;
     sqlPlanoContasCNJ: TStringField;
@@ -314,7 +315,7 @@ procedure TfrmAgendamento.CadastroAgendamento(vpId : Integer; vpOrcamento : Bool
 
         if not (dtmLookupServico.sqlLivroAgendamento.FieldByName('PERIODO').AsInteger in [8,9]) then
           ParamByName('VALOR_AGENDADO').AsCurrency := dtmLookupServico.sqlLivroAgendamento.FieldByName('VALOR_PARCELA').AsCurrency;
-        ExecSQL(False);
+        ExecSQL;
       end;
       Result := True;
     end
@@ -354,7 +355,7 @@ begin
 
   if (vpId > 0) and (not vpOrcamento) then
   begin
-    dtmLookupServico.sqlFinanceiroAgendamento.DataSet.ParamByName('LIVRO_AGENDAMENTO_ID').AsInteger := sqlLivroAgendamentoLIVRO_AGENDAMENTO_ID.AsInteger;
+    dtmLookupServico.sqlFinanceiroAgendamento.ParamByName('LIVRO_AGENDAMENTO_ID').AsInteger := sqlLivroAgendamentoLIVRO_AGENDAMENTO_ID.AsInteger;
     dtmLookupServico.sqlFinanceiroAgendamento.Active := True;
     dtmLookupServico.VerificarParcelasGeral(sqlLivroAgendamentoPERIODO.AsInteger, '', dtmLookupServico.sqlFinanceiroAgendamento);
   end;
@@ -370,7 +371,7 @@ begin
   With dtmLookupServico.sqlLivroAgendamento do
   begin
     Active := False;
-    DataSet.ParamByName('LIVRO_AGENDAMENTO_ID').AsInteger := vgDadosCadastro.ChaveIdPrincipal;
+    ParamByName('LIVRO_AGENDAMENTO_ID').AsInteger := vgDadosCadastro.ChaveIdPrincipal;
     Active := True;
   end;
 
@@ -499,7 +500,7 @@ begin
   end;
 
   sqlPlanoContas.Active := False;
-  sqlPlanoContas.DataSet.ParamByName('CONTABIL_GRUPO_ID').AsInteger := lcxGrupoContabil.EditValue;
+  sqlPlanoContas.ParamByName('CONTABIL_GRUPO_ID').AsInteger := lcxGrupoContabil.EditValue;
   sqlPlanoContas.Active  := True;
 
   if sqlPlanoContas.RecordCount = 1 then
@@ -732,7 +733,7 @@ begin
 
   sqlLivroAgendamento.AfterScroll := nil;
   sqlLivroAgendamento.Active := False;
-  sqlLivroAgendamento.DataSet.CommandText := viSql;
+  sqlLivroAgendamento.SQL.Text := viSql;
   sqlLivroAgendamento.Active := True;
   sqlLivroAgendamento.AfterScroll := sqlLivroAgendamentoAfterScroll;
   sqlLivroAgendamentoAfterScroll(sqlLivroAgendamento);

@@ -3,6 +3,8 @@ unit AdminDB;
 interface
 
 uses
+  I9Query,
+  I9Connection,
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, StdCtrls, cxControls, cxContainer, cxEdit, cxTextEdit,
   cxLookAndFeelPainters, cxButtons, ComCtrls, cxProgressBar, DB, DBClient,
@@ -30,14 +32,14 @@ type
     tabResultado: TTabSheet;
     BtnExecutarSql: TcxButton;
     dtsExecute: TDataSource;
-    sqlExecute: TSimpleDataSet;
+    sqlExecute: TI9Query;
     btnLimpar: TcxButton;
     btnFechar: TcxButton;
     SynSQLSyn1: TSynSQLSyn;
     grdRotinas: TcxGrid;
     grdResultView: TcxGridDBTableView;
     grdResult: TcxGridLevel;
-    sqlAtualiza: TSQLQuery;
+    sqlAtualiza: TI9Query;
     btnGravar: TcxButton;
     Panel1: TPanel;
     cxSplitter1: TcxSplitter;
@@ -47,9 +49,9 @@ type
     gridCamposTabela: TcxGrid;
     gridCamposTabelaView: TcxGridDBTableView;
     grdRotinasLevel1: TcxGridLevel;
-    sqlTabela: TSimpleDataSet;
+    sqlTabela: TI9Query;
     dtsTabela: TDataSource;
-    sqlCampo: TSimpleDataSet;
+    sqlCampo: TI9Query;
     dtsCampo: TDataSource;
     sqlTabelaTABELA: TStringField;
     gridTabelaViewTABELA: TcxGridDBColumn;
@@ -98,7 +100,7 @@ begin
   sqlExecute.Connection  := dtmControles.DB;
   sqlTabela.Connection   := dtmControles.DB;
   sqlCampo.Connection    := dtmControles.DB;
-  sqlAtualiza.SQLConnection := dtmControles.DB;
+  sqlAtualiza.Connection := dtmControles.DB;
 
   Label1.Caption := UpperCase(dtmControles.Cripto.CriptoHexToText(vgTipoBanco));
 
@@ -126,10 +128,9 @@ begin
     SynSQLSyn1.SQLDialect := sqlInterbase6;
   end;
 
-  sqlCampo.DataSet.CommandText := SqlF;
-  sqlCampo.DataSet.Prepared := True;
+  sqlCampo.SQL.Text := SqlF;
 
-  sqlTabela.DataSet.CommandText := SqlT;
+  sqlTabela.SQL.Text := SqlT;
   sqlTabela.Open;
   SynSQLSyn1.TableNames.Clear;
   SynCompletionProposal1.ItemList.Clear;
@@ -164,7 +165,7 @@ begin
         Active := False;
         SQL.Clear;
         sql.Add(memoSQL.Text);
-        ExecSQL(FALSE);
+        ExecSQL;
         ShowMessage('SQL executado com sucesso!!!');
       end;
       dtmControles.Commit;
@@ -175,8 +176,8 @@ begin
       with sqlExecute do
       begin
         Active := False;
-        DataSet.CommandText := '';
-        DataSet.CommandText := memoSQL.Text;
+        SQL.Text := '';
+        SQL.Text := memoSQL.Text;
         Active := True;
         grdResultView.ClearItems;
         grdResultView.DataController.CreateAllItems;
@@ -258,7 +259,7 @@ end;
 procedure TfrmAdminDB.sqlTabelaAfterScroll(DataSet: TDataSet);
 begin
   sqlCampo.Close;
-  sqlCampo.DataSet.Params[0].AsString := sqlTabelaTABELA.AsString;
+  sqlCampo.Params[0].AsString := sqlTabelaTABELA.AsString;
   sqlCampo.Open;
 end;
 

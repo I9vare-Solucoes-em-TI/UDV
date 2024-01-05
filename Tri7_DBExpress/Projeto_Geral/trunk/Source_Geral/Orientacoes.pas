@@ -3,6 +3,7 @@ unit Orientacoes;
 interface
 
 uses
+  I9Query,
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, Menus, StdCtrls, cxButtons, ExtCtrls, DB, cxDBData, WPCTRMemo,
   WPCTRRich, cxSplitter, cxGridLevel, cxGridDBTableView, cxGrid, SimpleDS,
@@ -18,7 +19,7 @@ uses
 
 type
   TfrmOrientacoes = class(TForm)
-    sqlOrientacoes: TSimpleDataSet;
+    sqlOrientacoes: TI9Query;
     dtsOrientacoes: TDataSource;
     pagOrientacoes: TcxPageControl;
     tbsCadastro: TcxTabSheet;
@@ -31,10 +32,10 @@ type
     cxGridLevel4: TcxGridLevel;
     spl1: TcxSplitter;
     edtMensagemOrientacao: TWPRichText;
-    sqlOrientacao: TSimpleDataSet;
+    sqlOrientacao: TI9Query;
     dtsOrientacao: TDataSource;
-    sqlOrientacaoORIENTACAO_ID: TFMTBCDField;
-    sqlOrientacaoUSUARIO_ENVIOU_ID: TFMTBCDField;
+    sqlOrientacaoORIENTACAO_ID: TBCDField;
+    sqlOrientacaoUSUARIO_ENVIOU_ID: TBCDField;
     sqlOrientacaoMENSAGEM: TBlobField;
     sqlOrientacaoDATA_CADASTRO: TSQLTimeStampField;
     sqlOrientacaoDATA_ORIENTACAO: TSQLTimeStampField;
@@ -58,11 +59,11 @@ type
     lstPara: TListBox;
     lstParaCodigo: TListBox;
     btnExcluirUsuario: TcxButton;
-    sqlOrientacoesORIENTACAO_USUARIO_ID: TFMTBCDField;
-    sqlOrientacoesUSUARIO_ID: TFMTBCDField;
+    sqlOrientacoesORIENTACAO_USUARIO_ID: TBCDField;
+    sqlOrientacoesUSUARIO_ID: TBCDField;
     sqlOrientacoesRECEBIDO: TStringField;
-    sqlOrientacoesORIENTACAO_ID: TFMTBCDField;
-    sqlOrientacoesUSUARIO_ENVIOU_ID: TFMTBCDField;
+    sqlOrientacoesORIENTACAO_ID: TBCDField;
+    sqlOrientacoesUSUARIO_ENVIOU_ID: TBCDField;
     sqlOrientacoesMENSAGEM: TBlobField;
     sqlOrientacoesDATA_CADASTRO: TSQLTimeStampField;
     sqlOrientacoesDATA_ORIENTACAO: TSQLTimeStampField;
@@ -305,7 +306,7 @@ begin
     with dtmControles.SimpleAuxiliar do
     begin
       Active := False;
-      DataSet.CommandText := 'SELECT USUARIO_ID FROM G_USUARIO '+
+      SQL.Text := 'SELECT USUARIO_ID FROM G_USUARIO '+
                              ' WHERE SITUACAO = '+QuotedStr('A');
       Active := True;
       First;
@@ -332,7 +333,7 @@ end;
 procedure TfrmOrientacoes.btnIncluirClick(Sender: TObject);
 begin
   sqlOrientacao.Active := False;
-  sqlOrientacao.DataSet.Params[0].AsInteger := 0;
+  sqlOrientacao.Params[0].AsInteger := 0;
   sqlOrientacao.Active := True;
   sqlOrientacao.Insert;
 
@@ -461,7 +462,7 @@ begin
   with sqlOrientacoes do
   begin
     Active := False;
-    DataSet.CommandText :=
+    SQL.Text :=
       ' SELECT ' +
       '   USU.ORIENTACAO_USUARIO_ID, ' +
       '   USU.USUARIO_ID, ' +
@@ -495,13 +496,13 @@ begin
   if pagOrientacoes.ActivePage = tbsCadastro then
   begin
     sqlOrientacao.Active := False;
-    sqlOrientacao.DataSet.Params[0].AsInteger := sqlOrientacoesORIENTACAO_ID.AsInteger;
+    sqlOrientacao.Params[0].AsInteger := sqlOrientacoesORIENTACAO_ID.AsInteger;
     sqlOrientacao.Active := True;
 
     with dtmControles.SimpleAuxiliar do
     begin
       Active := False;
-      DataSet.CommandText :=
+      SQL.Text :=
         ' SELECT USUARIO_ID ' +
         ' FROM G_ORIENTACAO_USUARIO ' +
         ' WHERE ORIENTACAO_ID = ' + IntToStr(sqlOrientacoesORIENTACAO_ID.AsInteger);

@@ -5,6 +5,8 @@ interface
 uses
   I9Query,
   I9Connection,
+  I9Query,
+  I9Connection,
   System.SysUtils,
   System.Classes,
   FireDAC.Stan.Intf,

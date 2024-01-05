@@ -1413,7 +1413,6 @@ object frmEmolumento: TfrmEmolumento
     FetchOptions.AssignedValues = [evMode]
     FetchOptions.Mode = fmAll
     SQL.Strings = (
-      
         'SELECT * FROM G_EMOLUMENTO_ITEM'#13#10'WHERE EMOLUMENTO_ID = :EMOLUMEN' +
         'TO_ID'#13#10'AND EMOLUMENTO_PERIODO_ID = :EMOLUMENTO_PERIODO_ID')
     Left = 437
@@ -1621,7 +1620,6 @@ object frmEmolumento: TfrmEmolumento
     FetchOptions.AssignedValues = [evMode]
     FetchOptions.Mode = fmAll
     SQL.Strings = (
-      
         'SELECT E.*, EI.*'#13#10'FROM G_EMOLUMENTO E LEFT OUTER JOIN G_EMOLUMEN' +
         'TO_ITEM EI ON'#13#10'  E.EMOLUMENTO_ID = EI.EMOLUMENTO_ID'#13#10'WHERE EI.EM' +
         'OLUMENTO_PERIODO_ID = 51'#13#10'  AND (E.SITUACAO IS NULL OR E.SITUACA' +
@@ -1756,7 +1754,6 @@ object frmEmolumento: TfrmEmolumento
     FetchOptions.AssignedValues = [evMode]
     FetchOptions.Mode = fmAll
     SQL.Strings = (
-      
         'SELECT * FROM C_CAIXA_SERVICO'#13#10'WHERE SITUACAO = '#39'A'#39#13#10'      AND S' +
         'ISTEMA_ID = :SISTEMA_ID'#13#10'ORDER BY DESCRICAO')
     Left = 398

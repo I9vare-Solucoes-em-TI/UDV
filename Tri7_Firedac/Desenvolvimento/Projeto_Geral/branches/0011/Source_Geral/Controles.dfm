@@ -193,7 +193,6 @@ object dtmControles: TdtmControles
     FetchOptions.AssignedValues = [evMode]
     FetchOptions.Mode = fmAll
     SQL.Strings = (
-      
         'SELECT C.*, G.DESCRICAO AS GRUPO'#13#10'FROM G_CONFIG C, G_CONFIG_GRUP' +
         'O G'#13#10'WHERE C.CONFIG_GRUPO_ID = G.CONFIG_GRUPO_ID'#13#10'      AND (TER' +
         'MINAL = '#39#39' OR TERMINAL IS NULL OR UPPER(TERMINAL) = :TERMINAL)'#13#10 +
@@ -345,7 +344,6 @@ object dtmControles: TdtmControles
     FetchOptions.AssignedValues = [evMode]
     FetchOptions.Mode = fmAll
     SQL.Strings = (
-      
         'SELECT GR.GRUPO_RELATORIO_ID,'#13#10'               GR.DESCRICAO AS GR' +
         'UPO,'#13#10'               CR.CONFIG_RELATORIO_ID,'#13#10'               CR.' +
         'DESCRICAO,'#13#10'               CR.RELATORIO'#13#10'FROM G_CONFIG_RELATORIO' +
@@ -3027,7 +3025,6 @@ object dtmControles: TdtmControles
     FetchOptions.AssignedValues = [evMode]
     FetchOptions.Mode = fmAll
     SQL.Strings = (
-      
         'SELECT CONFIG_RELATORIO_ID, RELATORIO '#13#10'FROM G_CONFIG_RELATORIO'#13 +
         #10'WHERE SISTEMA_ID = :SISTEMA_ID'#13#10'     AND CONFIG_RELATORIO_ID = ' +
         ':CONFIG_RELATORIO_ID')
@@ -4245,7 +4242,6 @@ object dtmControles: TdtmControles
     FetchOptions.AssignedValues = [evMode]
     FetchOptions.Mode = fmAll
     SQL.Strings = (
-      
         'SELECT SISTEMA_ID, DESCRICAO'#13#10'FROM G_SISTEMA'#13#10'WHERE SITUACAO = '#39 +
         'A'#39#13#10'ORDER BY SISTEMA_ID')
     Left = 502
@@ -4364,7 +4360,6 @@ object dtmControles: TdtmControles
   end
   object DBH: TI9Connection
     Params.Strings = (
-      
         'Database=192.168.25.103:D:\Tri7\Desenvolvimento\01_Base\CALDAS_N' +
         'OVAS.FDB'
       'User_Name=sysdba'

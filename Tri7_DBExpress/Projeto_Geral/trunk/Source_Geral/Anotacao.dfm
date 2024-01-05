@@ -254,8 +254,8 @@ inherited frmAnotacao: TfrmAnotacao
       end
     end
   end
-  inherited DataSetAncestral: TSQLDataSet
-    CommandText = 'SELECT * FROM G_ANOTACAO'#13#10'WHERE ANOTACAO_ID = :ANOTACAO_ID'
+  inherited DataSetAncestral: TI9Query
+    SQL.Strings = ('SELECT * FROM G_ANOTACAO'#13#10'WHERE ANOTACAO_ID = :ANOTACAO_ID')
     Params = <
       item
         DataType = ftUnknown
@@ -277,12 +277,11 @@ inherited frmAnotacao: TfrmAnotacao
     Left = 544
     Top = 307
   end
-  object sqlAnotacao: TSimpleDataSet
+  object sqlAnotacao: TI9Query
     Aggregates = <>
     Connection = dtmControles.DB
-    DataSet.CommandText = 'SELECT * FROM G_ANOTACAO'#13#10'WHERE ANOTACAO_ID = :ANOTACAO_ID'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <
+    SQL.Strings = ('SELECT * FROM G_ANOTACAO'#13#10'WHERE ANOTACAO_ID = :ANOTACAO_ID')
+    ParamData = <
       item
         DataType = ftUnknown
         Name = 'ANOTACAO_ID'
@@ -292,13 +291,13 @@ inherited frmAnotacao: TfrmAnotacao
     AfterScroll = sqlAnotacaoAfterScroll
     Left = 133
     Top = 185
-    object sqlAnotacaoANOTACAO_ID: TFMTBCDField
+    object sqlAnotacaoANOTACAO_ID: TBCDField
       FieldName = 'ANOTACAO_ID'
       Required = True
       Precision = 15
       Size = 2
     end
-    object sqlAnotacaoUSUARIO_ID: TFMTBCDField
+    object sqlAnotacaoUSUARIO_ID: TBCDField
       FieldName = 'USUARIO_ID'
       Precision = 15
       Size = 2

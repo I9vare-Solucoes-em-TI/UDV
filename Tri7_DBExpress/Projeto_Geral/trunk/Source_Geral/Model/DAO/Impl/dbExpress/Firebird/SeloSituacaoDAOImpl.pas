@@ -3,6 +3,8 @@ unit SeloSituacaoDAOImpl;
 interface
 
 uses
+  FireDAC.Stan.Param,
+  I9Connection,
   SeloSituacaoDAO,
   Data.SqlExpr,
   Data.DB,
@@ -12,10 +14,10 @@ uses
 type
   TSeloSituacaoDAO = class(TInterfacedObject, ISeloSituacaoDAO)
   private
-    FSQLConnection: TSQLConnection;
+    FConnection: TI9Connection;
   public
     constructor Create(
-      const vpSQLConnection: TSQLConnection); reintroduce;
+      const vpConnection: TI9Connection); reintroduce;
 
     function Get(
       const vpValue: TDataSet): ISeloSituacao;
@@ -47,10 +49,10 @@ uses
 { TSeloSituacaoDAO }
 
 constructor TSeloSituacaoDAO.Create(
-  const vpSQLConnection: TSQLConnection);
+  const vpConnection: TI9Connection);
 begin
   inherited Create;
-  FSQLConnection := vpSQLConnection;
+  FConnection := vpConnection;
 end;
 
 function TSeloSituacaoDAO.Get(
@@ -82,7 +84,7 @@ function TSeloSituacaoDAO.GetByID(
 {$REGION 'Variáveis'}
 var
   viSQL: string;
-  viParams: TParams;
+  viParams: TFDParams;
   viDataSet: TDataSet;
 {$ENDREGION}
 begin
@@ -105,12 +107,12 @@ begin
 
   {$ENDREGION}
 
-  viParams := TParams.Create;
+  viParams := TFDParams.Create;
   try
     viParams.CreateParam(TFieldType.ftInteger, 'P_SELO_SITUACAO_ID',
       TParamType.ptInput).AsInteger := vpValue;
 
-    FSQLConnection.Execute(viSQL, viParams, viDataSet);
+    FConnection.Execute(viSQL, viParams, viDataSet);
     try
       if viDataSet.IsEmpty then
         Exit;

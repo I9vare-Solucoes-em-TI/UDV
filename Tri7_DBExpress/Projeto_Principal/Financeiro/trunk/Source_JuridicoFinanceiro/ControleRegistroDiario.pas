@@ -3,6 +3,7 @@ unit ControleRegistroDiario;
 interface
 
 uses
+  I9Query,
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, cxLookAndFeelPainters, cxStyles, cxCustomData, cxGraphics,
   cxFilter, cxData, cxDataStorage, cxEdit, DB, cxDBData, cxCalendar,
@@ -30,7 +31,7 @@ type
     pagPrincipal: TcxPageControl;
     tbsPesquisa: TcxTabSheet;
     Panel3: TPanel;
-    sqlPesquisa: TSimpleDataSet;
+    sqlPesquisa: TI9Query;
     dtsPesquisa: TDataSource;
     frxEtiqueta: TfrxReport;
     sqlTextosEtiquetas: TClientDataSet;
@@ -56,7 +57,7 @@ type
     GridPesquisacxGridDBTableView3Column1: TcxGridDBColumn;
     GridPesquisacxGridDBTableUsuario: TcxGridDBColumn;
     GridPesquisacxGridLevel3: TcxGridLevel;
-    sqlTipoServico: TSimpleDataSet;
+    sqlTipoServico: TI9Query;
     GridPesquisacxGridDBTableView3Column2: TcxGridDBColumn;
     GridPesquisacxGridDBTableView3Column3: TcxGridDBColumn;
     GridPesquisacxGridDBReceita: TcxGridDBColumn;
@@ -65,7 +66,7 @@ type
     actImprimirEtiqueta: TAction;
     actFechamentoDia: TAction;
     cxLabel4: TcxLabel;
-    sqlTipoServicoCAIXA_SERVICO_ID: TFMTBCDField;
+    sqlTipoServicoCAIXA_SERVICO_ID: TBCDField;
     sqlTipoServicoDESCRICAO: TStringField;
     SpeedButton3: TSpeedButton;
     SpeedButton1: TSpeedButton;
@@ -77,19 +78,19 @@ type
     GridPesquisacxGridDBTableView3Column7: TcxGridDBColumn;
     GridPesquisacxGridDBTableView3Column8: TcxGridDBColumn;
     cxLabel5: TcxLabel;
-    sqlPesquisaREGISTRO_DIARIO_ID: TFMTBCDField;
+    sqlPesquisaREGISTRO_DIARIO_ID: TBCDField;
     sqlPesquisaDESCRICAO: TStringField;
     sqlPesquisaAPRESENTANTE: TStringField;
-    sqlPesquisaVALOR: TFMTBCDField;
+    sqlPesquisaVALOR: TBCDField;
     sqlPesquisaOPERACAO: TStringField;
-    sqlPesquisaUSUARIO_ID: TFMTBCDField;
-    sqlPesquisaPROTOCOLO: TFMTBCDField;
+    sqlPesquisaUSUARIO_ID: TBCDField;
+    sqlPesquisaPROTOCOLO: TBCDField;
     sqlPesquisaDATA: TSQLTimeStampField;
-    sqlPesquisaCONTROLE_ID: TFMTBCDField;
-    sqlPesquisaQTD: TFMTBCDField;
-    sqlPesquisaESCREVENTE: TFMTBCDField;
+    sqlPesquisaCONTROLE_ID: TBCDField;
+    sqlPesquisaQTD: TBCDField;
+    sqlPesquisaESCREVENTE: TBCDField;
     sqlPesquisaSERVENTIA: TStringField;
-    sqlPesquisaCAIXA_SERVICO_ID: TFMTBCDField;
+    sqlPesquisaCAIXA_SERVICO_ID: TBCDField;
     sqlPesquisaCALC_RECEITA: TCurrencyField;
     sqlPesquisaCALC_DESPESA: TCurrencyField;
     sqlPesquisaSELO: TStringField;
@@ -222,12 +223,12 @@ begin
   if pgcDados.ActivePageIndex = 0 then
   begin
     sqlPesquisa.Filter   := ' OPERACAO = '+ QuotedStr('C');
-    sqlTipoServico.DataSet.ParamByName('TIPO_TRANSACAO').AsString := 'C';
+    sqlTipoServico.ParamByName('TIPO_TRANSACAO').AsString := 'C';
   end
   else
   begin
     sqlPesquisa.Filter   := ' OPERACAO = '+ QuotedStr('D');
-    sqlTipoServico.DataSet.ParamByName('TIPO_TRANSACAO').AsString := 'D';
+    sqlTipoServico.ParamByName('TIPO_TRANSACAO').AsString := 'D';
   end;
   sqlPesquisa.Filtered  := True;
   sqlTipoServico.Active := True;}
@@ -292,7 +293,7 @@ begin
 
   sqlPesquisa.AfterScroll := Nil;
   sqlPesquisa.Active := False;
-  sqlPesquisa.DataSet.CommandText := viPesquisa + viCondicao + ' ORDER BY DATA, SERVENTIA';
+  sqlPesquisa.SQL.Text := viPesquisa + viCondicao + ' ORDER BY DATA, SERVENTIA';
   sqlPesquisa.Active := True;
 
   if not vlCriandoForm  then
@@ -333,7 +334,7 @@ begin
   if icxTipoSistema.EditValue <> null then
   begin
     sqlTipoServico.Active := False;
-    sqlTipoServico.DataSet.ParamByName('SERVENTIA').AsString := icxTipoSistema.EditValue;
+    sqlTipoServico.ParamByName('SERVENTIA').AsString := icxTipoSistema.EditValue;
     sqlTipoServico.Active := True;
   end;
 

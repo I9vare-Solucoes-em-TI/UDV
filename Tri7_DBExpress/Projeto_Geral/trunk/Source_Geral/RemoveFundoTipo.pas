@@ -3,6 +3,7 @@ unit RemoveFundoTipo;
 interface
 
 uses
+  I9Query,
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, cxGraphics, cxControls, cxLookAndFeels,
   cxLookAndFeelPainters, cxStyles, dxSkinsCore, dxSkinOffice2007Black,
@@ -29,10 +30,10 @@ type
     cdsRemoveFundoFUNDO_TIPO_ID: TIntegerField;
     cdsRemoveFundoDESCRICAO: TStringField;
     cdsRemoveFundoPERCENTUAL: TCurrencyField;
-    sqlFundoConfig: TSimpleDataSet;
-    sqlFundoConfigCONFIGURACAO_FUNDO_ID: TFMTBCDField;
-    sqlFundoConfigFUNDO_TIPO_ID: TFMTBCDField;
-    sqlFundoConfigEMOLUMENTO_ID: TFMTBCDField;
+    sqlFundoConfig: TI9Query;
+    sqlFundoConfigCONFIGURACAO_FUNDO_ID: TBCDField;
+    sqlFundoConfigFUNDO_TIPO_ID: TBCDField;
+    sqlFundoConfigEMOLUMENTO_ID: TBCDField;
     cdsRemoveFundoCALC_REMOVE: TBooleanField;
     cdsRemoveFundoEMOLUMENTO_ID: TIntegerField;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
@@ -95,7 +96,7 @@ begin
   end;
 
   sqlFundoConfig.Close;
-  sqlFundoConfig.DataSet.ParamByName('EMOLUMENTO_ID').AsInteger := cdsRemoveFundoEMOLUMENTO_ID.AsInteger;
+  sqlFundoConfig.ParamByName('EMOLUMENTO_ID').AsInteger := cdsRemoveFundoEMOLUMENTO_ID.AsInteger;
   sqlFundoConfig.Open;
 
   if sqlFundoConfig.IsEmpty then
@@ -148,7 +149,7 @@ begin
       Params[0].AsCurrency := dtmControles.GerarSequencia('G_FUNDO_CONFIG');
       Params[1].AsInteger  := cdsRemoveFundoFUNDO_TIPO_ID.AsInteger;
       Params[2].AsInteger  := cdsRemoveFundoEMOLUMENTO_ID.AsInteger;
-      ExecSQL(False);
+      ExecSQL;
     end;
   end
   else

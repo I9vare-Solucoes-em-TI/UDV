@@ -3,6 +3,7 @@ unit Lookup_Servico;
 interface
 
 uses
+  I9Query,
   SysUtils, Classes, DB, DBClient, SimpleDS, cxPC, MaskUtils, Forms, Windows, Controls, cxCurrencyEdit, Variants,
   cxDBEdit, cxButtons, cxImage, DbxDevartInterBase;
 
@@ -14,67 +15,67 @@ type
     ClientParcelasVALOR_PARCELA: TCurrencyField;
     ClientParcelasSITUACAO: TStringField;
     ClientParcelasCHAVE: TStringField;
-    sqlLivroAgendamento: TSimpleDataSet;
+    sqlLivroAgendamento: TI9Query;
     dtsLivroAgendamento: TDataSource;
-    sqlLivroAgendamentoLIVRO_AGENDAMENTO_ID: TFMTBCDField;
+    sqlLivroAgendamentoLIVRO_AGENDAMENTO_ID: TBCDField;
     sqlLivroAgendamentoTIPO: TStringField;
     sqlLivroAgendamentoDATA_INICIAL: TSQLTimeStampField;
     sqlLivroAgendamentoDATA_FINAL: TSQLTimeStampField;
     sqlLivroAgendamentoPERIODO: TStringField;
-    sqlLivroAgendamentoVALOR_PARCELA: TFMTBCDField;
-    sqlLivroAgendamentoQTD: TFMTBCDField;
-    sqlLivroAgendamentoVALOR_PROLABORE: TFMTBCDField;
+    sqlLivroAgendamentoVALOR_PARCELA: TBCDField;
+    sqlLivroAgendamentoQTD: TBCDField;
+    sqlLivroAgendamentoVALOR_PROLABORE: TBCDField;
     sqlLivroAgendamentoSITUACAO: TStringField;
     sqlLivroAgendamentoESPECIE: TStringField;
-    sqlLivroAgendamentoBALANCETE_GRUPO_ID: TFMTBCDField;
+    sqlLivroAgendamentoBALANCETE_GRUPO_ID: TBCDField;
     sqlLivroAgendamentoHISTORICO: TStringField;
     sqlLivroAgendamentoOBSERVACAO: TStringField;
-    sqlLivroAgendamentoPROCESSO_TRAMITE_ID: TFMTBCDField;
+    sqlLivroAgendamentoPROCESSO_TRAMITE_ID: TBCDField;
     sqlLivroAgendamentoOPERACAO: TStringField;
-    sqlLivroAgendamentoCONTABIL_CONTA_ID: TFMTBCDField;
-    sqlLivroAgendamentoPESSOA_ID: TFMTBCDField;
+    sqlLivroAgendamentoCONTABIL_CONTA_ID: TBCDField;
+    sqlLivroAgendamentoPESSOA_ID: TBCDField;
     sqlLivroAgendamentoDATA_REGISTRO: TSQLTimeStampField;
-    sqlLivroAgendamentoCENTRO_CUSTO_ID: TFMTBCDField;
-    sqlFinanceiroAgendamento: TSimpleDataSet;
+    sqlLivroAgendamentoCENTRO_CUSTO_ID: TBCDField;
+    sqlFinanceiroAgendamento: TI9Query;
     dtsFinanceiroAgendamento: TDataSource;
-    sqlFinanceiroAgendamentoLIVRO_FINANCEIRO_ID: TFMTBCDField;
+    sqlFinanceiroAgendamentoLIVRO_FINANCEIRO_ID: TBCDField;
     sqlFinanceiroAgendamentoDATA_VENCIMENTO: TSQLTimeStampField;
-    sqlFinanceiroAgendamentoVALOR_AGENDADO: TFMTBCDField;
+    sqlFinanceiroAgendamentoVALOR_AGENDADO: TBCDField;
     sqlFinanceiroAgendamentoSITUACAO: TStringField;
-    sqlFinanceiroAgendamentoCONTABIL_CONTA_ID: TFMTBCDField;
-    sqlFinanceiroAgendamentoCENTRO_CUSTO_ID: TFMTBCDField;
+    sqlFinanceiroAgendamentoCONTABIL_CONTA_ID: TBCDField;
+    sqlFinanceiroAgendamentoCENTRO_CUSTO_ID: TBCDField;
     sqlFinanceiroAgendamentoANO_MES_REFERENCIA: TStringField;
-    sqlFinanceiroAgendamentoBALANCETE_GRUPO_ID: TFMTBCDField;
+    sqlFinanceiroAgendamentoBALANCETE_GRUPO_ID: TBCDField;
     sqlFinanceiroAgendamentoESPECIE: TStringField;
-    sqlFinanceiroAgendamentoBOLETA_ID: TFMTBCDField;
+    sqlFinanceiroAgendamentoBOLETA_ID: TBCDField;
     sqlFinanceiroAgendamentoATUALIZADO: TStringField;
     sqlFinanceiroAgendamentoOPERACAO: TStringField;
-    sqlFinanceiroAgendamentoPESSOA_ID: TFMTBCDField;
-    sqlFinanceiroAgendamentoVALOR_DOCUMENTO: TFMTBCDField;
+    sqlFinanceiroAgendamentoPESSOA_ID: TBCDField;
+    sqlFinanceiroAgendamentoVALOR_DOCUMENTO: TBCDField;
     sqlFinanceiroAgendamentoHISTORICO: TStringField;
     sqlFinanceiroAgendamentoOBSERVACAO: TStringField;
     sqlFinanceiroAgendamentoDATA_OPERACAO: TSQLTimeStampField;
-    sqlFinanceiroAgendamentoLIVRO_AGENDAMENTO_ID: TFMTBCDField;
-    sqlFinanceiroAgendamentoDESCONTO: TFMTBCDField;
+    sqlFinanceiroAgendamentoLIVRO_AGENDAMENTO_ID: TBCDField;
+    sqlFinanceiroAgendamentoDESCONTO: TBCDField;
     sqlLivroAgendamentoIR: TStringField;
     sqlLivroAgendamentoCNJ: TStringField;
-    sqlFinanceiroAgendamentoCAIXA_ID: TFMTBCDField;
-    sqlLivroAgendamentoCAIXA_ID: TFMTBCDField;
+    sqlFinanceiroAgendamentoCAIXA_ID: TBCDField;
+    sqlLivroAgendamentoCAIXA_ID: TBCDField;
     sqlFinanceiroAgendamentoDOCUMENTO_NUMERO: TStringField;
     sqlFinanceiroAgendamentoIR: TStringField;
     sqlLivroAgendamentoDOCUMENTO_NUMERO: TStringField;
     sqlLivroAgendamentoREGISTRO_PARCIAL: TStringField;
     sqlFinanceiroAgendamentoREGISTRO_PARCIAL: TStringField;
-    sqlFinanceiroAgendamentoORCAMENTO_ID: TFMTBCDField;
-    sqlLivroAgendamentoORCAMENTO_ID: TFMTBCDField;
-    sqlFinanceiroAgendamentoPROCESSO_CONTRATO_ITEM_ID: TFMTBCDField;
-    sqlFinanceiroAgendamentoPROCESSO_CONTRATO_ID: TFMTBCDField;
-    sqlFinanceiroAgendamentoLIVRO_REMUNERACAO_ID: TFMTBCDField;
-    sqlFinanceiroAgendamentoFINANCEIRO_REMUNERACAO_ID: TFMTBCDField;
+    sqlFinanceiroAgendamentoORCAMENTO_ID: TBCDField;
+    sqlLivroAgendamentoORCAMENTO_ID: TBCDField;
+    sqlFinanceiroAgendamentoPROCESSO_CONTRATO_ITEM_ID: TBCDField;
+    sqlFinanceiroAgendamentoPROCESSO_CONTRATO_ID: TBCDField;
+    sqlFinanceiroAgendamentoLIVRO_REMUNERACAO_ID: TBCDField;
+    sqlFinanceiroAgendamentoFINANCEIRO_REMUNERACAO_ID: TBCDField;
     sqlFinanceiroAgendamentoCNJ: TStringField;
-    sqlLivroAgendamentoPARCELA_INICIAL: TFMTBCDField;
-    sqlLivroAgendamentoTIPO_MODALIDADE_ID: TFMTBCDField;
-    sqlLivroAgendamentoCENTRO_RESERVA_ID: TFMTBCDField;
+    sqlLivroAgendamentoPARCELA_INICIAL: TBCDField;
+    sqlLivroAgendamentoTIPO_MODALIDADE_ID: TBCDField;
+    sqlLivroAgendamentoCENTRO_RESERVA_ID: TBCDField;
     sqlLivroAgendamentoCONTABIL_RL: TStringField;
     sqlFinanceiroAgendamentoCONTABIL_RL: TStringField;
     sqlLivroAgendamentoDOC_TIPO: TStringField;
@@ -85,24 +86,24 @@ type
   private
     procedure AdicionarCompromissoTipoParcelas;
   public
-    procedure CarregarTabItens(vpTab : TcxTabControl; vpCampo : String; vpSqlDataset : TSimpleDataSet);
+    procedure CarregarTabItens(vpTab : TcxTabControl; vpCampo : String; vpI9Query : TI9Query);
     procedure RealizarLancamentoContas(vpDataMesSeguinte : String = ''; vpDataMesInicial : String = '');
     procedure SomarGridValores(vpClientDataset : TClientDataSet; vpCriandoForm : Boolean;
         vpEdtTotalParcela, vpEdtRestante : TcxCurrencyEdit; vpForm : Integer);
     procedure FiltrarClienteParcelas(vpTipo, vpCondicao : String; vpEdicao : Boolean = True);
-    procedure ConfirmarRecebimentoPagamento(vpSqlDataset : TSimpleDataSet; vpConferido, vpFechamento : Boolean;
+    procedure ConfirmarRecebimentoPagamento(vpI9Query : TI9Query; vpConferido, vpFechamento : Boolean;
                  vpRegistroSelecionado : Boolean = False);
     // Agendamento
     Function VerificarPagamentosContas(vpSituacao : Integer; vpAgendamentoId, vpMensagem : String; vpAlterar : Boolean = False):Boolean;
     procedure ApagarAgendamentoItem(vpAgendamentoId : String);
     procedure ReativarCancelarConta(vpAgendamentoId, vpSituacaoItem, vpSituacaoFinanceira1 : String);
-    procedure VerificarParcelasGeral(vpPeriodo : Integer; vpChave : String; vpSqlDataset : TSimpleDataSet);
+    procedure VerificarParcelasGeral(vpPeriodo : Integer; vpChave : String; vpI9Query : TI9Query);
 
     // Lançamento
     procedure CarregarDadosLancamento(vpLancamentoTipo : Integer; vpLivroCaixaId : Integer;
-                                          vpSqlDataset : TSimpleDataSet);
+                                          vpI9Query : TI9Query);
     procedure VerificarConclusaoItemContrato(vpTabelaPrincipal, vpCampoId, vpValorId, vpCondicao : string;
-              vpSimpleDataSet : TSimpleDataSet; vpAtualizar : Boolean);
+              vpSimpleDataSet : TI9Query; vpAtualizar : Boolean);
     procedure VerificarAtualizacaoAgendamento;
 
     procedure RegistrarBoleto(vpBoletoId : Integer);
@@ -153,7 +154,7 @@ begin
 end;
 
 procedure TdtmLookupServico.CarregarDadosLancamento(vpLancamentoTipo : Integer;
-  vpLivroCaixaId: Integer; vpSqlDataset: TSimpleDataSet);
+  vpLivroCaixaId: Integer; vpI9Query: TI9Query);
 begin
   vgDadosLivroCaixa.DescricaoAgrupada := '';
   dtmLookupContabil.InicializarVariaveisLivroCaixa;
@@ -166,49 +167,49 @@ begin
           vgDadosLivroCaixa.Especie           := 'D';
         end;
     2 : begin
-          vgDadosLivroCaixa.Historico           := vpSqlDataset.FieldByName('HISTORICO').AsString;
+          vgDadosLivroCaixa.Historico           := vpI9Query.FieldByName('HISTORICO').AsString;
 
           if vpLivroCaixaId = 0 then
           begin
-            if vpSqlDataset.FieldByName('VALOR_CALCULO').AsCurrency = 0 then
+            if vpI9Query.FieldByName('VALOR_CALCULO').AsCurrency = 0 then
             begin
-              vgDadosLivroCaixa.ValorCompromisso  := vpSqlDataset.FieldByName('VALOR_AGENDADO').AsCurrency;
+              vgDadosLivroCaixa.ValorCompromisso  := vpI9Query.FieldByName('VALOR_AGENDADO').AsCurrency;
               vgDadosLivroCaixa.ValorFaturado     := vgDadosLivroCaixa.ValorCompromisso;
             end
             else
             begin
-              vgDadosLivroCaixa.ValorCompromisso  := vpSqlDataset.FieldByName('VALOR_CALCULO').AsCurrency;
-              vgDadosLivroCaixa.ValorFaturado     := vpSqlDataset.FieldByName('VALOR_AGENDADO').AsCurrency;
+              vgDadosLivroCaixa.ValorCompromisso  := vpI9Query.FieldByName('VALOR_CALCULO').AsCurrency;
+              vgDadosLivroCaixa.ValorFaturado     := vpI9Query.FieldByName('VALOR_AGENDADO').AsCurrency;
             end;
-            vgDadosLivroCaixa.ValorPago         := vpSqlDataset.FieldByName('VALOR_PAGO_SOMA').AsCurrency;
+            vgDadosLivroCaixa.ValorPago         := vpI9Query.FieldByName('VALOR_PAGO_SOMA').AsCurrency;
 
             vgDadosLivroCaixa.LivroCaixaId      := 0;
 
-            if vpSqlDataset.FieldByName('PERIODO').AsVariant <> null then
-                 vgDadosLivroCaixa.PeriodoId    := vpSqlDataset.FieldByName('PERIODO').AsInteger
+            if vpI9Query.FieldByName('PERIODO').AsVariant <> null then
+                 vgDadosLivroCaixa.PeriodoId    := vpI9Query.FieldByName('PERIODO').AsInteger
             else vgDadosLivroCaixa.PeriodoId    := 0;
 
-            if vpSqlDataset.FieldByName('PARCELA').AsInteger > 0 then
-              vgDadosLivroCaixa.Historico := vgDadosLivroCaixa.Historico + ' - '+vpSqlDataset.FieldByName('CALC_PARCELA').AsString;
-            vgDadosLivroCaixa.RegistroParcial   := vpSqlDataset.FieldByName('REGISTRO_PARCIAL').AsString;
+            if vpI9Query.FieldByName('PARCELA').AsInteger > 0 then
+              vgDadosLivroCaixa.Historico := vgDadosLivroCaixa.Historico + ' - '+vpI9Query.FieldByName('CALC_PARCELA').AsString;
+            vgDadosLivroCaixa.RegistroParcial   := vpI9Query.FieldByName('REGISTRO_PARCIAL').AsString;
 
-            if vpSqlDataset.FieldByName('OPERACAO').AsString <> 'O' then
-                 vgDadosLivroCaixa.DataVencimento    := vpSqlDataset.FieldByName('DATA_VENCIMENTO').AsString
+            if vpI9Query.FieldByName('OPERACAO').AsString <> 'O' then
+                 vgDadosLivroCaixa.DataVencimento    := vpI9Query.FieldByName('DATA_VENCIMENTO').AsString
             else vgDadosLivroCaixa.DataVencimento    := dtmControles.DataHoraBanco(4);
             vgDadosLivroCaixa.DataLancamento    := dtmControles.DataHoraBanco(4);
             vgDadosLivroCaixa.DataPagamento     := dtmControles.DataHoraBanco(4);
 
             if vgDadosLivroCaixa.DuplicarItem then
                  vgDadosLivroCaixa.RefPeriodo   := PegarAnoMes(vgDadosLivroCaixa.DataPagamento)
-            else vgDadosLivroCaixa.RefPeriodo   := vpSqlDataset.FieldByName('REFERENCIA_PERIODO').AsString;
+            else vgDadosLivroCaixa.RefPeriodo   := vpI9Query.FieldByName('REFERENCIA_PERIODO').AsString;
 
-            vgDadosLivroCaixa.Situacao          := vpSqlDataset.FieldByName('SITUACAO').AsString;
+            vgDadosLivroCaixa.Situacao          := vpI9Query.FieldByName('SITUACAO').AsString;
             vgDadosLivroCaixa.Ordem               := 0;
             vgDadosLivroCaixa.ObservacaoMonetaria := '';
 
-            if vpSqlDataset.FieldByName('NOSSO_NUMERO').AsInteger > 0 then
-                 vgDadosLivroCaixa.DocumentoNumero  := vpSqlDataset.FieldByName('NOSSO_NUMERO').AsString
-            else vgDadosLivroCaixa.DocumentoNumero  := vpSqlDataset.FieldByName('DOCUMENTO_NUMERO').AsString;
+            if vpI9Query.FieldByName('NOSSO_NUMERO').AsInteger > 0 then
+                 vgDadosLivroCaixa.DocumentoNumero  := vpI9Query.FieldByName('NOSSO_NUMERO').AsString
+            else vgDadosLivroCaixa.DocumentoNumero  := vpI9Query.FieldByName('DOCUMENTO_NUMERO').AsString;
 
             if vgDadosLivroCaixa.AnoMesReferencia = '' then
               vgDadosLivroCaixa.AnoMesReferencia := PegarAnoMes(vgDadosLivroCaixa.DataLancamento);
@@ -218,8 +219,8 @@ begin
           end
           else
           begin
-            vgDadosLivroCaixa.ValorCompromisso  := vpSqlDataset.FieldByName('VALOR').AsCurrency;
-            vgDadosLivroCaixa.ValorFaturado     := vpSqlDataset.FieldByName('VALOR').AsCurrency;
+            vgDadosLivroCaixa.ValorCompromisso  := vpI9Query.FieldByName('VALOR').AsCurrency;
+            vgDadosLivroCaixa.ValorFaturado     := vpI9Query.FieldByName('VALOR').AsCurrency;
             if vgDadosLivroCaixa.ValorFaturado = 0 then
               vgDadosLivroCaixa.ValorFaturado   := vgDadosLivroCaixa.ValorCompromisso;
 
@@ -227,80 +228,80 @@ begin
             vgDadosLivroCaixa.LivroCaixaId      := vpLivroCaixaId;
             vgDadosLivroCaixa.PeriodoId         := 0;
 
-            vgDadosLivroCaixa.DataVencimento    := vpSqlDataset.FieldByName('DATA_VENCIMENTO').AsString;
+            vgDadosLivroCaixa.DataVencimento    := vpI9Query.FieldByName('DATA_VENCIMENTO').AsString;
 
-            vgDadosLivroCaixa.DataLancamento    := vpSqlDataset.FieldByName('DATA_LANCAMENTO').AsString;
-            vgDadosLivroCaixa.DataPagamento     := vpSqlDataset.FieldByName('DATA_PAGAMENTO').AsString;
+            vgDadosLivroCaixa.DataLancamento    := vpI9Query.FieldByName('DATA_LANCAMENTO').AsString;
+            vgDadosLivroCaixa.DataPagamento     := vpI9Query.FieldByName('DATA_PAGAMENTO').AsString;
             vgDadosLivroCaixa.RefPeriodo        := '';
 
             if vgDadosLivroCaixa.DuplicarItem then
                  vgDadosLivroCaixa.AnoMesReferencia  := PegarAnoMes(dtmControles.DataHoraBanco(4))
-            else vgDadosLivroCaixa.AnoMesReferencia  := vpSqlDataset.FieldByName('REFERENCIA').AsString;
+            else vgDadosLivroCaixa.AnoMesReferencia  := vpI9Query.FieldByName('REFERENCIA').AsString;
 
             vgDadosLivroCaixa.RegistroParcial   := '';
             vgDadosLivroCaixa.Situacao          := '0';
-            vgDadosLivroCaixa.Faturamento       := vpSqlDataset.FieldByName('FATURAMENTO').AsString;
-            vgDadosLivroCaixa.Ordem             := vpSqlDataset.FieldByName('ORDEM').AsInteger;
-            vgDadosLivroCaixa.DocumentoNumero     := vpSqlDataset.FieldByName('DOCUMENTO_NUMERO').AsString;
+            vgDadosLivroCaixa.Faturamento       := vpI9Query.FieldByName('FATURAMENTO').AsString;
+            vgDadosLivroCaixa.Ordem             := vpI9Query.FieldByName('ORDEM').AsInteger;
+            vgDadosLivroCaixa.DocumentoNumero     := vpI9Query.FieldByName('DOCUMENTO_NUMERO').AsString;
           end;
 
           vgDadosLivroCaixa.Novo              := False;
-          vgDadosLivroCaixa.Especie           := vpSqlDataset.FieldByName('ESPECIE').AsString;
-          vgDadosLivroCaixa.ContabilContaID   := vpSqlDataset.FieldByName('CONTABIL_CONTA_ID').AsInteger;
-          vgDadosLivroCaixa.Operacao          := vpSqlDataset.FieldByName('OPERACAO').AsString;
-          vgDadosLivroCaixa.CentroCustoId     := vpSqlDataset.FieldByName('CENTRO_CUSTO_ID').AsInteger;
-          vgDadosLivroCaixa.BalanceteGrupoId  := vpSqlDataset.FieldByName('BALANCETE_GRUPO_ID').AsInteger;
-          vgDadosLivroCaixa.LivroFinanceiroID := vpSqlDataset.FieldByName('LIVRO_FINANCEIRO_ID').AsInteger;
-          vgDadosLivroCaixa.PessoaId          := vpSqlDataset.FieldByName('PESSOA_ID').AsInteger;
-          vgDadosLivroCaixa.Observacao        := vpSqlDataset.FieldByName('OBSERVACAO').AsString;
-          vgDadosLivroCaixa.TipoModalidadeId  := vpSqlDataset.FieldByName('TIPO_MODALIDADE_ID').AsInteger;
-          vgDadosLivroCaixa.ContabilRL        := vpSqlDataset.FieldByName('CONTABIL_RL').AsString;
-          vgDadosLivroCaixa.ValorDesconto     := vpSqlDataset.FieldByName('VALOR_DESCONTO').AsCurrency;
-          vgDadosLivroCaixa.ValorJuros        := vpSqlDataset.FieldByName('VALOR_JUROS').AsCurrency;
-          vgDadosLivroCaixa.ValorMulta        := vpSqlDataset.FieldByName('VALOR_MULTA').AsCurrency;
-          vgDadosLivroCaixa.ValorOutrasTaxas  := vpSqlDataset.FieldByName('VALOR_OUTRAS_TAXAS').AsCurrency;
-          vgDadosLivroCaixa.ValorOutraDeducao   := vpSqlDataset.FieldByName('VALOR_OUTRA_DEDUCAO').AsCurrency;
-          vgDadosLivroCaixa.ObservacaoMonetaria := vpSqlDataset.FieldByName('OBSERVACAO_MONETARIA').AsString;
+          vgDadosLivroCaixa.Especie           := vpI9Query.FieldByName('ESPECIE').AsString;
+          vgDadosLivroCaixa.ContabilContaID   := vpI9Query.FieldByName('CONTABIL_CONTA_ID').AsInteger;
+          vgDadosLivroCaixa.Operacao          := vpI9Query.FieldByName('OPERACAO').AsString;
+          vgDadosLivroCaixa.CentroCustoId     := vpI9Query.FieldByName('CENTRO_CUSTO_ID').AsInteger;
+          vgDadosLivroCaixa.BalanceteGrupoId  := vpI9Query.FieldByName('BALANCETE_GRUPO_ID').AsInteger;
+          vgDadosLivroCaixa.LivroFinanceiroID := vpI9Query.FieldByName('LIVRO_FINANCEIRO_ID').AsInteger;
+          vgDadosLivroCaixa.PessoaId          := vpI9Query.FieldByName('PESSOA_ID').AsInteger;
+          vgDadosLivroCaixa.Observacao        := vpI9Query.FieldByName('OBSERVACAO').AsString;
+          vgDadosLivroCaixa.TipoModalidadeId  := vpI9Query.FieldByName('TIPO_MODALIDADE_ID').AsInteger;
+          vgDadosLivroCaixa.ContabilRL        := vpI9Query.FieldByName('CONTABIL_RL').AsString;
+          vgDadosLivroCaixa.ValorDesconto     := vpI9Query.FieldByName('VALOR_DESCONTO').AsCurrency;
+          vgDadosLivroCaixa.ValorJuros        := vpI9Query.FieldByName('VALOR_JUROS').AsCurrency;
+          vgDadosLivroCaixa.ValorMulta        := vpI9Query.FieldByName('VALOR_MULTA').AsCurrency;
+          vgDadosLivroCaixa.ValorOutrasTaxas  := vpI9Query.FieldByName('VALOR_OUTRAS_TAXAS').AsCurrency;
+          vgDadosLivroCaixa.ValorOutraDeducao   := vpI9Query.FieldByName('VALOR_OUTRA_DEDUCAO').AsCurrency;
+          vgDadosLivroCaixa.ObservacaoMonetaria := vpI9Query.FieldByName('OBSERVACAO_MONETARIA').AsString;
 
 
           if not vgDadosLivroCaixa.Favorito then
-               vgDadosLivroCaixa.LivroAgendamentoId := vpSqlDataset.FieldByName('LIVRO_AGENDAMENTO_ID').AsInteger
-          else vgDadosLivroCaixa.ValorCompromisso   := vpSqlDataset.FieldByName('FAVORITO_VALOR').AsCurrency;
+               vgDadosLivroCaixa.LivroAgendamentoId := vpI9Query.FieldByName('LIVRO_AGENDAMENTO_ID').AsInteger
+          else vgDadosLivroCaixa.ValorCompromisso   := vpI9Query.FieldByName('FAVORITO_VALOR').AsCurrency;
 
           vgDadosLivroCaixa.ProcessoID        := 0;
-          vgDadosLivroCaixa.IR                := vpSqlDataset.FieldByName('IR').AsString;
-          vgDadosLivroCaixa.CNJ               := vpSqlDataset.FieldByName('CNJ').AsString;
-          vgDadosLivroCaixa.DocTipo           := vpSqlDataset.FieldByName('DOC_TIPO').AsString;
-          vgDadosLivroCaixa.CaixaID           := vpSqlDataset.FieldByName('CAIXA_ID').AsInteger;
-          vgDadosLivroCaixa.OrcamentoId       := vpSqlDataset.FieldByName('ORCAMENTO_ID').AsInteger;
-          vgDadosLivroCaixa.ReservaId            := vpSqlDataset.FieldByName('CENTRO_RESERVA_ID').AsInteger;
+          vgDadosLivroCaixa.IR                := vpI9Query.FieldByName('IR').AsString;
+          vgDadosLivroCaixa.CNJ               := vpI9Query.FieldByName('CNJ').AsString;
+          vgDadosLivroCaixa.DocTipo           := vpI9Query.FieldByName('DOC_TIPO').AsString;
+          vgDadosLivroCaixa.CaixaID           := vpI9Query.FieldByName('CAIXA_ID').AsInteger;
+          vgDadosLivroCaixa.OrcamentoId       := vpI9Query.FieldByName('ORCAMENTO_ID').AsInteger;
+          vgDadosLivroCaixa.ReservaId            := vpI9Query.FieldByName('CENTRO_RESERVA_ID').AsInteger;
           vgDadosLivroCaixa.CaixaTransferenciaId := 0;
         end;
     3 : begin
           vgDadosLivroCaixa.Novo              := False;
           vgDadosLivroCaixa.DataLancamento    := dtmControles.DataHoraBanco(4);
           vgDadosLivroCaixa.DataPagamento     := dtmControles.DataHoraBanco(4);
-          vgDadosLivroCaixa.DataVencimento    := FormatDateTime('DD.MM.YYYY',vpSqlDataset.FieldByName('DATA_VENCIMENTO').AsDateTime);
+          vgDadosLivroCaixa.DataVencimento    := FormatDateTime('DD.MM.YYYY',vpI9Query.FieldByName('DATA_VENCIMENTO').AsDateTime);
           vgDadosLivroCaixa.ValorCompromisso  := 0;
-          vgDadosLivroCaixa.ValorPago         := vpSqlDataset.FieldByName('VALOR').AsCurrency;
-          vgDadosLivroCaixa.Especie           := vpSqlDataset.FieldByName('ESPECIE').AsString;
-          vgDadosLivroCaixa.ContabilContaID   := vpSqlDataset.FieldByName('CONTABIL_CONTA_ID').AsInteger;
-          vgDadosLivroCaixa.Operacao          := vpSqlDataset.FieldByName('OPERACAO').AsString;
-          vgDadosLivroCaixa.CentroCustoId     := vpSqlDataset.FieldByName('CENTRO_CUSTO_ID').AsInteger;
-          vgDadosLivroCaixa.BalanceteGrupoId  := vpSqlDataset.FieldByName('BALANCETE_GRUPO_ID').AsInteger;
-          vgDadosLivroCaixa.LivroFinanceiroID := vpSqlDataset.FieldByName('LIVRO_FINANCEIRO_ID').AsInteger;
-          vgDadosLivroCaixa.PessoaId          := vpSqlDataset.FieldByName('PESSOA_ID').AsInteger;
-          vgDadosLivroCaixa.Observacao        := vpSqlDataset.FieldByName('OBSERVACAO').AsString;
-          vgDadosLivroCaixa.Historico         := vpSqlDataset.FieldByName('HISTORICO').AsString;
+          vgDadosLivroCaixa.ValorPago         := vpI9Query.FieldByName('VALOR').AsCurrency;
+          vgDadosLivroCaixa.Especie           := vpI9Query.FieldByName('ESPECIE').AsString;
+          vgDadosLivroCaixa.ContabilContaID   := vpI9Query.FieldByName('CONTABIL_CONTA_ID').AsInteger;
+          vgDadosLivroCaixa.Operacao          := vpI9Query.FieldByName('OPERACAO').AsString;
+          vgDadosLivroCaixa.CentroCustoId     := vpI9Query.FieldByName('CENTRO_CUSTO_ID').AsInteger;
+          vgDadosLivroCaixa.BalanceteGrupoId  := vpI9Query.FieldByName('BALANCETE_GRUPO_ID').AsInteger;
+          vgDadosLivroCaixa.LivroFinanceiroID := vpI9Query.FieldByName('LIVRO_FINANCEIRO_ID').AsInteger;
+          vgDadosLivroCaixa.PessoaId          := vpI9Query.FieldByName('PESSOA_ID').AsInteger;
+          vgDadosLivroCaixa.Observacao        := vpI9Query.FieldByName('OBSERVACAO').AsString;
+          vgDadosLivroCaixa.Historico         := vpI9Query.FieldByName('HISTORICO').AsString;
           vgDadosLivroCaixa.LivroCaixaId      := vpLivroCaixaId;
-          vgDadosLivroCaixa.LivroAgendamentoId:= vpSqlDataset.FieldByName('LIVRO_AGENDAMENTO_ID').AsInteger;
-          vgDadosLivroCaixa.ProcessoID        := vpSqlDataset.FieldByName('PROCESSO_ID').AsInteger;
-          vgDadosLivroCaixa.CaixaID           := vpSqlDataset.FieldByName('CAIXA_ID').AsInteger;
-          vgDadosLivroCaixa.OrcamentoId       := vpSqlDataset.FieldByName('ORCAMENTO_ID').AsInteger;
-          vgDadosLivroCaixa.PeriodoId         := vpSqlDataset.FieldByName('PERIODO').AsInteger;
-          vgDadosLivroCaixa.RefPeriodo        := vpSqlDataset.FieldByName('REFERENCIA_PERIODO').AsString;
-          vgDadosLivroCaixa.ReservaId         := vpSqlDataset.FieldByName('CENTRO_RESERVA_ID').AsInteger;
-          vgDadosLivroCaixa.TipoModalidadeId  := vpSqlDataset.FieldByName('TIPO_MODALIDADE_ID').AsInteger;
+          vgDadosLivroCaixa.LivroAgendamentoId:= vpI9Query.FieldByName('LIVRO_AGENDAMENTO_ID').AsInteger;
+          vgDadosLivroCaixa.ProcessoID        := vpI9Query.FieldByName('PROCESSO_ID').AsInteger;
+          vgDadosLivroCaixa.CaixaID           := vpI9Query.FieldByName('CAIXA_ID').AsInteger;
+          vgDadosLivroCaixa.OrcamentoId       := vpI9Query.FieldByName('ORCAMENTO_ID').AsInteger;
+          vgDadosLivroCaixa.PeriodoId         := vpI9Query.FieldByName('PERIODO').AsInteger;
+          vgDadosLivroCaixa.RefPeriodo        := vpI9Query.FieldByName('REFERENCIA_PERIODO').AsString;
+          vgDadosLivroCaixa.ReservaId         := vpI9Query.FieldByName('CENTRO_RESERVA_ID').AsInteger;
+          vgDadosLivroCaixa.TipoModalidadeId  := vpI9Query.FieldByName('TIPO_MODALIDADE_ID').AsInteger;
           vgDadosLivroCaixa.Situacao             := '0';
           vgDadosLivroCaixa.Ordem                := 0;
           vgDadosLivroCaixa.CaixaTransferenciaId := 0;
@@ -313,9 +314,9 @@ begin
   if vgDadosLivroCaixa.RefPeriodo = '1' then
   begin
     try
-      if vpSqlDataset.FieldByName('DATA_FINAL').IsNull then
+      if vpI9Query.FieldByName('DATA_FINAL').IsNull then
            vgDadosLivroCaixa.AnoMesReferencia := IntToStr(dtmLookupContabil.PegarAnoMes(vgDadosLivroCaixa.DataVencimento))
-      else vgDadosLivroCaixa.AnoMesReferencia := IntToStr(dtmLookupContabil.PegarAnoMes(vpSqlDataset.FieldByName('DATA_REGISTRO').Asstring));
+      else vgDadosLivroCaixa.AnoMesReferencia := IntToStr(dtmLookupContabil.PegarAnoMes(vpI9Query.FieldByName('DATA_REGISTRO').Asstring));
     except
       vgDadosLivroCaixa.AnoMesReferencia := IntToStr(dtmLookupContabil.PegarAnoMes(vgDadosLivroCaixa.DataVencimento));
     end;
@@ -324,14 +325,14 @@ begin
 end;
 
 procedure TdtmLookupServico.CarregarTabItens(vpTab : TcxTabControl; vpCampo : String;
-     vpSqlDataset : TSimpleDataSet);
+     vpI9Query : TI9Query);
 begin
   vpTab.Tabs.Clear;
-  vpSqlDataset.First;
-  while not vpSqlDataset.Eof do
+  vpI9Query.First;
+  while not vpI9Query.Eof do
   begin
-    vpTab.Tabs.Add('C-'+FormatFloat('000000', vpSqlDataset.FieldByName(vpCampo).AsInteger)+'-Ativo');
-    vpSqlDataset.next;
+    vpTab.Tabs.Add('C-'+FormatFloat('000000', vpI9Query.FieldByName(vpCampo).AsInteger)+'-Ativo');
+    vpI9Query.next;
   end;
 
   vpTab.TabIndex := 0 ;
@@ -585,7 +586,7 @@ begin
   With dtmLookupServico.sqlLivroAgendamento do
   begin
     Active := False;
-    DataSet.ParamByName('LIVRO_AGENDAMENTO_ID').AsInteger := vgDadosLivroCaixa.LivroAgendamentoId;
+    ParamByName('LIVRO_AGENDAMENTO_ID').AsInteger := vgDadosLivroCaixa.LivroAgendamentoId;
     Active := True;
 
     if FieldByName('SITUACAO').AsInteger <> 1 then
@@ -600,7 +601,7 @@ begin
 end;
 
 procedure TdtmLookupServico.VerificarConclusaoItemContrato(vpTabelaPrincipal,
-  vpCampoId, vpValorId, vpCondicao: string; vpSimpleDataSet: TSimpleDataSet;
+  vpCampoId, vpValorId, vpCondicao: string; vpSimpleDataSet: TI9Query;
   vpAtualizar: Boolean);
 var
   viPosicao : Integer;
@@ -661,7 +662,7 @@ begin
 end;
 
 procedure TdtmLookupServico.VerificarParcelasGeral(vpPeriodo: Integer;
-  vpChave: String; vpSqlDataset: TSimpleDataSet);
+  vpChave: String; vpI9Query: TI9Query);
 begin
   // Carregar as Parcelas dos Itens de Parcelas Variaveis (Tipo Remuneração = 3)
   with dtmLookupServico do
@@ -669,89 +670,89 @@ begin
     ClientParcelas.EmptyDataSet;
     if vpPeriodo = 9 then
     begin
-      vpSqlDataset.First;
-      while not vpSqlDataset.eof do
+      vpI9Query.First;
+      while not vpI9Query.eof do
       begin
         ClientParcelas.Append;
-        ClientParcelasDATA_VENCIMENTO.AsDateTime := vpSqlDataset.FieldByName('DATA_VENCIMENTO').AsDateTime;
-        ClientParcelasVALOR_PARCELA.AsCurrency   := vpSqlDataset.FieldByName('VALOR_AGENDADO').AsCurrency;
-        ClientParcelasSITUACAO.AsInteger         := vpSqlDataset.FieldByName('SITUACAO').AsInteger;
+        ClientParcelasDATA_VENCIMENTO.AsDateTime := vpI9Query.FieldByName('DATA_VENCIMENTO').AsDateTime;
+        ClientParcelasVALOR_PARCELA.AsCurrency   := vpI9Query.FieldByName('VALOR_AGENDADO').AsCurrency;
+        ClientParcelasSITUACAO.AsInteger         := vpI9Query.FieldByName('SITUACAO').AsInteger;
         ClientParcelasCHAVE.AsString             := vpChave;
         ClientParcelas.Post;
-        vpSqlDataset.Next;
+        vpI9Query.Next;
       end;
     end;
   end;
 end;
 
-procedure TdtmLookupServico.ConfirmarRecebimentoPagamento(vpSqlDataset : TSimpleDataSet; vpConferido, vpFechamento : Boolean;
+procedure TdtmLookupServico.ConfirmarRecebimentoPagamento(vpI9Query : TI9Query; vpConferido, vpFechamento : Boolean;
                  vpRegistroSelecionado : Boolean = False);
 var
   viQtd : Integer;
 begin
   vgDadosLivroCaixa.CaixaId := 0;
   viQtd := 0;
-  vpSqlDataset.DisableControls;
+  vpI9Query.DisableControls;
 
   if not vpRegistroSelecionado then
-    vpSqlDataset.First;
+    vpI9Query.First;
 
-  while not vpSqlDataset.Eof do
+  while not vpI9Query.Eof do
   begin
-    if ((vpSqlDataset.FieldByName('calc_selecionado').AsBoolean) and (not vpConferido)) or
-       ((vpSqlDataset.FieldByName('CONFERIDO').AsString = 'S') and (vpConferido))
+    if ((vpI9Query.FieldByName('calc_selecionado').AsBoolean) and (not vpConferido)) or
+       ((vpI9Query.FieldByName('CONFERIDO').AsString = 'S') and (vpConferido))
       or vpRegistroSelecionado then
     begin
-      if (not vpSqlDataset.FieldByName('SITUACAO_COMISSAO').IsNull) and
-         (vpSqlDataset.FieldByName('SITUACAO_COMISSAO').AsInteger in [1,2,4,6]) then
+      if (not vpI9Query.FieldByName('SITUACAO_COMISSAO').IsNull) and
+         (vpI9Query.FieldByName('SITUACAO_COMISSAO').AsInteger in [1,2,4,6]) then
       begin
         Application.MessageBox('Existe item selecionado não liberado pra pagamento!!!', 'Atenção', MB_OK + MB_ICONWARNING);
-        vpSqlDataset.EnableControls;
+        vpI9Query.EnableControls;
         abort;
       end;
 
       inc(viQtd);
-      vgDadosLivroCaixa.DataVencimento    := vpSqlDataset.FieldByName('DATA_VENCIMENTO').AsString;
-      vgDadosLivroCaixa.ValorCompromisso  := vpSqlDataset.FieldByName('VALOR_AGENDADO').AsCurrency;
-      vgDadosLivroCaixa.ValorPago         := vpSqlDataset.FieldByName('VALOR_PAGO_SOMA').AsCurrency;
-      vgDadosLivroCaixa.Especie           := vpSqlDataset.FieldByName('ESPECIE').AsString;
-      vgDadosLivroCaixa.ContabilContaID   := vpSqlDataset.FieldByName('CONTABIL_CONTA_ID').AsInteger;
-      vgDadosLivroCaixa.Operacao          := vpSqlDataset.FieldByName('OPERACAO').AsString;
-      vgDadosLivroCaixa.CentroCustoId     := vpSqlDataset.FieldByName('CENTRO_CUSTO_ID').AsInteger;
-      vgDadosLivroCaixa.BalanceteGrupoId  := vpSqlDataset.FieldByName('BALANCETE_GRUPO_ID').AsInteger;
-      vgDadosLivroCaixa.LivroFinanceiroID := vpSqlDataset.FieldByName('LIVRO_FINANCEIRO_ID').AsInteger;
+      vgDadosLivroCaixa.DataVencimento    := vpI9Query.FieldByName('DATA_VENCIMENTO').AsString;
+      vgDadosLivroCaixa.ValorCompromisso  := vpI9Query.FieldByName('VALOR_AGENDADO').AsCurrency;
+      vgDadosLivroCaixa.ValorPago         := vpI9Query.FieldByName('VALOR_PAGO_SOMA').AsCurrency;
+      vgDadosLivroCaixa.Especie           := vpI9Query.FieldByName('ESPECIE').AsString;
+      vgDadosLivroCaixa.ContabilContaID   := vpI9Query.FieldByName('CONTABIL_CONTA_ID').AsInteger;
+      vgDadosLivroCaixa.Operacao          := vpI9Query.FieldByName('OPERACAO').AsString;
+      vgDadosLivroCaixa.CentroCustoId     := vpI9Query.FieldByName('CENTRO_CUSTO_ID').AsInteger;
+      vgDadosLivroCaixa.BalanceteGrupoId  := vpI9Query.FieldByName('BALANCETE_GRUPO_ID').AsInteger;
+      vgDadosLivroCaixa.LivroFinanceiroID := vpI9Query.FieldByName('LIVRO_FINANCEIRO_ID').AsInteger;
 
-      if vpSqlDataset.FieldByName('LIVRO_AGENDAMENTO_ID').IsNull then
+      if vpI9Query.FieldByName('LIVRO_AGENDAMENTO_ID').IsNull then
            vgDadosLivroCaixa.LivroAgendamentoId := 0
-      else vgDadosLivroCaixa.LivroAgendamentoId := vpSqlDataset.FieldByName('LIVRO_AGENDAMENTO_ID').AsInteger;
+      else vgDadosLivroCaixa.LivroAgendamentoId := vpI9Query.FieldByName('LIVRO_AGENDAMENTO_ID').AsInteger;
 
-      vgDadosLivroCaixa.PessoaId          := vpSqlDataset.FieldByName('PESSOA_ID').AsInteger;
-      vgDadosLivroCaixa.DocumentoNumero   := vpSqlDataset.FieldByName('DOCUMENTO_NUMERO').AsString;
+      vgDadosLivroCaixa.PessoaId          := vpI9Query.FieldByName('PESSOA_ID').AsInteger;
+      vgDadosLivroCaixa.DocumentoNumero   := vpI9Query.FieldByName('DOCUMENTO_NUMERO').AsString;
 
-      if vpSqlDataset.FieldByName('DOC_TIPO').AsVariant = null then
+      if vpI9Query.FieldByName('DOC_TIPO').AsVariant = null then
       begin
-        if vpSqlDataset.FieldByName('TIPO_CARGA_ID').AsVariant = null then
+        if vpI9Query.FieldByName('TIPO_CARGA_ID').AsVariant = null then
              vgDadosLivroCaixa.DocTipo := '0'
         else vgDadosLivroCaixa.DocTipo := 'P';
       end
-      else vgDadosLivroCaixa.DocTipo := vpSqlDataset.FieldByName('DOC_TIPO').AsString;
+      else vgDadosLivroCaixa.DocTipo := vpI9Query.FieldByName('DOC_TIPO').AsString;
 
-      vgDadosLivroCaixa.TipoModalidadeId := vpSqlDataset.FieldByName('TIPO_MODALIDADE_ID').AsInteger;
-      vgDadosLivroCaixa.TipoCargaId      := vpSqlDataset.FieldByName('TIPO_CARGA_ID').AsInteger;
-      vgDadosLivroCaixa.ReservaId        := vpSqlDataset.FieldByName('CENTRO_RESERVA_ID').AsInteger;
-      vgDadosLivroCaixa.Observacao       := vpSqlDataset.FieldByName('OBSERVACAO').AsString;
-      vgDadosLivroCaixa.IR               := vpSqlDataset.FieldByName('IR').AsString;
-      vgDadosLivroCaixa.CNJ              := vpSqlDataset.FieldByName('CNJ').AsString;
+      vgDadosLivroCaixa.TipoModalidadeId := vpI9Query.FieldByName('TIPO_MODALIDADE_ID').AsInteger;
+      vgDadosLivroCaixa.TipoCargaId      := vpI9Query.FieldByName('TIPO_CARGA_ID').AsInteger;
+      vgDadosLivroCaixa.ReservaId        := vpI9Query.FieldByName('CENTRO_RESERVA_ID').AsInteger;
+      vgDadosLivroCaixa.Observacao       := vpI9Query.FieldByName('OBSERVACAO').AsString;
+      vgDadosLivroCaixa.IR               := vpI9Query.FieldByName('IR').AsString;
+      vgDadosLivroCaixa.CNJ              := vpI9Query.FieldByName('CNJ').AsString;
 
-      if vpSqlDataset.FieldByName('ORCAMENTO_ID').IsNull then
+      if vpI9Query.FieldByName('ORCAMENTO_ID').IsNull then
            vgDadosLivroCaixa.OrcamentoId := 0
-      else vgDadosLivroCaixa.OrcamentoId := vpSqlDataset.FieldByName('ORCAMENTO_ID').AsInteger;
+      else vgDadosLivroCaixa.OrcamentoId := vpI9Query.FieldByName('ORCAMENTO_ID').AsInteger;
 
-      vgDadosLivroCaixa.OrcamentoId      := vpSqlDataset.FieldByName('ORCAMENTO_ID').AsInteger;
+      vgDadosLivroCaixa.OrcamentoId      := vpI9Query.FieldByName('ORCAMENTO_ID').AsInteger;
 
-      if vpSqlDataset.FieldByName('HISTORICO').AsString = '' then
+      if vpI9Query.FieldByName('HISTORICO').AsString = '' then
            vgDadosLivroCaixa.Historico := dtmControles.GetStr('SELECT DESCRICAO FROM J_CONTABIL_CONTA WHERE CONTABIL_CONTA_ID = '+IntToStr(vgDadosLivroCaixa.ContabilContaID))
-      else vgDadosLivroCaixa.Historico := vpSqlDataset.FieldByName('HISTORICO').AsString;
+      else vgDadosLivroCaixa.Historico := vpI9Query.FieldByName('HISTORICO').AsString;
 
       if vgDadosLivroCaixa.ClienteID <> '' then
         vgDadosLivroCaixa.Historico := vgDadosLivroCaixa.Historico + ' - '+
@@ -762,7 +763,7 @@ begin
         vgDadosLivroCaixa.Observacao := 'Protocolo nº '+vgDadosLivroCaixa.Contrato;
         vgDadosLivroCaixa.PeriodoId  := 0;
       end
-      else vgDadosLivroCaixa.PeriodoId  := vpSqlDataset.FieldByName('PERIODO').AsInteger;
+      else vgDadosLivroCaixa.PeriodoId  := vpI9Query.FieldByName('PERIODO').AsInteger;
 
       vgXimenes := vgDadosLivroCaixa.DocTipo = 'P';
       frmConfirmacao.ArmazenarDadosRegistro;
@@ -774,28 +775,28 @@ begin
     if vpRegistroSelecionado then
       Break;
 
-    vpSqlDataset.Next;
+    vpI9Query.Next;
   end;
 
   vgAtualizarSQl := not vpRegistroSelecionado;
 
   if viQtd = 0 then
   begin
-    vpSqlDataset.First;
-    vpSqlDataset.EnableControls;
+    vpI9Query.First;
+    vpI9Query.EnableControls;
     Application.MessageBox('Nenhum item selecionado!!!', 'Atenção', MB_OK + MB_ICONWARNING);
     Exit;
   end;
 
   vgDadosConfirmacao.Fechamento := vpFechamento;
   ExibirFormulario(TfrmConfirmacao, frmConfirmacao, true);
-  vpSqlDataset.First;
-  vpSqlDataset.EnableControls;
+  vpI9Query.First;
+  vpI9Query.EnableControls;
 
   if vgDadosLivroCaixa.Confirmado then
   begin
-    vpSqlDataset.Refresh;
-    dtmLookup.MarcarDesmarcarItensSimpleDataSet('N', vpSqlDataset);
+    vpI9Query.Refresh;
+    dtmLookup.MarcarDesmarcarItensSimpleDataSet('N', vpI9Query);
   end;
 end;
 

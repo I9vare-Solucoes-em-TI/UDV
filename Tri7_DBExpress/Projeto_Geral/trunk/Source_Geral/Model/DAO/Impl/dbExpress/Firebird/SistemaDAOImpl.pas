@@ -3,6 +3,8 @@ unit SistemaDAOImpl;
 interface
 
 uses
+  I9Query,
+  I9Connection,
   SistemaDAO,
   Data.SqlExpr,
   Data.DB,
@@ -12,10 +14,10 @@ uses
 type
   TSistemaDAO = class(TInterfacedObject, ISistemaDAO)
   private
-    FSQLConnection: TSQLConnection;
+    FConnection: TI9Connection;
   public
     constructor Create(
-      const vpSQLConnection: TSQLConnection); reintroduce;
+      const vpConnection: TI9Connection); reintroduce;
 
     function Get(
       const vpValue: TDataSet): ISistema; overload;
@@ -53,10 +55,10 @@ uses
 { TSistemaDAO }
 
 constructor TSistemaDAO.Create(
-  const vpSQLConnection: TSQLConnection);
+  const vpConnection: TI9Connection);
 begin
   inherited Create;
-  FSQLConnection := vpSQLConnection;
+  FConnection := vpConnection;
 end;
 
 function TSistemaDAO.Get(
@@ -127,14 +129,14 @@ const
 
 {$REGION 'Variáveis'}
 var
-  viSQLDataSet: TSQLDataSet;
+  viSQLDataSet: TI9Query;
   viSQL: TStrings;
 {$ENDREGION}
 begin
   Result := nil;
 
-  viSQLDataSet := TSQLDataSet.Create(nil);
-  viSQLDataSet.SQLConnection := FSQLConnection;
+  viSQLDataSet := TI9Query.Create(nil);
+  viSQLDataSet.Connection := FConnection;
 
   viSQL := TStringList.Create;
   viSQL.Capacity := CI_CAPACITY;
@@ -166,7 +168,7 @@ begin
         {$ENDREGION}
       end;
 
-      CommandText := viSQL.Text;
+      SQL.Text := viSQL.Text;
 
       {$REGION 'Preencher valores dos parâmetros'}
       ParamByName('P_SISTEMA_ID').AsInteger := vpValue;

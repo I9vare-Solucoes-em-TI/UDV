@@ -3,6 +3,7 @@ unit ExportarDadosLivroCaixa;
 interface
 
 uses
+  I9Query,
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, Menus, cxLookAndFeelPainters, dxSkinsCore, dxSkinBlack, dxSkinBlue,
   dxSkinCaramel, dxSkinCoffee, dxSkinDarkSide, dxSkinGlassOceans,
@@ -68,11 +69,11 @@ type
     cxGridPesquisaColumn7: TcxGridDBColumn;
     ClientFermojuSITUACAO: TStringField;
     ClientFermojuSERVENTIA: TStringField;
-    sqlPrenotacao: TSimpleDataSet;
-    sqlPrenotacaoEMOLUMENTO: TFMTBCDField;
-    sqlPrenotacaoQTD: TFMTBCDField;
+    sqlPrenotacao: TI9Query;
+    sqlPrenotacaoEMOLUMENTO: TBCDField;
+    sqlPrenotacaoQTD: TBCDField;
     sqlPrenotacaoDATA_PEDIDO: TSQLTimeStampField;
-    sqlPrenotacaoSERVICO_CAIXA_ID: TFMTBCDField;
+    sqlPrenotacaoSERVICO_CAIXA_ID: TBCDField;
     sqlPrenotacaoDESCRICAO: TStringField;
     sqlPrenotacaoSERVENTIA_REGISTRO_DIARIO: TStringField;
     OpenDialog1: TOpenDialog;
@@ -493,7 +494,7 @@ begin
         '   AND ST.LIVRO_CAIXA = '+QuotedStr('3')+
         '   AND P.DATA_PEDIDO '+ MontarSqlData(edtPesqDataInicial.Date , edtPesqDataFinal.Date);
   sqlPrenotacao.Active := False;
-  sqlPrenotacao.DataSet.CommandText := visql;
+  sqlPrenotacao.SQL.Text := visql;
   sqlPrenotacao.Active := True;
 end;
 
@@ -706,7 +707,7 @@ var
             ParamByName('QUANTIDADE').AsInteger        := ClientFermojuQTD_ATOS.AsInteger;
             ParamByName('SERVENTIA').AsString          := ClientFermojuSERVENTIA.AsString;
             ParamByName('CAIXA_SERVICO_ID').AsInteger  := ClientFermojuSERVICO_CAIXA_ID.AsInteger;
-            ExecSQL(FALSE);
+            ExecSQL;
           end;
           ClientFermoju.Next;
           cxProgressBar1.Position := cxProgressBar1.Position + 1;

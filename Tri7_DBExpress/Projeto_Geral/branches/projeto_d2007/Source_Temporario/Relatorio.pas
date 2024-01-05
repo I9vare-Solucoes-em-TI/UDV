@@ -3,6 +3,7 @@ unit Relatorio;
 interface
 
 uses
+  I9Query,
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, cxStyles, cxCustomData, cxGraphics, cxFilter, cxData,
   cxDataStorage, cxEdit, DB, cxDBData, ExtCtrls, cxGridLevel, cxClasses,
@@ -23,10 +24,10 @@ type
     grdRelatorioDBTableView1: TcxGridDBTableView;
     grdRelatorioLevel1: TcxGridLevel;
     Panel1: TPanel;
-    sqlRelatorio: TSimpleDataSet;
+    sqlRelatorio: TI9Query;
     dsRelatorio: TDataSource;
     sqlRelatorioGRUPO: TStringField;
-    sqlRelatorioCONFIG_RELATORIO_ID: TFMTBCDField;
+    sqlRelatorioCONFIG_RELATORIO_ID: TBCDField;
     sqlRelatorioDESCRICAO: TStringField;
     sqlRelatorioRELATORIO: TBlobField;
     grdRelatorioDBTableView1GRUPO: TcxGridDBColumn;
@@ -85,7 +86,7 @@ end;
 procedure TfrmRelatorio.FormCreate(Sender: TObject);
 begin
   sqlRelatorio.Connection := dtmControles.DB;
-  sqlRelatorio.DataSet.Params[0].AsInteger := vgId;
+  sqlRelatorio.Params[0].AsInteger := vgId;
   sqlRelatorio.Open;
 
   CriarFuncoesRelatorio(frxRelatorio);

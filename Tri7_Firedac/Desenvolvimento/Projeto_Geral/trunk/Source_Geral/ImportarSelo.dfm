@@ -495,10 +495,8 @@ object frmImportarSelo: TfrmImportarSelo
       #9#9#9'<identificacao_pedido>122</identificacao_pedido>'
       #9#9#9'<tipo_de_ato>82</tipo_de_ato>'
       #9#9#9'<data_da_solicitacao>2012-08-13</data_da_solicitacao>'
-      
         #9#9#9'<codigo_inicial_do_selo>03951208130933082000000</codigo_inici' +
         'al_do_selo>'
-      
         #9#9#9'<codigo_final_do_selo>03951208130933082000999</codigo_final_d' +
         'o_selo>'
       #9#9#9'<quantidade_de_selos>1000</quantidade_de_selos>'
@@ -508,10 +506,8 @@ object frmImportarSelo: TfrmImportarSelo
       #9#9#9'<identificacao_pedido>123</identificacao_pedido>'
       #9#9#9'<tipo_de_ato>62</tipo_de_ato>'
       #9#9#9'<data_da_solicitacao>2012-08-13</data_da_solicitacao>'
-      
         #9#9#9'<codigo_inicial_do_selo>03951208130934062000000</codigo_inici' +
         'al_do_selo>'
-      
         #9#9#9'<codigo_final_do_selo>03951208130934062001999</codigo_final_d' +
         'o_selo>'
       #9#9#9'<quantidade_de_selos>2000</quantidade_de_selos>'
@@ -521,10 +517,8 @@ object frmImportarSelo: TfrmImportarSelo
       #9#9#9'<identificacao_pedido>124</identificacao_pedido>'
       #9#9#9'<tipo_de_ato>70</tipo_de_ato>'
       #9#9#9'<data_da_solicitacao>2012-08-13</data_da_solicitacao>'
-      
         #9#9#9'<codigo_inicial_do_selo>03951208130934070000000</codigo_inici' +
         'al_do_selo>'
-      
         #9#9#9'<codigo_final_do_selo>03951208130934070000499</codigo_final_d' +
         'o_selo>'
       #9#9#9'<quantidade_de_selos>500</quantidade_de_selos>'
@@ -534,17 +528,14 @@ object frmImportarSelo: TfrmImportarSelo
       #9#9#9'<identificacao_pedido>125</identificacao_pedido>'
       #9#9#9'<tipo_de_ato>5</tipo_de_ato>'
       #9#9#9'<data_da_solicitacao>2012-08-13</data_da_solicitacao>'
-      
         #9#9#9'<codigo_inicial_do_selo>03951208130935005000000</codigo_inici' +
         'al_do_selo>'
-      
         #9#9#9'<codigo_final_do_selo>03951208130935005000499</codigo_final_d' +
         'o_selo>'
       #9#9#9'<quantidade_de_selos>500</quantidade_de_selos>'
       #9#9#9'<assinatura_digital>true</assinatura_digital>'
       #9#9'</pedido_do_selo_eletronico>'
       #9'</lote_dos_pedidos>'
-      
         #9'<hash_conferencia_do_arquivo_xml>3df829f52cb17f3210f25c7ed67539' +
         '0787ae2516</hash_conferencia_do_arquivo_xml>'
       '</selo_eletronico>')

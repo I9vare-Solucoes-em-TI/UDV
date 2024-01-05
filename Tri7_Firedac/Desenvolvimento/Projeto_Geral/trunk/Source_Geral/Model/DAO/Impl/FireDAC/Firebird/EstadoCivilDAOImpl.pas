@@ -3,6 +3,7 @@ unit EstadoCivilDAOImpl;
 interface
 
 uses
+  I9Connection,
   EstadoCivilDAO,
   FireDAC.Comp.Client,
   Data.DB,
@@ -13,10 +14,10 @@ uses
 type
   TEstadoCivilDAO = class(TInterfacedObject, IEstadoCivilDAO)
   private
-    FFDConnection: TFDConnection;
+    FFDConnection: TI9Connection;
   public
     constructor Create(
-      const vpFDConnection: TFDConnection); reintroduce;
+      const vpFDConnection: TI9Connection); reintroduce;
 
     function Get(
       const vpValue: TDataSet): IEstadoCivil;
@@ -52,7 +53,7 @@ uses
 { TEstadoCivilDAO }
 
 constructor TEstadoCivilDAO.Create(
-  const vpFDConnection: TFDConnection);
+  const vpFDConnection: TI9Connection);
 begin
   inherited Create;
   FFDConnection := vpFDConnection;

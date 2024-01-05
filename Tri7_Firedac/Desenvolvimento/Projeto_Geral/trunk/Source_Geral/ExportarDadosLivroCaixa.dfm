@@ -976,7 +976,6 @@ object frmExportarDadosLivroCaixa: TfrmExportarDadosLivroCaixa
     FetchOptions.AssignedValues = [evMode]
     FetchOptions.Mode = fmAll
     SQL.Strings = (
-      
         'SELECT FIRST 1 PI.EMOLUMENTO, PI.QTD, P.DATA_PEDIDO, ST.SERVICO_' +
         'CAIXA_ID, ST.DESCRICAO, CS.SERVENTIA_REGISTRO_DIARIO'#13#10'FROM T_SER' +
         'VICO_ITEMPEDIDO PI'#13#10'     LEFT OUTER JOIN T_SERVICO_PEDIDO P ON'#13#10 +

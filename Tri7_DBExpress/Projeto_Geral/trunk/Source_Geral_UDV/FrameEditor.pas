@@ -385,7 +385,7 @@ procedure TfmeEditor.GravarParametrosConfig(vpGrupo, vpSessao : String);
                        '   AND CONFIG_GRUPO_ID = (SELECT CONFIG_GRUPO_ID FROM G_CONFIG_GRUPO '+
                        '                          WHERE DESCRICAO = '+QuotedStr(vpGrupo)+
                        '                            AND SISTEMA_ID = '+ IntToStr(vgId)+')',2);
-    dtmControles.sqlAuxiliar.ExecSQL(FALSE);
+    dtmControles.sqlAuxiliar.ExecSQL;
   end;
 begin
   Screen.Cursor := crSQLWait;

@@ -3,6 +3,7 @@ unit AtoAndamento;
 interface
 
 uses
+  I9Query,
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, CadBasico, DB, DBClient, SqlExpr, cxButtons, cxEdit, cxGridLevel,
   cxGridCustomTableView, cxGridDBTableView, cxGrid, cxDBLookupComboBox,
@@ -15,10 +16,10 @@ uses
 
 type
   TfrmAtoAndamento = class(TfrmCadBasico)
-    ClientAncestralATO_ANDAMENTO_ID: TFMTBCDField;
-    ClientAncestralTB_ANDAMENTOSERVICO_ID: TFMTBCDField;
-    ClientAncestralATO_ID: TFMTBCDField;
-    ClientAncestralUSUARIO_ID: TFMTBCDField;
+    ClientAncestralATO_ANDAMENTO_ID: TBCDField;
+    ClientAncestralTB_ANDAMENTOSERVICO_ID: TBCDField;
+    ClientAncestralATO_ID: TBCDField;
+    ClientAncestralUSUARIO_ID: TBCDField;
     ClientAncestralDATA_ANDAMENTO: TSQLTimeStampField;
     ClientAncestralOBSERVACAO: TBlobField;
     grdBasica: TcxGrid;
@@ -38,9 +39,9 @@ type
     cxGridBasicaDBProtocolo: TcxGridDBColumn;
     ClientAncestralcalc_Protocolo: TIntegerField;
     ClientAncestralCOMPLEMENTO: TStringField;
-    sqlAndamentoServcoGeral: TSimpleDataSet;
+    sqlAndamentoServcoGeral: TI9Query;
     dtsAndamentoServicoGeral: TDataSource;
-    sqlAndamentoServcoGeralTB_ANDAMENTOSERVICO_ID: TFMTBCDField;
+    sqlAndamentoServcoGeralTB_ANDAMENTOSERVICO_ID: TBCDField;
     sqlAndamentoServcoGeralDESCRICAO: TStringField;
     sqlAndamentoServcoGeralSITUACAO: TStringField;
     sqlAndamentoServcoGeralTIPO: TStringField;
@@ -53,8 +54,8 @@ type
     edtOutorgado: TcxTextEdit;
     cxLabel7: TcxLabel;
     edtOutorgante: TcxTextEdit;
-    sqlAndamentoServico: TSimpleDataSet;
-    sqlAndamentoServicoTB_ANDAMENTOSERVICO_ID: TFMTBCDField;
+    sqlAndamentoServico: TI9Query;
+    sqlAndamentoServicoTB_ANDAMENTOSERVICO_ID: TBCDField;
     sqlAndamentoServicoDESCRICAO: TStringField;
     sqlAndamentoServicoSITUACAO: TStringField;
     dtsAndamentoServico: TDataSource;
@@ -182,7 +183,7 @@ begin
   With ClientAncestral do
   begin
     Active := False;
-    DataSetAncestral.CommandText := ' SELECT * '+
+    DataSetAncestral.SQL.Text := ' SELECT * '+
                                     ' FROM T_ATO_ANDAMENTO ';
 
     if edtPesqProtocolo.Text <> '' then
@@ -192,7 +193,7 @@ begin
       vgAtoId := dtmControles.GetInt('SELECT ATO_ID FROM T_ATO WHERE PROTOCOLO = '+ edtPesqProtocolo.Text);
       if vgAtoId > 0 then
       begin
-         DataSetAncestral.CommandText := DataSetAncestral.CommandText +
+         DataSetAncestral.SQL.Text := DataSetAncestral.SQL.Text +
                                           ' WHERE ATO_ID = '+ IntToStr(vgAtoId);
          edtOutorgante.Text := dtmControles.GetStr(' SELECT PESSOA_NOME FROM T_ATO_VINCULOPARTE '+
                                                    ' WHERE ORDEM = 1 AND TIPO_VINCULO = '+ QuotedStr('1') +' AND ATO_ID = '+ QuotedStr(IntToStr(vgAtoID)));
@@ -220,10 +221,10 @@ begin
              viComplemento := ' WHERE USUARIO_ID = '+ IntToStr(lcxUsuario.EditValue)
         else viComplemento := viComplemento + ' AND USUARIO_ID = '+ IntToStr(lcxUsuario.EditValue);
 
-      DataSetAncestral.CommandText := DataSetAncestral.CommandText + viComplemento;
+      DataSetAncestral.SQL.Text := DataSetAncestral.SQL.Text + viComplemento;
     end;
 
-    DataSetAncestral.CommandText := DataSetAncestral.CommandText + ' ORDER BY ATO_ANDAMENTO_ID DESC ';
+    DataSetAncestral.SQL.Text := DataSetAncestral.SQL.Text + ' ORDER BY ATO_ANDAMENTO_ID DESC ';
     Screen.Cursor := crHourGlass;
     Active := true;
 

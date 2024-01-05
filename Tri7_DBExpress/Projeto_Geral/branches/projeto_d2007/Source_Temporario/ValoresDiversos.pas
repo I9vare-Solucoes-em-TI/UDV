@@ -3,6 +3,7 @@ unit ValoresDiversos;
 interface
 
 uses
+  I9Query,
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, CadAuxiliar, cxLookAndFeelPainters, FMTBcd, cxStyles,
   cxCustomData, cxGraphics, cxFilter, cxData, cxDataStorage, cxEdit, DB,
@@ -87,20 +88,20 @@ type
     cxGridRuralMostrar: TcxGridDBColumn;
     cxGridLevelUrbano: TcxGridLevel;
     cxGridLevelRural: TcxGridLevel;
-    sqlImoveis: TSimpleDataSet;
-    sqlImoveisATO_VINCULOIMOVEL_ID: TFMTBCDField;
-    sqlImoveisATO_ID: TFMTBCDField;
+    sqlImoveis: TI9Query;
+    sqlImoveisATO_VINCULOIMOVEL_ID: TBCDField;
+    sqlImoveisATO_ID: TBCDField;
     sqlImoveisREGISTRO_NUMERO: TStringField;
-    sqlImoveisIMOVEL_UNIDADE_ID: TFMTBCDField;
+    sqlImoveisIMOVEL_UNIDADE_ID: TBCDField;
     sqlImoveisTIPO_CLASSE: TStringField;
-    sqlImoveisNUMERO: TFMTBCDField;
+    sqlImoveisNUMERO: TBCDField;
     sqlImoveisUF: TStringField;
-    sqlImoveisTB_BAIRRO_ID: TFMTBCDField;
-    sqlImoveisIMOVEL_ID: TFMTBCDField;
+    sqlImoveisTB_BAIRRO_ID: TBCDField;
+    sqlImoveisIMOVEL_ID: TBCDField;
     sqlImoveisNUMERO_UNIDADE: TStringField;
     sqlImoveisQUADRA: TStringField;
-    sqlImoveisAREA: TFMTBCDField;
-    sqlImoveisTIPO_IMOVEL: TFMTBCDField;
+    sqlImoveisAREA: TBCDField;
+    sqlImoveisTIPO_IMOVEL: TBCDField;
     sqlImoveisLOGRADOURO: TStringField;
     sqlImoveisCARACTERISTICA: TStringField;
     sqlImoveisCOMPLEMENTO: TStringField;

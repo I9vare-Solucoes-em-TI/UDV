@@ -1609,7 +1609,6 @@ inherited frmConfig: TfrmConfig
     FetchOptions.AssignedValues = [evMode]
     FetchOptions.Mode = fmAll
     SQL.Strings = (
-      
         'SELECT * '#13#10'FROM G_CONFIG_GRUPO'#13#10'WHERE SISTEMA_ID = :SISTEMA_ID'#13#10 +
         'ORDER BY DESCRICAO')
     Left = 714
@@ -1649,7 +1648,6 @@ inherited frmConfig: TfrmConfig
     FetchOptions.AssignedValues = [evMode]
     FetchOptions.Mode = fmAll
     SQL.Strings = (
-      
         'SELECT CV.*'#13#10'FROM G_CONFIG_PADRAO_VALOR CV'#13#10'WHERE CV.CONFIG_PADR' +
         'AO_ID = :CONFIG_PADRAO_ID'#13#10'ORDER BY CV.VALOR')
     Left = 530

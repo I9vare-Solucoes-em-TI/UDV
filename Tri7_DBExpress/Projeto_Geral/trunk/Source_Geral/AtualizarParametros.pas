@@ -3,6 +3,8 @@ unit AtualizarParametros;
 interface
 
 uses
+  I9Query,
+  I9Connection,
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, StdCtrls, cxControls, cxContainer, cxEdit, cxTextEdit,
   cxLookAndFeelPainters, cxButtons, ComCtrls, cxProgressBar, DB, DBClient,
@@ -15,8 +17,8 @@ uses
 type
   TfrmAtualizarParametros = class(TForm)
     cdsAtualizador: TClientDataSet;
-    sqlGravarIni: TSQLQuery;
-    sqlGravarAdaptacoes: TSQLQuery;
+    sqlGravarIni: TI9Query;
+    sqlGravarAdaptacoes: TI9Query;
     pnParametros: TPanel;
     Label1: TLabel;
     Label2: TLabel;
@@ -36,7 +38,7 @@ type
     cxBtnAplicarSql: TcxButton;
     cxBtnCancelarSql: TcxButton;
     dtsExecute: TDataSource;
-    sqlExecute: TSimpleDataSet;
+    sqlExecute: TI9Query;
     btnFechar: TBitBtn;
     pgbTabelas: TProgressBar;
     sbnExportar: TSpeedButton;
@@ -47,11 +49,11 @@ type
     cxtextBase: TcxTextEdit;
     SpeedButton1: TSpeedButton;
     OpenDialog: TOpenDialog;
-    sqlAtualiza: TSQLQuery;
-    DBAuxiliar: TSQLConnection;
-    sqlGravarMarcacaoTipo: TSQLQuery;
+    sqlAtualiza: TI9Query;
+    DBAuxiliar: TI9Connection;
+    sqlGravarMarcacaoTipo: TI9Query;
     btnLimpar: TcxButton;
-    sqlModeloNotificacao: TSQLQuery;
+    sqlModeloNotificacao: TI9Query;
     procedure FormCreate(Sender: TObject);
     procedure cxBtnExecutarSqlClick(Sender: TObject);
     procedure cxBtnAplicarSqlClick(Sender: TObject);
@@ -110,8 +112,8 @@ begin
     if dtmcontroles.SimpleAuxiliar <> nil then
       dtmcontroles.SimpleAuxiliar.Destroy;
 
-    dtmcontroles.SimpleAuxiliar := TSimpleDataSet.Create(nil);
-    dtmcontroles.SimpleAuxiliar.DataSet.SQLConnection := DBAuxiliar;
+    dtmcontroles.SimpleAuxiliar := TI9Query.Create(nil);
+    dtmcontroles.SimpleAuxiliar.DataSet.Connection := DBAuxiliar;
 
     case viTabela of
       0 : ExecutaSimpleDSAux(' SELECT * FROM G_MARCACAO_TIPO WHERE MARCACAO_TIPO_ID >= 404 ORDER BY MARCACAO_TIPO_ID ',0);
@@ -190,7 +192,7 @@ begin
         sqlGravarAdaptacoes.Params[4].AsString    := cdsAtualizador.FieldByName('MASC_PLURAL').AsString;
         sqlGravarAdaptacoes.Params[5].AsString    := cdsAtualizador.FieldByName('FEM_SING').AsString;
         sqlGravarAdaptacoes.Params[6].AsString    := cdsAtualizador.FieldByName('FEM_PLURAL').AsString;
-        sqlGravarAdaptacoes.ExecSQL(FALSE);
+        sqlGravarAdaptacoes.ExecSQL;
         Inc(vgQtdAtualizada);
       end;
       pgbTabelas.Position := cdsAtualizador.RecNo;
@@ -217,7 +219,7 @@ begin
         sqlGravarAdaptacoes.Params[4].AsString    := cdsAtualizador.FieldByName('MASC_PLURAL').AsString;
         sqlGravarAdaptacoes.Params[5].AsString    := cdsAtualizador.FieldByName('FEM_SING').AsString;
         sqlGravarAdaptacoes.Params[6].AsString    := cdsAtualizador.FieldByName('FEM_PLURAL').AsString;
-        sqlGravarAdaptacoes.ExecSQL(FALSE);
+        sqlGravarAdaptacoes.ExecSQL;
         Inc(vgQtdAtualizada);
       end;
       pgbTabelas.Position := cdsAtualizador.RecNo;
@@ -244,7 +246,7 @@ begin
         sqlGravarIni.Params[4].AsString    := cdsAtualizador.FieldByName('DESCRICAO').AsString;
         sqlGravarIni.Params[5].AsString    := cdsAtualizador.FieldByName('VALOR').AsString;
         sqlGravarIni.Params[6].AsBlob      := cdsAtualizador.FieldByName('OBSERVACAO').AsString;
-        sqlGravarIni.ExecSQL(FALSE);
+        sqlGravarIni.ExecSQL;
         memoSQL.Lines.Add('  - '+cdsAtualizador.FieldByName('SECAO').AsString + ', '+ cdsAtualizador.FieldByName('NOME').AsString);
         Inc(vgQtdAtualizada);
       end;
@@ -295,14 +297,14 @@ begin
         Active := False;
         SQL.Clear;
         sql.Add(memoSQL.Text);
-        ExecSQL(FALSE);
+        ExecSQL;
       end
     else
       with sqlExecute do
       begin
         Active := False;
-        DataSet.CommandText := '';
-        DataSet.CommandText := memoSQL.Text;
+        SQL.Text := '';
+        SQL.Text := memoSQL.Text;
         Active := True;
         pagSql.ActivePageIndex := 1;
       end;
@@ -465,7 +467,7 @@ begin
         sqlGravarMarcacaoTipo.Params[11].AsString    := cdsAtualizador.FieldByName('SEPARADOR_3').AsString;
         sqlGravarMarcacaoTipo.Params[12].AsString    := cdsAtualizador.FieldByName('TIPO_VALOR').AsString;
         sqlGravarMarcacaoTipo.Params[13].AsBlob      := cdsAtualizador.FieldByName('TEXTO').AsString;
-        sqlGravarMarcacaoTipo.ExecSQL(FALSE);
+        sqlGravarMarcacaoTipo.ExecSQL;
         memoSQL.Lines.Add('  - '+cdsAtualizador.FieldByName('NOME').AsString + ', '+ cdsAtualizador.FieldByName('DESCRICAO').AsString);
         Inc(vgQtdAtualizada);
 //      end;
@@ -493,7 +495,7 @@ begin
 //      begin
         sqlModeloNotificacao.Params[0].AsBlob   := cdsAtualizador.FieldByName('TEXTO').AsString;
         sqlModeloNotificacao.Params[1].AsCurrency      := cdsAtualizador.FieldByName('MODELO_NOTIFICACAO_ID').AsCurrency;
-        sqlModeloNotificacao.ExecSQL(FALSE);
+        sqlModeloNotificacao.ExecSQL;
         memoSQL.Lines.Add('  - '+cdsAtualizador.FieldByName('MODELO_NOTIFICACAO_ID').AsString);
         Inc(vgQtdAtualizada);
 //      end;

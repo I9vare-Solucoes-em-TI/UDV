@@ -548,7 +548,6 @@ object frmPermissaogrupo: TfrmPermissaogrupo
   object sqlRotina: TI9Query
     Connection = dtmControles.DB
     SQL.Strings = (
-      
         'SELECT R.SISTEMA_ROTINA_ID,'#13#10'               R.DESCRICAO DESCROTI' +
         'NA,'#13#10'               R.SISTEMA_MENU_ID,'#13#10'               M.DESCRIC' +
         'AO DESCMENU'#13#10'FROM G_SISTEMA_ROTINA R'#13#10'LEFT JOIN G_SISTEMA_MENU M' +
@@ -585,7 +584,6 @@ object frmPermissaogrupo: TfrmPermissaogrupo
   object sqlGrupo: TI9Query
     Connection = dtmControles.DB
     SQL.Strings = (
-      
         'SELECT UG.* FROM G_USUARIO_SISTEMA US'#13#10'LEFT JOIN G_USUARIO_GRUPO' +
         ' UG ON'#13#10'   US.USUARIO_GRUPO_ID = UG.USUARIO_GRUPO_ID'#13#10'WHERE US.S' +
         'ISTEMA_ID = :SISTEMA_ID AND'#13#10'               UG.SITUACAO =  '#39'A'#39'  ' +
@@ -764,7 +762,6 @@ object frmPermissaogrupo: TfrmPermissaogrupo
   object sqlPermgrupo: TI9Query
     Connection = dtmControles.DB
     SQL.Strings = (
-      
         'select * '#13#10'from G_PERMISSAO_GRUPO'#13#10'where USUARIO_GRUPO_ID = :USU' +
         'ARIO_GRUPO_ID')
     Left = 208

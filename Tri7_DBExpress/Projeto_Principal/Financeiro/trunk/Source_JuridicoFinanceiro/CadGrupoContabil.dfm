@@ -262,12 +262,11 @@ inherited frmCadGrupoContabil: TfrmCadGrupoContabil
     Left = 381
     Top = 242
   end
-  inherited DataSetAncestral: TSQLDataSet
-    SchemaName = 'SYSDBA'
-    CommandText = 
+  inherited DataSetAncestral: TI9Query
+    SQL.Strings = (
       'SELECT *'#13#10'FROM J_CONTABIL_GRUPO'#13#10'WHERE ((BALANCETE_GRUPO_ID = :B' +
       'ALANCETE_GRUPO_ID)'#13#10'      OR (TIPO_GLOBAL = '#39'S'#39'))'#13#10'ORDER BY DESC' +
-      'RICAO'
+      'RICAO')
     Params = <
       item
         DataType = ftUnknown
@@ -284,7 +283,7 @@ inherited frmCadGrupoContabil: TfrmCadGrupoContabil
   inherited ClientAncestral: TClientDataSet
     Left = 475
     Top = 242
-    object ClientAncestralCONTABIL_GRUPO_ID: TFMTBCDField
+    object ClientAncestralCONTABIL_GRUPO_ID: TBCDField
       FieldName = 'CONTABIL_GRUPO_ID'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
       Precision = 20
@@ -302,7 +301,7 @@ inherited frmCadGrupoContabil: TfrmCadGrupoContabil
       FieldName = 'TIPO'
       Size = 1
     end
-    object ClientAncestralBALANCETE_GRUPO_ID: TFMTBCDField
+    object ClientAncestralBALANCETE_GRUPO_ID: TBCDField
       FieldName = 'BALANCETE_GRUPO_ID'
       Precision = 20
       Size = 2

@@ -79,7 +79,7 @@ var
       ParamByName('SISTEMA_ID').AsInteger    := vpSistemaId;
       ParamByName('STATUS').AsString         := 'A';
       ParamByName('ATTACHMENT_ID').AsInteger := GetIdConexao;
-      ExecSQL(False);
+      ExecSQL;
     end;
   end;
 
@@ -98,7 +98,7 @@ var
       ParamByName('DATA_HORA').AsString      := dtmControles.DataHoraBanco(5);
       ParamByName('STATUS').AsString         := 'A';
       ParamByName('ATTACHMENT_ID').AsInteger := GetIdConexao;
-      ExecSQL(False);
+      ExecSQL;
     end;
   end;
 

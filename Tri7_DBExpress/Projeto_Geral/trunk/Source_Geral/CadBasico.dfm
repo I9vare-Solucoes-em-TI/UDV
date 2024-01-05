@@ -4,8 +4,8 @@ object frmCadBasico: TfrmCadBasico
   BorderIcons = [biMinimize, biMaximize]
   BorderStyle = bsSizeToolWin
   Caption = 'Basico'
-  ClientHeight = 422
-  ClientWidth = 660
+  ClientHeight = 454
+  ClientWidth = 711
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
@@ -21,12 +21,12 @@ object frmCadBasico: TfrmCadBasico
   OnKeyPress = FormKeyPress
   OnShow = FormShow
   PixelsPerInch = 96
-  TextHeight = 13
+  TextHeight = 14
   object PanelBotoes: TPanel
     Left = 0
     Top = 0
-    Width = 660
-    Height = 56
+    Width = 711
+    Height = 60
     Align = alTop
     BevelInner = bvLowered
     Color = clWhite
@@ -35,8 +35,8 @@ object frmCadBasico: TfrmCadBasico
     object PanelBotoesBasicos: TPanel
       Left = 2
       Top = 2
-      Width = 578
-      Height = 52
+      Width = 623
+      Height = 56
       Align = alClient
       BevelOuter = bvNone
       Color = clWhite
@@ -45,18 +45,18 @@ object frmCadBasico: TfrmCadBasico
       object PanelBasicoBotoes: TPanel
         Left = 0
         Top = 0
-        Width = 385
-        Height = 52
+        Width = 415
+        Height = 56
         Align = alLeft
         BevelOuter = bvNone
         Color = clWhite
         ParentBackground = False
         TabOrder = 0
         object cxBtnPesquisar: TcxButton
-          Left = 319
+          Left = 344
           Top = 4
-          Width = 60
-          Height = 45
+          Width = 64
+          Height = 49
           Cursor = crHandPoint
           Action = ExecutePesquisa
           Colors.Default = clWhite
@@ -121,16 +121,16 @@ object frmCadBasico: TfrmCadBasico
           TabOrder = 0
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -11
+          Font.Height = -12
           Font.Name = 'MS Sans Serif'
           Font.Style = []
           ParentFont = False
         end
         object cxBtnCancelar: TcxButton
-          Left = 256
+          Left = 276
           Top = 4
-          Width = 60
-          Height = 45
+          Width = 64
+          Height = 49
           Cursor = crHandPoint
           Action = ExecuteCancelar
           Colors.Default = clWhite
@@ -195,16 +195,16 @@ object frmCadBasico: TfrmCadBasico
           TabOrder = 2
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -11
+          Font.Height = -12
           Font.Name = 'MS Sans Serif'
           Font.Style = []
           ParentFont = False
         end
         object cxBtnGravar: TcxButton
-          Left = 193
+          Left = 208
           Top = 4
-          Width = 60
-          Height = 45
+          Width = 64
+          Height = 49
           Cursor = crHandPoint
           Action = ExecuteGravar
           Colors.Default = clWhite
@@ -269,16 +269,16 @@ object frmCadBasico: TfrmCadBasico
           TabOrder = 1
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clRed
-          Font.Height = -11
+          Font.Height = -12
           Font.Name = 'MS Sans Serif'
           Font.Style = []
           ParentFont = False
         end
         object cxBtnExcluir: TcxButton
-          Left = 130
+          Left = 140
           Top = 4
-          Width = 60
-          Height = 45
+          Width = 65
+          Height = 49
           Cursor = crHandPoint
           Action = ExecuteExcluir
           Colors.Default = clWhite
@@ -343,16 +343,16 @@ object frmCadBasico: TfrmCadBasico
           TabOrder = 3
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -11
+          Font.Height = -12
           Font.Name = 'MS Sans Serif'
           Font.Style = []
           ParentFont = False
         end
         object cxBtnAlterar: TcxButton
-          Left = 67
+          Left = 72
           Top = 4
-          Width = 60
-          Height = 45
+          Width = 65
+          Height = 49
           Cursor = crHandPoint
           Action = ExecuteAlterar
           Colors.Default = clWhite
@@ -417,7 +417,7 @@ object frmCadBasico: TfrmCadBasico
           TabOrder = 4
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -11
+          Font.Height = -12
           Font.Name = 'MS Sans Serif'
           Font.Style = []
           ParentFont = False
@@ -425,8 +425,8 @@ object frmCadBasico: TfrmCadBasico
         object cxBtnIncluir: TcxButton
           Left = 4
           Top = 4
-          Width = 60
-          Height = 45
+          Width = 65
+          Height = 49
           Cursor = crHandPoint
           Action = ExecuteIncluir
           Colors.Default = clWhite
@@ -491,7 +491,7 @@ object frmCadBasico: TfrmCadBasico
           TabOrder = 5
           Font.Charset = DEFAULT_CHARSET
           Font.Color = clBlack
-          Font.Height = -11
+          Font.Height = -12
           Font.Name = 'MS Sans Serif'
           Font.Style = []
           ParentFont = False
@@ -499,20 +499,20 @@ object frmCadBasico: TfrmCadBasico
       end
     end
     object PanelBotaoFechar: TPanel
-      Left = 580
+      Left = 625
       Top = 2
-      Width = 78
-      Height = 52
+      Width = 84
+      Height = 56
       Align = alRight
       BevelOuter = bvNone
       Color = clWhite
       ParentBackground = False
       TabOrder = 1
       object cxBtnFechar: TcxButton
-        Left = 12
+        Left = 13
         Top = 4
-        Width = 60
-        Height = 45
+        Width = 65
+        Height = 49
         Cursor = crHandPoint
         Action = ExecuteFechar
         Caption = 'Sair'
@@ -578,7 +578,7 @@ object frmCadBasico: TfrmCadBasico
         TabOrder = 0
         Font.Charset = DEFAULT_CHARSET
         Font.Color = clBlack
-        Font.Height = -11
+        Font.Height = -12
         Font.Name = 'MS Sans Serif'
         Font.Style = []
         ParentFont = False
@@ -587,12 +587,12 @@ object frmCadBasico: TfrmCadBasico
   end
   object StatusBar: TStatusBar
     Left = 0
-    Top = 402
-    Width = 660
-    Height = 20
+    Top = 433
+    Width = 711
+    Height = 21
     Font.Charset = DEFAULT_CHARSET
     Font.Color = clBlack
-    Font.Height = -11
+    Font.Height = -12
     Font.Name = 'Tahoma'
     Font.Style = [fsBold]
     Panels = <
@@ -610,9 +610,9 @@ object frmCadBasico: TfrmCadBasico
   end
   object PanelGeral: TPanel
     Left = 0
-    Top = 56
-    Width = 660
-    Height = 346
+    Top = 60
+    Width = 711
+    Height = 373
     Align = alClient
     Color = 14807280
     ParentBackground = False
@@ -620,8 +620,8 @@ object frmCadBasico: TfrmCadBasico
     object PanelData: TPanel
       Left = 1
       Top = 1
-      Width = 658
-      Height = 116
+      Width = 709
+      Height = 125
       Align = alTop
       BevelInner = bvRaised
       BevelOuter = bvNone
@@ -684,11 +684,11 @@ object frmCadBasico: TfrmCadBasico
       OnExecute = ExecuteFecharExecute
     end
   end
-  object DataSetAncestral: TSQLDataSet
-    DataSource = SourceAncestral
-    MaxBlobSize = -1
-    Params = <>
-    SQLConnection = dtmControles.DB
+  object DataSetAncestral: TI9Query
+    MasterSource = SourceAncestral
+    Connection = dtmControles.DB
+    FetchOptions.AssignedValues = [evMode]
+    FetchOptions.Mode = fmAll
     Left = 123
     Top = 98
   end

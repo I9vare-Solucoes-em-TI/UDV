@@ -195,7 +195,6 @@ object frmRemoveFundoTipo: TfrmRemoveFundoTipo
   object sqlFundoConfig: TI9Query
     Connection = dtmControles.DB
     SQL.Strings = (
-      
         'select'#13#10'  CONFIGURACAO_FUNDO_ID,'#13#10'  FUNDO_TIPO_ID,'#13#10'  EMOLUMENTO' +
         '_ID'#13#10'from'#13#10' G_FUNDO_CONFIG'#13#10'where'#13#10'  EMOLUMENTO_ID = :EMOLUMENTO' +
         '_ID')

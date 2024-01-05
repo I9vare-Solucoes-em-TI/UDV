@@ -302,7 +302,7 @@ inherited frmSeloRegistrar: TfrmSeloRegistrar
       LookAndFeel.SkinName = ''
     end
   end
-  inherited DataSetAncestral: TSQLDataSet
+  inherited DataSetAncestral: TI9Query
     Left = 355
   end
   inherited ProviderAncestral: TDataSetProvider

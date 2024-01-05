@@ -3,6 +3,8 @@ unit FDControle;
 interface
 
 uses
+  I9Query,
+  I9Connection,
   System.SysUtils,
   System.Classes,
   FireDAC.Stan.Intf,
@@ -29,10 +31,10 @@ uses
 
 type
   TdtmFD = class(TDataModule)
-    FDConnection: TFDConnection;
+    FDConnection: TI9Connection;
     FDPhysFBDriverLink: TFDPhysFBDriverLink;
     FDGUIxWaitCursor: TFDGUIxWaitCursor;
-    FDQuery: TFDQuery;
+    FDQuery: TI9Query;
     procedure DataModuleCreate(Sender: TObject);
     procedure DataModuleDestroy(Sender: TObject);
   private

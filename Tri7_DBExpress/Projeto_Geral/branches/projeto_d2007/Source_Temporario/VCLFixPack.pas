@@ -274,6 +274,7 @@ implementation
 {$IFEND}
 
 uses
+  FireDAC.Stan.Param,
   Windows, Messages, SysUtils, Classes, TypInfo, ActnList, SysConst,
   {$IFDEF ObjAutoDEPFix}
   ObjAuto,

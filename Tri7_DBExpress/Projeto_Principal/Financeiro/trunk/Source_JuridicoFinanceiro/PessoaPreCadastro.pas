@@ -32,7 +32,7 @@ type
     ClientAncestralNOME: TStringField;
     ClientAncestralCPFCNPJ: TStringField;
     ClientAncestralDOCUMENTO: TStringField;
-    ClientAncestralPESSOA_ID: TFMTBCDField;
+    ClientAncestralPESSOA_ID: TBCDField;
     btnSelecionar: TcxButton;
     btnCadastrar: TcxButton;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
@@ -113,7 +113,7 @@ begin
              ' WHERE NOME LIKE '+ QuotedStr(edtNome.Text+'%');
 
     viSql := viSql + ' ORDER BY NOME ';
-    DataSetAncestral.CommandText := viSql;
+    DataSetAncestral.SQL.Text := viSql;
     ClientAncestral.Open;
 
     if ClientAncestral.IsEmpty then

@@ -491,10 +491,8 @@ object frmControleVersao: TfrmControleVersao
     Connection = DB
     SortedFields = 'cidade,nome_cartorio;nome_sistema'
     SQL.Strings = (
-      
         'select c.nome_cartorio, c.cidade, c.uf, s.nome_sistema, v.numero' +
         '_versao, v.numero_versao_anterior  '
-      
         'from versao v left join sistema s on v.sistema_id = s.sistema_id' +
         ' left join cartorio c on v.cartorio_id = c.cartorio_id order by ' +
         'c.nome_cartorio, s.nome_sistema')

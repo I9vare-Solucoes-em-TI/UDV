@@ -192,34 +192,33 @@ object frmRemoveFundoTipo: TfrmRemoveFundoTipo
     Left = 304
     Top = 136
   end
-  object sqlFundoConfig: TSimpleDataSet
+  object sqlFundoConfig: TI9Query
     Aggregates = <>
-    DataSet.CommandText = 
+    SQL.Strings = (
       'select'#13#10'  CONFIGURACAO_FUNDO_ID,'#13#10'  FUNDO_TIPO_ID,'#13#10'  EMOLUMENTO' +
       '_ID'#13#10'from'#13#10' G_FUNDO_CONFIG'#13#10'where'#13#10'  EMOLUMENTO_ID = :EMOLUMENTO' +
-      '_ID'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <
+      '_ID')
+    ParamData = <
       item
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Name = 'EMOLUMENTO_ID'
         ParamType = ptInput
       end>
     Params = <>
     Left = 112
     Top = 88
-    object sqlFundoConfigCONFIGURACAO_FUNDO_ID: TFMTBCDField
+    object sqlFundoConfigCONFIGURACAO_FUNDO_ID: TBCDField
       FieldName = 'CONFIGURACAO_FUNDO_ID'
       Required = True
       Precision = 20
       Size = 2
     end
-    object sqlFundoConfigFUNDO_TIPO_ID: TFMTBCDField
+    object sqlFundoConfigFUNDO_TIPO_ID: TBCDField
       FieldName = 'FUNDO_TIPO_ID'
       Precision = 20
       Size = 2
     end
-    object sqlFundoConfigEMOLUMENTO_ID: TFMTBCDField
+    object sqlFundoConfigEMOLUMENTO_ID: TBCDField
       FieldName = 'EMOLUMENTO_ID'
       Precision = 20
       Size = 2

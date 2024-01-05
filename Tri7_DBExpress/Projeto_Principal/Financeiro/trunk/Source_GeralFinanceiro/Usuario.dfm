@@ -1090,8 +1090,8 @@ inherited frmUsuario: TfrmUsuario
     Left = 521
     Top = 15
   end
-  inherited DataSetAncestral: TSQLDataSet
-    CommandText = 'select * from '#13#10'G_USUARIO '#13#10'order by NOME_COMPLETO'
+  inherited DataSetAncestral: TI9Query
+    SQL.Strings = ('select * from '#13#10'G_USUARIO '#13#10'order by NOME_COMPLETO')
     Left = 551
     Top = 15
   end
@@ -1105,7 +1105,7 @@ inherited frmUsuario: TfrmUsuario
     AfterScroll = ClientAncestralAfterScroll
     Left = 615
     Top = 15
-    object ClientAncestralUSUARIO_ID: TFMTBCDField
+    object ClientAncestralUSUARIO_ID: TBCDField
       FieldName = 'USUARIO_ID'
       Required = True
       Precision = 15
@@ -1127,7 +1127,7 @@ inherited frmUsuario: TfrmUsuario
       FieldName = 'SITUACAO'
       Size = 1
     end
-    object ClientAncestralPESSOA_ID: TFMTBCDField
+    object ClientAncestralPESSOA_ID: TBCDField
       FieldName = 'PESSOA_ID'
       Precision = 20
       Size = 2
@@ -1141,18 +1141,17 @@ inherited frmUsuario: TfrmUsuario
     Left = 647
     Top = 15
   end
-  object sqlGrupo: TSimpleDataSet
+  object sqlGrupo: TI9Query
     Aggregates = <>
     Connection = dtmControles.DB
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT DISTINCT UG.* FROM G_USUARIO_SISTEMA US'#13#10'LEFT JOIN G_USUA' +
       'RIO_GRUPO UG ON'#13#10'   US.USUARIO_GRUPO_ID = UG.USUARIO_GRUPO_ID'#13#10'W' +
       'HERE US.SISTEMA_ID = :SISTEMA_ID AND'#13#10'               UG.SITUACAO' +
-      ' =  '#39'A'#39'        '#13#10'ORDER BY UG.DESCRICAO'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <
+      ' =  '#39'A'#39'        '#13#10'ORDER BY UG.DESCRICAO')
+    ParamData = <
       item
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Name = 'SISTEMA_ID'
         ParamType = ptInput
         Value = '7'
@@ -1160,7 +1159,7 @@ inherited frmUsuario: TfrmUsuario
     Params = <>
     Left = 439
     Top = 309
-    object sqlGrupoUSUARIO_GRUPO_ID: TFMTBCDField
+    object sqlGrupoUSUARIO_GRUPO_ID: TBCDField
       FieldName = 'USUARIO_GRUPO_ID'
       Required = True
       Precision = 15
@@ -1185,18 +1184,17 @@ inherited frmUsuario: TfrmUsuario
     Left = 401
     Top = 308
   end
-  object sqlGrupoUsuario: TSimpleDataSet
+  object sqlGrupoUsuario: TI9Query
     Aggregates = <>
     Connection = dtmControles.DB
-    DataSet.CommandText = 
+    SQL.Strings = (
       'select * from G_USUARIO_GRUPO'#13#10'where SITUACAO = '#39'A'#39#13#10'order by DE' +
-      'SCRICAO'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <>
+      'SCRICAO')
+    ParamData = <>
     Params = <>
     Left = 509
     Top = 309
-    object FMTBCDField1: TFMTBCDField
+    object FMTBCDField1: TBCDField
       FieldName = 'USUARIO_GRUPO_ID'
       Required = True
       Precision = 15
@@ -1359,16 +1357,15 @@ inherited frmUsuario: TfrmUsuario
       F80FFFFF00000000FC1FFFFF0000000000000000000000000000000000000000
       000000000000}
   end
-  object sqlMenu: TSimpleDataSet
+  object sqlMenu: TI9Query
     Aggregates = <>
     Connection = dtmControles.DB
-    DataSet.CommandText = 
+    SQL.Strings = (
       'select * from G_SISTEMA_MENU '#13#10'where SISTEMA_ID = :SISTEMA_ID'#13#10'o' +
-      'rder by DESCRICAO'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <
+      'rder by DESCRICAO')
+    ParamData = <
       item
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Name = 'SISTEMA_ID'
         ParamType = ptInput
       end>
@@ -1378,7 +1375,7 @@ inherited frmUsuario: TfrmUsuario
     AfterScroll = sqlMenuAfterScroll
     Left = 583
     Top = 309
-    object sqlMenuSISTEMA_MENU_ID: TFMTBCDField
+    object sqlMenuSISTEMA_MENU_ID: TBCDField
       FieldName = 'SISTEMA_MENU_ID'
       Required = True
       Precision = 15
@@ -1388,7 +1385,7 @@ inherited frmUsuario: TfrmUsuario
       FieldName = 'DESCRICAO'
       Size = 60
     end
-    object sqlMenuSISTEMA_ID: TFMTBCDField
+    object sqlMenuSISTEMA_ID: TBCDField
       FieldName = 'SISTEMA_ID'
       Precision = 15
       Size = 2
@@ -1437,18 +1434,17 @@ inherited frmUsuario: TfrmUsuario
       OnClick = DesmarcarTodos1Click
     end
   end
-  object sqlRotina: TSimpleDataSet
+  object sqlRotina: TI9Query
     Aggregates = <>
     Connection = dtmControles.DB
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT R.SISTEMA_ROTINA_ID,'#13#10'       R.DESCRICAO DESCROTINA,'#13#10'   ' +
       '    R.SISTEMA_MENU_ID,'#13#10'       R.CHAVE_ROTINA,'#13#10'       PG.PERMIS' +
       'SAO'#13#10'FROM G_SISTEMA_ROTINA R'#13#10'LEFT JOIN G_PERMISSAO_GRUPO PG ON'#13 +
       #10'     R.SISTEMA_ROTINA_ID = PG.SISTEMA_ROTINA_ID AND'#13#10'     PG.US' +
       'UARIO_GRUPO_ID = :USUARIO_GRUPO_ID'#13#10'WHERE R.SISTEMA_MENU_ID = :S' +
-      'ISTEMA_MENU_ID'#13#10'ORDER BY  R.DESCRICAO'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <
+      'ISTEMA_MENU_ID'#13#10'ORDER BY  R.DESCRICAO')
+    ParamData = <
       item
         DataType = ftUnknown
         Name = 'USUARIO_GRUPO_ID'
@@ -1469,7 +1465,7 @@ inherited frmUsuario: TfrmUsuario
       FieldName = 'CHAVE_ROTINA'
       Size = 30
     end
-    object sqlRotinaSISTEMA_MENU_ID: TFMTBCDField
+    object sqlRotinaSISTEMA_MENU_ID: TBCDField
       FieldName = 'SISTEMA_MENU_ID'
       Precision = 15
       Size = 2
@@ -1478,7 +1474,7 @@ inherited frmUsuario: TfrmUsuario
       FieldName = 'DESCROTINA'
       Size = 60
     end
-    object sqlRotinaSISTEMA_ROTINA_ID: TFMTBCDField
+    object sqlRotinaSISTEMA_ROTINA_ID: TBCDField
       FieldName = 'SISTEMA_ROTINA_ID'
       Required = True
       Precision = 15
@@ -1519,14 +1515,13 @@ inherited frmUsuario: TfrmUsuario
       Size = 1
     end
   end
-  object sqlPessoaVinculada: TSimpleDataSet
+  object sqlPessoaVinculada: TI9Query
     Aggregates = <>
     Connection = dtmControles.DB
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT NOME, PESSOA_ID'#13#10'FROM J_PESSOA'#13#10'WHERE PESSOA_ID IN (:PESS' +
-      'OA_ID)'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <
+      'OA_ID)')
+    ParamData = <
       item
         DataType = ftBCD
         Name = 'PESSOA_ID'
@@ -1539,7 +1534,7 @@ inherited frmUsuario: TfrmUsuario
       FieldName = 'NOME'
       Size = 120
     end
-    object sqlPessoaVinculadaPESSOA_ID: TFMTBCDField
+    object sqlPessoaVinculadaPESSOA_ID: TBCDField
       FieldName = 'PESSOA_ID'
       Required = True
       Precision = 20
@@ -1551,18 +1546,17 @@ inherited frmUsuario: TfrmUsuario
     Left = 401
     Top = 343
   end
-  object SimpleDataSet1: TSimpleDataSet
+  object SimpleDataSet1: TI9Query
     Aggregates = <>
     Connection = dtmControles.DB
-    DataSet.CommandText = 
+    SQL.Strings = (
       'select * from G_USUARIO_GRUPO'#13#10'where SITUACAO = '#39'A'#39#13#10'order by DE' +
-      'SCRICAO'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <>
+      'SCRICAO')
+    ParamData = <>
     Params = <>
     Left = 369
     Top = 253
-    object FMTBCDField3: TFMTBCDField
+    object FMTBCDField3: TBCDField
       FieldName = 'USUARIO_GRUPO_ID'
       Required = True
       Precision = 15

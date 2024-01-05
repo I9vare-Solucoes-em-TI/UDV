@@ -334,13 +334,12 @@ object frmAgenda: TfrmAgenda
       OptionsImage.Layout = blGlyphTop
     end
   end
-  object sqlG_Agenda: TSimpleDataSet
+  object sqlG_Agenda: TI9Query
     Aggregates = <>
-    DataSet.CommandText = 'SELECT * FROM G_AGENDA'#13#10'WHERE USUARIO_ID = :USUARIO_ID'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <
+    SQL.Strings = ('SELECT * FROM G_AGENDA'#13#10'WHERE USUARIO_ID = :USUARIO_ID')
+    ParamData = <
       item
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Name = 'USUARIO_ID'
         ParamType = ptInput
       end>
@@ -351,13 +350,13 @@ object frmAgenda: TfrmAgenda
     AfterDelete = sqlG_AgendaAfterDelete
     Left = 425
     Top = 312
-    object sqlG_AgendaAGENDA_ID: TFMTBCDField
+    object sqlG_AgendaAGENDA_ID: TBCDField
       FieldName = 'AGENDA_ID'
       Required = True
       Precision = 15
       Size = 2
     end
-    object sqlG_AgendaTIPO_EVENTO: TFMTBCDField
+    object sqlG_AgendaTIPO_EVENTO: TBCDField
       FieldName = 'TIPO_EVENTO'
       Precision = 15
       Size = 2
@@ -376,27 +375,27 @@ object frmAgenda: TfrmAgenda
       FieldName = 'MENSAGEM'
       Size = 260
     end
-    object sqlG_AgendaCOR: TFMTBCDField
+    object sqlG_AgendaCOR: TBCDField
       FieldName = 'COR'
       Precision = 15
       Size = 2
     end
-    object sqlG_AgendaOPCAO: TFMTBCDField
+    object sqlG_AgendaOPCAO: TBCDField
       FieldName = 'OPCAO'
       Precision = 15
       Size = 2
     end
-    object sqlG_AgendaSTATUS: TFMTBCDField
+    object sqlG_AgendaSTATUS: TBCDField
       FieldName = 'STATUS'
       Precision = 15
       Size = 2
     end
-    object sqlG_AgendaUSUARIO_ID: TFMTBCDField
+    object sqlG_AgendaUSUARIO_ID: TBCDField
       FieldName = 'USUARIO_ID'
       Precision = 15
       Size = 2
     end
-    object sqlG_AgendaUSUARIO_AGENDOU_ID: TFMTBCDField
+    object sqlG_AgendaUSUARIO_AGENDOU_ID: TBCDField
       FieldName = 'USUARIO_AGENDOU_ID'
       Precision = 15
       Size = 2
@@ -451,26 +450,25 @@ object frmAgenda: TfrmAgenda
     Left = 336
     Top = 312
   end
-  object sqlG_AgendaTemp: TSimpleDataSet
+  object sqlG_AgendaTemp: TI9Query
     Aggregates = <>
-    DataSet.CommandText = 'SELECT * FROM G_AGENDA'#13#10'WHERE USUARIO_ID = :USUARIO_ID'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <
+    SQL.Strings = ('SELECT * FROM G_AGENDA'#13#10'WHERE USUARIO_ID = :USUARIO_ID')
+    ParamData = <
       item
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Name = 'USUARIO_ID'
         ParamType = ptInput
       end>
     Params = <>
     Left = 464
     Top = 312
-    object sqlG_AgendaTempAGENDA_ID: TFMTBCDField
+    object sqlG_AgendaTempAGENDA_ID: TBCDField
       FieldName = 'AGENDA_ID'
       Required = True
       Precision = 15
       Size = 2
     end
-    object sqlG_AgendaTempTIPO_EVENTO: TFMTBCDField
+    object sqlG_AgendaTempTIPO_EVENTO: TBCDField
       FieldName = 'TIPO_EVENTO'
       Precision = 15
       Size = 2
@@ -489,27 +487,27 @@ object frmAgenda: TfrmAgenda
       FieldName = 'MENSAGEM'
       Size = 260
     end
-    object sqlG_AgendaTempCOR: TFMTBCDField
+    object sqlG_AgendaTempCOR: TBCDField
       FieldName = 'COR'
       Precision = 15
       Size = 2
     end
-    object sqlG_AgendaTempOPCAO: TFMTBCDField
+    object sqlG_AgendaTempOPCAO: TBCDField
       FieldName = 'OPCAO'
       Precision = 15
       Size = 2
     end
-    object sqlG_AgendaTempSTATUS: TFMTBCDField
+    object sqlG_AgendaTempSTATUS: TBCDField
       FieldName = 'STATUS'
       Precision = 15
       Size = 2
     end
-    object sqlG_AgendaTempUSUARIO_ID: TFMTBCDField
+    object sqlG_AgendaTempUSUARIO_ID: TBCDField
       FieldName = 'USUARIO_ID'
       Precision = 15
       Size = 2
     end
-    object sqlG_AgendaTempUSUARIO_AGENDOU_ID: TFMTBCDField
+    object sqlG_AgendaTempUSUARIO_AGENDOU_ID: TBCDField
       FieldName = 'USUARIO_AGENDOU_ID'
       Precision = 15
       Size = 2

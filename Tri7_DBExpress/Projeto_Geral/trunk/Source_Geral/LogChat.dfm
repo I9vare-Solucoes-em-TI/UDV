@@ -552,27 +552,26 @@ object frmLogChat: TfrmLogChat
     Left = 245
     Top = 352
   end
-  object sqlChat: TSimpleDataSet
+  object sqlChat: TI9Query
     Aggregates = <>
-    DataSet.CommandText = 'SELECT * FROM G_CHAT'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <>
+    SQL.Strings = ('SELECT * FROM G_CHAT')
+    ParamData = <>
     Params = <>
     OnCalcFields = sqlChatCalcFields
     Left = 245
     Top = 320
-    object sqlChatCHAT_ID: TFMTBCDField
+    object sqlChatCHAT_ID: TBCDField
       FieldName = 'CHAT_ID'
       Required = True
       Precision = 15
       Size = 2
     end
-    object sqlChatUSUARIO_RECEBEU_ID: TFMTBCDField
+    object sqlChatUSUARIO_RECEBEU_ID: TBCDField
       FieldName = 'USUARIO_RECEBEU_ID'
       Precision = 15
       Size = 2
     end
-    object sqlChatUSUARIO_ENVIOU_ID: TFMTBCDField
+    object sqlChatUSUARIO_ENVIOU_ID: TBCDField
       FieldName = 'USUARIO_ENVIOU_ID'
       Precision = 15
       Size = 2
@@ -630,13 +629,12 @@ object frmLogChat: TfrmLogChat
     Left = 304
     Top = 320
   end
-  object sqlChatImprimir: TSimpleDataSet
+  object sqlChatImprimir: TI9Query
     Aggregates = <>
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT DISTINCT USUARIO_ENVIOU_ID, DATA, MENSAGEM_BLOB FROM G_CH' +
-      'AT'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <>
+      'AT')
+    ParamData = <>
     Params = <>
     OnCalcFields = sqlChatImprimirCalcFields
     Left = 341
@@ -659,7 +657,7 @@ object frmLogChat: TfrmLogChat
       Size = 60
       Calculated = True
     end
-    object sqlChatImprimirUSUARIO_ENVIOU_ID: TFMTBCDField
+    object sqlChatImprimirUSUARIO_ENVIOU_ID: TBCDField
       FieldName = 'USUARIO_ENVIOU_ID'
       Precision = 15
       Size = 2

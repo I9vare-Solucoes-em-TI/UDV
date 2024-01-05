@@ -3,6 +3,7 @@ unit MarcacaoAutomatica;
 interface
 
 uses
+  I9Query,
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, ExtCtrls, DB, SimpleDS, StdCtrls, cxButtons, cxLabel, cxContainer,
   cxDropDownEdit, cxDBLookupComboBox, cxGraphics, cxControls, cxLookAndFeels,
@@ -18,7 +19,7 @@ type
     Shape2: TShape;
     cxLabel2: TcxLabel;
     Bevel1: TBevel;
-    sqlMarcacao: TSimpleDataSet;
+    sqlMarcacao: TI9Query;
     dtsMarcacao: TDataSource;
     sqlMarcacaoNOME: TStringField;
     sqlMarcacaoDESCRICAO: TStringField;
@@ -146,8 +147,8 @@ begin
   btnSelecionar.Enabled := False;
   Screen.Cursor := crHourGlass;
   sqlMarcacao.Active := False;
-  sqlMarcacao.DataSet.ParamByName('GRUPO').AsString := cbxGrupoMarcacao.Text;
-  sqlMarcacao.DataSet.ParamByName('SISTEMA').AsBCD  := vgId;
+  sqlMarcacao.ParamByName('GRUPO').AsString := cbxGrupoMarcacao.Text;
+  sqlMarcacao.ParamByName('SISTEMA').AsBCD  := vgId;
   sqlMarcacao.Active := True;
   Screen.Cursor := crDefault;
   dblMarcacao.Enabled := True;

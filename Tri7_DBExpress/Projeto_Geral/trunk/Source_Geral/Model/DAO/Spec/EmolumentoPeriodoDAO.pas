@@ -3,6 +3,8 @@ unit EmolumentoPeriodoDAO;
 interface
 
 uses
+  I9Query,
+  I9Connection,
   DAO,
   EmolumentoPeriodo,
   EmolumentoPeriodoList,
@@ -20,10 +22,10 @@ type
 
   TEmolumentoPeriodoDAO = class
   private
-    FSQLConnection: TSQLConnection;
+    FConnection: TI9Connection;
   public
     constructor Create(
-      const vpSQLConnection: TSQLConnection); reintroduce;
+      const vpConnection: TI9Connection); reintroduce;
 
     function Get(
       const vpEmolumentoPeriodoID: Integer): IEmolumentoPeriodo;
@@ -45,29 +47,29 @@ uses
 { TEmolumentoPeriodoDAO }
 
 constructor TEmolumentoPeriodoDAO.Create(
-  const vpSQLConnection: TSQLConnection);
+  const vpConnection: TI9Connection);
 begin
   inherited Create;
-  FSQLConnection := vpSQLConnection;
+  FConnection := vpConnection;
 end;
 
 function TEmolumentoPeriodoDAO.Get(
   const vpEmolumentoPeriodoID: Integer): IEmolumentoPeriodo;
 {$REGION 'Variáveis'}
 var
-  viSQLDataSet: TSQLDataSet;
+  viSQLDataSet: TI9Query;
 {$ENDREGION}
 begin
   Result := nil;
 
-  viSQLDataSet := TSQLDataSet.Create(nil);
-  viSQLDataSet.SQLConnection := FSQLConnection;
+  viSQLDataSet := TI9Query.Create(nil);
+  viSQLDataSet.Connection := FConnection;
 
   try
     with viSQLDataSet do
     begin
       {$REGION 'Comando SQL SELECT'}
-      CommandText :=
+      SQL.Text :=
         'SELECT ' +
 
         {$REGION 'Colunas'}
@@ -125,20 +127,20 @@ end;
 function TEmolumentoPeriodoDAO.GetList: TEmolumentoPeriodoList;
 {$REGION 'Variáveis'}
 var
-  viSQLDataSet: TSQLDataSet;
+  viSQLDataSet: TI9Query;
   viEmolumentoPeriodo: IEmolumentoPeriodo;
 {$ENDREGION}
 begin
   Result := TEmolumentoPeriodoList.Create;
 
-  viSQLDataSet := TSQLDataSet.Create(nil);
-  viSQLDataSet.SQLConnection := FSQLConnection;
+  viSQLDataSet := TI9Query.Create(nil);
+  viSQLDataSet.Connection := FConnection;
 
   try
     with viSQLDataSet do
     begin
       {$REGION 'Comando SQL SELECT'}
-      CommandText :=
+      SQL.Text :=
         'SELECT ' +
 
         {$REGION 'Colunas'}
@@ -192,17 +194,17 @@ procedure TEmolumentoPeriodoDAO.Inserir(
   const vpValue: IEmolumentoPeriodo);
 {$REGION 'Variáveis'}
 var
-  viSQLDataSet: TSQLDataSet;
+  viSQLDataSet: TI9Query;
 {$ENDREGION}
 begin
-  viSQLDataSet := TSQLDataSet.Create(nil);
-  viSQLDataSet.SQLConnection := FSQLConnection;
+  viSQLDataSet := TI9Query.Create(nil);
+  viSQLDataSet.Connection := FConnection;
 
   try
     with viSQLDataSet do
     begin
       {$REGION 'Comando SQL INSERT'}
-      CommandText :=
+      SQL.Text :=
         'INSERT ' +
 
         {$REGION 'Cláusula INTO'}

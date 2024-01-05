@@ -4879,15 +4879,14 @@ object frmGerenciadorAcao: TfrmGerenciadorAcao
       end
     end
   end
-  object sqlPesquisa: TSimpleDataSet
+  object sqlPesquisa: TI9Query
     Aggregates = <>
     Connection = dtmControles.DB
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT PESSOA_ID, NOME, CPF, RG, SELECIONADO, '#13#10'TELEFONES, SITUA' +
       'CAO, GRAU, PESSOA_GRUPO_ID, '#13#10'EMAIL, OBSERVACAO, BOLETO_EMAIL, P' +
-      'ESSOA_TERCEIRO_ID'#13#10'FROM T_PESSOA'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <>
+      'ESSOA_TERCEIRO_ID'#13#10'FROM T_PESSOA')
+    ParamData = <>
     Params = <>
     AfterScroll = sqlPesquisaAfterScroll
     OnCalcFields = sqlPesquisaCalcFields
@@ -4917,12 +4916,12 @@ object frmGerenciadorAcao: TfrmGerenciadorAcao
       FieldName = 'GRAU'
       Size = 1
     end
-    object sqlPesquisaPESSOA_GRUPO_ID: TFMTBCDField
+    object sqlPesquisaPESSOA_GRUPO_ID: TBCDField
       FieldName = 'PESSOA_GRUPO_ID'
       Precision = 20
       Size = 2
     end
-    object sqlPesquisaPESSOA_ID: TFMTBCDField
+    object sqlPesquisaPESSOA_ID: TBCDField
       FieldName = 'PESSOA_ID'
       Precision = 20
       Size = 2
@@ -4949,7 +4948,7 @@ object frmGerenciadorAcao: TfrmGerenciadorAcao
       Size = 90
       Calculated = True
     end
-    object sqlPesquisaPESSOA_TERCEIRO_ID: TFMTBCDField
+    object sqlPesquisaPESSOA_TERCEIRO_ID: TBCDField
       FieldName = 'PESSOA_TERCEIRO_ID'
       Precision = 20
       Size = 2
@@ -4960,28 +4959,27 @@ object frmGerenciadorAcao: TfrmGerenciadorAcao
     Left = 156
     Top = 424
   end
-  object sqlCompromissoAgendado: TSimpleDataSet
+  object sqlCompromissoAgendado: TI9Query
     Aggregates = <>
     Connection = dtmControles.DB
-    DataSet.CommandText = 'SELECT *'#13#10'FROM T_COMPROMISSO_AGENDADO'#13#10'ORDER BY ANO_MES_INICIAL'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <>
+    SQL.Strings = ('SELECT *'#13#10'FROM T_COMPROMISSO_AGENDADO'#13#10'ORDER BY ANO_MES_INICIAL')
+    ParamData = <>
     Params = <>
     AfterScroll = sqlCompromissoAgendadoAfterScroll
     OnCalcFields = sqlCompromissoAgendadoCalcFields
     Left = 120
     Top = 392
-    object sqlCompromissoAgendadoCOMPROMISSO_AGENDADO_ID: TFMTBCDField
+    object sqlCompromissoAgendadoCOMPROMISSO_AGENDADO_ID: TBCDField
       FieldName = 'COMPROMISSO_AGENDADO_ID'
       Precision = 20
       Size = 2
     end
-    object sqlCompromissoAgendadoPESSOA_ID: TFMTBCDField
+    object sqlCompromissoAgendadoPESSOA_ID: TBCDField
       FieldName = 'PESSOA_ID'
       Precision = 20
       Size = 2
     end
-    object sqlCompromissoAgendadoCONTABIL_CONTA_ID: TFMTBCDField
+    object sqlCompromissoAgendadoCONTABIL_CONTA_ID: TBCDField
       FieldName = 'CONTABIL_CONTA_ID'
       Precision = 20
       Size = 2
@@ -4998,12 +4996,12 @@ object frmGerenciadorAcao: TfrmGerenciadorAcao
       FieldName = 'PERIODO'
       Size = 1
     end
-    object sqlCompromissoAgendadoLANCAMENTO_COMPROMISSO_ID: TFMTBCDField
+    object sqlCompromissoAgendadoLANCAMENTO_COMPROMISSO_ID: TBCDField
       FieldName = 'LANCAMENTO_COMPROMISSO_ID'
       Precision = 20
       Size = 2
     end
-    object sqlCompromissoAgendadoVALOR_ATUAL: TFMTBCDField
+    object sqlCompromissoAgendadoVALOR_ATUAL: TBCDField
       FieldName = 'VALOR_ATUAL'
       Precision = 20
       Size = 3
@@ -5016,7 +5014,7 @@ object frmGerenciadorAcao: TfrmGerenciadorAcao
       FieldName = 'SITUACAO_GERAL'
       Size = 1
     end
-    object sqlCompromissoAgendadoVALOR_ANTERIOR: TFMTBCDField
+    object sqlCompromissoAgendadoVALOR_ANTERIOR: TBCDField
       FieldName = 'VALOR_ANTERIOR'
       Precision = 20
       Size = 3
@@ -5037,17 +5035,17 @@ object frmGerenciadorAcao: TfrmGerenciadorAcao
       FieldName = 'OBRIGATORIO'
       Size = 1
     end
-    object sqlCompromissoAgendadoCENTRO_CUSTO_ID: TFMTBCDField
+    object sqlCompromissoAgendadoCENTRO_CUSTO_ID: TBCDField
       FieldName = 'CENTRO_CUSTO_ID'
       Precision = 20
       Size = 2
     end
-    object sqlCompromissoAgendadoCEDENTE_ID: TFMTBCDField
+    object sqlCompromissoAgendadoCEDENTE_ID: TBCDField
       FieldName = 'CEDENTE_ID'
       Precision = 20
       Size = 2
     end
-    object sqlCompromissoAgendadoBALANCETE_GRUPO_ID: TFMTBCDField
+    object sqlCompromissoAgendadoBALANCETE_GRUPO_ID: TBCDField
       FieldName = 'BALANCETE_GRUPO_ID'
       Precision = 20
       Size = 2
@@ -5064,14 +5062,13 @@ object frmGerenciadorAcao: TfrmGerenciadorAcao
     Left = 120
     Top = 424
   end
-  object sqlCompromissoVencido: TSimpleDataSet
+  object sqlCompromissoVencido: TI9Query
     Aggregates = <>
     Connection = dtmControles.DB
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT *'#13#10'FROM T_COMPROMISSO_VENCIDO'#13#10'ORDER BY ANO_MES_REFERENCI' +
-      'A, CONTABIL_CONTA_ID'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <>
+      'A, CONTABIL_CONTA_ID')
+    ParamData = <>
     Params = <>
     AfterScroll = sqlCompromissoVencidoAfterScroll
     OnCalcFields = sqlCompromissoVencidoCalcFields
@@ -5087,17 +5084,17 @@ object frmGerenciadorAcao: TfrmGerenciadorAcao
       Size = 10
       Calculated = True
     end
-    object sqlCompromissoVencidoCOMPROMISSO_VENCIDO_ID: TFMTBCDField
+    object sqlCompromissoVencidoCOMPROMISSO_VENCIDO_ID: TBCDField
       FieldName = 'COMPROMISSO_VENCIDO_ID'
       Precision = 20
       Size = 2
     end
-    object sqlCompromissoVencidoPESSOA_ID: TFMTBCDField
+    object sqlCompromissoVencidoPESSOA_ID: TBCDField
       FieldName = 'PESSOA_ID'
       Precision = 20
       Size = 2
     end
-    object sqlCompromissoVencidoCONTABIL_CONTA_ID: TFMTBCDField
+    object sqlCompromissoVencidoCONTABIL_CONTA_ID: TBCDField
       FieldName = 'CONTABIL_CONTA_ID'
       Precision = 20
       Size = 2
@@ -5110,17 +5107,17 @@ object frmGerenciadorAcao: TfrmGerenciadorAcao
       FieldName = 'SITUACAO'
       Size = 1
     end
-    object sqlCompromissoVencidoLANCAMENTO_COMPROMISSO_ID: TFMTBCDField
+    object sqlCompromissoVencidoLANCAMENTO_COMPROMISSO_ID: TBCDField
       FieldName = 'LANCAMENTO_COMPROMISSO_ID'
       Precision = 20
       Size = 2
     end
-    object sqlCompromissoVencidoBOLETA_ID: TFMTBCDField
+    object sqlCompromissoVencidoBOLETA_ID: TBCDField
       FieldName = 'BOLETA_ID'
       Precision = 20
       Size = 2
     end
-    object sqlCompromissoVencidoRECIBO_NUMERO: TFMTBCDField
+    object sqlCompromissoVencidoRECIBO_NUMERO: TBCDField
       FieldName = 'RECIBO_NUMERO'
       Precision = 20
       Size = 2
@@ -5129,7 +5126,7 @@ object frmGerenciadorAcao: TfrmGerenciadorAcao
       FieldName = 'DIFERENCA'
       Size = 1
     end
-    object sqlCompromissoVencidoQTD_ADICIONAL: TFMTBCDField
+    object sqlCompromissoVencidoQTD_ADICIONAL: TBCDField
       FieldName = 'QTD_ADICIONAL'
       Precision = 20
       Size = 2
@@ -5138,12 +5135,12 @@ object frmGerenciadorAcao: TfrmGerenciadorAcao
       FieldName = 'ATUALIZADO'
       Size = 1
     end
-    object sqlCompromissoVencidoVALOR_ATUAL: TFMTBCDField
+    object sqlCompromissoVencidoVALOR_ATUAL: TBCDField
       FieldName = 'VALOR_ATUAL'
       Precision = 20
       Size = 3
     end
-    object sqlCompromissoVencidoVALOR_ANTERIOR: TFMTBCDField
+    object sqlCompromissoVencidoVALOR_ANTERIOR: TBCDField
       FieldName = 'VALOR_ANTERIOR'
       Precision = 20
       Size = 3
@@ -5161,17 +5158,17 @@ object frmGerenciadorAcao: TfrmGerenciadorAcao
       FieldName = 'OBRIGATORIO'
       Size = 1
     end
-    object sqlCompromissoVencidoCENTRO_CUSTO_ID: TFMTBCDField
+    object sqlCompromissoVencidoCENTRO_CUSTO_ID: TBCDField
       FieldName = 'CENTRO_CUSTO_ID'
       Precision = 20
       Size = 2
     end
-    object sqlCompromissoVencidoCEDENTE_ID: TFMTBCDField
+    object sqlCompromissoVencidoCEDENTE_ID: TBCDField
       FieldName = 'CEDENTE_ID'
       Precision = 20
       Size = 2
     end
-    object sqlCompromissoVencidoBALANCETE_GRUPO_ID: TFMTBCDField
+    object sqlCompromissoVencidoBALANCETE_GRUPO_ID: TBCDField
       FieldName = 'BALANCETE_GRUPO_ID'
       Precision = 20
       Size = 2
@@ -5294,16 +5291,15 @@ object frmGerenciadorAcao: TfrmGerenciadorAcao
       Caption = 'Programa'#231#227'o de Ajuste'
     end
   end
-  object sqlCompromissoRealizado: TSimpleDataSet
+  object sqlCompromissoRealizado: TI9Query
     Aggregates = <>
     Connection = dtmControles.DB
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT *'#13#10'FROM T_COMPROMISSO_VENCIDO'#13#10'WHERE SITUACAO IN ('#39'2'#39', '#39'3' +
       #39')'#13#10'  AND PESSOA_ID = :PESSOA_ID'#13#10'  AND TIPO_OPERACAO = '#39'C'#39#13#10'ORD' +
       'ER BY DATA_REALIZACAO DESC, ANO_MES_REFERENCIA, CONTABIL_CONTA_I' +
-      'D'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <
+      'D')
+    ParamData = <
       item
         DataType = ftBCD
         Name = 'PESSOA_ID'
@@ -5320,22 +5316,22 @@ object frmGerenciadorAcao: TfrmGerenciadorAcao
       Size = 10
       Calculated = True
     end
-    object sqlCompromissoRealizadoCOMPROMISSO_VENCIDO_ID: TFMTBCDField
+    object sqlCompromissoRealizadoCOMPROMISSO_VENCIDO_ID: TBCDField
       FieldName = 'COMPROMISSO_VENCIDO_ID'
       Precision = 20
       Size = 2
     end
-    object sqlCompromissoRealizadoPESSOA_ID: TFMTBCDField
+    object sqlCompromissoRealizadoPESSOA_ID: TBCDField
       FieldName = 'PESSOA_ID'
       Precision = 20
       Size = 2
     end
-    object sqlCompromissoRealizadoCONTABIL_CONTA_ID: TFMTBCDField
+    object sqlCompromissoRealizadoCONTABIL_CONTA_ID: TBCDField
       FieldName = 'CONTABIL_CONTA_ID'
       Precision = 20
       Size = 2
     end
-    object sqlCompromissoRealizadoVALOR_ATUAL: TFMTBCDField
+    object sqlCompromissoRealizadoVALOR_ATUAL: TBCDField
       FieldName = 'VALOR_ATUAL'
       Precision = 20
       Size = 3
@@ -5348,17 +5344,17 @@ object frmGerenciadorAcao: TfrmGerenciadorAcao
       FieldName = 'SITUACAO'
       Size = 1
     end
-    object sqlCompromissoRealizadoLANCAMENTO_COMPROMISSO_ID: TFMTBCDField
+    object sqlCompromissoRealizadoLANCAMENTO_COMPROMISSO_ID: TBCDField
       FieldName = 'LANCAMENTO_COMPROMISSO_ID'
       Precision = 20
       Size = 2
     end
-    object sqlCompromissoRealizadoBOLETA_ID: TFMTBCDField
+    object sqlCompromissoRealizadoBOLETA_ID: TBCDField
       FieldName = 'BOLETA_ID'
       Precision = 20
       Size = 2
     end
-    object sqlCompromissoRealizadoRECIBO_NUMERO: TFMTBCDField
+    object sqlCompromissoRealizadoRECIBO_NUMERO: TBCDField
       FieldName = 'RECIBO_NUMERO'
       Precision = 20
       Size = 2
@@ -5367,12 +5363,12 @@ object frmGerenciadorAcao: TfrmGerenciadorAcao
       FieldName = 'DIFERENCA'
       Size = 1
     end
-    object sqlCompromissoRealizadoVALOR_ORIGEM: TFMTBCDField
+    object sqlCompromissoRealizadoVALOR_ORIGEM: TBCDField
       FieldName = 'VALOR_ORIGEM'
       Precision = 20
       Size = 3
     end
-    object sqlCompromissoRealizadoQTD_ADICIONAL: TFMTBCDField
+    object sqlCompromissoRealizadoQTD_ADICIONAL: TBCDField
       FieldName = 'QTD_ADICIONAL'
       Precision = 20
       Size = 2
@@ -5384,7 +5380,7 @@ object frmGerenciadorAcao: TfrmGerenciadorAcao
     object sqlCompromissoRealizadoDATA_REALIZACAO: TSQLTimeStampField
       FieldName = 'DATA_REALIZACAO'
     end
-    object sqlCompromissoRealizadoBALANCETE_GRUPO_ID: TFMTBCDField
+    object sqlCompromissoRealizadoBALANCETE_GRUPO_ID: TBCDField
       FieldName = 'BALANCETE_GRUPO_ID'
       Precision = 20
       Size = 2
@@ -5435,17 +5431,16 @@ object frmGerenciadorAcao: TfrmGerenciadorAcao
       OnClick = popReativarCompromissoClick
     end
   end
-  object sqlAjusteProgramado: TSimpleDataSet
+  object sqlAjusteProgramado: TI9Query
     Aggregates = <>
     Connection = dtmControles.DB
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT PA.*, CA.CONTABIL_CONTA_ID'#13#10'FROM T_PROGRAMACAO_AJUSTE PA ' +
       'LEFT OUTER JOIN T_COMPROMISSO_AGENDADO CA ON'#13#10'  PA.COMPROMISSO_A' +
       'GENDADO_ID = CA.COMPROMISSO_AGENDADO_ID'#13#10'WHERE PA.SITUACAO = '#39'R'#39 +
       #13#10'    AND PA.PESSOA_ID = :PESSOA_ID'#13#10'ORDER BY PA.PROGRAMACAO_AJU' +
-      'STE_ID'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <
+      'STE_ID')
+    ParamData = <
       item
         DataType = ftBCD
         Name = 'PESSOA_ID'
@@ -5462,12 +5457,12 @@ object frmGerenciadorAcao: TfrmGerenciadorAcao
       Size = 10
       Calculated = True
     end
-    object sqlAjusteProgramadoPROGRAMACAO_AJUSTE_ID: TFMTBCDField
+    object sqlAjusteProgramadoPROGRAMACAO_AJUSTE_ID: TBCDField
       FieldName = 'PROGRAMACAO_AJUSTE_ID'
       Precision = 20
       Size = 2
     end
-    object sqlAjusteProgramadoCOMPROMISSO_AGENDADO_ID: TFMTBCDField
+    object sqlAjusteProgramadoCOMPROMISSO_AGENDADO_ID: TBCDField
       FieldName = 'COMPROMISSO_AGENDADO_ID'
       Precision = 20
       Size = 2
@@ -5488,17 +5483,17 @@ object frmGerenciadorAcao: TfrmGerenciadorAcao
       FieldName = 'SITUACAO'
       Size = 1
     end
-    object sqlAjusteProgramadoPESSOA_ID: TFMTBCDField
+    object sqlAjusteProgramadoPESSOA_ID: TBCDField
       FieldName = 'PESSOA_ID'
       Precision = 20
       Size = 2
     end
-    object sqlAjusteProgramadoVALOR_ANTERIOR: TFMTBCDField
+    object sqlAjusteProgramadoVALOR_ANTERIOR: TBCDField
       FieldName = 'VALOR_ANTERIOR'
       Precision = 20
       Size = 3
     end
-    object sqlAjusteProgramadoCONTABIL_CONTA_ID: TFMTBCDField
+    object sqlAjusteProgramadoCONTABIL_CONTA_ID: TBCDField
       FieldName = 'CONTABIL_CONTA_ID'
       Precision = 20
       Size = 2
@@ -5513,21 +5508,20 @@ object frmGerenciadorAcao: TfrmGerenciadorAcao
     Left = 192
     Top = 424
   end
-  object sqlAcao: TSimpleDataSet
+  object sqlAcao: TI9Query
     Aggregates = <>
     Connection = dtmControles.DB
-    DataSet.CommandText = 'SELECT *'#13#10'FROM J_ACAO'#13#10'WHERE ACAO_ID  = :ACAO_ID'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <
+    SQL.Strings = ('SELECT *'#13#10'FROM J_ACAO'#13#10'WHERE ACAO_ID  = :ACAO_ID')
+    ParamData = <
       item
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Name = 'ACAO_ID'
         ParamType = ptInput
       end>
     Params = <>
     Left = 556
     Top = 384
-    object sqlAcaoACAO_ID: TFMTBCDField
+    object sqlAcaoACAO_ID: TBCDField
       FieldName = 'ACAO_ID'
       Precision = 20
       Size = 2
@@ -5556,7 +5550,7 @@ object frmGerenciadorAcao: TfrmGerenciadorAcao
       FieldName = 'EMAIL'
       Size = 90
     end
-    object sqlAcaoVALOR: TFMTBCDField
+    object sqlAcaoVALOR: TBCDField
       FieldName = 'VALOR'
       Precision = 20
       Size = 3
@@ -5571,17 +5565,17 @@ object frmGerenciadorAcao: TfrmGerenciadorAcao
     object sqlAcaoRESUMO: TBlobField
       FieldName = 'RESUMO'
     end
-    object sqlAcaoACAO_NATUREZA_ID: TFMTBCDField
+    object sqlAcaoACAO_NATUREZA_ID: TBCDField
       FieldName = 'ACAO_NATUREZA_ID'
       Precision = 20
       Size = 2
     end
-    object sqlAcaoACAO_TIPO_ID: TFMTBCDField
+    object sqlAcaoACAO_TIPO_ID: TBCDField
       FieldName = 'ACAO_TIPO_ID'
       Precision = 20
       Size = 2
     end
-    object sqlAcaoACAO_VARA_ID: TFMTBCDField
+    object sqlAcaoACAO_VARA_ID: TBCDField
       FieldName = 'ACAO_VARA_ID'
       Precision = 20
       Size = 2
@@ -5590,7 +5584,7 @@ object frmGerenciadorAcao: TfrmGerenciadorAcao
       FieldName = 'VARA'
       Size = 10
     end
-    object sqlAcaoCIDADE_ID: TFMTBCDField
+    object sqlAcaoCIDADE_ID: TBCDField
       FieldName = 'CIDADE_ID'
       Precision = 20
       Size = 2

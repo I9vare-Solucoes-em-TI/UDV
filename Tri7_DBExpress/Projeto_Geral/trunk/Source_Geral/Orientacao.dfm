@@ -749,11 +749,11 @@ inherited frmOrientacao: TfrmOrientacao
       end
     end
   end
-  inherited DataSetAncestral: TSQLDataSet
-    CommandText = 'SELECT * FROM R_ANOTACAO'#13#10'WHERE ANOTACAO_ID = :ANOTACAO_ID'
+  inherited DataSetAncestral: TI9Query
+    SQL.Strings = ('SELECT * FROM R_ANOTACAO'#13#10'WHERE ANOTACAO_ID = :ANOTACAO_ID')
     Params = <
       item
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Name = 'ANOTACAO_ID'
         ParamType = ptInput
       end>
@@ -772,14 +772,13 @@ inherited frmOrientacao: TfrmOrientacao
     Left = 603
     Top = 23
   end
-  object sqlOrientacao: TSimpleDataSet
+  object sqlOrientacao: TI9Query
     Aggregates = <>
     Connection = dtmControles.DB
-    DataSet.CommandText = 'SELECT * FROM R_ORIENTACAO'#13#10'WHERE ORIENTACAO_ID = :ORIENTACAO_ID'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <
+    SQL.Strings = ('SELECT * FROM R_ORIENTACAO'#13#10'WHERE ORIENTACAO_ID = :ORIENTACAO_ID')
+    ParamData = <
       item
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Name = 'ORIENTACAO_ID'
         ParamType = ptInput
       end>
@@ -787,13 +786,13 @@ inherited frmOrientacao: TfrmOrientacao
     AfterScroll = sqlOrientacaoAfterScroll
     Left = 360
     Top = 216
-    object sqlOrientacaoORIENTACAO_ID: TFMTBCDField
+    object sqlOrientacaoORIENTACAO_ID: TBCDField
       FieldName = 'ORIENTACAO_ID'
       Required = True
       Precision = 15
       Size = 2
     end
-    object sqlOrientacaoUSUARIO_RECEBEU_ID: TFMTBCDField
+    object sqlOrientacaoUSUARIO_RECEBEU_ID: TBCDField
       FieldName = 'USUARIO_RECEBEU_ID'
       Precision = 15
       Size = 2
@@ -802,7 +801,7 @@ inherited frmOrientacao: TfrmOrientacao
       FieldName = 'RECEBEU'
       Size = 1
     end
-    object sqlOrientacaoUSUARIO_ENVIOU_ID: TFMTBCDField
+    object sqlOrientacaoUSUARIO_ENVIOU_ID: TBCDField
       FieldName = 'USUARIO_ENVIOU_ID'
       Precision = 15
       Size = 2
@@ -820,7 +819,7 @@ inherited frmOrientacao: TfrmOrientacao
     object sqlOrientacaoDATA_CANCELADO: TSQLTimeStampField
       FieldName = 'DATA_CANCELADO'
     end
-    object sqlOrientacaoID_CONTROLE: TFMTBCDField
+    object sqlOrientacaoID_CONTROLE: TBCDField
       FieldName = 'ID_CONTROLE'
       Precision = 15
       Size = 2

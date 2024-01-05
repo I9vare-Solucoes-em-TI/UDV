@@ -492,10 +492,8 @@ object frmSuporteAtualizacaoEmolumentoItem: TfrmSuporteAtualizacaoEmolumentoItem
       '    G_S.DESCRICAO,'
       '    C.VALOR_EMOLUMENTO AS VALOR_EMOLUMENTO_TJ,'
       '    C.VALOR_TAXA_JUDICIARIA AS VALOR_TAXA_JUDICIARIA_TJ,'
-      
         '    C.VALOR_EMOLUMENTO - G_EI.VALOR_EMOLUMENTO AS CORRECAO_VALOR' +
         '_EMOLUMENTO,'
-      
         '    C.VALOR_TAXA_JUDICIARIA - G_EI.VALOR_TAXA_JUDICIARIA AS CORR' +
         'ECAO_VALOR_TAXA_JUDICIARIA'
       'FROM'

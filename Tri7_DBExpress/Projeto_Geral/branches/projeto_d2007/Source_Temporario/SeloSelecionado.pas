@@ -106,7 +106,7 @@ begin
     with dtmControles.sqlAuxiliar do
     begin
       ParamByName('DATA').AsString := dtmControles.DataHoraBanco(5);
-      ExecSQL(FALSE);
+      ExecSQL;
     end;
   end;
 
@@ -233,7 +233,7 @@ var
       if vgDadosSelo.Serventuario = '' then
            ParamByName('USUARIO_ID').AsString       := vgUsuarioID
       else ParamByName('USUARIO_ID').AsString       := vgDadosSelo.Serventuario;
-      ExecSQL(FALSE);
+      ExecSQL;
     end;
   end;
 

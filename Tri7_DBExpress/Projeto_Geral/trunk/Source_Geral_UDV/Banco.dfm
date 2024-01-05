@@ -174,8 +174,8 @@ inherited frmBanco: TfrmBanco
   inherited ActionList1: TActionList
     Top = 162
   end
-  inherited DataSetAncestral: TSQLDataSet
-    CommandText = 'select * from G_BANCO'#13#10'order by DESCRICAO'
+  inherited DataSetAncestral: TI9Query
+    SQL.Strings = ('select * from G_BANCO'#13#10'order by DESCRICAO')
     Top = 162
   end
   inherited ProviderAncestral: TDataSetProvider

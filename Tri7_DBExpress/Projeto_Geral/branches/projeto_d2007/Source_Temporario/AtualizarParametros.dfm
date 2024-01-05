@@ -943,8 +943,7 @@ object frmAtualizarParametros: TfrmAtualizarParametros
     Left = 600
     Top = 65
   end
-  object sqlGravarIni: TSQLQuery
-    MaxBlobSize = -1
+  object sqlGravarIni: TI9Query
     Params = <
       item
         DataType = ftCurrency
@@ -998,12 +997,11 @@ object frmAtualizarParametros: TfrmAtualizarParametros
       '    :DESCRICAO,'
       '    :VALOR,   '
       '    :OBSERVACAO);')
-    SQLConnection = dtmControles.DB
+    Connection = dtmControles.DB
     Left = 672
     Top = 228
   end
-  object sqlGravarAdaptacoes: TSQLQuery
-    MaxBlobSize = -1
+  object sqlGravarAdaptacoes: TI9Query
     Params = <
       item
         DataType = ftBCD
@@ -1057,7 +1055,7 @@ object frmAtualizarParametros: TfrmAtualizarParametros
       '    :MASC_PLURAL,'
       '    :FEM_SING,   '
       '    :FEM_PLURAL);')
-    SQLConnection = dtmControles.DB
+    Connection = dtmControles.DB
     Left = 705
     Top = 228
   end
@@ -1066,10 +1064,9 @@ object frmAtualizarParametros: TfrmAtualizarParametros
     Left = 640
     Top = 229
   end
-  object sqlExecute: TSimpleDataSet
+  object sqlExecute: TI9Query
     Aggregates = <>
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <>
+    ParamData = <>
     Params = <>
     BeforeInsert = sqlExecuteBeforeInsert
     BeforeEdit = sqlExecuteBeforeEdit
@@ -1090,14 +1087,13 @@ object frmAtualizarParametros: TfrmAtualizarParametros
     Left = 540
     Top = 230
   end
-  object sqlAtualiza: TSQLQuery
-    MaxBlobSize = -1
+  object sqlAtualiza: TI9Query
     Params = <>
-    SQLConnection = dtmControles.DB
+    Connection = dtmControles.DB
     Left = 605
     Top = 263
   end
-  object DBAuxiliar: TSQLConnection
+  object DBAuxiliar: TI9Connection
     ConnectionName = 'IBConnection'
     DriverName = 'Interbase'
     GetDriverFunc = 'getSQLDriverINTERBASE'
@@ -1122,8 +1118,7 @@ object frmAtualizarParametros: TfrmAtualizarParametros
     Left = 17
     Top = 232
   end
-  object sqlGravarMarcacaoTipo: TSQLQuery
-    MaxBlobSize = -1
+  object sqlGravarMarcacaoTipo: TI9Query
     Params = <
       item
         DataType = ftUnknown
@@ -1226,12 +1221,11 @@ object frmAtualizarParametros: TfrmAtualizarParametros
       '    :SEPARADOR_3,'
       '    :TIPO_VALOR,'
       '    :TEXTO);')
-    SQLConnection = dtmControles.DB
+    Connection = dtmControles.DB
     Left = 672
     Top = 268
   end
-  object sqlModeloNotificacao: TSQLQuery
-    MaxBlobSize = -1
+  object sqlModeloNotificacao: TI9Query
     Params = <
       item
         DataType = ftUnknown
@@ -1246,7 +1240,7 @@ object frmAtualizarParametros: TfrmAtualizarParametros
     SQL.Strings = (
       'UPDATE D_MODELO_NOTIFICACAO SET TEXTO = :TEXTO'
       'WHERE MODELO_NOTIFICACAO_ID = :MODELO_NOTIFICACAO_ID')
-    SQLConnection = dtmControles.DB
+    Connection = dtmControles.DB
     Left = 672
     Top = 308
   end

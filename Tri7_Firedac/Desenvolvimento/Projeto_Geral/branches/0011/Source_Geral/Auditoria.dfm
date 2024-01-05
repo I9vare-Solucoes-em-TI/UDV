@@ -665,7 +665,6 @@ object frmAuditoria: TfrmAuditoria
     FetchOptions.AssignedValues = [evMode]
     FetchOptions.Mode = fmAll
     SQL.Strings = (
-      
         'SELECT DISTINCT U.USUARIO_ID, U.LOGIN '#13#10'FROM G_USUARIO U'#13#10'RIGHT ' +
         'JOIN G_USUARIO_SISTEMA US ON'#13#10'      U.USUARIO_ID = US.USUARIO_ID')
     Left = 518

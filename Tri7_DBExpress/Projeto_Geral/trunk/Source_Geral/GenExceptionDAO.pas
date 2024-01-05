@@ -3,20 +3,22 @@ unit GenExceptionDAO;
 interface
 
 uses
+  I9Query,
+  I9Connection,
   Data.SqlExpr,
   GenException;
 
 type
   TGenExceptionDAO = class
   private
-    FSQLConnection: TSQLConnection;
+    FConnection: TI9Connection;
 
     procedure PreencherParametroGenerator(
-      const vpSQLDataSet: TSQLDataSet;
+      const vpI9Query: TI9Query;
       const vpGenerator: string);
   public
     constructor Create(
-      const vpSQLConnection: TSQLConnection); reintroduce;
+      const vpConnection: TI9Connection); reintroduce;
 
     function Get(
       const vpGenerator: string): TGenException;
@@ -36,27 +38,27 @@ uses
 { TGenExceptionDAO }
 
 constructor TGenExceptionDAO.Create(
-  const vpSQLConnection: TSQLConnection);
+  const vpConnection: TI9Connection);
 begin
   inherited Create;
-  FSQLConnection := vpSQLConnection;
+  FConnection := vpConnection;
 end;
 
 procedure TGenExceptionDAO.Excluir(
   const vpGenException: TGenException);
 {$REGION 'Variáveis'}
 var
-  viSQLDataSet: TSQLDataSet;
+  viSQLDataSet: TI9Query;
 {$ENDREGION}
 begin
-  viSQLDataSet := TSQLDataSet.Create(nil);
-  viSQLDataSet.SQLConnection := FSQLConnection;
+  viSQLDataSet := TI9Query.Create(nil);
+  viSQLDataSet.Connection := FConnection;
 
   try
     with viSQLDataSet do
     begin
       {$REGION 'Comando SQL DELETE'}
-      CommandText :=
+      SQL.Text :=
         'DELETE ' +
 
         {$REGION 'Cláusula FROM'}
@@ -83,19 +85,19 @@ function TGenExceptionDAO.Get(
   const vpGenerator: string): TGenException;
 {$REGION 'Variáveis'}
 var
-  viSQLDataSet: TSQLDataSet;
+  viSQLDataSet: TI9Query;
 {$ENDREGION}
 begin
   Result := nil;
 
-  viSQLDataSet := TSQLDataSet.Create(nil);
-  viSQLDataSet.SQLConnection := FSQLConnection;
+  viSQLDataSet := TI9Query.Create(nil);
+  viSQLDataSet.Connection := FConnection;
 
   try
     with viSQLDataSet do
     begin
       {$REGION 'Comando SQL SELECT'}
-      CommandText :=
+      SQL.Text :=
         'SELECT ' +
 
         {$REGION 'Colunas'}
@@ -136,27 +138,27 @@ begin
 end;
 
 procedure TGenExceptionDAO.PreencherParametroGenerator(
-  const vpSQLDataSet: TSQLDataSet;
+  const vpI9Query: TI9Query;
   const vpGenerator: string);
 begin
-  vpSQLDataSet.ParamByName('P_GENERATOR').AsString := vpGenerator;
+  vpI9Query.ParamByName('P_GENERATOR').AsString := vpGenerator;
 end;
 
 procedure TGenExceptionDAO.Salvar(
   const vpGenException: TGenException);
 {$REGION 'Variáveis'}
 var
-  viSQLDataSet: TSQLDataSet;
+  viSQLDataSet: TI9Query;
 {$ENDREGION}
 begin
-  viSQLDataSet := TSQLDataSet.Create(nil);
-  viSQLDataSet.SQLConnection := FSQLConnection;
+  viSQLDataSet := TI9Query.Create(nil);
+  viSQLDataSet.Connection := FConnection;
 
   try
     with viSQLDataSet do
     begin
       {$REGION 'Comando SQL UPDATE OR INSERT'}
-      CommandText :=
+      SQL.Text :=
         'UPDATE OR INSERT ' +
 
         {$REGION 'Cláusula INTO'}

@@ -3,6 +3,8 @@ unit CadBasico;
 interface
 
 uses
+  I9Query,
+  I9Connection,
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, ActnList, ComCtrls, ExtCtrls, StdCtrls, cxButtons, DB, DBClient,
   Provider, SqlExpr, WPCTRRich, DBCtrls, Wpdbrich, DBGrids,
@@ -11,7 +13,10 @@ uses
   dxSkinDevExpressDarkStyle, dxSkinDevExpressStyle, dxSkinMcSkin,
   dxSkinOffice2007Black, dxSkinOffice2007Blue, dxSkinOffice2007Green,
   dxSkinOffice2007Pink, dxSkinOffice2007Silver, dxSkinsDefaultPainters,
-  dxSkinCaramel, dxSkinCoffee, dxSkiniMaginary;
+  dxSkinCaramel, dxSkinCoffee, dxSkiniMaginary, FireDAC.Stan.Intf,
+  FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS,
+  FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt,
+  FireDAC.Comp.DataSet, FireDAC.Comp.Client;
 
 type
   TExecuteProc = procedure of object;
@@ -28,7 +33,7 @@ type
     ExecuteCancelar: TAction;
     ExecutePesquisa: TAction;
     ExecuteFechar: TAction;
-    DataSetAncestral: TSQLDataSet;
+    DataSetAncestral: TI9Query;
     ProviderAncestral: TDataSetProvider;
     ClientAncestral: TClientDataSet;
     SourceAncestral: TDataSource;
@@ -267,7 +272,7 @@ begin
      StatusBar.Panels[1].Text := 'Atalho: ' + vgCodAtalho
   else StatusBar.Panels[1].Text := '';
 
-  DataSetAncestral.SQLConnection := dtmControles.DB;
+  DataSetAncestral.Connection := dtmControles.DB;
   vgChave := '';
   ExecExcluir := nil;
   ExecGravar  := nil;
@@ -278,7 +283,7 @@ procedure TfrmCadBasico.ClientAncestralReconcileError(
   DataSet: TCustomClientDataSet; E: EReconcileError;
   UpdateKind: TUpdateKind; var Action: TReconcileAction);
 begin
-  Action := raCancel;
+//  Action := raCancel;
   ErroPost := True;
   dtmControles.MostraErro(E);
 end;

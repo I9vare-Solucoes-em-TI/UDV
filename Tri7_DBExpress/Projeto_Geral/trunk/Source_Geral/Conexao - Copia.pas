@@ -54,7 +54,7 @@ var
       ParamByName('DATA_HORA').AsString   := dtmControles.DataHoraBanco(5);
       ParamByName('SISTEMA_ID').AsInteger := vpSistemaId;
       ParamByName('ATTACHMENT_ID').AsInteger := viIdLocal;
-      ExecSQL(False);
+      ExecSQL;
     end;
   end;
 
@@ -69,7 +69,7 @@ var
       ParamByName('IP_USUARIO').AsString  := viIpLocal;
       ParamByName('DATA_HORA').AsString   := dtmControles.DataHoraBanco(5);
       ParamByName('ATTACHMENT_ID').AsInteger := viIdLocal;
-      ExecSQL(False);
+      ExecSQL;
     end;
   end;
 

@@ -618,13 +618,11 @@ object frmCadEnvioEmailFinanceiro: TfrmCadEnvioEmailFinanceiro
       OnClick = btnCancelarClick
     end
   end
-  object DataSetAncestral: TSQLDataSet
-    SchemaName = 'SYSDBA'
-    CommandText = 'SELECT *'#13#10'FROM G_EMAIL_CONFIG'
+  object DataSetAncestral: TI9Query
+    SQL.Strings = ('SELECT *'#13#10'FROM G_EMAIL_CONFIG')
     DataSource = SourceAncestral
-    MaxBlobSize = -1
     Params = <>
-    SQLConnection = dtmControles.DB
+    Connection = dtmControles.DB
     Left = 499
     Top = 155
   end
@@ -639,7 +637,7 @@ object frmCadEnvioEmailFinanceiro: TfrmCadEnvioEmailFinanceiro
     ProviderName = 'ProviderAncestral'
     Left = 563
     Top = 154
-    object ClientAncestralEMAIL_CONFIG_ID: TFMTBCDField
+    object ClientAncestralEMAIL_CONFIG_ID: TBCDField
       FieldName = 'EMAIL_CONFIG_ID'
       Required = True
       Precision = 20
@@ -671,7 +669,7 @@ object frmCadEnvioEmailFinanceiro: TfrmCadEnvioEmailFinanceiro
     object ClientAncestralTEXTO_RODAPE: TBlobField
       FieldName = 'TEXTO_RODAPE'
     end
-    object ClientAncestralESPACO_TEXTO_RODAPE: TFMTBCDField
+    object ClientAncestralESPACO_TEXTO_RODAPE: TBCDField
       FieldName = 'ESPACO_TEXTO_RODAPE'
       Precision = 20
       Size = 2
@@ -692,7 +690,7 @@ object frmCadEnvioEmailFinanceiro: TfrmCadEnvioEmailFinanceiro
       FieldName = 'ADICIONAR_ASSINATURA_USUARIO'
       Size = 1
     end
-    object ClientAncestralEMAIL_TEXTO_PADRAO_ID: TFMTBCDField
+    object ClientAncestralEMAIL_TEXTO_PADRAO_ID: TBCDField
       FieldName = 'EMAIL_TEXTO_PADRAO_ID'
       Precision = 20
       Size = 2
@@ -803,10 +801,10 @@ object frmCadEnvioEmailFinanceiro: TfrmCadEnvioEmailFinanceiro
     Left = 408
     Top = 155
   end
-  object sqlBoletos: TSimpleDataSet
+  object sqlBoletos: TI9Query
     Aggregates = <>
     Connection = dtmControles.DB
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT'#13#10'  BO.BOLETO_ID,'#13#10'  BO.DATA_VENCIMENTO AS DATA_BOLETA,'#13#10' ' +
       ' BO.NOSSO_NUMERO,'#13#10'  BO.PATH_GERARPDF,'#13#10'  P.BOLETO_DESCRICAO,'#13#10' ' +
       ' P.NOME,'#13#10'  P.EMAIL1,'#13#10'  P.BOLETO_EMAIL  '#13#10'FROM J_BOLETO BO'#13#10'  L' +
@@ -815,9 +813,8 @@ object frmCadEnvioEmailFinanceiro: TfrmCadEnvioEmailFinanceiro
       'OA_ID'#13#10'WHERE BO.SELECIONADO = '#39'S'#39#13#10'  AND P.PESSOA_ID = :PESSOA_I' +
       'D'#13#10'GROUP BY BO.BOLETO_ID, DATA_BOLETA, BO.NOSSO_NUMERO, P.BOLETO' +
       '_DESCRICAO, P.NOME,'#13#10'  P.EMAIL1, P.BOLETO_EMAIL,   BO.PATH_GERAR' +
-      'PDF'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <
+      'PDF')
+    ParamData = <
       item
         DataType = ftUnknown
         Name = 'PESSOA_ID'
@@ -827,7 +824,7 @@ object frmCadEnvioEmailFinanceiro: TfrmCadEnvioEmailFinanceiro
     OnCalcFields = sqlBoletosCalcFields
     Left = 184
     Top = 94
-    object sqlBoletosBOLETO_ID: TFMTBCDField
+    object sqlBoletosBOLETO_ID: TBCDField
       FieldName = 'BOLETO_ID'
       Required = True
       Precision = 20
@@ -836,7 +833,7 @@ object frmCadEnvioEmailFinanceiro: TfrmCadEnvioEmailFinanceiro
     object sqlBoletosDATA_BOLETA: TSQLTimeStampField
       FieldName = 'DATA_BOLETA'
     end
-    object sqlBoletosNOSSO_NUMERO: TFMTBCDField
+    object sqlBoletosNOSSO_NUMERO: TBCDField
       FieldName = 'NOSSO_NUMERO'
       Precision = 20
       Size = 2
@@ -868,19 +865,18 @@ object frmCadEnvioEmailFinanceiro: TfrmCadEnvioEmailFinanceiro
       Size = 120
     end
   end
-  object sqlPessoa: TSimpleDataSet
+  object sqlPessoa: TI9Query
     Aggregates = <>
     Connection = dtmControles.DB
-    DataSet.CommandText = 
+    SQL.Strings = (
       'select LF.PESSOA_ID'#13#10'FROM J_BOLETO BO'#13#10'  LEFT OUTER JOIN J_LIVRO' +
       '_FINANCEIRO LF ON'#13#10'  BO.BOLETO_ID = LF.BOLETA_ID'#13#10'WHERE BO.SELEC' +
-      'IONADO = '#39'S'#39#13#10'GROUP BY LF.PESSOA_ID;'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <>
+      'IONADO = '#39'S'#39#13#10'GROUP BY LF.PESSOA_ID;')
+    ParamData = <>
     Params = <>
     Left = 272
     Top = 94
-    object sqlPessoaPESSOA_ID: TFMTBCDField
+    object sqlPessoaPESSOA_ID: TBCDField
       FieldName = 'PESSOA_ID'
       Precision = 20
       Size = 2

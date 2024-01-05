@@ -3,6 +3,7 @@ unit Pessoa;
 interface
 
 uses
+  I9Query,
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, CadBasico, Menus, cxLookAndFeelPainters, FMTBcd, dxSkinsCore,
   dxSkinsDefaultPainters, cxGraphics, cxDBEdit, cxGroupBox, cxImageComboBox,
@@ -33,7 +34,7 @@ type
   end;
 
   TfrmCadPessoa = class(TfrmCadBasico)
-    ClientAncestralPESSOA_ID: TFMTBCDField;
+    ClientAncestralPESSOA_ID: TBCDField;
     ClientAncestralNOME: TStringField;
     ClientAncestralEMPRESA: TStringField;
     ClientAncestralCPFCNPJ: TStringField;
@@ -41,35 +42,35 @@ type
     ClientAncestralEMAIL2: TStringField;
     ClientAncestralTELEFONE: TStringField;
     ClientAncestralEMAIL1: TStringField;
-    ClientAncestralTIPO_DOCUMENTO_ID: TFMTBCDField;
+    ClientAncestralTIPO_DOCUMENTO_ID: TBCDField;
     ClientAncestralTIPO_PETICIONADOR: TStringField;
     ClientAncestralTIPO_CAPTADOR: TStringField;
     ClientAncestralTIPO_SOCIO: TStringField;
     ClientAncestralTIPO_PARTICIPANTE: TStringField;
-    ClientAncestralPESSOA_FUNCAO_ID: TFMTBCDField;
+    ClientAncestralPESSOA_FUNCAO_ID: TBCDField;
     btnSelecionar: TcxButton;
     ClientAncestralIDENTIFICACAO: TStringField;
     pgcDados: TcxPageControl;
     tabIdentificacao: TcxTabSheet;
     tabComplemento: TcxTabSheet;
     ClientAncestralENDERECO_LOGRADOURO: TStringField;
-    ClientAncestralENDERECO_CIDADE_ID: TFMTBCDField;
+    ClientAncestralENDERECO_CIDADE_ID: TBCDField;
     ClientAncestralENDERECO_CIDADE_UF: TStringField;
     ClientAncestralENDERECO_CEP: TStringField;
-    ClientAncestralNATURALIDADE_ID: TFMTBCDField;
+    ClientAncestralNATURALIDADE_ID: TBCDField;
     ClientAncestralNATURALIDADE_UF: TStringField;
     ClientAncestralNOME_PAI: TStringField;
     ClientAncestralNOME_MAE: TStringField;
     ClientAncestralDATA_NASCIMENTO: TSQLTimeStampField;
     ClientAncestralENDERECO_BAIRRO: TStringField;
-    ClientAncestralTB_ESTADOCIVIL_ID: TFMTBCDField;
-    ClientAncestralTB_PROFISSAO_ID: TFMTBCDField;
-    sqlCidadeEndereco: TSimpleDataSet;
-    sqlCidadeEnderecoMUNICIPIO_ID: TFMTBCDField;
+    ClientAncestralTB_ESTADOCIVIL_ID: TBCDField;
+    ClientAncestralTB_PROFISSAO_ID: TBCDField;
+    sqlCidadeEndereco: TI9Query;
+    sqlCidadeEnderecoMUNICIPIO_ID: TBCDField;
     sqlCidadeEnderecoMUNICIPIO: TStringField;
     dtsCidadeEndereco: TDataSource;
-    sqlCidadeNaturalidade: TSimpleDataSet;
-    FMTBCDField1: TFMTBCDField;
+    sqlCidadeNaturalidade: TI9Query;
+    FMTBCDField1: TBCDField;
     StringField1: TStringField;
     dtsCidadeNaturalidade: TDataSource;
     ClientAncestralTIPO_PESSOA: TStringField;
@@ -105,11 +106,11 @@ type
     cxGridDBTableView4Column1: TcxGridDBColumn;
     cxGridLevel4: TcxGridLevel;
     ClientAncestralNACIONALIDADE: TStringField;
-    sqlPessoaDocumento: TSimpleDataSet;
+    sqlPessoaDocumento: TI9Query;
     dtsPessoaDocumento: TDataSource;
-    sqlPessoaDocumentoPESSOA_DOCUMENTO_ID: TFMTBCDField;
-    sqlPessoaDocumentoPESSOA_ID: TFMTBCDField;
-    sqlPessoaDocumentoTIPO_DOCUMENTO_ID: TFMTBCDField;
+    sqlPessoaDocumentoPESSOA_DOCUMENTO_ID: TBCDField;
+    sqlPessoaDocumentoPESSOA_ID: TBCDField;
+    sqlPessoaDocumentoTIPO_DOCUMENTO_ID: TBCDField;
     sqlPessoaDocumentoDOCUMENTO: TStringField;
     pgcDadosPessoa: TcxPageControl;
     tabPessoaFisica: TcxTabSheet;
@@ -586,7 +587,7 @@ begin
   if cbxsCidadeUF.EditValue <> null then
   begin
     sqlCidadeEndereco.Close;
-    sqlCidadeEndereco.DataSet.ParamByName('UF').AsString := cbxsCidadeUF.EditValue;
+    sqlCidadeEndereco.ParamByName('UF').AsString := cbxsCidadeUF.EditValue;
     sqlCidadeEndereco.Open;
   end;
 
@@ -601,7 +602,7 @@ begin
   if cbxNaturalidadeUf.EditValue <> null then
   begin
     sqlCidadeNaturalidade.Close;
-    sqlCidadeNaturalidade.DataSet.ParamByName('UF').AsString := cbxNaturalidadeUf.EditValue;
+    sqlCidadeNaturalidade.ParamByName('UF').AsString := cbxNaturalidadeUf.EditValue;
     sqlCidadeNaturalidade.Open;
   end;
 
@@ -737,7 +738,7 @@ begin
   vgPessoa.Nome := ClientAncestralNOME.AsString;
 
   sqlPessoaDocumento.Active := False;
-  sqlPessoaDocumento.DataSet.ParamByName('PESSOA_ID').AsInteger := ClientAncestralPESSOA_ID.AsInteger;
+  sqlPessoaDocumento.ParamByName('PESSOA_ID').AsInteger := ClientAncestralPESSOA_ID.AsInteger;
   sqlPessoaDocumento.Active := True;
 
   if vlSelecionado then
@@ -1043,7 +1044,7 @@ begin
     if vgChave <> '0' then
     begin
       sqlPessoaDocumento.Active := False;
-      sqlPessoaDocumento.DataSet.ParamByName('PESSOA_ID').AsInteger := ClientAncestralPESSOA_ID.AsInteger;
+      sqlPessoaDocumento.ParamByName('PESSOA_ID').AsInteger := ClientAncestralPESSOA_ID.AsInteger;
       sqlPessoaDocumento.Active := True;
     end;
 

@@ -775,16 +775,15 @@ inherited frmTextroLavrado: TfrmTextroLavrado
       LookAndFeel.SkinName = ''
     end
   end
-  inherited DataSetAncestral: TSQLDataSet
-    SchemaName = 'sysdba'
-    CommandText = 
+  inherited DataSetAncestral: TI9Query
+    SQL.Strings = (
       'SELECT A.TEXTO, A.PROTOCOLO, A.FOLHA_INICIAL, A.FOLHA_FINAL, A.D' +
       'ATA_LAVRATURA,'#13#10'      VP.PESSOA_NOME, LA.NUMERO_LIVRO, A.ATO_ID'#13 +
       #10'FROM T_ATO A'#13#10'  LEFT OUTER JOIN T_ATO_VINCULOPARTE VP'#13#10'  ON A.A' +
       'TO_ID = VP.ATO_ID'#13#10'  LEFT OUTER JOIN T_LIVRO_ANDAMENTO LA'#13#10'  ON ' +
       'A.LIVRO_ANDAMENTO_ID = LA.LIVRO_ANDAMENTO_ID'#13#10'WHERE A.SITUACAO_A' +
       'TO = 3'#13#10'  AND VP.ORDEM = 1'#13#10'  AND VP.TIPO_VINCULO = '#39'2'#39#13#10'ORDER B' +
-      'Y A.PROTOCOLO'
+      'Y A.PROTOCOLO')
     Left = 499
     Top = 239
   end
@@ -802,17 +801,17 @@ inherited frmTextroLavrado: TfrmTextroLavrado
       FieldName = 'TEXTO'
       Size = 1
     end
-    object ClientAncestralPROTOCOLO: TFMTBCDField
+    object ClientAncestralPROTOCOLO: TBCDField
       FieldName = 'PROTOCOLO'
       Precision = 15
       Size = 2
     end
-    object ClientAncestralFOLHA_INICIAL: TFMTBCDField
+    object ClientAncestralFOLHA_INICIAL: TBCDField
       FieldName = 'FOLHA_INICIAL'
       Precision = 15
       Size = 2
     end
-    object ClientAncestralFOLHA_FINAL: TFMTBCDField
+    object ClientAncestralFOLHA_FINAL: TBCDField
       FieldName = 'FOLHA_FINAL'
       Precision = 15
       Size = 2
@@ -824,12 +823,12 @@ inherited frmTextroLavrado: TfrmTextroLavrado
       FieldName = 'PESSOA_NOME'
       Size = 120
     end
-    object ClientAncestralNUMERO_LIVRO: TFMTBCDField
+    object ClientAncestralNUMERO_LIVRO: TBCDField
       FieldName = 'NUMERO_LIVRO'
       Precision = 15
       Size = 2
     end
-    object ClientAncestralATO_ID: TFMTBCDField
+    object ClientAncestralATO_ID: TBCDField
       FieldName = 'ATO_ID'
       Precision = 20
       Size = 2

@@ -338,16 +338,15 @@ object frmPalavraGramatical: TfrmPalavraGramatical
       OnClick = btnCancelarClick
     end
   end
-  object sqlGramatica: TSimpleDataSet
+  object sqlGramatica: TI9Query
     Aggregates = <>
-    DataSet.CommandText = 'SELECT *'#13#10'FROM G_GRAMATICA'#13#10'ORDER BY GRAMATICA_ID'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <>
+    SQL.Strings = ('SELECT *'#13#10'FROM G_GRAMATICA'#13#10'ORDER BY GRAMATICA_ID')
+    ParamData = <>
     Params = <>
     BeforePost = sqlGramaticaBeforePost
     Left = 264
     Top = 96
-    object sqlGramaticaGRAMATICA_ID: TFMTBCDField
+    object sqlGramaticaGRAMATICA_ID: TBCDField
       FieldName = 'GRAMATICA_ID'
       Required = True
       Precision = 15

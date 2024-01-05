@@ -3,6 +3,7 @@ unit CadastroRapidoContas;
 interface
 
 uses
+  I9Query,
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, CadastroAuxSimplificado, dxSkinsCore, dxSkinBlack, dxSkinBlue,
   dxSkinCaramel, dxSkinCoffee, dxSkinDarkSide, dxSkinGlassOceans,
@@ -49,69 +50,69 @@ type
     edtTotalParcelas: TcxCurrencyEdit;
     lblRestante: TcxLabel;
     dtsPlanoContas: TDataSource;
-    sqlPlanoContas: TSimpleDataSet;
-    sqlPlanoContasCONTABIL_CONTA_ID: TFMTBCDField;
+    sqlPlanoContas: TI9Query;
+    sqlPlanoContasCONTABIL_CONTA_ID: TBCDField;
     sqlPlanoContasDESCRICAO: TStringField;
-    ClientAncestralLIVRO_AGENDAMENTO_ID: TFMTBCDField;
+    ClientAncestralLIVRO_AGENDAMENTO_ID: TBCDField;
     ClientAncestralDATA_INICIAL: TSQLTimeStampField;
     ClientAncestralDATA_FINAL: TSQLTimeStampField;
     ClientAncestralPERIODO: TStringField;
-    ClientAncestralVALOR_PARCELA: TFMTBCDField;
-    ClientAncestralQTD: TFMTBCDField;
+    ClientAncestralVALOR_PARCELA: TBCDField;
+    ClientAncestralQTD: TBCDField;
     ClientAncestralSITUACAO: TStringField;
     ClientAncestralESPECIE: TStringField;
-    ClientAncestralBALANCETE_GRUPO_ID: TFMTBCDField;
+    ClientAncestralBALANCETE_GRUPO_ID: TBCDField;
     ClientAncestralHISTORICO: TStringField;
     ClientAncestralOBSERVACAO: TStringField;
-    ClientAncestralCONTABIL_CONTA_ID: TFMTBCDField;
-    ClientAncestralPESSOA_ID: TFMTBCDField;
+    ClientAncestralCONTABIL_CONTA_ID: TBCDField;
+    ClientAncestralPESSOA_ID: TBCDField;
     ClientAncestralDATA_REGISTRO: TSQLTimeStampField;
-    ClientAncestralVALOR_PROLABORE: TFMTBCDField;
-    ClientAncestralCENTRO_CUSTO_ID: TFMTBCDField;
+    ClientAncestralVALOR_PROLABORE: TBCDField;
+    ClientAncestralCENTRO_CUSTO_ID: TBCDField;
     ClientAncestralTIPO: TStringField;
     ClientAncestralIR: TStringField;
     ClientAncestralCNJ: TStringField;
-    ClientAncestralCAIXA_ID: TFMTBCDField;
+    ClientAncestralCAIXA_ID: TBCDField;
     tabBalancete: TcxTabControl;
-    ClientAncestralCONTABIL_GRUPO_ID: TFMTBCDField;
+    ClientAncestralCONTABIL_GRUPO_ID: TBCDField;
     sqlPlanoContasIR: TStringField;
     sqlPlanoContasCNJ: TStringField;
     ClientAncestralDOCUMENTO_NUMERO: TStringField;
     ClientAncestralREGISTRO_PARCIAL: TStringField;
     dtsGrupoContabil: TDataSource;
-    sqlGrupoContabil: TSimpleDataSet;
+    sqlGrupoContabil: TI9Query;
     sqlGrupoContabilDESCRICAO: TStringField;
-    sqlGrupoContabilCONTABIL_GRUPO_ID: TFMTBCDField;
-    sqlGrupoContabilBALANCETE_GRUPO_ID: TFMTBCDField;
+    sqlGrupoContabilCONTABIL_GRUPO_ID: TBCDField;
+    sqlGrupoContabilBALANCETE_GRUPO_ID: TBCDField;
     pnlSalvarComo: TPanel;
     btnSalvarNovo: TcxButton;
     ClientAncestralOPERACAO: TStringField;
     ClientDuplicar: TClientDataSet;
-    ClientDuplicarLIVRO_AGENDAMENTO_ID: TFMTBCDField;
+    ClientDuplicarLIVRO_AGENDAMENTO_ID: TBCDField;
     ClientDuplicarDATA_INICIAL: TSQLTimeStampField;
     ClientDuplicarDATA_FINAL: TSQLTimeStampField;
     ClientDuplicarPERIODO: TStringField;
-    ClientDuplicarVALOR_PARCELA: TFMTBCDField;
-    ClientDuplicarQTD: TFMTBCDField;
+    ClientDuplicarVALOR_PARCELA: TBCDField;
+    ClientDuplicarQTD: TBCDField;
     ClientDuplicarSITUACAO: TStringField;
     ClientDuplicarESPECIE: TStringField;
-    ClientDuplicarBALANCETE_GRUPO_ID: TFMTBCDField;
+    ClientDuplicarBALANCETE_GRUPO_ID: TBCDField;
     ClientDuplicarHISTORICO: TStringField;
     ClientDuplicarOBSERVACAO: TStringField;
-    ClientDuplicarCONTABIL_CONTA_ID: TFMTBCDField;
-    ClientDuplicarPESSOA_ID: TFMTBCDField;
+    ClientDuplicarCONTABIL_CONTA_ID: TBCDField;
+    ClientDuplicarPESSOA_ID: TBCDField;
     ClientDuplicarDATA_REGISTRO: TSQLTimeStampField;
-    ClientDuplicarVALOR_PROLABORE: TFMTBCDField;
-    ClientDuplicarCENTRO_CUSTO_ID: TFMTBCDField;
+    ClientDuplicarVALOR_PROLABORE: TBCDField;
+    ClientDuplicarCENTRO_CUSTO_ID: TBCDField;
     ClientDuplicarTIPO: TStringField;
     ClientDuplicarIR: TStringField;
     ClientDuplicarCNJ: TStringField;
-    ClientDuplicarCAIXA_ID: TFMTBCDField;
-    ClientDuplicarCONTABIL_GRUPO_ID: TFMTBCDField;
+    ClientDuplicarCAIXA_ID: TBCDField;
+    ClientDuplicarCONTABIL_GRUPO_ID: TBCDField;
     ClientDuplicarDOCUMENTO_NUMERO: TStringField;
     ClientDuplicarREGISTRO_PARCIAL: TStringField;
     ClientDuplicarOPERACAO: TStringField;
-    ClientAncestralORCAMENTO_ID: TFMTBCDField;
+    ClientAncestralORCAMENTO_ID: TBCDField;
     pnlMsgAlteracao: TPanel;
     pnlDadosPrincipais: TPanel;
     cxLabel5: TcxLabel;
@@ -143,35 +144,35 @@ type
     chbTrocarSenha: TcxDBCheckBox;
     cxDBCheckBox1: TcxDBCheckBox;
     chxRegistroParcial: TcxDBCheckBox;
-    ClientAncestralPARCELA_INICIAL: TFMTBCDField;
+    ClientAncestralPARCELA_INICIAL: TBCDField;
     ClientAncestralREFERENCIA_TIPO: TStringField;
     ClientAncestralREFERENCIA_PERIODO: TStringField;
     ClientAncestralCALC_DATAPROX_VENC: TDateField;
     cxLabel17: TcxLabel;
     lcxModalodadeCompromisso: TcxDBLookupComboBox;
-    ClientAncestralTIPO_MODALIDADE_ID: TFMTBCDField;
-    sqlTipoModalidade: TSimpleDataSet;
-    sqlTipoModalidadeTIPO_MODALIDADE_ID: TFMTBCDField;
+    ClientAncestralTIPO_MODALIDADE_ID: TBCDField;
+    sqlTipoModalidade: TI9Query;
+    sqlTipoModalidadeTIPO_MODALIDADE_ID: TBCDField;
     sqlTipoModalidadeDESCRICAO: TStringField;
     sqlTipoModalidadeTIPO: TStringField;
     sqlTipoModalidadeSITUACAO: TStringField;
     dtsTipoModalidade: TDataSource;
-    ClientAncestralGRUPO_LANCAMENTO_ID: TFMTBCDField;
-    ClientAncestralGRUPO_PESSOA_ID: TFMTBCDField;
-    sqlCentroCustoAtivo: TSimpleDataSet;
+    ClientAncestralGRUPO_LANCAMENTO_ID: TBCDField;
+    ClientAncestralGRUPO_PESSOA_ID: TBCDField;
+    sqlCentroCustoAtivo: TI9Query;
     sqlCentroCustoAtivoDESCRICAO: TStringField;
-    sqlCentroCustoAtivoCENTRO_CUSTO_ID: TFMTBCDField;
-    sqlCentroCustoAtivoBALANCETE_GRUPO_ID: TFMTBCDField;
+    sqlCentroCustoAtivoCENTRO_CUSTO_ID: TBCDField;
+    sqlCentroCustoAtivoBALANCETE_GRUPO_ID: TBCDField;
     sqlCentroCustoAtivoPERSONALIZADO: TStringField;
     sqlCentroCustoAtivoTIPO_ITEM: TStringField;
     dtsCentroCustoAtivo: TDataSource;
     sqlCentroCustoAtivoTIPO_GLOBAL: TStringField;
-    ClientAncestralCENTRO_RESERVA_ID: TFMTBCDField;
-    sqlCentroReserva: TSimpleDataSet;
+    ClientAncestralCENTRO_RESERVA_ID: TBCDField;
+    sqlCentroReserva: TI9Query;
     dtsCentroReserva: TDataSource;
     sqlCentroReservaDESCRICAO: TStringField;
-    sqlCentroReservaCENTRO_CUSTO_ID: TFMTBCDField;
-    sqlCentroReservaBALANCETE_GRUPO_ID: TFMTBCDField;
+    sqlCentroReservaCENTRO_CUSTO_ID: TBCDField;
+    sqlCentroReservaBALANCETE_GRUPO_ID: TBCDField;
     sqlCentroReservaPERSONALIZADO: TStringField;
     sqlCentroReservaTIPO_ITEM: TStringField;
     sqlCentroReservaTIPO_GLOBAL: TStringField;
@@ -216,7 +217,7 @@ type
     btnCentroReservaPers: TcxButton;
     pnlCentroMsg: TcxLabel;
     btnPlanoContas: TcxButton;
-    ClientAncestralUSUARIO_ID: TFMTBCDField;
+    ClientAncestralUSUARIO_ID: TBCDField;
     btnPessoaPesquisar: TcxButton;
     cxLabel16: TcxLabel;
     edtDataVencimentoFixa: TcxDBDateEdit;
@@ -277,13 +278,13 @@ type
     procedure SalvarRegistro(vpSalvarComo: Boolean = False);
 
     // Centro Custo e Reserva
-    procedure AtualizarCentroCustoReserva(vpSimpleDataSet : TSimpleDataSet; vpClientDataSet : TClientDataSet;
+    procedure AtualizarCentroCustoReserva(vpSimpleDataSet : TI9Query; vpClientDataSet : TClientDataSet;
         vpLookup : TcxDBLookupComboBox; vpTipoCentro : Integer);
-    procedure VerificarCentroCustoReserva(vpSimpleDataSet : TSimpleDataSet; vpClientDataSet : TClientDataSet;
+    procedure VerificarCentroCustoReserva(vpSimpleDataSet : TI9Query; vpClientDataSet : TClientDataSet;
         vpLookup : TcxDBLookupComboBox;  vpTipoCentro : Integer);
-    procedure VerificarItensCentroCustoReserva(vpSimpleDataSet : TSimpleDataSet;
+    procedure VerificarItensCentroCustoReserva(vpSimpleDataSet : TI9Query;
         vpLookup : TcxDBLookupComboBox; vpId, vpTipoCentro : Integer);
-    procedure VerificarCentroPersonalizado(vpSimpleDataSet : TSimpleDataSet;
+    procedure VerificarCentroPersonalizado(vpSimpleDataSet : TI9Query;
         vpLookup : TcxDBLookupComboBox; vpTipoCentro : Integer);
   public
     vlCriandoForm, vlAtivandoForm: Boolean;
@@ -305,7 +306,7 @@ uses
 
 {$R *.dfm}
 
-procedure TfrmCadastroRapidoContas.AtualizarCentroCustoReserva(vpSimpleDataSet : TSimpleDataSet; vpClientDataSet : TClientDataSet;
+procedure TfrmCadastroRapidoContas.AtualizarCentroCustoReserva(vpSimpleDataSet : TI9Query; vpClientDataSet : TClientDataSet;
         vpLookup : TcxDBLookupComboBox; vpTipoCentro : Integer);
 begin
   pnlCentroMsg.Caption := '';
@@ -1027,7 +1028,7 @@ begin
     exit;
 
   sqlPlanoContas.Active := False;
-  sqlPlanoContas.DataSet.ParamByName('CONTABIL_GRUPO_ID').AsInteger := lcxGrupoContabil.EditValue;
+  sqlPlanoContas.ParamByName('CONTABIL_GRUPO_ID').AsInteger := lcxGrupoContabil.EditValue;
   sqlPlanoContas.Active := True;
 
   if (sqlPlanoContas.RecordCount = 1) and (ClientAncestral.State in [dsEdit, dsInsert]) then
@@ -1172,24 +1173,24 @@ begin
   if icxOperacao.Text = '' then
     exit;
 
-  sqlGrupoContabil.DataSet.ParamByName('TIPO').AsString := IntToStr((icxOperacao.ItemIndex + 1));
-  sqlGrupoContabil.DataSet.ParamByName('BALANCETE_GRUPO_ID').AsInteger := vgTabBalancete[tabBalancete.TabIndex];
+  sqlGrupoContabil.ParamByName('TIPO').AsString := IntToStr((icxOperacao.ItemIndex + 1));
+  sqlGrupoContabil.ParamByName('BALANCETE_GRUPO_ID').AsInteger := vgTabBalancete[tabBalancete.TabIndex];
   sqlGrupoContabil.Active := True;
 
   sqlTipoModalidade.Active := False;
-  sqlTipoModalidade.DataSet.ParamByName('TIPO').AsString := icxOperacao.EditValue;
+  sqlTipoModalidade.ParamByName('TIPO').AsString := icxOperacao.EditValue;
   sqlTipoModalidade.Active := True;
   if sqlTipoModalidade.RecordCount = 1 then
     ClientAncestralTIPO_MODALIDADE_ID.AsInteger := sqlTipoModalidadeTIPO_MODALIDADE_ID.AsInteger;
 
   sqlCentroCustoAtivo.Active := False;
-  sqlCentroCustoAtivo.DataSet.ParamByName('BALANCETE_GRUPO_ID').AsInteger := vgTabBalancete[tabBalancete.TabIndex];
+  sqlCentroCustoAtivo.ParamByName('BALANCETE_GRUPO_ID').AsInteger := vgTabBalancete[tabBalancete.TabIndex];
   sqlCentroCustoAtivo.Active := True;
   if (sqlCentroCustoAtivo.RecordCount = 1) and (ClientAncestralCENTRO_CUSTO_ID.AsVariant = null) then
     ClientAncestralCENTRO_CUSTO_ID.AsInteger := sqlCentroCustoAtivoCENTRO_CUSTO_ID.AsInteger;
 
   sqlCentroReserva.Active := False;
-  sqlCentroReserva.DataSet.ParamByName('BALANCETE_GRUPO_ID').AsInteger := vgTabBalancete[tabBalancete.TabIndex];
+  sqlCentroReserva.ParamByName('BALANCETE_GRUPO_ID').AsInteger := vgTabBalancete[tabBalancete.TabIndex];
   sqlCentroReserva.Active := True;
   if (sqlCentroReserva.RecordCount = 1) AND (ClientAncestralCENTRO_RESERVA_ID.AsVariant = null)  then
     ClientAncestralCENTRO_RESERVA_ID.AsInteger := sqlCentroReservaCENTRO_CUSTO_ID.AsInteger;
@@ -1221,7 +1222,7 @@ begin
 
 end;
 
-procedure TfrmCadastroRapidoContas.VerificarCentroCustoReserva(vpSimpleDataSet : TSimpleDataSet; vpClientDataSet : TClientDataSet;
+procedure TfrmCadastroRapidoContas.VerificarCentroCustoReserva(vpSimpleDataSet : TI9Query; vpClientDataSet : TClientDataSet;
         vpLookup : TcxDBLookupComboBox;  vpTipoCentro : Integer);
 begin
   if vlCriandoForm then
@@ -1245,7 +1246,7 @@ begin
   end;
 end;
 
-procedure TfrmCadastroRapidoContas.VerificarCentroPersonalizado(vpSimpleDataSet : TSimpleDataSet;
+procedure TfrmCadastroRapidoContas.VerificarCentroPersonalizado(vpSimpleDataSet : TI9Query;
         vpLookup : TcxDBLookupComboBox; vpTipoCentro : Integer);
 begin
   vgDadosCadastro.SalvarNovo := False;
@@ -1262,7 +1263,7 @@ begin
   AtualizarCentroCustoReserva(vpSimpleDataSet, vgCentroCusto.ClientCentro, vpLookup, vpTipoCentro);
 end;
 
-procedure TfrmCadastroRapidoContas.VerificarItensCentroCustoReserva(vpSimpleDataSet : TSimpleDataSet;
+procedure TfrmCadastroRapidoContas.VerificarItensCentroCustoReserva(vpSimpleDataSet : TI9Query;
         vpLookup : TcxDBLookupComboBox; vpId, vpTipoCentro : Integer);
 begin
   vgCentroCusto.Agendamento := True;

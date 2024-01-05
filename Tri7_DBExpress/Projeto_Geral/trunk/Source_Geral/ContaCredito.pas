@@ -93,7 +93,7 @@ begin
       ParamByName('CAMPO').AsString           := vgDadosContaCredito.Campo;
       ParamByName('TABELA').AsString          := vgDadosContaCredito.Tabela;
       ParamByName('DATA_ABERTURA').AsString   := FormatDateTime('DD.MM.YYYY HH:MM:SS', vgDadosContaCredito.DataAbertura);
-      ExecSQL(FALSE);
+      ExecSQL;
     end;
 end;
 
@@ -136,7 +136,7 @@ begin
       ParamByName('TABELA').AsString             := vgDadosContaCredito.Tabela;
       ParamByName('CAMPO').AsString              := vgDadosContaCredito.Campo;
       ParamByName('OBSERVACAO').AsString         := vgDadosContaCredito.Observacao;
-      ExecSQL(FALSE);
+      ExecSQL;
     end;
 end;
 
@@ -242,8 +242,8 @@ var
                         RetNull('') + ', ' +
                         QuotedStr(TrocaVirgPPto(CurrtoStr(vgDadosContaCredito.Valor))) + ')';
     dtmControles.sqlAuxiliar.Active := False;
-    dtmControles.sqlAuxiliar.CommandText := viSql;
-    dtmControles.sqlAuxiliar.ExecSQL(FALSE);
+    dtmControles.sqlAuxiliar.SQL.Text := viSql;
+    dtmControles.sqlAuxiliar.ExecSQL;
   end;
 
 begin

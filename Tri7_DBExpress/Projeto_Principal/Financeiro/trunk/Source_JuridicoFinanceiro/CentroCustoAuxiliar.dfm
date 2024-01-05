@@ -297,7 +297,7 @@ inherited frmCentroCustoPersonalizado: TfrmCentroCustoPersonalizado
       end
     end
   end
-  inherited DataSetAncestral: TSQLDataSet
+  inherited DataSetAncestral: TI9Query
     Left = 431
     Top = 225
   end

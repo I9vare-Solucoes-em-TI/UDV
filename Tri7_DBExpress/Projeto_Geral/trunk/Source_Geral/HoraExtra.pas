@@ -3,6 +3,7 @@ unit HoraExtra;
 interface
 
 uses
+  I9Query,
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, cxGraphics, cxControls, cxLookAndFeels, cxLookAndFeelPainters,
   dxSkinsCore, dxSkinOffice2007Black, dxSkinOffice2007Blue, cxGridExportLink,
@@ -50,20 +51,20 @@ type
     cxGridDBTableView1NOME_COMPLETO: TcxGridDBColumn;
     sqlUsuario: TClientDataSet;
     dtsUsuario: TDataSource;
-    sqlUsuarioHorario: TSimpleDataSet;
+    sqlUsuarioHorario: TI9Query;
     dtsUsuarioHorario: TDataSource;
-    sqlUsuarioHorarioUSUARIO_ID: TFMTBCDField;
+    sqlUsuarioHorarioUSUARIO_ID: TBCDField;
     sqlUsuarioHorarioNOME_COMPLETO: TStringField;
     sqlUsuarioHorarioHORA_FIM: TStringField;
-    sqlUsuarioUSUARIO_ID: TFMTBCDField;
+    sqlUsuarioUSUARIO_ID: TBCDField;
     sqlUsuarioNOME_COMPLETO: TStringField;
     sqlUsuarioHORA_FIM: TStringField;
     grdListagemDBTableView1NOME_COMPLETO: TcxGridDBColumn;
-    sqlHoraExtra: TSimpleDataSet;
+    sqlHoraExtra: TI9Query;
     dtsHoraExtra: TDataSource;
-    sqlHoraExtraHORA_EXTRA_ID: TFMTBCDField;
+    sqlHoraExtraHORA_EXTRA_ID: TBCDField;
     sqlHoraExtraDATA_HORA_EXTRA: TSQLTimeStampField;
-    sqlHoraExtraUSUARIO_ID: TFMTBCDField;
+    sqlHoraExtraUSUARIO_ID: TBCDField;
     sqlHoraExtraHORA_INICIO: TStringField;
     sqlHoraExtraHORA_FIM: TStringField;
     gridPesquisaDATA_HORA_EXTRA: TcxGridDBColumn;
@@ -257,7 +258,7 @@ begin
   viSql := viSql + ' ORDER BY DATA_HORA_EXTRA, USUARIO_ID ';
 
   sqlHoraExtra.Close;
-  sqlHoraExtra.DataSet.CommandText := viSql;
+  sqlHoraExtra.SQL.Text := viSql;
   sqlHoraExtra.Open;
 
   btnExcel.Enabled := not sqlHoraExtra.IsEmpty;

@@ -38,10 +38,10 @@ type
     edtDescricao: TcxDBTextEdit;
     chbSituacao: TcxDBCheckBox;
     cxLabel1: TcxLabel;
-    ClientAncestralRESERVA_ID: TFMTBCDField;
+    ClientAncestralRESERVA_ID: TBCDField;
     ClientAncestralDESCRICAO: TStringField;
     ClientAncestralSITUACAO: TStringField;
-    ClientAncestralBALANCETE_GRUPO_ID: TFMTBCDField;
+    ClientAncestralBALANCETE_GRUPO_ID: TBCDField;
     ClientAncestralPRINCIPAL: TStringField;
     procedure FormCreate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);

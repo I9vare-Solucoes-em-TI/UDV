@@ -3,6 +3,8 @@ unit SeloLivroDAO;
 interface
 
 uses
+  I9Query,
+  I9Connection,
   Data.SqlExpr,
   IntegerList,
   SeloLivroList,
@@ -12,10 +14,10 @@ uses
 type
   TSeloLivroDAO = class
   private
-    FSQLConnection: TSQLConnection;
+    FConnection: TI9Connection;
   public
     constructor Create(
-      const vpSQLConnection: TSQLConnection); reintroduce;
+      const vpConnection: TI9Connection); reintroduce;
 
     function GetCount(
       const vpSeloSituacao: ISeloSituacao;
@@ -47,10 +49,10 @@ uses
 { TSeloLivroDAO }
 
 constructor TSeloLivroDAO.Create(
-  const vpSQLConnection: TSQLConnection);
+  const vpConnection: TI9Connection);
 begin
   inherited Create;
-  FSQLConnection := vpSQLConnection;
+  FConnection := vpConnection;
 end;
 
 function TSeloLivroDAO.GetList(
@@ -58,7 +60,7 @@ function TSeloLivroDAO.GetList(
   const vpIntegerList: TIntegerList): TSeloLivroList;
 {$REGION 'Variáveis'}
 var
-  viSQLDataSet: TSQLDataSet;
+  viSQLDataSet: TI9Query;
   viSeloLivro: ISeloLivro;
 {$ENDREGION}
 begin
@@ -67,14 +69,14 @@ begin
   if vpIntegerList.Count = 0 then
     Exit;
 
-  viSQLDataSet := TSQLDataSet.Create(nil);
-  viSQLDataSet.SQLConnection := FSQLConnection;
+  viSQLDataSet := TI9Query.Create(nil);
+  viSQLDataSet.Connection := FConnection;
 
   try
     with viSQLDataSet do
     begin
       {$REGION 'Comando SQL SELECT'}
-      CommandText :=
+      SQL.Text :=
         'SELECT ' +
 
         {$REGION 'Colunas'}
@@ -132,7 +134,7 @@ begin
               Numero := FieldByName('NUMERO').AsInteger;
 
               if FieldByName('SELO_SITUACAO_ID').IsNull.&Not then
-                with TSeloSituacaoDAO.Create(FSQLConnection) do
+                with TSeloSituacaoDAO.Create(FConnection) do
                   try
                     SeloSituacao := Get(FieldByName(
                       'SELO_SITUACAO_ID').AsInteger);
@@ -144,7 +146,7 @@ begin
               Observacao := FieldByName('OBSERVACAO').AsString;
 
               if FieldByName('SELO_LOTE_ID').IsNull.&Not then
-                with TSeloLoteDAO.Create(FSQLConnection) do
+                with TSeloLoteDAO.Create(FConnection) do
                   try
                     SeloLote := Get(FieldByName('SELO_LOTE_ID').AsInteger);
                   finally
@@ -157,7 +159,7 @@ begin
               CampoID := FieldByName('CAMPO_ID').AsInteger;
 
               if FieldByName('USUARIO_ID').IsNull.&Not then
-                with TUsuarioDAO.Create(FSQLConnection) do
+                with TUsuarioDAO.Create(FConnection) do
                   try
                     Usuario := GetByID(FieldByName('USUARIO_ID').AsInteger);
                   finally
@@ -194,19 +196,19 @@ function TSeloLivroDAO.Get(
   const vpSeloLivroID: Integer): ISeloLivro;
 {$REGION 'Variáveis'}
 var
-  viSQLDataSet: TSQLDataSet;
+  viSQLDataSet: TI9Query;
 {$ENDREGION}
 begin
   Result := nil;
 
-  viSQLDataSet := TSQLDataSet.Create(nil);
-  viSQLDataSet.SQLConnection := FSQLConnection;
+  viSQLDataSet := TI9Query.Create(nil);
+  viSQLDataSet.Connection := FConnection;
 
   try
     with viSQLDataSet do
     begin
       {$REGION 'Comando SQL SELECT'}
-      CommandText :=
+      SQL.Text :=
         'SELECT ' +
 
         {$REGION 'Colunas'}
@@ -258,19 +260,19 @@ function TSeloLivroDAO.GetCount(
   const vpCampoID: Integer): Integer;
 {$REGION 'Variáveis'}
 var
-  viSQLDataSet: TSQLDataSet;
+  viSQLDataSet: TI9Query;
 {$ENDREGION}
 begin
   Result := 0;
 
-  viSQLDataSet := TSQLDataSet.Create(nil);
-  viSQLDataSet.SQLConnection := FSQLConnection;
+  viSQLDataSet := TI9Query.Create(nil);
+  viSQLDataSet.Connection := FConnection;
 
   try
     with viSQLDataSet do
     begin
       {$REGION 'Comando SQL SELECT'}
-      CommandText :=
+      SQL.Text :=
         'SELECT ' +
 
         {$REGION 'Colunas'}

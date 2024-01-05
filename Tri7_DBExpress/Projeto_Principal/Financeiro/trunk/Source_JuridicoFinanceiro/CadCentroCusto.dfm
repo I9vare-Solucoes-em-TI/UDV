@@ -639,12 +639,11 @@ inherited frmCadCentroCusto: TfrmCadCentroCusto
     Left = 381
     Top = 242
   end
-  inherited DataSetAncestral: TSQLDataSet
-    SchemaName = 'SYSDBA'
-    CommandText = 
+  inherited DataSetAncestral: TI9Query
+    SQL.Strings = (
       'SELECT *'#13#10'FROM J_CENTRO_CUSTO'#13#10'WHERE  ((BALANCETE_GRUPO_ID = :BA' +
       'LANCETE_GRUPO_ID)'#13#10'      OR (TIPO_GLOBAL = '#39'S'#39'))'#13#10'     AND TIPO_' +
-      'CENTRO = :TIPO_CENTRO'#13#10'ORDER BY DESCRICAO'
+      'CENTRO = :TIPO_CENTRO'#13#10'ORDER BY DESCRICAO')
     Params = <
       item
         DataType = ftUnknown
@@ -667,7 +666,7 @@ inherited frmCadCentroCusto: TfrmCadCentroCusto
     AfterScroll = ClientAncestralAfterScroll
     Left = 475
     Top = 242
-    object ClientAncestralCENTRO_CUSTO_ID: TFMTBCDField
+    object ClientAncestralCENTRO_CUSTO_ID: TBCDField
       FieldName = 'CENTRO_CUSTO_ID'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
       Precision = 20
@@ -681,7 +680,7 @@ inherited frmCadCentroCusto: TfrmCadCentroCusto
       FieldName = 'SITUACAO'
       Size = 1
     end
-    object ClientAncestralBALANCETE_GRUPO_ID: TFMTBCDField
+    object ClientAncestralBALANCETE_GRUPO_ID: TBCDField
       FieldName = 'BALANCETE_GRUPO_ID'
       Precision = 20
       Size = 2
@@ -721,37 +720,35 @@ inherited frmCadCentroCusto: TfrmCadCentroCusto
       OnClick = mniDefinirCentroCustoPrincipalClick
     end
   end
-  object sqlRateioCentroCusto: TSimpleDataSet
+  object sqlRateioCentroCusto: TI9Query
     Aggregates = <>
     Connection = dtmControles.DB
-    DataSet.CommandText = 'SELECT *'#13#10'FROM J_CENTRO_CUSTO_PERSONALIZADO'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <>
+    SQL.Strings = ('SELECT *'#13#10'FROM J_CENTRO_CUSTO_PERSONALIZADO')
+    ParamData = <>
     IndexFieldNames = 'CENTRO_CUSTO_PADRAO_ID'
     MasterFields = 'CENTRO_CUSTO_ID'
     MasterSource = SourceAncestral
-    PacketRecords = 0
     Params = <>
     AfterScroll = sqlRateioCentroCustoAfterScroll
     Left = 172
     Top = 248
-    object sqlRateioCentroCustoCENTRO_CUSTO_PERSONALIZADO_ID: TFMTBCDField
+    object sqlRateioCentroCustoCENTRO_CUSTO_PERSONALIZADO_ID: TBCDField
       FieldName = 'CENTRO_CUSTO_PERSONALIZADO_ID'
       Required = True
       Precision = 20
       Size = 2
     end
-    object sqlRateioCentroCustoPERCENTUAL: TFMTBCDField
+    object sqlRateioCentroCustoPERCENTUAL: TBCDField
       FieldName = 'PERCENTUAL'
       Precision = 20
       Size = 2
     end
-    object sqlRateioCentroCustoCENTRO_CUSTO_PADRAO_ID: TFMTBCDField
+    object sqlRateioCentroCustoCENTRO_CUSTO_PADRAO_ID: TBCDField
       FieldName = 'CENTRO_CUSTO_PADRAO_ID'
       Precision = 20
       Size = 2
     end
-    object sqlRateioCentroCustoCENTRO_CUSTO_RATEIO_ID: TFMTBCDField
+    object sqlRateioCentroCustoCENTRO_CUSTO_RATEIO_ID: TBCDField
       FieldName = 'CENTRO_CUSTO_RATEIO_ID'
       Precision = 20
       Size = 2
@@ -762,18 +759,17 @@ inherited frmCadCentroCusto: TfrmCadCentroCusto
     Left = 172
     Top = 304
   end
-  object sqlCentroCustoItens: TSimpleDataSet
+  object sqlCentroCustoItens: TI9Query
     Aggregates = <>
     Connection = dtmControles.DB
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT DESCRICAO, CENTRO_CUSTO_ID, BALANCETE_GRUPO_ID, PERSONALI' +
       'ZADO'#13#10'FROM J_CENTRO_CUSTO'#13#10'WHERE SITUACAO = '#39'A'#39' '#13#10'    AND BALANC' +
       'ETE_GRUPO_ID = :BALANCETE_GRUPO_ID'#13#10'    AND TIPO_CENTRO = :TIPO_' +
-      'CENTRO '#13#10'    AND TIPO_ITEM = '#39'1'#39#13#10'ORDER BY DESCRICAO'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <
+      'CENTRO '#13#10'    AND TIPO_ITEM = '#39'1'#39#13#10'ORDER BY DESCRICAO')
+    ParamData = <
       item
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Name = 'BALANCETE_GRUPO_ID'
         ParamType = ptInput
       end
@@ -789,12 +785,12 @@ inherited frmCadCentroCusto: TfrmCadCentroCusto
       FieldName = 'DESCRICAO'
       Size = 120
     end
-    object sqlCentroCustoItensCENTRO_CUSTO_ID: TFMTBCDField
+    object sqlCentroCustoItensCENTRO_CUSTO_ID: TBCDField
       FieldName = 'CENTRO_CUSTO_ID'
       Precision = 20
       Size = 2
     end
-    object sqlCentroCustoItensBALANCETE_GRUPO_ID: TFMTBCDField
+    object sqlCentroCustoItensBALANCETE_GRUPO_ID: TBCDField
       FieldName = 'BALANCETE_GRUPO_ID'
       Precision = 20
       Size = 2

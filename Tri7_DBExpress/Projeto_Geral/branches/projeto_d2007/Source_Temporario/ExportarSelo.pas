@@ -3,6 +3,7 @@ unit ExportarSelo;
 interface
 
 uses
+  I9Query,
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, Menus, cxLookAndFeelPainters, dxSkinsCore, dxSkinBlack, dxSkinBlue,
   dxSkinCaramel, dxSkinCoffee, dxSkinDarkSide, dxSkinGlassOceans,
@@ -23,21 +24,21 @@ type
   TfrmExportarSelo = class(TForm)
     pnlConvenio: TPanel;
     Panel4: TPanel;
-    sqlSelos: TSimpleDataSet;
+    sqlSelos: TI9Query;
     dtsSelos: TDataSource;
     sqlSelosNOTA_FISCAL: TStringField;
     sqlSelosNUMERO_AGRUPADOR: TStringField;
     sqlSelosSIGLA: TStringField;
-    sqlSelosNUMERO: TFMTBCDField;
-    sqlSelosTIPO_ATO: TFMTBCDField;
+    sqlSelosNUMERO: TBCDField;
+    sqlSelosTIPO_ATO: TBCDField;
     sqlSelosAPRESENTANTE: TStringField;
     sqlSelosNOME_COMPLETO: TStringField;
     sqlSelosDATA: TSQLTimeStampField;
     sqlSelosIP_MAQUINA: TStringField;
-    sqlSelosVALOR_TOTAL: TFMTBCDField;
-    sqlSelosVALOR_EMOLUMENTO: TFMTBCDField;
-    sqlSelosVALOR_TAXA_JUDICIARIA: TFMTBCDField;
-    sqlSelosVALOR_FUNDESP: TFMTBCDField;
+    sqlSelosVALOR_TOTAL: TBCDField;
+    sqlSelosVALOR_EMOLUMENTO: TBCDField;
+    sqlSelosVALOR_TAXA_JUDICIARIA: TBCDField;
+    sqlSelosVALOR_FUNDESP: TBCDField;
     sqlSeloscal_numero_selo: TStringField;
     SaveDialog1: TSaveDialog;
     gbxPeriodo: TcxPageControl;
@@ -49,7 +50,7 @@ type
     tbcExportados: TcxTabSheet;
     cxGroupBox2: TcxGroupBox;
     lcxExportacao: TcxLookupComboBox;
-    SqlDataExportacao: TSimpleDataSet;
+    SqlDataExportacao: TI9Query;
     dtsDataExportacao: TDataSource;
     cxGroupBox3: TcxGroupBox;
     rdbSelosNaoExp: TcxRadioButton;
@@ -59,13 +60,13 @@ type
     rdbPeriodoSelecionado: TcxRadioButton;
     rdbPeriodoQualquer: TcxRadioButton;
     sqlSelosCALC_SELECIONADO: TBooleanField;
-    sqlSelosSELO_LIVRO_ID: TFMTBCDField;
+    sqlSelosSELO_LIVRO_ID: TBCDField;
     SqlDataExportacaoDATA: TSQLTimeStampField;
-    SqlDataExportacaoCODIGO_EXPORTACAO: TFMTBCDField;
+    SqlDataExportacaoCODIGO_EXPORTACAO: TBCDField;
     btnMarcar: TcxButton;
     btnDesmarcar: TcxButton;
     sqlSelosCALC_EXPORTADO: TBooleanField;
-    sqlSelosCODIGO_EXPORTACAO: TFMTBCDField;
+    sqlSelosCODIGO_EXPORTACAO: TBCDField;
     Panel11: TPanel;
     cxLabel10: TcxLabel;
     cxLabel5: TcxLabel;
@@ -116,19 +117,19 @@ type
     icxTipoSistema: TcxImageComboBox;
     lcxTipoSelo: TcxLookupComboBox;
     cxLabel4: TcxLabel;
-    sqlTipoSelo: TSimpleDataSet;
-    sqlTipoSeloSELO_GRUPO_ID: TFMTBCDField;
+    sqlTipoSelo: TI9Query;
+    sqlTipoSeloSELO_GRUPO_ID: TBCDField;
     sqlTipoSeloDESCRICAO_COMPLETA: TStringField;
     dtsTipoSelo: TDataSource;
     chxFiltroSistema: TCheckBox;
-    sqlTipoSeloNUMERO: TFMTBCDField;
+    sqlTipoSeloNUMERO: TBCDField;
     cxLabel2: TcxLabel;
     lcxLote: TcxLookupComboBox;
-    sqlSeloLote: TSimpleDataSet;
+    sqlSeloLote: TI9Query;
     dtsSeloLote: TDataSource;
-    sqlSeloLoteSELO_LOTE_ID: TFMTBCDField;
+    sqlSeloLoteSELO_LOTE_ID: TBCDField;
     sqlSeloLoteNOTA_FISCAL: TStringField;
-    sqlSeloLoteSELO_GRUPO_ID: TFMTBCDField;
+    sqlSeloLoteSELO_GRUPO_ID: TBCDField;
     CorrigirServenturio1: TMenuItem;
     cxBtnFechar: TcxButton;
     btnPesquisar: TcxButton;
@@ -203,7 +204,7 @@ var
       begin
         ParamByName('DATA_EXPORTACAO').AsString    := dtmControles.DataHoraBanco(5);
         ParamByName('CODIGO_EXPORTACAO').AsInteger := viCodigoExportacao;
-        ExecSQL(FALSE);
+        ExecSQL;
       end;
       viSelos := '';
       viCont  := 0;
@@ -474,7 +475,7 @@ begin
 
   viSql := viSql + ' ORDER BY SL.NUMERO_AGRUPADOR, TIPO_ATO ';
 
-  sqlSelos.DataSet.CommandText := viSql;
+  sqlSelos.SQL.Text := viSql;
   sqlSelos.Open;
 
   if sqlSelos.IsEmpty then
@@ -603,7 +604,7 @@ begin
   sqlTipoSelo.Active := False;
   if icxTipoSistema.EditValue <> null then
   begin
-    sqlTipoSelo.DataSet.ParamByName('TIPO_CARTORIO').AsString := icxTipoSistema.EditValue;
+    sqlTipoSelo.ParamByName('TIPO_CARTORIO').AsString := icxTipoSistema.EditValue;
     sqlTipoSelo.Active  := True;
     lcxTipoSelo.enabled := True;
     lcxLote.enabled := True;

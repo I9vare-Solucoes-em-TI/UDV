@@ -464,20 +464,20 @@ inherited frmConfigRelatorios: TfrmConfigRelatorios
     Left = 325
     Top = 22
   end
-  inherited DataSetAncestral: TSQLDataSet
-    CommandText = 
+  inherited DataSetAncestral: TI9Query
+    SQL.Strings = (
       'select CONFIG_RELATORIO_ID, DESCRICAO, GRUPO_RELATORIO_ID, INTER' +
       'NO, SISTEMA_ID, SITUACAO, EDITAR  '#13#10'from G_CONFIG_RELATORIO'#13#10'whe' +
       're SISTEMA_ID = :SISTEMA_ID'#13#10'   OR  SISTEMA_ID = :SISTEMA_ID1'#13#10'O' +
-      'RDER BY CONFIG_RELATORIO_ID'
+      'RDER BY CONFIG_RELATORIO_ID')
     Params = <
       item
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Name = 'SISTEMA_ID'
         ParamType = ptInput
       end
       item
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Name = 'SISTEMA_ID1'
         ParamType = ptInput
       end>
@@ -491,7 +491,7 @@ inherited frmConfigRelatorios: TfrmConfigRelatorios
   inherited ClientAncestral: TClientDataSet
     Left = 419
     Top = 18
-    object ClientAncestralCONFIG_RELATORIO_ID: TFMTBCDField
+    object ClientAncestralCONFIG_RELATORIO_ID: TBCDField
       FieldName = 'CONFIG_RELATORIO_ID'
       Required = True
       Precision = 15
@@ -501,12 +501,12 @@ inherited frmConfigRelatorios: TfrmConfigRelatorios
       FieldName = 'DESCRICAO'
       Size = 60
     end
-    object ClientAncestralGRUPO_RELATORIO_ID: TFMTBCDField
+    object ClientAncestralGRUPO_RELATORIO_ID: TBCDField
       FieldName = 'GRUPO_RELATORIO_ID'
       Precision = 15
       Size = 2
     end
-    object ClientAncestralSISTEMA_ID: TFMTBCDField
+    object ClientAncestralSISTEMA_ID: TBCDField
       FieldName = 'SISTEMA_ID'
       Precision = 15
       Size = 2
@@ -564,28 +564,27 @@ inherited frmConfigRelatorios: TfrmConfigRelatorios
       OnBeforePrint = 'Page1OnBeforePrint'
     end
   end
-  object sqlGrupoRelatorio: TSimpleDataSet
+  object sqlGrupoRelatorio: TI9Query
     Aggregates = <>
     Connection = dtmControles.DB
-    DataSet.CommandText = 
+    SQL.Strings = (
       'select * from G_GRUPO_RELATORIO'#13#10'where SISTEMA_ID = :SISTEMA_ID'#13 +
-      #10'   OR  SISTEMA_ID = :SISTEMA_ID1'#13#10'order by DESCRICAO'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <
+      #10'   OR  SISTEMA_ID = :SISTEMA_ID1'#13#10'order by DESCRICAO')
+    ParamData = <
       item
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Name = 'SISTEMA_ID'
         ParamType = ptInput
       end
       item
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Name = 'SISTEMA_ID1'
         ParamType = ptInput
       end>
     Params = <>
     Left = 617
     Top = 60
-    object sqlGrupoRelatorioGRUPO_RELATORIO_ID: TFMTBCDField
+    object sqlGrupoRelatorioGRUPO_RELATORIO_ID: TBCDField
       FieldName = 'GRUPO_RELATORIO_ID'
       Required = True
       Precision = 15

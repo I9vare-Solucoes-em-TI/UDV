@@ -3,6 +3,7 @@ unit PesquisaGeral;
 interface
 
 uses windows, messages,
+  I9Query,
   SysUtils, Types, Classes, Graphics, Controls, Forms, Dialogs,
   ExtCtrls, ComCtrls, Variants, SimpleDS, DB, DBClient, ActnList, cxEdit,
   cxGridLevel, cxGridCustomTableView, cxGridDBTableView, cxGrid, cxSplitter,
@@ -28,7 +29,7 @@ type
   TfrmPesquisa = class(TForm)
     StatusBar1: TStatusBar;
     ds_pesquisa: TDataSource;
-    q_qtd: TSimpleDataSet;
+    q_qtd: TI9Query;
     Panel1: TPanel;
     Panel2: TPanel;
     Bevel3: TBevel;
@@ -42,7 +43,7 @@ type
     dtsPesquisar: TDataSource;
     grdPesquisaDBCardView1: TcxGridDBCardView;
     Panel4: TPanel;
-    sdsPesquisa: TSimpleDataSet;
+    sdsPesquisa: TI9Query;
     ActionList1: TActionList;
     Pesquisar: TAction;
     Selecionar: TAction;
@@ -167,12 +168,12 @@ begin
    if CondAux <> '' then
    begin
       if CampoWhere <> '' then
-         sdsPesquisa.DataSet.CommandText := Sql + ' AND ' + CondAux
-      else sdsPesquisa.DataSet.CommandText := Sql + ' WHERE ' + CondAux;
+         sdsPesquisa.SQL.Text := Sql + ' AND ' + CondAux
+      else sdsPesquisa.SQL.Text := Sql + ' WHERE ' + CondAux;
    end
-   else sdsPesquisa.DataSet.CommandText := Sql;
+   else sdsPesquisa.SQL.Text := Sql;
 
-   sdsPesquisa.DataSet.CommandText := sdsPesquisa.DataSet.CommandText + vgOrderBy;
+   sdsPesquisa.SQL.Text := sdsPesquisa.SQL.Text + vgOrderBy;
 
    application.ProcessMessages;
    DBApplication.ProcessMessages;
@@ -232,16 +233,16 @@ begin
       end;
 
       if CondicaoAux <> '' then
-         DataSet.CommandText := SqlText + ' Where ' + CondicaoAux
+         SQL.Text := SqlText + ' Where ' + CondicaoAux
       else
       begin
         if not vpPesquisaAll then
           SqlText := SqlText + ' WHERE 1 <> 1 ';
 
-        DataSet.CommandText := SqlText;
+        SQL.Text := SqlText;
       end;
 
-      DataSet.CommandText := DataSet.CommandText + OrderBy;
+      SQL.Text := SQL.Text + OrderBy;
       frmPesquisa.vgOrderBy := OrderBy;
       Open;
 

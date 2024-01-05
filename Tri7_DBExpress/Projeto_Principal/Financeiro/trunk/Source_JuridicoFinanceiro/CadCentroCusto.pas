@@ -3,6 +3,7 @@ unit CadCentroCusto;
 interface
 
 uses
+  I9Query,
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, CadBasico, Menus, cxLookAndFeelPainters, FMTBcd, dxSkinsCore,
   dxSkinBlack, dxSkinBlue, dxSkinCaramel, dxSkinCoffee, dxSkinDarkSide,
@@ -35,19 +36,19 @@ type
     chxPrincipal: TcxDBCheckBox;
     popCentroCusto: TPopupMenu;
     mniDefinirCentroCustoPrincipal: TMenuItem;
-    ClientAncestralCENTRO_CUSTO_ID: TFMTBCDField;
+    ClientAncestralCENTRO_CUSTO_ID: TBCDField;
     ClientAncestralDESCRICAO: TStringField;
     ClientAncestralSITUACAO: TStringField;
-    ClientAncestralBALANCETE_GRUPO_ID: TFMTBCDField;
+    ClientAncestralBALANCETE_GRUPO_ID: TBCDField;
     ClientAncestralPRINCIPAL: TStringField;
     cxDBCheckBox1: TcxDBCheckBox;
     ClientAncestralTIPO_GLOBAL: TStringField;
-    sqlRateioCentroCusto: TSimpleDataSet;
+    sqlRateioCentroCusto: TI9Query;
     dtsRateioCentroCusto: TDataSource;
-    sqlRateioCentroCustoCENTRO_CUSTO_PERSONALIZADO_ID: TFMTBCDField;
-    sqlRateioCentroCustoPERCENTUAL: TFMTBCDField;
-    sqlRateioCentroCustoCENTRO_CUSTO_PADRAO_ID: TFMTBCDField;
-    sqlRateioCentroCustoCENTRO_CUSTO_RATEIO_ID: TFMTBCDField;
+    sqlRateioCentroCustoCENTRO_CUSTO_PERSONALIZADO_ID: TBCDField;
+    sqlRateioCentroCustoPERCENTUAL: TBCDField;
+    sqlRateioCentroCustoCENTRO_CUSTO_PADRAO_ID: TBCDField;
+    sqlRateioCentroCustoCENTRO_CUSTO_RATEIO_ID: TBCDField;
     ClientAncestralTIPO_ITEM: TStringField;
     cxLabel3: TcxLabel;
     tabCentroCusto: TcxTabControl;
@@ -74,10 +75,10 @@ type
     btnExcluirItem: TcxButton;
     edtDescricao: TcxDBTextEdit;
     icxEspecie: TcxDBImageComboBox;
-    sqlCentroCustoItens: TSimpleDataSet;
+    sqlCentroCustoItens: TI9Query;
     sqlCentroCustoItensDESCRICAO: TStringField;
-    sqlCentroCustoItensCENTRO_CUSTO_ID: TFMTBCDField;
-    sqlCentroCustoItensBALANCETE_GRUPO_ID: TFMTBCDField;
+    sqlCentroCustoItensCENTRO_CUSTO_ID: TBCDField;
+    sqlCentroCustoItensBALANCETE_GRUPO_ID: TBCDField;
     dtsCentroCustoItens: TDataSource;
     cxDBCheckBox2: TcxDBCheckBox;
     ClientAncestralPERSONALIZADO: TStringField;
@@ -342,8 +343,8 @@ procedure TfrmCadCentroCusto.pgcDadosChange(Sender: TObject);
 begin
   inherited;
   sqlCentroCustoItens.Active := False;
-  sqlCentroCustoItens.DataSet.ParamByName('BALANCETE_GRUPO_ID').AsInteger := vgTabBalancete[tabBalancete.TabIndex];
-  sqlCentroCustoItens.DataSet.ParamByName('TIPO_CENTRO').AsString         := vgTipoCentro;
+  sqlCentroCustoItens.ParamByName('BALANCETE_GRUPO_ID').AsInteger := vgTabBalancete[tabBalancete.TabIndex];
+  sqlCentroCustoItens.ParamByName('TIPO_CENTRO').AsString         := vgTipoCentro;
   sqlCentroCustoItens.Active := True;
 end;
 

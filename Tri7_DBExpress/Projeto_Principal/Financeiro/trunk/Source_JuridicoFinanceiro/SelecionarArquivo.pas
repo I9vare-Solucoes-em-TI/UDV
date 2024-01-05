@@ -20,11 +20,11 @@ uses
 
 type
   TfrmSelecionarArquivo = class(TfrmCadastroAuxSimplificado)
-    ClientAncestralPROCESSO_ANDAMENTO_ID: TFMTBCDField;
-    ClientAncestralTIPO_ANDAMENTO_ID: TFMTBCDField;
+    ClientAncestralPROCESSO_ANDAMENTO_ID: TBCDField;
+    ClientAncestralTIPO_ANDAMENTO_ID: TBCDField;
     ClientAncestralDESCRICAO: TStringField;
-    ClientAncestralPROCESSO_ID: TFMTBCDField;
-    ClientAncestralPROCESSO_TRAMITE_ID: TFMTBCDField;
+    ClientAncestralPROCESSO_ID: TBCDField;
+    ClientAncestralPROCESSO_TRAMITE_ID: TBCDField;
     ClientAncestralDATA_ANDAMENTO: TSQLTimeStampField;
     ClientAncestralDATA_PUBLICACAO: TSQLTimeStampField;
     ClientAncestralDATA_CIRCULACAO: TSQLTimeStampField;

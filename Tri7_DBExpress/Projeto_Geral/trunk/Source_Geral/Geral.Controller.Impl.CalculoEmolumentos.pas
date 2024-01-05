@@ -3,6 +3,9 @@ unit Geral.Controller.Impl.CalculoEmolumentos;
 interface
 
 uses
+  FireDAC.Stan.Param,
+  I9Query,
+  I9Connection,
   Geral.Model.Entity.Spec.CalculoEmolumentos,
   Geral.Model.Entity.Spec.DataSet,
   Data.DB,
@@ -399,10 +402,10 @@ end;
 function TCalculoEmolumentos.Pesquisar: IDataSetAPI<TDataSet>;
 {$REGION 'Variáveis'}
 var
-  viSQLDataSet: TSQLDataSet;
+  viSQLDataSet: TI9Query;
 {$ENDREGION}
 begin
-  viSQLDataSet := TSQLDataSet.Create(
+  viSQLDataSet := TI9Query.Create(
     nil);
 
   Result := TDataSetAPI<TDataSet>.New(
@@ -413,12 +416,12 @@ begin
     procedure
     {$REGION 'Variáveis'}
     var
-      viParam: TParam;
+      viParam: TFDParam;
     {$ENDREGION}
     begin
-      viSQLDataSet.SQLConnection := dtmControles.DB;
+      viSQLDataSet.Connection := dtmControles.DB;
 
-      viSQLDataSet.CommandText := {$REGION 'Comando SQL SELECT'}
+      viSQLDataSet.SQL.Text := {$REGION 'Comando SQL SELECT'}
         'SELECT ' +
 
         {$REGION 'Colunas'}
@@ -460,7 +463,7 @@ begin
       viSQLDataSet.ParamByName(
         'P_VALOR_BASE_CALCULO').AsCurrency := FValorBaseCalculo;
 
-      viParam := viSQLDataSet.Params.FindParam(
+      viParam := viSQLParams.FindParam(
         'P_PAGINA_EXTRA');
 
       if Assigned(
@@ -475,10 +478,10 @@ function TCalculoEmolumentos.PesquisarPaginaExtra(
   const vpEmolumentoIDPaginaExtra: Integer): IDataSetAPI<TDataSet>;
 {$REGION 'Variáveis'}
 var
-  viSQLDataSet: TSQLDataSet;
+  viSQLDataSet: TI9Query;
 {$ENDREGION}
 begin
-  viSQLDataSet := TSQLDataSet.Create(
+  viSQLDataSet := TI9Query.Create(
     nil);
 
   Result := TDataSetAPI<TDataSet>.New(
@@ -488,9 +491,9 @@ begin
   .ExecuteAction(
     procedure
     begin
-      viSQLDataSet.SQLConnection := dtmControles.DB;
+      viSQLDataSet.Connection := dtmControles.DB;
 
-      viSQLDataSet.CommandText := {$REGION 'Comando SQL SELECT'}
+      viSQLDataSet.SQL.Text := {$REGION 'Comando SQL SELECT'}
         'SELECT ' +
 
         {$REGION 'Colunas'}

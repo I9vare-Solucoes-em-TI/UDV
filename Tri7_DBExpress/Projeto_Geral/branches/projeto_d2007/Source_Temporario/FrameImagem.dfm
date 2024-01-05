@@ -5369,16 +5369,15 @@ object fmeImagem: TfmeImagem
       end
     end
   end
-  object sqlCarimbo: TSimpleDataSet
+  object sqlCarimbo: TI9Query
     Aggregates = <>
     Connection = dtmControles.DB
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT DESCRICAO,'#13#10'       TEXTO'#13#10'FROM G_MARCACAO_TIPO'#13#10'WHERE GRU' +
-      'PO = '#39'CARIMBO'#39' and'#13#10'               SISTEMA_ID = :SISTEMA_ID'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <
+      'PO = '#39'CARIMBO'#39' and'#13#10'               SISTEMA_ID = :SISTEMA_ID')
+    ParamData = <
       item
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Name = 'SISTEMA_ID'
         ParamType = ptInput
         Value = '0'
@@ -5395,17 +5394,16 @@ object fmeImagem: TfmeImagem
       Size = 1
     end
   end
-  object sqlIndexacaoTipo: TSimpleDataSet
+  object sqlIndexacaoTipo: TI9Query
     Aggregates = <>
     Connection = dtmControles.DB
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT *'#13#10'FROM G_INDEXACAO_TIPO'#13#10'WHERE SITUACAO = '#39'A'#39' AND'#13#10'     ' +
       '          SISTEMA_ID = :SISTEMA_ID AND'#13#10'               GRUPO = :' +
-      'GRUPO'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <
+      'GRUPO')
+    ParamData = <
       item
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Name = 'SISTEMA_ID'
         ParamType = ptInput
       end
@@ -5417,7 +5415,7 @@ object fmeImagem: TfmeImagem
     Params = <>
     Left = 576
     Top = 129
-    object sqlIndexacaoTipoINDEXACAO_TIPO_ID: TFMTBCDField
+    object sqlIndexacaoTipoINDEXACAO_TIPO_ID: TBCDField
       FieldName = 'INDEXACAO_TIPO_ID'
       Required = True
       Precision = 15
@@ -5439,7 +5437,7 @@ object fmeImagem: TfmeImagem
       FieldName = 'SITUACAO'
       Size = 1
     end
-    object sqlIndexacaoTipoSISTEMA_ID: TFMTBCDField
+    object sqlIndexacaoTipoSISTEMA_ID: TBCDField
       FieldName = 'SISTEMA_ID'
       Precision = 15
       Size = 2

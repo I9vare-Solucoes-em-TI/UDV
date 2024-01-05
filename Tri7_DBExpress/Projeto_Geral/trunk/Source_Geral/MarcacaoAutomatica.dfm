@@ -290,20 +290,19 @@ object frmMarcacaoAutomatica: TfrmMarcacaoAutomatica
       OnClick = btnCancelarClick
     end
   end
-  object sqlMarcacao: TSimpleDataSet
+  object sqlMarcacao: TI9Query
     Aggregates = <>
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT NOME, DESCRICAO'#13#10'FROM G_MARCACAO_TIPO'#13#10'WHERE GRUPO = :GRU' +
-      'PO'#13#10'     AND SISTEMA_ID = :SISTEMA'#13#10'ORDER BY DESCRICAO'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <
+      'PO'#13#10'     AND SISTEMA_ID = :SISTEMA'#13#10'ORDER BY DESCRICAO')
+    ParamData = <
       item
         DataType = ftString
         Name = 'GRUPO'
         ParamType = ptInput
       end
       item
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Name = 'SISTEMA'
         ParamType = ptInput
       end>

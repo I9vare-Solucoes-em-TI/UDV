@@ -3,6 +3,8 @@ unit SeloFundoDAO;
 interface
 
 uses
+  I9Query,
+  I9Connection,
   SeloFundo,
   System.Classes;
 
@@ -53,17 +55,17 @@ procedure TSeloFundoDAO.Excluir(
   const vpTabela: string);
 {$REGION 'Variáveis'}
 var
-  viSQLDataSet: TSQLDataSet;
+  viSQLDataSet: TI9Query;
 {$ENDREGION}
 begin
-  viSQLDataSet := TSQLDataSet.Create(nil);
-  viSQLDataSet.SQLConnection := dtmControles.DB;
+  viSQLDataSet := TI9Query.Create(nil);
+  viSQLDataSet.Connection := dtmControles.DB;
 
   try
     with viSQLDataSet do
     begin
       {$REGION 'Comando SQL DELETE'}
-      CommandText :=
+      SQL.Text :=
         'DELETE ' +
 
         {$REGION 'Cláusula FROM'}
@@ -96,17 +98,17 @@ procedure TSeloFundoDAO.Excluir(
   const vpSeloLivroID: Integer);
 {$REGION 'Variáveis'}
 var
-  viSQLDataSet: TSQLDataSet;
+  viSQLDataSet: TI9Query;
 {$ENDREGION}
 begin
-  viSQLDataSet := TSQLDataSet.Create(nil);
-  viSQLDataSet.SQLConnection := dtmControles.DB;
+  viSQLDataSet := TI9Query.Create(nil);
+  viSQLDataSet.Connection := dtmControles.DB;
 
   try
     with viSQLDataSet do
     begin
       {$REGION 'Comando SQL DELETE'}
-      CommandText :=
+      SQL.Text :=
         'DELETE ' +
 
         {$REGION 'Cláusula FROM'}
@@ -137,19 +139,19 @@ function TSeloFundoDAO.Get(
   const vpSeloLivroID: Integer): TSeloFundos;
 {$REGION 'Variáveis'}
 var
-  viSQLDataSet: TSQLDataSet;
+  viSQLDataSet: TI9Query;
 {$ENDREGION}
 begin
   Result := TSeloFundos.Create;
 
-  viSQLDataSet := TSQLDataSet.Create(nil);
-  viSQLDataSet.SQLConnection := dtmControles.DB;
+  viSQLDataSet := TI9Query.Create(nil);
+  viSQLDataSet.Connection := dtmControles.DB;
 
   try
     with viSQLDataSet do
     begin
       {$REGION 'Comando SQL SELECT'}
-      CommandText :=
+      SQL.Text :=
         'SELECT ' +
 
         {$REGION 'Colunas'}
@@ -206,19 +208,19 @@ function TSeloFundoDAO.Get(
   const vpTabela: string): TSeloFundos;
 {$REGION 'Variáveis'}
 var
-  viSQLDataSet: TSQLDataSet;
+  viSQLDataSet: TI9Query;
 {$ENDREGION}
 begin
   Result := TSeloFundos.Create;
 
-  viSQLDataSet := TSQLDataSet.Create(nil);
-  viSQLDataSet.SQLConnection := dtmControles.DB;
+  viSQLDataSet := TI9Query.Create(nil);
+  viSQLDataSet.Connection := dtmControles.DB;
 
   try
     with viSQLDataSet do
     begin
       {$REGION 'Comando SQL SELECT'}
-      CommandText :=
+      SQL.Text :=
         'SELECT ' +
 
         {$REGION 'Colunas'}
@@ -277,17 +279,17 @@ procedure TSeloFundoDAO.Excluir(
   const vpSeloFundo: TSeloFundo);
 {$REGION 'Variáveis'}
 var
-  viSQLDataSet: TSQLDataSet;
+  viSQLDataSet: TI9Query;
 {$ENDREGION}
 begin
-  viSQLDataSet := TSQLDataSet.Create(nil);
-  viSQLDataSet.SQLConnection := dtmControles.DB;
+  viSQLDataSet := TI9Query.Create(nil);
+  viSQLDataSet.Connection := dtmControles.DB;
 
   try
     with viSQLDataSet do
     begin
       {$REGION 'Comando SQL DELETE'}
-      CommandText :=
+      SQL.Text :=
         'DELETE ' +
 
         {$REGION 'Cláusula FROM'}
@@ -322,7 +324,7 @@ function TSeloFundoDAO.Get(
   const vpSelosLivroID: TStrings): TSeloFundos;
 {$REGION 'Variáveis'}
 var
-  viSQLDataSet: TSQLDataSet;
+  viSQLDataSet: TI9Query;
 {$ENDREGION}
 begin
   Result := TSeloFundos.Create;
@@ -330,14 +332,14 @@ begin
   if vpSelosLivroID.Count = 0 then
     Exit;
 
-  viSQLDataSet := TSQLDataSet.Create(nil);
-  viSQLDataSet.SQLConnection := dtmControles.DB;
+  viSQLDataSet := TI9Query.Create(nil);
+  viSQLDataSet.Connection := dtmControles.DB;
 
   try
     with viSQLDataSet do
     begin
       {$REGION 'Comando SQL SELECT'}
-      CommandText :=
+      SQL.Text :=
         'SELECT ' +
 
         {$REGION 'Colunas'}
@@ -392,19 +394,19 @@ function TSeloFundoDAO.GetCount(
   const vpTabela: string): Integer;
 {$REGION 'Variáveis'}
 var
-  viSQLDataSet: TSQLDataSet;
+  viSQLDataSet: TI9Query;
 {$ENDREGION}
 begin
   Result := 0;
 
-  viSQLDataSet := TSQLDataSet.Create(nil);
-  viSQLDataSet.SQLConnection := dtmControles.DB;
+  viSQLDataSet := TI9Query.Create(nil);
+  viSQLDataSet.Connection := dtmControles.DB;
 
   try
     with viSQLDataSet do
     begin
       {$REGION 'Comando SQL SELECT'}
-      CommandText :=
+      SQL.Text :=
         'SELECT ' +
 
         {$REGION 'Colunas'}
@@ -451,17 +453,17 @@ procedure TSeloFundoDAO.Inserir(
   const vpSeloFundo: TSeloFundo);
 {$REGION 'Variáveis'}
 var
-  viSQLDataSet: TSQLDataSet;
+  viSQLDataSet: TI9Query;
 {$ENDREGION}
 begin
-  viSQLDataSet := TSQLDataSet.Create(nil);
-  viSQLDataSet.SQLConnection := dtmControles.DB;
+  viSQLDataSet := TI9Query.Create(nil);
+  viSQLDataSet.Connection := dtmControles.DB;
 
   try
     with viSQLDataSet do
     begin
       {$REGION 'Comando SQL INSERT'}
-      CommandText :=
+      SQL.Text :=
         'INSERT ' +
 
         {$REGION 'Cláusula INTO'}

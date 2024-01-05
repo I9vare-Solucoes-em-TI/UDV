@@ -3,6 +3,7 @@ unit GerarArquivoFermoju;
 interface
 
 uses
+  I9Query,
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, Menus, cxLookAndFeelPainters, dxSkinsCore, dxSkinBlack, dxSkinBlue,
   dxSkinCaramel, dxSkinCoffee, dxSkinDarkSide, dxSkinGlassOceans,
@@ -97,7 +98,7 @@ end;
 
 procedure TfrmGerarArquivoFermoju.btnPesquisarClick(Sender: TObject);
 var
-  SQL: TSimpleDataSet;
+  SQL: TI9Query;
 
   procedure PesquisarProcuracaoEOutros;
   var

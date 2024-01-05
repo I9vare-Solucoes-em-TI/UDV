@@ -639,13 +639,11 @@ object frmCadEnvioEmail: TfrmCadEnvioEmail
       OnClick = btnCancelarClick
     end
   end
-  object DataSetAncestral: TSQLDataSet
-    SchemaName = 'SYSDBA'
-    CommandText = 'SELECT *'#13#10'FROM G_EMAIL_CONFIG'
+  object DataSetAncestral: TI9Query
+    SQL.Strings = ('SELECT *'#13#10'FROM G_EMAIL_CONFIG')
     DataSource = SourceAncestral
-    MaxBlobSize = -1
     Params = <>
-    SQLConnection = dtmControles.DB
+    Connection = dtmControles.DB
     Left = 499
     Top = 155
   end
@@ -660,7 +658,7 @@ object frmCadEnvioEmail: TfrmCadEnvioEmail
     ProviderName = 'ProviderAncestral'
     Left = 563
     Top = 155
-    object ClientAncestralEMAIL_CONFIG_ID: TFMTBCDField
+    object ClientAncestralEMAIL_CONFIG_ID: TBCDField
       FieldName = 'EMAIL_CONFIG_ID'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
       Precision = 20
@@ -696,7 +694,7 @@ object frmCadEnvioEmail: TfrmCadEnvioEmail
     object ClientAncestralTEXTO_RODAPE: TBlobField
       FieldName = 'TEXTO_RODAPE'
     end
-    object ClientAncestralESPACO_TEXTO_RODAPE: TFMTBCDField
+    object ClientAncestralESPACO_TEXTO_RODAPE: TBCDField
       FieldName = 'ESPACO_TEXTO_RODAPE'
       Precision = 20
       Size = 2
@@ -713,7 +711,7 @@ object frmCadEnvioEmail: TfrmCadEnvioEmail
       FieldName = 'PASSWORD'
       Size = 30
     end
-    object ClientAncestralEMAIL_TEXTO_PADRAO_ID: TFMTBCDField
+    object ClientAncestralEMAIL_TEXTO_PADRAO_ID: TBCDField
       FieldName = 'EMAIL_TEXTO_PADRAO_ID'
       Precision = 20
       Size = 2
@@ -729,16 +727,15 @@ object frmCadEnvioEmail: TfrmCadEnvioEmail
     Left = 301
     Top = 155
   end
-  object sqlAtoAcompanhamento: TSimpleDataSet
+  object sqlAtoAcompanhamento: TI9Query
     Aggregates = <>
     Connection = dtmControles.DB
-    DataSet.CommandText = 'SELECT *'#13#10'FROM T_ATO_ACOMPANHAMENTO'#13#10'WHERE ATO_ID = 0;'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <>
+    SQL.Strings = ('SELECT *'#13#10'FROM T_ATO_ACOMPANHAMENTO'#13#10'WHERE ATO_ID = 0;')
+    ParamData = <>
     Params = <>
     Left = 301
     Top = 108
-    object sqlAtoAcompanhamentoATO_ACOMPANHAMENTO_ID: TFMTBCDField
+    object sqlAtoAcompanhamentoATO_ACOMPANHAMENTO_ID: TBCDField
       FieldName = 'ATO_ACOMPANHAMENTO_ID'
       Required = True
       Precision = 20
@@ -762,12 +759,12 @@ object frmCadEnvioEmail: TfrmCadEnvioEmail
       FieldName = 'TIPO_CONTATO'
       Size = 1
     end
-    object sqlAtoAcompanhamentoUSUARIO_ID: TFMTBCDField
+    object sqlAtoAcompanhamentoUSUARIO_ID: TBCDField
       FieldName = 'USUARIO_ID'
       Precision = 20
       Size = 2
     end
-    object sqlAtoAcompanhamentoATO_ID: TFMTBCDField
+    object sqlAtoAcompanhamentoATO_ID: TBCDField
       FieldName = 'ATO_ID'
       Precision = 20
       Size = 2
@@ -783,7 +780,7 @@ object frmCadEnvioEmail: TfrmCadEnvioEmail
       FieldName = 'ASSUNTO'
       Size = 30
     end
-    object sqlAtoAcompanhamentoORDEM_ENVIO: TFMTBCDField
+    object sqlAtoAcompanhamentoORDEM_ENVIO: TBCDField
       FieldName = 'ORDEM_ENVIO'
       Precision = 20
       Size = 2
@@ -898,16 +895,15 @@ object frmCadEnvioEmail: TfrmCadEnvioEmail
     Left = 408
     Top = 155
   end
-  object sqlQualifica: TSimpleDataSet
+  object sqlQualifica: TI9Query
     Aggregates = <>
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT'#13#10'  E.DESCRICAO,'#13#10'  P.SITUACAO'#13#10'FROM T_ATO_PENDENCIA P'#13#10#13#10 +
       'LEFT JOIN T_ATO_ANDAMENTO A'#13#10'ON P.ATO_ANDAMENTO_ID = A.ATO_ANDAM' +
       'ENTO_ID'#13#10#13#10'LEFT JOIN T_TB_PENDENCIA_ANDAMENTO E'#13#10'ON P.TB_PENDENC' +
       'IA_ANDAMENTO_ID = E.TB_PENDENCIA_ANDAMENTO_ID'#13#10#13#10'WHERE A.ATO_ID ' +
-      '= :ATO_ID'#13#10'group by E.descricao,  P.SITUACAO'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <
+      '= :ATO_ID'#13#10'group by E.descricao,  P.SITUACAO')
+    ParamData = <
       item
         DataType = ftUnknown
         Name = 'ATO_ID'

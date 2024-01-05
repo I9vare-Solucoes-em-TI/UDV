@@ -1332,7 +1332,6 @@ object frmOrientacoes: TfrmOrientacoes
     FetchOptions.AssignedValues = [evMode]
     FetchOptions.Mode = fmAll
     SQL.Strings = (
-      
         'SELECT'#13#10'  USU.ORIENTACAO_USUARIO_ID,'#13#10'  USU.USUARIO_ID,'#13#10'  USU.R' +
         'ECEBIDO,'#13#10'  ORI.ORIENTACAO_ID,'#13#10'  ORI.USUARIO_ENVIOU_ID,'#13#10'  ORI.' +
         'MENSAGEM,'#13#10'  ORI.DATA_CADASTRO,'#13#10'  ORI.DATA_ORIENTACAO,'#13#10'  ORI.S' +
@@ -1397,7 +1396,6 @@ object frmOrientacoes: TfrmOrientacoes
     FetchOptions.AssignedValues = [evMode]
     FetchOptions.Mode = fmAll
     SQL.Strings = (
-      
         'SELECT * FROM G_ORIENTACAO'#13#10'WHERE ORIENTACAO_ID = :ORIENTACAO_ID' +
         #13#10'AND SITUACAO = '#39'A'#39)
     Left = 792

@@ -29,7 +29,7 @@ inherited frmPessoaPesquisaAux: TfrmPessoaPesquisaAux
   inherited Panel1: TPanel
     Width = 826
   end
-  inherited DataSetAncestral: TSQLDataSet
+  inherited DataSetAncestral: TI9Query
     Left = 389
     Top = 164
   end

@@ -3,9 +3,13 @@ unit LookupBoleto;
 interface
 
 uses
-  System.SysUtils, System.Classes, ACBrBoleto, ACBrBase, ACBrBoletoFCFR,
+  I9Query,
+  System.SysUtils, System.Classes, ACBrBoleto, ACBrBase,
   frxClass, frxExportPDF, Vcl.Forms, Winapi.Windows, DbxDevartInterBase,
-  Data.DB, Datasnap.DBClient, SimpleDS, frxExportAPDF, frxExportBaseDialog, ACBrBoletoConversao;
+  Data.DB, Datasnap.DBClient, SimpleDS, frxExportAPDF, frxExportBaseDialog, ACBrBoletoConversao,
+  FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param,
+  FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
+  FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client;
 
 type
   TRetornoImprimiuBoleto = record
@@ -42,17 +46,16 @@ type
   end;
 
   TdtmLookupBoleto = class(TDataModule)
-//    ACBrBoletoFCFR1: TACBrBoletoFCFR;
     ACBrBoleto1: TACBrBoleto;
-    sqlRemessa: TSimpleDataSet;
+    sqlRemessa: TI9Query;
     dtsRemessa: TDataSource;
-    sqlRemessaVALOR: TFMTBCDField;
-    sqlRemessaBOLETA_ID: TFMTBCDField;
-    sqlRemessaPESSOA_ID: TFMTBCDField;
+    sqlRemessaVALOR: TBCDField;
+    sqlRemessaBOLETA_ID: TBCDField;
+    sqlRemessaPESSOA_ID: TBCDField;
     sqlRemessaDATA_VENCIMENTO: TSQLTimeStampField;
     sqlRemessaDATA_EMISSAO: TSQLTimeStampField;
     sqlRemessaREMESSA_SITUACAO: TStringField;
-    sqlRemessaPESSOA_GRUPO_ID: TFMTBCDField;
+    sqlRemessaPESSOA_GRUPO_ID: TBCDField;
     frxPDFExport1: TfrxPDFExport;
     procedure DataModuleCreate(Sender: TObject);
     procedure DataModuleDestroy(Sender: TObject);

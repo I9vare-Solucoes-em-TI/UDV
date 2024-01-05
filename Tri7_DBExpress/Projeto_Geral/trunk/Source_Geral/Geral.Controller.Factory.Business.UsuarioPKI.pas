@@ -3,6 +3,7 @@ unit Geral.Controller.Factory.Business.UsuarioPKI;
 interface
 
 uses
+  I9Connection,
   Geral.Model.Entity.Spec.Factory,
   Geral.Model.Business.Spec.UsuarioPKI;
 

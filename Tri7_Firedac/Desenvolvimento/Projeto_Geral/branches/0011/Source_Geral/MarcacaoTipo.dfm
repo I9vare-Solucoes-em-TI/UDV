@@ -1061,7 +1061,6 @@ inherited frmMarcacaoTipo: TfrmMarcacaoTipo
   inherited DataSetAncestral: TI9Query
     MasterFields = 'SISTEMA_ID'
     SQL.Strings = (
-      
         'SELECT *'#13#10'FROM G_MARCACAO_TIPO'#13#10'WHERE SISTEMA_ID = :SISTEMA_ID'#13#10 +
         'ORDER BY GRUPO, NOME')
     Left = 595

@@ -3046,11 +3046,11 @@ object frmCadastroAuxSimplificado: TfrmCadastroAuxSimplificado
     ParentBackground = False
     TabOrder = 1
   end
-  object DataSetAncestral: TSQLDataSet
-    DataSource = SourceAncestral
-    MaxBlobSize = -1
-    Params = <>
-    SQLConnection = dtmControles.DB
+  object DataSetAncestral: TI9Query
+    MasterSource = SourceAncestral
+    Connection = dtmControles.DB
+    FetchOptions.AssignedValues = [evMode]
+    FetchOptions.Mode = fmAll
     Left = 15
     Top = 161
   end

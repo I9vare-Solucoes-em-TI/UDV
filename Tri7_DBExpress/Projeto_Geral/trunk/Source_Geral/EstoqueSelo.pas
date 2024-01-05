@@ -2,6 +2,7 @@ unit EstoqueSelo;
 interface
 
 uses
+  I9Query,
   Windows, WinInet, SysUtils, Classes, StdCtrls, ExtCtrls, Graphics, Dialogs,
   SimpleDS, MSNPopUp, Forms;
 
@@ -125,7 +126,7 @@ var
   viSql,
   viCondicao,
   viControle : string;
-  SQL: TSimpleDataSet;
+  SQL: TI9Query;
 begin
   FResumo    := '';
   viControle := '';
@@ -140,10 +141,10 @@ begin
     viSql := ' SELECT * FROM G_SP_ESTOQUE_SELO ' +
              ' ORDER BY SISTEMA, DESCRICAO ';
 
-  SQL := TSimpleDataSet.Create(nil);
+  SQL := TI9Query.Create(nil);
   SQL.Connection := dtmControles.DB;
   try
-    SQL.DataSet.CommandText := viSql;
+    SQL.SQL.Text := viSql;
     SQL.Open;
     if SQL.Active then
     begin

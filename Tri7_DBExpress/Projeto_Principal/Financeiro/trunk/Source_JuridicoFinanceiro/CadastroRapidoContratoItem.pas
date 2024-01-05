@@ -28,28 +28,28 @@ uses
 
 type
   TfrmCadastroRapidoContratoItem = class(TfrmCadastroAuxSimplificado)
-    ClientAncestralPROCESSO_CONTRATO_ITEM_ID: TFMTBCDField;
+    ClientAncestralPROCESSO_CONTRATO_ITEM_ID: TBCDField;
     ClientAncestralTIPO: TStringField;
     ClientAncestralDATA_INICIAL: TSQLTimeStampField;
     ClientAncestralDATA_FINAL: TSQLTimeStampField;
     ClientAncestralPERIODO: TStringField;
-    ClientAncestralVALOR_PARCELA: TFMTBCDField;
-    ClientAncestralVALOR_PERCENTUAL: TFMTBCDField;
-    ClientAncestralVALOR_PROLABORE: TFMTBCDField;
+    ClientAncestralVALOR_PARCELA: TBCDField;
+    ClientAncestralVALOR_PERCENTUAL: TBCDField;
+    ClientAncestralVALOR_PROLABORE: TBCDField;
     ClientAncestralSITUACAO: TStringField;
-    ClientAncestralPROCESSO_CONTRATO_ID: TFMTBCDField;
+    ClientAncestralPROCESSO_CONTRATO_ID: TBCDField;
     ClientAncestralESPECIE: TStringField;
-    ClientAncestralPROCESSO_TRAMITE_ID: TFMTBCDField;
+    ClientAncestralPROCESSO_TRAMITE_ID: TBCDField;
     ClientAncestralREAJUSTE: TStringField;
-    ClientAncestralQTD_SALARIO: TFMTBCDField;
+    ClientAncestralQTD_SALARIO: TBCDField;
     ClientAncestralDEFINICAO_VALOR: TStringField;
-    ClientAncestralTAREFA_ID: TFMTBCDField;
-    ClientAncestralQTD: TFMTBCDField;
+    ClientAncestralTAREFA_ID: TBCDField;
+    ClientAncestralQTD: TBCDField;
     ClientAncestralBENEFICIO_DISTRIBUIR: TStringField;
-    ClientAncestralBENEFICIO_PETICIONADOR: TFMTBCDField;
-    ClientAncestralBENEFICIO_CAPTADOR: TFMTBCDField;
-    ClientAncestralVALOR_DISTRIBUIR: TFMTBCDField;
-    ClientAncestralTIPO_BENEFICIO_ID: TFMTBCDField;
+    ClientAncestralBENEFICIO_PETICIONADOR: TBCDField;
+    ClientAncestralBENEFICIO_CAPTADOR: TBCDField;
+    ClientAncestralVALOR_DISTRIBUIR: TBCDField;
+    ClientAncestralTIPO_BENEFICIO_ID: TBCDField;
     pgcPersonalizados: TcxPageControl;
     tabValorPersonalizado: TcxTabSheet;
     cbxParcelas: TcxGroupBox;
@@ -115,7 +115,7 @@ type
     edtBeneficioCaptador: TcxDBCurrencyEdit;
     edtBeneficioPeticionador: TcxDBCurrencyEdit;
     edtBeneficioGestor: TcxDBCurrencyEdit;
-    ClientAncestralBENEFICIO_GESTOR: TFMTBCDField;
+    ClientAncestralBENEFICIO_GESTOR: TBCDField;
     procedure FormActivate(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure FormCreate(Sender: TObject);

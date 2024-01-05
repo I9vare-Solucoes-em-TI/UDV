@@ -3,6 +3,7 @@ unit TipoVinculoGramatical;
 interface
 
 uses
+  I9Query,
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, ExtCtrls, DB, SimpleDS, cxButtons, cxContainer, cxListBox,
   cxGraphics, cxControls, cxLookAndFeels, cxLookAndFeelPainters, dxSkinsCore,
@@ -16,7 +17,7 @@ type
     Shape1: TShape;
     lbxTipoVinculo: TcxListBox;
     dtsVinculoGramatical: TDataSource;
-    sqlVinculoGramatical: TSimpleDataSet;
+    sqlVinculoGramatical: TI9Query;
     sqlVinculoGramaticalVALOR: TStringField;
     sqlVinculoGramaticalDESCRICAO: TStringField;
     sqlVinculoGramaticalTEXTO: TBlobField;
@@ -72,7 +73,7 @@ end;
 procedure TfrmTipoVinculoGramatical.FormCreate(Sender: TObject);
 begin
   sqlVinculoGramatical.Active := False;
-  sqlVinculoGramatical.DataSet.ParamByName('SISTEMA_ID').AsInteger := vgId;
+  sqlVinculoGramatical.ParamByName('SISTEMA_ID').AsInteger := vgId;
   sqlVinculoGramatical.Active := True;
 
   lbxTipoVinculo.Items.Clear;

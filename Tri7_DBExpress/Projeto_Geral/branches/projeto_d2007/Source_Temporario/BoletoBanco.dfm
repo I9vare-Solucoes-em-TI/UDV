@@ -305,9 +305,8 @@ inherited frmBoletoBanco: TfrmBoletoBanco
     Left = 113
     Top = 386
   end
-  inherited DataSetAncestral: TSQLDataSet
-    SchemaName = 'SYSDBA'
-    CommandText = 'SELECT *'#13#10'FROM C_BOLETO_BANCO'
+  inherited DataSetAncestral: TI9Query
+    SQL.Strings = ('SELECT *'#13#10'FROM C_BOLETO_BANCO')
     Left = 143
     Top = 386
   end
@@ -318,7 +317,7 @@ inherited frmBoletoBanco: TfrmBoletoBanco
   inherited ClientAncestral: TClientDataSet
     Left = 207
     Top = 386
-    object ClientAncestralBOLETO_BANCO_ID: TFMTBCDField
+    object ClientAncestralBOLETO_BANCO_ID: TBCDField
       FieldName = 'BOLETO_BANCO_ID'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
       Precision = 20
@@ -360,7 +359,7 @@ inherited frmBoletoBanco: TfrmBoletoBanco
       FieldName = 'DB_DIGITO_BANCO'
       Size = 3
     end
-    object ClientAncestralCONFIG_RELATORIO_ID: TFMTBCDField
+    object ClientAncestralCONFIG_RELATORIO_ID: TBCDField
       FieldName = 'CONFIG_RELATORIO_ID'
       Precision = 20
       Size = 2
@@ -378,12 +377,11 @@ inherited frmBoletoBanco: TfrmBoletoBanco
     Left = 239
     Top = 386
   end
-  object sqlRelatorio: TSimpleDataSet
+  object sqlRelatorio: TI9Query
     Aggregates = <>
     Connection = dtmControles.DB
-    DataSet.CommandText = 'SELECT DESCRICAO, CONFIG_RELATORIO_ID'#13#10'FROM G_CONFIG_RELATORIO'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <>
+    SQL.Strings = ('SELECT DESCRICAO, CONFIG_RELATORIO_ID'#13#10'FROM G_CONFIG_RELATORIO')
+    ParamData = <>
     Params = <>
     Left = 206
     Top = 420
@@ -391,7 +389,7 @@ inherited frmBoletoBanco: TfrmBoletoBanco
       FieldName = 'DESCRICAO'
       Size = 60
     end
-    object sqlRelatorioCONFIG_RELATORIO_ID: TFMTBCDField
+    object sqlRelatorioCONFIG_RELATORIO_ID: TBCDField
       FieldName = 'CONFIG_RELATORIO_ID'
       Precision = 20
       Size = 2

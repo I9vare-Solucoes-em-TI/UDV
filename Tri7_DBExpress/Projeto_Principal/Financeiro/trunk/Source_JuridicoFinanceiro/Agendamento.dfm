@@ -1,4 +1,4 @@
-ï»¿object frmAgendamento: TfrmAgendamento
+object frmAgendamento: TfrmAgendamento
   Left = 0
   Top = 0
   Caption = 'Agendamento de Contas a Pagar/Receber'
@@ -388,7 +388,7 @@
           ParentFont = False
           OnClick = cxBtnAlterarClick
         end
-        object cxOrÃ§amento: TcxButton
+        object cxOrçamento: TcxButton
           Left = 196
           Top = 4
           Width = 60
@@ -485,7 +485,7 @@
           Font.Name = 'MS Sans Serif'
           Font.Style = []
           ParentFont = False
-          OnClick = cxOrÃ§amentoClick
+          OnClick = cxOrçamentoClick
         end
       end
     end
@@ -1397,10 +1397,10 @@
       end
     end
   end
-  object sqlLivroAgendamento: TSimpleDataSet
+  object sqlLivroAgendamento: TI9Query
     Aggregates = <>
     Connection = dtmControles.DB
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT LA.*,'#13#10'  CASE LA.QTD'#13#10'    WHEN 1 THEN '#39'1'#39#13#10'    ELSE (SELE' +
       'CT COUNT(LV.LIVRO_FINANCEIRO_ID) FROM J_LIVRO_FINANCEIRO LV'#13#10'   ' +
       '      WHERE LV.LIVRO_AGENDAMENTO_ID = LA.LIVRO_AGENDAMENTO_ID'#13#10' ' +
@@ -1415,15 +1415,14 @@
       'ULL'#13#10'    AND LF.LIVRO_AGENDAMENTO_ID = LA.LIVRO_AGENDAMENTO_ID) ' +
       'AS BOLETA_ID'#13#10'FROM J_LIVRO_AGENDAMENTO LA'#13#10'  LEFT OUTER JOIN J_P' +
       'ESSOA P ON'#13#10'  LA.PESSOA_ID = P.PESSOA_ID'#13#10'WHERE LA.SITUACAO = '#39'1' +
-      #39#13#10'  AND LA.OPERACAO = '#39'D'#39#13#10'ORDER BY LA.LIVRO_AGENDAMENTO_ID'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <>
+      #39#13#10'  AND LA.OPERACAO = '#39'D'#39#13#10'ORDER BY LA.LIVRO_AGENDAMENTO_ID')
+    ParamData = <>
     Params = <>
     AfterScroll = sqlLivroAgendamentoAfterScroll
     OnCalcFields = sqlLivroAgendamentoCalcFields
     Left = 348
     Top = 326
-    object sqlLivroAgendamentoLIVRO_AGENDAMENTO_ID: TFMTBCDField
+    object sqlLivroAgendamentoLIVRO_AGENDAMENTO_ID: TBCDField
       FieldName = 'LIVRO_AGENDAMENTO_ID'
       Required = True
       Precision = 20
@@ -1443,17 +1442,17 @@
       FieldName = 'PERIODO'
       Size = 1
     end
-    object sqlLivroAgendamentoVALOR_PARCELA: TFMTBCDField
+    object sqlLivroAgendamentoVALOR_PARCELA: TBCDField
       FieldName = 'VALOR_PARCELA'
       Precision = 20
       Size = 3
     end
-    object sqlLivroAgendamentoQTD: TFMTBCDField
+    object sqlLivroAgendamentoQTD: TBCDField
       FieldName = 'QTD'
       Precision = 20
       Size = 2
     end
-    object sqlLivroAgendamentoVALOR_PROLABORE: TFMTBCDField
+    object sqlLivroAgendamentoVALOR_PROLABORE: TBCDField
       FieldName = 'VALOR_PROLABORE'
       Precision = 20
       Size = 3
@@ -1466,7 +1465,7 @@
       FieldName = 'ESPECIE'
       Size = 1
     end
-    object sqlLivroAgendamentoBALANCETE_GRUPO_ID: TFMTBCDField
+    object sqlLivroAgendamentoBALANCETE_GRUPO_ID: TBCDField
       FieldName = 'BALANCETE_GRUPO_ID'
       Precision = 20
       Size = 2
@@ -1483,22 +1482,22 @@
       FieldName = 'OPERACAO'
       Size = 1
     end
-    object sqlLivroAgendamentoCONTABIL_CONTA_ID: TFMTBCDField
+    object sqlLivroAgendamentoCONTABIL_CONTA_ID: TBCDField
       FieldName = 'CONTABIL_CONTA_ID'
       Precision = 20
       Size = 2
     end
-    object sqlLivroAgendamentoPESSOA_ID: TFMTBCDField
+    object sqlLivroAgendamentoPESSOA_ID: TBCDField
       FieldName = 'PESSOA_ID'
       Precision = 20
       Size = 2
     end
-    object sqlLivroAgendamentoCENTRO_CUSTO_ID: TFMTBCDField
+    object sqlLivroAgendamentoCENTRO_CUSTO_ID: TBCDField
       FieldName = 'CENTRO_CUSTO_ID'
       Precision = 20
       Size = 2
     end
-    object sqlLivroAgendamentoCAIXA_ID: TFMTBCDField
+    object sqlLivroAgendamentoCAIXA_ID: TBCDField
       FieldName = 'CAIXA_ID'
       Precision = 15
       Size = 2
@@ -1507,12 +1506,12 @@
       FieldName = 'QTD_RESTANTE'
       Size = 11
     end
-    object sqlLivroAgendamentoORCAMENTO_ID: TFMTBCDField
+    object sqlLivroAgendamentoORCAMENTO_ID: TBCDField
       FieldName = 'ORCAMENTO_ID'
       Precision = 20
       Size = 2
     end
-    object sqlLivroAgendamentoCONTABIL_GRUPO_ID: TFMTBCDField
+    object sqlLivroAgendamentoCONTABIL_GRUPO_ID: TBCDField
       FieldName = 'CONTABIL_GRUPO_ID'
       Precision = 20
       Size = 2
@@ -1527,7 +1526,7 @@
       FieldName = 'CALC_VALOR'
       Calculated = True
     end
-    object sqlLivroAgendamentoPARCELA_INICIAL: TFMTBCDField
+    object sqlLivroAgendamentoPARCELA_INICIAL: TBCDField
       FieldName = 'PARCELA_INICIAL'
       Precision = 20
       Size = 2
@@ -1544,12 +1543,12 @@
     object sqlLivroAgendamentoDATA_PROXIMA: TSQLTimeStampField
       FieldName = 'DATA_PROXIMA'
     end
-    object sqlLivroAgendamentoVALOR_PROXIMO: TFMTBCDField
+    object sqlLivroAgendamentoVALOR_PROXIMO: TBCDField
       FieldName = 'VALOR_PROXIMO'
       Precision = 20
       Size = 3
     end
-    object sqlLivroAgendamentoUSUARIO_ID: TFMTBCDField
+    object sqlLivroAgendamentoUSUARIO_ID: TBCDField
       FieldName = 'USUARIO_ID'
       Precision = 20
       Size = 2
@@ -1558,7 +1557,7 @@
       FieldKind = fkInternalCalc
       FieldName = 'calc_Selecionado'
     end
-    object sqlLivroAgendamentoBOLETA_ID: TFMTBCDField
+    object sqlLivroAgendamentoBOLETA_ID: TBCDField
       FieldName = 'BOLETA_ID'
       Precision = 20
       Size = 2
@@ -2052,17 +2051,16 @@
       FFFFFE7FF81FE01FFFFFFFFFFC3FF03F00000000000000000000000000000000
       000000000000}
   end
-  object sqlPlanoContas: TSimpleDataSet
+  object sqlPlanoContas: TI9Query
     Aggregates = <>
     Connection = dtmControles.DB
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT CC.CONTABIL_CONTA_ID, CC.DESCRICAO, CC.IR, CC.CNJ'#13#10'FROM J' +
       '_CONTABIL_CONTA CC LEFT OUTER JOIN J_CONTABIL_GRUPO CG ON'#13#10'  CC.' +
       'CONTABIL_GRUPO_ID = CG.CONTABIL_GRUPO_ID'#13#10'WHERE CC.SITUACAO = '#39'A' +
       #39#13#10'  AND ((CC.CONTABIL_GRUPO_ID = :CONTABIL_GRUPO_ID)'#13#10'    OR (C' +
-      'C.TIPO_GLOBAL = '#39'S'#39')) '#13#10'ORDER BY CC.DESCRICAO'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <
+      'C.TIPO_GLOBAL = '#39'S'#39')) '#13#10'ORDER BY CC.DESCRICAO')
+    ParamData = <
       item
         DataType = ftUnknown
         Name = 'CONTABIL_GRUPO_ID'
@@ -2071,7 +2069,7 @@
     Params = <>
     Left = 702
     Top = 294
-    object sqlPlanoContasCONTABIL_CONTA_ID: TFMTBCDField
+    object sqlPlanoContasCONTABIL_CONTA_ID: TBCDField
       FieldName = 'CONTABIL_CONTA_ID'
       Precision = 20
       Size = 2

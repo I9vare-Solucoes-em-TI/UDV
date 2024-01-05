@@ -2653,18 +2653,16 @@ object frmControleRegistroDiario: TfrmControleRegistroDiario
       end
     end
   end
-  object sqlPesquisa: TSimpleDataSet
+  object sqlPesquisa: TI9Query
     Aggregates = <>
-    DataSet.CommandText = 'SELECT *'#13#10'FROM C_REGISTRO_DIARIO'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <>
-    PacketRecords = 7
+    SQL.Strings = ('SELECT *'#13#10'FROM C_REGISTRO_DIARIO')
+    ParamData = <>
     Params = <>
     AfterScroll = sqlPesquisaAfterScroll
     OnCalcFields = sqlPesquisaCalcFields
     Left = 61
     Top = 324
-    object sqlPesquisaREGISTRO_DIARIO_ID: TFMTBCDField
+    object sqlPesquisaREGISTRO_DIARIO_ID: TBCDField
       FieldName = 'REGISTRO_DIARIO_ID'
       Precision = 20
       Size = 2
@@ -2677,7 +2675,7 @@ object frmControleRegistroDiario: TfrmControleRegistroDiario
       FieldName = 'APRESENTANTE'
       Size = 120
     end
-    object sqlPesquisaVALOR: TFMTBCDField
+    object sqlPesquisaVALOR: TBCDField
       FieldName = 'VALOR'
       Precision = 20
       Size = 2
@@ -2686,12 +2684,12 @@ object frmControleRegistroDiario: TfrmControleRegistroDiario
       FieldName = 'OPERACAO'
       Size = 1
     end
-    object sqlPesquisaUSUARIO_ID: TFMTBCDField
+    object sqlPesquisaUSUARIO_ID: TBCDField
       FieldName = 'USUARIO_ID'
       Precision = 20
       Size = 2
     end
-    object sqlPesquisaPROTOCOLO: TFMTBCDField
+    object sqlPesquisaPROTOCOLO: TBCDField
       FieldName = 'PROTOCOLO'
       Precision = 20
       Size = 2
@@ -2699,17 +2697,17 @@ object frmControleRegistroDiario: TfrmControleRegistroDiario
     object sqlPesquisaDATA: TSQLTimeStampField
       FieldName = 'DATA'
     end
-    object sqlPesquisaCONTROLE_ID: TFMTBCDField
+    object sqlPesquisaCONTROLE_ID: TBCDField
       FieldName = 'CONTROLE_ID'
       Precision = 20
       Size = 2
     end
-    object sqlPesquisaQTD: TFMTBCDField
+    object sqlPesquisaQTD: TBCDField
       FieldName = 'QTD'
       Precision = 20
       Size = 2
     end
-    object sqlPesquisaESCREVENTE: TFMTBCDField
+    object sqlPesquisaESCREVENTE: TBCDField
       FieldName = 'ESCREVENTE'
       Precision = 20
       Size = 2
@@ -2718,7 +2716,7 @@ object frmControleRegistroDiario: TfrmControleRegistroDiario
       FieldName = 'SERVENTIA'
       Size = 1
     end
-    object sqlPesquisaCAIXA_SERVICO_ID: TFMTBCDField
+    object sqlPesquisaCAIXA_SERVICO_ID: TBCDField
       FieldName = 'CAIXA_SERVICO_ID'
       Precision = 20
       Size = 2
@@ -2821,22 +2819,21 @@ object frmControleRegistroDiario: TfrmControleRegistroDiario
       FieldName = 'ORDEM'
     end
   end
-  object sqlTipoServico: TSimpleDataSet
+  object sqlTipoServico: TI9Query
     Aggregates = <>
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT DESCRICAO, CAIXA_SERVICO_ID'#13#10'FROM C_CAIXA_SERVICO'#13#10'WHERE ' +
-      'SISTEMA_ID = :SERVENTIA'#13#10'ORDER BY DESCRICAO'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <
+      'SISTEMA_ID = :SERVENTIA'#13#10'ORDER BY DESCRICAO')
+    ParamData = <
       item
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Name = 'SERVENTIA'
         ParamType = ptInput
       end>
     Params = <>
     Left = 167
     Top = 313
-    object sqlTipoServicoCAIXA_SERVICO_ID: TFMTBCDField
+    object sqlTipoServicoCAIXA_SERVICO_ID: TBCDField
       FieldName = 'CAIXA_SERVICO_ID'
       Precision = 20
       Size = 2

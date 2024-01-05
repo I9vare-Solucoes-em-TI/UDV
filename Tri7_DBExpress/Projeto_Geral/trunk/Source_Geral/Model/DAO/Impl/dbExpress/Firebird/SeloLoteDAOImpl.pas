@@ -3,6 +3,7 @@ unit SeloLoteDAOImpl;
 interface
 
 uses
+  I9Connection,
   SeloLoteDAO,
   Data.SqlExpr,
   Data.DB,
@@ -12,10 +13,10 @@ uses
 type
   TSeloLoteDAO = class(TInterfacedObject, ISeloLoteDAO)
   private
-    FSQLConnection: TSQLConnection;
+    FConnection: TI9Connection;
   public
     constructor Create(
-      const vpSQLConnection: TSQLConnection); reintroduce;
+      const vpConnection: TI9Connection); reintroduce;
 
     function Get(
       const vpValue: TDataSet): ISeloLote;
@@ -53,10 +54,10 @@ uses
 { TSeloLoteDAO }
 
 constructor TSeloLoteDAO.Create(
-  const vpSQLConnection: TSQLConnection);
+  const vpConnection: TI9Connection);
 begin
   inherited Create;
-  FSQLConnection := vpSQLConnection;
+  FConnection := vpConnection;
 end;
 
 function TSeloLoteDAO.Get(
@@ -106,7 +107,7 @@ begin
     if Assigned(viField) and
       viField.IsNull.&Not then
     begin
-      viSeloGrupoDAO := TSeloGrupoDAO.Create(FSQLConnection);
+      viSeloGrupoDAO := TSeloGrupoDAO.Create(FConnection);
       try
         SeloGrupo := viSeloGrupoDAO.Get(vpValue);
       finally

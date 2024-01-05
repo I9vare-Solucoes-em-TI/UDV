@@ -3,6 +3,7 @@ unit Anotacoes;
 interface
 
 uses
+  I9Query,
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, DB, cxGridLevel, cxGridDBTableView, cxGrid, cxButtons, ExtCtrls,
   DBClient, SimpleDS, Menus, cxControls, cxGridCustomTableView, cxGridTableView,
@@ -23,10 +24,10 @@ type
     cxGridLevel1: TcxGridLevel;
     Panel1: TPanel;
     btnFechar: TcxButton;
-    sqlAnotacao: TSimpleDataSet;
+    sqlAnotacao: TI9Query;
     dtsAnotacao: TDataSource;
-    sqlAnotacaoANOTACAO_ID: TFMTBCDField;
-    sqlAnotacaoUSUARIO_ID: TFMTBCDField;
+    sqlAnotacaoANOTACAO_ID: TBCDField;
+    sqlAnotacaoUSUARIO_ID: TBCDField;
     sqlAnotacaoMENSAGEM: TBlobField;
     sqlAnotacaoDATA: TSQLTimeStampField;
     sqlAnotacaoTITULO: TStringField;
@@ -55,7 +56,7 @@ uses Anotacao, Controles;
 procedure TfrmAnotacoes.btnAnotacaoAlterarClick(Sender: TObject);
 begin
   frmAnotacao := TfrmAnotacao.Create(nil);
-  frmAnotacao.sqlAnotacao.DataSet.Params[0].AsInteger := sqlAnotacaoANOTACAO_ID.AsInteger;
+  frmAnotacao.sqlAnotacao.Params[0].AsInteger := sqlAnotacaoANOTACAO_ID.AsInteger;
   frmAnotacao.sqlAnotacao.Active := True;
   frmAnotacao.sqlAnotacao.Edit;
   frmAnotacao.ShowModal;
@@ -75,7 +76,7 @@ procedure TfrmAnotacoes.btnAnotacaoNovaClick(Sender: TObject);
 begin
   frmAnotacao := TfrmAnotacao.Create(nil);
   frmAnotacao.sqlAnotacao.Active := False;
-  frmAnotacao.sqlAnotacao.DataSet.Params[0].AsInteger := 0;
+  frmAnotacao.sqlAnotacao.Params[0].AsInteger := 0;
   frmAnotacao.sqlAnotacao.Active := True;
   frmAnotacao.sqlAnotacao.Insert;
   frmAnotacao.ShowModal;
@@ -105,7 +106,7 @@ begin
   with sqlAnotacao do
   begin
     Active := False;
-    DataSet.Params[0].AsString := vgUsuarioID;
+    Params[0].AsString := vgUsuarioID;
     Active := True;
   end;  
 end;

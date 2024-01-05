@@ -2,79 +2,79 @@ inherited frmConfig: TfrmConfig
   Left = 291
   Top = 120
   Caption = 'Configura'#231#227'o do Sistema'
-  ClientHeight = 587
-  ClientWidth = 972
+  ClientHeight = 632
+  ClientWidth = 1047
   OldCreateOrder = True
   OnCloseQuery = FormCloseQuery
-  ExplicitWidth = 988
-  ExplicitHeight = 626
+  ExplicitWidth = 1063
+  ExplicitHeight = 671
   PixelsPerInch = 96
-  TextHeight = 13
+  TextHeight = 14
   inherited PanelBotoes: TPanel
-    Width = 972
-    ExplicitWidth = 972
+    Width = 1047
+    ExplicitWidth = 1047
     inherited PanelBotoesBasicos: TPanel
-      Width = 890
-      ExplicitWidth = 890
+      Width = 959
+      ExplicitWidth = 959
       inherited PanelBasicoBotoes: TPanel
         inherited cxBtnPesquisar: TcxButton
-          Left = 261
+          Left = 281
           Visible = False
-          ExplicitLeft = 261
+          ExplicitLeft = 281
         end
         inherited cxBtnCancelar: TcxButton
-          Left = 197
-          ExplicitLeft = 197
+          Left = 212
+          ExplicitLeft = 212
         end
         inherited cxBtnGravar: TcxButton
-          Left = 133
-          ExplicitLeft = 133
+          Left = 143
+          ExplicitLeft = 143
         end
         inherited cxBtnExcluir: TcxButton
-          Left = 69
-          ExplicitLeft = 69
+          Left = 74
+          ExplicitLeft = 74
         end
         inherited cxBtnAlterar: TcxButton
           Left = 5
           ExplicitLeft = 5
         end
         inherited cxBtnIncluir: TcxButton
-          Left = 325
+          Left = 350
           Visible = False
-          ExplicitLeft = 325
+          ExplicitLeft = 350
         end
       end
     end
     inherited PanelBotaoFechar: TPanel
-      Left = 892
-      ExplicitLeft = 892
+      Left = 961
+      ExplicitLeft = 961
     end
   end
   inherited StatusBar: TStatusBar
-    Top = 567
-    Width = 972
-    ExplicitTop = 567
-    ExplicitWidth = 972
+    Top = 611
+    Width = 1047
+    ExplicitTop = 611
+    ExplicitWidth = 1047
   end
   inherited PanelGeral: TPanel
-    Top = 209
-    Width = 972
-    Height = 358
-    ExplicitTop = 209
-    ExplicitWidth = 972
-    ExplicitHeight = 358
+    Top = 225
+    Width = 1047
+    Height = 386
+    ExplicitTop = 225
+    ExplicitWidth = 1047
+    ExplicitHeight = 386
     inherited PanelData: TPanel
-      Width = 970
-      Height = 144
+      Width = 1045
+      Height = 155
       Color = clWindow
       Enabled = True
-      ExplicitWidth = 970
-      ExplicitHeight = 144
+      ExplicitWidth = 1045
+      ExplicitHeight = 155
       object cxGridGrupo: TcxGrid
         Left = 1
         Top = 1
-        Width = 359
-        Height = 142
+        Width = 387
+        Height = 153
         Align = alLeft
         TabOrder = 0
         LookAndFeel.Kind = lfUltraFlat
@@ -126,10 +126,10 @@ inherited frmConfig: TfrmConfig
         end
       end
       object pgcValores: TPageControl
-        Left = 360
+        Left = 388
         Top = 1
-        Width = 609
-        Height = 142
+        Width = 656
+        Height = 153
         ActivePage = tabValorTabela
         Align = alClient
         TabOrder = 1
@@ -137,113 +137,113 @@ inherited frmConfig: TfrmConfig
           Caption = 'Comum(Descritivo)'
           ImageIndex = 2
           object edtValorComum: TcxTextEdit
-            Left = 12
-            Top = 55
+            Left = 13
+            Top = 59
             ParentFont = False
             Style.StyleController = dtmControles.cxEsc_EditsObrigatorio
             TabOrder = 0
             Text = 'edtValorComum'
-            Width = 381
+            Width = 410
           end
           object cxLabel4: TcxLabel
-            Left = 11
-            Top = 40
+            Left = 12
+            Top = 43
             Caption = 'Valor:'
             ParentFont = False
             Style.Font.Charset = DEFAULT_CHARSET
             Style.Font.Color = clNavy
-            Style.Font.Height = -11
+            Style.Font.Height = -12
             Style.Font.Name = 'MS Sans Serif'
             Style.Font.Style = []
             Style.IsFontAssigned = True
           end
           object cxLabel9: TcxLabel
-            Left = 10
+            Left = 11
             Top = 6
             Caption = 'Descri'#231#227'o:'
             ParentFont = False
             Style.Font.Charset = DEFAULT_CHARSET
             Style.Font.Color = clNavy
-            Style.Font.Height = -11
+            Style.Font.Height = -12
             Style.Font.Name = 'MS Sans Serif'
             Style.Font.Style = []
             Style.IsFontAssigned = True
           end
           object cxDBTextEdit1: TcxDBTextEdit
-            Left = 13
-            Top = 22
+            Left = 14
+            Top = 24
             DataBinding.DataField = 'DESCRICAO'
             DataBinding.DataSource = SourceAncestral
             ParentFont = False
             Style.StyleController = dtmControles.cxEsc_EditsNormal
             TabOrder = 3
-            Width = 379
+            Width = 408
           end
         end
         object tabImpressora: TTabSheet
           Caption = 'Impressora'
           object cxLabel2: TcxLabel
-            Left = 11
-            Top = 40
+            Left = 12
+            Top = 43
             Caption = 'Impressora:'
             ParentFont = False
             Style.Font.Charset = DEFAULT_CHARSET
             Style.Font.Color = clNavy
-            Style.Font.Height = -11
+            Style.Font.Height = -12
             Style.Font.Name = 'MS Sans Serif'
             Style.Font.Style = []
             Style.IsFontAssigned = True
           end
           object cbxValorImpressora: TcxComboBox
-            Left = 11
-            Top = 55
+            Left = 12
+            Top = 59
             ParentFont = False
             Properties.DropDownListStyle = lsEditFixedList
             Style.StyleController = dtmControles.cxEsc_EditsObrigatorio
             TabOrder = 1
-            Width = 382
+            Width = 411
           end
           object cxLabel10: TcxLabel
-            Left = 10
+            Left = 11
             Top = 6
             Caption = 'Descri'#231#227'o:'
             ParentFont = False
             Style.Font.Charset = DEFAULT_CHARSET
             Style.Font.Color = clNavy
-            Style.Font.Height = -11
+            Style.Font.Height = -12
             Style.Font.Name = 'MS Sans Serif'
             Style.Font.Style = []
             Style.IsFontAssigned = True
           end
           object cxDBTextEdit2: TcxDBTextEdit
-            Left = 13
-            Top = 22
+            Left = 14
+            Top = 24
             DataBinding.DataField = 'DESCRICAO'
             DataBinding.DataSource = SourceAncestral
             ParentFont = False
             Style.StyleController = dtmControles.cxEsc_EditsNormal
             TabOrder = 3
-            Width = 379
+            Width = 408
           end
         end
         object tabValorPadrao: TTabSheet
           Caption = 'Valores Padr'#227'o'
           ImageIndex = 1
           object cxLabel1: TcxLabel
-            Left = 11
-            Top = 40
+            Left = 12
+            Top = 43
             Caption = 'Valor:'
             ParentFont = False
             Style.Font.Charset = DEFAULT_CHARSET
             Style.Font.Color = clNavy
-            Style.Font.Height = -11
+            Style.Font.Height = -12
             Style.Font.Name = 'MS Sans Serif'
             Style.Font.Style = []
             Style.IsFontAssigned = True
           end
           object lcbValoresPadrao: TcxLookupComboBox
-            Left = 12
-            Top = 55
+            Left = 13
+            Top = 59
             ParentFont = False
             Properties.DropDownListStyle = lsFixedList
             Properties.KeyFieldNames = 'VALOR'
@@ -254,100 +254,100 @@ inherited frmConfig: TfrmConfig
             Properties.ListSource = dtsValoresPadrao
             Style.StyleController = dtmControles.cxEsc_EditsObrigatorio
             TabOrder = 1
-            Width = 381
+            Width = 410
           end
           object cxLabel11: TcxLabel
-            Left = 10
+            Left = 11
             Top = 6
             Caption = 'Descri'#231#227'o:'
             ParentFont = False
             Style.Font.Charset = DEFAULT_CHARSET
             Style.Font.Color = clNavy
-            Style.Font.Height = -11
+            Style.Font.Height = -12
             Style.Font.Name = 'MS Sans Serif'
             Style.Font.Style = []
             Style.IsFontAssigned = True
           end
           object cxDBTextEdit3: TcxDBTextEdit
-            Left = 13
-            Top = 22
+            Left = 14
+            Top = 24
             DataBinding.DataField = 'DESCRICAO'
             DataBinding.DataSource = SourceAncestral
             ParentFont = False
             Style.StyleController = dtmControles.cxEsc_EditsNormal
             TabOrder = 3
-            Width = 379
+            Width = 408
           end
         end
         object tabValorTabela: TTabSheet
           Caption = 'Valor de Tabela'
           ImageIndex = 3
           object cxLabel3: TcxLabel
-            Left = 11
-            Top = 40
+            Left = 12
+            Top = 43
             Caption = 'Valor:'
             ParentFont = False
             Style.Font.Charset = DEFAULT_CHARSET
             Style.Font.Color = clNavy
-            Style.Font.Height = -11
+            Style.Font.Height = -12
             Style.Font.Name = 'MS Sans Serif'
             Style.Font.Style = []
             Style.IsFontAssigned = True
           end
           object lcbValoresTabela: TcxLookupComboBox
-            Left = 12
-            Top = 55
+            Left = 13
+            Top = 59
             ParentFont = False
             Properties.DropDownListStyle = lsFixedList
             Properties.ListColumns = <>
             Properties.ListSource = dtsValoresTabela
             Style.StyleController = dtmControles.cxEsc_EditsObrigatorio
             TabOrder = 1
-            Width = 381
+            Width = 410
           end
           object cxLabel12: TcxLabel
-            Left = 10
+            Left = 11
             Top = 6
             Caption = 'Descri'#231#227'o:'
             ParentFont = False
             Style.Font.Charset = DEFAULT_CHARSET
             Style.Font.Color = clNavy
-            Style.Font.Height = -11
+            Style.Font.Height = -12
             Style.Font.Name = 'MS Sans Serif'
             Style.Font.Style = []
             Style.IsFontAssigned = True
           end
           object cxDBTextEdit4: TcxDBTextEdit
-            Left = 13
-            Top = 22
+            Left = 14
+            Top = 24
             DataBinding.DataField = 'DESCRICAO'
             DataBinding.DataSource = SourceAncestral
             ParentFont = False
             Style.StyleController = dtmControles.cxEsc_EditsNormal
             TabOrder = 3
-            Width = 379
+            Width = 408
           end
         end
         object tabCor: TTabSheet
           Caption = 'Cor'
           ImageIndex = 4
           object cxLabel6: TcxLabel
-            Left = 11
-            Top = 40
+            Left = 12
+            Top = 43
             Caption = 'Cor:'
             ParentFont = False
             Style.Font.Charset = DEFAULT_CHARSET
             Style.Font.Color = clNavy
-            Style.Font.Height = -11
+            Style.Font.Height = -12
             Style.Font.Name = 'MS Sans Serif'
             Style.Font.Style = []
             Style.IsFontAssigned = True
           end
           object cxButton1: TcxButton
-            Left = 263
-            Top = 53
-            Width = 130
-            Height = 25
+            Left = 283
+            Top = 57
+            Width = 140
+            Height = 27
             Hint = 'Personalizar Cor'
             Colors.Default = clBlue
             Colors.Normal = 15513994
@@ -673,91 +673,91 @@ inherited frmConfig: TfrmConfig
             OnClick = cxButton1Click
           end
           object cbxValorCor: TcxColorComboBox
-            Left = 12
-            Top = 55
+            Left = 13
+            Top = 59
             Properties.CustomColors = <>
             TabOrder = 2
-            Width = 247
+            Width = 266
           end
           object cxLabel13: TcxLabel
-            Left = 10
+            Left = 11
             Top = 6
             Caption = 'Descri'#231#227'o:'
             ParentFont = False
             Style.Font.Charset = DEFAULT_CHARSET
             Style.Font.Color = clNavy
-            Style.Font.Height = -11
+            Style.Font.Height = -12
             Style.Font.Name = 'MS Sans Serif'
             Style.Font.Style = []
             Style.IsFontAssigned = True
           end
           object cxDBTextEdit5: TcxDBTextEdit
-            Left = 13
-            Top = 22
+            Left = 14
+            Top = 24
             DataBinding.DataField = 'DESCRICAO'
             DataBinding.DataSource = SourceAncestral
             ParentFont = False
             Style.StyleController = dtmControles.cxEsc_EditsNormal
             TabOrder = 4
-            Width = 379
+            Width = 408
           end
         end
         object tabFonte: TTabSheet
           Caption = 'Fonte'
           ImageIndex = 5
           object cxLabel5: TcxLabel
-            Left = 11
-            Top = 40
+            Left = 12
+            Top = 43
             Caption = 'Fonte:'
             ParentFont = False
             Style.Font.Charset = DEFAULT_CHARSET
             Style.Font.Color = clNavy
-            Style.Font.Height = -11
+            Style.Font.Height = -12
             Style.Font.Name = 'MS Sans Serif'
             Style.Font.Style = []
             Style.IsFontAssigned = True
           end
           object cbxValorFonte: TcxFontNameComboBox
-            Left = 12
-            Top = 55
+            Left = 13
+            Top = 59
             ParentFont = False
             Properties.FontPreview.ShowButtons = False
             Properties.FontTypes = [cxftTTF, cxftRaster, cxftDevice, cxftFixed]
             Properties.ShowFontTypeIcon = []
             Style.StyleController = dtmControles.cxEsc_EditsObrigatorio
             TabOrder = 1
-            Width = 381
+            Width = 410
           end
           object cxLabel14: TcxLabel
-            Left = 10
+            Left = 11
             Top = 6
             Caption = 'Descri'#231#227'o:'
             ParentFont = False
             Style.Font.Charset = DEFAULT_CHARSET
             Style.Font.Color = clNavy
-            Style.Font.Height = -11
+            Style.Font.Height = -12
             Style.Font.Name = 'MS Sans Serif'
             Style.Font.Style = []
             Style.IsFontAssigned = True
           end
           object cxDBTextEdit6: TcxDBTextEdit
-            Left = 13
-            Top = 22
+            Left = 14
+            Top = 24
             DataBinding.DataField = 'DESCRICAO'
             DataBinding.DataSource = SourceAncestral
             ParentFont = False
             Style.StyleController = dtmControles.cxEsc_EditsNormal
             TabOrder = 3
-            Width = 379
+            Width = 408
           end
         end
       end
     end
     object cxSplitter1: TcxSplitter
       Left = 1
-      Top = 145
-      Width = 970
-      Height = 7
+      Top = 156
+      Width = 1045
+      Height = 8
       HotZoneClassName = 'TcxMediaPlayer9Style'
       HotZone.SizePercent = 43
       HotZone.BorderColor = 14807280
@@ -765,36 +765,44 @@ inherited frmConfig: TfrmConfig
       Control = PanelData
       Color = 13034466
       ParentColor = False
+      ExplicitWidth = 8
     end
     object PanelGrids: TPanel
       Left = 1
-      Top = 152
-      Width = 970
-      Height = 205
+      Top = 164
+      Width = 1045
+      Height = 221
       Align = alClient
       BevelOuter = bvNone
       Color = 13034466
       ParentBackground = False
       TabOrder = 2
+      ExplicitTop = 165
+      ExplicitHeight = 220
       object pgcPesquisa: TPageControl
         Left = 0
         Top = 0
-        Width = 970
-        Height = 205
+        Width = 1045
+        Height = 221
         ActivePage = tabDados
         Align = alClient
         TabOrder = 0
+        ExplicitHeight = 220
         object tabDados: TTabSheet
           Caption = 'Parametros'
+          ExplicitLeft = 0
+          ExplicitTop = 0
+          ExplicitWidth = 0
+          ExplicitHeight = 0
           object cxGridBasica: TcxGrid
             Left = 0
             Top = 0
-            Width = 962
-            Height = 177
+            Width = 1037
+            Height = 191
             Align = alClient
             Font.Charset = DEFAULT_CHARSET
             Font.Color = clWindowText
-            Font.Height = -11
+            Font.Height = -12
             Font.Name = 'MS Sans Serif'
             Font.Style = []
             ParentFont = False
@@ -883,100 +891,182 @@ inherited frmConfig: TfrmConfig
           inline fmeEditor: TfmeEditor
             Left = 0
             Top = 0
-            Width = 962
-            Height = 177
+            Width = 1037
+            Height = 192
             Align = alClient
             TabOrder = 0
-            ExplicitWidth = 962
-            ExplicitHeight = 177
+            ExplicitWidth = 1037
+            ExplicitHeight = 192
             inherited wptFerramentas: TWPToolbar
-              Width = 962
+              Top = 31
+              Width = 1037
               Hint = 'Bot'#227'o direiro do Mouse + op'#231#245'es'
               ParentShowHint = False
               ShowHint = True
               PopupMenu = TextFields
               sel_EditIcons = [SelCopy, SelCut, SelPaste, SelSelAll, SelHideSel, SelFind, SelReplace, SelSpellCheck]
               FontSizeFrom = 3
-              ExplicitWidth = 962
+              ExplicitTop = 31
+              ExplicitWidth = 1037
               inherited btnGravacaoAutomatica: TSpeedButton
-                Left = 221
-                ExplicitLeft = 221
+                Left = 177
+                Width = 22
+                Height = 22
+                ExplicitLeft = 177
+                ExplicitWidth = 22
+                ExplicitHeight = 22
               end
               inherited WPToolPanel1: TWPToolPanel
-                Left = 242
-                ExplicitLeft = 242
+                Left = 199
+                Width = 97
+                Height = 22
+                ExplicitLeft = 199
+                ExplicitWidth = 97
+                ExplicitHeight = 22
                 inherited btnSaveImagem: TWPToolButton
+                  Left = 25
+                  Width = 22
+                  Height = 22
                   OnClick = fmeEditorbtnSaveImagemClick
+                  ExplicitLeft = 25
+                  ExplicitWidth = 22
+                  ExplicitHeight = 22
                 end
                 inherited btnInserirImagem: TWPToolButton
+                  Width = 23
+                  Height = 22
                   OnClick = fmeEditorbtnInserirImagemClick
+                  ExplicitWidth = 23
+                  ExplicitHeight = 22
+                end
+                inherited btnConfigPagina: TWPToolButton
+                  Left = 50
+                  Width = 22
+                  Height = 22
+                  ExplicitLeft = 50
+                  ExplicitWidth = 22
+                  ExplicitHeight = 22
                 end
                 inherited btnSalvarConfiguracao: TWPToolButton
+                  Left = 74
+                  Width = 23
+                  Height = 22
                   OnClick = fmeEditorbtnSalvarConfiguracaoClick
+                  ExplicitLeft = 74
+                  ExplicitWidth = 23
+                  ExplicitHeight = 22
                 end
               end
               inherited cxLabel7: TcxLabel
-                Left = 332
+                Left = 296
                 Top = 29
                 Visible = True
-                ExplicitLeft = 332
+                ExplicitLeft = 296
                 ExplicitTop = 29
               end
               inherited speNumColunas: TcxSpinEdit
-                Left = 369
+                Left = 333
                 Top = 29
                 Visible = True
-                ExplicitLeft = 369
+                ExplicitLeft = 333
                 ExplicitTop = 29
-                ExplicitWidth = 42
-                ExplicitHeight = 19
-                Width = 42
+                ExplicitWidth = 45
+                Width = 45
               end
             end
             inherited WPReguaHorizontal: TWPRuler
-              Width = 962
-              ExplicitWidth = 962
+              Top = 85
+              Width = 1037
+              ExplicitTop = 86
+              ExplicitWidth = 1037
             end
             inherited PanelMarcacao: TPanel
-              Width = 962
+              Width = 1037
+              Height = 31
               Visible = True
-              ExplicitWidth = 962
+              ExplicitWidth = 1037
+              ExplicitHeight = 31
+              inherited chkShowMarcacaoInterna: TCheckBox
+                Left = 443
+                Top = 8
+                Width = 122
+                Height = 18
+                ExplicitLeft = 443
+                ExplicitTop = 8
+                ExplicitWidth = 122
+                ExplicitHeight = 18
+              end
               inherited lblInfoMarcacaoInterna: TcxLabel
-                AnchorX = 657
-                AnchorY = 14
+                Left = 571
+                ExplicitLeft = 571
+                ExplicitWidth = 272
+                ExplicitHeight = 26
+                Height = 26
+                Width = 272
+                AnchorX = 707
+                AnchorY = 15
               end
               inherited btnDicionarioGramatical: TcxButton
+                Width = 140
+                Height = 24
                 LookAndFeel.SkinName = ''
+                Font.Height = -12
+                ExplicitWidth = 140
+                ExplicitHeight = 24
               end
               inherited btnMarcacaoAutomatica: TcxButton
+                Left = 151
+                Width = 140
+                Height = 24
                 LookAndFeel.SkinName = ''
+                Font.Height = -12
+                ExplicitLeft = 151
+                ExplicitWidth = 140
+                ExplicitHeight = 24
               end
               inherited btnMarcacaoManual: TcxButton
+                Left = 295
+                Width = 140
+                Height = 24
                 LookAndFeel.SkinName = ''
+                Font.Height = -12
+                ExplicitLeft = 295
+                ExplicitWidth = 140
+                ExplicitHeight = 24
               end
               inherited btnVerificarMarcacao: TcxButton
+                Left = 844
+                Width = 29
+                Height = 24
                 LookAndFeel.SkinName = ''
+                Font.Height = -12
+                ExplicitLeft = 844
+                ExplicitWidth = 29
+                ExplicitHeight = 24
               end
             end
             inherited wptTexto: TWPRichText
-              Width = 936
-              Height = 49
+              Top = 111
+              Width = 1011
+              Height = 62
               EditOptionsEx = [wpAllowDrawDropBetweenTextBlocks]
               OnKeyPress = fmeEditorwptTextoKeyPress
-              ExplicitLeft = 24
-              ExplicitTop = 104
-              ExplicitWidth = 939
-              ExplicitHeight = 56
+              ExplicitLeft = 28
+              ExplicitTop = 117
+              ExplicitWidth = 1008
+              ExplicitHeight = 52
             end
             inherited WPVertRuler1: TWPVertRuler
-              Height = 49
-              ExplicitHeight = 49
+              Top = 111
+              Height = 62
+              ExplicitTop = 112
+              ExplicitHeight = 60
             end
             inherited StatusBar: TStatusBar
-              Top = 158
-              Width = 962
-              ExplicitTop = 160
-              ExplicitWidth = 1037
+              Top = 173
+              Width = 1037
+              ExplicitTop = 169
+              ExplicitWidth = 962
             end
           end
         end
@@ -985,9 +1075,9 @@ inherited frmConfig: TfrmConfig
   end
   object pnlDuplicar: TPanel [3]
     Left = 0
-    Top = 56
-    Width = 972
-    Height = 110
+    Top = 60
+    Width = 1047
+    Height = 119
     Align = alTop
     BevelInner = bvLowered
     BevelWidth = 2
@@ -998,27 +1088,27 @@ inherited frmConfig: TfrmConfig
     Visible = False
     object Shape1: TShape
       Left = 4
-      Top = 36
-      Width = 960
-      Height = 66
+      Top = 39
+      Width = 1035
+      Height = 72
       Align = alClient
       Brush.Color = clWindow
       Pen.Color = 4210688
       Pen.Width = 2
-      ExplicitWidth = 961
-      ExplicitHeight = 67
+      ExplicitWidth = 1034
+      ExplicitHeight = 71
     end
     object rdbSelecionado: TRadioButton
-      Left = 22
-      Top = 45
-      Width = 113
-      Height = 17
+      Left = 24
+      Top = 48
+      Width = 121
+      Height = 19
       Caption = 'Valor Selecionado'
       Checked = True
       Color = clCream
       Font.Charset = DEFAULT_CHARSET
       Font.Color = 4210688
-      Font.Height = -11
+      Font.Height = -12
       Font.Name = 'MS Sans Serif'
       Font.Style = []
       ParentColor = False
@@ -1027,23 +1117,23 @@ inherited frmConfig: TfrmConfig
       TabStop = True
     end
     object cxLabel7: TcxLabel
-      Left = 22
-      Top = 73
+      Left = 24
+      Top = 79
       Caption = 'Duplicar para o Terminal:'
       ParentFont = False
       Style.StyleController = dtmControles.cxStyleLabel
       Transparent = True
     end
     object rdbTodaSecao: TRadioButton
-      Left = 142
-      Top = 45
-      Width = 91
-      Height = 17
+      Left = 153
+      Top = 48
+      Width = 98
+      Height = 19
       Caption = 'Toda Se'#231#227'o'
       Color = clCream
       Font.Charset = DEFAULT_CHARSET
       Font.Color = 4210688
-      Font.Height = -11
+      Font.Height = -12
       Font.Name = 'MS Sans Serif'
       Font.Style = []
       ParentColor = False
@@ -1053,8 +1143,8 @@ inherited frmConfig: TfrmConfig
     object Panel2: TPanel
       Left = 4
       Top = 4
-      Width = 960
-      Height = 32
+      Width = 1035
+      Height = 35
       Align = alTop
       BevelInner = bvLowered
       Color = 16247513
@@ -1071,7 +1161,7 @@ inherited frmConfig: TfrmConfig
         Style.Color = 13034466
         Style.Font.Charset = DEFAULT_CHARSET
         Style.Font.Color = clBlue
-        Style.Font.Height = -16
+        Style.Font.Height = -17
         Style.Font.Name = 'Times New Roman'
         Style.Font.Style = []
         Style.Shadow = True
@@ -1080,23 +1170,23 @@ inherited frmConfig: TfrmConfig
         Style.IsFontAssigned = True
         Properties.Alignment.Horz = taCenter
         Properties.Alignment.Vert = taVCenter
-        AnchorX = 480
-        AnchorY = 16
+        AnchorX = 518
+        AnchorY = 18
       end
     end
     object cbxTerminais: TcxComboBox
-      Left = 144
-      Top = 71
+      Left = 155
+      Top = 76
       ParentFont = False
       Style.StyleController = dtmControles.cxEsc_EditsNormal
       TabOrder = 4
-      Width = 227
+      Width = 245
     end
     object btnCancelar: TcxButton
-      Left = 670
-      Top = 43
-      Width = 95
-      Height = 22
+      Left = 722
+      Top = 46
+      Width = 102
+      Height = 24
       Caption = 'Cancelar'
       Colors.Default = clWhite
       LookAndFeel.Kind = lfUltraFlat
@@ -1153,17 +1243,17 @@ inherited frmConfig: TfrmConfig
       TabOrder = 5
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
-      Font.Height = -11
+      Font.Height = -12
       Font.Name = 'Tahoma'
       Font.Style = []
       ParentFont = False
       OnClick = btnCancelarClick
     end
     object btnDuplicar: TcxButton
-      Left = 571
-      Top = 43
-      Width = 95
-      Height = 22
+      Left = 615
+      Top = 46
+      Width = 102
+      Height = 24
       Caption = 'Duplicar'
       Colors.Default = clWhite
       LookAndFeel.Kind = lfUltraFlat
@@ -1220,17 +1310,17 @@ inherited frmConfig: TfrmConfig
       TabOrder = 6
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
-      Font.Height = -11
+      Font.Height = -12
       Font.Name = 'Tahoma'
       Font.Style = []
       ParentFont = False
       OnClick = btnDuplicarClick
     end
     object btnTerminal: TcxButton
-      Left = 276
-      Top = 43
-      Width = 95
-      Height = 22
+      Left = 297
+      Top = 46
+      Width = 103
+      Height = 24
       Caption = 'Terminais'
       Colors.Default = clWhite
       LookAndFeel.Kind = lfUltraFlat
@@ -1280,7 +1370,7 @@ inherited frmConfig: TfrmConfig
       TabOrder = 7
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
-      Font.Height = -11
+      Font.Height = -12
       Font.Name = 'Tahoma'
       Font.Style = []
       ParentFont = False
@@ -1289,17 +1379,17 @@ inherited frmConfig: TfrmConfig
   end
   object gbxBuscarParametro: TcxGroupBox [4]
     Left = 0
-    Top = 166
+    Top = 179
     Align = alTop
     Caption = 'Buscar Parametro'
     TabOrder = 4
-    Height = 43
-    Width = 972
+    Height = 46
+    Width = 1047
     object btnBuscarParametro: TcxButton
-      Left = 385
-      Top = 15
-      Width = 95
-      Height = 22
+      Left = 415
+      Top = 16
+      Width = 102
+      Height = 24
       HelpType = htKeyword
       Caption = 'Buscar'
       Colors.Default = clWhite
@@ -1350,27 +1440,28 @@ inherited frmConfig: TfrmConfig
       TabOrder = 0
       Font.Charset = DEFAULT_CHARSET
       Font.Color = clWindowText
-      Font.Height = -11
+      Font.Height = -12
       Font.Name = 'Tahoma'
       Font.Style = []
       ParentFont = False
       OnClick = btnBuscarParametroClick
     end
     object EdtBuscar: TcxTextEdit
-      Left = 14
-      Top = 16
+      Left = 15
+      Top = 17
       Properties.CharCase = ecUpperCase
       TabOrder = 1
       OnKeyDown = EdtBuscarKeyDown
-      Width = 366
+      Width = 394
     end
   end
   inherited ActionList1: TActionList
     Left = 621
     Top = 282
   end
-  inherited DataSetAncestral: TSQLDataSet
-    CommandText = 'SELECT *'#13#10'FROM G_CONFIG'#13#10'ORDER BY SECAO, TERMINAL, NOME'
+  inherited DataSetAncestral: TI9Query
+    SQL.Strings = (
+      'SELECT *'#13#10'FROM G_CONFIG'#13#10'ORDER BY SECAO, TERMINAL, NOME')
     Left = 651
     Top = 282
   end
@@ -1385,19 +1476,19 @@ inherited frmConfig: TfrmConfig
     OnCalcFields = ClientAncestralCalcFields
     Left = 715
     Top = 282
-    object ClientAncestralCONFIG_ID: TFMTBCDField
+    object ClientAncestralCONFIG_ID: TBCDField
       FieldName = 'CONFIG_ID'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
       Required = True
       Precision = 15
       Size = 2
     end
-    object ClientAncestralCONFIG_GRUPO_ID: TFMTBCDField
+    object ClientAncestralCONFIG_GRUPO_ID: TBCDField
       FieldName = 'CONFIG_GRUPO_ID'
       Precision = 15
       Size = 2
     end
-    object ClientAncestralCONFIG_PADRAO_ID: TFMTBCDField
+    object ClientAncestralCONFIG_PADRAO_ID: TBCDField
       FieldName = 'CONFIG_PADRAO_ID'
       Precision = 15
       Size = 2
@@ -1449,34 +1540,36 @@ inherited frmConfig: TfrmConfig
     Left = 747
     Top = 282
   end
-  object sqlConfigGrupo: TSimpleDataSet
-    Aggregates = <>
-    Connection = dtmControles.DB
-    DataSet.CommandText = 
-      'SELECT * '#13#10'FROM G_CONFIG_GRUPO'#13#10'WHERE SISTEMA_ID = :SISTEMA_ID'#13#10 +
-      'ORDER BY DESCRICAO'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <
-      item
-        DataType = ftFMTBcd
-        Name = 'SISTEMA_ID'
-        ParamType = ptInput
-      end>
-    Params = <>
+  object sqlConfigGrupo: TI9Query
     AfterScroll = sqlConfigGrupoAfterScroll
+    Connection = dtmControles.DB
+    FetchOptions.AssignedValues = [evMode]
+    FetchOptions.Mode = fmAll
+    SQL.Strings = (
+      
+        'SELECT * '#13#10'FROM G_CONFIG_GRUPO'#13#10'WHERE SISTEMA_ID = :SISTEMA_ID'#13#10 +
+        'ORDER BY DESCRICAO')
     Left = 714
     Top = 317
-    object sqlConfigGrupoCONFIG_GRUPO_ID: TFMTBCDField
+    ParamData = <
+      item
+        Name = 'SISTEMA_ID'
+        DataType = ftBCD
+        ParamType = ptInput
+      end>
+    object sqlConfigGrupoCONFIG_GRUPO_ID: TBCDField
       FieldName = 'CONFIG_GRUPO_ID'
+      Origin = 'CONFIG_GRUPO_ID'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
       Required = True
-      Precision = 15
-      Size = 0
+      Precision = 18
+      Size = 2
     end
     object sqlConfigGrupoDESCRICAO: TStringField
       FieldName = 'DESCRICAO'
       Size = 60
     end
-    object sqlConfigGrupoSISTEMA_ID: TFMTBCDField
+    object sqlConfigGrupoSISTEMA_ID: TBCDField
       FieldName = 'SISTEMA_ID'
       Precision = 20
       Size = 2
@@ -1487,30 +1580,30 @@ inherited frmConfig: TfrmConfig
     Left = 746
     Top = 317
   end
-  object sqlValoresPadrao: TSimpleDataSet
-    Aggregates = <>
+  object sqlValoresPadrao: TI9Query
     Connection = dtmControles.DB
-    DataSet.CommandText = 
-      'SELECT CV.*'#13#10'FROM G_CONFIG_PADRAO_VALOR CV'#13#10'WHERE CV.CONFIG_PADR' +
-      'AO_ID = :CONFIG_PADRAO_ID'#13#10'ORDER BY CV.VALOR'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <
+    FetchOptions.AssignedValues = [evMode]
+    FetchOptions.Mode = fmAll
+    SQL.Strings = (
+      
+        'SELECT CV.*'#13#10'FROM G_CONFIG_PADRAO_VALOR CV'#13#10'WHERE CV.CONFIG_PADR' +
+        'AO_ID = :CONFIG_PADRAO_ID'#13#10'ORDER BY CV.VALOR')
+    Left = 530
+    Top = 266
+    ParamData = <
       item
-        DataType = ftInteger
         Name = 'CONFIG_PADRAO_ID'
+        DataType = ftInteger
         ParamType = ptInput
         Value = '0'
       end>
-    Params = <>
-    Left = 530
-    Top = 266
-    object sqlValoresPadraoCONFIG_PADRAO_VALOR_ID: TFMTBCDField
+    object sqlValoresPadraoCONFIG_PADRAO_VALOR_ID: TBCDField
       FieldName = 'CONFIG_PADRAO_VALOR_ID'
       Required = True
       Precision = 15
       Size = 2
     end
-    object sqlValoresPadraoCONFIG_PADRAO_ID: TFMTBCDField
+    object sqlValoresPadraoCONFIG_PADRAO_ID: TBCDField
       FieldName = 'CONFIG_PADRAO_ID'
       Precision = 15
       Size = 2
@@ -1529,13 +1622,10 @@ inherited frmConfig: TfrmConfig
     Left = 562
     Top = 266
   end
-  object sqlValoresTabela: TSimpleDataSet
-    Aggregates = <>
+  object sqlValoresTabela: TI9Query
     Connection = dtmControles.DB
-    DataSet.DataSource = dtsValoresTabela
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <>
-    Params = <>
+    FetchOptions.AssignedValues = [evMode]
+    FetchOptions.Mode = fmAll
     Left = 531
     Top = 299
   end

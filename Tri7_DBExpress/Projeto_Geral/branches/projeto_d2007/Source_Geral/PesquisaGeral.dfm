@@ -426,12 +426,10 @@ object frmPesquisa: TfrmPesquisa
     Left = 277
     Top = 146
   end
-  object q_qtd: TSimpleDataSet
+  object q_qtd: TI9Query
     Aggregates = <>
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <>
+    ParamData = <>
     FilterOptions = [foCaseInsensitive]
-    PacketRecords = 50
     Params = <>
     ReadOnly = True
     Left = 584
@@ -451,11 +449,9 @@ object frmPesquisa: TfrmPesquisa
     Left = 104
     Top = 93
   end
-  object sdsPesquisa: TSimpleDataSet
+  object sdsPesquisa: TI9Query
     Aggregates = <>
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <>
-    PacketRecords = 50
+    ParamData = <>
     Params = <>
     Left = 243
     Top = 145

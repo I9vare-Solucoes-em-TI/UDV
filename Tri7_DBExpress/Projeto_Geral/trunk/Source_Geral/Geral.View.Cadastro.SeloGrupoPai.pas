@@ -3,6 +3,8 @@ unit Geral.View.Cadastro.SeloGrupoPai;
 interface
 
 uses
+  I9Query,
+  I9Connection,
   Winapi.Windows,
   Winapi.Messages,
   System.SysUtils,
@@ -70,12 +72,12 @@ uses
 
 type
   TfrmCadastroSeloGrupoPai = class(TfrmCadBasico)
-    ClientAncestralSELO_GRUPO_PAI_ID: TFMTBCDField;
-    ClientAncestralSELO_GRUPO_ID: TFMTBCDField;
+    ClientAncestralSELO_GRUPO_PAI_ID: TBCDField;
+    ClientAncestralSELO_GRUPO_ID: TBCDField;
     lblSeloGrupo: TcxLabel;
     lcbSeloGrupo: TcxDBLookupComboBox;
     dtsSeloGrupo: TDataSource;
-    qrySeloGrupo: TFDQuery;
+    qrySeloGrupo: TI9Query;
     grdSeloGrupoPaiDBTableView: TcxGridDBTableView;
     grdSeloGrupoPaiLevel: TcxGridLevel;
     grdSeloGrupoPai: TcxGrid;
@@ -90,7 +92,7 @@ type
     grdSeloGrupoFilhoDBTableView: TcxGridDBTableView;
     grdSeloGrupoFilhoLevel: TcxGridLevel;
     grdSeloGrupoFilho: TcxGrid;
-    qrySeloGrupoFilho: TFDQuery;
+    qrySeloGrupoFilho: TI9Query;
     dtsSeloGrupoFilho: TDataSource;
     qrySeloGrupoFilhoSELO_GRUPO_FILHO_ID: TBCDField;
     qrySeloGrupoFilhoSELO_GRUPO_PAI_ID: TBCDField;
@@ -154,10 +156,10 @@ const
 
 {$REGION 'Variáveis'}
 var
-  viSeloGrupo: TFDQuery;
-  viSeloGrupoAPI: IDataSetAPI<TFDQuery>;
-  viSeloGrupoFilho: TFDQuery;
-  viSeloGrupoFilhoAPI: IDataSetAPI<TFDQuery>;
+  viSeloGrupo: TI9Query;
+  viSeloGrupoAPI: IDataSetAPI<TI9Query>;
+  viSeloGrupoFilho: TI9Query;
+  viSeloGrupoFilhoAPI: IDataSetAPI<TI9Query>;
   viCursor: TCursor;
   I: Integer;
   viSeloGrupoFilhoID: Integer;
@@ -198,10 +200,10 @@ begin
     False) then
     Exit;
 
-  viSeloGrupo := TFDQuery.Create(
+  viSeloGrupo := TI9Query.Create(
     nil);
 
-  viSeloGrupoAPI := TDataSetAPI<TFDQuery>.New(
+  viSeloGrupoAPI := TDataSetAPI<TI9Query>.New(
     viSeloGrupo)
   .AutoClose
   .AutoDestroy;
@@ -269,10 +271,10 @@ begin
       viSeloGrupo.First;
       I := 0;
 
-      viSeloGrupoFilho := TFDQuery.Create(
+      viSeloGrupoFilho := TI9Query.Create(
         nil);
 
-      viSeloGrupoFilhoAPI := TDataSetAPI<TFDQuery>.New(
+      viSeloGrupoFilhoAPI := TDataSetAPI<TI9Query>.New(
         viSeloGrupoFilho)
       .AutoDestroy;
 

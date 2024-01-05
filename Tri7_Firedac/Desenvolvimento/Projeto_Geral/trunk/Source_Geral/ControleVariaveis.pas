@@ -3,6 +3,7 @@ unit ControleVariaveis;
 interface
 
 uses
+  I9Query,
   FireDAC.Stan.Param,
   I9Query, Graphics, DB, Controls, FMTBcd, SqlExpr, Registry, Variants,
   Grids, DBGrids, ComCtrls, Classes, SysUtils, SimpleDS, StdCtrls,

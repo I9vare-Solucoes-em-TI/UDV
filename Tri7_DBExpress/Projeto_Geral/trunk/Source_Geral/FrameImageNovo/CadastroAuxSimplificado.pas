@@ -3,6 +3,7 @@ unit CadastroAuxSimplificado;
 interface
 
 uses
+  I9Query,
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, dxSkinsCore, dxSkinBlack, dxSkinBlue, dxSkinCaramel, dxSkinCoffee,
   dxSkinDarkSide, dxSkinGlassOceans, dxSkiniMaginary, dxSkinLilian,
@@ -31,7 +32,7 @@ type
     Panel4: TPanel;
     imgTitulo: TImage;
     Panel1: TPanel;
-    DataSetAncestral: TSQLDataSet;
+    DataSetAncestral: TI9Query;
     ProviderAncestral: TDataSetProvider;
     ClientAncestral: TClientDataSet;
     SourceAncestral: TDataSource;
@@ -94,7 +95,7 @@ begin
     exit;
 
   ClientAncestral.Active := False;
-  DataSetAncestral.CommandText := 'SELECT * FROM ' + vgDadosCadastro.Tabela +
+  DataSetAncestral.SQL.Text := 'SELECT * FROM ' + vgDadosCadastro.Tabela +
     ' WHERE ' + vgDadosCadastro.CampoId + ' = :' + vgDadosCadastro.CampoId;
 
   if vgDadosCadastro.ChaveIdPrincipal > 0 then

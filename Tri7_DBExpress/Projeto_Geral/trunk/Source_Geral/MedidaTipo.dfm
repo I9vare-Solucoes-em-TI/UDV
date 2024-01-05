@@ -178,8 +178,8 @@ inherited frmMedidaTipo: TfrmMedidaTipo
     Left = 453
     Top = 186
   end
-  inherited DataSetAncestral: TSQLDataSet
-    CommandText = 'SELECT *'#13#10'FROM G_MEDIDA_TIPO'#13#10'ORDER BY MEDIDA_TIPO_ID'
+  inherited DataSetAncestral: TI9Query
+    SQL.Strings = ('SELECT *'#13#10'FROM G_MEDIDA_TIPO'#13#10'ORDER BY MEDIDA_TIPO_ID')
     Left = 483
     Top = 186
   end
@@ -190,7 +190,7 @@ inherited frmMedidaTipo: TfrmMedidaTipo
   inherited ClientAncestral: TClientDataSet
     Left = 547
     Top = 186
-    object ClientAncestralMEDIDA_TIPO_ID: TFMTBCDField
+    object ClientAncestralMEDIDA_TIPO_ID: TBCDField
       FieldName = 'MEDIDA_TIPO_ID'
       Required = True
       Precision = 15

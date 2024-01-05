@@ -21,10 +21,10 @@ type
     cxLabel1: TcxLabel;
     edtDescricao: TcxDBTextEdit;
     cxSplitter1: TcxSplitter;
-    ClientAncestralSISTEMA_ROTINA_ID: TFMTBCDField;
+    ClientAncestralSISTEMA_ROTINA_ID: TBCDField;
     ClientAncestralCHAVE_ROTINA: TStringField;
     ClientAncestralDESCRICAO: TStringField;
-    ClientAncestralSISTEMA_MENU_ID: TFMTBCDField;
+    ClientAncestralSISTEMA_MENU_ID: TBCDField;
     ClientAncestralATALHO_SISTEMA: TStringField;
     ClientAncestralATALHO_USUARIO: TStringField;
     cxLabel3: TcxLabel;
@@ -32,7 +32,7 @@ type
     grdGrupoRelatorioDBTableView1DESCRICAO: TcxGridDBColumn;
     grdGrupoRelatorioDBTableView1ATALHO_SISTEMA: TcxGridDBColumn;
     grdGrupoRelatorioDBTableView1ATALHO_USUARIO: TcxGridDBColumn;
-    ClientAncestralSISTEMA_ID: TFMTBCDField;
+    ClientAncestralSISTEMA_ID: TBCDField;
     procedure FormCreate(Sender: TObject);
     procedure ExecuteIncluirExecute(Sender: TObject);
     procedure ExecuteAlterarExecute(Sender: TObject);

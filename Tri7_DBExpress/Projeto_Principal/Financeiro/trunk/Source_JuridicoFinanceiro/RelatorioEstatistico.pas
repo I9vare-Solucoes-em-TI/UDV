@@ -3,6 +3,7 @@ unit RelatorioEstatistico;
 interface
 
 uses
+  I9Query,
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, cxGraphics, cxControls, cxLookAndFeels,
   cxLookAndFeelPainters, cxContainer, cxEdit, Vcl.Menus, dxBarBuiltInMenu, cxPC,
@@ -44,13 +45,13 @@ type
     cxRadioButton1: TcxRadioButton;
     cxLabel1: TcxLabel;
     cxRadioButton2: TcxRadioButton;
-    sqlDados: TSimpleDataSet;
+    sqlDados: TI9Query;
     sqlDadosTIPO: TStringField;
     sqlDadosGRUPO_CONTABIL: TStringField;
     sqlDadosGRUPO_SECUNDARIO: TStringField;
     sqlDadosCOMPROMISSO: TStringField;
     sqlDadosANO_MES_REGISTRO: TStringField;
-    sqlDadosVALOR: TFMTBCDField;
+    sqlDadosVALOR: TBCDField;
     AdvGridExcelIO1: TAdvGridExcelIO;
     Button1: TButton;
     cxDBTreeList1: TcxDBTreeList;

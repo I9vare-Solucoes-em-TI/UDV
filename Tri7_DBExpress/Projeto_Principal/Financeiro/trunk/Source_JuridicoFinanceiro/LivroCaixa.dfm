@@ -3416,10 +3416,10 @@ object frmLivroCaixa: TfrmLivroCaixa
       OnClick = mniItensVinculadoClick
     end
   end
-  object sqlLivroCaixa: TSimpleDataSet
+  object sqlLivroCaixa: TI9Query
     Aggregates = <>
     Connection = dtmControles.DB
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT LC.*,  B.VALOR AS VALOR_BOLETO, B.NOSSO_NUMERO, '#13#10'       ' +
       'LF.PROCESSO_CONTRATO_ITEM_ID, LF.LIVRO_REMUNERACAO_ID, LF.LIVRO_' +
       'AGENDAMENTO_ID,'#13#10'       LF.LIVRO_AGENDAMENTO_ID, LF.VALOR_AGENDA' +
@@ -3445,9 +3445,8 @@ object frmLivroCaixa: TfrmLivroCaixa
       'RO_CAIXA_ID'#13#10'  LEFT OUTER JOIN J_CENTRO_CUSTO CT ON'#13#10'  CT.CENTRO' +
       '_CUSTO_ID = CR.CENTRO_CUSTO_ID'#13#10'  LEFT OUTER JOIN J_BOLETO B ON'#13 +
       #10'  LF.BOLETA_ID = B.BOLETO_ID'#13#10#13#10'WHERE LC.LIVRO_CAIXA_ID = 0'#13#10'OR' +
-      'DER BY LC.LIVRO_CAIXA_ID'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <>
+      'DER BY LC.LIVRO_CAIXA_ID')
+    ParamData = <>
     Params = <>
     BeforePost = sqlLivroCaixaBeforePost
     AfterScroll = sqlLivroCaixaAfterScroll
@@ -3469,18 +3468,18 @@ object frmLivroCaixa: TfrmLivroCaixa
     object sqlLivroCaixaDATA_PAGAMENTO: TSQLTimeStampField
       FieldName = 'DATA_PAGAMENTO'
     end
-    object sqlLivroCaixaLIVRO_CAIXA_ID: TFMTBCDField
+    object sqlLivroCaixaLIVRO_CAIXA_ID: TBCDField
       FieldName = 'LIVRO_CAIXA_ID'
       Required = True
       Precision = 20
       Size = 2
     end
-    object sqlLivroCaixaCAIXA_ID: TFMTBCDField
+    object sqlLivroCaixaCAIXA_ID: TBCDField
       FieldName = 'CAIXA_ID'
       Precision = 20
       Size = 2
     end
-    object sqlLivroCaixaVALOR: TFMTBCDField
+    object sqlLivroCaixaVALOR: TBCDField
       FieldName = 'VALOR'
       Precision = 20
       Size = 3
@@ -3489,7 +3488,7 @@ object frmLivroCaixa: TfrmLivroCaixa
       FieldName = 'OPERACAO'
       Size = 1
     end
-    object sqlLivroCaixaPESSOA_ID: TFMTBCDField
+    object sqlLivroCaixaPESSOA_ID: TBCDField
       FieldName = 'PESSOA_ID'
       Precision = 20
       Size = 2
@@ -3502,12 +3501,12 @@ object frmLivroCaixa: TfrmLivroCaixa
       FieldName = 'OBSERVACAO'
       Size = 260
     end
-    object sqlLivroCaixaCONTABIL_CONTA_ID: TFMTBCDField
+    object sqlLivroCaixaCONTABIL_CONTA_ID: TBCDField
       FieldName = 'CONTABIL_CONTA_ID'
       Precision = 20
       Size = 2
     end
-    object sqlLivroCaixaCENTRO_CUSTO_ID: TFMTBCDField
+    object sqlLivroCaixaCENTRO_CUSTO_ID: TBCDField
       FieldName = 'CENTRO_CUSTO_ID'
       Precision = 20
       Size = 2
@@ -3548,17 +3547,17 @@ object frmLivroCaixa: TfrmLivroCaixa
       FieldName = 'DOCUMENTO_DESCRICAO'
       Size = 30
     end
-    object sqlLivroCaixaBALANCETE_GRUPO_ID: TFMTBCDField
+    object sqlLivroCaixaBALANCETE_GRUPO_ID: TBCDField
       FieldName = 'BALANCETE_GRUPO_ID'
       Precision = 20
       Size = 2
     end
-    object sqlLivroCaixaLIVRO_FINANCEIRO_ID: TFMTBCDField
+    object sqlLivroCaixaLIVRO_FINANCEIRO_ID: TBCDField
       FieldName = 'LIVRO_FINANCEIRO_ID'
       Precision = 20
       Size = 2
     end
-    object sqlLivroCaixaPROCESSO_ID: TFMTBCDField
+    object sqlLivroCaixaPROCESSO_ID: TBCDField
       FieldName = 'PROCESSO_ID'
       Precision = 20
       Size = 2
@@ -3574,17 +3573,17 @@ object frmLivroCaixa: TfrmLivroCaixa
     object sqlLivroCaixaDATA_VENCIMENTO: TSQLTimeStampField
       FieldName = 'DATA_VENCIMENTO'
     end
-    object sqlLivroCaixaPROCESSO_CONTRATO_ITEM_ID: TFMTBCDField
+    object sqlLivroCaixaPROCESSO_CONTRATO_ITEM_ID: TBCDField
       FieldName = 'PROCESSO_CONTRATO_ITEM_ID'
       Precision = 20
       Size = 2
     end
-    object sqlLivroCaixaLIVRO_AGENDAMENTO_ID: TFMTBCDField
+    object sqlLivroCaixaLIVRO_AGENDAMENTO_ID: TBCDField
       FieldName = 'LIVRO_AGENDAMENTO_ID'
       Precision = 20
       Size = 2
     end
-    object sqlLivroCaixaLIVRO_REMUNERACAO_ID: TFMTBCDField
+    object sqlLivroCaixaLIVRO_REMUNERACAO_ID: TBCDField
       FieldName = 'LIVRO_REMUNERACAO_ID'
       Precision = 20
       Size = 2
@@ -3606,7 +3605,7 @@ object frmLivroCaixa: TfrmLivroCaixa
       FieldName = 'calc_ValorMovimento'
       Calculated = True
     end
-    object sqlLivroCaixaCAIXA_TRANSFERENCIA_ID: TFMTBCDField
+    object sqlLivroCaixaCAIXA_TRANSFERENCIA_ID: TBCDField
       FieldName = 'CAIXA_TRANSFERENCIA_ID'
       Precision = 15
       Size = 2
@@ -3637,17 +3636,17 @@ object frmLivroCaixa: TfrmLivroCaixa
       FieldName = 'AUTOMATICO'
       Size = 1
     end
-    object sqlLivroCaixaORCAMENTO_ID: TFMTBCDField
+    object sqlLivroCaixaORCAMENTO_ID: TBCDField
       FieldName = 'ORCAMENTO_ID'
       Precision = 20
       Size = 2
     end
-    object sqlLivroCaixaINDICE_IMAGEM: TFMTBCDField
+    object sqlLivroCaixaINDICE_IMAGEM: TBCDField
       FieldName = 'INDICE_IMAGEM'
       Precision = 20
       Size = 2
     end
-    object sqlLivroCaixaIDENTIFICADOR_ID: TFMTBCDField
+    object sqlLivroCaixaIDENTIFICADOR_ID: TBCDField
       FieldName = 'IDENTIFICADOR_ID'
       Precision = 20
       Size = 2
@@ -3669,7 +3668,7 @@ object frmLivroCaixa: TfrmLivroCaixa
       FieldName = 'FAVORITO_SITUACAO'
       Size = 1
     end
-    object sqlLivroCaixaTIPO_MODALIDADE_ID: TFMTBCDField
+    object sqlLivroCaixaTIPO_MODALIDADE_ID: TBCDField
       FieldName = 'TIPO_MODALIDADE_ID'
       Precision = 20
       Size = 2
@@ -3686,7 +3685,7 @@ object frmLivroCaixa: TfrmLivroCaixa
       FieldName = 'IDENTIFICADOR_TIPO'
       Size = 3
     end
-    object sqlLivroCaixaRESPONSAVEL_ID: TFMTBCDField
+    object sqlLivroCaixaRESPONSAVEL_ID: TBCDField
       FieldName = 'RESPONSAVEL_ID'
       Precision = 20
       Size = 2
@@ -3695,7 +3694,7 @@ object frmLivroCaixa: TfrmLivroCaixa
       FieldName = 'CONFERIDO'
       Size = 1
     end
-    object sqlLivroCaixaCENTRO_RESERVA_ID: TFMTBCDField
+    object sqlLivroCaixaCENTRO_RESERVA_ID: TBCDField
       FieldName = 'CENTRO_RESERVA_ID'
       Precision = 20
       Size = 2
@@ -3704,37 +3703,37 @@ object frmLivroCaixa: TfrmLivroCaixa
       FieldName = 'FATURAMENTO'
       Size = 1
     end
-    object sqlLivroCaixaORDEM: TFMTBCDField
+    object sqlLivroCaixaORDEM: TBCDField
       FieldName = 'ORDEM'
       Precision = 20
       Size = 2
     end
-    object sqlLivroCaixaVALOR_PREVISTO: TFMTBCDField
+    object sqlLivroCaixaVALOR_PREVISTO: TBCDField
       FieldName = 'VALOR_PREVISTO'
       Precision = 20
       Size = 3
     end
-    object sqlLivroCaixaVALOR_DESCONTO: TFMTBCDField
+    object sqlLivroCaixaVALOR_DESCONTO: TBCDField
       FieldName = 'VALOR_DESCONTO'
       Precision = 20
       Size = 3
     end
-    object sqlLivroCaixaVALOR_JUROS: TFMTBCDField
+    object sqlLivroCaixaVALOR_JUROS: TBCDField
       FieldName = 'VALOR_JUROS'
       Precision = 20
       Size = 3
     end
-    object sqlLivroCaixaVALOR_MULTA: TFMTBCDField
+    object sqlLivroCaixaVALOR_MULTA: TBCDField
       FieldName = 'VALOR_MULTA'
       Precision = 20
       Size = 3
     end
-    object sqlLivroCaixaVALOR_OUTRA_DEDUCAO: TFMTBCDField
+    object sqlLivroCaixaVALOR_OUTRA_DEDUCAO: TBCDField
       FieldName = 'VALOR_OUTRA_DEDUCAO'
       Precision = 20
       Size = 3
     end
-    object sqlLivroCaixaVALOR_FATURADO: TFMTBCDField
+    object sqlLivroCaixaVALOR_FATURADO: TBCDField
       FieldName = 'VALOR_FATURADO'
       Precision = 20
       Size = 3
@@ -3764,12 +3763,12 @@ object frmLivroCaixa: TfrmLivroCaixa
       Size = 1
       Calculated = True
     end
-    object sqlLivroCaixaVALOR_REGISTRADO: TFMTBCDField
+    object sqlLivroCaixaVALOR_REGISTRADO: TBCDField
       FieldName = 'VALOR_REGISTRADO'
       Precision = 20
       Size = 5
     end
-    object sqlLivroCaixaPERCENTUAL_REGISTRADO: TFMTBCDField
+    object sqlLivroCaixaPERCENTUAL_REGISTRADO: TBCDField
       FieldName = 'PERCENTUAL_REGISTRADO'
       Precision = 20
       Size = 2
@@ -3782,22 +3781,22 @@ object frmLivroCaixa: TfrmLivroCaixa
       FieldName = 'CONTABIL_RL'
       Size = 1
     end
-    object sqlLivroCaixaVALOR_AGENDADO: TFMTBCDField
+    object sqlLivroCaixaVALOR_AGENDADO: TBCDField
       FieldName = 'VALOR_AGENDADO'
       Precision = 20
       Size = 3
     end
-    object sqlLivroCaixaVALOR_BOLETO: TFMTBCDField
+    object sqlLivroCaixaVALOR_BOLETO: TBCDField
       FieldName = 'VALOR_BOLETO'
       Precision = 20
       Size = 3
     end
-    object sqlLivroCaixaNOSSO_NUMERO: TFMTBCDField
+    object sqlLivroCaixaNOSSO_NUMERO: TBCDField
       FieldName = 'NOSSO_NUMERO'
       Precision = 20
       Size = 2
     end
-    object sqlLivroCaixaVALOR_OUTRAS_TAXAS: TFMTBCDField
+    object sqlLivroCaixaVALOR_OUTRAS_TAXAS: TBCDField
       FieldName = 'VALOR_OUTRAS_TAXAS'
       Precision = 20
       Size = 3
@@ -3825,17 +3824,16 @@ object frmLivroCaixa: TfrmLivroCaixa
     Left = 152
     Top = 390
   end
-  object sqlRecibo: TSimpleDataSet
+  object sqlRecibo: TI9Query
     Aggregates = <>
     Connection = dtmControles.DB
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT LC.DATA_PAGAMENTO, LC.VALOR, LC.HISTORICO, DOC_TIPO, LC.O' +
       'PERACAO,      '#13#10'       P.NOME, P.CPFCNPJ,'#13#10'      LC.LIVRO_CAIXA_' +
       'ID'#13#10'FROM J_LIVRO_CAIXA LC'#13#10'  LEFT OUTER JOIN J_PESSOA P ON'#13#10'  LC' +
       '.PESSOA_ID = P.PESSOA_ID'#13#10'WHERE LC.IDENTIFICADOR_ID = :IDENTIFIC' +
-      'ADOR_ID'#13#10'     AND LC.DOC_TIPO = :DOC_TIPO'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <
+      'ADOR_ID'#13#10'     AND LC.DOC_TIPO = :DOC_TIPO')
+    ParamData = <
       item
         DataType = ftBCD
         Name = 'IDENTIFICADOR_ID'
@@ -3854,7 +3852,7 @@ object frmLivroCaixa: TfrmLivroCaixa
     object sqlReciboDATA_PAGAMENTO: TSQLTimeStampField
       FieldName = 'DATA_PAGAMENTO'
     end
-    object sqlReciboVALOR: TFMTBCDField
+    object sqlReciboVALOR: TBCDField
       FieldName = 'VALOR'
       Precision = 20
       Size = 3
@@ -3871,7 +3869,7 @@ object frmLivroCaixa: TfrmLivroCaixa
       FieldName = 'CPFCNPJ'
       Size = 15
     end
-    object sqlReciboLIVRO_CAIXA_ID: TFMTBCDField
+    object sqlReciboLIVRO_CAIXA_ID: TBCDField
       FieldName = 'LIVRO_CAIXA_ID'
       Required = True
       Precision = 20

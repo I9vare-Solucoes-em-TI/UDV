@@ -3,6 +3,7 @@ unit DocumentoTipoDAOImpl;
 interface
 
 uses
+  I9Connection,
   DocumentoTipoDAO,
   FireDAC.Comp.Client,
   Data.DB,
@@ -12,10 +13,10 @@ uses
 type
   TDocumentoTipoDAO = class(TInterfacedObject, IDocumentoTipoDAO)
   private
-    FFDConnection: TFDConnection;
+    FFDConnection: TI9Connection;
   public
     constructor Create(
-      const vpFDConnection: TFDConnection); reintroduce;
+      const vpFDConnection: TI9Connection); reintroduce;
 
     function Get(
       const vpValue: TDataSet): IDocumentoTipo;
@@ -44,7 +45,7 @@ uses
 { TDocumentoTipoDAO }
 
 constructor TDocumentoTipoDAO.Create(
-  const vpFDConnection: TFDConnection);
+  const vpFDConnection: TI9Connection);
 begin
   inherited Create;
   FFDConnection := FFDConnection;

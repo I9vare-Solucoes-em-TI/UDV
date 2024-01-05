@@ -3,6 +3,7 @@ unit CadastroRapidoOrcamento;
 interface
 
 uses
+  I9Query,
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, CadastroAuxSimplificado, dxSkinsCore, dxSkinBlack, dxSkinBlue,
   dxSkinCaramel, dxSkinCoffee, dxSkinDarkSide, dxSkinGlassOceans,
@@ -30,45 +31,45 @@ uses
 type
   TfrmCadastroRapidoOrcamento = class(TfrmCadastroAuxSimplificado)
     dtsPlanoContas: TDataSource;
-    sqlPlanoContas: TSimpleDataSet;
-    sqlPlanoContasCONTABIL_CONTA_ID: TFMTBCDField;
+    sqlPlanoContas: TI9Query;
+    sqlPlanoContasCONTABIL_CONTA_ID: TBCDField;
     sqlPlanoContasDESCRICAO: TStringField;
-    ClientAncestralLIVRO_AGENDAMENTO_ID: TFMTBCDField;
+    ClientAncestralLIVRO_AGENDAMENTO_ID: TBCDField;
     ClientAncestralDATA_INICIAL: TSQLTimeStampField;
     ClientAncestralDATA_FINAL: TSQLTimeStampField;
     ClientAncestralPERIODO: TStringField;
-    ClientAncestralVALOR_PARCELA: TFMTBCDField;
-    ClientAncestralQTD: TFMTBCDField;
+    ClientAncestralVALOR_PARCELA: TBCDField;
+    ClientAncestralQTD: TBCDField;
     ClientAncestralSITUACAO: TStringField;
     ClientAncestralESPECIE: TStringField;
-    ClientAncestralBALANCETE_GRUPO_ID: TFMTBCDField;
+    ClientAncestralBALANCETE_GRUPO_ID: TBCDField;
     ClientAncestralHISTORICO: TStringField;
     ClientAncestralOBSERVACAO: TStringField;
-    ClientAncestralPROCESSO_TRAMITE_ID: TFMTBCDField;
-    ClientAncestralCONTABIL_CONTA_ID: TFMTBCDField;
-    ClientAncestralPESSOA_ID: TFMTBCDField;
+    ClientAncestralPROCESSO_TRAMITE_ID: TBCDField;
+    ClientAncestralCONTABIL_CONTA_ID: TBCDField;
+    ClientAncestralPESSOA_ID: TBCDField;
     ClientAncestralDATA_REGISTRO: TSQLTimeStampField;
-    ClientAncestralVALOR_PROLABORE: TFMTBCDField;
-    ClientAncestralCENTRO_CUSTO_ID: TFMTBCDField;
+    ClientAncestralVALOR_PROLABORE: TBCDField;
+    ClientAncestralCENTRO_CUSTO_ID: TBCDField;
     ClientAncestralTIPO: TStringField;
     ClientAncestralIR: TStringField;
     ClientAncestralCNJ: TStringField;
-    ClientAncestralCAIXA_ID: TFMTBCDField;
+    ClientAncestralCAIXA_ID: TBCDField;
     tabBalancete: TcxTabControl;
     cxLabel5: TcxLabel;
     lblCliente: TcxLabel;
     cxLabel4: TcxLabel;
     cxLabel14: TcxLabel;
-    ClientAncestralCONTABIL_GRUPO_ID: TFMTBCDField;
+    ClientAncestralCONTABIL_GRUPO_ID: TBCDField;
     sqlPlanoContasIR: TStringField;
     sqlPlanoContasCNJ: TStringField;
     ClientAncestralDOCUMENTO_NUMERO: TStringField;
     ClientAncestralREGISTRO_PARCIAL: TStringField;
     dtsGrupoContabil: TDataSource;
-    sqlGrupoContabil: TSimpleDataSet;
+    sqlGrupoContabil: TI9Query;
     sqlGrupoContabilDESCRICAO: TStringField;
-    sqlGrupoContabilCONTABIL_GRUPO_ID: TFMTBCDField;
-    sqlGrupoContabilBALANCETE_GRUPO_ID: TFMTBCDField;
+    sqlGrupoContabilCONTABIL_GRUPO_ID: TBCDField;
+    sqlGrupoContabilBALANCETE_GRUPO_ID: TBCDField;
     ClientAncestralOPERACAO: TStringField;
     cxLabel10: TcxLabel;
     cxLabel3: TcxLabel;
@@ -252,7 +253,7 @@ begin
     exit;
 
   sqlPlanoContas.Active := False;
-  sqlPlanoContas.DataSet.ParamByName('CONTABIL_GRUPO_ID').AsInteger := lcxGrupoContabil.EditValue;
+  sqlPlanoContas.ParamByName('CONTABIL_GRUPO_ID').AsInteger := lcxGrupoContabil.EditValue;
   sqlPlanoContas.Active := True;
 
   if (sqlPlanoContas.RecordCount = 1) and (ClientAncestral.State in [dsEdit, dsInsert]) then
@@ -280,8 +281,8 @@ begin
   inherited;
   sqlGrupoContabil.Active := False;
 
-  sqlGrupoContabil.DataSet.ParamByName('TIPO').AsString := '1';
-  sqlGrupoContabil.DataSet.ParamByName('BALANCETE_GRUPO_ID').AsInteger := vgTabBalancete[tabBalancete.TabIndex];
+  sqlGrupoContabil.ParamByName('TIPO').AsString := '1';
+  sqlGrupoContabil.ParamByName('BALANCETE_GRUPO_ID').AsInteger := vgTabBalancete[tabBalancete.TabIndex];
   sqlGrupoContabil.Active := True;
 
   if vlCriandoForm then

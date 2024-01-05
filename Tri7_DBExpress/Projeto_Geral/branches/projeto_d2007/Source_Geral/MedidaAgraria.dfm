@@ -201,8 +201,8 @@ inherited frmMedidaAgraria: TfrmMedidaAgraria
     Left = 445
     Top = 26
   end
-  inherited DataSetAncestral: TSQLDataSet
-    CommandText = 'SELECT *'#13#10'FROM G_MEDIDA_AGRARIA'#13#10'ORDER BY MEDIDA_AGRARIA_ID'
+  inherited DataSetAncestral: TI9Query
+    SQL.Strings = ('SELECT *'#13#10'FROM G_MEDIDA_AGRARIA'#13#10'ORDER BY MEDIDA_AGRARIA_ID')
     Left = 475
     Top = 26
   end
@@ -213,7 +213,7 @@ inherited frmMedidaAgraria: TfrmMedidaAgraria
   inherited ClientAncestral: TClientDataSet
     Left = 539
     Top = 26
-    object ClientAncestralMEDIDA_AGRARIA_ID: TFMTBCDField
+    object ClientAncestralMEDIDA_AGRARIA_ID: TBCDField
       FieldName = 'MEDIDA_AGRARIA_ID'
       Required = True
       Precision = 15
@@ -237,45 +237,43 @@ inherited frmMedidaAgraria: TfrmMedidaAgraria
     Left = 608
     Top = 27
   end
-  object sqlMedidaItem: TSimpleDataSet
+  object sqlMedidaItem: TI9Query
     Aggregates = <>
     Connection = dtmControles.DB
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT * '#13#10'FROM G_MEDIDA_ITEM'#13#10'WHERE MEDIDA_AGRARIA_ID = :MEDIDA' +
-      '_AGRARIA_ID'#13#10'ORDER BY MEDIDA_ITEM_ID'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <
+      '_AGRARIA_ID'#13#10'ORDER BY MEDIDA_ITEM_ID')
+    ParamData = <
       item
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Name = 'MEDIDA_AGRARIA_ID'
         ParamType = ptInput
       end>
     IndexFieldNames = 'MEDIDA_AGRARIA_ID'
     MasterFields = 'MEDIDA_AGRARIA_ID'
     MasterSource = SourceAncestral
-    PacketRecords = 0
     Params = <>
     AfterPost = sqlMedidaItemAfterPost
     OnNewRecord = sqlMedidaItemNewRecord
     Left = 640
     Top = 27
-    object sqlMedidaItemMEDIDA_ITEM_ID: TFMTBCDField
+    object sqlMedidaItemMEDIDA_ITEM_ID: TBCDField
       FieldName = 'MEDIDA_ITEM_ID'
       Required = True
       Precision = 15
       Size = 2
     end
-    object sqlMedidaItemVALOR: TFMTBCDField
+    object sqlMedidaItemVALOR: TBCDField
       FieldName = 'VALOR'
       Precision = 15
       Size = 2
     end
-    object sqlMedidaItemMEDIDA_AGRARIA_ID: TFMTBCDField
+    object sqlMedidaItemMEDIDA_AGRARIA_ID: TBCDField
       FieldName = 'MEDIDA_AGRARIA_ID'
       Precision = 15
       Size = 2
     end
-    object sqlMedidaItemMEDIDA_TIPO_ID: TFMTBCDField
+    object sqlMedidaItemMEDIDA_TIPO_ID: TBCDField
       FieldName = 'MEDIDA_TIPO_ID'
       Precision = 15
       Size = 2

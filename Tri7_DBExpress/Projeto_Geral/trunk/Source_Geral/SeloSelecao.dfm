@@ -193,18 +193,17 @@ object frmSeloSelecao: TfrmSeloSelecao
     Left = 20
     Top = 143
   end
-  object sqlSeloItens: TSimpleDataSet
+  object sqlSeloItens: TI9Query
     Aggregates = <>
     Connection = dtmControles.DB
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT SL.SELO_LIVRO_ID, '#13#10'             (SL.SIGLA || '#39'-'#39' || CAST' +
       '(SL.NUMERO AS INTEGER)) AS NUMERO'#13#10'FROM G_SELO_LIVRO SL LEFT OUT' +
       'ER JOIN G_SELO_LOTE ST ON'#13#10'  SL.SELO_LOTE_ID = ST.SELO_LOTE_ID'#13#10 +
       '  LEFT OUTER JOIN G_SELO_GRUPO SG ON'#13#10'  ST.SELO_GRUPO_ID = SG.SE' +
       'LO_GRUPO_ID'#13#10'WHERE ST.SITUACAO = '#39'I'#39#13#10'  AND SL.SELO_SITUACAO_ID ' +
-      '= 1'#13#10'  AND SG.SELO_GRUPO_ID = :SELO_GRUPO_ID'#13#10'ORDER BY SL.NUMERO'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <
+      '= 1'#13#10'  AND SG.SELO_GRUPO_ID = :SELO_GRUPO_ID'#13#10'ORDER BY SL.NUMERO')
+    ParamData = <
       item
         DataType = ftBCD
         Name = 'SELO_GRUPO_ID'
@@ -213,7 +212,7 @@ object frmSeloSelecao: TfrmSeloSelecao
     Params = <>
     Left = 20
     Top = 112
-    object sqlSeloItensSELO_LIVRO_ID: TFMTBCDField
+    object sqlSeloItensSELO_LIVRO_ID: TBCDField
       FieldName = 'SELO_LIVRO_ID'
       Precision = 20
       Size = 2

@@ -244,7 +244,6 @@ inherited frmMedidaAgraria: TfrmMedidaAgraria
     MasterFields = 'MEDIDA_AGRARIA_ID'
     Connection = dtmControles.DB
     SQL.Strings = (
-      
         'SELECT * '#13#10'FROM G_MEDIDA_ITEM'#13#10'WHERE MEDIDA_AGRARIA_ID = :MEDIDA' +
         '_AGRARIA_ID'#13#10'ORDER BY MEDIDA_ITEM_ID')
     Left = 640

@@ -198,7 +198,6 @@ object frmTipoVinculoGramatical: TfrmTipoVinculoGramatical
   object sqlVinculoGramatical: TI9Query
     Connection = dtmControles.DB
     SQL.Strings = (
-      
         'SELECT C.VALOR, C.DESCRICAO, C.TEXTO'#13#10'FROM G_CONFIG C'#13#10'  LEFT OU' +
         'TER JOIN G_CONFIG_GRUPO G'#13#10'  ON C.CONFIG_GRUPO_ID = G.CONFIG_GRU' +
         'PO_ID'#13#10'WHERE C.SECAO = '#39'VINCULO_GRAMATICAL'#39#13#10'  AND G.DESCRICAO =' +

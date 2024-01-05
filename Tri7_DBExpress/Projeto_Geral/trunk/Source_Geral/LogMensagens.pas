@@ -3,6 +3,7 @@ unit LogMensagens;
 interface
 
 uses
+  I9Query,
   Windows,
   Messages,
   SysUtils,
@@ -78,16 +79,16 @@ type
     btnFechar: TcxButton;
     cxSplitter5: TcxSplitter;
     edtLogChat: TMemo;
-    sqlLogChat: TSimpleDataSet;
-    sqlLogChatCHAT_ID: TFMTBCDField;
-    sqlLogChatUSUARIO_RECEBEU_ID: TFMTBCDField;
-    sqlLogChatUSUARIO_ENVIOU_ID: TFMTBCDField;
+    sqlLogChat: TI9Query;
+    sqlLogChatCHAT_ID: TBCDField;
+    sqlLogChatUSUARIO_RECEBEU_ID: TBCDField;
+    sqlLogChatUSUARIO_ENVIOU_ID: TBCDField;
     sqlLogChatMENSAGEM: TStringField;
     sqlLogChatDATA: TSQLTimeStampField;
     sqlLogChatRECEBEU: TStringField;
     sqlLogChatEXCLUIR: TStringField;
     sqlLogChatGRAVAR_PARA_CONSULTA: TStringField;
-    sqlLogChatID_CONTROLE: TFMTBCDField;
+    sqlLogChatID_CONTROLE: TBCDField;
     sqlLogChatMensagemCalc: TStringField;
     sqlLogChatUsuarioEnviouCalc: TStringField;
     sqlLogChatUsuarioRecebeuCalc: TStringField;
@@ -219,7 +220,7 @@ begin
   with sqlLogChat do
   begin
     Active := False;
-    DataSet.CommandText := vSql + vSqlComplemento + ' ORDER BY DATA DESC ';
+    SQL.Text := vSql + vSqlComplemento + ' ORDER BY DATA DESC ';
     sqlLogchat.AfterScroll := nil;
     Active := True;
     sqlLogchat.AfterScroll := sqlLogChatAfterScroll;

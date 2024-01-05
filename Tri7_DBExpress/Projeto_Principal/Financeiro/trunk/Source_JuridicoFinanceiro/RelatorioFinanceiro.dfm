@@ -1311,7 +1311,7 @@ inherited frmCadRelatorioFinanceiro: TfrmCadRelatorioFinanceiro
       OnClick = btnModeloExcluirClick
     end
   end
-  inherited DataSetAncestral: TSQLDataSet
+  inherited DataSetAncestral: TI9Query
     Left = 183
     Top = 185
   end
@@ -1327,10 +1327,10 @@ inherited frmCadRelatorioFinanceiro: TfrmCadRelatorioFinanceiro
     Left = 279
     Top = 185
   end
-  object sqlRelatorioAnalitico: TSimpleDataSet
+  object sqlRelatorioAnalitico: TI9Query
     Aggregates = <>
     Connection = dtmControles.DB
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT  C.DESCRICAO AS CAIXA,  LC.*,'#13#10'       LF.PROCESSO_CONTRAT' +
       'O_ITEM_ID, LF.LIVRO_REMUNERACAO_ID, LF.LIVRO_AGENDAMENTO_ID,'#13#10'  ' +
       '     CC.DESCRICAO AS CONTABIL_CONTA_DESCRICAO,'#13#10'       CC.GRUPO ' +
@@ -1347,9 +1347,8 @@ inherited frmCadRelatorioFinanceiro: TfrmCadRelatorioFinanceiro
       #13#10'  LEFT OUTER JOIN J_BALANCETE_GRUPO BG ON'#13#10'  LC.BALANCETE_GRUP' +
       'O_ID = BG.BALANCETE_GRUPO_ID'#13#10'  LEFT OUTER JOIN J_CAIXA C ON'#13#10'  ' +
       'LC.CAIXA_ID = C.CAIXA_ID'#13#10'ORDER BY LC.DATA_PAGAMENTO, C.DESCRICA' +
-      'O'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <>
+      'O')
+    ParamData = <>
     Params = <>
     Left = 184
     Top = 14
@@ -1360,18 +1359,18 @@ inherited frmCadRelatorioFinanceiro: TfrmCadRelatorioFinanceiro
       FieldName = 'CAIXA'
       Size = 30
     end
-    object sqlRelatorioAnaliticoLIVRO_CAIXA_ID: TFMTBCDField
+    object sqlRelatorioAnaliticoLIVRO_CAIXA_ID: TBCDField
       FieldName = 'LIVRO_CAIXA_ID'
       Required = True
       Precision = 20
       Size = 2
     end
-    object sqlRelatorioAnaliticoCAIXA_ID: TFMTBCDField
+    object sqlRelatorioAnaliticoCAIXA_ID: TBCDField
       FieldName = 'CAIXA_ID'
       Precision = 20
       Size = 2
     end
-    object sqlRelatorioAnaliticoVALOR: TFMTBCDField
+    object sqlRelatorioAnaliticoVALOR: TBCDField
       FieldName = 'VALOR'
       Precision = 20
       Size = 3
@@ -1380,7 +1379,7 @@ inherited frmCadRelatorioFinanceiro: TfrmCadRelatorioFinanceiro
       FieldName = 'OPERACAO'
       Size = 1
     end
-    object sqlRelatorioAnaliticoPESSOA_ID: TFMTBCDField
+    object sqlRelatorioAnaliticoPESSOA_ID: TBCDField
       FieldName = 'PESSOA_ID'
       Precision = 20
       Size = 2
@@ -1393,12 +1392,12 @@ inherited frmCadRelatorioFinanceiro: TfrmCadRelatorioFinanceiro
       FieldName = 'OBSERVACAO'
       Size = 260
     end
-    object sqlRelatorioAnaliticoCONTABIL_CONTA_ID: TFMTBCDField
+    object sqlRelatorioAnaliticoCONTABIL_CONTA_ID: TBCDField
       FieldName = 'CONTABIL_CONTA_ID'
       Precision = 20
       Size = 2
     end
-    object sqlRelatorioAnaliticoCENTRO_CUSTO_ID: TFMTBCDField
+    object sqlRelatorioAnaliticoCENTRO_CUSTO_ID: TBCDField
       FieldName = 'CENTRO_CUSTO_ID'
       Precision = 20
       Size = 2
@@ -1411,17 +1410,17 @@ inherited frmCadRelatorioFinanceiro: TfrmCadRelatorioFinanceiro
       FieldName = 'DOCUMENTO_DESCRICAO'
       Size = 30
     end
-    object sqlRelatorioAnaliticoBALANCETE_GRUPO_ID: TFMTBCDField
+    object sqlRelatorioAnaliticoBALANCETE_GRUPO_ID: TBCDField
       FieldName = 'BALANCETE_GRUPO_ID'
       Precision = 20
       Size = 2
     end
-    object sqlRelatorioAnaliticoLIVRO_FINANCEIRO_ID: TFMTBCDField
+    object sqlRelatorioAnaliticoLIVRO_FINANCEIRO_ID: TBCDField
       FieldName = 'LIVRO_FINANCEIRO_ID'
       Precision = 20
       Size = 2
     end
-    object sqlRelatorioAnaliticoPROCESSO_ID: TFMTBCDField
+    object sqlRelatorioAnaliticoPROCESSO_ID: TBCDField
       FieldName = 'PROCESSO_ID'
       Precision = 20
       Size = 2
@@ -1437,17 +1436,17 @@ inherited frmCadRelatorioFinanceiro: TfrmCadRelatorioFinanceiro
     object sqlRelatorioAnaliticoDATA_VENCIMENTO: TSQLTimeStampField
       FieldName = 'DATA_VENCIMENTO'
     end
-    object sqlRelatorioAnaliticoPROCESSO_CONTRATO_ITEM_ID: TFMTBCDField
+    object sqlRelatorioAnaliticoPROCESSO_CONTRATO_ITEM_ID: TBCDField
       FieldName = 'PROCESSO_CONTRATO_ITEM_ID'
       Precision = 20
       Size = 2
     end
-    object sqlRelatorioAnaliticoLIVRO_AGENDAMENTO_ID: TFMTBCDField
+    object sqlRelatorioAnaliticoLIVRO_AGENDAMENTO_ID: TBCDField
       FieldName = 'LIVRO_AGENDAMENTO_ID'
       Precision = 20
       Size = 2
     end
-    object sqlRelatorioAnaliticoLIVRO_REMUNERACAO_ID: TFMTBCDField
+    object sqlRelatorioAnaliticoLIVRO_REMUNERACAO_ID: TBCDField
       FieldName = 'LIVRO_REMUNERACAO_ID'
       Precision = 20
       Size = 2
@@ -1491,10 +1490,10 @@ inherited frmCadRelatorioFinanceiro: TfrmCadRelatorioFinanceiro
     Left = 576
     Top = 270
   end
-  object sqlRelatorioSimplificado: TSimpleDataSet
+  object sqlRelatorioSimplificado: TI9Query
     Aggregates = <>
     Connection = dtmControles.DB
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT SUM(LC.VALOR) AS VALOR,'#13#10'        COUNT(LC.LIVRO_CAIXA_ID)' +
       ' AS QTD,'#13#10'        LC.OPERACAO,'#13#10'        CC.DESCRICAO AS CONTABIL' +
       '_CONTA_DESCRICAO,'#13#10'        CC.GRUPO AS GRUPO_SECUDARIO,'#13#10'       ' +
@@ -1509,13 +1508,12 @@ inherited frmCadRelatorioFinanceiro: TfrmCadRelatorioFinanceiro
       'NOT LC.LIVRO_CAIXA_ID IS NULL'#13#10'   AND ANO_MES_REGISTRO = 201411'#13 +
       #10'GROUP BY BG.DESCRICAO, LC.BALANCETE_GRUPO_ID, LC.OPERACAO, CG.D' +
       'ESCRICAO, CC.GRUPO, CC.DESCRICAO'#13#10'ORDER BY LC.OPERACAO, CG.DESCR' +
-      'ICAO, CC.GRUPO, CC.DESCRICAO'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <>
+      'ICAO, CC.GRUPO, CC.DESCRICAO')
+    ParamData = <>
     Params = <>
     Left = 576
     Top = 214
-    object sqlRelatorioSimplificadoVALOR: TFMTBCDField
+    object sqlRelatorioSimplificadoVALOR: TBCDField
       FieldName = 'VALOR'
       Precision = 15
       Size = 3
@@ -1540,7 +1538,7 @@ inherited frmCadRelatorioFinanceiro: TfrmCadRelatorioFinanceiro
       FieldName = 'BALANCETE_GRUPO'
       Size = 60
     end
-    object sqlRelatorioSimplificadoBALANCETE_GRUPO_ID: TFMTBCDField
+    object sqlRelatorioSimplificadoBALANCETE_GRUPO_ID: TBCDField
       FieldName = 'BALANCETE_GRUPO_ID'
       Precision = 15
       Size = 2
@@ -5329,10 +5327,10 @@ inherited frmCadRelatorioFinanceiro: TfrmCadRelatorioFinanceiro
     Left = 328
     Top = 293
   end
-  object sqlRelatorioDiario: TSimpleDataSet
+  object sqlRelatorioDiario: TI9Query
     Aggregates = <>
     Connection = dtmControles.DB
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT C.DESCRICAO AS CAIXA, LC.DATA_PAGAMENTO,  LC.VALOR, LC.OP' +
       'ERACAO,'#13#10'       LC.DOCUMENTO_NUMERO, LC.HISTORICO, LC.OBSERVACAO' +
       ', LC.CAIXA_ID,'#13#10'       LC.CONTABIL_HISTORICO, LC.CONTABIL_PESSOA' +
@@ -5354,9 +5352,8 @@ inherited frmCadRelatorioFinanceiro: TfrmCadRelatorioFinanceiro
       'AMENTO  BETWEEN CAST('#39'2015/06/01'#39' AS TIMESTAMP)'#13#10'    AND CAST('#39'2' +
       '015/06/02'#39' AS TIMESTAMP) + 0.9999'#13#10'    AND NOT LC.CONTABIL_CONTA' +
       '_ID IN (134,135)'#13#10'    AND LC.OPERACAO IN ('#39'R'#39','#39'D'#39','#39'AR'#39','#39'AD'#39')'#13#10'OR' +
-      'DER BY LC.DATA_PAGAMENTO, C.DESCRICAO, LC.LIVRO_CAIXA_ID'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <>
+      'DER BY LC.DATA_PAGAMENTO, C.DESCRICAO, LC.LIVRO_CAIXA_ID')
+    ParamData = <>
     Params = <>
     Left = 429
     Top = 101
@@ -5403,7 +5400,7 @@ inherited frmCadRelatorioFinanceiro: TfrmCadRelatorioFinanceiro
       FieldName = 'OPERACAO'
       Size = 3
     end
-    object sqlRelatorioDiarioCAIXA_ID: TFMTBCDField
+    object sqlRelatorioDiarioCAIXA_ID: TBCDField
       FieldName = 'CAIXA_ID'
       Precision = 15
       Size = 2
@@ -5420,7 +5417,7 @@ inherited frmCadRelatorioFinanceiro: TfrmCadRelatorioFinanceiro
       FieldName = 'CONTABIL_RL'
       Size = 1
     end
-    object sqlRelatorioDiarioVALOR: TFMTBCDField
+    object sqlRelatorioDiarioVALOR: TBCDField
       FieldName = 'VALOR'
       Precision = 20
       Size = 3
@@ -5476,23 +5473,22 @@ inherited frmCadRelatorioFinanceiro: TfrmCadRelatorioFinanceiro
     Left = 543
     Top = 352
   end
-  object sqlGrupoContabil: TSimpleDataSet
+  object sqlGrupoContabil: TI9Query
     Aggregates = <>
     Connection = dtmControles.DB
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT DESCRICAO, CONTABIL_GRUPO_ID, BALANCETE_GRUPO_ID'#13#10'FROM J_' +
       'CONTABIL_GRUPO'#13#10'WHERE SITUACAO = '#39'A'#39' '#13#10'     AND TIPO = :TIPO'#13#10'  ' +
       '  AND BALANCETE_GRUPO_ID = :BALANCETE_GRUPO_ID'#13#10'ORDER BY DESCRIC' +
-      'AO'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <
+      'AO')
+    ParamData = <
       item
         DataType = ftString
         Name = 'TIPO'
         ParamType = ptInput
       end
       item
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Name = 'BALANCETE_GRUPO_ID'
         ParamType = ptInput
       end>
@@ -5503,28 +5499,27 @@ inherited frmCadRelatorioFinanceiro: TfrmCadRelatorioFinanceiro
       FieldName = 'DESCRICAO'
       Size = 90
     end
-    object sqlGrupoContabilCONTABIL_GRUPO_ID: TFMTBCDField
+    object sqlGrupoContabilCONTABIL_GRUPO_ID: TBCDField
       FieldName = 'CONTABIL_GRUPO_ID'
       Precision = 20
       Size = 2
     end
-    object sqlGrupoContabilBALANCETE_GRUPO_ID: TFMTBCDField
+    object sqlGrupoContabilBALANCETE_GRUPO_ID: TBCDField
       FieldName = 'BALANCETE_GRUPO_ID'
       Precision = 20
       Size = 2
     end
   end
-  object sqlPlanoContas: TSimpleDataSet
+  object sqlPlanoContas: TI9Query
     Aggregates = <>
     Connection = dtmControles.DB
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT CC.CONTABIL_CONTA_ID, CC.DESCRICAO, CC.IR, CC.CNJ'#13#10'FROM J' +
       '_CONTABIL_CONTA CC LEFT OUTER JOIN J_CONTABIL_GRUPO CG ON'#13#10'  CC.' +
       'CONTABIL_GRUPO_ID = CG.CONTABIL_GRUPO_ID'#13#10'WHERE CC.SITUACAO = '#39'A' +
       #39#13#10'  AND CC.CONTABIL_GRUPO_ID = :CONTABIL_GRUPO_ID'#13#10'ORDER BY CC.' +
-      'DESCRICAO'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <
+      'DESCRICAO')
+    ParamData = <
       item
         DataType = ftBCD
         Name = 'CONTABIL_GRUPO_ID'
@@ -5533,7 +5528,7 @@ inherited frmCadRelatorioFinanceiro: TfrmCadRelatorioFinanceiro
     Params = <>
     Left = 456
     Top = 320
-    object sqlPlanoContasCONTABIL_CONTA_ID: TFMTBCDField
+    object sqlPlanoContasCONTABIL_CONTA_ID: TBCDField
       FieldName = 'CONTABIL_CONTA_ID'
       Precision = 20
       Size = 2
@@ -5637,10 +5632,10 @@ inherited frmCadRelatorioFinanceiro: TfrmCadRelatorioFinanceiro
     Left = 366
     Top = 64
   end
-  object sqlRelatorioCentroCusto: TSimpleDataSet
+  object sqlRelatorioCentroCusto: TI9Query
     Aggregates = <>
     Connection = dtmControles.DB
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT C.DESCRICAO AS CAIXA, LC.DATA_PAGAMENTO,  LC.VALOR, LC.OP' +
       'ERACAO,'#13#10'       LC.DOCUMENTO_NUMERO, LC.HISTORICO, LC.OBSERVACAO' +
       ', LC.CAIXA_ID,'#13#10'       LC.CONTABIL_HISTORICO, LC.CONTABIL_PESSOA' +
@@ -5673,9 +5668,8 @@ inherited frmCadRelatorioFinanceiro: TfrmCadRelatorioFinanceiro
       'A_PAGAMENTO  BETWEEN CAST('#39'2017/08/01'#39' AS TIMESTAMP)'#13#10'    AND CA' +
       'ST('#39'2017/08/01'#39' AS TIMESTAMP) + 0.9999'#13#10'    AND LC.OPERACAO IN (' +
       #39'R'#39','#39'D'#39','#39'AR'#39','#39'AD'#39')'#13#10'ORDER BY LC.DATA_PAGAMENTO, C.DESCRICAO, LC.' +
-      'LIVRO_CAIXA_ID'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <>
+      'LIVRO_CAIXA_ID')
+    ParamData = <>
     Params = <>
     Left = 27
     Top = 293
@@ -5718,7 +5712,7 @@ inherited frmCadRelatorioFinanceiro: TfrmCadRelatorioFinanceiro
       FieldName = 'OBSERVACAO'
       Size = 260
     end
-    object FMTBCDField1: TFMTBCDField
+    object FMTBCDField1: TBCDField
       FieldName = 'VALOR'
       Precision = 15
       Size = 3
@@ -5727,7 +5721,7 @@ inherited frmCadRelatorioFinanceiro: TfrmCadRelatorioFinanceiro
       FieldName = 'OPERACAO'
       Size = 3
     end
-    object FMTBCDField2: TFMTBCDField
+    object FMTBCDField2: TBCDField
       FieldName = 'CAIXA_ID'
       Precision = 15
       Size = 2
@@ -5736,12 +5730,12 @@ inherited frmCadRelatorioFinanceiro: TfrmCadRelatorioFinanceiro
       FieldName = 'CAIXA_DESTINO'
       Size = 30
     end
-    object sqlRelatorioCentroCustoVALOR_REGISTRADO: TFMTBCDField
+    object sqlRelatorioCentroCustoVALOR_REGISTRADO: TBCDField
       FieldName = 'VALOR_REGISTRADO'
       Precision = 20
       Size = 5
     end
-    object sqlRelatorioCentroCustoPERCENTUAL_REGISTRADO: TFMTBCDField
+    object sqlRelatorioCentroCustoPERCENTUAL_REGISTRADO: TBCDField
       FieldName = 'PERCENTUAL_REGISTRADO'
       Precision = 20
       Size = 2
@@ -5807,10 +5801,10 @@ inherited frmCadRelatorioFinanceiro: TfrmCadRelatorioFinanceiro
     Left = 178
     Top = 346
   end
-  object sqlConciliacaoBancaria: TSimpleDataSet
+  object sqlConciliacaoBancaria: TI9Query
     Aggregates = <>
     Connection = dtmControles.DB
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT CR.CONCILIACAO_REGISTRADO_ID, C.DESCRICAO AS CAIXA, LC.VA' +
       'LOR, LC.OPERACAO,'#13#10'       LC.DOCUMENTO_NUMERO, LC.HISTORICO, LC.' +
       'OBSERVACAO, LC.CAIXA_ID,'#13#10'       CC.DESCRICAO AS CONTABIL_CONTA_' +
@@ -5831,9 +5825,8 @@ inherited frmCadRelatorioFinanceiro: TfrmCadRelatorioFinanceiro
       'C.CAIXA_ID'#13#10'WHERE CB.CAIXA_ID = 11'#13#10'  AND CR.DATA_PAGAMENTO BETW' +
       'EEN CAST('#39'2017/09/01'#39' AS TIMESTAMP)'#13#10'  AND CAST('#39'2017/09/30'#39' AS ' +
       'TIMESTAMP) + 0.9999'#13#10'ORDER BY CR.DATA_PAGAMENTO, CR.CONCILIACAO_' +
-      'REGISTRADO_ID'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <>
+      'REGISTRADO_ID')
+    ParamData = <>
     Params = <>
     Left = 526
     Top = 102
@@ -5845,7 +5838,7 @@ inherited frmCadRelatorioFinanceiro: TfrmCadRelatorioFinanceiro
       FieldName = 'CAIXA'
       Size = 60
     end
-    object sqlConciliacaoBancariaVALOR: TFMTBCDField
+    object sqlConciliacaoBancariaVALOR: TBCDField
       FieldName = 'VALOR'
       Precision = 20
       Size = 3
@@ -5866,7 +5859,7 @@ inherited frmCadRelatorioFinanceiro: TfrmCadRelatorioFinanceiro
       FieldName = 'OBSERVACAO'
       Size = 260
     end
-    object sqlConciliacaoBancariaCAIXA_ID: TFMTBCDField
+    object sqlConciliacaoBancariaCAIXA_ID: TBCDField
       FieldName = 'CAIXA_ID'
       Precision = 20
       Size = 2
@@ -5895,7 +5888,7 @@ inherited frmCadRelatorioFinanceiro: TfrmCadRelatorioFinanceiro
       FieldName = 'CONC_DESCRICAO'
       Size = 120
     end
-    object sqlConciliacaoBancariaCONCVALOR: TFMTBCDField
+    object sqlConciliacaoBancariaCONCVALOR: TBCDField
       FieldName = 'CONCVALOR'
       Precision = 20
       Size = 3
@@ -5961,10 +5954,10 @@ inherited frmCadRelatorioFinanceiro: TfrmCadRelatorioFinanceiro
     Left = 262
     Top = 234
   end
-  object sqlFaturamentoDetalhado: TSimpleDataSet
+  object sqlFaturamentoDetalhado: TI9Query
     Aggregates = <>
     Connection = dtmControles.DB
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT'#13#10'       LC.LIVRO_FINANCEIRO_ID,'#13#10'       LC.DATA_VENCIMENT' +
       'O AS DATA_FATURAMENTO,'#13#10'       (SELECT LIST(CAST(LC2.DATA_PAGAME' +
       'NTO AS DATE),'#39' * '#39') FROM J_LIVRO_CAIXA LC2 '#13#10'        WHERE LC2.L' +
@@ -5984,9 +5977,8 @@ inherited frmCadRelatorioFinanceiro: TfrmCadRelatorioFinanceiro
       'O_ID,'#13#10'       DATA_FATURAMENTO,'#13#10'       LC.HISTORICO,'#13#10'       LF' +
       '.LIVRO_CAIXA_FATURADO_ID,'#13#10'       MODALIDADE,'#13#10'       LF.CONTABI' +
       'L_CONTA_ID,'#13#10'       LF.OPERACAO,'#13#10'       P.NOME,'#13#10'       COMPROM' +
-      'ISSO,'#13#10'       LC.VALOR'#13#10'ORDER BY LC.HISTORICO'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <>
+      'ISSO,'#13#10'       LC.VALOR'#13#10'ORDER BY LC.HISTORICO')
+    ParamData = <>
     Params = <>
     Left = 630
     Top = 86
@@ -5997,7 +5989,7 @@ inherited frmCadRelatorioFinanceiro: TfrmCadRelatorioFinanceiro
       FieldName = 'HISTORICO'
       Size = 90
     end
-    object sqlFaturamentoDetalhadoLIVRO_CAIXA_FATURADO_ID: TFMTBCDField
+    object sqlFaturamentoDetalhadoLIVRO_CAIXA_FATURADO_ID: TBCDField
       FieldName = 'LIVRO_CAIXA_FATURADO_ID'
       Precision = 20
       Size = 2
@@ -6006,12 +5998,12 @@ inherited frmCadRelatorioFinanceiro: TfrmCadRelatorioFinanceiro
       FieldName = 'MODALIDADE'
       Size = 60
     end
-    object sqlFaturamentoDetalhadoCONTABIL_CONTA_ID: TFMTBCDField
+    object sqlFaturamentoDetalhadoCONTABIL_CONTA_ID: TBCDField
       FieldName = 'CONTABIL_CONTA_ID'
       Precision = 20
       Size = 2
     end
-    object sqlFaturamentoDetalhadoVALOR: TFMTBCDField
+    object sqlFaturamentoDetalhadoVALOR: TBCDField
       FieldName = 'VALOR'
       Precision = 20
       Size = 3
@@ -6028,7 +6020,7 @@ inherited frmCadRelatorioFinanceiro: TfrmCadRelatorioFinanceiro
       FieldName = 'COMPROMISSO'
       Size = 60
     end
-    object sqlFaturamentoDetalhadoVALOR_PAGO: TFMTBCDField
+    object sqlFaturamentoDetalhadoVALOR_PAGO: TBCDField
       FieldName = 'VALOR_PAGO'
       Precision = 20
       Size = 3
@@ -6037,7 +6029,7 @@ inherited frmCadRelatorioFinanceiro: TfrmCadRelatorioFinanceiro
       FieldName = 'DATA_PAGAMENTO'
       BlobType = ftMemo
     end
-    object sqlFaturamentoDetalhadoLIVRO_FINANCEIRO_ID: TFMTBCDField
+    object sqlFaturamentoDetalhadoLIVRO_FINANCEIRO_ID: TBCDField
       FieldName = 'LIVRO_FINANCEIRO_ID'
       Precision = 20
       Size = 2

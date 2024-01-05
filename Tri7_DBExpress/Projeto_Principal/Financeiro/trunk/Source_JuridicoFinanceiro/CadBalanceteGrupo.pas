@@ -33,7 +33,7 @@ type
     cxGridPesquisaColumn1: TcxGridDBColumn;
     cxGridPesquisaColumn2: TcxGridDBColumn;
     grdBasicaLevel1: TcxGridLevel;
-    ClientAncestralBALANCETE_GRUPO_ID: TFMTBCDField;
+    ClientAncestralBALANCETE_GRUPO_ID: TBCDField;
     ClientAncestralDESCRICAO: TStringField;
     ClientAncestralSITUACAO: TStringField;
     ClientAncestralPRINCIPAL: TStringField;

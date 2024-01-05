@@ -3,6 +3,7 @@ unit RegimeBensDAOImpl;
 interface
 
 uses
+  I9Connection,
   RegimeBensDAO,
   FireDAC.Comp.Client,
   Data.DB,
@@ -12,10 +13,10 @@ uses
 type
   TRegimeBensDAO = class(TInterfacedObject, IRegimeBensDAO)
   private
-    FFDConnection: TFDConnection;
+    FFDConnection: TI9Connection;
   public
     constructor Create(
-      const vpFDConnection: TFDConnection); reintroduce;
+      const vpFDConnection: TI9Connection); reintroduce;
 
     function Get(
       const vpValue: TDataSet): IRegimeBens;
@@ -44,7 +45,7 @@ uses
 { TRegimeBensDAO }
 
 constructor TRegimeBensDAO.Create(
-  const vpFDConnection: TFDConnection);
+  const vpFDConnection: TI9Connection);
 begin
   inherited Create;
   FFDConnection := vpFDConnection;

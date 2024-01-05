@@ -931,7 +931,6 @@ object frmCadEnvioEmail: TfrmCadEnvioEmail
     FetchOptions.AssignedValues = [evMode]
     FetchOptions.Mode = fmAll
     SQL.Strings = (
-      
         'SELECT'#13#10'  E.DESCRICAO,'#13#10'  P.SITUACAO'#13#10'FROM T_ATO_PENDENCIA P'#13#10#13#10 +
         'LEFT JOIN T_ATO_ANDAMENTO A'#13#10'ON P.ATO_ANDAMENTO_ID = A.ATO_ANDAM' +
         'ENTO_ID'#13#10#13#10'LEFT JOIN T_TB_PENDENCIA_ANDAMENTO E'#13#10'ON P.TB_PENDENC' +

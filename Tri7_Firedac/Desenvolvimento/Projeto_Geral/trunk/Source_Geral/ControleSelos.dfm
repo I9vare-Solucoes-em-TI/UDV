@@ -651,7 +651,6 @@ object frmControleSelos: TfrmControleSelos
     Filter = 'CALC_SELECIONADO = TRUE'
     Connection = dtmControles.DB
     SQL.Strings = (
-      
         'SELECT CAST(SL.DATA AS DATE) AS DATA,'#13#10'       SL.CAMPO_ID,'#13#10'    ' +
         '   SL.TABELA,'#13#10'       SG.DESCRICAO_COMPLETA AS TIPO_SELO,'#13#10'     ' +
         '  SL.APRESENTANTE,'#13#10'       SL.DESCRICAO,'#13#10'       LPAD(CAST(SL.NU' +

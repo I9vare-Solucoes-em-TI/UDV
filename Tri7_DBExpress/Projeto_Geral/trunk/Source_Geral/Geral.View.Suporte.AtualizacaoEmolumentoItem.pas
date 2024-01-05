@@ -3,6 +3,8 @@ unit Geral.View.Suporte.AtualizacaoEmolumentoItem;
 interface
 
 uses
+  I9Query,
+  I9Connection,
   Winapi.Windows,
   Winapi.Messages,
   System.SysUtils,
@@ -69,7 +71,7 @@ type
     cbxCampo: TcxComboBox;
     btnPesquisar: TcxButton;
     btnConfirmar: TcxButton;
-    qryEmolumentoItem: TFDQuery;
+    qryEmolumentoItem: TI9Query;
     qryEmolumentoItemEMOLUMENTO_ITEM_ID: TBCDField;
     qryEmolumentoItemCODIGO_SELO: TStringField;
     qryEmolumentoItemVALOR_EMOLUMENTO: TBCDField;
@@ -81,9 +83,9 @@ type
     qryEmolumentoItemCORRECAO_VALOR_EMOLUMENTO: TBCDField;
     qryEmolumentoItemCORRECAO_VALOR_TAXA_JUDICIARIA: TBCDField;
     dtsEmolumentoItem: TDataSource;
-    qryEmolumentoPeriodo: TFDQuery;
+    qryEmolumentoPeriodo: TI9Query;
     dtsEmolumentoPeriodo: TDataSource;
-    qrySeloGrupo: TFDQuery;
+    qrySeloGrupo: TI9Query;
     dtsSeloGrupo: TDataSource;
     qrySeloGrupoSELO_GRUPO_ID: TBCDField;
     qrySeloGrupoNUMERO: TBCDField;
@@ -211,8 +213,8 @@ var
   viCursor: TCursor;
   viBookmark: TBookmark;
   I: Integer;
-  viEmolumentoItem: TFDQuery;
-  viEmolumentoItemAPI: IDataSetAPI<TFDQuery>;
+  viEmolumentoItem: TI9Query;
+  viEmolumentoItemAPI: IDataSetAPI<TI9Query>;
   viValorTJ: Currency;
   viEmolumentoItemID: Integer;
 {$ENDREGION}
@@ -243,10 +245,10 @@ begin
       qryEmolumentoItem.First;
       I := 0;
 
-      viEmolumentoItem := TFDQuery.Create(
+      viEmolumentoItem := TI9Query.Create(
         nil);
 
-      viEmolumentoItemAPI := TDataSetAPI<TFDQuery>.New(
+      viEmolumentoItemAPI := TDataSetAPI<TI9Query>.New(
         viEmolumentoItem)
       .AutoDestroy;
 
@@ -363,8 +365,8 @@ var
   viCursor: TCursor;
   viBookmark: TBookmark;
   I: Integer;
-  viSeloGrupo: TFDQuery;
-  viSeloGrupoAPI: IDataSetAPI<TFDQuery>;
+  viSeloGrupo: TI9Query;
+  viSeloGrupoAPI: IDataSetAPI<TI9Query>;
   viSeloGrupoID: Integer;
   viDescricaoCompleta: string;
   viDescricao: string;
@@ -396,10 +398,10 @@ begin
       qrySeloGrupo.First;
       I := 0;
 
-      viSeloGrupo := TFDQuery.Create(
+      viSeloGrupo := TI9Query.Create(
         nil);
 
-      viSeloGrupoAPI := TDataSetAPI<TFDQuery>.New(
+      viSeloGrupoAPI := TDataSetAPI<TI9Query>.New(
         viSeloGrupo)
       .AutoDestroy;
 

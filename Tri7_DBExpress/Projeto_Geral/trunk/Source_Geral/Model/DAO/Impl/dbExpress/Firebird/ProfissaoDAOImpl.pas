@@ -3,6 +3,8 @@ unit ProfissaoDAOImpl;
 interface
 
 uses
+  I9Query,
+  I9Connection,
   ProfissaoDAO,
   Data.SqlExpr,
   Data.DB,
@@ -12,10 +14,10 @@ uses
 type
   TProfissaoDAO = class(TInterfacedObject, IProfissaoDAO)
   private
-    FSQLConnection: TSQLConnection;
+    FConnection: TI9Connection;
   public
     constructor Create(
-      const vpSQLConnection: TSQLConnection); reintroduce;
+      const vpConnection: TI9Connection); reintroduce;
 
     function Get(
       const vpValue: TDataSet): IProfissao; overload;
@@ -53,10 +55,10 @@ uses
 { TProfissaoDAO }
 
 constructor TProfissaoDAO.Create(
-  const vpSQLConnection: TSQLConnection);
+  const vpConnection: TI9Connection);
 begin
   inherited Create;
-  FSQLConnection := vpSQLConnection;
+  FConnection := vpConnection;
 end;
 
 function TProfissaoDAO.Get(
@@ -126,8 +128,8 @@ const
 {$REGION 'Variáveis'}
 var
   viSQL: TStrings;
-  viCommandText: string;
-  viSQLDataSet: TSQLDataSet;
+  viSQLText: string;
+  viSQLDataSet: TI9Query;
   viProfissao: IProfissao;
 {$ENDREGION}
 begin
@@ -160,18 +162,18 @@ begin
 
       {$ENDREGION}
 
-      viCommandText := Text;
+      viSQLText := Text;
     end;
   finally
     FreeAndNil(viSQL);
   end;
 
-  viSQLDataSet := TSQLDataSet.Create(nil);
+  viSQLDataSet := TI9Query.Create(nil);
   try
     with viSQLDataSet do
     begin
-      SQLConnection := FSQLConnection;
-      CommandText := viCommandText;
+      Connection := FConnection;
+      SQL.Text := viSQLText;
 
       {$REGION 'Preencher valores dos parâmetros'}
       ParamByName('P_SITUACAO').AsString := vpValue.ToCharAtivoInativo;

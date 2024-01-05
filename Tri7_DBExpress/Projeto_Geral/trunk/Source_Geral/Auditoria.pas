@@ -3,6 +3,7 @@ unit Auditoria;
 interface
 
 uses
+  I9Query,
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs,
   cxEdit, DB, cxDBLookupComboBox,
@@ -21,20 +22,20 @@ uses
 
 type
   TfrmAuditoria = class(TForm)
-    sqlFuncionario: TSimpleDataSet;
-    sqlFuncionarioUSUARIO_ID: TFMTBCDField;
+    sqlFuncionario: TI9Query;
+    sqlFuncionarioUSUARIO_ID: TBCDField;
     sqlFuncionarioLOGIN: TStringField;
     dtsFuncionario: TDataSource;
-    sqlAuditoria: TSimpleDataSet;
+    sqlAuditoria: TI9Query;
     dsAuditoria: TDataSource;
-    sqlAuditoriaHISTORICO_ID: TFMTBCDField;
+    sqlAuditoriaHISTORICO_ID: TBCDField;
     sqlAuditoriaTABELA: TStringField;
     sqlAuditoriaCAMPO: TStringField;
     sqlAuditoriaOPERACAO: TStringField;
     sqlAuditoriaNEW_VALUE: TBlobField;
     sqlAuditoriaDATA: TSQLTimeStampField;
-    sqlAuditoriaUSUARIO_ID: TFMTBCDField;
-    sqlAuditoriaID: TFMTBCDField;
+    sqlAuditoriaUSUARIO_ID: TBCDField;
+    sqlAuditoriaID: TBCDField;
     cxSplitter4: TcxSplitter;
     sqlAuditoriaOBSERVACAO: TStringField;
     fmeEditorSimples1: TfmeEditorSimples;
@@ -322,7 +323,7 @@ begin
   viSql := ' SELECT * FROM ' + viTabela + ' ' + viSqlAux + ' ORDER BY DATA';
 
   sqlAuditoria.Close;
-  sqlAuditoria.DataSet.CommandText := viSql;
+  sqlAuditoria.SQL.Text := viSql;
   sqlAuditoria.Open;
 
   if sqlAuditoria.IsEmpty then

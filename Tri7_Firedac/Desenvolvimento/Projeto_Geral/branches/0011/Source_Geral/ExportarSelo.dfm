@@ -1410,7 +1410,6 @@ object frmExportarSelo: TfrmExportarSelo
     FetchOptions.AssignedValues = [evMode]
     FetchOptions.Mode = fmAll
     SQL.Strings = (
-      
         'SELECT SO.NOTA_FISCAL,'#13#10'       SL.SELO_LIVRO_ID, '#13#10'       SL.COD' +
         'IGO_EXPORTACAO,'#13#10'       SL.NUMERO_AGRUPADOR,'#13#10'       SL.SIGLA, S' +
         'L.NUMERO,'#13#10'       SG.NUMERO AS TIPO_ATO,'#13#10'       SL.APRESENTANTE' +
@@ -1578,7 +1577,6 @@ object frmExportarSelo: TfrmExportarSelo
     FetchOptions.AssignedValues = [evMode]
     FetchOptions.Mode = fmAll
     SQL.Strings = (
-      
         'SELECT SELO_GRUPO_ID, DESCRICAO_COMPLETA, NUMERO'#13#10'FROM G_SELO_GR' +
         'UPO'#13#10'WHERE TIPO_CARTORIO = :TIPO_CARTORIO'#13#10'     AND SITUACAO = '#39 +
         'A'#39#13#10'ORDER BY NUMERO')
@@ -1618,7 +1616,6 @@ object frmExportarSelo: TfrmExportarSelo
     FetchOptions.AssignedValues = [evMode]
     FetchOptions.Mode = fmAll
     SQL.Strings = (
-      
         'SELECT SELO_LOTE_ID, NOTA_FISCAL, SELO_GRUPO_ID'#13#10'FROM G_SELO_LOT' +
         'E'#13#10'WHERE SELO_GRUPO_ID = :SELO_GRUPO_ID'#13#10'ORDER BY NOTA_FISCAL')
     Left = 169
@@ -1938,7 +1935,6 @@ object frmExportarSelo: TfrmExportarSelo
     FetchOptions.AssignedValues = [evMode]
     FetchOptions.Mode = fmAll
     SQL.Strings = (
-      
         'SELECT SELO_GRUPO_ID, NUMERO'#13#10'FROM G_SELO_GRUPO'#13#10'WHERE TIPO_CART' +
         'ORIO = :TIPO_CARTORIO'#13#10'     AND SITUACAO = '#39'A'#39#13#10'ORDER BY NUMERO')
     Left = 254

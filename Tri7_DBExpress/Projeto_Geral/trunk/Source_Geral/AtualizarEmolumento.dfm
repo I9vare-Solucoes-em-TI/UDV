@@ -364,12 +364,11 @@ object frmAtualizarEmolumentos: TfrmAtualizarEmolumentos
     Color = clSkyBlue
     ParentColor = False
   end
-  object sqlAtualizar: TSimpleDataSet
+  object sqlAtualizar: TI9Query
     Aggregates = <>
     Connection = dtmControles.DB
-    DataSet.CommandText = 'SELECT * FROM G_EMOLUMENTO'#13#10'ORDER BY DESCRICAO'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <>
+    SQL.Strings = ('SELECT * FROM G_EMOLUMENTO'#13#10'ORDER BY DESCRICAO')
+    ParamData = <>
     Params = <>
     Left = 108
     Top = 8
@@ -387,7 +386,7 @@ object frmAtualizarEmolumentos: TfrmAtualizarEmolumentos
     Params = <>
     Left = 120
     Top = 104
-    object cdsPeriodoEMOLUMENTO_PERIODO_ID: TFMTBCDField
+    object cdsPeriodoEMOLUMENTO_PERIODO_ID: TBCDField
       FieldName = 'EMOLUMENTO_PERIODO_ID'
       Required = True
       Precision = 15
@@ -421,7 +420,7 @@ object frmAtualizarEmolumentos: TfrmAtualizarEmolumentos
     Params = <>
     Left = 160
     Top = 104
-    object cdsEmolumentoEMOLUMENTO_ID: TFMTBCDField
+    object cdsEmolumentoEMOLUMENTO_ID: TBCDField
       FieldName = 'EMOLUMENTO_ID'
       Required = True
       Precision = 15
@@ -435,12 +434,12 @@ object frmAtualizarEmolumentos: TfrmAtualizarEmolumentos
       FieldName = 'TIPO'
       Size = 1
     end
-    object cdsEmolumentoSISTEMA_ID: TFMTBCDField
+    object cdsEmolumentoSISTEMA_ID: TBCDField
       FieldName = 'SISTEMA_ID'
       Precision = 15
       Size = 2
     end
-    object cdsEmolumentoSELO_GRUPO_ID: TFMTBCDField
+    object cdsEmolumentoSELO_GRUPO_ID: TBCDField
       FieldName = 'SELO_GRUPO_ID'
       Precision = 20
       Size = 2
@@ -485,59 +484,59 @@ object frmAtualizarEmolumentos: TfrmAtualizarEmolumentos
     Params = <>
     Left = 200
     Top = 104
-    object cdsEmolumentoItemVALOR_EMOLUMENTO: TFMTBCDField
+    object cdsEmolumentoItemVALOR_EMOLUMENTO: TBCDField
       FieldName = 'VALOR_EMOLUMENTO'
       Precision = 15
       Size = 3
     end
-    object cdsEmolumentoItemEMOLUMENTO_ITEM_ID: TFMTBCDField
+    object cdsEmolumentoItemEMOLUMENTO_ITEM_ID: TBCDField
       FieldName = 'EMOLUMENTO_ITEM_ID'
       Required = True
       Precision = 15
       Size = 2
     end
-    object cdsEmolumentoItemEMOLUMENTO_ID: TFMTBCDField
+    object cdsEmolumentoItemEMOLUMENTO_ID: TBCDField
       FieldName = 'EMOLUMENTO_ID'
       Precision = 15
       Size = 2
     end
-    object cdsEmolumentoItemVALOR_INICIO: TFMTBCDField
+    object cdsEmolumentoItemVALOR_INICIO: TBCDField
       FieldName = 'VALOR_INICIO'
       Precision = 15
       Size = 3
     end
-    object cdsEmolumentoItemVALOR_FIM: TFMTBCDField
+    object cdsEmolumentoItemVALOR_FIM: TBCDField
       FieldName = 'VALOR_FIM'
       Precision = 15
       Size = 3
     end
-    object cdsEmolumentoItemVALOR_TAXA_JUDICIARIA: TFMTBCDField
+    object cdsEmolumentoItemVALOR_TAXA_JUDICIARIA: TBCDField
       FieldName = 'VALOR_TAXA_JUDICIARIA'
       Precision = 15
       Size = 3
     end
-    object cdsEmolumentoItemEMOLUMENTO_PERIODO_ID: TFMTBCDField
+    object cdsEmolumentoItemEMOLUMENTO_PERIODO_ID: TBCDField
       FieldName = 'EMOLUMENTO_PERIODO_ID'
       Precision = 15
       Size = 2
     end
-    object cdsEmolumentoItemCODIGO: TFMTBCDField
+    object cdsEmolumentoItemCODIGO: TBCDField
       FieldName = 'CODIGO'
       Precision = 15
       Size = 2
     end
-    object cdsEmolumentoItemPAGINA_EXTRA: TFMTBCDField
+    object cdsEmolumentoItemPAGINA_EXTRA: TBCDField
       FieldName = 'PAGINA_EXTRA'
       Precision = 15
       Size = 2
     end
-    object cdsEmolumentoItemVALOR_PAGINA_EXTRA: TFMTBCDField
+    object cdsEmolumentoItemVALOR_PAGINA_EXTRA: TBCDField
       FieldName = 'VALOR_PAGINA_EXTRA'
       currency = True
       Precision = 15
       Size = 3
     end
-    object cdsEmolumentoItemVALOR_OUTRA_TAXA1: TFMTBCDField
+    object cdsEmolumentoItemVALOR_OUTRA_TAXA1: TBCDField
       FieldName = 'VALOR_OUTRA_TAXA1'
       Precision = 15
       Size = 3
@@ -562,17 +561,16 @@ object frmAtualizarEmolumentos: TfrmAtualizarEmolumentos
     Left = 199
     Top = 143
   end
-  object sqlG_Emolumento: TSimpleDataSet
+  object sqlG_Emolumento: TI9Query
     Aggregates = <>
     Connection = dtmControles.DB
-    DataSet.CommandText = 'SELECT * FROM G_EMOLUMENTO'#13#10'ORDER BY DESCRICAO'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <>
+    SQL.Strings = ('SELECT * FROM G_EMOLUMENTO'#13#10'ORDER BY DESCRICAO')
+    ParamData = <>
     Filter = 'SITUACAO = '#39'A'#39' OR SITUACAO IS NULL'
     Params = <>
     Left = 388
     Top = 112
-    object sqlG_EmolumentoEMOLUMENTO_ID: TFMTBCDField
+    object sqlG_EmolumentoEMOLUMENTO_ID: TBCDField
       FieldName = 'EMOLUMENTO_ID'
       Required = True
       Precision = 15
@@ -586,12 +584,12 @@ object frmAtualizarEmolumentos: TfrmAtualizarEmolumentos
       FieldName = 'TIPO'
       Size = 1
     end
-    object sqlG_EmolumentoSISTEMA_ID: TFMTBCDField
+    object sqlG_EmolumentoSISTEMA_ID: TBCDField
       FieldName = 'SISTEMA_ID'
       Precision = 15
       Size = 2
     end
-    object sqlG_EmolumentoSELO_GRUPO_ID: TFMTBCDField
+    object sqlG_EmolumentoSELO_GRUPO_ID: TBCDField
       FieldName = 'SELO_GRUPO_ID'
       Precision = 20
       Size = 2

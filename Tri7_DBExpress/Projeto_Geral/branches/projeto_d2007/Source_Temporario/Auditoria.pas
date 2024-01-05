@@ -3,6 +3,7 @@ unit Auditoria;
 interface
 
 uses
+  I9Query,
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, cxStyles, cxCustomData, cxGraphics, cxFilter, cxData,
   cxDataStorage, cxEdit, DB, cxDBData, cxDBLookupComboBox, cxImageComboBox,
@@ -32,11 +33,11 @@ type
     Label5: TLabel;
     Label6: TLabel;
     cxGroupBox3: TcxGroupBox;
-    sqlFuncionario: TSimpleDataSet;
-    sqlFuncionarioUSUARIO_ID: TFMTBCDField;
+    sqlFuncionario: TI9Query;
+    sqlFuncionarioUSUARIO_ID: TBCDField;
     sqlFuncionarioLOGIN: TStringField;
     dtsFuncionario: TDataSource;
-    sqlAuditoria: TSimpleDataSet;
+    sqlAuditoria: TI9Query;
     dsAuditoria: TDataSource;
     grdAuditoriaDBTableView1TABELA: TcxGridDBColumn;
     grdAuditoriaDBTableView1CAMPO: TcxGridDBColumn;
@@ -45,14 +46,14 @@ type
     grdAuditoriaDBTableView1USUARIO_ID: TcxGridDBColumn;
     grdAuditoriaDBTableView1ID: TcxGridDBColumn;
     grdAuditoriaDBTableView1OBSERVACAO: TcxGridDBColumn;
-    sqlAuditoriaHISTORICO_ID: TFMTBCDField;
+    sqlAuditoriaHISTORICO_ID: TBCDField;
     sqlAuditoriaTABELA: TStringField;
     sqlAuditoriaCAMPO: TStringField;
     sqlAuditoriaOPERACAO: TStringField;
     sqlAuditoriaNEW_VALUE: TBlobField;
     sqlAuditoriaDATA: TSQLTimeStampField;
-    sqlAuditoriaUSUARIO_ID: TFMTBCDField;
-    sqlAuditoriaID: TFMTBCDField;
+    sqlAuditoriaUSUARIO_ID: TBCDField;
+    sqlAuditoriaID: TBCDField;
     cxSplitter4: TcxSplitter;
     sqlAuditoriaOBSERVACAO: TStringField;
     cxGroupBox2: TcxGroupBox;
@@ -138,7 +139,7 @@ begin
   sqlFuncionario.Connection := dtmControles.DB;
   sqlAuditoria.Connection   := dtmControles.DB;
   sqlFuncionario.Close;
-  sqlFuncionario.DataSet.Params[0].AsInteger := vgId;
+  sqlFuncionario.Params[0].AsInteger := vgId;
   sqlFuncionario.Open;
 end;
 
@@ -209,7 +210,7 @@ begin
   Sql := ' SELECT * FROM ' + Tabela + ' ' + SqlAux + ' ORDER BY DATA';
 
   sqlAuditoria.Close;
-  sqlAuditoria.DataSet.CommandText := Sql;
+  sqlAuditoria.SQL.Text := Sql;
   sqlAuditoria.Open;
 end;
 

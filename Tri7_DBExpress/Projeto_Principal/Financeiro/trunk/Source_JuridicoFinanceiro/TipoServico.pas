@@ -36,7 +36,7 @@ type
     ClientAncestralDESCRICAO: TStringField;
     ClientAncestralSITUACAO: TStringField;
     ClientAncestralTIPO_TRANSACAO: TStringField;
-    ClientAncestralCAIXA_SERVICO_ID: TFMTBCDField;
+    ClientAncestralCAIXA_SERVICO_ID: TBCDField;
     grdServicoDBTableView1CAIXA_SERVICO_ID: TcxGridDBColumn;
     grdServicoDBTableView1DESCRICAO: TcxGridDBColumn;
     grdServicoDBTableView1SITUACAO: TcxGridDBColumn;
@@ -77,7 +77,7 @@ begin
   viServentias := dtmControles.BuscarConfig('PRINCIPAL', 'CARTORIO', 'TIPO_CARTORIO', 'S') +',9';
 
   ClientAncestral.active := False;
-  DataSetAncestral.CommandText := ' SELECT * FROM C_CAIXA_SERVICO '+
+  DataSetAncestral.SQL.Text := ' SELECT * FROM C_CAIXA_SERVICO '+
                                   ' WHERE SERVENTIA_REGISTRO_DIARIO IN ('+viServentias+')'+
                                   ' ORDER BY DESCRICAO ';
   ClientAncestral.active := True;

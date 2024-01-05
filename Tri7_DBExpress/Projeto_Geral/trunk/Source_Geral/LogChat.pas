@@ -3,6 +3,7 @@ unit LogChat;
 interface
 
 uses
+  I9Query,
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, WPCTRRich, cxEdit, DB, frxDBSet, SimpleDS, cxGridLevel,
   cxGridCustomTableView, cxGridDBTableView, cxGrid, cxDBLookupComboBox,
@@ -18,7 +19,7 @@ uses
 type
   TfrmLogChat = class(TForm)
     dtsChat: TDataSource;
-    sqlChat: TSimpleDataSet;
+    sqlChat: TI9Query;
     pagMovimentacao: TcxPageControl;
     tbsTitulosAndamento: TcxTabSheet;
     Panel2: TPanel;
@@ -37,9 +38,9 @@ type
     edtDataIni: TcxDateEdit;
     edtDataFim: TcxDateEdit;
     lcxFuncionarioEnviou: TcxLookupComboBox;
-    sqlChatCHAT_ID: TFMTBCDField;
-    sqlChatUSUARIO_RECEBEU_ID: TFMTBCDField;
-    sqlChatUSUARIO_ENVIOU_ID: TFMTBCDField;
+    sqlChatCHAT_ID: TBCDField;
+    sqlChatUSUARIO_RECEBEU_ID: TBCDField;
+    sqlChatUSUARIO_ENVIOU_ID: TBCDField;
     sqlChatMENSAGEM: TStringField;
     sqlChatDATA: TSQLTimeStampField;
     sqlChatRECEBEU: TStringField;
@@ -54,11 +55,11 @@ type
     btnImprimirLog: TcxButton;
     sqlChatUsuarioEnviouCalc: TStringField;
     sqlChatUsuarioRecebeuCalc: TStringField;
-    sqlChatImprimir: TSimpleDataSet;
+    sqlChatImprimir: TI9Query;
     sqlChatImprimirMensagemCalc: TStringField;
     sqlChatImprimirUsuarioEnviouCalc: TStringField;
     sqlChatImprimirUsuarioRecebeuCalc: TStringField;
-    sqlChatImprimirUSUARIO_ENVIOU_ID: TFMTBCDField;
+    sqlChatImprimirUSUARIO_ENVIOU_ID: TBCDField;
     sqlChatImprimirDATA: TSQLTimeStampField;
     Label4: TLabel;
     lcxFuncionarioRecebeu: TcxLookupComboBox;
@@ -162,7 +163,7 @@ begin
   with sqlChat do
   begin
     Active := False;
-    DataSet.CommandText := vSql + vSqlComplemento + ' ORDER BY CHAT_ID ';
+    SQL.Text := vSql + vSqlComplemento + ' ORDER BY CHAT_ID ';
     Active := True;
 
     lblRegistrosEncontrados.Caption := ' Nº de Registros Encontrados: '+ IntToStr(RecordCount);
@@ -274,7 +275,7 @@ begin
   with sqlChatImprimir do
   begin
     Active := False;
-    DataSet.CommandText := vSql + vSqlComplemento + ' ORDER BY DATA ';
+    SQL.Text := vSql + vSqlComplemento + ' ORDER BY DATA ';
     Active := True;
   end;
   Screen.Cursor := crDefault;

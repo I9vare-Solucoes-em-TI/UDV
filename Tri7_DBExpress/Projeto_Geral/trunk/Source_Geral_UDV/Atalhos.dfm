@@ -196,13 +196,13 @@ inherited frmAtalho: TfrmAtalho
       Visible = False
     end
   end
-  inherited DataSetAncestral: TSQLDataSet
-    CommandText = 
+  inherited DataSetAncestral: TI9Query
+    SQL.Strings = (
       'select * from V_G_SISTEMA_ROTINA'#13#10'WHERE SISTEMA_ID = :SISTEMA_ID' +
-      #13#10'order by DESCRICAO'
+      #13#10'order by DESCRICAO')
     Params = <
       item
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Name = 'SISTEMA_ID'
         ParamType = ptInput
         Value = '0'
@@ -214,7 +214,7 @@ inherited frmAtalho: TfrmAtalho
   end
   inherited ClientAncestral: TClientDataSet
     Top = 162
-    object ClientAncestralSISTEMA_ROTINA_ID: TFMTBCDField
+    object ClientAncestralSISTEMA_ROTINA_ID: TBCDField
       FieldName = 'SISTEMA_ROTINA_ID'
       Required = True
       Precision = 15
@@ -228,7 +228,7 @@ inherited frmAtalho: TfrmAtalho
       FieldName = 'DESCRICAO'
       Size = 60
     end
-    object ClientAncestralSISTEMA_MENU_ID: TFMTBCDField
+    object ClientAncestralSISTEMA_MENU_ID: TBCDField
       FieldName = 'SISTEMA_MENU_ID'
       Precision = 15
       Size = 2
@@ -241,7 +241,7 @@ inherited frmAtalho: TfrmAtalho
       FieldName = 'ATALHO_USUARIO'
       Size = 15
     end
-    object ClientAncestralSISTEMA_ID: TFMTBCDField
+    object ClientAncestralSISTEMA_ID: TBCDField
       FieldName = 'SISTEMA_ID'
       Precision = 15
       Size = 2

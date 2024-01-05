@@ -45,11 +45,11 @@ type
     wptTexto: TWPRichText;
     WPReguaHorizontal: TWPRuler;
     cxLabel26: TcxLabel;
-    ClientAncestralCERTIDAO_GRAVADA_ID: TFMTBCDField;
+    ClientAncestralCERTIDAO_GRAVADA_ID: TBCDField;
     ClientAncestralDESCRICAO: TStringField;
     ClientAncestralDATA: TSQLTimeStampField;
     ClientAncestralTEXTO: TBlobField;
-    ClientAncestralUSUARIO_ID: TFMTBCDField;
+    ClientAncestralUSUARIO_ID: TBCDField;
     btnPesquisarDoc: TcxButton;
     procedure ClientAncestralAfterScroll(DataSet: TDataSet);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
@@ -213,7 +213,7 @@ begin
   viSql := viSql + ' ORDER BY DESCRICAO';
 
   ClientAncestral.Active := False;
-  DataSetAncestral.CommandText := viSql;
+  DataSetAncestral.SQL.Text := viSql;
   ClientAncestral.Active := True;
 end;
 

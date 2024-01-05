@@ -3,6 +3,7 @@ unit PessoaPesquisa;
 interface
 
 uses
+  I9Query,
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, Menus, cxLookAndFeelPainters, dxSkinsCore, dxSkinBlack, dxSkinBlue,
   dxSkinCaramel, dxSkinCoffee, dxSkinDarkSide, dxSkinGlassOceans,
@@ -50,7 +51,7 @@ type
     cxGridPesquisaNome: TcxGridDBColumn;
     cxGridPesquisaColumn10: TcxGridDBColumn;
     cxGridPesquisaColumn11: TcxGridDBColumn;
-    sqlPesquisa: TSimpleDataSet;
+    sqlPesquisa: TI9Query;
     dtsPesquisa: TDataSource;
     sqlPesquisaNOME: TStringField;
     sqlPesquisaCPF: TStringField;
@@ -61,8 +62,8 @@ type
     sbnLimparFiltro: TSpeedButton;
     cxGridPesquisaColumn14: TcxGridDBColumn;
     cxGridPesquisaColumn16: TcxGridDBColumn;
-    sqlPesquisaPESSOA_GRUPO_ID: TFMTBCDField;
-    sqlPesquisaPESSOA_ID: TFMTBCDField;
+    sqlPesquisaPESSOA_GRUPO_ID: TBCDField;
+    sqlPesquisaPESSOA_ID: TBCDField;
     cxGroupBox1: TcxGroupBox;
     cbxCompromissosMensais: TcxGroupBox;
     gdrCompromissoAgendado: TcxGrid;
@@ -84,9 +85,9 @@ type
     cxGridDBColumn6: TcxGridDBColumn;
     cxGridLevel1: TcxGridLevel;
     cxGridDBTableView1Column1: TcxGridDBColumn;
-    sqlCompromissoAgendado: TSimpleDataSet;
+    sqlCompromissoAgendado: TI9Query;
     dtsCompromissoAgendado: TDataSource;
-    sqlCompromissoVencido: TSimpleDataSet;
+    sqlCompromissoVencido: TI9Query;
     dtsCompromissoVencido: TDataSource;
     cxGridDBTableDiferenca: TcxGridDBColumn;
     sqlCompromissoVencidocalc_referencia: TStringField;
@@ -100,25 +101,25 @@ type
     popCancelarBoletaVinculada: TMenuItem;
     N3: TMenuItem;
     popAlterarValor1: TMenuItem;
-    sqlCompromissoAgendadoCOMPROMISSO_AGENDADO_ID: TFMTBCDField;
-    sqlCompromissoAgendadoPESSOA_ID: TFMTBCDField;
-    sqlCompromissoAgendadoCONTABIL_CONTA_ID: TFMTBCDField;
+    sqlCompromissoAgendadoCOMPROMISSO_AGENDADO_ID: TBCDField;
+    sqlCompromissoAgendadoPESSOA_ID: TBCDField;
+    sqlCompromissoAgendadoCONTABIL_CONTA_ID: TBCDField;
     sqlCompromissoAgendadoANO_MES_INICIAL: TStringField;
     sqlCompromissoAgendadoANO_MES_FINAL: TStringField;
     sqlCompromissoAgendadoPERIODO: TStringField;
-    sqlCompromissoAgendadoLANCAMENTO_COMPROMISSO_ID: TFMTBCDField;
-    sqlCompromissoAgendadoVALOR_ATUAL: TFMTBCDField;
+    sqlCompromissoAgendadoLANCAMENTO_COMPROMISSO_ID: TBCDField;
+    sqlCompromissoAgendadoVALOR_ATUAL: TBCDField;
     sqlCompromissoAgendadoSITUACAO_LOCAL: TStringField;
     sqlCompromissoAgendadoSITUACAO_GERAL: TStringField;
-    sqlCompromissoAgendadoVALOR_ANTERIOR: TFMTBCDField;
-    sqlCompromissoVencidoCOMPROMISSO_VENCIDO_ID: TFMTBCDField;
-    sqlCompromissoVencidoPESSOA_ID: TFMTBCDField;
-    sqlCompromissoVencidoCONTABIL_CONTA_ID: TFMTBCDField;
+    sqlCompromissoAgendadoVALOR_ANTERIOR: TBCDField;
+    sqlCompromissoVencidoCOMPROMISSO_VENCIDO_ID: TBCDField;
+    sqlCompromissoVencidoPESSOA_ID: TBCDField;
+    sqlCompromissoVencidoCONTABIL_CONTA_ID: TBCDField;
     sqlCompromissoVencidoANO_MES_REFERENCIA: TStringField;
     sqlCompromissoVencidoSITUACAO: TStringField;
-    sqlCompromissoVencidoLANCAMENTO_COMPROMISSO_ID: TFMTBCDField;
-    sqlCompromissoVencidoBOLETA_ID: TFMTBCDField;
-    sqlCompromissoVencidoRECIBO_NUMERO: TFMTBCDField;
+    sqlCompromissoVencidoLANCAMENTO_COMPROMISSO_ID: TBCDField;
+    sqlCompromissoVencidoBOLETA_ID: TBCDField;
+    sqlCompromissoVencidoRECIBO_NUMERO: TBCDField;
     sqlCompromissoVencidoDIFERENCA: TStringField;
     sqlCompromissoAgendadocalc_AnoMesFinal: TStringField;
     sqlCompromissoAgendadocalc_AnoMesInicial: TStringField;
@@ -127,12 +128,12 @@ type
     MenuItem4: TMenuItem;
     popAlterarValorAgendado: TMenuItem;
     cxGridDBTableQtdAdicional: TcxGridDBColumn;
-    sqlCompromissoVencidoQTD_ADICIONAL: TFMTBCDField;
+    sqlCompromissoVencidoQTD_ADICIONAL: TBCDField;
     sqlCompromissoVencidoATUALIZADO: TStringField;
     cxGridDBTableAtualizado: TcxGridDBColumn;
     popRetornarValor: TMenuItem;
-    sqlCompromissoVencidoVALOR_ATUAL: TFMTBCDField;
-    sqlCompromissoVencidoVALOR_ANTERIOR: TFMTBCDField;
+    sqlCompromissoVencidoVALOR_ATUAL: TBCDField;
+    sqlCompromissoVencidoVALOR_ANTERIOR: TBCDField;
     N4: TMenuItem;
     popAtivar: TMenuItem;
     cxGridDBTableView1Column2: TcxGridDBColumn;
@@ -151,7 +152,7 @@ type
     cxGridDBColumn11: TcxGridDBColumn;
     cxGridLevel3: TcxGridLevel;
     cxGridDBTableView3Column1: TcxGridDBColumn;
-    sqlCompromissoRealizado: TSimpleDataSet;
+    sqlCompromissoRealizado: TI9Query;
     dtsCompromissoRealizado: TDataSource;
     Panel2: TPanel;
     cxGroupBox3: TcxGroupBox;
@@ -167,18 +168,18 @@ type
     cxRadioButton8: TcxRadioButton;
     sqlCompromissoVencidoDATA_REALIZACAO: TSQLTimeStampField;
     sqlCompromissoRealizadocalc_referencia: TStringField;
-    sqlCompromissoRealizadoCOMPROMISSO_VENCIDO_ID: TFMTBCDField;
-    sqlCompromissoRealizadoPESSOA_ID: TFMTBCDField;
-    sqlCompromissoRealizadoCONTABIL_CONTA_ID: TFMTBCDField;
-    sqlCompromissoRealizadoVALOR_ATUAL: TFMTBCDField;
+    sqlCompromissoRealizadoCOMPROMISSO_VENCIDO_ID: TBCDField;
+    sqlCompromissoRealizadoPESSOA_ID: TBCDField;
+    sqlCompromissoRealizadoCONTABIL_CONTA_ID: TBCDField;
+    sqlCompromissoRealizadoVALOR_ATUAL: TBCDField;
     sqlCompromissoRealizadoANO_MES_REFERENCIA: TStringField;
     sqlCompromissoRealizadoSITUACAO: TStringField;
-    sqlCompromissoRealizadoLANCAMENTO_COMPROMISSO_ID: TFMTBCDField;
-    sqlCompromissoRealizadoBOLETA_ID: TFMTBCDField;
-    sqlCompromissoRealizadoRECIBO_NUMERO: TFMTBCDField;
+    sqlCompromissoRealizadoLANCAMENTO_COMPROMISSO_ID: TBCDField;
+    sqlCompromissoRealizadoBOLETA_ID: TBCDField;
+    sqlCompromissoRealizadoRECIBO_NUMERO: TBCDField;
     sqlCompromissoRealizadoDIFERENCA: TStringField;
-    sqlCompromissoRealizadoVALOR_ORIGEM: TFMTBCDField;
-    sqlCompromissoRealizadoQTD_ADICIONAL: TFMTBCDField;
+    sqlCompromissoRealizadoVALOR_ORIGEM: TBCDField;
+    sqlCompromissoRealizadoQTD_ADICIONAL: TBCDField;
     sqlCompromissoRealizadoATUALIZADO: TStringField;
     sqlCompromissoRealizadoDATA_REALIZACAO: TSQLTimeStampField;
     sqlCompromissoAgendadoOBRIGATORIO: TStringField;
@@ -187,13 +188,13 @@ type
     N6: TMenuItem;
     cxGridDBTableView3Column3: TcxGridDBColumn;
     popLancarCompromissoVencido: TMenuItem;
-    sqlCompromissoAgendadoCENTRO_CUSTO_ID: TFMTBCDField;
-    sqlCompromissoAgendadoCEDENTE_ID: TFMTBCDField;
-    sqlCompromissoVencidoCENTRO_CUSTO_ID: TFMTBCDField;
-    sqlCompromissoVencidoCEDENTE_ID: TFMTBCDField;
-    sqlCompromissoAgendadoBALANCETE_GRUPO_ID: TFMTBCDField;
-    sqlCompromissoVencidoBALANCETE_GRUPO_ID: TFMTBCDField;
-    sqlCompromissoRealizadoBALANCETE_GRUPO_ID: TFMTBCDField;
+    sqlCompromissoAgendadoCENTRO_CUSTO_ID: TBCDField;
+    sqlCompromissoAgendadoCEDENTE_ID: TBCDField;
+    sqlCompromissoVencidoCENTRO_CUSTO_ID: TBCDField;
+    sqlCompromissoVencidoCEDENTE_ID: TBCDField;
+    sqlCompromissoAgendadoBALANCETE_GRUPO_ID: TBCDField;
+    sqlCompromissoVencidoBALANCETE_GRUPO_ID: TBCDField;
+    sqlCompromissoRealizadoBALANCETE_GRUPO_ID: TBCDField;
     cxGridDBTableView2Column4: TcxGridDBColumn;
     cxGridDBTableView1Column4: TcxGridDBColumn;
     cxGridDBTableView3Column4: TcxGridDBColumn;
@@ -220,7 +221,7 @@ type
     lblPessoa: TcxLabel;
     sqlCompromissoVencidoPESSOA_NOME: TStringField;
     sqlCompromissoRealizadoPESSOA_NOME: TStringField;
-    sqlPesquisaPESSOA_TERCEIRO_ID: TFMTBCDField;
+    sqlPesquisaPESSOA_TERCEIRO_ID: TBCDField;
     N7: TMenuItem;
     popProgramacaoAjuste: TMenuItem;
     cxGridDBTableProgramacao: TcxGridDBColumn;
@@ -233,18 +234,18 @@ type
     cxGridDBTableView4Column2: TcxGridDBColumn;
     cxGridDBTableView4Column3: TcxGridDBColumn;
     cxGridDBTableView4Column4: TcxGridDBColumn;
-    sqlAjusteProgramado: TSimpleDataSet;
+    sqlAjusteProgramado: TI9Query;
     dtsAjusteProgramado: TDataSource;
     sqlAjusteProgramadocalc_AnoMes: TStringField;
-    sqlAjusteProgramadoPROGRAMACAO_AJUSTE_ID: TFMTBCDField;
-    sqlAjusteProgramadoCOMPROMISSO_AGENDADO_ID: TFMTBCDField;
+    sqlAjusteProgramadoPROGRAMACAO_AJUSTE_ID: TBCDField;
+    sqlAjusteProgramadoCOMPROMISSO_AGENDADO_ID: TBCDField;
     sqlAjusteProgramadoCOMPROMISSO_REAJUSTAR: TStringField;
     sqlAjusteProgramadoCOMPROMISSO_SITUACAO: TStringField;
     sqlAjusteProgramadoANO_MES: TStringField;
     sqlAjusteProgramadoSITUACAO: TStringField;
-    sqlAjusteProgramadoPESSOA_ID: TFMTBCDField;
-    sqlAjusteProgramadoVALOR_ANTERIOR: TFMTBCDField;
-    sqlAjusteProgramadoCONTABIL_CONTA_ID: TFMTBCDField;
+    sqlAjusteProgramadoPESSOA_ID: TBCDField;
+    sqlAjusteProgramadoVALOR_ANTERIOR: TBCDField;
+    sqlAjusteProgramadoCONTABIL_CONTA_ID: TBCDField;
     sqlAjusteProgramadoSITUACAO_ANTERIOR: TStringField;
     procedure cxBtnFecharClick(Sender: TObject);
     procedure cxBtnIncluirClick(Sender: TObject);
@@ -454,7 +455,7 @@ begin
            '    AND ((SITUACAO_GERAL <> ''2'') or (SITUACAO_GERAL IS NULL))';
   viSql := viSql + ' ORDER BY COMPROMISSO_AGENDADO_ID ';
   sqlCompromissoAgendado.Active := False;
-  sqlCompromissoAgendado.DataSet.CommandText := viSql;
+  sqlCompromissoAgendado.SQL.Text := viSql;
   sqlCompromissoAgendado.Active := True;
 
   // Compromisso Vencido
@@ -467,18 +468,18 @@ begin
 
   // Compromissos Realizados
   sqlCompromissoRealizado.Active := False;
-  sqlCompromissoRealizado.DataSet.ParamByName('PESSOA_ID').AsBCD := sqlPesquisaPESSOA_ID.AsCurrency;
+  sqlCompromissoRealizado.ParamByName('PESSOA_ID').AsBCD := sqlPesquisaPESSOA_ID.AsCurrency;
   sqlCompromissoRealizado.Active := True;
 
   // Compromissos Realizados
   sqlAjusteProgramado.Active := False;
-  sqlAjusteProgramado.DataSet.ParamByName('PESSOA_ID').AsBCD := sqlPesquisaPESSOA_ID.AsCurrency;
+  sqlAjusteProgramado.ParamByName('PESSOA_ID').AsBCD := sqlPesquisaPESSOA_ID.AsCurrency;
   sqlAjusteProgramado.Active := True;
 
   tabAjusteProgramado.TabVisible := sqlAjusteProgramado.RecordCount > 0;
 
   sqlCompromissoVencido.Active := False;
-  sqlCompromissoVencido.DataSet.CommandText := viSql;
+  sqlCompromissoVencido.SQL.Text := viSql;
   sqlCompromissoVencido.Active := True;
 //  dtmLookup.MarcarDesmarcarCompromissos(sqlCompromissoVencido, False);
   AtivarPopMenus;
@@ -636,7 +637,7 @@ begin
 
   viPesquisa := viPesquisa + viCondicao + 'ORDER BY NOME, GRAU DESC ';
   sqlPesquisa.Active := False;
-  sqlPesquisa.DataSet.CommandText := viPesquisa;
+  sqlPesquisa.SQL.Text := viPesquisa;
   sqlPesquisa.Active := True;
 
   tabCompromissos.TabVisible := sqlPesquisa.RecordCount > 0;
@@ -666,7 +667,7 @@ begin
   begin
 //    ParamByName('ORDEM').AsInteger         := dtmControles.GerarSequencia('BOLETO_ORDEM'+IntToStr(vgCedenteAtivo));
     ParamByName('DATA_CANCELADO').AsString := dtmControles.DataHoraBanco(5);
-    ExecSQL(False);
+    ExecSQL;
   end;
 
   ExecutaSqlAuxiliar(' UPDATE T_COMPROMISSO_VENCIDO SET BOLETA_ID = NULL'+

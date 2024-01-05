@@ -42,11 +42,11 @@ type
     lcbGrupo: TcxDBLookupComboBox;
     edtDescricao: TcxDBTextEdit;
     ImageList1: TImageList;
-    ClientAncestralTEXTO_MODELO_ID: TFMTBCDField;
+    ClientAncestralTEXTO_MODELO_ID: TBCDField;
     ClientAncestralDESCRICAO: TStringField;
     ClientAncestralTEXTO: TBlobField;
-    ClientAncestralTB_TXMODELOGRUPO_ID: TFMTBCDField;
-    ClientAncestralSISTEMA_ID: TFMTBCDField;
+    ClientAncestralTB_TXMODELOGRUPO_ID: TBCDField;
+    ClientAncestralSISTEMA_ID: TBCDField;
     fmeEditor: TfmeEditor;
     gbxPesquisa: TcxGroupBox;
     cxLabel1: TcxLabel;
@@ -250,7 +250,7 @@ begin
   else
   if Trim(edtPesquisar.Text) <> '' then
      Sql := Sql + ' AND DESCRICAO LIKE ' + QuotedStr(edtPesquisar.Text + '%');
-  DataSetAncestral.CommandText := Sql + ' ORDER BY DESCRICAO ';
+  DataSetAncestral.SQL.Text := Sql + ' ORDER BY DESCRICAO ';
   ClientAncestral.Open;
 end;
 

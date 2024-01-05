@@ -3,6 +3,7 @@ unit ItensVinculados;
 interface
 
 uses
+  I9Query,
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, CadastroAuxSimplificado, cxGraphics,
   cxControls, cxLookAndFeels, cxLookAndFeelPainters, cxContainer, cxEdit,
@@ -24,15 +25,15 @@ type
     ClientAncestralcalc_Entrada: TCurrencyField;
     ClientAncestralcalc_saida: TCurrencyField;
     dtsOrcamento: TDataSource;
-    sqlOrcamento: TSimpleDataSet;
+    sqlOrcamento: TI9Query;
     CLientOrcamento: TClientDataSet;
     CLientOrcamentoDATA: TSQLTimeStampField;
     CLientOrcamentoDOCUMENTO_NUMERO: TStringField;
-    CLientOrcamentoTIPO_MODALIDADE_ID: TFMTBCDField;
-    CLientOrcamentoPESSOA_ID: TFMTBCDField;
-    CLientOrcamentoCONTABIL_CONTA_ID: TFMTBCDField;
+    CLientOrcamentoTIPO_MODALIDADE_ID: TBCDField;
+    CLientOrcamentoPESSOA_ID: TBCDField;
+    CLientOrcamentoCONTABIL_CONTA_ID: TBCDField;
     CLientOrcamentoHISTORICO: TStringField;
-    CLientOrcamentoVALOR_AGENDADO: TFMTBCDField;
+    CLientOrcamentoVALOR_AGENDADO: TBCDField;
     CLientOrcamentoOPERACAO: TStringField;
     CLientOrcamentocalc_Entrada: TCurrencyField;
     CLientOrcamentocalc_saida: TCurrencyField;
@@ -40,11 +41,11 @@ type
     CLientOrcamentoTIPO: TIntegerField;
     ClientAncestralDATA: TSQLTimeStampField;
     ClientAncestralDOCUMENTO_NUMERO: TStringField;
-    ClientAncestralTIPO_MODALIDADE_ID: TFMTBCDField;
-    ClientAncestralPESSOA_ID: TFMTBCDField;
-    ClientAncestralCONTABIL_CONTA_ID: TFMTBCDField;
+    ClientAncestralTIPO_MODALIDADE_ID: TBCDField;
+    ClientAncestralPESSOA_ID: TBCDField;
+    ClientAncestralCONTABIL_CONTA_ID: TBCDField;
     ClientAncestralHISTORICO: TStringField;
-    ClientAncestralVALOR: TFMTBCDField;
+    ClientAncestralVALOR: TBCDField;
     ClientAncestralOPERACAO: TStringField;
     ClientAncestralNOME: TStringField;
     btnRelatorio: TcxButton;
@@ -56,8 +57,8 @@ type
     lblMarcar: TcxLabel;
     lblDesmarcar: TcxLabel;
     ClientAncestralcalc_valor_pagar: TCurrencyField;
-    ClientAncestralLIVRO_FINANCEIRO_ID: TFMTBCDField;
-    ClientAncestralLIVRO_CAIXA_FATURADO_ID: TFMTBCDField;
+    ClientAncestralLIVRO_FINANCEIRO_ID: TBCDField;
+    ClientAncestralLIVRO_CAIXA_FATURADO_ID: TBCDField;
     ClientAncestralcalc_Registrado: TBooleanField;
     tbcItens: TcxTabControl;
     gdrCompromissoAgendado: TcxGrid;
@@ -217,14 +218,14 @@ begin
   if vgItensVinculados.AnoMesReferencia <> '' then
   begin
     sqlOrcamento.Active := False;
-    sqlOrcamento.DataSet.ParamByName('ORCAMENTO_ID').AsInteger      := StrToInt(vgItensVinculados.Id);
-    sqlOrcamento.DataSet.ParamByName('ANO_MES_REFERENCIA').AsString := vgItensVinculados.AnoMesReferencia;
+    sqlOrcamento.ParamByName('ORCAMENTO_ID').AsInteger      := StrToInt(vgItensVinculados.Id);
+    sqlOrcamento.ParamByName('ANO_MES_REFERENCIA').AsString := vgItensVinculados.AnoMesReferencia;
     sqlOrcamento.Active := True;
     PreencherDadosOrcamento(2);
 
     PreencherSql('  AND LF.SITUACAO IN (1,2)');
     sqlOrcamento.Active := False;
-    sqlOrcamento.DataSet.CommandText := viSql;
+    sqlOrcamento.SQL.Text := viSql;
     sqlOrcamento.Active := True;
     PreencherDadosOrcamento(1);
 
@@ -239,7 +240,7 @@ begin
          viSql := viSql + ' AND LF.LIVRO_CAIXA_FATURADO_ID IS NULL '
     else viSql := viSql + ' AND LF.LIVRO_CAIXA_FATURADO_ID > 0';
 
-    DataSetAncestral.CommandText := viSql;
+    DataSetAncestral.SQL.Text := viSql;
     ClientAncestral.Active := True;
   end;
 end;

@@ -356,8 +356,8 @@ inherited frmItensVinculados: TfrmItensVinculados
       OnClick = lblDesmarcarClick
     end
   end
-  inherited DataSetAncestral: TSQLDataSet
-    CommandText = 
+  inherited DataSetAncestral: TI9Query
+    SQL.Strings = (
       'SELECT LF.DATA_VENCIMENTO AS DATA,'#13#10'       LF.LIVRO_FINANCEIRO_I' +
       'D,'#13#10'       LF.LIVRO_CAIXA_FATURADO_ID,'#13#10'       LF.DOCUMENTO_NUME' +
       'RO,'#13#10'       LF.TIPO_MODALIDADE_ID,'#13#10'       LF.PESSOA_ID,'#13#10'      ' +
@@ -366,7 +366,7 @@ inherited frmItensVinculados: TfrmItensVinculados
       '.DESCRICAO AS COMPROMISSO'#13#10'FROM J_LIVRO_FINANCEIRO LF'#13#10'  LEFT OU' +
       'TER JOIN J_PESSOA P ON'#13#10'  LF.PESSOA_ID = P.PESSOA_ID'#13#10'  LEFT OUT' +
       'ER JOIN J_CONTABIL_CONTA CC ON'#13#10'  LF.CONTABIL_CONTA_ID = CC.CONT' +
-      'ABIL_CONTA_ID'
+      'ABIL_CONTA_ID')
     Left = 47
   end
   inherited ProviderAncestral: TDataSetProvider
@@ -392,17 +392,17 @@ inherited frmItensVinculados: TfrmItensVinculados
       FieldName = 'DOCUMENTO_NUMERO'
       Size = 60
     end
-    object ClientAncestralTIPO_MODALIDADE_ID: TFMTBCDField
+    object ClientAncestralTIPO_MODALIDADE_ID: TBCDField
       FieldName = 'TIPO_MODALIDADE_ID'
       Precision = 20
       Size = 2
     end
-    object ClientAncestralPESSOA_ID: TFMTBCDField
+    object ClientAncestralPESSOA_ID: TBCDField
       FieldName = 'PESSOA_ID'
       Precision = 20
       Size = 2
     end
-    object ClientAncestralCONTABIL_CONTA_ID: TFMTBCDField
+    object ClientAncestralCONTABIL_CONTA_ID: TBCDField
       FieldName = 'CONTABIL_CONTA_ID'
       Precision = 20
       Size = 2
@@ -411,7 +411,7 @@ inherited frmItensVinculados: TfrmItensVinculados
       FieldName = 'HISTORICO'
       Size = 90
     end
-    object ClientAncestralVALOR: TFMTBCDField
+    object ClientAncestralVALOR: TBCDField
       FieldName = 'VALOR'
       Precision = 20
       Size = 3
@@ -437,13 +437,13 @@ inherited frmItensVinculados: TfrmItensVinculados
       FieldName = 'calc_valor_pagar'
       Calculated = True
     end
-    object ClientAncestralLIVRO_FINANCEIRO_ID: TFMTBCDField
+    object ClientAncestralLIVRO_FINANCEIRO_ID: TBCDField
       FieldName = 'LIVRO_FINANCEIRO_ID'
       Required = True
       Precision = 20
       Size = 2
     end
-    object ClientAncestralLIVRO_CAIXA_FATURADO_ID: TFMTBCDField
+    object ClientAncestralLIVRO_CAIXA_FATURADO_ID: TBCDField
       FieldName = 'LIVRO_CAIXA_FATURADO_ID'
       Precision = 20
       Size = 2
@@ -462,10 +462,10 @@ inherited frmItensVinculados: TfrmItensVinculados
     Left = 207
     Top = 369
   end
-  object sqlOrcamento: TSimpleDataSet
+  object sqlOrcamento: TI9Query
     Aggregates = <>
     Connection = dtmControles.DB
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT LC.CAIXA_ID,'#13#10'       LC.DATA_PAGAMENTO AS DATA,'#13#10'       L' +
       'C.DOCUMENTO_NUMERO,'#13#10'       LC.TIPO_MODALIDADE_ID,'#13#10'       LC.PE' +
       'SSOA_ID,'#13#10'       LC.CONTABIL_CONTA_ID,'#13#10'       LC.HISTORICO,'#13#10'  ' +
@@ -474,9 +474,8 @@ inherited frmItensVinculados: TfrmItensVinculados
       'N J_PESSOA P ON'#13#10'  LC.PESSOA_ID = P.PESSOA_ID'#13#10'  LEFT OUTER JOIN' +
       ' J_CONTABIL_CONTA CC ON'#13#10'  LC.CONTABIL_CONTA_ID = CC.CONTABIL_CO' +
       'NTA_ID'#13#10'WHERE ORCAMENTO_ID = :ORCAMENTO_ID'#13#10'  AND ANO_MES_REGIST' +
-      'RO = :ANO_MES_REFERENCIA'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <
+      'RO = :ANO_MES_REFERENCIA')
+    ParamData = <
       item
         DataType = ftBCD
         Name = 'ORCAMENTO_ID'
@@ -521,19 +520,19 @@ inherited frmItensVinculados: TfrmItensVinculados
       end
       item
         Name = 'TIPO_MODALIDADE_ID'
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Precision = 20
         Size = 2
       end
       item
         Name = 'PESSOA_ID'
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Precision = 20
         Size = 2
       end
       item
         Name = 'CONTABIL_CONTA_ID'
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Precision = 20
         Size = 2
       end
@@ -544,7 +543,7 @@ inherited frmItensVinculados: TfrmItensVinculados
       end
       item
         Name = 'VALOR_AGENDADO'
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Precision = 20
         Size = 3
       end
@@ -580,17 +579,17 @@ inherited frmItensVinculados: TfrmItensVinculados
       FieldName = 'DOCUMENTO_NUMERO'
       Size = 60
     end
-    object CLientOrcamentoTIPO_MODALIDADE_ID: TFMTBCDField
+    object CLientOrcamentoTIPO_MODALIDADE_ID: TBCDField
       FieldName = 'TIPO_MODALIDADE_ID'
       Precision = 20
       Size = 2
     end
-    object CLientOrcamentoPESSOA_ID: TFMTBCDField
+    object CLientOrcamentoPESSOA_ID: TBCDField
       FieldName = 'PESSOA_ID'
       Precision = 20
       Size = 2
     end
-    object CLientOrcamentoCONTABIL_CONTA_ID: TFMTBCDField
+    object CLientOrcamentoCONTABIL_CONTA_ID: TBCDField
       FieldName = 'CONTABIL_CONTA_ID'
       Precision = 20
       Size = 2
@@ -599,7 +598,7 @@ inherited frmItensVinculados: TfrmItensVinculados
       FieldName = 'HISTORICO'
       Size = 90
     end
-    object CLientOrcamentoVALOR_AGENDADO: TFMTBCDField
+    object CLientOrcamentoVALOR_AGENDADO: TBCDField
       FieldName = 'VALOR_AGENDADO'
       Precision = 20
       Size = 3

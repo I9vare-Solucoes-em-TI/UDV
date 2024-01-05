@@ -3,6 +3,7 @@ unit Lookup;
 interface
 
 uses
+  I9Query,
   SysUtils, Classes, cxDBEditRepository, DB, DBClient, SimpleDS,
   cxEditRepositoryItems, cxEdit, cxImageComboBox, cxDbEdit, cxClasses,
   Vcl.Forms, Vcl.Controls, System.Variants,  Vcl.Dialogs, Winapi.Windows,
@@ -41,34 +42,34 @@ type
     cxEditRepository1: TcxEditRepository;
     cxEditRepository1CurrencyItem1: TcxEditRepositoryCurrencyItem;
     cxEditRepository1DateItem1: TcxEditRepositoryDateItem;
-    sqlG_Banco: TSimpleDataSet;
+    sqlG_Banco: TI9Query;
     dtsG_Banco: TDataSource;
-    sqlG_TB_DocumentoTipo: TSimpleDataSet;
+    sqlG_TB_DocumentoTipo: TI9Query;
     dtsG_TB_DocumentoTipo: TDataSource;
-    sqlG_TB_EstadoCivil: TSimpleDataSet;
+    sqlG_TB_EstadoCivil: TI9Query;
     dtsG_TB_EstadoCivil: TDataSource;
     sqlG_BancoDESCRICAO: TStringField;
-    sqlG_TB_DocumentoTipoTB_DOCUMENTOTIPO_ID: TFMTBCDField;
+    sqlG_TB_DocumentoTipoTB_DOCUMENTOTIPO_ID: TBCDField;
     sqlG_TB_DocumentoTipoDESCRICAO: TStringField;
     sqlG_TB_DocumentoTipoTEXTO: TBlobField;
     sqlG_TB_DocumentoTipoSITUACAO: TStringField;
-    sqlG_TB_EstadoCivilTB_ESTADOCIVIL_ID: TFMTBCDField;
+    sqlG_TB_EstadoCivilTB_ESTADOCIVIL_ID: TBCDField;
     sqlG_TB_EstadoCivilDESCRICAO: TStringField;
     sqlG_TB_EstadoCivilSITUACAO: TStringField;
-    sqlG_TB_Profissao: TSimpleDataSet;
+    sqlG_TB_Profissao: TI9Query;
     dtsG_TB_Profissao: TDataSource;
-    sqlG_TB_ProfissaoTB_PROFISSAO_ID: TFMTBCDField;
+    sqlG_TB_ProfissaoTB_PROFISSAO_ID: TBCDField;
     sqlG_TB_ProfissaoDESCRICAO: TStringField;
     sqlG_TB_ProfissaoSITUACAO: TStringField;
-    sqlG_TB_RegimeComunhao: TSimpleDataSet;
+    sqlG_TB_RegimeComunhao: TI9Query;
     dtsG_TB_RegimeComunhao: TDataSource;
-    sqlG_TB_RegimeComunhaoTB_REGIMECOMUNHAO_ID: TFMTBCDField;
+    sqlG_TB_RegimeComunhaoTB_REGIMECOMUNHAO_ID: TBCDField;
     sqlG_TB_RegimeComunhaoDESCRICAO: TStringField;
     sqlG_TB_RegimeComunhaoTEXTO: TBlobField;
     sqlG_TB_RegimeComunhaoSITUACAO: TStringField;
-    sqlG_TB_TipoLogradouro: TSimpleDataSet;
+    sqlG_TB_TipoLogradouro: TI9Query;
     dtsG_TB_TipoLogradouro: TDataSource;
-    sqlG_TB_TipoLogradouroTB_TIPOLOGRADOURO_ID: TFMTBCDField;
+    sqlG_TB_TipoLogradouroTB_TIPOLOGRADOURO_ID: TBCDField;
     sqlG_TB_TipoLogradouroDESCRICAO: TStringField;
     listaG_Banco: TcxEditRepositoryLookupComboBoxItem;
     listaG_TB_DocumentoTipo: TcxEditRepositoryLookupComboBoxItem;
@@ -80,8 +81,8 @@ type
     Combo_Sexo: TcxEditRepositoryImageComboBoxItem;
     Combo_SimNao: TcxEditRepositoryImageComboBoxItem;
     Combo_TipoQualificacao: TcxEditRepositoryImageComboBoxItem;
-    sqlG_TB_TxModeloGrupo: TSimpleDataSet;
-    sqlG_TB_TxModeloGrupoTB_TXMODELOGRUPO_ID: TFMTBCDField;
+    sqlG_TB_TxModeloGrupo: TI9Query;
+    sqlG_TB_TxModeloGrupoTB_TXMODELOGRUPO_ID: TBCDField;
     sqlG_TB_TxModeloGrupoDESCRICAO: TStringField;
     dtsG_TB_TxModeloGrupo: TDataSource;
     ListaG_TB_TBTxModeloGrupo: TcxEditRepositoryLookupComboBoxItem;
@@ -97,27 +98,27 @@ type
     Combo_Doi_Localizacao: TcxEditRepositoryImageComboBoxItem;
     Combo_Doi_AreaNaoConsta: TcxEditRepositoryImageComboBoxItem;
     Combo_Doi_ITBIeITCDnaoConsta: TcxEditRepositoryImageComboBoxItem;
-    sqlG_Natureza_Titulo: TSimpleDataSet;
-    sqlG_Natureza_TituloCODIGO_NATUREZA_SEF: TFMTBCDField;
-    sqlG_Natureza_TituloEMOLUMENTO_ID: TFMTBCDField;
-    sqlG_Natureza_TituloNATUREZA_TITULO_ID: TFMTBCDField;
+    sqlG_Natureza_Titulo: TI9Query;
+    sqlG_Natureza_TituloCODIGO_NATUREZA_SEF: TBCDField;
+    sqlG_Natureza_TituloEMOLUMENTO_ID: TBCDField;
+    sqlG_Natureza_TituloNATUREZA_TITULO_ID: TBCDField;
     sqlG_Natureza_TituloDESCRICAO: TStringField;
-    sqlG_Natureza_TituloPRAZO: TFMTBCDField;
+    sqlG_Natureza_TituloPRAZO: TBCDField;
     sqlG_Natureza_TituloSITUACAO: TStringField;
     sqlG_Natureza_TituloABRIR_MATRICULA: TStringField;
-    sqlG_Natureza_TituloSISTEMA_ID: TFMTBCDField;
-    sqlG_Natureza_TituloCODIGO_DOI: TFMTBCDField;
+    sqlG_Natureza_TituloSISTEMA_ID: TBCDField;
+    sqlG_Natureza_TituloCODIGO_DOI: TBCDField;
     dtsG_Natureza_Titulo: TDataSource;
     ListaG_Natureza_Titulo: TcxEditRepositoryLookupComboBoxItem;
-    sqlG_Emolumento: TSimpleDataSet;
-    sqlG_EmolumentoEMOLUMENTO_ID: TFMTBCDField;
+    sqlG_Emolumento: TI9Query;
+    sqlG_EmolumentoEMOLUMENTO_ID: TBCDField;
     sqlG_EmolumentoDESCRICAO: TStringField;
     sqlG_EmolumentoTIPO: TStringField;
     dtsG_Emolumento: TDataSource;
     listaG_Emolumento: TcxEditRepositoryLookupComboBoxItem;
-    sqlG_Emolumento_Periodo: TSimpleDataSet;
+    sqlG_Emolumento_Periodo: TI9Query;
     dtsG_Emolumento_Periodo: TDataSource;
-    sqlG_Emolumento_PeriodoEMOLUMENTO_PERIODO_ID: TFMTBCDField;
+    sqlG_Emolumento_PeriodoEMOLUMENTO_PERIODO_ID: TBCDField;
     sqlG_Emolumento_PeriodoDESCRICAO: TStringField;
     sqlG_Emolumento_PeriodoSITUACAO: TStringField;
     ListaG_Emolumento_Periodo: TcxEditRepositoryLookupComboBoxItem;
@@ -125,15 +126,15 @@ type
     Formata_Fone: TcxEditRepositoryMaskItem;
     Formata_CPF: TcxEditRepositoryMaskItem;
     Formata_CNPJ: TcxEditRepositoryMaskItem;
-    sqlG_Medida_Tipo: TSimpleDataSet;
+    sqlG_Medida_Tipo: TI9Query;
     dtsG_Medida_Tipo: TDataSource;
-    sqlG_Medida_TipoMEDIDA_TIPO_ID: TFMTBCDField;
+    sqlG_Medida_TipoMEDIDA_TIPO_ID: TBCDField;
     sqlG_Medida_TipoDESCRICAO: TStringField;
     sqlG_Medida_TipoSIGLA: TStringField;
     Lista_MedidaTipoDescricao: TcxEditRepositoryLookupComboBoxItem;
-    sqlG_TB_Bairro: TSimpleDataSet;
+    sqlG_TB_Bairro: TI9Query;
     dtsG_TB_Bairro: TDataSource;
-    sqlG_TB_BairroTB_BAIRRO_ID: TFMTBCDField;
+    sqlG_TB_BairroTB_BAIRRO_ID: TBCDField;
     sqlG_TB_BairroDESCRICAO: TStringField;
     sqlG_TB_BairroSITUACAO: TStringField;
     listaG_TB_Bairro: TcxEditRepositoryLookupComboBoxItem;
@@ -142,9 +143,9 @@ type
     Combo_TipoTitulo: TcxEditRepositoryImageComboBoxItem;
     sqlG_Natureza_TituloTIPO_COBRANCA: TStringField;
     sqlG_Natureza_TituloTIPO_TITULO: TStringField;
-    sqlG_Usuario: TSimpleDataSet;
+    sqlG_Usuario: TI9Query;
     dtsG_Usuario: TDataSource;
-    sqlG_UsuarioUSUARIO_ID: TFMTBCDField;
+    sqlG_UsuarioUSUARIO_ID: TBCDField;
     sqlG_UsuarioTROCARSENHA: TStringField;
     sqlG_UsuarioLOGIN: TStringField;
     sqlG_UsuarioSENHA: TStringField;
@@ -153,20 +154,20 @@ type
     sqlG_UsuarioFUNCAO: TStringField;
     sqlG_UsuarioASSINA: TStringField;
     listaG_Usuario: TcxEditRepositoryLookupComboBoxItem;
-    sqlG_Natureza: TSimpleDataSet;
+    sqlG_Natureza: TI9Query;
     dtsG_Natureza: TDataSource;
-    sqlG_NaturezaNATUREZA_ID: TFMTBCDField;
+    sqlG_NaturezaNATUREZA_ID: TBCDField;
     sqlG_NaturezaDESCRICAO: TStringField;
-    sqlG_NaturezaSISTEMA_ID: TFMTBCDField;
+    sqlG_NaturezaSISTEMA_ID: TBCDField;
     Lista_Natureza: TcxEditRepositoryLookupComboBoxItem;
-    sqlUsuarioSistema: TSimpleDataSet;
+    sqlUsuarioSistema: TI9Query;
     dtsUsuarioSistema: TDataSource;
-    sqlUsuarioSistemaUSUARIO_ID: TFMTBCDField;
+    sqlUsuarioSistemaUSUARIO_ID: TBCDField;
     sqlUsuarioSistemaLOGIN: TStringField;
     Lista_UsuarioSistema: TcxEditRepositoryLookupComboBoxItem;
     Combo_Sistema: TcxEditRepositoryImageComboBoxItem;
-    sqlUsuarioAssinante: TSimpleDataSet;
-    FMTBCDField1: TFMTBCDField;
+    sqlUsuarioAssinante: TI9Query;
+    FMTBCDField1: TBCDField;
     dtsUsuarioAssinante: TDataSource;
     sqlUsuarioAssinanteNOME_COMPLETO: TStringField;
     Lista_UsuarioAssinante: TcxEditRepositoryLookupComboBoxItem;
@@ -175,122 +176,122 @@ type
     Combo_TiposValoresMarcacoes: TcxEditRepositoryImageComboBoxItem;
     sqlUsuarioAssinanteFUNCAO: TStringField;
     Combo_Permissao: TcxEditRepositoryCheckBoxItem;
-    sqlC_Caixa_Servico: TSimpleDataSet;
+    sqlC_Caixa_Servico: TI9Query;
     dtsC_Caixa_Servico: TDataSource;
     sqlC_Caixa_ServicoINTERNO_SISTEMA: TStringField;
-    sqlC_Caixa_ServicoCAIXA_SERVICO_ID: TFMTBCDField;
+    sqlC_Caixa_ServicoCAIXA_SERVICO_ID: TBCDField;
     sqlC_Caixa_ServicoDESCRICAO: TStringField;
     sqlC_Caixa_ServicoSITUACAO: TStringField;
     sqlC_Caixa_ServicoTIPO_TRANSACAO: TStringField;
-    sqlC_Caixa_ServicoSISTEMA_ID: TFMTBCDField;
+    sqlC_Caixa_ServicoSISTEMA_ID: TBCDField;
     listaC_Caixa_Servico: TcxEditRepositoryLookupComboBoxItem;
     Check_SimNao: TcxEditRepositoryCheckBoxItem;
     Combo_Correcao: TcxEditRepositoryImageComboBoxItem;
     Lista_ArquivoCorrecao: TcxEditRepositoryImageComboBoxItem;
-    sqlSeloGrupo: TSimpleDataSet;
+    sqlSeloGrupo: TI9Query;
     dtsSeloGrupo: TDataSource;
-    sqlSeloGrupoSELO_GRUPO_ID: TFMTBCDField;
+    sqlSeloGrupoSELO_GRUPO_ID: TBCDField;
     sqlSeloGrupoDESCRICAO: TStringField;
     Lista_SeloGrupo: TcxEditRepositoryLookupComboBoxItem;
-    sqlSeloTipoCartorio: TSimpleDataSet;
+    sqlSeloTipoCartorio: TI9Query;
     dtsSeloTipoCartorio: TDataSource;
-    sqlSeloTipoCartorioSELO_TIPO_CARTORIO_ID: TFMTBCDField;
+    sqlSeloTipoCartorioSELO_TIPO_CARTORIO_ID: TBCDField;
     sqlSeloTipoCartorioDESCRICAO: TStringField;
     Lista_SeloTipoCartorio: TcxEditRepositoryLookupComboBoxItem;
     sqlSeloGrupoDESCRICAO_COMPLETA: TStringField;
-    sqlSeloGrupoNUMERO: TFMTBCDField;
+    sqlSeloGrupoNUMERO: TBCDField;
     ClientTemp: TClientDataSet;
     ClientTempCHAVE_ID: TIntegerField;
     ClientTempVALOR: TStringField;
     Combo_Boleto_Situacao: TcxEditRepositoryImageComboBoxItem;
     Combo_SimNaoOpcional: TcxEditRepositoryImageComboBoxItem;
-    sqlMunicipioIBGE: TSimpleDataSet;
+    sqlMunicipioIBGE: TI9Query;
     dtsMunicipioIBGE: TDataSource;
-    sqlMunicipioIBGEMUNICIPIO_ID: TFMTBCDField;
+    sqlMunicipioIBGEMUNICIPIO_ID: TBCDField;
     sqlMunicipioIBGEMUNICIPIO: TStringField;
     sqlMunicipioIBGECODIGO_IBGE: TStringField;
     sqlMunicipioIBGESIGLA: TStringField;
     Lista_MunicipioUF: TcxEditRepositoryLookupComboBoxItem;
     Lista_MunicipioDescricao: TcxEditRepositoryLookupComboBoxItem;
-    sqlPaisIBGE: TSimpleDataSet;
+    sqlPaisIBGE: TI9Query;
     dtsPaisIBGE: TDataSource;
-    sqlPaisIBGEIBGE_PAIS_ID: TFMTBCDField;
+    sqlPaisIBGEIBGE_PAIS_ID: TBCDField;
     sqlPaisIBGEDESCRICAO: TStringField;
     Lista_IBGE_Pais: TcxEditRepositoryLookupComboBoxItem;
-    sqlRegineBens: TSimpleDataSet;
+    sqlRegineBens: TI9Query;
     dtsRegimeBens: TDataSource;
-    sqlRegineBensTB_REGIMEBENS_ID: TFMTBCDField;
+    sqlRegineBensTB_REGIMEBENS_ID: TBCDField;
     sqlRegineBensDESCRICAO: TStringField;
     sqlRegineBensSITUACAO: TStringField;
     ListaRegimeBens: TcxEditRepositoryLookupComboBoxItem;
-    sqlCaixaServicoTodos: TSimpleDataSet;
+    sqlCaixaServicoTodos: TI9Query;
     StringField1: TStringField;
-    FMTBCDField2: TFMTBCDField;
+    FMTBCDField2: TBCDField;
     StringField2: TStringField;
     StringField3: TStringField;
     StringField4: TStringField;
-    FMTBCDField3: TFMTBCDField;
+    FMTBCDField3: TBCDField;
     dtsCaixaServicosTodos: TDataSource;
     Lista_CaixaServicoTodos: TcxEditRepositoryLookupComboBoxItem;
     Combo_Serventias: TcxEditRepositoryImageComboBoxItem;
     Combo_Especie: TcxEditRepositoryImageComboBoxItem;
     Combo_ServicoLivroDiario: TcxEditRepositoryImageComboBoxItem;
     Lista_SeloDescricaoCompleta: TcxEditRepositoryLookupComboBoxItem;
-    sqlEmailTextoPadrao: TSimpleDataSet;
-    sqlEmailTextoPadraoEMAIL_TEXTO_PADRAO_ID: TFMTBCDField;
+    sqlEmailTextoPadrao: TI9Query;
+    sqlEmailTextoPadraoEMAIL_TEXTO_PADRAO_ID: TBCDField;
     sqlEmailTextoPadraoDESCRICAO: TStringField;
     sqlEmailTextoPadraoTEXTO: TBlobField;
     sqlEmailTextoPadraoASSUNTO: TStringField;
     dtsEmailTextoPadrao: TDataSource;
     Lista_EmailTextoPadrao: TcxEditRepositoryLookupComboBoxItem;
-    sqlSistema: TSimpleDataSet;
-    sqlSistemaSISTEMA_ID: TFMTBCDField;
+    sqlSistema: TI9Query;
+    sqlSistemaSISTEMA_ID: TBCDField;
     sqlSistemaDESCRICAO: TStringField;
     dtsSistema: TDataSource;
-    sqlProvimentoEsferaNivel: TSimpleDataSet;
-    sqlProvimentoEsferaNivelPROVIMENTO_ESFERA_NIVEL_ID: TFMTBCDField;
+    sqlProvimentoEsferaNivel: TI9Query;
+    sqlProvimentoEsferaNivelPROVIMENTO_ESFERA_NIVEL_ID: TBCDField;
     sqlProvimentoEsferaNivelDESCRICAO: TStringField;
     sqlProvimentoEsferaNivelSITUACAO: TStringField;
     dtsProvimentoEsferaNivel: TDataSource;
-    sqlProvimentoOrigem: TSimpleDataSet;
-    sqlProvimentoOrigemPROVIMENTO_ORIGEM_ID: TFMTBCDField;
+    sqlProvimentoOrigem: TI9Query;
+    sqlProvimentoOrigemPROVIMENTO_ORIGEM_ID: TBCDField;
     sqlProvimentoOrigemDESCRICAO: TStringField;
     sqlProvimentoOrigemSITUACAO: TStringField;
     dtsProvimentoOrigem: TDataSource;
-    sqlProvimentoTipo: TSimpleDataSet;
-    sqlProvimentoTipoPROVIMENTO_TIPO_ID: TFMTBCDField;
+    sqlProvimentoTipo: TI9Query;
+    sqlProvimentoTipoPROVIMENTO_TIPO_ID: TBCDField;
     sqlProvimentoTipoDESCRICAO: TStringField;
     sqlProvimentoTipoSITUACAO: TStringField;
     dtsProvimentoTipo: TDataSource;
     listaProvimentoEsferaNivel: TcxEditRepositoryLookupComboBoxItem;
     listaProvimentoOrigem: TcxEditRepositoryLookupComboBoxItem;
     listaProvimentoTipo: TcxEditRepositoryLookupComboBoxItem;
-    sqlEmolumentoTodos: TSimpleDataSet;
-    FMTBCDField4: TFMTBCDField;
+    sqlEmolumentoTodos: TI9Query;
+    FMTBCDField4: TBCDField;
     StringField5: TStringField;
     StringField6: TStringField;
     dtsEmolumentoTodos: TDataSource;
     ListaG_EmolumentoTodos: TcxEditRepositoryLookupComboBoxItem;
     Lista_NaturezaTituloSistema: TcxEditRepositoryLookupComboBoxItem;
     dtsNaturezaTituloTodos: TDataSource;
-    sqlNaturezaTituloTodos: TSimpleDataSet;
-    sqlNaturezaTituloTodosCODIGO_NATUREZA_SEF: TFMTBCDField;
-    sqlNaturezaTituloTodosEMOLUMENTO_ID: TFMTBCDField;
-    sqlNaturezaTituloTodosNATUREZA_TITULO_ID: TFMTBCDField;
+    sqlNaturezaTituloTodos: TI9Query;
+    sqlNaturezaTituloTodosCODIGO_NATUREZA_SEF: TBCDField;
+    sqlNaturezaTituloTodosEMOLUMENTO_ID: TBCDField;
+    sqlNaturezaTituloTodosNATUREZA_TITULO_ID: TBCDField;
     sqlNaturezaTituloTodosDESCRICAO: TStringField;
-    sqlNaturezaTituloTodosPRAZO: TFMTBCDField;
+    sqlNaturezaTituloTodosPRAZO: TBCDField;
     sqlNaturezaTituloTodosSITUACAO: TStringField;
     sqlNaturezaTituloTodosABRIR_MATRICULA: TStringField;
-    sqlNaturezaTituloTodosSISTEMA_ID: TFMTBCDField;
-    sqlNaturezaTituloTodosCODIGO_DOI: TFMTBCDField;
+    sqlNaturezaTituloTodosSISTEMA_ID: TBCDField;
+    sqlNaturezaTituloTodosCODIGO_DOI: TBCDField;
     sqlNaturezaTituloTodosTIPO_COBRANCA: TStringField;
     sqlNaturezaTituloTodosTIPO_TITULO: TStringField;
     sqlNaturezaTituloTodosSISTEMA: TStringField;
     ListaTodasNatureza: TcxEditRepositoryLookupComboBoxItem;
     LIsta_NaturezaTituloTodos: TcxEditRepositoryLookupComboBoxItem;
     Combo_ImagemDespesaReceita: TcxEditRepositoryImageComboBoxItem;
-    sqlR_TB_Tipo_Andamento: TSimpleDataSet;
-    sqlR_TB_Tipo_AndamentoTB_TIPO_ANDAMENTO_ID: TFMTBCDField;
+    sqlR_TB_Tipo_Andamento: TI9Query;
+    sqlR_TB_Tipo_AndamentoTB_TIPO_ANDAMENTO_ID: TBCDField;
     sqlR_TB_Tipo_AndamentoDESCRICAO: TStringField;
     sqlR_TB_Tipo_AndamentoSITUACAO: TStringField;
     sqlR_TB_Tipo_AndamentoTIPO: TStringField;
@@ -298,45 +299,45 @@ type
     listaR_TB_Tipo_Andamento: TcxEditRepositoryLookupComboBoxItem;
     Combo_AndamentoCaixa: TcxEditRepositoryImageComboBoxItem;
     Combo_Especie1: TcxEditRepositoryImageComboBoxItem;
-    sqlConfiguracaoSalva: TSimpleDataSet;
-    sqlConfiguracaoSalvaCONFIGURACAO_SALVA_ID: TFMTBCDField;
+    sqlConfiguracaoSalva: TI9Query;
+    sqlConfiguracaoSalvaCONFIGURACAO_SALVA_ID: TBCDField;
     sqlConfiguracaoSalvaLOCAL: TStringField;
     sqlConfiguracaoSalvaDESCRICAO: TStringField;
     sqlConfiguracaoSalvaVALOR: TStringField;
-    sqlConfiguracaoSalvaSISTEMA_ID: TFMTBCDField;
-    sqlConfiguracaoDados: TSimpleDataSet;
-    sqlConfiguracaoDadosCONFIGURACAO_SALVA_ID: TFMTBCDField;
+    sqlConfiguracaoSalvaSISTEMA_ID: TBCDField;
+    sqlConfiguracaoDados: TI9Query;
+    sqlConfiguracaoDadosCONFIGURACAO_SALVA_ID: TBCDField;
     sqlConfiguracaoDadosLOCAL: TStringField;
     sqlConfiguracaoDadosDESCRICAO: TStringField;
     sqlConfiguracaoDadosVALOR: TStringField;
-    sqlConfiguracaoDadosSISTEMA_ID: TFMTBCDField;
+    sqlConfiguracaoDadosSISTEMA_ID: TBCDField;
     dtsConfiguracaoSalva: TDataSource;
     dtsConfiguracaoDados: TDataSource;
-    sqlMensalista: TSimpleDataSet;
+    sqlMensalista: TI9Query;
     dtsMensalista: TDataSource;
-    sqlMensalistaMENSALISTA_ID: TFMTBCDField;
+    sqlMensalistaMENSALISTA_ID: TBCDField;
     sqlMensalistaDESCRICAO: TStringField;
-    sqlMensalistaVALOR_CREDITO_INICIAL: TFMTBCDField;
+    sqlMensalistaVALOR_CREDITO_INICIAL: TBCDField;
     sqlMensalistaSITUACAO: TStringField;
     Lista_Mensalista: TcxEditRepositoryLookupComboBoxItem;
     Combo_FinanceiroLancamento: TcxEditRepositoryImageComboBoxItem;
-    sqlContaCliente: TSimpleDataSet;
+    sqlContaCliente: TI9Query;
     dtsContaCliente: TDataSource;
-    sqlContaClienteCONTA_CLIENTE_ID: TFMTBCDField;
+    sqlContaClienteCONTA_CLIENTE_ID: TBCDField;
     sqlContaClienteSITUACAO: TStringField;
     Lista_ContaCliente: TcxEditRepositoryLookupComboBoxItem;
     sqlContaClienteDESCRICAO: TStringField;
-    sqlContaClienteAtiva: TSimpleDataSet;
-    FMTBCDField5: TFMTBCDField;
+    sqlContaClienteAtiva: TI9Query;
+    FMTBCDField5: TBCDField;
     StringField7: TStringField;
     StringField8: TStringField;
     dtsContaClienteAtiva: TDataSource;
     Lista_ContaClienteAtivos: TcxEditRepositoryLookupComboBoxItem;
     sqlMunicipioIBGECEP: TStringField;
-    sqlG_Emolumento_PeriodoAtivos: TSimpleDataSet;
+    sqlG_Emolumento_PeriodoAtivos: TI9Query;
     dtsG_Emolumento_PeriodoAtivos: TDataSource;
     ListaG_EmolumentoPeriodoAtivo: TcxEditRepositoryLookupComboBoxItem;
-    sqlG_Emolumento_PeriodoAtivosEMOLUMENTO_PERIODO_ID: TFMTBCDField;
+    sqlG_Emolumento_PeriodoAtivosEMOLUMENTO_PERIODO_ID: TBCDField;
     sqlG_Emolumento_PeriodoAtivosDESCRICAO: TStringField;
     sqlG_Emolumento_PeriodoAtivosSITUACAO: TStringField;
     sqlG_Emolumento_PeriodoAtivosDATA_INICIAL: TSQLTimeStampField;
@@ -346,13 +347,13 @@ type
     Formata_Fone_9Digito: TcxEditRepositoryMaskItem;
     sqlG_TB_ProfissaoCODIGO_CBO: TStringField;
     Lista_AndamentoRI: TcxEditRepositoryLookupComboBoxItem;
-    sqlTipoCartao: TSimpleDataSet;
+    sqlTipoCartao: TI9Query;
     dtsTipoCartao: TDataSource;
     sqlTipoCartaoDESCRICAO: TStringField;
-    sqlTipoCartaoPERCENTUAL: TFMTBCDField;
+    sqlTipoCartaoPERCENTUAL: TBCDField;
     sqlTipoCartaoSITUACAO: TStringField;
     cxEditRepository1LookupComboBoxItem1: TcxEditRepositoryLookupComboBoxItem;
-    sqlTipoCartaoTIPO_CARTAO_ID: TFMTBCDField;
+    sqlTipoCartaoTIPO_CARTAO_ID: TBCDField;
     Lista_TipoCartao: TcxEditRepositoryLookupComboBoxItem;
     ListaTipoRegistroHoraCerta: TcxEditRepositoryImageComboBoxItem;
     ListaTipoRegistro: TcxEditRepositoryImageComboBoxItem;
@@ -381,14 +382,14 @@ type
     procedure VerificarPermitirNegativar(vpCliente, vpOperacao : String; vpValor, vpSaldo : Currency);
 
     procedure MarcarDesmarcarItensSimpleDataSet(vpMarcar: String;
-      vpSimpleDataset: TSimpleDataSet);
+      vpSimpleDataset: TI9Query);
 
     procedure MarcarDesmarcarItensClietDataSet(vpMarcar: String;
       vpSimpleDataset: TClientDataSet);
 
-    Function CadastrarRegBasicoGeral(vpSqlDataset: TSimpleDataSet; vpClientDataset: TClientDataSet; vpValorId: Variant;
+    Function CadastrarRegBasicoGeral(vpI9Query: TI9Query; vpClientDataset: TClientDataSet; vpValorId: Variant;
       vpTabela, vpCampoId, vpValor: String; vpAtualizarValor, vpAtualizarCampo, vpUpper: Boolean): Integer;
-    procedure CadastrarRegBasicoGeralClient(vpSqlDataset: TClientDataSet; vpTabela, vpCampoId, vpValor: String);
+    procedure CadastrarRegBasicoGeralClient(vpI9Query: TClientDataSet; vpTabela, vpCampoId, vpValor: String);
     procedure CadastrarRegBasicoGeralLookup(vpLookup: TcxLookupComboBox; vpTabela, vpCampoId, vpValor: String);
 
     procedure CadastrarFormRapido(vpTabela, vpCampoId : String; vpIdLigacao, vpIdLigacao2 : Integer; vpId : Integer = 0);
@@ -490,7 +491,7 @@ begin
   vgDadosCadastro.Tabela  := vpTabela;
 end;
 
-Function TdtmLookup.CadastrarRegBasicoGeral(vpSqlDataset: TSimpleDataSet;
+Function TdtmLookup.CadastrarRegBasicoGeral(vpI9Query: TI9Query;
   vpClientDataset: TClientDataSet; vpValorId: Variant;
   vpTabela, vpCampoId, vpValor: String; vpAtualizarValor, vpAtualizarCampo,
   vpUpper: Boolean): Integer;
@@ -568,15 +569,15 @@ begin
   end;
 
   if vpAtualizarCampo then
-    if vpSqlDataset <> nil then
-      vpSqlDataset.FieldByName(vpCampoId).AsInteger := viID
+    if vpI9Query <> nil then
+      vpI9Query.FieldByName(vpCampoId).AsInteger := viID
     else
       vpClientDataset.FieldByName(vpCampoId).AsInteger := viID;
 
   Result := viID;
 end;
 
-procedure TdtmLookup.CadastrarRegBasicoGeralClient(vpSqlDataset: TClientDataSet;
+procedure TdtmLookup.CadastrarRegBasicoGeralClient(vpI9Query: TClientDataSet;
   vpTabela, vpCampoId, vpValor: String);
 var
   viID: Integer;
@@ -584,10 +585,10 @@ begin
   if length(vpValor) <= 1 then
     vpValor := '';
 
-  if (vpValor = '') and (vpSqlDataset.FieldByName(vpCampoId).AsInteger = 0) then
+  if (vpValor = '') and (vpI9Query.FieldByName(vpCampoId).AsInteger = 0) then
     exit;
 
-  if (vpSqlDataset.FieldByName(vpCampoId).AsInteger = 0) and (vpValor <> '')
+  if (vpI9Query.FieldByName(vpCampoId).AsInteger = 0) and (vpValor <> '')
   then
   begin
     viID := dtmControles.GerarSequencia(vpTabela);
@@ -595,7 +596,7 @@ begin
       '              DESCRICAO, SITUACAO) ' + ' VALUES( ' + IntToStr(viID) + ','
       + QuotedStr(vpValor) + ',' + QuotedStr('A') + ')', 1);
 
-    vpSqlDataset.FieldByName(vpCampoId).AsInteger := viID;
+    vpI9Query.FieldByName(vpCampoId).AsInteger := viID;
   end;
 
 end;
@@ -922,43 +923,43 @@ begin
     viSql := viSql + ' WHERE (TIPO_CARTORIO IS NULL OR '+
                      '      TIPO_CARTORIO IN('+viTipoCartorio+'))';
   viSql := viSql + ' ORDER BY SELO_GRUPO_ID ';
-  sqlSeloGrupo.DataSet.CommandText := viSql;
+  sqlSeloGrupo.SQL.Text := viSql;
   sqlSeloGrupo.Open;
 
   sqlG_TB_Bairro.Close;
-  sqlG_TB_Bairro.DataSet.Params.ParamByName('SISTEMA_ID').AsBCD := vgId;
+  sqlG_TB_Bairro.Params.ParamByName('SISTEMA_ID').AsBCD := vgId;
   sqlG_TB_Bairro.Open;
 
   sqlG_TB_EstadoCivil.Close;
-  sqlG_TB_EstadoCivil.DataSet.Params.ParamByName('SISTEMA_ID').AsBCD := vgId;
+  sqlG_TB_EstadoCivil.Params.ParamByName('SISTEMA_ID').AsBCD := vgId;
   sqlG_TB_EstadoCivil.Open;
 
   sqlG_Natureza_Titulo.Close;
-  sqlG_Natureza_Titulo.DataSet.Params.ParamByName('SISTEMA_ID').AsCurrency := vgId;
+  sqlG_Natureza_Titulo.Params.ParamByName('SISTEMA_ID').AsCurrency := vgId;
   sqlG_Natureza_Titulo.Open;
 
   sqlG_Emolumento.Close;
-  sqlG_Emolumento.DataSet.Params.ParamByName('SISTEMA_ID').AsCurrency := vgId;
+  sqlG_Emolumento.Params.ParamByName('SISTEMA_ID').AsCurrency := vgId;
   sqlG_Emolumento.Open;
 
   sqlEmolumentoTodos.Close;
-  sqlEmolumentoTodos.DataSet.Params.ParamByName('SISTEMA_ID').AsCurrency := vgId;
+  sqlEmolumentoTodos.Params.ParamByName('SISTEMA_ID').AsCurrency := vgId;
   sqlEmolumentoTodos.Open;
 
   sqlG_Natureza.Close;
-  sqlG_Natureza.DataSet.Params.ParamByName('SISTEMA_ID').AsCurrency := vgId;
+  sqlG_Natureza.Params.ParamByName('SISTEMA_ID').AsCurrency := vgId;
   sqlG_Natureza.Open;
 
   sqlUsuarioSistema.Close;
-  sqlUsuarioSistema.DataSet.Params.ParamByName('SISTEMA_ID').AsBCD := vgId;
+  sqlUsuarioSistema.Params.ParamByName('SISTEMA_ID').AsBCD := vgId;
   sqlUsuarioSistema.Open;
 
   sqlUsuarioAssinante.Close;
-  sqlUsuarioAssinante.DataSet.Params.ParamByName('SISTEMA_ID').AsBCD := vgId;
+  sqlUsuarioAssinante.Params.ParamByName('SISTEMA_ID').AsBCD := vgId;
   sqlUsuarioAssinante.Open;
 
   sqlC_Caixa_Servico.Close;
-  sqlC_Caixa_Servico.DataSet.Params.ParamByName('SISTEMA_ID').AsCurrency := vgId;
+  sqlC_Caixa_Servico.Params.ParamByName('SISTEMA_ID').AsCurrency := vgId;
   sqlC_Caixa_Servico.Open;
 
   sqlG_Emolumento_Periodo.Open;
@@ -1033,7 +1034,7 @@ begin
 end;
 
 procedure TdtmLookup.MarcarDesmarcarItensSimpleDataSet(vpMarcar: String;
-  vpSimpleDataset: TSimpleDataSet);
+  vpSimpleDataset: TI9Query);
 var
   viPosicao: Integer;
 begin
@@ -1138,7 +1139,7 @@ begin
          ParamByName('CONTROLE_ID').AsInteger  := dtmControles.GerarSequencia('C_REGISTRO_DIARIO_CONTROLE')
     else ParamByName('CONTROLE_ID').AsInteger  := vgLivroDiario.ControleID;
 
-    ExecSQL(FALSE);
+    ExecSQL;
   end;
   Result := InttoStr(viRegistroDiarioID);
 end;
@@ -1211,8 +1212,8 @@ end;
 procedure TdtmLookup.CarregarConfiguracaoSalva(vpLocal: String);
 begin
   sqlConfiguracaoSalva.Active := False;
-  sqlConfiguracaoSalva.DataSet.ParamByName('SISTEMA_ID').AsBCD := vgId;
-  sqlConfiguracaoSalva.DataSet.ParamByName('LOCAL').AsString   := vpLocal;
+  sqlConfiguracaoSalva.ParamByName('SISTEMA_ID').AsBCD := vgId;
+  sqlConfiguracaoSalva.ParamByName('LOCAL').AsString   := vpLocal;
   sqlConfiguracaoSalva.Active := True;
 end;
 
@@ -1257,7 +1258,7 @@ begin
     if vpValor <> NULL then
          ParamByName('VALOR').AsString          := VarToStr(vpValor)
     else ParamByName('VALOR').AsString          := '';
-    ExecSQL(FALSE);
+    ExecSQL;
   end;
   sqlConfiguracaoSalva.Refresh;
 end;
@@ -1265,9 +1266,9 @@ end;
 procedure TdtmLookup.BuscarConficuracaoSalva(vpLocal, vpDescricao: String);
 begin
   sqlConfiguracaoDados.Active := False;
-  sqlConfiguracaoDados.DataSet.ParamByName('SISTEMA_ID').AsBCD   := vgId;
-  sqlConfiguracaoDados.DataSet.ParamByName('LOCAL').AsString     := vpLocal;
-  sqlConfiguracaoDados.DataSet.ParamByName('DESCRICAO').AsString := vpDescricao;
+  sqlConfiguracaoDados.ParamByName('SISTEMA_ID').AsBCD   := vgId;
+  sqlConfiguracaoDados.ParamByName('LOCAL').AsString     := vpLocal;
+  sqlConfiguracaoDados.ParamByName('DESCRICAO').AsString := vpDescricao;
   sqlConfiguracaoDados.Active := True;
 end;
 

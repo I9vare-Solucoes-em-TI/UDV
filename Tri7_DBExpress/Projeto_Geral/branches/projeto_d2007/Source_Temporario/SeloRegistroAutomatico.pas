@@ -3,6 +3,7 @@ unit SeloRegistroAutomatico;
 interface
 
 uses
+  I9Query,
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, Menus, cxLookAndFeelPainters, cxStyles, dxSkinsCore, dxSkinBlack,
   dxSkinBlue, dxSkinCaramel, dxSkinCoffee, dxSkinDarkSide, dxSkinGlassOceans,
@@ -44,7 +45,7 @@ type
     ClientRegistroTAXA_JUDICIARIA: TCurrencyField;
     ClientRegistroOUTRA_TAXA1: TCurrencyField;
     ClientRegistroEMOLUMENTO_ITEM_ID: TIntegerField;
-    sqlPesquisa: TSQLQuery;
+    sqlPesquisa: TI9Query;
     ClientRegistroQTD_CORRECAO: TIntegerField;
     cxGridPesquisaColumn8: TcxGridDBColumn;
     cxGridPesquisaColumn9: TcxGridDBColumn;
@@ -297,7 +298,7 @@ var
       ParamByName('USUARIO_ID').AsBCD            := StrToInt(vgUsuarioID);
       ParamByName('CAIXA_ID').AsBCD              := vgSeloCaixaId;
       ParamByName('DATA').AsString               := FormatDateTime('YYYY/MM/DD', vgSeloDataRegistroAutomatico);
-      ExecSQL(FALSE);
+      ExecSQL;
     end;
   end;
 
@@ -340,7 +341,7 @@ begin
       With dtmControles.sqlAuxiliar do
       begin
         ParamByName('DATA').AsString := FormatDateTime('YYYY/MM/DD', vgSeloDataRegistroAutomatico);
-        ExecSQL(False);
+        ExecSQL;
       end;
 
       ClientRegistro.Next;

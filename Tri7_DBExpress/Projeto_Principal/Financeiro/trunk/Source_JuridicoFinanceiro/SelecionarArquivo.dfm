@@ -70,14 +70,13 @@ inherited frmSelecionarArquivo: TfrmSelecionarArquivo
       ExplicitTop = 0
     end
   end
-  inherited DataSetAncestral: TSQLDataSet
-    SchemaName = 'SYSDBA'
-    CommandText = 
+  inherited DataSetAncestral: TI9Query
+    SQL.Strings = (
       'SELECT * '#13#10'FROM J_PROCESSO_ANDAMENTO'#13#10'WHERE PROCESSO_ANDAMENTO_I' +
-      'D = :PROCESSO_ANDAMENTO_ID'
+      'D = :PROCESSO_ANDAMENTO_ID')
     Params = <
       item
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Name = 'PROCESSO_ANDAMENTO_ID'
         ParamType = ptInput
       end>
@@ -91,13 +90,13 @@ inherited frmSelecionarArquivo: TfrmSelecionarArquivo
   inherited ClientAncestral: TClientDataSet
     Left = 359
     Top = 93
-    object ClientAncestralPROCESSO_ANDAMENTO_ID: TFMTBCDField
+    object ClientAncestralPROCESSO_ANDAMENTO_ID: TBCDField
       FieldName = 'PROCESSO_ANDAMENTO_ID'
       Required = True
       Precision = 20
       Size = 2
     end
-    object ClientAncestralTIPO_ANDAMENTO_ID: TFMTBCDField
+    object ClientAncestralTIPO_ANDAMENTO_ID: TBCDField
       FieldName = 'TIPO_ANDAMENTO_ID'
       Precision = 20
       Size = 2
@@ -106,12 +105,12 @@ inherited frmSelecionarArquivo: TfrmSelecionarArquivo
       FieldName = 'DESCRICAO'
       Size = 90
     end
-    object ClientAncestralPROCESSO_ID: TFMTBCDField
+    object ClientAncestralPROCESSO_ID: TBCDField
       FieldName = 'PROCESSO_ID'
       Precision = 20
       Size = 2
     end
-    object ClientAncestralPROCESSO_TRAMITE_ID: TFMTBCDField
+    object ClientAncestralPROCESSO_TRAMITE_ID: TBCDField
       FieldName = 'PROCESSO_TRAMITE_ID'
       Precision = 20
       Size = 2

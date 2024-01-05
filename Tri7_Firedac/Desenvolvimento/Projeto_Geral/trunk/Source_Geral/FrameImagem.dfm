@@ -6790,7 +6790,6 @@ object fmeImagem: TfmeImagem
     FetchOptions.AssignedValues = [evMode]
     FetchOptions.Mode = fmAll
     SQL.Strings = (
-      
         'SELECT DESCRICAO,'#13#10'       TEXTO'#13#10'FROM G_MARCACAO_TIPO'#13#10'WHERE GRU' +
         'PO = '#39'CARIMBO'#39' and'#13#10'               SISTEMA_ID = :SISTEMA_ID')
     Left = 440
@@ -6815,7 +6814,6 @@ object fmeImagem: TfmeImagem
     FetchOptions.AssignedValues = [evMode]
     FetchOptions.Mode = fmAll
     SQL.Strings = (
-      
         'SELECT *'#13#10'FROM G_INDEXACAO_TIPO'#13#10'WHERE SITUACAO = '#39'A'#39' AND'#13#10'     ' +
         '          SISTEMA_ID = :SISTEMA_ID AND'#13#10'               GRUPO = :' +
         'GRUPO')

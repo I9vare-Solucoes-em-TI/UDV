@@ -199,14 +199,13 @@ inherited frmCadReservaCadastro: TfrmCadReservaCadastro
     Left = 381
     Top = 242
   end
-  inherited DataSetAncestral: TSQLDataSet
-    SchemaName = 'SYSDBA'
-    CommandText = 
+  inherited DataSetAncestral: TI9Query
+    SQL.Strings = (
       'SELECT *'#13#10'FROM J_RESERVA'#13#10'WHERE BALANCETE_GRUPO_ID = :BALANCETE_' +
-      'GRUPO_ID'#13#10'ORDER BY DESCRICAO'
+      'GRUPO_ID'#13#10'ORDER BY DESCRICAO')
     Params = <
       item
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Name = 'BALANCETE_GRUPO_ID'
         ParamType = ptInput
       end>
@@ -220,7 +219,7 @@ inherited frmCadReservaCadastro: TfrmCadReservaCadastro
   inherited ClientAncestral: TClientDataSet
     Left = 475
     Top = 242
-    object ClientAncestralRESERVA_ID: TFMTBCDField
+    object ClientAncestralRESERVA_ID: TBCDField
       FieldName = 'RESERVA_ID'
       Required = True
       Precision = 20
@@ -234,7 +233,7 @@ inherited frmCadReservaCadastro: TfrmCadReservaCadastro
       FieldName = 'SITUACAO'
       Size = 1
     end
-    object ClientAncestralBALANCETE_GRUPO_ID: TFMTBCDField
+    object ClientAncestralBALANCETE_GRUPO_ID: TBCDField
       FieldName = 'BALANCETE_GRUPO_ID'
       Precision = 20
       Size = 2

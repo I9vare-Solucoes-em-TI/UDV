@@ -1542,9 +1542,8 @@ inherited frmCadDocumento: TfrmCadDocumento
     Left = 372
     Top = 151
   end
-  inherited DataSetAncestral: TSQLDataSet
-    SchemaName = 'SYSDBA'
-    CommandText = 'SELECT * '#13#10'FROM G_TB_DOCUMENTOTIPO'#13#10'ORDER BY DESCRICAO'
+  inherited DataSetAncestral: TI9Query
+    SQL.Strings = ('SELECT * '#13#10'FROM G_TB_DOCUMENTOTIPO'#13#10'ORDER BY DESCRICAO')
     Left = 415
     Top = 150
   end
@@ -1556,7 +1555,7 @@ inherited frmCadDocumento: TfrmCadDocumento
     AfterScroll = ClientAncestralAfterScroll
     Left = 479
     Top = 150
-    object ClientAncestralTB_DOCUMENTOTIPO_ID: TFMTBCDField
+    object ClientAncestralTB_DOCUMENTOTIPO_ID: TBCDField
       FieldName = 'TB_DOCUMENTOTIPO_ID'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
       Precision = 20

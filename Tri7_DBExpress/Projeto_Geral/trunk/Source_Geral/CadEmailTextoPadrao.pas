@@ -33,7 +33,7 @@ type
     edtDescricao: TcxDBTextEdit;
     grdBasicaDBTableView1Column1: TcxGridDBColumn;
     edtAssunto: TcxDBTextEdit;
-    ClientAncestralEMAIL_TEXTO_PADRAO_ID: TFMTBCDField;
+    ClientAncestralEMAIL_TEXTO_PADRAO_ID: TBCDField;
     ClientAncestralDESCRICAO: TStringField;
     ClientAncestralTEXTO: TBlobField;
     ClientAncestralASSUNTO: TStringField;

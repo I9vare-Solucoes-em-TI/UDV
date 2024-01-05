@@ -29,7 +29,7 @@ type
     ClientAncestralNOME: TStringField;
     ClientAncestralCPF_CNPJ: TStringField;
     ClientAncestralDOCUMENTO: TStringField;
-    ClientAncestralPESSOA_ID: TFMTBCDField;
+    ClientAncestralPESSOA_ID: TBCDField;
     ClientAncestralCPF_TERCEIRO: TStringField;
     cxButton1: TcxButton;
     btnSelecionar: TcxButton;
@@ -85,7 +85,7 @@ begin
   ClientAncestral.Active := False;
   if vgPessoa.NomeTabela = 'R_PESSOA' then
     cxGridCPFProptio.Visible := False;
-  DataSetAncestral.CommandText := 'SELECT NOME, CPF_CNPJ, DOCUMENTO, '+
+  DataSetAncestral.SQL.Text := 'SELECT NOME, CPF_CNPJ, DOCUMENTO, '+
                                   ' PESSOA_ID, CPF_TERCEIRO '+
                                   ' FROM '+vgPessoa.NomeTabela+
                                   ' WHERE CPF_CNPJ = :CPF '+

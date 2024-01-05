@@ -651,7 +651,6 @@ object frmLogChat: TfrmLogChat
     FetchOptions.AssignedValues = [evMode]
     FetchOptions.Mode = fmAll
     SQL.Strings = (
-      
         'SELECT DISTINCT USUARIO_ENVIOU_ID, DATA, MENSAGEM_BLOB, RECEBEU ' +
         'FROM G_CHAT')
     Left = 341

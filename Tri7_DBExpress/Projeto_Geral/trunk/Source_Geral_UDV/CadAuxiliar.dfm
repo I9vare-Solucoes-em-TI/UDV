@@ -108,12 +108,11 @@ object frmCadAuxiliar: TfrmCadAuxiliar
         34447CC3ECFDFFFFFFFF}
     end
   end
-  object DataSetAncestral: TSQLDataSet
+  object DataSetAncestral: TI9Query
     DbxCommandType = 'Dbx.SQL'
     DataSource = SourceAncestral
-    MaxBlobSize = -1
     Params = <>
-    SQLConnection = dtmControles.DB
+    Connection = dtmControles.DB
     Left = 19
     Top = 87
   end

@@ -3,6 +3,7 @@ unit LivroCaixa;
 interface
 
 uses
+  I9Query,
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, dxSkinsCore, dxSkinCoffee, dxSkinMcSkin, dxSkinOffice2007Silver,
   cxGraphics, cxLookAndFeelPainters, dxSkinscxPCPainter, Menus, cxStyles,
@@ -95,17 +96,17 @@ type
     ClientCaixaRESUMO: TStringField;
     N1: TMenuItem;
     CamposGrid1: TMenuItem;
-    sqlLivroCaixa: TSimpleDataSet;
+    sqlLivroCaixa: TI9Query;
     sqlLivroCaixaDATA_PAGAMENTO: TSQLTimeStampField;
-    sqlLivroCaixaLIVRO_CAIXA_ID: TFMTBCDField;
-    sqlLivroCaixaCAIXA_ID: TFMTBCDField;
-    sqlLivroCaixaVALOR: TFMTBCDField;
+    sqlLivroCaixaLIVRO_CAIXA_ID: TBCDField;
+    sqlLivroCaixaCAIXA_ID: TBCDField;
+    sqlLivroCaixaVALOR: TBCDField;
     sqlLivroCaixaOPERACAO: TStringField;
-    sqlLivroCaixaPESSOA_ID: TFMTBCDField;
+    sqlLivroCaixaPESSOA_ID: TBCDField;
     sqlLivroCaixaREFERENCIA: TStringField;
     sqlLivroCaixaOBSERVACAO: TStringField;
-    sqlLivroCaixaCONTABIL_CONTA_ID: TFMTBCDField;
-    sqlLivroCaixaCENTRO_CUSTO_ID: TFMTBCDField;
+    sqlLivroCaixaCONTABIL_CONTA_ID: TBCDField;
+    sqlLivroCaixaCENTRO_CUSTO_ID: TBCDField;
     sqlLivroCaixacalc_ValorDespesa: TCurrencyField;
     sqlLivroCaixacalc_ValorReceita: TCurrencyField;
     sqlLivroCaixacalc_vinculo: TBooleanField;
@@ -113,20 +114,20 @@ type
     sqlLivroCaixacalc_Agrupado: TBooleanField;
     sqlLivroCaixaESPECIE: TStringField;
     sqlLivroCaixaDOCUMENTO_DESCRICAO: TStringField;
-    sqlLivroCaixaBALANCETE_GRUPO_ID: TFMTBCDField;
-    sqlLivroCaixaLIVRO_FINANCEIRO_ID: TFMTBCDField;
-    sqlLivroCaixaPROCESSO_ID: TFMTBCDField;
+    sqlLivroCaixaBALANCETE_GRUPO_ID: TBCDField;
+    sqlLivroCaixaLIVRO_FINANCEIRO_ID: TBCDField;
+    sqlLivroCaixaPROCESSO_ID: TBCDField;
     sqlLivroCaixaHISTORICO: TStringField;
     sqlLivroCaixaANO_MES_REGISTRO: TStringField;
     sqlLivroCaixaDATA_VENCIMENTO: TSQLTimeStampField;
-    sqlLivroCaixaPROCESSO_CONTRATO_ITEM_ID: TFMTBCDField;
-    sqlLivroCaixaLIVRO_AGENDAMENTO_ID: TFMTBCDField;
-    sqlLivroCaixaLIVRO_REMUNERACAO_ID: TFMTBCDField;
+    sqlLivroCaixaPROCESSO_CONTRATO_ITEM_ID: TBCDField;
+    sqlLivroCaixaLIVRO_AGENDAMENTO_ID: TBCDField;
+    sqlLivroCaixaLIVRO_REMUNERACAO_ID: TBCDField;
     sqlLivroCaixaCONTABIL_CONTA_DESCRICAO: TStringField;
     sqlLivroCaixaGRUPO_SECUDARIO: TStringField;
     sqlLivroCaixaGRUPO_PRINCIPAL: TStringField;
     sqlLivroCaixacalc_ValorMovimento: TCurrencyField;
-    sqlLivroCaixaCAIXA_TRANSFERENCIA_ID: TFMTBCDField;
+    sqlLivroCaixaCAIXA_TRANSFERENCIA_ID: TBCDField;
     sqlLivroCaixaIR: TStringField;
     sqlLivroCaixaCNJ: TStringField;
     sqlLivroCaixaDOCUMENTO_NUMERO: TStringField;
@@ -136,13 +137,13 @@ type
     mniEstornarItem: TMenuItem;
     cxLabel6: TcxLabel;
     lcxPesqCompromisso: TcxLookupComboBox;
-    sqlLivroCaixaORCAMENTO_ID: TFMTBCDField;
-    sqlLivroCaixaINDICE_IMAGEM: TFMTBCDField;
+    sqlLivroCaixaORCAMENTO_ID: TBCDField;
+    sqlLivroCaixaINDICE_IMAGEM: TBCDField;
     REsetarCamposdaGrid1: TMenuItem;
     N2: TMenuItem;
     frxDBdtRecibo: TfrxDBDataset;
     dtsRecibo: TDataSource;
-    sqlLivroCaixaIDENTIFICADOR_ID: TFMTBCDField;
+    sqlLivroCaixaIDENTIFICADOR_ID: TBCDField;
     sqlLivroCaixacalc_identificador: TStringField;
     sqlLivroCaixaDATA_LANCAMENTO: TSQLTimeStampField;
     sqlLivroCaixaDOC_TIPO: TStringField;
@@ -152,33 +153,33 @@ type
     sqlLivroCaixaFAVORITO_SITUACAO: TStringField;
     mniLancamentoFavorito: TMenuItem;
     N3: TMenuItem;
-    sqlLivroCaixaTIPO_MODALIDADE_ID: TFMTBCDField;
+    sqlLivroCaixaTIPO_MODALIDADE_ID: TBCDField;
     sqlLivroCaixaNOME: TStringField;
     sqlLivroCaixaRESPONSAVEL: TStringField;
     sqlLivroCaixaCALC_PESSOA: TStringField;
     sqlLivroCaixaCALC_OBSERVACAO: TStringField;
     sqlLivroCaixaIDENTIFICADOR_TIPO: TStringField;
-    sqlLivroCaixaRESPONSAVEL_ID: TFMTBCDField;
+    sqlLivroCaixaRESPONSAVEL_ID: TBCDField;
     sqlLivroCaixaCONFERIDO: TStringField;
-    sqlLivroCaixaCENTRO_RESERVA_ID: TFMTBCDField;
+    sqlLivroCaixaCENTRO_RESERVA_ID: TBCDField;
     sqlLivroCaixaFATURAMENTO: TStringField;
-    sqlLivroCaixaORDEM: TFMTBCDField;
+    sqlLivroCaixaORDEM: TBCDField;
     N4: TMenuItem;
     mniItensVinculado: TMenuItem;
-    sqlRecibo: TSimpleDataSet;
+    sqlRecibo: TI9Query;
     sqlReciboDATA_PAGAMENTO: TSQLTimeStampField;
-    sqlReciboVALOR: TFMTBCDField;
+    sqlReciboVALOR: TBCDField;
     sqlReciboHISTORICO: TStringField;
     sqlReciboNOME: TStringField;
     sqlReciboCPFCNPJ: TStringField;
-    sqlReciboLIVRO_CAIXA_ID: TFMTBCDField;
+    sqlReciboLIVRO_CAIXA_ID: TBCDField;
     sqlReciboDOC_TIPO: TStringField;
-    sqlLivroCaixaVALOR_PREVISTO: TFMTBCDField;
-    sqlLivroCaixaVALOR_DESCONTO: TFMTBCDField;
-    sqlLivroCaixaVALOR_JUROS: TFMTBCDField;
-    sqlLivroCaixaVALOR_MULTA: TFMTBCDField;
-    sqlLivroCaixaVALOR_OUTRA_DEDUCAO: TFMTBCDField;
-    sqlLivroCaixaVALOR_FATURADO: TFMTBCDField;
+    sqlLivroCaixaVALOR_PREVISTO: TBCDField;
+    sqlLivroCaixaVALOR_DESCONTO: TBCDField;
+    sqlLivroCaixaVALOR_JUROS: TBCDField;
+    sqlLivroCaixaVALOR_MULTA: TBCDField;
+    sqlLivroCaixaVALOR_OUTRA_DEDUCAO: TBCDField;
+    sqlLivroCaixaVALOR_FATURADO: TBCDField;
     sqlLivroCaixaOBSERVACAO_MONETARIA: TStringField;
     sqlLivroCaixaCONCILIACAO_REGISTRADO_ID: TStringField;
     sqlLivroCaixaCALC_SITUACAO: TStringField;
@@ -262,8 +263,8 @@ type
     cxGridDBTablePrevResumidaCCNome: TcxGridDBColumn;
     cxGridDBTablePrevResumidaCCValor: TcxGridDBColumn;
     cxGridDBTablePrevResumidaCCPercentual: TcxGridDBColumn;
-    sqlLivroCaixaVALOR_REGISTRADO: TFMTBCDField;
-    sqlLivroCaixaPERCENTUAL_REGISTRADO: TFMTBCDField;
+    sqlLivroCaixaVALOR_REGISTRADO: TBCDField;
+    sqlLivroCaixaPERCENTUAL_REGISTRADO: TBCDField;
     sqlLivroCaixaCENTRO_CUSTO_REGISTRADO: TStringField;
     cxGridPesquisaConferido: TcxGridDBColumn;
     cxGridDBTablePrevResumidaColumn4: TcxGridDBColumn;
@@ -273,11 +274,11 @@ type
     dxBarStaticSaldoAtual: TdxBarStatic;
     dxBarStaticSaldoPeriodo: TdxBarStatic;
     dxBarStaticSaldoAnterior: TdxBarStatic;
-    sqlLivroCaixaVALOR_AGENDADO: TFMTBCDField;
-    sqlLivroCaixaVALOR_BOLETO: TFMTBCDField;
-    sqlLivroCaixaNOSSO_NUMERO: TFMTBCDField;
+    sqlLivroCaixaVALOR_AGENDADO: TBCDField;
+    sqlLivroCaixaVALOR_BOLETO: TBCDField;
+    sqlLivroCaixaNOSSO_NUMERO: TBCDField;
     sqlReciboOPERACAO: TStringField;
-    sqlLivroCaixaVALOR_OUTRAS_TAXAS: TFMTBCDField;
+    sqlLivroCaixaVALOR_OUTRAS_TAXAS: TBCDField;
     rdbDataRegistro: TcxRadioButton;
     rdbDataLancamento: TcxRadioButton;
     edtBuscaRapida: TcxTextEdit;
@@ -1018,8 +1019,8 @@ begin
   end;
 
   sqlRecibo.Active := False;
-  sqlRecibo.DataSet.ParamByName('IDENTIFICADOR_ID').AsInteger := viReciboCompId;
-  sqlRecibo.DataSet.ParamByName('DOC_TIPO').AsString          := vpTipo;
+  sqlRecibo.ParamByName('IDENTIFICADOR_ID').AsInteger := viReciboCompId;
+  sqlRecibo.ParamByName('DOC_TIPO').AsString          := vpTipo;
   sqlRecibo.Active := True;
 
   case vpTipo[1] of
@@ -1054,7 +1055,7 @@ begin
   with dtmControles.sqlAuxiliar do
   begin
     ParamByName('VALOR').AsCurrency := sqlLivroCaixaVALOR.AsCurrency;
-    ExecSQL(FALSE);
+    ExecSQL;
   end;
   sqlLivroCaixa.Refresh;
   frmPrincipal.CriarMenuFavoritos;
@@ -1474,7 +1475,7 @@ begin
 
   sqlLivroCaixa.AfterScroll := nil;
   sqlLivroCaixa.Active := False;
-  sqlLivroCaixa.DataSet.CommandText := viSql;
+  sqlLivroCaixa.SQL.Text := viSql;
   sqlLivroCaixa.Active := True;
 
   if rdbPesquisaSimplificada.Checked then

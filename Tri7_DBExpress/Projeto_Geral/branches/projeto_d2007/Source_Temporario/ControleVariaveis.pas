@@ -3,6 +3,7 @@ unit ControleVariaveis;
 interface
 
 uses
+  I9Query,
   WinTypes, Graphics, BDE, DBIProcs, DBITypes, DbiErrs,
   DB, DBTables, Controls, FMTBcd, DBXpress, SqlExpr, Registry, Variants,
   Grids, DBGrids, Wpdbrich, ComCtrls, Classes, SysUtils, SimpleDS, StdCtrls,
@@ -2677,7 +2678,7 @@ procedure Qualificar_Partes(vpTipoVinculo, vpTipoParte : String;  vpPessoaJuridi
 var
   viSql, viPalavra, viSexoParte, viPreDefinidoJuridico : string;
   viNivel, viAssinaturas : integer;
-  viSimpleAuxiliarA, viSimpleAuxiliarB : TSimpleDataSet;
+  viSimpleAuxiliarA, viSimpleAuxiliarB : TI9Query;
   viFlag, viConjuge, viSeparador, viPular : Boolean;
   viVetIdAuxiliar : array[1..10,1..9] of Integer;
   viWptArmazena, viWptTexto, viWptComplemento, viWptAuxiliar : TWPRichText;
@@ -2694,7 +2695,7 @@ var
     dtmControles.sqlAuxiliar.Close;
   end;
 
-  procedure BuscarPessoaJuridica(vpSimpleDataSet : TSimpleDataSet);
+  procedure BuscarPessoaJuridica(vpSimpleDataSet : TI9Query);
   begin
     viSql := ' SELECT SEXO, PESSOA_ID, TB_DOCUMENTOTIPO_ID, '+
              '        TB_PROFISSAO_ID, PESSOA_CONJUGE_ID '+
@@ -2703,12 +2704,12 @@ var
     with vpSimpleDataSet do
     begin
       Active := False;
-      DataSet.CommandText := viSql;
+      SQL.Text := viSql;
       Active := true;
     end;
   end;
 
-  procedure BuscarParte(vpSimpleDataSet : TSimpleDataSet; vpAuxiliarId : Integer; vpAuxiliar : Boolean;
+  procedure BuscarParte(vpSimpleDataSet : TI9Query; vpAuxiliarId : Integer; vpAuxiliar : Boolean;
                    vpPessoaBuscarId : string = '');
   begin
     if vpPessoaJuridica = '' then
@@ -2764,16 +2765,16 @@ var
     with vpSimpleDataSet do
     begin
       Active := False;
-      DataSet.CommandText := viSql;
+      SQL.Text := viSql;
       Active := true;
     end;
   end;
 
-  procedure AplicarQualificacao(vpSimpleDataSet : TSimpleDataSet; vpAuxiliar : Boolean = False; vpAuxiliarJuridico : Boolean = False);
+  procedure AplicarQualificacao(vpSimpleDataSet : TI9Query; vpAuxiliar : Boolean = False; vpAuxiliarJuridico : Boolean = False);
   var
     viMarcacao : integer;
 
-    Function VerificarSexo(vpDataSetAux : TSimpleDataSet):String;
+    Function VerificarSexo(vpDataSetAux : TI9Query):String;
     var
       viSexo  : string;
     begin
@@ -2880,8 +2881,8 @@ begin
   viPreDefinidoJuridico := dtmControles.BuscarConfig('ATO','QUALIFICACAO','QUALIFICACAO_JURIDICO_PREDEFINIDO','S');
 
   // Criar controles de Armazenamento e Pesquisa
-  viSimpleAuxiliarA            := TSimpleDataSet.Create(nil);
-  viSimpleAuxiliarB            := TSimpleDataSet.Create(nil);
+  viSimpleAuxiliarA            := TI9Query.Create(nil);
+  viSimpleAuxiliarB            := TI9Query.Create(nil);
   viSimpleAuxiliarA.Connection := dtmControles.DB;
   viSimpleAuxiliarB.Connection := dtmControles.DB;
   viWptArmazena                := CarregarWptVirtual(viWptArmazena, vgQualificar.WptAuxiliar);

@@ -293,7 +293,6 @@ object frmMarcacaoAutomatica: TfrmMarcacaoAutomatica
   object sqlMarcacao: TI9Query
     Connection = dtmControles.DB
     SQL.Strings = (
-      
         'SELECT NOME, DESCRICAO'#13#10'FROM G_MARCACAO_TIPO'#13#10'WHERE GRUPO = :GRU' +
         'PO'#13#10'     AND SISTEMA_ID = :SISTEMA'#13#10'ORDER BY DESCRICAO')
     Left = 200

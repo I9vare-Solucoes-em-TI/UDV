@@ -3,6 +3,7 @@ unit VinculoFinanceiro;
 interface
 
 uses
+  I9Query,
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, dxSkinsCore, dxSkinBlack, dxSkinBlue, dxSkinCaramel, dxSkinCoffee,
   dxSkinDarkSide, dxSkinGlassOceans, dxSkiniMaginary, dxSkinLilian,
@@ -34,23 +35,23 @@ type
     Panel4: TPanel;
     imgReceber: TImage;
     dtsVinculo: TDataSource;
-    sqlVinculoResponsavelAtivo: TSimpleDataSet;
+    sqlVinculoResponsavelAtivo: TI9Query;
     ClientVinculo: TClientDataSet;
     ClientVinculoPESSOA_ID: TIntegerField;
     ClientVinculoRESPONSAVEL_ID: TIntegerField;
     ClientVinculoPESSOA_TIPO: TStringField;
     ClientVinculoPERCENTUAL: TCurrencyField;
     cxGridDBTableSELECIONADO: TcxGridDBColumn;
-    sqlVinculoResponsavelAtivoPROCESSO_RESPONSAVEL_ID: TFMTBCDField;
-    sqlVinculoResponsavelAtivoPESSOA_ID: TFMTBCDField;
+    sqlVinculoResponsavelAtivoPROCESSO_RESPONSAVEL_ID: TBCDField;
+    sqlVinculoResponsavelAtivoPESSOA_ID: TBCDField;
     sqlVinculoResponsavelAtivoPESSOA_TIPO: TStringField;
-    sqlSocio: TSimpleDataSet;
-    sqlSocioPESSOA_ID: TFMTBCDField;
+    sqlSocio: TI9Query;
+    sqlSocioPESSOA_ID: TBCDField;
     sqlSocioNOME: TStringField;
-    sqlVinculosFinanceiros: TSimpleDataSet;
-    sqlVinculosFinanceirosPESSOA_ID: TFMTBCDField;
-    sqlVinculosFinanceirosPROCESSO_RESPONSAVEL_ID: TFMTBCDField;
-    sqlVinculosFinanceirosPERCENTUAL: TFMTBCDField;
+    sqlVinculosFinanceiros: TI9Query;
+    sqlVinculosFinanceirosPESSOA_ID: TBCDField;
+    sqlVinculosFinanceirosPROCESSO_RESPONSAVEL_ID: TBCDField;
+    sqlVinculosFinanceirosPERCENTUAL: TBCDField;
     ClientVinculoSOCIO_ID: TIntegerField;
     ClientVinculoSELECIONADO: TBooleanField;
     btnConfirmarCompromisso: TcxButton;
@@ -288,7 +289,7 @@ begin
   sqlVinculosFinanceiros.Connection     := dtmControles.DB;
 
   sqlVinculoResponsavelAtivo.Active := False;
-  sqlVinculoResponsavelAtivo.DataSet.ParamByName('PROCESSO_ID').AsBCD := vgDadosVinculoFinanceiro.ProcessoId;
+  sqlVinculoResponsavelAtivo.ParamByName('PROCESSO_ID').AsBCD := vgDadosVinculoFinanceiro.ProcessoId;
   sqlVinculoResponsavelAtivo.Active := True;
 
   vlMontandoGrid := True;
@@ -308,7 +309,7 @@ begin
   end;
 
   sqlVinculosFinanceiros.Active := False;
-  sqlVinculosFinanceiros.DataSet.ParamByName('PROCESSO_CUSTAS_ID').AsBCD := vgDadosVinculoFinanceiro.ProcessoCustasID;
+  sqlVinculosFinanceiros.ParamByName('PROCESSO_CUSTAS_ID').AsBCD := vgDadosVinculoFinanceiro.ProcessoCustasID;
   sqlVinculosFinanceiros.Active := True;
 
   viNovo := True;

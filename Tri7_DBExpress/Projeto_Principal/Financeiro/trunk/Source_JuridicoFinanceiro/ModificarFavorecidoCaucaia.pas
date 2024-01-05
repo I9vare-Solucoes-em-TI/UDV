@@ -29,28 +29,28 @@ uses
 
 type
   TfrmModificarFavorecidoCaucaia = class(TfrmCadastroAuxSimplificado)
-    ClientAncestralLIVRO_AGENDAMENTO_ID: TFMTBCDField;
+    ClientAncestralLIVRO_AGENDAMENTO_ID: TBCDField;
     ClientAncestralDATA_INICIAL: TSQLTimeStampField;
     ClientAncestralDATA_FINAL: TSQLTimeStampField;
     ClientAncestralPERIODO: TStringField;
-    ClientAncestralVALOR_PARCELA: TFMTBCDField;
-    ClientAncestralQTD: TFMTBCDField;
+    ClientAncestralVALOR_PARCELA: TBCDField;
+    ClientAncestralQTD: TBCDField;
     ClientAncestralSITUACAO: TStringField;
     ClientAncestralESPECIE: TStringField;
-    ClientAncestralBALANCETE_GRUPO_ID: TFMTBCDField;
+    ClientAncestralBALANCETE_GRUPO_ID: TBCDField;
     ClientAncestralHISTORICO: TStringField;
     ClientAncestralOBSERVACAO: TStringField;
-    ClientAncestralPROCESSO_TRAMITE_ID: TFMTBCDField;
-    ClientAncestralCONTABIL_CONTA_ID: TFMTBCDField;
-    ClientAncestralPESSOA_ID: TFMTBCDField;
+    ClientAncestralPROCESSO_TRAMITE_ID: TBCDField;
+    ClientAncestralCONTABIL_CONTA_ID: TBCDField;
+    ClientAncestralPESSOA_ID: TBCDField;
     ClientAncestralDATA_REGISTRO: TSQLTimeStampField;
-    ClientAncestralVALOR_PROLABORE: TFMTBCDField;
-    ClientAncestralCENTRO_CUSTO_ID: TFMTBCDField;
+    ClientAncestralVALOR_PROLABORE: TBCDField;
+    ClientAncestralCENTRO_CUSTO_ID: TBCDField;
     ClientAncestralTIPO: TStringField;
     ClientAncestralIR: TStringField;
     ClientAncestralCNJ: TStringField;
-    ClientAncestralCAIXA_ID: TFMTBCDField;
-    ClientAncestralCONTABIL_GRUPO_ID: TFMTBCDField;
+    ClientAncestralCAIXA_ID: TBCDField;
+    ClientAncestralCONTABIL_GRUPO_ID: TBCDField;
     ClientAncestralDOCUMENTO_NUMERO: TStringField;
     ClientAncestralREGISTRO_PARCIAL: TStringField;
     ClientAncestralOPERACAO: TStringField;

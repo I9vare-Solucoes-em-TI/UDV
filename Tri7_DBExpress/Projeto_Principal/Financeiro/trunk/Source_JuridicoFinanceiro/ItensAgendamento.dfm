@@ -3229,10 +3229,10 @@ object frmItensAgendamento: TfrmItensAgendamento
     Left = 368
     Top = 313
   end
-  object sqlItensAgendamento: TSimpleDataSet
+  object sqlItensAgendamento: TI9Query
     Aggregates = <>
     Connection = dtmControles.DB
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT LF.DATA_VENCIMENTO,'#13#10'       LF.VALOR_AGENDADO,'#13#10'       LF' +
       '.OPERACAO,'#13#10'       LF.LIVRO_FINANCEIRO_ID, '#13#10'       LF.SITUACAO,' +
       #13#10'       LA.DATA_FINAL,'#13#10'       CC.DESCRICAO AS COMPROMISSO,'#13#10'  ' +
@@ -3246,9 +3246,8 @@ object frmItensAgendamento: TfrmItensAgendamento
       'ENDAMENTO_ID = LA.LIVRO_AGENDAMENTO_ID'#13#10'  LEFT OUTER JOIN J_CONT' +
       'ABIL_CONTA CC ON'#13#10'  LF.CONTABIL_CONTA_ID = CC.CONTABIL_CONTA_ID'#13 +
       #10'WHERE LF.LIVRO_AGENDAMENTO_ID = :LIVRO_AGENDAMENTO_ID'#13#10'ORDER BY' +
-      ' LF.DATA_VENCIMENTO'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <
+      ' LF.DATA_VENCIMENTO')
+    ParamData = <
       item
         DataType = ftBCD
         Name = 'LIVRO_AGENDAMENTO_ID'
@@ -3261,7 +3260,7 @@ object frmItensAgendamento: TfrmItensAgendamento
     object sqlItensAgendamentoDATA_VENCIMENTO: TSQLTimeStampField
       FieldName = 'DATA_VENCIMENTO'
     end
-    object sqlItensAgendamentoVALOR_AGENDADO: TFMTBCDField
+    object sqlItensAgendamentoVALOR_AGENDADO: TBCDField
       FieldName = 'VALOR_AGENDADO'
       Precision = 20
       Size = 3
@@ -3278,22 +3277,22 @@ object frmItensAgendamento: TfrmItensAgendamento
       FieldName = 'HISTORICO'
       Size = 90
     end
-    object sqlItensAgendamentoQTD: TFMTBCDField
+    object sqlItensAgendamentoQTD: TBCDField
       FieldName = 'QTD'
       Precision = 20
       Size = 2
     end
-    object sqlItensAgendamentoPARCELA: TFMTBCDField
+    object sqlItensAgendamentoPARCELA: TBCDField
       FieldName = 'PARCELA'
       Precision = 20
       Size = 2
     end
-    object sqlItensAgendamentoPARCELA_INICIAL: TFMTBCDField
+    object sqlItensAgendamentoPARCELA_INICIAL: TBCDField
       FieldName = 'PARCELA_INICIAL'
       Precision = 20
       Size = 2
     end
-    object sqlItensAgendamentoCAIXA_ID: TFMTBCDField
+    object sqlItensAgendamentoCAIXA_ID: TBCDField
       FieldName = 'CAIXA_ID'
       Precision = 20
       Size = 2
@@ -3301,12 +3300,12 @@ object frmItensAgendamento: TfrmItensAgendamento
     object sqlItensAgendamentoDATA_PAGAMENTO: TSQLTimeStampField
       FieldName = 'DATA_PAGAMENTO'
     end
-    object sqlItensAgendamentoVALOR_REGISTRADO: TFMTBCDField
+    object sqlItensAgendamentoVALOR_REGISTRADO: TBCDField
       FieldName = 'VALOR_REGISTRADO'
       Precision = 20
       Size = 3
     end
-    object sqlItensAgendamentoLIVRO_FINANCEIRO_ID: TFMTBCDField
+    object sqlItensAgendamentoLIVRO_FINANCEIRO_ID: TBCDField
       FieldName = 'LIVRO_FINANCEIRO_ID'
       Required = True
       Precision = 20

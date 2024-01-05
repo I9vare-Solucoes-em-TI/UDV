@@ -30,9 +30,9 @@ type
     grdGrupoRelatorioLevel1: TcxGridLevel;
     cxLabel2: TcxLabel;
     cxLabel1: TcxLabel;
-    ClientAncestralGRUPO_RELATORIO_ID: TFMTBCDField;
+    ClientAncestralGRUPO_RELATORIO_ID: TBCDField;
     ClientAncestralDESCRICAO: TStringField;
-    ClientAncestralSISTEMA_ID: TFMTBCDField;
+    ClientAncestralSISTEMA_ID: TBCDField;
     cxSplitter1: TcxSplitter;
     grdGrupoRelatorioDBTableView1GRUPO_RELATORIO_ID: TcxGridDBColumn;
     grdGrupoRelatorioDBTableView1DESCRICAO: TcxGridDBColumn;

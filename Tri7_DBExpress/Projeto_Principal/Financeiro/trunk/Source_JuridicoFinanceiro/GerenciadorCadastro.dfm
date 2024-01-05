@@ -1874,12 +1874,12 @@ inherited frmGerenciadorCadastro: TfrmGerenciadorCadastro
           StyleDisabled.BorderColor = clWindowText
         end
       end
-      inherited sqlTipoServico: TSimpleDataSet
-        DataSet.CommandText = 
+      inherited sqlTipoServico: TI9Query
+        SQL.Strings = (
           'SELECT DESCRICAO, CAIXA_SERVICO_ID'#13#10'FROM C_CAIXA_SERVICO'#13#10'WHERE ' +
           ' TIPO_TRANSACAO = :TIPO_TRANSACAO'#13#10'     AND (SERVENTIA_REGISTRO_' +
           'DIARIO = :SERVENTIA OR SERVENTIA_REGISTRO_DIARIO = 9)'#13#10'    AND S' +
-          'ITUACAO = '#39'A'#39#13#10'ORDER BY DESCRICAO'
+          'ITUACAO = '#39'A'#39#13#10'ORDER BY DESCRICAO')
       end
     end
     object cbxItensVinculados: TcxGroupBox
@@ -2096,12 +2096,11 @@ inherited frmGerenciadorCadastro: TfrmGerenciadorCadastro
       AnchorY = 13
     end
   end
-  inherited DataSetAncestral: TSQLDataSet
-    SchemaName = 'SYSDBA'
-    CommandText = 'SELECT *'#13#10'FROM D_CERTIDAO'#13#10'WHERE CERTIDAO_ID = :CERTIDAO_ID'
+  inherited DataSetAncestral: TI9Query
+    SQL.Strings = ('SELECT *'#13#10'FROM D_CERTIDAO'#13#10'WHERE CERTIDAO_ID = :CERTIDAO_ID')
     Params = <
       item
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Name = 'CERTIDAO_ID'
         ParamType = ptInput
       end>
@@ -2121,13 +2120,13 @@ inherited frmGerenciadorCadastro: TfrmGerenciadorCadastro
       end
       item
         Name = 'DOCUMENTO_ID'
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Precision = 15
         Size = 2
       end
       item
         Name = 'NUMERO_REGISTRO'
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Precision = 15
         Size = 2
       end
@@ -2138,13 +2137,13 @@ inherited frmGerenciadorCadastro: TfrmGerenciadorCadastro
       end
       item
         Name = 'NUMERO_PAGINAS'
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Precision = 15
         Size = 2
       end
       item
         Name = 'NUMERO_VIAS'
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Precision = 15
         Size = 2
       end
@@ -2164,55 +2163,55 @@ inherited frmGerenciadorCadastro: TfrmGerenciadorCadastro
       end
       item
         Name = 'VALOR_DOCUMENTO'
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Precision = 15
         Size = 3
       end
       item
         Name = 'TAXA_JUDICIARIA'
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Precision = 15
         Size = 3
       end
       item
         Name = 'VALOR_CUSTAS'
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Precision = 15
         Size = 3
       end
       item
         Name = 'TIPO_DOCUMENTO_ID'
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Precision = 15
         Size = 2
       end
       item
         Name = 'EMOLUMENTO_ID'
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Precision = 15
         Size = 2
       end
       item
         Name = 'VALOR_TOTAL'
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Precision = 15
         Size = 3
       end
       item
         Name = 'LIVRO_NUMERO'
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Precision = 15
         Size = 2
       end
       item
         Name = 'LIVRO_PAGINA'
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Precision = 15
         Size = 2
       end
       item
         Name = 'NUMERO_PESSOAS'
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Precision = 15
         Size = 2
       end>

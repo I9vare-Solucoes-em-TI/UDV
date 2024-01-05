@@ -71,23 +71,22 @@ object dtmLookupServico: TdtmLookupServico
       Size = 15
     end
   end
-  object sqlLivroAgendamento: TSimpleDataSet
+  object sqlLivroAgendamento: TI9Query
     Aggregates = <>
     Connection = dtmControles.DB
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT *'#13#10'FROM J_LIVRO_AGENDAMENTO'#13#10'WHERE LIVRO_AGENDAMENTO_ID =' +
-      ' :LIVRO_AGENDAMENTO_ID'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <
+      ' :LIVRO_AGENDAMENTO_ID')
+    ParamData = <
       item
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Name = 'LIVRO_AGENDAMENTO_ID'
         ParamType = ptInput
       end>
     Params = <>
     Left = 144
     Top = 42
-    object sqlLivroAgendamentoLIVRO_AGENDAMENTO_ID: TFMTBCDField
+    object sqlLivroAgendamentoLIVRO_AGENDAMENTO_ID: TBCDField
       FieldName = 'LIVRO_AGENDAMENTO_ID'
       Required = True
       Precision = 20
@@ -107,17 +106,17 @@ object dtmLookupServico: TdtmLookupServico
       FieldName = 'PERIODO'
       Size = 1
     end
-    object sqlLivroAgendamentoVALOR_PARCELA: TFMTBCDField
+    object sqlLivroAgendamentoVALOR_PARCELA: TBCDField
       FieldName = 'VALOR_PARCELA'
       Precision = 20
       Size = 3
     end
-    object sqlLivroAgendamentoQTD: TFMTBCDField
+    object sqlLivroAgendamentoQTD: TBCDField
       FieldName = 'QTD'
       Precision = 20
       Size = 2
     end
-    object sqlLivroAgendamentoVALOR_PROLABORE: TFMTBCDField
+    object sqlLivroAgendamentoVALOR_PROLABORE: TBCDField
       FieldName = 'VALOR_PROLABORE'
       Precision = 20
       Size = 3
@@ -130,7 +129,7 @@ object dtmLookupServico: TdtmLookupServico
       FieldName = 'ESPECIE'
       Size = 1
     end
-    object sqlLivroAgendamentoBALANCETE_GRUPO_ID: TFMTBCDField
+    object sqlLivroAgendamentoBALANCETE_GRUPO_ID: TBCDField
       FieldName = 'BALANCETE_GRUPO_ID'
       Precision = 20
       Size = 2
@@ -143,7 +142,7 @@ object dtmLookupServico: TdtmLookupServico
       FieldName = 'OBSERVACAO'
       Size = 260
     end
-    object sqlLivroAgendamentoPROCESSO_TRAMITE_ID: TFMTBCDField
+    object sqlLivroAgendamentoPROCESSO_TRAMITE_ID: TBCDField
       FieldName = 'PROCESSO_TRAMITE_ID'
       Precision = 20
       Size = 2
@@ -152,12 +151,12 @@ object dtmLookupServico: TdtmLookupServico
       FieldName = 'OPERACAO'
       Size = 1
     end
-    object sqlLivroAgendamentoCONTABIL_CONTA_ID: TFMTBCDField
+    object sqlLivroAgendamentoCONTABIL_CONTA_ID: TBCDField
       FieldName = 'CONTABIL_CONTA_ID'
       Precision = 20
       Size = 2
     end
-    object sqlLivroAgendamentoPESSOA_ID: TFMTBCDField
+    object sqlLivroAgendamentoPESSOA_ID: TBCDField
       FieldName = 'PESSOA_ID'
       Precision = 20
       Size = 2
@@ -165,7 +164,7 @@ object dtmLookupServico: TdtmLookupServico
     object sqlLivroAgendamentoDATA_REGISTRO: TSQLTimeStampField
       FieldName = 'DATA_REGISTRO'
     end
-    object sqlLivroAgendamentoCENTRO_CUSTO_ID: TFMTBCDField
+    object sqlLivroAgendamentoCENTRO_CUSTO_ID: TBCDField
       FieldName = 'CENTRO_CUSTO_ID'
       Precision = 20
       Size = 2
@@ -178,7 +177,7 @@ object dtmLookupServico: TdtmLookupServico
       FieldName = 'CNJ'
       Size = 1
     end
-    object sqlLivroAgendamentoCAIXA_ID: TFMTBCDField
+    object sqlLivroAgendamentoCAIXA_ID: TBCDField
       FieldName = 'CAIXA_ID'
       Precision = 15
       Size = 2
@@ -191,22 +190,22 @@ object dtmLookupServico: TdtmLookupServico
       FieldName = 'REGISTRO_PARCIAL'
       Size = 1
     end
-    object sqlLivroAgendamentoORCAMENTO_ID: TFMTBCDField
+    object sqlLivroAgendamentoORCAMENTO_ID: TBCDField
       FieldName = 'ORCAMENTO_ID'
       Precision = 20
       Size = 2
     end
-    object sqlLivroAgendamentoPARCELA_INICIAL: TFMTBCDField
+    object sqlLivroAgendamentoPARCELA_INICIAL: TBCDField
       FieldName = 'PARCELA_INICIAL'
       Precision = 20
       Size = 2
     end
-    object sqlLivroAgendamentoTIPO_MODALIDADE_ID: TFMTBCDField
+    object sqlLivroAgendamentoTIPO_MODALIDADE_ID: TBCDField
       FieldName = 'TIPO_MODALIDADE_ID'
       Precision = 20
       Size = 2
     end
-    object sqlLivroAgendamentoCENTRO_RESERVA_ID: TFMTBCDField
+    object sqlLivroAgendamentoCENTRO_RESERVA_ID: TBCDField
       FieldName = 'CENTRO_RESERVA_ID'
       Precision = 20
       Size = 2
@@ -225,23 +224,22 @@ object dtmLookupServico: TdtmLookupServico
     Left = 145
     Top = 106
   end
-  object sqlFinanceiroAgendamento: TSimpleDataSet
+  object sqlFinanceiroAgendamento: TI9Query
     Aggregates = <>
     Connection = dtmControles.DB
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT *'#13#10'FROM J_LIVRO_FINANCEIRO'#13#10'WHERE LIVRO_AGENDAMENTO_ID = ' +
-      ':LIVRO_AGENDAMENTO_ID'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <
+      ':LIVRO_AGENDAMENTO_ID')
+    ParamData = <
       item
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Name = 'LIVRO_AGENDAMENTO_ID'
         ParamType = ptInput
       end>
     Params = <>
     Left = 276
     Top = 42
-    object sqlFinanceiroAgendamentoLIVRO_FINANCEIRO_ID: TFMTBCDField
+    object sqlFinanceiroAgendamentoLIVRO_FINANCEIRO_ID: TBCDField
       FieldName = 'LIVRO_FINANCEIRO_ID'
       Required = True
       Precision = 20
@@ -250,7 +248,7 @@ object dtmLookupServico: TdtmLookupServico
     object sqlFinanceiroAgendamentoDATA_VENCIMENTO: TSQLTimeStampField
       FieldName = 'DATA_VENCIMENTO'
     end
-    object sqlFinanceiroAgendamentoVALOR_AGENDADO: TFMTBCDField
+    object sqlFinanceiroAgendamentoVALOR_AGENDADO: TBCDField
       FieldName = 'VALOR_AGENDADO'
       Precision = 20
       Size = 3
@@ -259,12 +257,12 @@ object dtmLookupServico: TdtmLookupServico
       FieldName = 'SITUACAO'
       Size = 1
     end
-    object sqlFinanceiroAgendamentoCONTABIL_CONTA_ID: TFMTBCDField
+    object sqlFinanceiroAgendamentoCONTABIL_CONTA_ID: TBCDField
       FieldName = 'CONTABIL_CONTA_ID'
       Precision = 20
       Size = 2
     end
-    object sqlFinanceiroAgendamentoCENTRO_CUSTO_ID: TFMTBCDField
+    object sqlFinanceiroAgendamentoCENTRO_CUSTO_ID: TBCDField
       FieldName = 'CENTRO_CUSTO_ID'
       Precision = 20
       Size = 2
@@ -273,7 +271,7 @@ object dtmLookupServico: TdtmLookupServico
       FieldName = 'ANO_MES_REFERENCIA'
       Size = 10
     end
-    object sqlFinanceiroAgendamentoBALANCETE_GRUPO_ID: TFMTBCDField
+    object sqlFinanceiroAgendamentoBALANCETE_GRUPO_ID: TBCDField
       FieldName = 'BALANCETE_GRUPO_ID'
       Precision = 20
       Size = 2
@@ -282,7 +280,7 @@ object dtmLookupServico: TdtmLookupServico
       FieldName = 'ESPECIE'
       Size = 1
     end
-    object sqlFinanceiroAgendamentoBOLETA_ID: TFMTBCDField
+    object sqlFinanceiroAgendamentoBOLETA_ID: TBCDField
       FieldName = 'BOLETA_ID'
       Precision = 20
       Size = 2
@@ -295,12 +293,12 @@ object dtmLookupServico: TdtmLookupServico
       FieldName = 'OPERACAO'
       Size = 1
     end
-    object sqlFinanceiroAgendamentoPESSOA_ID: TFMTBCDField
+    object sqlFinanceiroAgendamentoPESSOA_ID: TBCDField
       FieldName = 'PESSOA_ID'
       Precision = 20
       Size = 2
     end
-    object sqlFinanceiroAgendamentoVALOR_DOCUMENTO: TFMTBCDField
+    object sqlFinanceiroAgendamentoVALOR_DOCUMENTO: TBCDField
       FieldName = 'VALOR_DOCUMENTO'
       Precision = 20
       Size = 3
@@ -316,17 +314,17 @@ object dtmLookupServico: TdtmLookupServico
     object sqlFinanceiroAgendamentoDATA_OPERACAO: TSQLTimeStampField
       FieldName = 'DATA_OPERACAO'
     end
-    object sqlFinanceiroAgendamentoLIVRO_AGENDAMENTO_ID: TFMTBCDField
+    object sqlFinanceiroAgendamentoLIVRO_AGENDAMENTO_ID: TBCDField
       FieldName = 'LIVRO_AGENDAMENTO_ID'
       Precision = 20
       Size = 2
     end
-    object sqlFinanceiroAgendamentoDESCONTO: TFMTBCDField
+    object sqlFinanceiroAgendamentoDESCONTO: TBCDField
       FieldName = 'DESCONTO'
       Precision = 20
       Size = 3
     end
-    object sqlFinanceiroAgendamentoCAIXA_ID: TFMTBCDField
+    object sqlFinanceiroAgendamentoCAIXA_ID: TBCDField
       FieldName = 'CAIXA_ID'
       Precision = 15
       Size = 2
@@ -343,27 +341,27 @@ object dtmLookupServico: TdtmLookupServico
       FieldName = 'REGISTRO_PARCIAL'
       Size = 1
     end
-    object sqlFinanceiroAgendamentoORCAMENTO_ID: TFMTBCDField
+    object sqlFinanceiroAgendamentoORCAMENTO_ID: TBCDField
       FieldName = 'ORCAMENTO_ID'
       Precision = 20
       Size = 2
     end
-    object sqlFinanceiroAgendamentoPROCESSO_CONTRATO_ITEM_ID: TFMTBCDField
+    object sqlFinanceiroAgendamentoPROCESSO_CONTRATO_ITEM_ID: TBCDField
       FieldName = 'PROCESSO_CONTRATO_ITEM_ID'
       Precision = 20
       Size = 2
     end
-    object sqlFinanceiroAgendamentoPROCESSO_CONTRATO_ID: TFMTBCDField
+    object sqlFinanceiroAgendamentoPROCESSO_CONTRATO_ID: TBCDField
       FieldName = 'PROCESSO_CONTRATO_ID'
       Precision = 20
       Size = 2
     end
-    object sqlFinanceiroAgendamentoLIVRO_REMUNERACAO_ID: TFMTBCDField
+    object sqlFinanceiroAgendamentoLIVRO_REMUNERACAO_ID: TBCDField
       FieldName = 'LIVRO_REMUNERACAO_ID'
       Precision = 20
       Size = 2
     end
-    object sqlFinanceiroAgendamentoFINANCEIRO_REMUNERACAO_ID: TFMTBCDField
+    object sqlFinanceiroAgendamentoFINANCEIRO_REMUNERACAO_ID: TBCDField
       FieldName = 'FINANCEIRO_REMUNERACAO_ID'
       Precision = 20
       Size = 2

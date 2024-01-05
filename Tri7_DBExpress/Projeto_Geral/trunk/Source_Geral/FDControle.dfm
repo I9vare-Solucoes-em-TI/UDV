@@ -4,7 +4,7 @@ object dtmFD: TdtmFD
   OnDestroy = DataModuleDestroy
   Height = 337
   Width = 117
-  object FDConnection: TFDConnection
+  object FDConnection: TI9Connection
     Params.Strings = (
       'User_Name=sysdba'
       'Password=masterkey'
@@ -26,7 +26,7 @@ object dtmFD: TdtmFD
     Left = 40
     Top = 144
   end
-  object FDQuery: TFDQuery
+  object FDQuery: TI9Query
     Connection = FDConnection
     SQL.Strings = (
       'EXECUTE BLOCK'
@@ -41,7 +41,6 @@ object dtmFD: TdtmFD
       '  LEFT JOIN G_NATUREZA_TITULO NT  ON'
       '  PI.NATUREZA_TITULO_ID = NT.NATUREZA_TITULO_ID'
       '  LEFT JOIN G_SELO_LOTE ST ON  SL.SELO_LOTE_ID = ST.SELO_LOTE_ID'
-      
         '  LEFT JOIN G_SELO_GRUPO SG ON  ST.SELO_GRUPO_ID = SG.SELO_GRUPO' +
         '_ID'
       '  WHERE (PR.TIPO_PROTOCOLO IN('#39'1'#39'))'
@@ -51,7 +50,6 @@ object dtmFD: TdtmFD
       '  AND CAST('#39'2016/08/01'#39' AS TIMESTAMP) + 0.9999'
       '  AND SL.SELO_SITUACAO_ID = 2'
       '  INTO :ID  DO'
-      
         '  UPDATE G_SELO_LIVRO SET REG_FINANCEIRO = 1  WHERE SELO_LIVRO_I' +
         'D = :ID;  RES = 1;  SUSPEND;  END'
       '')

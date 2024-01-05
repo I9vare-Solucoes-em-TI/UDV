@@ -425,7 +425,6 @@ inherited frmTextoModelo: TfrmTextoModelo
   end
   inherited DataSetAncestral: TI9Query
     SQL.Strings = (
-      
         'SELECT FIRST 50 * '#13#10'FROM G_TEXTO_MODELO'#13#10'WHERE SISTEMA_ID = :SIS' +
         'TEMA_ID'#13#10'ORDER BY DESCRICAO')
     Left = 603

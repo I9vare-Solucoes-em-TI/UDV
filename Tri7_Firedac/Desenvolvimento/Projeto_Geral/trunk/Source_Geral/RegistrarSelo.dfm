@@ -355,7 +355,6 @@ inherited frmSeloRegistrar: TfrmSeloRegistrar
     FetchOptions.AssignedValues = [evMode]
     FetchOptions.Mode = fmAll
     SQL.Strings = (
-      
         'SELECT U.USUARIO_ID, U.LOGIN'#13#10'FROM G_USUARIO U RIGHT OUTER JOIN ' +
         'G_USUARIO_SISTEMA S'#13#10'  ON U.USUARIO_ID = S.USUARIO_ID'#13#10'WHERE U.S' +
         'ITUACAO = '#39'A'#39#13#10'ORDER BY U.LOGIN')

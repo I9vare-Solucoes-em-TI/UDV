@@ -1139,9 +1139,8 @@ inherited frmCadastroRapidoContratoItem: TfrmCadastroRapidoContratoItem
       end
     end
   end
-  inherited DataSetAncestral: TSQLDataSet
-    SchemaName = 'SYSDBA'
-    CommandText = 'SELECT * '#13#10'FROM J_PROCESSO_CONTRATO_ITEM'
+  inherited DataSetAncestral: TI9Query
+    SQL.Strings = ('SELECT * '#13#10'FROM J_PROCESSO_CONTRATO_ITEM')
     Left = 283
     Top = 1
   end
@@ -1152,7 +1151,7 @@ inherited frmCadastroRapidoContratoItem: TfrmCadastroRapidoContratoItem
   inherited ClientAncestral: TClientDataSet
     Left = 353
     Top = 1
-    object ClientAncestralPROCESSO_CONTRATO_ITEM_ID: TFMTBCDField
+    object ClientAncestralPROCESSO_CONTRATO_ITEM_ID: TBCDField
       FieldName = 'PROCESSO_CONTRATO_ITEM_ID'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
       Precision = 20
@@ -1172,17 +1171,17 @@ inherited frmCadastroRapidoContratoItem: TfrmCadastroRapidoContratoItem
       FieldName = 'PERIODO'
       Size = 1
     end
-    object ClientAncestralVALOR_PARCELA: TFMTBCDField
+    object ClientAncestralVALOR_PARCELA: TBCDField
       FieldName = 'VALOR_PARCELA'
       Precision = 20
       Size = 3
     end
-    object ClientAncestralVALOR_PERCENTUAL: TFMTBCDField
+    object ClientAncestralVALOR_PERCENTUAL: TBCDField
       FieldName = 'VALOR_PERCENTUAL'
       Precision = 20
       Size = 2
     end
-    object ClientAncestralVALOR_PROLABORE: TFMTBCDField
+    object ClientAncestralVALOR_PROLABORE: TBCDField
       FieldName = 'VALOR_PROLABORE'
       Precision = 20
       Size = 3
@@ -1191,7 +1190,7 @@ inherited frmCadastroRapidoContratoItem: TfrmCadastroRapidoContratoItem
       FieldName = 'SITUACAO'
       Size = 1
     end
-    object ClientAncestralPROCESSO_CONTRATO_ID: TFMTBCDField
+    object ClientAncestralPROCESSO_CONTRATO_ID: TBCDField
       FieldName = 'PROCESSO_CONTRATO_ID'
       Precision = 20
       Size = 2
@@ -1200,7 +1199,7 @@ inherited frmCadastroRapidoContratoItem: TfrmCadastroRapidoContratoItem
       FieldName = 'ESPECIE'
       Size = 1
     end
-    object ClientAncestralPROCESSO_TRAMITE_ID: TFMTBCDField
+    object ClientAncestralPROCESSO_TRAMITE_ID: TBCDField
       FieldName = 'PROCESSO_TRAMITE_ID'
       Precision = 20
       Size = 2
@@ -1209,7 +1208,7 @@ inherited frmCadastroRapidoContratoItem: TfrmCadastroRapidoContratoItem
       FieldName = 'REAJUSTE'
       Size = 1
     end
-    object ClientAncestralQTD_SALARIO: TFMTBCDField
+    object ClientAncestralQTD_SALARIO: TBCDField
       FieldName = 'QTD_SALARIO'
       Precision = 20
       Size = 2
@@ -1218,12 +1217,12 @@ inherited frmCadastroRapidoContratoItem: TfrmCadastroRapidoContratoItem
       FieldName = 'DEFINICAO_VALOR'
       Size = 1
     end
-    object ClientAncestralTAREFA_ID: TFMTBCDField
+    object ClientAncestralTAREFA_ID: TBCDField
       FieldName = 'TAREFA_ID'
       Precision = 20
       Size = 2
     end
-    object ClientAncestralQTD: TFMTBCDField
+    object ClientAncestralQTD: TBCDField
       FieldName = 'QTD'
       Precision = 20
       Size = 2
@@ -1232,27 +1231,27 @@ inherited frmCadastroRapidoContratoItem: TfrmCadastroRapidoContratoItem
       FieldName = 'BENEFICIO_DISTRIBUIR'
       Size = 1
     end
-    object ClientAncestralBENEFICIO_PETICIONADOR: TFMTBCDField
+    object ClientAncestralBENEFICIO_PETICIONADOR: TBCDField
       FieldName = 'BENEFICIO_PETICIONADOR'
       Precision = 20
       Size = 3
     end
-    object ClientAncestralBENEFICIO_CAPTADOR: TFMTBCDField
+    object ClientAncestralBENEFICIO_CAPTADOR: TBCDField
       FieldName = 'BENEFICIO_CAPTADOR'
       Precision = 20
       Size = 3
     end
-    object ClientAncestralVALOR_DISTRIBUIR: TFMTBCDField
+    object ClientAncestralVALOR_DISTRIBUIR: TBCDField
       FieldName = 'VALOR_DISTRIBUIR'
       Precision = 20
       Size = 3
     end
-    object ClientAncestralTIPO_BENEFICIO_ID: TFMTBCDField
+    object ClientAncestralTIPO_BENEFICIO_ID: TBCDField
       FieldName = 'TIPO_BENEFICIO_ID'
       Precision = 20
       Size = 2
     end
-    object ClientAncestralBENEFICIO_GESTOR: TFMTBCDField
+    object ClientAncestralBENEFICIO_GESTOR: TBCDField
       FieldName = 'BENEFICIO_GESTOR'
       Precision = 20
       Size = 3

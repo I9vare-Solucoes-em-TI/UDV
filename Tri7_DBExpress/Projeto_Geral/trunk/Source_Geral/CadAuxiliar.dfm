@@ -108,11 +108,10 @@ object frmCadAuxiliar: TfrmCadAuxiliar
       OnClick = btnCancelarClick
     end
   end
-  object DataSetAncestral: TSQLDataSet
+  object DataSetAncestral: TI9Query
     DataSource = SourceAncestral
-    MaxBlobSize = -1
     Params = <>
-    SQLConnection = dtmControles.DB
+    Connection = dtmControles.DB
     Left = 43
     Top = 23
   end

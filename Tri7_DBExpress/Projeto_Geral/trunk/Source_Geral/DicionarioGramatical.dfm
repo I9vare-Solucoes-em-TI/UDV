@@ -322,8 +322,8 @@ inherited frmDicionarioGramatical: TfrmDicionarioGramatical
   inherited ActionList1: TActionList
     Top = 162
   end
-  inherited DataSetAncestral: TSQLDataSet
-    CommandText = 'SELECT *'#13#10'FROM G_GRAMATICA'#13#10'ORDER BY PALAVRA'
+  inherited DataSetAncestral: TI9Query
+    SQL.Strings = ('SELECT *'#13#10'FROM G_GRAMATICA'#13#10'ORDER BY PALAVRA')
     Top = 162
   end
   inherited ProviderAncestral: TDataSetProvider
@@ -332,7 +332,7 @@ inherited frmDicionarioGramatical: TfrmDicionarioGramatical
   inherited ClientAncestral: TClientDataSet
     BeforePost = ClientAncestralBeforePost
     Top = 162
-    object ClientAncestralGRAMATICA_ID: TFMTBCDField
+    object ClientAncestralGRAMATICA_ID: TBCDField
       FieldName = 'GRAMATICA_ID'
       Required = True
       Precision = 15

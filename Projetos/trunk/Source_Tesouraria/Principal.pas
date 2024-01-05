@@ -1,0 +1,771 @@
+unit Principal;
+
+interface
+
+uses
+  I9Query,
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, ImgList, cxControls, cxSplitter, Menus, jpeg,
+  ExtCtrls, DB, SqlExpr, ToolWin, ActnMan, ActnCtrls, ActnList,
+  XPStyleActnCtrls, ComCtrls, IniFiles, ActnMenus,
+  ActnColorMaps, cxContainer, cxEdit, cxTextEdit, AdvPreviewMenu, AdvOfficeHint,
+  AdvToolBar, AdvToolBarStylers, AdvMenus, AdvMenuStylers, AdvOfficeStatusBar,
+  AdvOfficeStatusBarStylers, AdvPreviewMenuStylers, AppEvnts, AdvShapeButton,
+  AdvGlowButton, cxLabel, dxSkinsCore, dxSkinsDefaultPainters, dxSkinBlack,
+  dxSkinBlue, dxSkinCaramel, dxSkinCoffee, dxSkinDarkSide, dxSkinGlassOceans,
+  dxSkiniMaginary, dxSkinLilian, dxSkinLiquidSky, dxSkinLondonLiquidSky,
+  dxSkinMcSkin, dxSkinMoneyTwins, dxSkinOffice2007Black, dxSkinOffice2007Blue,
+  dxSkinOffice2007Green, dxSkinOffice2007Pink, dxSkinOffice2007Silver,
+  dxSkinPumpkin, dxSkinSilver, dxSkinStardust, dxSkinSummer2008,
+  dxSkinValentine, dxSkinXmas2008Blue, cxGraphics, cxLookAndFeels,
+  cxLookAndFeelPainters, dxSkinBlueprint, dxSkinDarkRoom, dxSkinDevExpressStyle,
+  dxSkinFoggy, dxSkinHighContrast, dxSkinOffice2010Black, dxSkinOffice2010Blue,
+  dxSkinOffice2010Silver, dxSkinOffice2013White, dxSkinSeven,
+  dxSkinSevenClassic, dxSkinSharp, dxSkinSharpPlus, dxSkinSpringTime,
+  dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint,
+  dxSkinDevExpressDarkStyle, System.Actions, frxClass, dxGDIPlusClasses,
+  DbxDevartInterBase, Datasnap.DBClient, SimpleDS, FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS,
+  FireDAC.Phys.Intf, FireDAC.DApt.Intf, FireDAC.Stan.Async, FireDAC.DApt, FireDAC.UI.Intf, FireDAC.VCLUI.Wait, FireDAC.Comp.UI, FireDAC.Comp.DataSet,
+  FireDAC.Comp.Client;
+
+type
+
+  TfrmPrincipal = class(TForm)
+    stbPrincipal: TStatusBar;
+    ApplicationEvents1: TApplicationEvents;
+    imgPrincipalPequena: TImageList;
+    AdvPreviewMenuOfficeStyler1: TAdvPreviewMenuOfficeStyler;
+    AdvOfficeStatusBarOfficeStyler1: TAdvOfficeStatusBarOfficeStyler;
+    AdvToolBarOfficeStyler1: TAdvToolBarOfficeStyler;
+    AdvOfficeHint1: TAdvOfficeHint;
+    AdvMenuOfficeStyler1: TAdvMenuOfficeStyler;
+    ImageList3: TImageList;
+    ImageList1: TImageList;
+    ActionManager1: TActionManager;
+    Sair: TAction;
+    CAD_USUARIO: TAction;
+    CAD_CONFIGSIS: TAction;
+    CAD_GRUPOREL: TAction;
+    CAD_CONFIGREL: TAction;
+    CAD_GRUPOUSUARIO: TAction;
+    actMudarSenha: TAction;
+    actTrocarUsuario: TAction;
+    actRelatorio: TAction;
+    CAD_MINMARCACAO: TAction;
+    actSQL: TAction;
+    AdvToolBarPager1: TAdvToolBarPager;
+    ppmRelatorio: TAdvPopupMenu;
+    GrupoRelatrio1: TMenuItem;
+    ConfigurarRelatrio1: TMenuItem;
+    N1: TMenuItem;
+    N2: TMenuItem;
+    MarcaoTipo1: TMenuItem;
+    N3: TMenuItem;
+    ConfiguraodoSistema1: TMenuItem;
+    pagCadastro: TAdvPage;
+    CAD_PESSOA: TAction;
+    CAD_MINUTA: TAction;
+    CAD_TEXTOMODELO: TAction;
+    ppmEmail: TAdvPopupMenu;
+    CAD_DICIONARIO: TAction;
+    CAD_MODELOGRUPO: TAction;
+    AdvToolBar6: TAdvToolBar;
+    pagAtendimento: TAdvPage;
+    AdvGlowButton8: TAdvGlowButton;
+    CAD_CEDENTE: TAction;
+    CAD_GRUPO_CONTABIL: TAction;
+    AdvToolBar2: TAdvToolBar;
+    AdvGlowButton3: TAdvGlowButton;
+    AdvGlowButton10: TAdvGlowButton;
+    ppmCedente: TAdvPopupMenu;
+    CAD_ALTERAR_CEDENTE_ATIVO: TMenuItem;
+    CAD_BALANCETE_GRUPO: TAction;
+    CAD_GERENCIADOR_COMPROMISSO: TAction;
+    CAD_CENTRO_CUSTO: TAction;
+    CAD_SINCRONIZAR_REUNI: TAction;
+    ppmAssociado: TAdvPopupMenu;
+    MenuItem1: TMenuItem;
+    CAD_GERENCIADOR_RECEBIMENTO: TAction;
+    CAD_CONFIG_EMAIL: TAction;
+    CAD_GERENCIADOR_SAIDA: TAction;
+    CAD_MOVIMENTACAO: TAction;
+    AdvToolBar3: TAdvToolBar;
+    AdvGlowButton4: TAdvGlowButton;
+    CAD_CONTROLE_BALANCETE: TAction;
+    AdvPage1: TAdvPage;
+    AdvToolBarControleFinanceiro: TAdvToolBar;
+    CAD_AGENDAMENTO: TAction;
+    CAD_LIVRO_CAIXA: TAction;
+    CAD_SALDO_DETALHADO: TAction;
+    CAD_FINANCEIRO: TAction;
+    CAD_CAIXA_FINANCEIRO: TAction;
+    CAD_RESERVA_CADASTRO: TAction;
+    pagAdministracao: TAdvPage;
+    AdvToolBar14: TAdvToolBar;
+    AdvGlowButton44: TAdvGlowButton;
+    AdvGlowButton48: TAdvGlowButton;
+    AdvAdmin: TAdvToolBar;
+    AdvGlowMenuButton2: TAdvGlowMenuButton;
+    AdvToolBar4: TAdvToolBar;
+    AdvGlowButton11: TAdvGlowButton;
+    AdvGlowButton14: TAdvGlowButton;
+    AdvShapeButton2: TAdvShapeButton;
+    AdvQuickAccessToolBar1: TAdvQuickAccessToolBar;
+    AdvToolBarButton1: TAdvToolBarButton;
+    AdvToolBarButton3: TAdvToolBarButton;
+    AdvToolBarSeparator1: TAdvToolBarSeparator;
+    AdvToolBarButton2: TAdvToolBarButton;
+    advMudarSenha: TAdvToolBarButton;
+    AdvGlowButton12: TAdvGlowButton;
+    AdvGlowButton17: TAdvGlowButton;
+    pro: TImage;
+    CAD_PLANO_CONTAS: TAction;
+    AdvGlowButton25: TAdvGlowButton;
+    AdvGlowButton5: TAdvGlowButton;
+    AdvGlowButton2: TAdvGlowButton;
+    AdvGlowButton1: TAdvGlowButton;
+    AdvToolBar8: TAdvToolBar;
+    AdvGlowButton26: TAdvGlowButton;
+    AdvGlowButton31: TAdvGlowButton;
+    AdvGlowButton27: TAdvGlowButton;
+    AdvGlowButton29: TAdvGlowButton;
+    AdvGlowButton32: TAdvGlowButton;
+    AdvGlowButton30: TAdvGlowButton;
+    AdvGlowButton28: TAdvGlowButton;
+    AdvGlowButton33: TAdvGlowButton;
+    calc: TAction;
+    AdvToolBar9: TAdvToolBar;
+    AdvGlowButton16: TAdvGlowButton;
+    AdvGlowCedente: TAdvGlowButton;
+    CAD_LANCAMENTO_CAIXA: TAction;
+    AdvGlowButton19: TAdvGlowButton;
+    CAD_TIPO_SAIDA: TAction;
+    AdvGlowButton7: TAdvGlowButton;
+    AdvToolBar1: TAdvToolBar;
+    AdvGlowButton6: TAdvGlowButton;
+    AdvToolBarButton4: TAdvToolBarButton;
+    AdvGlowButton9: TAdvGlowButton;
+    AdvGlowButton13: TAdvGlowButton;
+    AdvGlowMenuFavorito: TAdvGlowMenuButton;
+    pppFavoritos: TAdvPopupMenu;
+    sqlLancamentoFavorito: TI9Query;
+    sqlLancamentoFavoritoLIVRO_CAIXA_ID: TBCDField;
+    sqlLancamentoFavoritoCAIXA_ID: TBCDField;
+    sqlLancamentoFavoritoVALOR: TBCDField;
+    sqlLancamentoFavoritoOPERACAO: TStringField;
+    sqlLancamentoFavoritoPESSOA_ID: TBCDField;
+    sqlLancamentoFavoritoDATA_PAGAMENTO: TSQLTimeStampField;
+    sqlLancamentoFavoritoREFERENCIA: TStringField;
+    sqlLancamentoFavoritoOBSERVACAO: TStringField;
+    sqlLancamentoFavoritoCONTABIL_CONTA_ID: TBCDField;
+    sqlLancamentoFavoritoCENTRO_CUSTO_ID: TBCDField;
+    sqlLancamentoFavoritoESPECIE: TStringField;
+    sqlLancamentoFavoritoDOCUMENTO_DESCRICAO: TStringField;
+    sqlLancamentoFavoritoBALANCETE_GRUPO_ID: TBCDField;
+    sqlLancamentoFavoritoLIVRO_FINANCEIRO_ID: TBCDField;
+    sqlLancamentoFavoritoHISTORICO: TStringField;
+    sqlLancamentoFavoritoANO_MES_REGISTRO: TStringField;
+    sqlLancamentoFavoritoDATA_VENCIMENTO: TSQLTimeStampField;
+    sqlLancamentoFavoritoSITUACAO: TStringField;
+    sqlLancamentoFavoritoCAIXA_TRANSFERENCIA_ID: TBCDField;
+    sqlLancamentoFavoritoIR: TStringField;
+    sqlLancamentoFavoritoCONTABIL_GRUPO_ID: TBCDField;
+    sqlLancamentoFavoritoDOCUMENTO_NUMERO: TStringField;
+    sqlLancamentoFavoritoAUTOMATICO: TStringField;
+    sqlLancamentoFavoritoCODIGO_FINALIZACAO: TBCDField;
+    sqlLancamentoFavoritoORCAMENTO_ID: TBCDField;
+    sqlLancamentoFavoritoDOC_TIPO: TStringField;
+    sqlLancamentoFavoritoDATA_LANCAMENTO: TSQLTimeStampField;
+    sqlLancamentoFavoritoFAVORITO_SITUACAO: TStringField;
+    sqlLancamentoFavoritoFAVORITO_VALOR: TBCDField;
+    dtsLancamentoFavorito: TDataSource;
+    actFavoritos: TAction;
+    sqlLancamentoFavoritoORDEM: TBCDField;
+    sqlLancamentoFavoritoIDENTIFICADOR_ID: TBCDField;
+    sqlLancamentoFavoritoINDICE_IMAGEM: TBCDField;
+    sqlLancamentoFavoritoORCAMENTO_HISTORICO_ID: TBCDField;
+    sqlLancamentoFavoritoASSOCIADO_ID: TBCDField;
+    sqlLancamentoFavoritoCOMPROMISSO_VENCIDO_ID: TBCDField;
+    sqlLancamentoFavoritoIDENTIFICACAO_ID: TBCDField;
+    sqlLancamentoFavoritoIDENTIFICACAO_TIPO: TStringField;
+    sqlLancamentoFavoritoRESERVA_ID: TBCDField;
+    sqlLancamentoFavoritoFAVORECIDO_ASSOCIADO: TStringField;
+    sqlLancamentoFavoritoVALOR_PREVISTO: TBCDField;
+    sqlLancamentoFavoritoTIPO_DESPESA_ID: TBCDField;
+    sqlLancamentoFavoritoRESPONSAVEL_ID: TBCDField;
+    sqlLancamentoFavoritoCONTADOR_CONTABILIZAR: TStringField;
+    sqlLancamentoFavoritoDESCRICAO_AGRUPADOR: TStringField;
+    sqlLancamentoFavoritoPROVISAO_TRANSFERENCIA_ID: TBCDField;
+    AdvToolBarButton5: TAdvToolBarButton;
+    AdvToolBar11: TAdvToolBar;
+    AdvGlowMenuButton3: TAdvGlowMenuButton;
+    popEmail: TAdvPopupMenu;
+    MenuItem5: TMenuItem;
+    MenuItem17: TMenuItem;
+    FDGUIxWaitCursor1: TFDGUIxWaitCursor;
+    procedure SairExecute(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure actMudarSenhaExecute(Sender: TObject);
+    procedure FormActivate(Sender: TObject);
+    procedure actTrocarUsuarioExecute(Sender: TObject);
+    procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
+    procedure actRelatorioExecute(Sender: TObject);
+    procedure CAD_TEXTOMODELOExecute(Sender: TObject);
+    procedure CAD_USUARIOExecute(Sender: TObject);
+    procedure CAD_GRUPOUSUARIOExecute(Sender: TObject);
+    procedure CAD_MODELOGRUPOExecute(Sender: TObject);
+    procedure CAD_DICIONARIOExecute(Sender: TObject);
+    procedure CAD_CONFIGSISExecute(Sender: TObject);
+    procedure CAD_MINMARCACAOExecute(Sender: TObject);
+    procedure CAD_GRUPORELExecute(Sender: TObject);
+    procedure CAD_CEDENTEExecute(Sender: TObject);
+    procedure CAD_GRUPO_CONTABILExecute(Sender: TObject);
+    procedure AdvGlowButton8Click(Sender: TObject);
+    procedure CAD_ALTERAR_CEDENTE_ATIVOClick(Sender: TObject);
+    procedure CAD_PESSOAExecute(Sender: TObject);
+    procedure CAD_BALANCETE_GRUPOExecute(Sender: TObject);
+    procedure CAD_GERENCIADOR_COMPROMISSOExecute(Sender: TObject);
+    procedure CAD_CENTRO_CUSTOExecute(Sender: TObject);
+    procedure CAD_SINCRONIZAR_REUNIExecute(Sender: TObject);
+    procedure MenuItem1Click(Sender: TObject);
+    procedure CAD_GERENCIADOR_RECEBIMENTOExecute(Sender: TObject);
+    procedure CAD_CONFIGRELExecute(Sender: TObject);
+    procedure CAD_GERENCIADOR_SAIDAExecute(Sender: TObject);
+    procedure CAD_MOVIMENTACAOExecute(Sender: TObject);
+    procedure CAD_CONTROLE_BALANCETEExecute(Sender: TObject);
+    procedure AdvToolBarButton3Click(Sender: TObject);
+    procedure AdvToolBarButton1Click(Sender: TObject);
+    procedure AdvGlowButton14Click(Sender: TObject);
+    procedure CAD_AGENDAMENTOExecute(Sender: TObject);
+    procedure CAD_CAIXA_FINANCEIROExecute(Sender: TObject);
+    procedure CAD_SALDO_DETALHADOExecute(Sender: TObject);
+    procedure CAD_FINANCEIROExecute(Sender: TObject);
+    procedure CAD_LIVRO_CAIXAExecute(Sender: TObject);
+    procedure CAD_RESERVA_CADASTROExecute(Sender: TObject);
+    procedure AdvGlowButton11Click(Sender: TObject);
+    procedure CAD_PLANO_CONTASExecute(Sender: TObject);
+    procedure calcExecute(Sender: TObject);
+    procedure advMudarSenhaClick(Sender: TObject);
+    procedure AdvGlowButton31Click(Sender: TObject);
+    procedure AdvGlowButton16Click(Sender: TObject);
+    procedure CAD_LANCAMENTO_CAIXAExecute(Sender: TObject);
+    procedure CAD_TIPO_SAIDAExecute(Sender: TObject);
+    procedure AdvGlowButton13Click(Sender: TObject);
+    procedure actFavoritosExecute(Sender: TObject);
+    procedure AdvToolBarButton5Click(Sender: TObject);
+    procedure MenuItem5Click(Sender: TObject);
+    procedure MenuItem17Click(Sender: TObject);
+  private
+    procedure ShowHint(Sender: TObject);
+    procedure CriarMenuRelatorios;
+    procedure MenuAtivoInativo(vpTipo : String);
+    procedure CriarMenuFavoritos;
+    procedure SetarTipoFaturaVazio;
+  public
+    { Public declarations }
+    vlAtivarPostagemWeb : Boolean;
+    procedure MostrarCedenteAtivo(vpCedente : String);
+  end;
+
+var
+  frmPrincipal: TfrmPrincipal;
+
+implementation
+
+uses Controles, Login, Rotinas, LoginAlteracao,
+     VisualizaRelatorios, Cadastro, RotinasFingkey, Lookup,
+  GerenciadorRecebimento, Splash, Sobre, BackupRestaura, Lookup_Contabil,
+  Lookup_Servico, CadastroRapidoLancamento, CalculadoraValores;
+{$R *.dfm}
+
+procedure TfrmPrincipal.SairExecute(Sender: TObject);
+begin
+  Close;
+end;
+                                                            
+procedure TfrmPrincipal.SetarTipoFaturaVazio;
+begin
+  ExecutaSqlAuxiliar(' UPDATE T_PESSOA_GRUPO SET FATURA_TIPO = ''B'' WHERE FATURA_TIPO IS NULL',1);
+  ExecutaSqlAuxiliar(' UPDATE T_PESSOA SET FATURA_TIPO = ''B'' WHERE FATURA_TIPO IS NULL',1);
+end;
+
+procedure TfrmPrincipal.FormCreate(Sender: TObject);
+begin
+  vgId := 13;
+  vgChamarLogin := True;
+  Application.OnHint := ShowHint;
+  Application.OnException := dtmControles.CapturaErro;
+  dtmControles.CarregarConfig;
+  AdvToolBarPager1.ActivePageIndex := 0;
+  MenuAtivoInativo('');
+//  dtmLookup.VerificarEmailGrupo;
+
+  try
+    vgCedenteAtivo := dtmControles.BuscarConfig('PRINCIPAL', 'GERAL', 'CEDENTE_ATIVO', 'I');
+  except
+    vgCedenteAtivo := 0;
+  end;
+  frmPrincipal.MostrarCedenteAtivo(IntToStr(vgCedenteAtivo));
+
+  CriarMenuFavoritos;
+  CriarMenuRelatorios;
+  vgReferenciaInicial    := dtmControles.BuscarConfig('TESOURARIA', 'BALANCETE', 'REFERENCIA_BALANCETE_INICIAL', 'S');
+  vgPeriodoAtual         := dtmLookup.PegarAnoMes(dtmControles.DataHoraBanco(4));
+  vgPeriodoAtualS        := (copy(dtmControles.DataHoraBanco(4),4,2))+'/'+(copy(dtmControles.DataHoraBanco(4),7,4));
+  vgBalancetePrincipal   :=  dtmControles.GetInt(' SELECT BALANCETE_GRUPO_ID FROM T_BALANCETE_GRUPO '+
+                                                 ' WHERE PRINCIPAL = ''S'''+
+                                                 ' AND CEDENTE_ID = '+ IntToStr(vgCedenteAtivo));
+
+  vgCentroCustoPrincipalId := dtmControles.GetInt(' SELECT CENTRO_CUSTO_ID FROM T_CENTRO_CUSTO '+
+                                                  ' WHERE PRINCIPAL = ''S'''+
+                                                  ' AND BALANCETE_GRUPO_ID = '+IntToStr(vgBalancetePrincipal));
+
+  vgCaixaPrincipalID       := dtmControles.GetInt(' SELECT CAIXA_ID FROM J_CAIXA '+
+                                                  ' WHERE PRINCIPAL = ''S''');
+  SetarTipoFaturaVazio;
+end;
+
+procedure TfrmPrincipal.MenuAtivoInativo(vpTipo: String);
+var
+  Ini  : TIniFile;
+  viMenu : string;
+begin
+  Ini := TIniFile.Create(ExtractFilePath(Application.ExeName) + 'Config.ini');
+
+  if vpTipo = '' then
+  begin
+    try
+      viMenu := Ini.ReadString('LAYOUT', 'Menu', '');
+    except
+      viMenu := 'N';
+    end;
+  end
+  else viMenu := vpTipo;
+
+  if viMenu = 'S' then
+       AdvToolBarPager1.Expand
+  else AdvToolBarPager1.Collaps;
+
+  Ini.WriteString('LAYOUT', 'Menu', viMenu);
+  Ini.Free;
+end;
+
+procedure TfrmPrincipal.MenuItem17Click(Sender: TObject);
+begin
+  CadEmailPadrao(True);
+end;
+
+procedure TfrmPrincipal.MenuItem1Click(Sender: TObject);
+begin
+  vgHabilitarSelecionarGrupo := False;
+  CadGrupoFamiliar(True);
+end;
+
+procedure TfrmPrincipal.MenuItem5Click(Sender: TObject);
+begin
+  CadConfigEmail(True);
+end;
+
+procedure TfrmPrincipal.MostrarCedenteAtivo(vpCedente: String);
+begin
+  if vpCedente = '0' then
+  begin
+    ExecutaSqlAuxiliar('SELECT CEDENTE_ID, DESCRICAO FROM T_CEDENTE WHERE PRINCIPAL = '+ QuotedStr('S'),0);
+    if dtmControles.sqlAuxiliar.IsEmpty then
+      AdvToolBarPager1.Caption.Caption := 'UDV - TESOURARIA >>> NENHUM CEDENTE CADASTRADO'
+    else
+    begin
+      vgCedenteAtivo := dtmControles.sqlAuxiliar.FieldByName('CEDENTE_ID').AsInteger;
+      vgCedenteNome  := dtmControles.sqlAuxiliar.FieldByName('DESCRICAO').AsString;      
+      
+      AdvToolBarPager1.Caption.Caption := 'CEDENTE ATIVO >> '+ dtmControles.sqlAuxiliar.FieldByName('DESCRICAO').AsString;
+      ExecutaSqlAuxiliar(' UPDATE G_CONFIG SET VALOR = '+ IntToStr(vgCedenteAtivo)+
+                         ' WHERE NOME = '+ QuotedStr('CEDENTE_ATIVO'),1);
+    end;
+  end
+  else
+  begin
+    ExecutaSqlAuxiliar('SELECT DESCRICAO, SINCRONIZAR_REUNI FROM T_CEDENTE WHERE CEDENTE_ID = '+ vpCedente,0);
+    AdvToolBarPager1.Caption.Caption := 'CEDENTE ATIVO >> '+ dtmControles.sqlAuxiliar.FieldByName('DESCRICAO').AsString;
+    vgCedenteAtivo     := StrToInt(vpCedente);
+    vgCedenteNome      := dtmControles.sqlAuxiliar.FieldByName('DESCRICAO').AsString;
+    vgSincronizarReuni := dtmControles.sqlAuxiliar.FieldByName('SINCRONIZAR_REUNI').AsString;
+  end;
+  AdvToolBarPager1.Refresh;
+  frmPrincipal.Update;
+end;
+
+procedure TfrmPrincipal.AdvGlowButton11Click(Sender: TObject);
+begin
+  vgBackupTipo := 0;
+  ExibirFormulario(TfrmBackupRestaura, frmBackupRestaura, true);
+end;
+
+procedure TfrmPrincipal.AdvGlowButton13Click(Sender: TObject);
+begin
+  vgDadosCadastro.SomentePesquisa := True;
+  vgDadosLivroCaixa.Novo          := True;
+  CadTransfProvisao(True);
+end;
+
+procedure TfrmPrincipal.AdvGlowButton14Click(Sender: TObject);
+begin
+  if MDIChildcount > 0 then
+  begin
+    ShowMessage('Todos as telas devem  estar fechadas!!!');
+    exit;
+  end;
+
+  vgBackupTipo := 1;
+  ExibirFormulario(TfrmBackupRestaura, frmBackupRestaura, true);
+end;
+
+
+procedure TfrmPrincipal.AdvGlowButton16Click(Sender: TObject);
+begin
+  CadPessoa(True);
+end;
+
+procedure TfrmPrincipal.AdvGlowButton31Click(Sender: TObject);
+begin
+  vgDadosCadastro.SomentePesquisa := True;
+  vgDadosLivroCaixa.Novo          := True;
+  CadTransferencia(True);
+end;
+
+procedure TfrmPrincipal.AdvGlowButton8Click(Sender: TObject);
+begin
+  CadPlanoContas(False);
+end;
+
+procedure TfrmPrincipal.advMudarSenhaClick(Sender: TObject);
+begin
+  ExibirFormulario(TfrmLoginAlteracao, frmLoginAlteracao, True);
+end;
+
+procedure TfrmPrincipal.AdvToolBarButton1Click(Sender: TObject);
+begin
+  ExibirFormulario(TfrmSobre, frmSobre, True);
+end;
+
+procedure TfrmPrincipal.AdvToolBarButton3Click(Sender: TObject);
+begin
+  if AdvToolBarPager1.Expanded then
+       MenuAtivoInativo('N')
+  else MenuAtivoInativo('S');
+end;
+
+procedure TfrmPrincipal.AdvToolBarButton5Click(Sender: TObject);
+begin
+  vgDadosCadastro.SomentePesquisa := True;
+  ExibirFormulario(TfrmCalculadoraValores, frmCalculadoraValores, True);
+end;
+
+procedure TfrmPrincipal.CAD_CAIXA_FINANCEIROExecute(Sender: TObject);
+begin
+  CadCaixaFinanceiro(True);
+end;
+
+procedure TfrmPrincipal.CAD_AGENDAMENTOExecute(Sender: TObject);
+begin
+  CadAgendamento;
+end;
+
+procedure TfrmPrincipal.CAD_ALTERAR_CEDENTE_ATIVOClick(Sender: TObject);
+begin
+  CadAlterarCedente(True);
+end;
+
+procedure TfrmPrincipal.CAD_CONTROLE_BALANCETEExecute(Sender: TObject);
+begin
+  CadControleBalancete(True);
+end;
+
+procedure TfrmPrincipal.CAD_BALANCETE_GRUPOExecute(Sender: TObject);
+begin
+  CadGrupoBalancete(True);
+end;
+
+procedure TfrmPrincipal.CAD_CEDENTEExecute(Sender: TObject);
+begin
+  CadCedente(True);
+end;
+
+procedure TfrmPrincipal.CAD_CENTRO_CUSTOExecute(Sender: TObject);
+begin
+  CadCentroCusto(True);
+end;
+
+procedure TfrmPrincipal.CAD_CONFIGRELExecute(Sender: TObject);
+begin
+  CadConfigRelatorio;
+end;
+
+procedure TfrmPrincipal.CAD_CONFIGSISExecute(Sender: TObject);
+begin
+  CadConfig;
+end;
+
+procedure TfrmPrincipal.CAD_DICIONARIOExecute(Sender: TObject);
+begin
+  CadDicionarioGramatical;
+end;
+
+procedure TfrmPrincipal.CAD_FINANCEIROExecute(Sender: TObject);
+begin
+  CadFinanceiro;
+end;
+
+procedure TfrmPrincipal.CAD_GRUPORELExecute(Sender: TObject);
+begin
+  CadGrupoRelatorio;
+end;
+
+procedure TfrmPrincipal.CAD_GRUPOUSUARIOExecute(Sender: TObject);
+begin
+  CadUsuarioGrupo;
+end;
+
+procedure TfrmPrincipal.CAD_GRUPO_CONTABILExecute(Sender: TObject);
+begin
+  CadGrupoContabil(True);
+end;
+
+procedure TfrmPrincipal.CAD_LANCAMENTO_CAIXAExecute(Sender: TObject);
+begin
+  vgDadosCadastro.SomentePesquisa := True;
+  dtmLookupServico.CarregarDadosLancamento(1, 0, nil);
+  CadLancamentoCaixa(True);
+end;
+
+procedure TfrmPrincipal.CAD_LIVRO_CAIXAExecute(Sender: TObject);
+begin
+  CadLivroCaixa;
+end;
+
+procedure TfrmPrincipal.CAD_MINMARCACAOExecute(Sender: TObject);
+begin
+  CadMarcacaoTipo;
+end;
+
+procedure TfrmPrincipal.CAD_MODELOGRUPOExecute(Sender: TObject);
+begin
+  //Modelo Grupo
+end;
+
+
+procedure TfrmPrincipal.CAD_MOVIMENTACAOExecute(Sender: TObject);
+begin
+  CadMovimentacao;
+end;
+
+procedure TfrmPrincipal.CAD_PESSOAExecute(Sender: TObject);
+begin
+  CadPesquisaPessoa;
+end;
+
+procedure TfrmPrincipal.CAD_PLANO_CONTASExecute(Sender: TObject);
+begin
+  CadPlanoContas;
+end;
+
+procedure TfrmPrincipal.CAD_RESERVA_CADASTROExecute(Sender: TObject);
+begin
+  CadReservaCadastro(True);
+end;
+
+procedure TfrmPrincipal.CAD_SALDO_DETALHADOExecute(Sender: TObject);
+begin
+  CadSaldoDetalhado;
+end;
+
+procedure TfrmPrincipal.CAD_SINCRONIZAR_REUNIExecute(Sender: TObject);
+begin
+  CadSincronizarReuni(True);
+end;
+
+procedure TfrmPrincipal.CAD_TEXTOMODELOExecute(Sender: TObject);
+begin
+  CadGruposTextoModelo;
+end;
+
+procedure TfrmPrincipal.CAD_TIPO_SAIDAExecute(Sender: TObject);
+begin
+  CadTipoSaida(True);
+end;
+
+procedure TfrmPrincipal.CAD_USUARIOExecute(Sender: TObject);
+begin
+  CadUsuario;
+
+  // Criar Objeto do Scanner FingKey
+  if dtmControles.BuscarConfig('PRINCIPAL','GERAL','USAR_BIOMETRIA','S') = 'S' then
+    CriarModuloFingKey;
+end;
+
+procedure TfrmPrincipal.calcExecute(Sender: TObject);
+begin
+  WinExec('Calc.exe', 1);
+end;
+
+procedure TfrmPrincipal.CAD_GERENCIADOR_COMPROMISSOExecute(Sender: TObject);
+begin
+  CadgerenciadorCompromisso;
+end;
+
+procedure TfrmPrincipal.CAD_GERENCIADOR_RECEBIMENTOExecute(Sender: TObject);
+begin
+//  vgSocioAfastado;
+  CadGerenciadorRecebimento(False);
+end;
+
+procedure TfrmPrincipal.CAD_GERENCIADOR_SAIDAExecute(Sender: TObject);
+begin
+  CadGerenciadorSaida(False);
+end;
+
+procedure TfrmPrincipal.actFavoritosExecute(Sender: TObject);
+begin
+  vgDadosCadastro.SomentePesquisa := True;
+  vgDadosLivroCaixa.DuplicarItem  := True;
+  vgDadosLivroCaixa.Favorito      := True;
+  sqlLancamentoFavorito.Locate('LIVRO_CAIXA_ID',TAction(Sender).Tag, [loCaseInsensitive]);
+  dtmLookupServico.CarregarDadosLancamento(2, sqlLancamentoFavoritoLIVRO_CAIXA_ID.AsInteger, sqlLancamentoFavorito);
+  ExibirFormulario(TfrmCadastroRapidoLancamento, frmCadastroRapidoLancamento, True);
+
+  vgDadosLivroCaixa.DuplicarItem := False;
+  vgDadosLivroCaixa.Favorito     := False;
+end;
+
+procedure TfrmPrincipal.actMudarSenhaExecute(Sender: TObject);
+begin
+//  vgControleLogin := False;
+  ExibirFormulario(TfrmLoginAlteracao, frmLoginAlteracao, True);
+end;
+
+procedure TfrmPrincipal.FormActivate(Sender: TObject);
+var Item: TActionClientItem;
+begin
+  if vgChamarLogin = True then
+  begin
+    WindowState := wsMaximized;
+    Application.ProcessMessages;
+    ExibirFormulario(TfrmLogin, frmLogin, True);
+
+    AdvAdmin.Visible    := vgLogin = 'I937';
+
+    stbPrincipal.Panels[2].Text := vgLogin;
+    if vgLogin <> 'I937' then
+    begin
+      dtmControles.AtivaSessao(actTrocarUsuario);
+      stbPrincipal.Panels[3].Text :=   Rotinas.MaiusculoMinusculo(FormatDateTime('dddd, dd', dtmControles.DataHoraBanco(3)) + ' de ' +
+                                       FormatDateTime('MMMM', dtmControles.DataHoraBanco(3)) + ' de ' +
+                                       FormatDateTime('yyyy', dtmControles.DataHoraBanco(3)));
+    end
+    else stbPrincipal.Panels[3].Text := dtmControles.Cripto.CriptoHexToText(vgBaseDados);
+  end;
+  vgFecharAutomatico := False;
+end;
+
+procedure TfrmPrincipal.actTrocarUsuarioExecute(Sender: TObject);
+var
+  Item: TActionClientItem;
+begin
+  //vgChamarLogin := True;
+  if frmLogin <> nil then exit;
+
+  ExibirFormulario(TfrmLogin, frmLogin, True);
+
+  stbPrincipal.Panels[2].Text := vgLogin;
+  stbPrincipal.Panels[3].Text := Rotinas.MaiusculoMinusculo(FormatDateTime('dddd, dd', dtmControles.DataHoraBanco(3)) + ' de ' +
+                                 FormatDateTime('MMMM', dtmControles.DataHoraBanco(3)) + ' de ' +
+                                 FormatDateTime('yyyy', dtmControles.DataHoraBanco(3)));
+end;
+
+procedure TfrmPrincipal.ShowHint(Sender: TObject);
+begin
+  stbPrincipal.Panels[1].Text := Application.Hint;
+end;
+
+procedure TfrmPrincipal.FormCloseQuery(Sender: TObject;
+  var CanClose: Boolean);
+begin
+  if (vgChamarLogin = True) or (vgFecharAutomatico) then
+    CanClose := True
+  else
+  begin
+    if Application.MessageBox('Sair do I9vare Tesouraria?',
+      'Confirmação', MB_YESNO) = IDYES then
+      CanClose := True
+    else
+      CanClose := False;
+  end;
+end;
+
+procedure TfrmPrincipal.actRelatorioExecute(Sender: TObject);
+begin
+  dtmControles.ShowRelatorio(IntToStr(TAction(Sender).Tag));
+end;
+
+procedure TfrmPrincipal.CriarMenuFavoritos;
+var
+  Act : TAction;
+  T : TMenuItem;
+begin
+  sqlLancamentoFavorito.Connection := dtmControles.DB;
+  sqlLancamentoFavorito.Open;
+
+  AdvGlowMenuFavorito.Visible := not sqlLancamentoFavorito.IsEmpty;
+  if not sqlLancamentoFavorito.IsEmpty then
+  begin
+    sqlLancamentoFavorito.First;
+    repeat
+      Act := TAction.Create(Application);
+      Act.Caption := sqlLancamentoFavoritoHISTORICO.AsString;
+      Act.Tag :=  sqlLancamentoFavoritoLIVRO_CAIXA_ID.AsInteger;
+      Act.OnExecute := actFavoritos.OnExecute;
+
+      T := TMenuItem.Create(pppFavoritos);
+      T.Action := Act;
+      T.Caption := Act.Caption;
+      T.Name := 'M_' + IntToStr(Act.Tag);
+
+      pppFavoritos.Items.Add(T);
+      sqlLancamentoFavorito.Next;
+    Until sqlLancamentoFavorito.Eof;
+  end;
+end;
+
+procedure TfrmPrincipal.CriarMenuRelatorios;
+var
+  Act : TAction;
+  T : TMenuItem;
+begin
+  dtmControles.sqlRelatorio.Connection := dtmControles.DB;
+  dtmControles.sqlRelatorio.Params[0].AsInteger := vgId;
+  dtmControles.sqlRelatorio.Open;
+
+  if not dtmControles.sqlRelatorio.IsEmpty then
+  begin
+    dtmControles.sqlRelatorio.First;
+    repeat
+      Act := TAction.Create(Application);
+      Act.Caption := dtmControles.sqlRelatorioDESCRICAO.AsString;
+      Act.Tag := dtmControles.sqlRelatorioCONFIG_RELATORIO_ID.AsInteger;
+      Act.OnExecute := actRelatorio.OnExecute;
+
+      T := TMenuItem.Create(ppmRelatorio);
+      T.Action := Act;
+      T.Caption := Act.Caption;
+      T.Name := 'M_' + IntToStr(Act.Tag);
+
+      ppmRelatorio.Items.Add(T);
+      dtmControles.sqlRelatorio.Next;
+    Until dtmControles.sqlRelatorio.Eof;
+
+  end;
+  actRelatorio.Visible := False;
+  dtmControles.sqlRelatorio.Close;
+end;
+
+end.

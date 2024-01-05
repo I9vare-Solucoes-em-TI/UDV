@@ -28,7 +28,7 @@ type
     cxSplitter2: TcxSplitter;
     edtDescricao: TcxDBTextEdit;
     edtAssunto: TcxDBTextEdit;
-    ClientAncestralEMAIL_TEXTO_PADRAO_ID: TFMTBCDField;
+    ClientAncestralEMAIL_TEXTO_PADRAO_ID: TBCDField;
     ClientAncestralDESCRICAO: TStringField;
     ClientAncestralTEXTO: TBlobField;
     ClientAncestralASSUNTO: TStringField;

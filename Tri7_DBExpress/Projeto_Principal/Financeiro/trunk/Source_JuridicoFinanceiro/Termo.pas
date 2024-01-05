@@ -21,23 +21,23 @@ uses
 type
 
   TfrmTermo = class(TfrmCadAuxiliar)
-    ClientAncestralDOCUMENTO_ID: TFMTBCDField;
-    ClientAncestralNUMERO_REGISTRO: TFMTBCDField;
+    ClientAncestralDOCUMENTO_ID: TBCDField;
+    ClientAncestralNUMERO_REGISTRO: TBCDField;
     ClientAncestralLIVRO: TStringField;
-    ClientAncestralNUMERO_PAGINAS: TFMTBCDField;
-    ClientAncestralNUMERO_VIAS: TFMTBCDField;
+    ClientAncestralNUMERO_PAGINAS: TBCDField;
+    ClientAncestralNUMERO_VIAS: TBCDField;
     ClientAncestralDATA_REGISTRO: TSQLTimeStampField;
     ClientAncestralAPRESENTANTE: TStringField;
     ClientAncestralOBSERVACAO: TBlobField;
-    ClientAncestralVALOR_DOCUMENTO: TFMTBCDField;
-    ClientAncestralTAXA_JUDICIARIA: TFMTBCDField;
-    ClientAncestralVALOR_CUSTAS: TFMTBCDField;
-    ClientAncestralTIPO_DOCUMENTO_ID: TFMTBCDField;
-    ClientAncestralEMOLUMENTO_ID: TFMTBCDField;
-    ClientAncestralVALOR_TOTAL: TFMTBCDField;
-    ClientAncestralLIVRO_NUMERO: TFMTBCDField;
-    ClientAncestralLIVRO_PAGINA: TFMTBCDField;
-    ClientAncestralNUMERO_PESSOAS: TFMTBCDField;
+    ClientAncestralVALOR_DOCUMENTO: TBCDField;
+    ClientAncestralTAXA_JUDICIARIA: TBCDField;
+    ClientAncestralVALOR_CUSTAS: TBCDField;
+    ClientAncestralTIPO_DOCUMENTO_ID: TBCDField;
+    ClientAncestralEMOLUMENTO_ID: TBCDField;
+    ClientAncestralVALOR_TOTAL: TBCDField;
+    ClientAncestralLIVRO_NUMERO: TBCDField;
+    ClientAncestralLIVRO_PAGINA: TBCDField;
+    ClientAncestralNUMERO_PESSOAS: TBCDField;
     ClientAncestralPAGINA_ID: TIntegerField;
     btnConfirmarItem: TcxButton;
     Panel4: TPanel;

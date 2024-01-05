@@ -1327,30 +1327,29 @@ object frmOrientacoes: TfrmOrientacoes
       end
     end
   end
-  object sqlOrientacoes: TSimpleDataSet
+  object sqlOrientacoes: TI9Query
     Aggregates = <>
     Connection = dtmControles.DB
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT'#13#10'  USU.ORIENTACAO_USUARIO_ID,'#13#10'  USU.USUARIO_ID,'#13#10'  USU.R' +
       'ECEBIDO,'#13#10'  ORI.ORIENTACAO_ID,'#13#10'  ORI.USUARIO_ENVIOU_ID,'#13#10'  ORI.' +
       'MENSAGEM,'#13#10'  ORI.DATA_CADASTRO,'#13#10'  ORI.DATA_ORIENTACAO,'#13#10'  ORI.S' +
       'ITUACAO,'#13#10'  ORI.TITULO'#13#10#13#10'FROM G_ORIENTACAO_USUARIO USU'#13#10#13#10'LEFT ' +
       'JOIN G_ORIENTACAO ORI'#13#10'ON USU.ORIENTACAO_ID = ORI.ORIENTACAO_ID'#13 +
       #10#13#10'WHERE USU.USUARIO_ID = 123456'#13#10#13#10'ORDER BY ORI.DATA_ORIENTACAO' +
-      ' DESC'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <>
+      ' DESC')
+    ParamData = <>
     Params = <>
     AfterScroll = sqlOrientacoesAfterScroll
     Left = 792
     Top = 200
-    object sqlOrientacoesORIENTACAO_USUARIO_ID: TFMTBCDField
+    object sqlOrientacoesORIENTACAO_USUARIO_ID: TBCDField
       FieldName = 'ORIENTACAO_USUARIO_ID'
       Required = True
       Precision = 20
       Size = 2
     end
-    object sqlOrientacoesUSUARIO_ID: TFMTBCDField
+    object sqlOrientacoesUSUARIO_ID: TBCDField
       FieldName = 'USUARIO_ID'
       Precision = 20
       Size = 2
@@ -1359,12 +1358,12 @@ object frmOrientacoes: TfrmOrientacoes
       FieldName = 'RECEBIDO'
       Size = 1
     end
-    object sqlOrientacoesORIENTACAO_ID: TFMTBCDField
+    object sqlOrientacoesORIENTACAO_ID: TBCDField
       FieldName = 'ORIENTACAO_ID'
       Precision = 20
       Size = 2
     end
-    object sqlOrientacoesUSUARIO_ENVIOU_ID: TFMTBCDField
+    object sqlOrientacoesUSUARIO_ENVIOU_ID: TBCDField
       FieldName = 'USUARIO_ENVIOU_ID'
       Precision = 20
       Size = 2
@@ -1392,16 +1391,15 @@ object frmOrientacoes: TfrmOrientacoes
     Left = 872
     Top = 200
   end
-  object sqlOrientacao: TSimpleDataSet
+  object sqlOrientacao: TI9Query
     Aggregates = <>
     Connection = dtmControles.DB
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT * FROM G_ORIENTACAO'#13#10'WHERE ORIENTACAO_ID = :ORIENTACAO_ID' +
-      #13#10'AND SITUACAO = '#39'A'#39
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <
+      #13#10'AND SITUACAO = '#39'A'#39)
+    ParamData = <
       item
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Name = 'ORIENTACAO_ID'
         ParamType = ptInput
       end>
@@ -1410,13 +1408,13 @@ object frmOrientacoes: TfrmOrientacoes
     AfterScroll = sqlOrientacaoAfterScroll
     Left = 792
     Top = 152
-    object sqlOrientacaoORIENTACAO_ID: TFMTBCDField
+    object sqlOrientacaoORIENTACAO_ID: TBCDField
       FieldName = 'ORIENTACAO_ID'
       Required = True
       Precision = 20
       Size = 2
     end
-    object sqlOrientacaoUSUARIO_ENVIOU_ID: TFMTBCDField
+    object sqlOrientacaoUSUARIO_ENVIOU_ID: TBCDField
       FieldName = 'USUARIO_ENVIOU_ID'
       Precision = 20
       Size = 2

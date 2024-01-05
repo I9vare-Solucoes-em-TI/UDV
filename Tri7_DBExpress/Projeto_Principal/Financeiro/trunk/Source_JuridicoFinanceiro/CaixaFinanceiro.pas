@@ -34,9 +34,9 @@ type
     cxLabel1: TcxLabel;
     grdServicoDBTableView1DESCRICAO: TcxGridDBColumn;
     grdServicoDBTableView1SITUACAO: TcxGridDBColumn;
-    ClientAncestralCAIXA_ID: TFMTBCDField;
+    ClientAncestralCAIXA_ID: TBCDField;
     ClientAncestralSITUACAO: TStringField;
-    ClientAncestralRESPONSAVEL_ID: TFMTBCDField;
+    ClientAncestralRESPONSAVEL_ID: TBCDField;
     grdServicoDBTableViewBANCO: TcxGridDBColumn;
     popPrincipal: TPopupMenu;
     mniDefinirCentroCustoPrincipal: TMenuItem;
@@ -48,7 +48,7 @@ type
     cxLabel2: TcxLabel;
     grdServicoDBTableView1Column1: TcxGridDBColumn;
     lblBancoBoleto: TcxLabel;
-    ClientAncestralBANCO_ID: TFMTBCDField;
+    ClientAncestralBANCO_ID: TBCDField;
     cxButton1: TcxButton;
     ClientAncestralTIPO_CAIXA: TStringField;
     ClientAncestralPREVISAO_SALDO: TStringField;

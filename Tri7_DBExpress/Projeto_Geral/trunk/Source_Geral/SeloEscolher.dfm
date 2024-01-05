@@ -286,7 +286,7 @@ inherited frmSeloEscolher: TfrmSeloEscolher
       ParentFont = False
     end
   end
-  inherited DataSetAncestral: TSQLDataSet
+  inherited DataSetAncestral: TI9Query
     Left = 363
     Top = 7
   end

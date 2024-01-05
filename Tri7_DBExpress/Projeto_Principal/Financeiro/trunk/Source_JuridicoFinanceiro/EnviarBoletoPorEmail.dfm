@@ -3267,10 +3267,10 @@ object frmEnviarBoletoPorEmail: TfrmEnviarBoletoPorEmail
     Left = 384
     Top = 238
   end
-  object sqlBoletos: TSimpleDataSet
+  object sqlBoletos: TI9Query
     Aggregates = <>
     Connection = dtmControles.DB
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT DISTINCT(BO.NOSSO_NUMERO),'#13#10'  P.PESSOA_ID,'#13#10'  P.NOME,'#13#10'  ' +
       'P.CPFCNPJ,'#13#10'  P.EMAIL1,'#13#10'  P.BOLETO_EMAIL,'#13#10'  P.BOLETO_DESCRICAO' +
       ','#13#10'  BO.SELECIONADO,'#13#10'  BO.VALOR,'#13#10'  BO.DATA_EMISSAO,'#13#10'  BO.DATA' +
@@ -3278,9 +3278,8 @@ object frmEnviarBoletoPorEmail: TfrmEnviarBoletoPorEmail
       ' BO'#13#10'LEFT OUTER JOIN J_LIVRO_FINANCEIRO LF'#13#10'ON BO.BOLETO_ID = LF' +
       '.BOLETA_ID'#13#10'LEFT OUTER JOIN J_PESSOA P'#13#10'on LF.PESSOA_ID = P.PESS' +
       'OA_ID'#13#10'WHERE BO.ENVIO_EMAIL IS NULL'#13#10'    AND BO.DATA_CANCELADO I' +
-      'S NULL'#13#10'    AND BO.SITUACAO IN (1,5)'#13#10'ORDER BY P.NOME'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <>
+      'S NULL'#13#10'    AND BO.SITUACAO IN (1,5)'#13#10'ORDER BY P.NOME')
+    ParamData = <>
     Params = <>
     OnCalcFields = sqlBoletosCalcFields
     Left = 384
@@ -3291,12 +3290,12 @@ object frmEnviarBoletoPorEmail: TfrmEnviarBoletoPorEmail
       Size = 120
       Calculated = True
     end
-    object sqlBoletosNOSSO_NUMERO: TFMTBCDField
+    object sqlBoletosNOSSO_NUMERO: TBCDField
       FieldName = 'NOSSO_NUMERO'
       Precision = 20
       Size = 2
     end
-    object sqlBoletosPESSOA_ID: TFMTBCDField
+    object sqlBoletosPESSOA_ID: TBCDField
       FieldName = 'PESSOA_ID'
       Precision = 20
       Size = 2
@@ -3317,7 +3316,7 @@ object frmEnviarBoletoPorEmail: TfrmEnviarBoletoPorEmail
       FieldName = 'SELECIONADO'
       Size = 1
     end
-    object sqlBoletosVALOR: TFMTBCDField
+    object sqlBoletosVALOR: TBCDField
       FieldName = 'VALOR'
       Precision = 20
       Size = 3
@@ -3336,7 +3335,7 @@ object frmEnviarBoletoPorEmail: TfrmEnviarBoletoPorEmail
       FieldName = 'BOLETO_DESCRICAO'
       Size = 120
     end
-    object sqlBoletosBOLETO_ID: TFMTBCDField
+    object sqlBoletosBOLETO_ID: TBCDField
       FieldName = 'BOLETO_ID'
       Required = True
       Precision = 20

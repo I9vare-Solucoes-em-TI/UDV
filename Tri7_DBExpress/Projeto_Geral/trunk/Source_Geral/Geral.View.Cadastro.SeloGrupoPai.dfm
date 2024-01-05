@@ -326,11 +326,11 @@ inherited frmCadastroSeloGrupoPai: TfrmCadastroSeloGrupoPai
   inherited ActionList1: TActionList
     Top = 141
   end
-  inherited DataSetAncestral: TSQLDataSet
-    CommandText = 
+  inherited DataSetAncestral: TI9Query
+    SQL.Strings = (
       'SELECT'#13#10'    G_SGP.SELO_GRUPO_PAI_ID,'#13#10'    G_SGP.SELO_GRUPO_ID'#13#10'F' +
       'ROM'#13#10'    G_SELO_GRUPO_PAI G_SGP'#13#10'ORDER BY'#13#10'    G_SGP.SELO_GRUPO_' +
-      'PAI_ID'
+      'PAI_ID')
     Left = 61
     Top = 189
   end
@@ -341,13 +341,13 @@ inherited frmCadastroSeloGrupoPai: TfrmCadastroSeloGrupoPai
   inherited ClientAncestral: TClientDataSet
     Left = 61
     Top = 285
-    object ClientAncestralSELO_GRUPO_PAI_ID: TFMTBCDField
+    object ClientAncestralSELO_GRUPO_PAI_ID: TBCDField
       FieldName = 'SELO_GRUPO_PAI_ID'
       Required = True
       Precision = 20
       Size = 2
     end
-    object ClientAncestralSELO_GRUPO_ID: TFMTBCDField
+    object ClientAncestralSELO_GRUPO_ID: TBCDField
       FieldName = 'SELO_GRUPO_ID'
       Precision = 20
       Size = 2
@@ -363,7 +363,7 @@ inherited frmCadastroSeloGrupoPai: TfrmCadastroSeloGrupoPai
     Left = 251
     Top = 66
   end
-  object qrySeloGrupo: TFDQuery
+  object qrySeloGrupo: TI9Query
     Connection = dtmFD.FDConnection
     SQL.Strings = (
       'SELECT'
@@ -443,7 +443,7 @@ inherited frmCadastroSeloGrupoPai: TfrmCadastroSeloGrupoPai
       Properties.ListSource = dtsSeloGrupo
     end
   end
-  object qrySeloGrupoFilho: TFDQuery
+  object qrySeloGrupoFilho: TI9Query
     IndexFieldNames = 'SELO_GRUPO_PAI_ID'
     MasterSource = SourceAncestral
     MasterFields = 'SELO_GRUPO_PAI_ID'

@@ -3,6 +3,8 @@ unit ConfiguracaoDAOImpl;
 interface
 
 uses
+  I9Query,
+  I9Connection,
   ConfiguracaoDAO,
   Data.SqlExpr,
   Data.DB,
@@ -13,10 +15,10 @@ uses
 type
   TConfiguracaoDAO = class(TInterfacedObject, IConfiguracaoDAO)
   private
-    FSQLConnection: TSQLConnection;
+    FConnection: TI9Connection;
   public
     constructor Create(
-      const vpSQLConnection: TSQLConnection); reintroduce;
+      const vpConnection: TI9Connection); reintroduce;
 
     function Get(
       const vpValue: TDataSet): IConfiguracao;
@@ -55,10 +57,10 @@ uses
 { TConfiguracaoDAO }
 
 constructor TConfiguracaoDAO.Create(
-  const vpSQLConnection: TSQLConnection);
+  const vpConnection: TI9Connection);
 begin
   inherited Create;
-  FSQLConnection := vpSQLConnection;
+  FConnection := vpConnection;
 end;
 
 function TConfiguracaoDAO.Get(
@@ -79,7 +81,7 @@ begin
     viField := FindField('G_CG_CONFIG_GRUPO_ID');
     if Assigned(viField) then
     begin
-      viConfiguracaoGrupoDAO := TConfiguracaoGrupoDAO.Create(FSQLConnection);
+      viConfiguracaoGrupoDAO := TConfiguracaoGrupoDAO.Create(FConnection);
       try
         ConfiguracaoGrupo := viConfiguracaoGrupoDAO.Get(vpValue);
       finally
@@ -118,7 +120,7 @@ const
 
 {$REGION 'Variáveis'}
 var
-  viSQLDataSet: TSQLDataSet;
+  viSQLDataSet: TI9Query;
   viSQL: TStrings;
   viListConfiguracaoGrupoID: TIntegerList;
   viConfiguracao: IConfiguracao;
@@ -126,8 +128,8 @@ var
 begin
   Result := TConfiguracaoList.Create;
 
-  viSQLDataSet := TSQLDataSet.Create(nil);
-  viSQLDataSet.SQLConnection := FSQLConnection;
+  viSQLDataSet := TI9Query.Create(nil);
+  viSQLDataSet.Connection := FConnection;
 
   viSQL := TStringList.Create;
   viSQL.Capacity := CI_CAPACITY;
@@ -167,7 +169,7 @@ begin
 
     with viSQLDataSet do
     begin
-      CommandText := viSQL.Text;
+      SQL.Text := viSQL.Text;
       Open;
 
       try

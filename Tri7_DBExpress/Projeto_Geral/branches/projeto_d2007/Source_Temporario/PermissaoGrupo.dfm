@@ -542,26 +542,24 @@ object frmPermissaogrupo: TfrmPermissaogrupo
       LookAndFeel.SkinName = ''
     end
   end
-  object sqlRotina: TSimpleDataSet
+  object sqlRotina: TI9Query
     Aggregates = <>
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT R.SISTEMA_ROTINA_ID,'#13#10'               R.DESCRICAO DESCROTI' +
       'NA,'#13#10'               R.SISTEMA_MENU_ID,'#13#10'               M.DESCRIC' +
       'AO DESCMENU'#13#10'FROM G_SISTEMA_ROTINA R'#13#10'LEFT JOIN G_SISTEMA_MENU M' +
       ' ON'#13#10'     R.SISTEMA_MENU_ID = M.SISTEMA_MENU_ID'#13#10'WHERE SISTEMA_I' +
-      'D = :SISTEMA_ID'#13#10'ORDER BY M.DESCRICAO, R.DESCRICAO'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <
+      'D = :SISTEMA_ID'#13#10'ORDER BY M.DESCRICAO, R.DESCRICAO')
+    ParamData = <
       item
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Name = 'SISTEMA_ID'
         ParamType = ptInput
       end>
-    PacketRecords = 50
     Params = <>
     Left = 208
     Top = 176
-    object sqlRotinaSISTEMA_ROTINA_ID: TFMTBCDField
+    object sqlRotinaSISTEMA_ROTINA_ID: TBCDField
       FieldName = 'SISTEMA_ROTINA_ID'
       Required = True
       Precision = 15
@@ -571,7 +569,7 @@ object frmPermissaogrupo: TfrmPermissaogrupo
       FieldName = 'DESCROTINA'
       Size = 60
     end
-    object sqlRotinaSISTEMA_MENU_ID: TFMTBCDField
+    object sqlRotinaSISTEMA_MENU_ID: TBCDField
       FieldName = 'SISTEMA_MENU_ID'
       Precision = 15
       Size = 2
@@ -581,25 +579,23 @@ object frmPermissaogrupo: TfrmPermissaogrupo
       Size = 60
     end
   end
-  object sqlGrupo: TSimpleDataSet
+  object sqlGrupo: TI9Query
     Aggregates = <>
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT UG.* FROM G_USUARIO_SISTEMA US'#13#10'LEFT JOIN G_USUARIO_GRUPO' +
       ' UG ON'#13#10'   US.USUARIO_GRUPO_ID = UG.USUARIO_GRUPO_ID'#13#10'WHERE US.S' +
       'ISTEMA_ID = :SISTEMA_ID AND'#13#10'               UG.SITUACAO =  '#39'A'#39'  ' +
-      '      '#13#10'ORDER BY UG.DESCRICAO'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <
+      '      '#13#10'ORDER BY UG.DESCRICAO')
+    ParamData = <
       item
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Name = 'SISTEMA_ID'
         ParamType = ptInput
       end>
-    PacketRecords = 50
     Params = <>
     Left = 328
     Top = 7
-    object sqlGrupoUSUARIO_GRUPO_ID: TFMTBCDField
+    object sqlGrupoUSUARIO_GRUPO_ID: TBCDField
       FieldName = 'USUARIO_GRUPO_ID'
       Required = True
       Precision = 15
@@ -762,28 +758,27 @@ object frmPermissaogrupo: TfrmPermissaogrupo
       F80FFFFF00000000FC1FFFFF0000000000000000000000000000000000000000
       000000000000}
   end
-  object sqlPermgrupo: TSimpleDataSet
+  object sqlPermgrupo: TI9Query
     Aggregates = <>
-    DataSet.CommandText = 
+    SQL.Strings = (
       'select * '#13#10'from G_PERMISSAO_GRUPO'#13#10'where USUARIO_GRUPO_ID = :USU' +
-      'ARIO_GRUPO_ID'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <
+      'ARIO_GRUPO_ID')
+    ParamData = <
       item
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Name = 'USUARIO_GRUPO_ID'
         ParamType = ptInput
       end>
     Params = <>
     Left = 208
     Top = 145
-    object sqlPermgrupoUSUARIO_GRUPO_ID: TFMTBCDField
+    object sqlPermgrupoUSUARIO_GRUPO_ID: TBCDField
       FieldName = 'USUARIO_GRUPO_ID'
       Required = True
       Precision = 15
       Size = 2
     end
-    object sqlPermgrupoSISTEMA_ROTINA_ID: TFMTBCDField
+    object sqlPermgrupoSISTEMA_ROTINA_ID: TBCDField
       FieldName = 'SISTEMA_ROTINA_ID'
       Required = True
       Precision = 15

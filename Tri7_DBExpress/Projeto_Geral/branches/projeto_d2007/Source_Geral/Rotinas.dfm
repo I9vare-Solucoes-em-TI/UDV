@@ -4,17 +4,15 @@ object dtmRotinas: TdtmRotinas
   Top = 178
   Height = 278
   Width = 372
-  object sqlRotinas: TSQLQuery
-    MaxBlobSize = -1
+  object sqlRotinas: TI9Query
     Params = <>
-    SQLConnection = frmPrincipal.sqlConnection
+    Connection = frmPrincipal.Connection
     Left = 40
     Top = 24
   end
-  object sqlAuxiliar: TSQLQuery
-    MaxBlobSize = -1
+  object sqlAuxiliar: TI9Query
     Params = <>
-    SQLConnection = frmPrincipal.sqlConnection
+    Connection = frmPrincipal.Connection
     Left = 120
     Top = 24
   end

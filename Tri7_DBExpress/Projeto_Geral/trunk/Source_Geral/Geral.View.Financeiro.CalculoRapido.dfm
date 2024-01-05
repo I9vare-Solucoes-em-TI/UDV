@@ -1090,15 +1090,14 @@ object frmCalculoRapido: TfrmCalculoRapido
     Left = 96
     Top = 320
   end
-  object sqlServicosSequenciais: TSimpleDataSet
+  object sqlServicosSequenciais: TI9Query
     Aggregates = <>
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT NT.*, NS.*'#13#10'FROM G_NATUREZA_TITULO NT RIGHT OUTER JOIN'#13#10' ' +
       '    G_NATUREZA_TITULO_EM_SEQUENCIA NS'#13#10'  ON NT.NATUREZA_TITULO_I' +
       'D = NS.NATUREZA_TITULO2_ID'#13#10'WHERE NS.NATUREZA_TITULO_ID = :NATUR' +
-      'EZA_TITULO_ID'#13#10'ORDER BY NS.NATUREZA_TITULO_EM_SEQ_ID'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <
+      'EZA_TITULO_ID'#13#10'ORDER BY NS.NATUREZA_TITULO_EM_SEQ_ID')
+    ParamData = <
       item
         DataType = ftBCD
         Name = 'NATUREZA_TITULO_ID'
@@ -1107,17 +1106,17 @@ object frmCalculoRapido: TfrmCalculoRapido
     Params = <>
     Left = 220
     Top = 273
-    object sqlServicosSequenciaisCODIGO_NATUREZA_SEF: TFMTBCDField
+    object sqlServicosSequenciaisCODIGO_NATUREZA_SEF: TBCDField
       FieldName = 'CODIGO_NATUREZA_SEF'
       Precision = 15
       Size = 2
     end
-    object sqlServicosSequenciaisEMOLUMENTO_ID: TFMTBCDField
+    object sqlServicosSequenciaisEMOLUMENTO_ID: TBCDField
       FieldName = 'EMOLUMENTO_ID'
       Precision = 15
       Size = 2
     end
-    object sqlServicosSequenciaisNATUREZA_TITULO_ID: TFMTBCDField
+    object sqlServicosSequenciaisNATUREZA_TITULO_ID: TBCDField
       FieldName = 'NATUREZA_TITULO_ID'
       Precision = 15
       Size = 2
@@ -1126,7 +1125,7 @@ object frmCalculoRapido: TfrmCalculoRapido
       FieldName = 'DESCRICAO'
       Size = 60
     end
-    object sqlServicosSequenciaisPRAZO: TFMTBCDField
+    object sqlServicosSequenciaisPRAZO: TBCDField
       FieldName = 'PRAZO'
       Precision = 15
       Size = 2
@@ -1139,12 +1138,12 @@ object frmCalculoRapido: TfrmCalculoRapido
       FieldName = 'ABRIR_MATRICULA'
       Size = 1
     end
-    object sqlServicosSequenciaisSISTEMA_ID: TFMTBCDField
+    object sqlServicosSequenciaisSISTEMA_ID: TBCDField
       FieldName = 'SISTEMA_ID'
       Precision = 15
       Size = 2
     end
-    object sqlServicosSequenciaisCODIGO_DOI: TFMTBCDField
+    object sqlServicosSequenciaisCODIGO_DOI: TBCDField
       FieldName = 'CODIGO_DOI'
       Precision = 15
       Size = 2
@@ -1161,34 +1160,33 @@ object frmCalculoRapido: TfrmCalculoRapido
       FieldName = 'POSSUI_VALOR'
       Size = 1
     end
-    object sqlServicosSequenciaisNATUREZA_TITULO2_ID: TFMTBCDField
+    object sqlServicosSequenciaisNATUREZA_TITULO2_ID: TBCDField
       FieldName = 'NATUREZA_TITULO2_ID'
       Precision = 15
       Size = 2
     end
-    object sqlServicosSequenciaisNATUREZA_TITULO_ID_1: TFMTBCDField
+    object sqlServicosSequenciaisNATUREZA_TITULO_ID_1: TBCDField
       FieldName = 'NATUREZA_TITULO_ID_1'
       Precision = 15
       Size = 2
     end
   end
-  object sqlNaturezaTitulo: TSimpleDataSet
+  object sqlNaturezaTitulo: TI9Query
     Aggregates = <>
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT NATUREZA_TITULO_ID, DESCRICAO, EMOLUMENTO_ID'#13#10'FROM G_NATU' +
       'REZA_TITULO'#13#10'WHERE SISTEMA_ID = :SISTEMA_ID'#13#10'  AND SITUACAO = '#39'A' +
-      #39#13#10'ORDER BY'#13#10'DESCRICAO'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <
+      #39#13#10'ORDER BY'#13#10'DESCRICAO')
+    ParamData = <
       item
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Name = 'SISTEMA_ID'
         ParamType = ptInput
       end>
     Params = <>
     Left = 376
     Top = 269
-    object sqlNaturezaTituloNATUREZA_TITULO_ID: TFMTBCDField
+    object sqlNaturezaTituloNATUREZA_TITULO_ID: TBCDField
       FieldName = 'NATUREZA_TITULO_ID'
       Required = True
       Precision = 20
@@ -1198,7 +1196,7 @@ object frmCalculoRapido: TfrmCalculoRapido
       FieldName = 'DESCRICAO'
       Size = 60
     end
-    object sqlNaturezaTituloEMOLUMENTO_ID: TFMTBCDField
+    object sqlNaturezaTituloEMOLUMENTO_ID: TBCDField
       FieldName = 'EMOLUMENTO_ID'
       Precision = 20
       Size = 2
@@ -1209,22 +1207,21 @@ object frmCalculoRapido: TfrmCalculoRapido
     Left = 380
     Top = 324
   end
-  object sqlG_Emolumento: TSimpleDataSet
+  object sqlG_Emolumento: TI9Query
     Aggregates = <>
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT * FROM G_EMOLUMENTO'#13#10'WHERE SISTEMA_ID = :SISTEMA_ID'#13#10'  AN' +
-      'D (SITUACAO IS NULL OR SITUACAO <> '#39'I'#39')'#13#10'ORDER BY DESCRICAO'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <
+      'D (SITUACAO IS NULL OR SITUACAO <> '#39'I'#39')'#13#10'ORDER BY DESCRICAO')
+    ParamData = <
       item
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Name = 'SISTEMA_ID'
         ParamType = ptInput
       end>
     Params = <>
     Left = 481
     Top = 266
-    object sqlG_EmolumentoEMOLUMENTO_ID: TFMTBCDField
+    object sqlG_EmolumentoEMOLUMENTO_ID: TBCDField
       FieldName = 'EMOLUMENTO_ID'
       Required = True
       Precision = 15
@@ -1244,15 +1241,14 @@ object frmCalculoRapido: TfrmCalculoRapido
     Left = 483
     Top = 322
   end
-  object sqlEmolumentoTodos: TSimpleDataSet
+  object sqlEmolumentoTodos: TI9Query
     Aggregates = <>
-    DataSet.CommandText = 'SELECT'#13#10'EMOLUMENTO_ID,'#13#10'DESCRICAO'#13#10'FROM'#13#10'G_EMOLUMENTO'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <>
+    SQL.Strings = ('SELECT'#13#10'EMOLUMENTO_ID,'#13#10'DESCRICAO'#13#10'FROM'#13#10'G_EMOLUMENTO')
+    ParamData = <>
     Params = <>
     Left = 221
     Top = 327
-    object sqlEmolumentoTodosEMOLUMENTO_ID: TFMTBCDField
+    object sqlEmolumentoTodosEMOLUMENTO_ID: TBCDField
       FieldName = 'EMOLUMENTO_ID'
       Required = True
       Precision = 20
@@ -1264,15 +1260,14 @@ object frmCalculoRapido: TfrmCalculoRapido
       Size = 60
     end
   end
-  object sqlNaturezaTituloTodos: TSimpleDataSet
+  object sqlNaturezaTituloTodos: TI9Query
     Aggregates = <>
-    DataSet.CommandText = 'SELECT'#13#10'NATUREZA_TITULO_ID,'#13#10'DESCRICAO'#13#10'FROM'#13#10'G_NATUREZA_TITULO'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <>
+    SQL.Strings = ('SELECT'#13#10'NATUREZA_TITULO_ID,'#13#10'DESCRICAO'#13#10'FROM'#13#10'G_NATUREZA_TITULO')
+    ParamData = <>
     Params = <>
     Left = 219
     Top = 377
-    object sqlNaturezaTituloTodosNATUREZA_TITULO_ID: TFMTBCDField
+    object sqlNaturezaTituloTodosNATUREZA_TITULO_ID: TBCDField
       FieldName = 'NATUREZA_TITULO_ID'
       Required = True
       Precision = 20

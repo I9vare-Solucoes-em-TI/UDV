@@ -3,6 +3,7 @@ unit FrameCadastro;
 interface
 
 uses
+  I9Query,
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms, 
   Dialogs, dxSkinsCore, dxSkinBlack, dxSkinBlue, dxSkinCaramel, dxSkinCoffee,
   dxSkinDarkSide, dxSkinGlassOceans, dxSkiniMaginary, dxSkinLilian,
@@ -35,9 +36,9 @@ type
     cxLabel7: TcxLabel;
     cxLabel13: TcxLabel;
     cxLabel5: TcxLabel;
-    sqlTipoServico: TSimpleDataSet;
+    sqlTipoServico: TI9Query;
     sqlTipoServicoDESCRICAO: TStringField;
-    sqlTipoServicoCAIXA_SERVICO_ID: TFMTBCDField;
+    sqlTipoServicoCAIXA_SERVICO_ID: TBCDField;
     dtsTipoServico: TDataSource;
     cxLabel3: TcxLabel;
     icxTipoTransacao: TcxImageComboBox;
@@ -137,8 +138,8 @@ begin
   sqlTipoServico.Active := False;
   if icxTipoTransacao.EditValue <> null then
   begin
-    sqlTipoServico.DataSet.ParamByName('TIPO_TRANSACAO').AsString := icxTipoTransacao.EditValue;
-    sqlTipoServico.DataSet.ParamByName('SERVENTIA').AsString      := icxTipoSistema.EditValue;
+    sqlTipoServico.ParamByName('TIPO_TRANSACAO').AsString := icxTipoTransacao.EditValue;
+    sqlTipoServico.ParamByName('SERVENTIA').AsString      := icxTipoSistema.EditValue;
     sqlTipoServico.Active  := True;
     lcxTipoServico.enabled := True;
 

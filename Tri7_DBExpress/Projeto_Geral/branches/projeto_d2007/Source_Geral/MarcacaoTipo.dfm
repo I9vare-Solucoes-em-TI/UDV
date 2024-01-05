@@ -4843,13 +4843,13 @@ inherited frmMarcacaoTipo: TfrmMarcacaoTipo
     Left = 565
     Top = 250
   end
-  inherited DataSetAncestral: TSQLDataSet
-    CommandText = 
+  inherited DataSetAncestral: TI9Query
+    SQL.Strings = (
       'SELECT *'#13#10'FROM G_MARCACAO_TIPO'#13#10'WHERE SISTEMA_ID = :SISTEMA_ID'#13#10 +
-      'ORDER BY GRUPO, NOME'
+      'ORDER BY GRUPO, NOME')
     Params = <
       item
-        DataType = ftFMTBcd
+        DataType = ftBCD
         NumericScale = 2
         Name = 'SISTEMA_ID'
         ParamType = ptInput
@@ -4868,7 +4868,7 @@ inherited frmMarcacaoTipo: TfrmMarcacaoTipo
     AfterScroll = ClientAncestralAfterScroll
     Left = 659
     Top = 250
-    object ClientAncestralMARCACAO_TIPO_ID: TFMTBCDField
+    object ClientAncestralMARCACAO_TIPO_ID: TBCDField
       FieldName = 'MARCACAO_TIPO_ID'
       Required = True
       Precision = 15
@@ -4895,7 +4895,7 @@ inherited frmMarcacaoTipo: TfrmMarcacaoTipo
       FieldName = 'SITUACAO'
       Size = 1
     end
-    object ClientAncestralSISTEMA_ID: TFMTBCDField
+    object ClientAncestralSISTEMA_ID: TBCDField
       FieldName = 'SISTEMA_ID'
       Precision = 15
       Size = 2
@@ -4949,16 +4949,15 @@ inherited frmMarcacaoTipo: TfrmMarcacaoTipo
       OnClick = actDuplicarItemClick
     end
   end
-  object sqlDuplicar: TSimpleDataSet
+  object sqlDuplicar: TI9Query
     Aggregates = <>
     Connection = dtmControles.DB
-    DataSet.CommandText = 'SELECT *'#13#10'FROM G_MARCACAO_TIPO'#13#10'WHERE MARCACAO_TIPO_ID = 0'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <>
+    SQL.Strings = ('SELECT *'#13#10'FROM G_MARCACAO_TIPO'#13#10'WHERE MARCACAO_TIPO_ID = 0')
+    ParamData = <>
     Params = <>
     Left = 480
     Top = 256
-    object sqlDuplicarMARCACAO_TIPO_ID: TFMTBCDField
+    object sqlDuplicarMARCACAO_TIPO_ID: TBCDField
       FieldName = 'MARCACAO_TIPO_ID'
       Precision = 20
       Size = 2
@@ -4982,7 +4981,7 @@ inherited frmMarcacaoTipo: TfrmMarcacaoTipo
       FieldName = 'SITUACAO'
       Size = 1
     end
-    object sqlDuplicarSISTEMA_ID: TFMTBCDField
+    object sqlDuplicarSISTEMA_ID: TBCDField
       FieldName = 'SISTEMA_ID'
       Precision = 20
       Size = 2

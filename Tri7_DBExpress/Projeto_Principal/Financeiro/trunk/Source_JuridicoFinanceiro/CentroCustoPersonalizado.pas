@@ -3,6 +3,7 @@ unit CentroCustoPersonalizado;
 interface
 
 uses
+  I9Query,
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, CadastroAuxSimplificado, cxGraphics,
   cxControls, cxLookAndFeels, cxLookAndFeelPainters, cxContainer, cxEdit,
@@ -23,10 +24,10 @@ type
     edtPorcentagem: TcxCurrencyEdit;
     btnAdicionarCentro: TcxButton;
     btnExcluirItem: TcxButton;
-    sqlCentroCustoItens: TSimpleDataSet;
+    sqlCentroCustoItens: TI9Query;
     sqlCentroCustoItensDESCRICAO: TStringField;
-    sqlCentroCustoItensCENTRO_CUSTO_ID: TFMTBCDField;
-    sqlCentroCustoItensBALANCETE_GRUPO_ID: TFMTBCDField;
+    sqlCentroCustoItensCENTRO_CUSTO_ID: TBCDField;
+    sqlCentroCustoItensBALANCETE_GRUPO_ID: TBCDField;
     dtsCentroCustoItens: TDataSource;
     cxGrid1: TcxGrid;
     cxGridDBTableView5: TcxGridDBTableView;
@@ -120,8 +121,8 @@ begin
   inherited;
   vgCentroCusto.Confirmado   := False;
   sqlCentroCustoItens.Active := False;
-  sqlCentroCustoItens.DataSet.ParamByName('BALANCETE_GRUPO_ID').AsInteger := vgCentroCusto.BalanceteId;
-  sqlCentroCustoItens.DataSet.ParamByName('TIPO_CENTRO').AsInteger        := vgCentroCusto.TipoCentro;
+  sqlCentroCustoItens.ParamByName('BALANCETE_GRUPO_ID').AsInteger := vgCentroCusto.BalanceteId;
+  sqlCentroCustoItens.ParamByName('TIPO_CENTRO').AsInteger        := vgCentroCusto.TipoCentro;
   sqlCentroCustoItens.Active := True;
   lcbCentroCusto.SetFocus;
 end;

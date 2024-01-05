@@ -415,11 +415,10 @@ inherited frmCadContaBancaria: TfrmCadContaBancaria
     Left = 21
     Top = 346
   end
-  inherited DataSetAncestral: TSQLDataSet
-    SchemaName = 'SYSDBA'
-    CommandText = 
+  inherited DataSetAncestral: TI9Query
+    SQL.Strings = (
       'select '#13#10'  * '#13#10'from '#13#10'  J_BANCO'#13#10'ORDER BY '#13#10'  BANCO_NOME, '#13#10'  AG' +
-      'ENCIA_UF'
+      'ENCIA_UF')
     Left = 83
     Top = 346
   end
@@ -431,7 +430,7 @@ inherited frmCadContaBancaria: TfrmCadContaBancaria
     BeforePost = ClientAncestralBeforePost
     Left = 146
     Top = 346
-    object ClientAncestralBANCO_ID: TFMTBCDField
+    object ClientAncestralBANCO_ID: TBCDField
       FieldName = 'BANCO_ID'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
       Required = True
@@ -486,7 +485,7 @@ inherited frmCadContaBancaria: TfrmCadContaBancaria
       FieldName = 'CODIGO_CEDENTE_DIGITO'
       Size = 3
     end
-    object ClientAncestralNOSSO_NUMERO: TFMTBCDField
+    object ClientAncestralNOSSO_NUMERO: TBCDField
       FieldName = 'NOSSO_NUMERO'
       Precision = 20
       Size = 2
@@ -495,12 +494,12 @@ inherited frmCadContaBancaria: TfrmCadContaBancaria
       FieldName = 'CARTEIRA'
       Size = 10
     end
-    object ClientAncestralCONFIG_RELATORIO_ID: TFMTBCDField
+    object ClientAncestralCONFIG_RELATORIO_ID: TBCDField
       FieldName = 'CONFIG_RELATORIO_ID'
       Precision = 20
       Size = 2
     end
-    object ClientAncestralCEDENTE_ID: TFMTBCDField
+    object ClientAncestralCEDENTE_ID: TBCDField
       FieldName = 'CEDENTE_ID'
       Precision = 20
       Size = 2

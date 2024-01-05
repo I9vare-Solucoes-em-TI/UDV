@@ -393,7 +393,7 @@ var
       ParamByName('DATA_CONCILIACAO').AsString  := FormatDateTime('DD.MM.YYYY HH:MM:SS', vpData);
       ParamByName('SITUACAO').AsString          := '1';
       ParamByName('CAIXA_ID').AsInteger         := lcbConta.EditValue;
-      ExecSQL(False);
+      ExecSQL;
     end;
   end;
 
@@ -473,7 +473,7 @@ var
           ParamByName('LANCAMENTO').AsString                := ClientArquivoLANCAMENTO.AsString;
           ParamByName('VINCULO').AsString                   := ClientArquivoVinculo.AsString;
           ParamByName('OBSERVACAO').AsString                := ClientArquivoOBSERVACAO.AsString;
-          ExecSQL(False);
+          ExecSQL;
         except
           dtmControles.sqlAuxiliar.Cancel;
         end;

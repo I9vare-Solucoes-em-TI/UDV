@@ -3,6 +3,8 @@ unit Sobre;
 interface
 
 uses
+  I9Query,
+  I9Connection,
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, ExtCtrls, StdCtrls, jpeg, Menus,
   cxButtons, cxControls, cxContainer, cxEdit, cxTextEdit,
@@ -25,10 +27,10 @@ type
   end;
 
   TfrmSobre = class(TForm)
-    DB: TFDConnection;
+    DB: TI9Connection;
     FDGUIxWaitCursor1: TFDGUIxWaitCursor;
     FDPhysMySQLDriverLink1: TFDPhysMySQLDriverLink;
-    qryVersaoHistorico: TFDQuery;
+    qryVersaoHistorico: TI9Query;
     ProviderVersaoHistorico: TDataSetProvider;
     sqlVersaoHistorico: TClientDataSet;
     sqlVersaoHistoricoversao_historico_Id: TAutoIncField;

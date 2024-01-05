@@ -1,0 +1,493 @@
+inherited frmCadastroRapidoOrcamento: TfrmCadastroRapidoOrcamento
+  ClientHeight = 190
+  ClientWidth = 566
+  KeyPreview = True
+  OnActivate = FormActivate
+  ExplicitWidth = 572
+  ExplicitHeight = 219
+  PixelsPerInch = 96
+  TextHeight = 13
+  inherited Panel2: TPanel
+    Width = 566
+    TabOrder = 1
+    ExplicitWidth = 566
+    inherited lblInformaca: TcxLabel
+      Caption = 'Cadastro de Or'#231'amento(s)'
+      Style.IsFontAssigned = True
+      ExplicitWidth = 317
+      Width = 317
+      AnchorY = 19
+    end
+    inherited Panel6: TPanel
+      Left = 352
+      Width = 214
+      ExplicitLeft = 352
+      ExplicitWidth = 214
+      inherited btnCancelar: TcxButton
+        Left = 7
+        Top = 10
+        LookAndFeel.SkinName = ''
+        ExplicitLeft = 7
+        ExplicitTop = 10
+      end
+      inherited btnConfirmar: TcxButton
+        Left = 108
+        Top = 10
+        LookAndFeel.SkinName = ''
+        ExplicitLeft = 108
+        ExplicitTop = 10
+      end
+    end
+  end
+  inherited Panel1: TPanel
+    Width = 566
+    Height = 152
+    TabOrder = 0
+    ExplicitWidth = 566
+    ExplicitHeight = 152
+    object tabBalancete: TcxTabControl
+      Left = 2
+      Top = 2
+      Width = 562
+      Height = 148
+      Align = alClient
+      TabOrder = 0
+      Properties.CustomButtons.Buttons = <>
+      Properties.TabIndex = 0
+      Properties.Tabs.Strings = (
+        '')
+      LookAndFeel.Kind = lfFlat
+      LookAndFeel.NativeStyle = False
+      LookAndFeel.SkinName = 'iMaginary'
+      OnChange = tabBalanceteChange
+      ClientRectBottom = 147
+      ClientRectLeft = 1
+      ClientRectRight = 561
+      ClientRectTop = 21
+      object cxLabel5: TcxLabel
+        Left = 281
+        Top = 99
+        Caption = 'Compromisso'
+        ParentFont = False
+        Style.Font.Charset = DEFAULT_CHARSET
+        Style.Font.Color = clWindow
+        Style.Font.Height = -11
+        Style.Font.Name = 'Tahoma'
+        Style.Font.Style = [fsUnderline]
+        Style.TextColor = 4210688
+        Style.TextStyle = [fsUnderline]
+        Style.IsFontAssigned = True
+        Transparent = True
+      end
+      object lblCliente: TcxLabel
+        Left = 21
+        Top = 61
+        Caption = 'Favorecido Padr'#227'o'
+        ParentColor = False
+        ParentFont = False
+        Style.Font.Charset = DEFAULT_CHARSET
+        Style.Font.Color = clWindow
+        Style.Font.Height = -11
+        Style.Font.Name = 'Tahoma'
+        Style.Font.Style = [fsUnderline]
+        Style.TextColor = 4210688
+        Style.TextStyle = [fsUnderline]
+        Style.IsFontAssigned = True
+        Transparent = True
+      end
+      object cxLabel4: TcxLabel
+        Left = 22
+        Top = 22
+        Caption = 'Nome do Or'#231'amento'
+        ParentFont = False
+        Style.Font.Charset = DEFAULT_CHARSET
+        Style.Font.Color = clWindow
+        Style.Font.Height = -11
+        Style.Font.Name = 'Tahoma'
+        Style.Font.Style = [fsUnderline]
+        Style.TextColor = 4210688
+        Style.TextStyle = [fsUnderline]
+        Style.IsFontAssigned = True
+        Transparent = True
+      end
+      object cxLabel14: TcxLabel
+        Left = 21
+        Top = 99
+        Caption = 'Grupo do Compromisso'
+        ParentFont = False
+        Style.Font.Charset = DEFAULT_CHARSET
+        Style.Font.Color = clWindow
+        Style.Font.Height = -11
+        Style.Font.Name = 'Tahoma'
+        Style.Font.Style = [fsUnderline]
+        Style.TextColor = 4210688
+        Style.TextStyle = [fsUnderline]
+        Style.IsFontAssigned = True
+        Transparent = True
+      end
+      object cxLabel10: TcxLabel
+        Left = 456
+        Top = 22
+        Caption = 'Valor'
+        ParentFont = False
+        Style.Font.Charset = DEFAULT_CHARSET
+        Style.Font.Color = clWindow
+        Style.Font.Height = -11
+        Style.Font.Name = 'Tahoma'
+        Style.Font.Style = [fsUnderline]
+        Style.TextColor = 4210688
+        Style.TextStyle = [fsUnderline]
+        Style.IsFontAssigned = True
+        Transparent = True
+      end
+      object edtHistorico: TcxDBTextEdit
+        Left = 22
+        Top = 40
+        DataBinding.DataField = 'HISTORICO'
+        DataBinding.DataSource = SourceAncestral
+        ParentFont = False
+        Properties.CharCase = ecUpperCase
+        Style.StyleController = dtmControles.cxEsc_EditsNormal
+        TabOrder = 5
+        Width = 429
+      end
+      object edtValorFixo: TcxDBCurrencyEdit
+        Left = 456
+        Top = 40
+        DataBinding.DataField = 'VALOR_PARCELA'
+        DataBinding.DataSource = SourceAncestral
+        ParentFont = False
+        Style.StyleController = dtmControles.cxEsc_EditsNormal
+        TabOrder = 6
+        OnExit = edtValorFixoExit
+        Width = 97
+      end
+      object lcxCliente: TcxDBLookupComboBox
+        Left = 22
+        Top = 78
+        RepositoryItem = dtmLookupContabil.Lista_PessoaTodas
+        DataBinding.DataField = 'PESSOA_ID'
+        DataBinding.DataSource = SourceAncestral
+        ParentFont = False
+        Properties.DropDownListStyle = lsFixedList
+        Properties.GridMode = True
+        Properties.ListColumns = <>
+        Properties.ListOptions.ShowHeader = False
+        Style.StyleController = dtmControles.cxEsc_EditsNormal
+        TabOrder = 7
+        Width = 498
+      end
+      object cxButton1: TcxButton
+        Left = 525
+        Top = 76
+        Width = 28
+        Height = 23
+        Cursor = crHandPoint
+        Hint = 'Adicionar Parcela'
+        Colors.Default = clWhite
+        LookAndFeel.Kind = lfUltraFlat
+        LookAndFeel.NativeStyle = False
+        OptionsImage.Glyph.Data = {
+          C6050000424DC605000000000000360400002800000014000000140000000100
+          08000000000090010000130B0000130B00000001000000000000000000000101
+          0100020202000303030004040400050505000606060007070700080808000909
+          09000A0A0A000B0B0B000C0C0C000D0D0D000E0E0E000F0F0F00101010001111
+          1100121212001313130014141400151515001616160017171700181818001919
+          19001A1A1A001B1B1B001C1C1C001D1D1D001E1E1E001F1F1F00202020002121
+          2100222222002323230024242400252525002626260027272700282828002929
+          29002A2A2A002B2B2B002C2C2C002D2D2D002E2E2E002F2F2F00303030003131
+          3100323232003333330034343400353535003636360037373700383838003939
+          39003A3A3A003B3B3B003C3C3C003D3D3D003E3E3E003F3F3F00404040004141
+          4100424242004343430044444400454545004646460047474700484848004949
+          49004A4A4A004B4B4B004C4C4C004D4D4D004E4E4E004F4F4F00505050005151
+          5100525252005353530054545400555555005656560057575700585858005959
+          59005A5A5A005B5B5B005C5C5C005D5D5D005E5E5E005F5F5F00606060006161
+          6100626262006363630064646400656565006666660067676700686868006969
+          69006A6A6A006B6B6B006C6C6C006D6D6D006E6E6E006F6F6F00707070007171
+          7100727272007373730074747400757575007676760077777700787878007979
+          79007A7A7A007B7B7B007C7C7C007D7D7D007E7E7E007F7F7F00808080008181
+          8100828282008383830084848400858585008686860087878700888888008989
+          89008A8A8A008B8B8B008C8C8C008D8D8D008E8E8E008F8F8F00909090009191
+          9100929292009393930094949400959595009696960097979700989898009999
+          99009A9A9A009B9B9B009C9C9C009D9D9D009E9E9E009F9F9F00A0A0A000A1A1
+          A100A2A2A200A3A3A300A4A4A400A5A5A500A6A6A600A7A7A700A8A8A800A9A9
+          A900AAAAAA00ABABAB00ACACAC00ADADAD00AEAEAE00AFAFAF00B0B0B000B1B1
+          B100B2B2B200B3B3B300B4B4B400B5B5B500B6B6B600B7B7B700B8B8B800B9B9
+          B900BABABA00BBBBBB00BCBCBC00BDBDBD00BEBEBE00BFBFBF00C0C0C000C1C1
+          C100C2C2C200C3C3C300C4C4C400C5C5C500C6C6C600C7C7C700C8C8C800C9C9
+          C900CACACA00CBCBCB00CCCCCC00CDCDCD00CECECE00CFCFCF00D0D0D000D1D1
+          D100D2D2D200D3D3D300D4D4D400D5D5D500D6D6D600D7D7D700D8D8D800D9D9
+          D900DADADA00DBDBDB00DCDCDC00DDDDDD00DEDEDE00DFDFDF00E0E0E000E1E1
+          E100E2E2E200E3E3E300E4E4E400E5E5E500E6E6E600E7E7E700E8E8E800E9E9
+          E900EAEAEA00EBEBEB00ECECEC00EDEDED00EEEEEE00EFEFEF00F0F0F000F1F1
+          F100F2F2F200F3F3F300F4F4F400F5F5F500F6F6F600F7F7F700F8F8F800F9F9
+          F900FAFAFA00FBFBFB00FCFCFC00FDFDFD00FEFEFE00FFFFFF00FFFFFFFFFFFF
+          FFF5DCD4D4D4E0F8FFFFFFFFFFFFFFFFFFFFFFFFFFC42E00000045D8FFFFFFFF
+          FFFFFFFFFFFFFFFFFFC42E00000045D8FFFFFFFFFFFFFFFFFFFFFFFFFFC42E00
+          000045D8FFFFFFFFFFFFFFFFFFFFFFFFFFC42E00000045D8FFFFFFFFFFFFFFFF
+          FFFFFFFFFFC62F00000047D9FFFFFFFFFFFFFFF2D8D8D8D8D8AB2A00000040BA
+          D8D8D8D8D8F9FFC14545454545350C000000133A4545454545E0FFAA00000000
+          00000000000000000000000000D5FFAA00000000000000000000000000000000
+          00D5FFAA0000000000000000000000000000000000D5FFB92E2E2E2E2E230800
+          00000D272E2E2E2E2EDDFFECC5C5C5C5C59B2600000039A9C5C5C5C5C5F5FFFF
+          FFFFFFFFFFC73000000048DAFFFFFFFFFFFFFFFFFFFFFFFFFFC42E00000045D8
+          FFFFFFFFFFFFFFFFFFFFFFFFFFC42E00000045D8FFFFFFFFFFFFFFFFFFFFFFFF
+          FFC42E00000045D8FFFFFFFFFFFFFFFFFFFFFFFFFFC42E00000045D8FFFFFFFF
+          FFFFFFFFFFFFFFFFFFEBB9AAAAAAC1F2FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+          FFFFFFFFFFFFFFFFFFFF}
+        ParentShowHint = False
+        ShowHint = True
+        SpeedButtonOptions.CanBeFocused = False
+        SpeedButtonOptions.Flat = True
+        SpeedButtonOptions.Transparent = True
+        TabOrder = 8
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clNavy
+        Font.Height = -11
+        Font.Name = 'MS Sans Serif'
+        Font.Orientation = 900
+        Font.Style = [fsBold]
+        ParentFont = False
+        OnClick = cxButton1Click
+      end
+      object lcxGrupoContabil: TcxDBLookupComboBox
+        Left = 22
+        Top = 117
+        DataBinding.DataField = 'CONTABIL_GRUPO_ID'
+        DataBinding.DataSource = SourceAncestral
+        ParentFont = False
+        Properties.DropDownListStyle = lsFixedList
+        Properties.GridMode = True
+        Properties.KeyFieldNames = 'CONTABIL_GRUPO_ID'
+        Properties.ListColumns = <
+          item
+            FieldName = 'DESCRICAO'
+          end>
+        Properties.ListOptions.ShowHeader = False
+        Properties.ListSource = dtsGrupoContabil
+        Properties.OnEditValueChanged = lcxGrupoContabilPropertiesEditValueChanged
+        Style.StyleController = dtmControles.cxEsc_EditsNormal
+        TabOrder = 9
+        Width = 253
+      end
+      object lcxCompromisso: TcxDBLookupComboBox
+        Left = 280
+        Top = 117
+        DataBinding.DataField = 'CONTABIL_CONTA_ID'
+        DataBinding.DataSource = SourceAncestral
+        ParentFont = False
+        Properties.DropDownListStyle = lsFixedList
+        Properties.GridMode = True
+        Properties.KeyFieldNames = 'CONTABIL_CONTA_ID'
+        Properties.ListColumns = <
+          item
+            FieldName = 'DESCRICAO'
+          end>
+        Properties.ListOptions.ShowHeader = False
+        Properties.ListSource = dtsPlanoContas
+        Style.StyleController = dtmControles.cxEsc_EditsNormal
+        TabOrder = 10
+        Width = 273
+      end
+    end
+  end
+  inherited DataSetAncestral: TI9Query
+    SQL.Strings = (
+      'SELECT * '#13#10'FROM J_LIVRO_AGENDAMENTO'#13#10'WHERE LIVRO_AGENDAMENTO_ID ' +
+      '= 0')
+    Left = 228
+    Top = 50
+  end
+  inherited ProviderAncestral: TDataSetProvider
+    Left = 260
+    Top = 50
+  end
+  inherited ClientAncestral: TClientDataSet
+    Left = 294
+    Top = 50
+    object ClientAncestralLIVRO_AGENDAMENTO_ID: TBCDField
+      FieldName = 'LIVRO_AGENDAMENTO_ID'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+      Precision = 20
+      Size = 2
+    end
+    object ClientAncestralDATA_INICIAL: TSQLTimeStampField
+      FieldName = 'DATA_INICIAL'
+    end
+    object ClientAncestralDATA_FINAL: TSQLTimeStampField
+      FieldName = 'DATA_FINAL'
+    end
+    object ClientAncestralPERIODO: TStringField
+      FieldName = 'PERIODO'
+      Size = 1
+    end
+    object ClientAncestralVALOR_PARCELA: TBCDField
+      FieldName = 'VALOR_PARCELA'
+      Precision = 20
+      Size = 3
+    end
+    object ClientAncestralQTD: TBCDField
+      FieldName = 'QTD'
+      Precision = 20
+      Size = 2
+    end
+    object ClientAncestralSITUACAO: TStringField
+      FieldName = 'SITUACAO'
+      Size = 1
+    end
+    object ClientAncestralESPECIE: TStringField
+      FieldName = 'ESPECIE'
+      Size = 1
+    end
+    object ClientAncestralBALANCETE_GRUPO_ID: TBCDField
+      FieldName = 'BALANCETE_GRUPO_ID'
+      Precision = 20
+      Size = 2
+    end
+    object ClientAncestralHISTORICO: TStringField
+      FieldName = 'HISTORICO'
+      Size = 90
+    end
+    object ClientAncestralOBSERVACAO: TStringField
+      FieldName = 'OBSERVACAO'
+      Size = 260
+    end
+    object ClientAncestralCONTABIL_CONTA_ID: TBCDField
+      FieldName = 'CONTABIL_CONTA_ID'
+      Precision = 20
+      Size = 2
+    end
+    object ClientAncestralPESSOA_ID: TBCDField
+      FieldName = 'PESSOA_ID'
+      Precision = 20
+      Size = 2
+    end
+    object ClientAncestralDATA_REGISTRO: TSQLTimeStampField
+      FieldName = 'DATA_REGISTRO'
+    end
+    object ClientAncestralVALOR_PROLABORE: TBCDField
+      FieldName = 'VALOR_PROLABORE'
+      Precision = 20
+      Size = 3
+    end
+    object ClientAncestralCENTRO_CUSTO_ID: TBCDField
+      FieldName = 'CENTRO_CUSTO_ID'
+      Precision = 20
+      Size = 2
+    end
+    object ClientAncestralTIPO: TStringField
+      FieldName = 'TIPO'
+      Size = 1
+    end
+    object ClientAncestralIR: TStringField
+      FieldName = 'IR'
+      Size = 1
+    end
+    object ClientAncestralCAIXA_ID: TBCDField
+      FieldName = 'CAIXA_ID'
+      Precision = 15
+      Size = 2
+    end
+    object ClientAncestralCONTABIL_GRUPO_ID: TBCDField
+      FieldName = 'CONTABIL_GRUPO_ID'
+      Precision = 15
+      Size = 2
+    end
+    object ClientAncestralDOCUMENTO_NUMERO: TStringField
+      FieldName = 'DOCUMENTO_NUMERO'
+      Size = 60
+    end
+    object ClientAncestralREGISTRO_PARCIAL: TStringField
+      FieldName = 'REGISTRO_PARCIAL'
+      Size = 1
+    end
+    object ClientAncestralOPERACAO: TStringField
+      FieldName = 'OPERACAO'
+      Size = 3
+    end
+  end
+  inherited SourceAncestral: TDataSource
+    Left = 324
+    Top = 50
+  end
+  object dtsPlanoContas: TDataSource
+    DataSet = sqlPlanoContas
+    Left = 173
+    Top = 133
+  end
+  object sqlPlanoContas: TI9Query
+    Aggregates = <>
+    Connection = dtmControles.DB
+    SQL.Strings = (
+      'SELECT CC.CONTABIL_CONTA_ID, CC.DESCRICAO, CC.IR'#13#10'FROM T_CONTABI' +
+      'L_CONTA CC LEFT OUTER JOIN T_CONTABIL_GRUPO CG ON'#13#10'  CC.CONTABIL' +
+      '_GRUPO_ID = CG.CONTABIL_GRUPO_ID'#13#10'WHERE CC.SITUACAO = '#39'A'#39#13#10'  AND' +
+      ' CC.CONTABIL_GRUPO_ID = :CONTABIL_GRUPO_ID'#13#10'ORDER BY CC.DESCRICA' +
+      'O')
+    ParamData = <
+      item
+        DataType = ftUnknown
+        Name = 'CONTABIL_GRUPO_ID'
+        ParamType = ptInput
+      end>
+    Params = <>
+    Left = 173
+    Top = 103
+    object sqlPlanoContasCONTABIL_CONTA_ID: TBCDField
+      FieldName = 'CONTABIL_CONTA_ID'
+      Precision = 20
+      Size = 2
+    end
+    object sqlPlanoContasDESCRICAO: TStringField
+      FieldName = 'DESCRICAO'
+      Size = 60
+    end
+    object sqlPlanoContasIR: TStringField
+      FieldName = 'IR'
+      Size = 1
+    end
+  end
+  object dtsGrupoContabil: TDataSource
+    DataSet = sqlGrupoContabil
+    Left = 209
+    Top = 134
+  end
+  object sqlGrupoContabil: TI9Query
+    Aggregates = <>
+    Connection = dtmControles.DB
+    SQL.Strings = (
+      'SELECT DESCRICAO, CONTABIL_GRUPO_ID, BALANCETE_GRUPO_ID'#13#10'FROM T_' +
+      'CONTABIL_GRUPO'#13#10'WHERE SITUACAO = '#39'A'#39' '#13#10'     AND TIPO = :TIPO'#13#10'  ' +
+      '  AND BALANCETE_GRUPO_ID = :BALANCETE_GRUPO_ID'#13#10'ORDER BY DESCRIC' +
+      'AO')
+    ParamData = <
+      item
+        DataType = ftString
+        Name = 'TIPO'
+        ParamType = ptInput
+      end
+      item
+        DataType = ftBCD
+        Name = 'BALANCETE_GRUPO_ID'
+        ParamType = ptInput
+      end>
+    Params = <>
+    Left = 209
+    Top = 102
+    object sqlGrupoContabilDESCRICAO: TStringField
+      FieldName = 'DESCRICAO'
+      Size = 90
+    end
+    object sqlGrupoContabilCONTABIL_GRUPO_ID: TBCDField
+      FieldName = 'CONTABIL_GRUPO_ID'
+      Precision = 20
+      Size = 2
+    end
+    object sqlGrupoContabilBALANCETE_GRUPO_ID: TBCDField
+      FieldName = 'BALANCETE_GRUPO_ID'
+      Precision = 20
+      Size = 2
+    end
+  end
+end

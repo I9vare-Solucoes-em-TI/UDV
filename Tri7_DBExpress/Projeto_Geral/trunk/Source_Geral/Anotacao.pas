@@ -3,6 +3,7 @@ unit Anotacao;
 interface
 
 uses
+  I9Query,
   Windows, SysUtils, Variants, Classes, Graphics, Controls, Forms, Dialogs,
   CadAuxiliar, cxContainer, DB, SimpleDS, cxDBEdit, FrameEditorSimples,
   ExtCtrls, cxLabel, DBClient, StdCtrls, cxButtons, Menus, FMTBcd, cxControls,
@@ -15,9 +16,9 @@ type
     fmeEditorSimples: TfmeEditorSimples;
     Panel6: TPanel;
     cxLabel9: TcxLabel;
-    sqlAnotacao: TSimpleDataSet;
-    sqlAnotacaoANOTACAO_ID: TFMTBCDField;
-    sqlAnotacaoUSUARIO_ID: TFMTBCDField;
+    sqlAnotacao: TI9Query;
+    sqlAnotacaoANOTACAO_ID: TBCDField;
+    sqlAnotacaoUSUARIO_ID: TBCDField;
     sqlAnotacaoDATA: TSQLTimeStampField;
     sqlAnotacaoTITULO: TStringField;
     dtsAnotacao: TDataSource;

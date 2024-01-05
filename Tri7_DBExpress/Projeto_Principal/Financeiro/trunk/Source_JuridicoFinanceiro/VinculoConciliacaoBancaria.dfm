@@ -446,15 +446,15 @@ inherited frmVinculoConciliacaoBancaria: TfrmVinculoConciliacaoBancaria
       end
     end
   end
-  inherited DataSetAncestral: TSQLDataSet
-    CommandText = 
+  inherited DataSetAncestral: TI9Query
+    SQL.Strings = (
       'SELECT LIVRO_CAIXA_ID AS ID,  DATA_PAGAMENTO AS DATA, HISTORICO,' +
       ' OBSERVACAO, '#13#10'PESSOA_ID, OPERACAO, VALOR, CONTABIL_CONTA_ID'#13#10'FR' +
       'OM J_LIVRO_CAIXA '#13#10'WHERE CONCILIACAO_REGISTRADO_ID IS NULL'#13#10'  AN' +
       'D SITUACAO IS NULL'#13#10'  AND (OPERACAO = :OPERACAO1 OR '#13#10'   OPERACA' +
       'O = :OPERACAO2 OR '#13#10'   OPERACAO = :OPERACAO3 OR '#13#10'   OPERACAO = ' +
       ':OPERACAO4) '#13#10'  AND CAIXA_ID = :CAIXA_ID'#13#10'  AND DATA_PAGAMENTO >' +
-      '= :DATA'
+      '= :DATA')
     Params = <
       item
         DataType = ftUnknown
@@ -505,7 +505,7 @@ inherited frmVinculoConciliacaoBancaria: TfrmVinculoConciliacaoBancaria
       FieldName = 'OBSERVACAO'
       Size = 260
     end
-    object ClientAncestralPESSOA_ID: TFMTBCDField
+    object ClientAncestralPESSOA_ID: TBCDField
       FieldName = 'PESSOA_ID'
       Precision = 20
       Size = 2
@@ -514,7 +514,7 @@ inherited frmVinculoConciliacaoBancaria: TfrmVinculoConciliacaoBancaria
       FieldName = 'OPERACAO'
       Size = 3
     end
-    object ClientAncestralVALOR: TFMTBCDField
+    object ClientAncestralVALOR: TBCDField
       FieldName = 'VALOR'
       Precision = 20
       Size = 3
@@ -523,7 +523,7 @@ inherited frmVinculoConciliacaoBancaria: TfrmVinculoConciliacaoBancaria
       FieldKind = fkInternalCalc
       FieldName = 'CALC_SELECIONADO'
     end
-    object ClientAncestralCONTABIL_CONTA_ID: TFMTBCDField
+    object ClientAncestralCONTABIL_CONTA_ID: TBCDField
       FieldName = 'CONTABIL_CONTA_ID'
       Precision = 20
       Size = 2
@@ -533,7 +533,7 @@ inherited frmVinculoConciliacaoBancaria: TfrmVinculoConciliacaoBancaria
       FieldName = 'Calc_ValorRegistrar'
       Calculated = True
     end
-    object ClientAncestralID: TFMTBCDField
+    object ClientAncestralID: TBCDField
       FieldName = 'ID'
       Required = True
       Precision = 20

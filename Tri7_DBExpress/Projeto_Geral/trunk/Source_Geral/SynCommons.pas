@@ -740,6 +740,7 @@ unit SynCommons;
 interface
 
 uses
+  I9Query,
 {$ifndef LVCL}
 {$ifndef FPC}
 {$ifndef HASFASTMM4}
@@ -2097,7 +2098,7 @@ function VarRecAsChar(const V: TVarRec): integer;
 
 type
   /// function prototype used internally for UTF-8 buffer comparaison
-  // - used in mORMot.pas unit during TSQLTable rows sort and by TSQLQuery
+  // - used in mORMot.pas unit during TSQLTable rows sort and by TI9Query
   TUTF8Compare = function(P1,P2: PUTF8Char): PtrInt;
 
 /// convert the endianness of a given unsigned 32 bit integer into BigEndian

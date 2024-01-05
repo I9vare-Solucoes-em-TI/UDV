@@ -3,6 +3,7 @@ unit Geral.Controller.Impl.CalculoEmolumentos;
 interface
 
 uses
+  I9Query,
   FireDAC.Stan.Param,
   I9Query,
   Geral.Model.Entity.Spec.CalculoEmolumentos,

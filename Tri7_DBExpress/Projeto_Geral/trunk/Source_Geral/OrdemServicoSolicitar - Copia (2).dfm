@@ -6119,17 +6119,16 @@ object frmOrdemServicoSolicitar: TfrmOrdemServicoSolicitar
     Left = 387
     Top = 416
   end
-  object sqlOrdemServico: TSimpleDataSet
+  object sqlOrdemServico: TI9Query
     Aggregates = <>
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT ORDEM_SERVICO_ID, DESCRICAO, SITUACAO'#13#10'FROM C_ORDEM_SERVI' +
-      'CO'#13#10'WHERE SITUACAO = '#39'A'#39#13#10'ORDER BY DESCRICAO'
-    DataSet.MaxBlobSize = 1
-    DataSet.Params = <>
+      'CO'#13#10'WHERE SITUACAO = '#39'A'#39#13#10'ORDER BY DESCRICAO')
+    ParamData = <>
     Params = <>
     Left = 385
     Top = 360
-    object sqlOrdemServicoORDEM_SERVICO_ID: TFMTBCDField
+    object sqlOrdemServicoORDEM_SERVICO_ID: TBCDField
       FieldName = 'ORDEM_SERVICO_ID'
       Required = True
       Precision = 20
@@ -6144,15 +6143,14 @@ object frmOrdemServicoSolicitar: TfrmOrdemServicoSolicitar
       Size = 1
     end
   end
-  object sqlCaixaServicos: TSimpleDataSet
+  object sqlCaixaServicos: TI9Query
     Aggregates = <>
-    DataSet.CommandText = 'SELECT *'#13#10'FROM C_CAIXA_SERVICO'#13#10'ORDER BY DESCRICAO'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <>
+    SQL.Strings = ('SELECT *'#13#10'FROM C_CAIXA_SERVICO'#13#10'ORDER BY DESCRICAO')
+    ParamData = <>
     Params = <>
     Left = 124
     Top = 351
-    object sqlCaixaServicosCAIXA_SERVICO_ID: TFMTBCDField
+    object sqlCaixaServicosCAIXA_SERVICO_ID: TBCDField
       FieldName = 'CAIXA_SERVICO_ID'
       Required = True
       Precision = 15
@@ -6170,7 +6168,7 @@ object frmOrdemServicoSolicitar: TfrmOrdemServicoSolicitar
       FieldName = 'TIPO_TRANSACAO'
       Size = 1
     end
-    object sqlCaixaServicosSISTEMA_ID: TFMTBCDField
+    object sqlCaixaServicosSISTEMA_ID: TBCDField
       FieldName = 'SISTEMA_ID'
       Precision = 15
       Size = 3
@@ -6193,15 +6191,14 @@ object frmOrdemServicoSolicitar: TfrmOrdemServicoSolicitar
     Left = 124
     Top = 407
   end
-  object ClientAncestral: TSimpleDataSet
+  object ClientAncestral: TI9Query
     Aggregates = <>
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT *'#13#10'FROM C_CAIXA_ITEM'#13#10'WHERE CAIXA_ITEM_ID = :CAIXA_ITEM_I' +
-      'D'#13#10'ORDER BY DESCRICAO'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <
+      'D'#13#10'ORDER BY DESCRICAO')
+    ParamData = <
       item
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Name = 'CAIXA_ITEM_ID'
         ParamType = ptInput
       end>
@@ -6212,28 +6209,28 @@ object frmOrdemServicoSolicitar: TfrmOrdemServicoSolicitar
       FieldName = 'ESPECIE_PAGAMENTO'
       Size = 1
     end
-    object ClientAncestralCAIXA_ITEM_ID: TFMTBCDField
+    object ClientAncestralCAIXA_ITEM_ID: TBCDField
       FieldName = 'CAIXA_ITEM_ID'
       Required = True
       Precision = 20
       Size = 2
     end
-    object ClientAncestralCAIXA_SERVICO_ID: TFMTBCDField
+    object ClientAncestralCAIXA_SERVICO_ID: TBCDField
       FieldName = 'CAIXA_SERVICO_ID'
       Precision = 20
       Size = 2
     end
-    object ClientAncestralUSUARIO_SERVICO_ID: TFMTBCDField
+    object ClientAncestralUSUARIO_SERVICO_ID: TBCDField
       FieldName = 'USUARIO_SERVICO_ID'
       Precision = 20
       Size = 2
     end
-    object ClientAncestralUSUARIO_CAIXA_ID: TFMTBCDField
+    object ClientAncestralUSUARIO_CAIXA_ID: TBCDField
       FieldName = 'USUARIO_CAIXA_ID'
       Precision = 20
       Size = 2
     end
-    object ClientAncestralCHAVE_SERVICO: TFMTBCDField
+    object ClientAncestralCHAVE_SERVICO: TBCDField
       FieldName = 'CHAVE_SERVICO'
       Precision = 20
       Size = 2
@@ -6257,12 +6254,12 @@ object frmOrdemServicoSolicitar: TfrmOrdemServicoSolicitar
       FieldName = 'TIPO_TRANSACAO'
       Size = 3
     end
-    object ClientAncestralVALOR_SERVICO: TFMTBCDField
+    object ClientAncestralVALOR_SERVICO: TBCDField
       FieldName = 'VALOR_SERVICO'
       Precision = 20
       Size = 3
     end
-    object ClientAncestralVALOR_PAGO: TFMTBCDField
+    object ClientAncestralVALOR_PAGO: TBCDField
       FieldName = 'VALOR_PAGO'
       Precision = 20
       Size = 3
@@ -6271,7 +6268,7 @@ object frmOrdemServicoSolicitar: TfrmOrdemServicoSolicitar
       FieldName = 'OBSERVACAO'
       Size = 260
     end
-    object ClientAncestralCAIXA_CHEQUE_ID: TFMTBCDField
+    object ClientAncestralCAIXA_CHEQUE_ID: TBCDField
       FieldName = 'CAIXA_CHEQUE_ID'
       Precision = 20
       Size = 2
@@ -6280,12 +6277,12 @@ object frmOrdemServicoSolicitar: TfrmOrdemServicoSolicitar
       FieldName = 'HORA_PAGAMENTO'
       Size = 10
     end
-    object ClientAncestralCAIXA_ID: TFMTBCDField
+    object ClientAncestralCAIXA_ID: TBCDField
       FieldName = 'CAIXA_ID'
       Precision = 20
       Size = 2
     end
-    object ClientAncestralRECIBO_ID: TFMTBCDField
+    object ClientAncestralRECIBO_ID: TBCDField
       FieldName = 'RECIBO_ID'
       Precision = 20
       Size = 2
@@ -6294,7 +6291,7 @@ object frmOrdemServicoSolicitar: TfrmOrdemServicoSolicitar
       FieldName = 'TIPO_SERVICO'
       Size = 3
     end
-    object ClientAncestralQTD: TFMTBCDField
+    object ClientAncestralQTD: TBCDField
       FieldName = 'QTD'
       Precision = 20
       Size = 2
@@ -6303,12 +6300,12 @@ object frmOrdemServicoSolicitar: TfrmOrdemServicoSolicitar
       FieldName = 'APRESENTANTE'
       Size = 120
     end
-    object ClientAncestralMENSALISTA_ID: TFMTBCDField
+    object ClientAncestralMENSALISTA_ID: TBCDField
       FieldName = 'MENSALISTA_ID'
       Precision = 20
       Size = 2
     end
-    object ClientAncestralQUITADO_CAIXA_ID: TFMTBCDField
+    object ClientAncestralQUITADO_CAIXA_ID: TBCDField
       FieldName = 'QUITADO_CAIXA_ID'
       Precision = 20
       Size = 2
@@ -6317,57 +6314,57 @@ object frmOrdemServicoSolicitar: TfrmOrdemServicoSolicitar
       FieldName = 'REGISTRADO'
       Size = 1
     end
-    object ClientAncestralEMOLUMENTO: TFMTBCDField
+    object ClientAncestralEMOLUMENTO: TBCDField
       FieldName = 'EMOLUMENTO'
       Precision = 20
       Size = 3
     end
-    object ClientAncestralTAXA_JUDICIARIA: TFMTBCDField
+    object ClientAncestralTAXA_JUDICIARIA: TBCDField
       FieldName = 'TAXA_JUDICIARIA'
       Precision = 20
       Size = 3
     end
-    object ClientAncestralFUNDESP: TFMTBCDField
+    object ClientAncestralFUNDESP: TBCDField
       FieldName = 'FUNDESP'
       Precision = 20
       Size = 3
     end
-    object ClientAncestralDESCONTO: TFMTBCDField
+    object ClientAncestralDESCONTO: TBCDField
       FieldName = 'DESCONTO'
       Precision = 20
       Size = 3
     end
-    object ClientAncestralVALOR_DOCUMENTO: TFMTBCDField
+    object ClientAncestralVALOR_DOCUMENTO: TBCDField
       FieldName = 'VALOR_DOCUMENTO'
       Precision = 20
       Size = 3
     end
-    object ClientAncestralOUTRA_TAXA1: TFMTBCDField
+    object ClientAncestralOUTRA_TAXA1: TBCDField
       FieldName = 'OUTRA_TAXA1'
       Precision = 20
       Size = 3
     end
-    object ClientAncestralCHAVE_SERVICO_SEC: TFMTBCDField
+    object ClientAncestralCHAVE_SERVICO_SEC: TBCDField
       FieldName = 'CHAVE_SERVICO_SEC'
       Precision = 20
       Size = 2
     end
-    object ClientAncestralEMOLUMENTO_ITEM_ID: TFMTBCDField
+    object ClientAncestralEMOLUMENTO_ITEM_ID: TBCDField
       FieldName = 'EMOLUMENTO_ITEM_ID'
       Precision = 20
       Size = 2
     end
-    object ClientAncestralCAIXA_REGISTROSELO_ID: TFMTBCDField
+    object ClientAncestralCAIXA_REGISTROSELO_ID: TBCDField
       FieldName = 'CAIXA_REGISTROSELO_ID'
       Precision = 20
       Size = 2
     end
-    object ClientAncestralFUNDO_RI: TFMTBCDField
+    object ClientAncestralFUNDO_RI: TBCDField
       FieldName = 'FUNDO_RI'
       Precision = 20
       Size = 3
     end
-    object ClientAncestralVALOR_RECIBO: TFMTBCDField
+    object ClientAncestralVALOR_RECIBO: TBCDField
       FieldName = 'VALOR_RECIBO'
       Precision = 20
       Size = 2
@@ -6376,7 +6373,7 @@ object frmOrdemServicoSolicitar: TfrmOrdemServicoSolicitar
       FieldName = 'IMPORTADO'
       Size = 1
     end
-    object ClientAncestralTAXA2: TFMTBCDField
+    object ClientAncestralTAXA2: TBCDField
       FieldName = 'TAXA2'
       Precision = 20
       Size = 3
@@ -6389,12 +6386,12 @@ object frmOrdemServicoSolicitar: TfrmOrdemServicoSolicitar
       FieldName = 'ESPECIE_PAGAMENTO2'
       Size = 1
     end
-    object ClientAncestralVALOR_PRIMEIRO: TFMTBCDField
+    object ClientAncestralVALOR_PRIMEIRO: TBCDField
       FieldName = 'VALOR_PRIMEIRO'
       Precision = 20
       Size = 3
     end
-    object ClientAncestralVALOR_SEGUNDO: TFMTBCDField
+    object ClientAncestralVALOR_SEGUNDO: TBCDField
       FieldName = 'VALOR_SEGUNDO'
       Precision = 20
       Size = 3
@@ -6403,32 +6400,32 @@ object frmOrdemServicoSolicitar: TfrmOrdemServicoSolicitar
       FieldName = 'TIPO_CAIXA'
       Size = 60
     end
-    object ClientAncestralRECIBO_NOTAS_ID: TFMTBCDField
+    object ClientAncestralRECIBO_NOTAS_ID: TBCDField
       FieldName = 'RECIBO_NOTAS_ID'
       Precision = 20
       Size = 2
     end
-    object ClientAncestralMENSALISTA_GRUPO_ID: TFMTBCDField
+    object ClientAncestralMENSALISTA_GRUPO_ID: TBCDField
       FieldName = 'MENSALISTA_GRUPO_ID'
       Precision = 20
       Size = 2
     end
-    object ClientAncestralQTD_PAGA: TFMTBCDField
+    object ClientAncestralQTD_PAGA: TBCDField
       FieldName = 'QTD_PAGA'
       Precision = 20
       Size = 3
     end
-    object ClientAncestralCAIXA_DESTINO_ID: TFMTBCDField
+    object ClientAncestralCAIXA_DESTINO_ID: TBCDField
       FieldName = 'CAIXA_DESTINO_ID'
       Precision = 20
       Size = 2
     end
-    object ClientAncestralCAIXA_FECHAMENTO_SAIDA_ID: TFMTBCDField
+    object ClientAncestralCAIXA_FECHAMENTO_SAIDA_ID: TBCDField
       FieldName = 'CAIXA_FECHAMENTO_SAIDA_ID'
       Precision = 20
       Size = 2
     end
-    object ClientAncestralCAIXA_FECHAMENTO_ENTRADA_ID: TFMTBCDField
+    object ClientAncestralCAIXA_FECHAMENTO_ENTRADA_ID: TBCDField
       FieldName = 'CAIXA_FECHAMENTO_ENTRADA_ID'
       Precision = 20
       Size = 2
@@ -6437,12 +6434,12 @@ object frmOrdemServicoSolicitar: TfrmOrdemServicoSolicitar
       FieldName = 'REG_FINANCEIRO'
       Size = 1
     end
-    object ClientAncestralSERVICO_PEDIDO_ID: TFMTBCDField
+    object ClientAncestralSERVICO_PEDIDO_ID: TBCDField
       FieldName = 'SERVICO_PEDIDO_ID'
       Precision = 20
       Size = 2
     end
-    object ClientAncestralTIPO_CARTAO_ID: TFMTBCDField
+    object ClientAncestralTIPO_CARTAO_ID: TBCDField
       FieldName = 'TIPO_CARTAO_ID'
       Precision = 20
       Size = 2
@@ -6459,7 +6456,7 @@ object frmOrdemServicoSolicitar: TfrmOrdemServicoSolicitar
       FieldName = 'RELATORIO'
       Size = 1
     end
-    object ClientAncestralORDEM_SERVICO_ID: TFMTBCDField
+    object ClientAncestralORDEM_SERVICO_ID: TBCDField
       FieldName = 'ORDEM_SERVICO_ID'
       Precision = 20
       Size = 2
@@ -6478,10 +6475,10 @@ object frmOrdemServicoSolicitar: TfrmOrdemServicoSolicitar
     Left = 252
     Top = 407
   end
-  object sqlCaixaItens: TSimpleDataSet
+  object sqlCaixaItens: TI9Query
     Aggregates = <>
     AutoCalcFields = False
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT CI.CAIXA_ITEM_ID, CI.CAIXA_SERVICO_ID, CI.USUARIO_SERVICO' +
       '_ID, CI.USUARIO_CAIXA_ID,'#13#10'CI.CHAVE_SERVICO, CI.DESCRICAO, CI.DA' +
       'TA_PAGAMENTO, CI.SITUACAO, CI.TIPO_TRANSACAO, '#13#10'CI.VALOR_sERVICO' +
@@ -6493,9 +6490,8 @@ object frmOrdemServicoSolicitar: TfrmOrdemServicoSolicitar
       'O_SAIDA,'#13#10' CI.CAIXA_SERVICO_ENTRADA_ID AS SERVICO_CONFIRMADO'#13#10'FR' +
       'OM C_CAIXA_ITEM CI '#13#10'LEFT OUTER JOIN C_CAIXA_SERVICO CS ON '#13#10'CI.' +
       'CAIXA_SERVICO_ID = CS.CAIXA_SERVICO_ID '#13#10'WHERE ORDEM_SERVICO_ID ' +
-      '= :ORDEM_SERVICO_ID'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <
+      '= :ORDEM_SERVICO_ID')
+    ParamData = <
       item
         DataType = ftUnknown
         Name = 'ORDEM_SERVICO_ID'
@@ -6521,28 +6517,28 @@ object frmOrdemServicoSolicitar: TfrmOrdemServicoSolicitar
       FieldName = 'calc_Numero'
       Size = 10
     end
-    object sqlCaixaItensCAIXA_ITEM_ID: TFMTBCDField
+    object sqlCaixaItensCAIXA_ITEM_ID: TBCDField
       FieldName = 'CAIXA_ITEM_ID'
       Required = True
       Precision = 20
       Size = 2
     end
-    object sqlCaixaItensCAIXA_SERVICO_ID: TFMTBCDField
+    object sqlCaixaItensCAIXA_SERVICO_ID: TBCDField
       FieldName = 'CAIXA_SERVICO_ID'
       Precision = 20
       Size = 2
     end
-    object sqlCaixaItensUSUARIO_SERVICO_ID: TFMTBCDField
+    object sqlCaixaItensUSUARIO_SERVICO_ID: TBCDField
       FieldName = 'USUARIO_SERVICO_ID'
       Precision = 20
       Size = 2
     end
-    object sqlCaixaItensUSUARIO_CAIXA_ID: TFMTBCDField
+    object sqlCaixaItensUSUARIO_CAIXA_ID: TBCDField
       FieldName = 'USUARIO_CAIXA_ID'
       Precision = 20
       Size = 2
     end
-    object sqlCaixaItensCHAVE_SERVICO: TFMTBCDField
+    object sqlCaixaItensCHAVE_SERVICO: TBCDField
       FieldName = 'CHAVE_SERVICO'
       Precision = 20
       Size = 2
@@ -6562,12 +6558,12 @@ object frmOrdemServicoSolicitar: TfrmOrdemServicoSolicitar
       FieldName = 'TIPO_TRANSACAO'
       Size = 1
     end
-    object sqlCaixaItensVALOR_SERVICO: TFMTBCDField
+    object sqlCaixaItensVALOR_SERVICO: TBCDField
       FieldName = 'VALOR_SERVICO'
       Precision = 20
       Size = 3
     end
-    object sqlCaixaItensVALOR_PAGO: TFMTBCDField
+    object sqlCaixaItensVALOR_PAGO: TBCDField
       FieldName = 'VALOR_PAGO'
       Precision = 20
       Size = 3
@@ -6580,12 +6576,12 @@ object frmOrdemServicoSolicitar: TfrmOrdemServicoSolicitar
       FieldName = 'HORA_PAGAMENTO'
       Size = 10
     end
-    object sqlCaixaItensCAIXA_ID: TFMTBCDField
+    object sqlCaixaItensCAIXA_ID: TBCDField
       FieldName = 'CAIXA_ID'
       Precision = 20
       Size = 2
     end
-    object sqlCaixaItensRECIBO_ID: TFMTBCDField
+    object sqlCaixaItensRECIBO_ID: TBCDField
       FieldName = 'RECIBO_ID'
       Precision = 20
       Size = 2
@@ -6594,7 +6590,7 @@ object frmOrdemServicoSolicitar: TfrmOrdemServicoSolicitar
       FieldName = 'TIPO_SERVICO'
       Size = 3
     end
-    object sqlCaixaItensQTD: TFMTBCDField
+    object sqlCaixaItensQTD: TBCDField
       FieldName = 'QTD'
       Precision = 20
       Size = 2
@@ -6603,7 +6599,7 @@ object frmOrdemServicoSolicitar: TfrmOrdemServicoSolicitar
       FieldName = 'APRESENTANTE'
       Size = 120
     end
-    object sqlCaixaItensMENSALISTA_ID: TFMTBCDField
+    object sqlCaixaItensMENSALISTA_ID: TBCDField
       FieldName = 'MENSALISTA_ID'
       Precision = 20
       Size = 2
@@ -6616,12 +6612,12 @@ object frmOrdemServicoSolicitar: TfrmOrdemServicoSolicitar
       FieldName = 'TIPO_CAIXA'
       Size = 60
     end
-    object sqlCaixaItensSISTEMA_ID: TFMTBCDField
+    object sqlCaixaItensSISTEMA_ID: TBCDField
       FieldName = 'SISTEMA_ID'
       Precision = 20
       Size = 3
     end
-    object sqlCaixaItensORDEM_SERVICO_ID: TFMTBCDField
+    object sqlCaixaItensORDEM_SERVICO_ID: TBCDField
       FieldName = 'ORDEM_SERVICO_ID'
       Precision = 20
       Size = 2
@@ -6636,12 +6632,12 @@ object frmOrdemServicoSolicitar: TfrmOrdemServicoSolicitar
       FieldName = 'OS_TIPO'
       Size = 1
     end
-    object sqlCaixaItensSERVICO_RETORNO_ENTRADA: TFMTBCDField
+    object sqlCaixaItensSERVICO_RETORNO_ENTRADA: TBCDField
       FieldName = 'SERVICO_RETORNO_ENTRADA'
       Precision = 20
       Size = 2
     end
-    object sqlCaixaItensSERVICO_RETONO_SAIDA: TFMTBCDField
+    object sqlCaixaItensSERVICO_RETONO_SAIDA: TBCDField
       FieldName = 'SERVICO_RETONO_SAIDA'
       Precision = 20
       Size = 2
@@ -6652,7 +6648,7 @@ object frmOrdemServicoSolicitar: TfrmOrdemServicoSolicitar
       Size = 1
       Calculated = True
     end
-    object sqlCaixaItensSERVICO_CONFIRMADO: TFMTBCDField
+    object sqlCaixaItensSERVICO_CONFIRMADO: TBCDField
       FieldName = 'SERVICO_CONFIRMADO'
       Precision = 20
       Size = 2
@@ -6668,19 +6664,18 @@ object frmOrdemServicoSolicitar: TfrmOrdemServicoSolicitar
     Left = 620
     Top = 375
   end
-  object sqlPesquisaOS: TSimpleDataSet
+  object sqlPesquisaOS: TI9Query
     Aggregates = <>
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT *'#13#10'FROM C_ORDEM_SERVICO'#13#10'WHERE SITUACAO = '#39'A'#39#13#10'ORDER BY D' +
-      'ESCRICAO'
-    DataSet.MaxBlobSize = 1
-    DataSet.Params = <>
+      'ESCRICAO')
+    ParamData = <>
     Params = <>
     AfterScroll = sqlPesquisaOSAfterScroll
     OnCalcFields = sqlPesquisaOSCalcFields
     Left = 97
     Top = 480
-    object sqlPesquisaOSORDEM_SERVICO_ID: TFMTBCDField
+    object sqlPesquisaOSORDEM_SERVICO_ID: TBCDField
       FieldName = 'ORDEM_SERVICO_ID'
       Required = True
       Precision = 20
@@ -6700,7 +6695,7 @@ object frmOrdemServicoSolicitar: TfrmOrdemServicoSolicitar
     object sqlPesquisaOSDATA_FECHAMENTO: TSQLTimeStampField
       FieldName = 'DATA_FECHAMENTO'
     end
-    object sqlPesquisaOSUSUARIO_ID: TFMTBCDField
+    object sqlPesquisaOSUSUARIO_ID: TBCDField
       FieldName = 'USUARIO_ID'
       Precision = 20
       Size = 2
@@ -6721,15 +6716,14 @@ object frmOrdemServicoSolicitar: TfrmOrdemServicoSolicitar
     Left = 99
     Top = 536
   end
-  object sqlServicosSequenciais: TSimpleDataSet
+  object sqlServicosSequenciais: TI9Query
     Aggregates = <>
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT CSS.*, NT.DESCRICAO'#13#10'FROM C_CAIXA_SERVICO_SEQUENCIAL CSS'#13 +
       #10'  LEFT OUTER JOIN G_NATUREZA_TITULO NT ON'#13#10'  CSS.NATUREZA_TITUL' +
       'O_ID = NT.NATUREZA_TITULO_ID'#13#10'WHERE CSS.CAIXA_SERVICO_ID = :CAIX' +
-      'A_SERVICO_ID'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <
+      'A_SERVICO_ID')
+    ParamData = <
       item
         DataType = ftBCD
         Name = 'CAIXA_SERVICO_ID'
@@ -6738,23 +6732,23 @@ object frmOrdemServicoSolicitar: TfrmOrdemServicoSolicitar
     Params = <>
     Left = 252
     Top = 473
-    object sqlServicosSequenciaisCAIXA_SERVICO_SEQUENCIAL_ID: TFMTBCDField
+    object sqlServicosSequenciaisCAIXA_SERVICO_SEQUENCIAL_ID: TBCDField
       FieldName = 'CAIXA_SERVICO_SEQUENCIAL_ID'
       Required = True
       Precision = 20
       Size = 2
     end
-    object sqlServicosSequenciaisNATUREZA_TITULO_ID: TFMTBCDField
+    object sqlServicosSequenciaisNATUREZA_TITULO_ID: TBCDField
       FieldName = 'NATUREZA_TITULO_ID'
       Precision = 20
       Size = 2
     end
-    object sqlServicosSequenciaisEMOLUMENTO_ID: TFMTBCDField
+    object sqlServicosSequenciaisEMOLUMENTO_ID: TBCDField
       FieldName = 'EMOLUMENTO_ID'
       Precision = 20
       Size = 2
     end
-    object sqlServicosSequenciaisQUANTIDADE: TFMTBCDField
+    object sqlServicosSequenciaisQUANTIDADE: TBCDField
       FieldName = 'QUANTIDADE'
       Precision = 20
       Size = 2
@@ -6763,7 +6757,7 @@ object frmOrdemServicoSolicitar: TfrmOrdemServicoSolicitar
       FieldName = 'PADRAO_SELECAO'
       Size = 1
     end
-    object sqlServicosSequenciaisCAIXA_SERVICO_ID: TFMTBCDField
+    object sqlServicosSequenciaisCAIXA_SERVICO_ID: TBCDField
       FieldName = 'CAIXA_SERVICO_ID'
       Precision = 20
       Size = 2
@@ -6792,17 +6786,16 @@ object frmOrdemServicoSolicitar: TfrmOrdemServicoSolicitar
     Left = 252
     Top = 524
   end
-  object sqlG_Emolumento: TSimpleDataSet
+  object sqlG_Emolumento: TI9Query
     Aggregates = <>
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT * FROM G_EMOLUMENTO'#13#10'WHERE (SITUACAO IS NULL OR SITUACAO ' +
-      '<> '#39'I'#39')'#13#10'ORDER BY DESCRICAO'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <>
+      '<> '#39'I'#39')'#13#10'ORDER BY DESCRICAO')
+    ParamData = <>
     Params = <>
     Left = 385
     Top = 482
-    object sqlG_EmolumentoEMOLUMENTO_ID: TFMTBCDField
+    object sqlG_EmolumentoEMOLUMENTO_ID: TBCDField
       FieldName = 'EMOLUMENTO_ID'
       Required = True
       Precision = 15
@@ -6822,23 +6815,22 @@ object frmOrdemServicoSolicitar: TfrmOrdemServicoSolicitar
     Left = 387
     Top = 538
   end
-  object sqlNaturezaTitulo: TSimpleDataSet
+  object sqlNaturezaTitulo: TI9Query
     Aggregates = <>
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT NATUREZA_TITULO_ID, DESCRICAO, EMOLUMENTO_ID'#13#10'FROM G_NATU' +
       'REZA_TITULO'#13#10'WHERE SISTEMA_ID = :SISTEMA_ID'#13#10'  AND SITUACAO = '#39'A' +
-      #39
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <
+      #39)
+    ParamData = <
       item
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Name = 'SISTEMA_ID'
         ParamType = ptInput
       end>
     Params = <>
     Left = 560
     Top = 469
-    object sqlNaturezaTituloNATUREZA_TITULO_ID: TFMTBCDField
+    object sqlNaturezaTituloNATUREZA_TITULO_ID: TBCDField
       FieldName = 'NATUREZA_TITULO_ID'
       Required = True
       Precision = 20
@@ -6848,7 +6840,7 @@ object frmOrdemServicoSolicitar: TfrmOrdemServicoSolicitar
       FieldName = 'DESCRICAO'
       Size = 60
     end
-    object sqlNaturezaTituloEMOLUMENTO_ID: TFMTBCDField
+    object sqlNaturezaTituloEMOLUMENTO_ID: TBCDField
       FieldName = 'EMOLUMENTO_ID'
       Precision = 20
       Size = 2
@@ -6876,19 +6868,19 @@ object frmOrdemServicoSolicitar: TfrmOrdemServicoSolicitar
     FieldDefs = <
       item
         Name = 'NATUREZA_TITULO_ID'
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Precision = 20
         Size = 2
       end
       item
         Name = 'EMOLUMENTO_ID'
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Precision = 20
         Size = 2
       end
       item
         Name = 'QUANTIDADE'
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Precision = 20
         Size = 2
       end
@@ -6899,7 +6891,7 @@ object frmOrdemServicoSolicitar: TfrmOrdemServicoSolicitar
       end
       item
         Name = 'CAIXA_SERVICO_ID'
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Precision = 20
         Size = 2
       end
@@ -6926,17 +6918,17 @@ object frmOrdemServicoSolicitar: TfrmOrdemServicoSolicitar
     StoreDefs = True
     Left = 678
     Top = 480
-    object ClientItensSequenciaNATUREZA_TITULO_ID: TFMTBCDField
+    object ClientItensSequenciaNATUREZA_TITULO_ID: TBCDField
       FieldName = 'NATUREZA_TITULO_ID'
       Precision = 20
       Size = 2
     end
-    object ClientItensSequenciaEMOLUMENTO_ID: TFMTBCDField
+    object ClientItensSequenciaEMOLUMENTO_ID: TBCDField
       FieldName = 'EMOLUMENTO_ID'
       Precision = 20
       Size = 2
     end
-    object ClientItensSequenciaQUANTIDADE: TFMTBCDField
+    object ClientItensSequenciaQUANTIDADE: TBCDField
       FieldName = 'QUANTIDADE'
       Precision = 20
       Size = 2
@@ -6945,7 +6937,7 @@ object frmOrdemServicoSolicitar: TfrmOrdemServicoSolicitar
       FieldName = 'PADRAO_SELECAO'
       Size = 1
     end
-    object ClientItensSequenciaCAIXA_SERVICO_ID: TFMTBCDField
+    object ClientItensSequenciaCAIXA_SERVICO_ID: TBCDField
       FieldName = 'CAIXA_SERVICO_ID'
       Precision = 20
       Size = 2
@@ -6979,74 +6971,72 @@ object frmOrdemServicoSolicitar: TfrmOrdemServicoSolicitar
     Left = 820
     Top = 508
   end
-  object sqlItensVinculados: TSimpleDataSet
+  object sqlItensVinculados: TI9Query
     Aggregates = <>
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT *'#13#10'FROM C_ORDEM_ITEM_SEQUENCIA'#13#10'WHERE ORDEM_SERVICO_ID = ' +
-      ':ORDEM_SERVICO_ID'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <
+      ':ORDEM_SERVICO_ID')
+    ParamData = <
       item
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Name = 'ORDEM_SERVICO_ID'
         ParamType = ptInput
       end>
     Params = <>
     Left = 820
     Top = 457
-    object sqlItensVinculadosORDEM_ITEM_SEQUENCIA_ID: TFMTBCDField
+    object sqlItensVinculadosORDEM_ITEM_SEQUENCIA_ID: TBCDField
       FieldName = 'ORDEM_ITEM_SEQUENCIA_ID'
       Required = True
       Precision = 20
       Size = 2
     end
-    object sqlItensVinculadosCAIXA_ITEM_ID: TFMTBCDField
+    object sqlItensVinculadosCAIXA_ITEM_ID: TBCDField
       FieldName = 'CAIXA_ITEM_ID'
       Precision = 20
       Size = 2
     end
-    object sqlItensVinculadosNATUREZA_TITULO_ID: TFMTBCDField
+    object sqlItensVinculadosNATUREZA_TITULO_ID: TBCDField
       FieldName = 'NATUREZA_TITULO_ID'
       Precision = 20
       Size = 2
     end
-    object sqlItensVinculadosQUANTIDADE: TFMTBCDField
+    object sqlItensVinculadosQUANTIDADE: TBCDField
       FieldName = 'QUANTIDADE'
       Precision = 20
       Size = 2
     end
-    object sqlItensVinculadosCAIXA_SERVICO_ID: TFMTBCDField
+    object sqlItensVinculadosCAIXA_SERVICO_ID: TBCDField
       FieldName = 'CAIXA_SERVICO_ID'
       Precision = 20
       Size = 2
     end
-    object sqlItensVinculadosVALOR: TFMTBCDField
+    object sqlItensVinculadosVALOR: TBCDField
       FieldName = 'VALOR'
       Precision = 20
       Size = 3
     end
-    object sqlItensVinculadosEMOLUMENTO_ID: TFMTBCDField
+    object sqlItensVinculadosEMOLUMENTO_ID: TBCDField
       FieldName = 'EMOLUMENTO_ID'
       Precision = 20
       Size = 2
     end
-    object sqlItensVinculadosORDEM_SERVICO_ID: TFMTBCDField
+    object sqlItensVinculadosORDEM_SERVICO_ID: TBCDField
       FieldName = 'ORDEM_SERVICO_ID'
       Precision = 20
       Size = 2
     end
   end
-  object sqlServicoRetorno: TSimpleDataSet
+  object sqlServicoRetorno: TI9Query
     Aggregates = <>
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT CAIXA_SERVICO_ID, DESCRICAO'#13#10'FROM C_CAIXA_SERVICO'#13#10'WHERE ' +
-      'NOT CAIXA_SERVICO_RETORNO_ID IS NULL'#13#10'ORDER BY DESCRICAO'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <>
+      'NOT CAIXA_SERVICO_RETORNO_ID IS NULL'#13#10'ORDER BY DESCRICAO')
+    ParamData = <>
     Params = <>
     Left = 36
     Top = 351
-    object sqlServicoRetornoCAIXA_SERVICO_ID: TFMTBCDField
+    object sqlServicoRetornoCAIXA_SERVICO_ID: TBCDField
       FieldName = 'CAIXA_SERVICO_ID'
       Required = True
       Precision = 20
@@ -7062,10 +7052,10 @@ object frmOrdemServicoSolicitar: TfrmOrdemServicoSolicitar
     Left = 36
     Top = 407
   end
-  object sqlItensRetorno: TSimpleDataSet
+  object sqlItensRetorno: TI9Query
     Aggregates = <>
     AutoCalcFields = False
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT CI.CAIXA_ITEM_ID, CI.CAIXA_SERVICO_ID, CI.USUARIO_SERVICO' +
       '_ID,'#13#10'CI.DESCRICAO, CI.DATA_PAGAMENTO, CI.SITUACAO,'#13#10'CI.VALOR_SE' +
       'RVICO, CI.VALOR_PAGO, CI.QTD,'#13#10'CI.ORDEM_SERVICO_ID, OS.DESCRICAO' +
@@ -7075,9 +7065,8 @@ object frmOrdemServicoSolicitar: TfrmOrdemServicoSolicitar
       'S ON '#13#10'  CI.ORDEM_SERVICO_ID = OS.ORDEM_SERVICO_ID'#13#10'  LEFT OUTER' +
       ' JOIN C_CAIXA_SERVICO CS ON '#13#10'  CI.CAIXA_SERVICO_ID = CS.CAIXA_S' +
       'ERVICO_ID '#13#10'WHERE CI.CAIXA_SERVICO_ID = :CAIXA_SERVICO_ID'#13#10'     ' +
-      'AND CI.CAIXA_SERVICO_ENTRADA_ID IS NULL'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <
+      'AND CI.CAIXA_SERVICO_ENTRADA_ID IS NULL')
+    ParamData = <
       item
         DataType = ftBCD
         Name = 'CAIXA_SERVICO_ID'
@@ -7088,18 +7077,18 @@ object frmOrdemServicoSolicitar: TfrmOrdemServicoSolicitar
     OnCalcFields = sqlItensRetornoCalcFields
     Left = 44
     Top = 287
-    object sqlItensRetornoCAIXA_ITEM_ID: TFMTBCDField
+    object sqlItensRetornoCAIXA_ITEM_ID: TBCDField
       FieldName = 'CAIXA_ITEM_ID'
       Required = True
       Precision = 20
       Size = 2
     end
-    object sqlItensRetornoCAIXA_SERVICO_ID: TFMTBCDField
+    object sqlItensRetornoCAIXA_SERVICO_ID: TBCDField
       FieldName = 'CAIXA_SERVICO_ID'
       Precision = 20
       Size = 2
     end
-    object sqlItensRetornoUSUARIO_SERVICO_ID: TFMTBCDField
+    object sqlItensRetornoUSUARIO_SERVICO_ID: TBCDField
       FieldName = 'USUARIO_SERVICO_ID'
       Precision = 20
       Size = 2
@@ -7115,12 +7104,12 @@ object frmOrdemServicoSolicitar: TfrmOrdemServicoSolicitar
       FieldName = 'SITUACAO'
       Size = 3
     end
-    object sqlItensRetornoVALOR_SERVICO: TFMTBCDField
+    object sqlItensRetornoVALOR_SERVICO: TBCDField
       FieldName = 'VALOR_SERVICO'
       Precision = 20
       Size = 3
     end
-    object sqlItensRetornoVALOR_PAGO: TFMTBCDField
+    object sqlItensRetornoVALOR_PAGO: TBCDField
       FieldName = 'VALOR_PAGO'
       Precision = 20
       Size = 3
@@ -7141,7 +7130,7 @@ object frmOrdemServicoSolicitar: TfrmOrdemServicoSolicitar
       OnChange = sqlItensRetornoCALC_SELECIONADOChange
       Size = 1
     end
-    object sqlItensRetornoORDEM_SERVICO_ID: TFMTBCDField
+    object sqlItensRetornoORDEM_SERVICO_ID: TBCDField
       FieldName = 'ORDEM_SERVICO_ID'
       Precision = 20
       Size = 2
@@ -7152,22 +7141,22 @@ object frmOrdemServicoSolicitar: TfrmOrdemServicoSolicitar
       Size = 1
       Calculated = True
     end
-    object sqlItensRetornoQTD: TFMTBCDField
+    object sqlItensRetornoQTD: TBCDField
       FieldName = 'QTD'
       Precision = 20
       Size = 2
     end
-    object sqlItensRetornoCS_SERVICO_RETORNO_ID: TFMTBCDField
+    object sqlItensRetornoCS_SERVICO_RETORNO_ID: TBCDField
       FieldName = 'CS_SERVICO_RETORNO_ID'
       Precision = 20
       Size = 2
     end
-    object sqlItensRetornoCAIXA_SERVICO_RETORNO_ID: TFMTBCDField
+    object sqlItensRetornoCAIXA_SERVICO_RETORNO_ID: TBCDField
       FieldName = 'CAIXA_SERVICO_RETORNO_ID'
       Precision = 20
       Size = 2
     end
-    object sqlItensRetornoCAIXA_SERVICO_ENTRADA_ID: TFMTBCDField
+    object sqlItensRetornoCAIXA_SERVICO_ENTRADA_ID: TBCDField
       FieldName = 'CAIXA_SERVICO_ENTRADA_ID'
       Precision = 20
       Size = 2

@@ -28,7 +28,7 @@ type
     grdBasica: TcxGrid;
     grdBasicaDBTableView1: TcxGridDBTableView;
     grdBasicaLevel1: TcxGridLevel;
-    ClientAncestralEMOLUMENTO_PERIODO_ID: TFMTBCDField;
+    ClientAncestralEMOLUMENTO_PERIODO_ID: TBCDField;
     ClientAncestralDESCRICAO: TStringField;
     ClientAncestralSITUACAO: TStringField;
     ClientAncestralDATA_INICIAL: TSQLTimeStampField;

@@ -604,7 +604,6 @@ inherited frmConfigRelatorios: TfrmConfigRelatorios
   end
   inherited DataSetAncestral: TI9Query
     SQL.Strings = (
-      
         'select CONFIG_RELATORIO_ID, DESCRICAO, GRUPO_RELATORIO_ID, INTER' +
         'NO, SISTEMA_ID, SITUACAO, EDITAR'
       'from G_CONFIG_RELATORIO'

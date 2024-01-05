@@ -7751,7 +7751,6 @@ object frmOrdemServicoSolicitar: TfrmOrdemServicoSolicitar
     FetchOptions.AssignedValues = [evMode]
     FetchOptions.Mode = fmAll
     SQL.Strings = (
-      
         'SELECT ORDEM_SERVICO_ID, DESCRICAO, SITUACAO, OS_ANTIGA, MENSALI' +
         'STA_ID'#13#10'FROM C_ORDEM_SERVICO'#13#10'ORDER BY DESCRICAO')
     Left = 385
@@ -7844,7 +7843,6 @@ object frmOrdemServicoSolicitar: TfrmOrdemServicoSolicitar
     FetchOptions.AssignedValues = [evMode]
     FetchOptions.Mode = fmAll
     SQL.Strings = (
-      
         'SELECT *'#13#10'FROM C_CAIXA_ITEM'#13#10'WHERE CAIXA_ITEM_ID = :CAIXA_ITEM_I' +
         'D'#13#10'ORDER BY DESCRICAO')
     Left = 252
@@ -8137,29 +8135,21 @@ object frmOrdemServicoSolicitar: TfrmOrdemServicoSolicitar
     FetchOptions.AssignedValues = [evMode]
     FetchOptions.Mode = fmAll
     SQL.Strings = (
-      
         'SELECT CI.CAIXA_ITEM_ID, CI.CAIXA_SERVICO_ID, CI.USUARIO_SERVICO' +
         '_ID, CI.USUARIO_CAIXA_ID,'
-      
         'CI.CHAVE_SERVICO, CI.DESCRICAO, CI.DATA_PAGAMENTO, CI.SITUACAO, ' +
         'CI.TIPO_TRANSACAO, '
-      
         'CI.VALOR_sERVICO, CI.VALOR_PAGO, CI.OBSERVACAO, CI.HORA_PAGAMENT' +
         'O, '
-      
         'CI.CAIXA_ID, CI.RECIBO_ID, TIPO_SERVICO, CI.QTD, CI.APRESENTANTE' +
         ', CI.MENSALISTA_ID,'
-      
         ' CI.REGISTRADO, CI.TIPO_CAIXA, CI.ORDEM_SERVICO_ID, CI.OS_TIPO, ' +
         'SISTEMA_ID, '
       ' CS.CAIXA_SERVICO_RETORNO_ID AS SERVICO_RETORNO_ENTRADA, '
-      
         ' CI.CAIXA_SERVICO_RETORNO_ID AS SERVICO_RETONO_SAIDA, CI.OS_SAID' +
         'A, CI.QUITADO_CAIXA_ID,'
-      
         ' CI.CAIXA_SERVICO_ENTRADA_ID AS SERVICO_CONFIRMADO, CI.OS_TRANSA' +
         'CAO,'
-      
         ' CI.AUTORIZACAO_TIPO, CI.AUTORIZACAO_ID, U.LOGIN, CI.FINALIZACAO' +
         ', DATA_REGISTRO, DESMEMBRADO_ID'
       'FROM C_CAIXA_ITEM CI '
@@ -8400,7 +8390,6 @@ object frmOrdemServicoSolicitar: TfrmOrdemServicoSolicitar
     FetchOptions.AssignedValues = [evMode]
     FetchOptions.Mode = fmAll
     SQL.Strings = (
-      
         'SELECT *'#13#10'FROM C_ORDEM_SERVICO'#13#10'WHERE SITUACAO = '#39'A'#39#13#10'ORDER BY D' +
         'ESCRICAO')
     Left = 97
@@ -8467,7 +8456,6 @@ object frmOrdemServicoSolicitar: TfrmOrdemServicoSolicitar
     FetchOptions.AssignedValues = [evMode]
     FetchOptions.Mode = fmAll
     SQL.Strings = (
-      
         'SELECT CSS.*, NT.DESCRICAO'#13#10'FROM C_CAIXA_SERVICO_SEQUENCIAL CSS'#13 +
         #10'  LEFT OUTER JOIN G_NATUREZA_TITULO NT ON'#13#10'  CSS.NATUREZA_TITUL' +
         'O_ID = NT.NATUREZA_TITULO_ID'#13#10'WHERE CSS.CAIXA_SERVICO_ID = :CAIX' +
@@ -8539,7 +8527,6 @@ object frmOrdemServicoSolicitar: TfrmOrdemServicoSolicitar
     FetchOptions.AssignedValues = [evMode]
     FetchOptions.Mode = fmAll
     SQL.Strings = (
-      
         'SELECT * FROM G_EMOLUMENTO'#13#10'WHERE (SITUACAO IS NULL OR SITUACAO ' +
         '<> '#39'I'#39')'#13#10'ORDER BY DESCRICAO')
     Left = 385
@@ -8721,7 +8708,6 @@ object frmOrdemServicoSolicitar: TfrmOrdemServicoSolicitar
     FetchOptions.AssignedValues = [evMode]
     FetchOptions.Mode = fmAll
     SQL.Strings = (
-      
         'SELECT *'#13#10'FROM C_ORDEM_ITEM_SEQUENCIA'#13#10'WHERE ORDEM_SERVICO_ID = ' +
         ':ORDEM_SERVICO_ID')
     Left = 820
@@ -8779,7 +8765,6 @@ object frmOrdemServicoSolicitar: TfrmOrdemServicoSolicitar
     FetchOptions.AssignedValues = [evMode]
     FetchOptions.Mode = fmAll
     SQL.Strings = (
-      
         'SELECT CAIXA_SERVICO_ID, DESCRICAO, VALOR_FIXO_RETORNO'#13#10'FROM C_C' +
         'AIXA_SERVICO'#13#10'WHERE NOT CAIXA_SERVICO_RETORNO_ID IS NULL'#13#10'ORDER ' +
         'BY DESCRICAO')
@@ -8813,7 +8798,6 @@ object frmOrdemServicoSolicitar: TfrmOrdemServicoSolicitar
     FetchOptions.AssignedValues = [evMode]
     FetchOptions.Mode = fmAll
     SQL.Strings = (
-      
         'SELECT CI.CAIXA_ITEM_ID, CI.CAIXA_SERVICO_ID, CI.USUARIO_SERVICO' +
         '_ID, CI.CAIXA_ID, CI.USUARIO_CAIXA_ID,'
       'CI.DESCRICAO, CI.DATA_PAGAMENTO, CI.SITUACAO,'
@@ -9215,7 +9199,6 @@ object frmOrdemServicoSolicitar: TfrmOrdemServicoSolicitar
     FetchOptions.AssignedValues = [evMode]
     FetchOptions.Mode = fmAll
     SQL.Strings = (
-      
         'SELECT C.CAIXA_ITEM_ID, C.OBSERVACAO, C.AUTORIZACAO_TIPO, C.AUTO' +
         'RIZACAO_ID,'#13#10'            U.LOGIN'#13#10'FROM C_CAIXA_ITEM C'#13#10'LEFT OUTE' +
         'R JOIN G_USUARIO U ON '#13#10'C.AUTORIZACAO_ID = U.USUARIO_ID '#13#10'WHERE ' +

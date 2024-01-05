@@ -437,8 +437,8 @@ inherited frmMarcacaoTipoAtualizar: TfrmMarcacaoTipoAtualizar
       LookAndFeel.SkinName = ''
     end
   end
-  inherited DataSetAncestral: TSQLDataSet
-    CommandText = 'SELECT * '#13#10'FROM G_MARCACAO_TIPO'#13#10'WHERE SISTEMA_ID = :SISTEMA_ID'
+  inherited DataSetAncestral: TI9Query
+    SQL.Strings = ('SELECT * '#13#10'FROM G_MARCACAO_TIPO'#13#10'WHERE SISTEMA_ID = :SISTEMA_ID')
     Params = <
       item
         DataType = ftBCD
@@ -453,7 +453,7 @@ inherited frmMarcacaoTipoAtualizar: TfrmMarcacaoTipoAtualizar
   end
   inherited ClientAncestral: TClientDataSet
     Top = 359
-    object ClientAncestralMARCACAO_TIPO_ID: TFMTBCDField
+    object ClientAncestralMARCACAO_TIPO_ID: TBCDField
       FieldName = 'MARCACAO_TIPO_ID'
       Required = True
       Precision = 15
@@ -479,7 +479,7 @@ inherited frmMarcacaoTipoAtualizar: TfrmMarcacaoTipoAtualizar
       FieldName = 'SITUACAO'
       Size = 1
     end
-    object ClientAncestralSISTEMA_ID: TFMTBCDField
+    object ClientAncestralSISTEMA_ID: TBCDField
       FieldName = 'SISTEMA_ID'
       Precision = 15
       Size = 2
@@ -545,7 +545,7 @@ inherited frmMarcacaoTipoAtualizar: TfrmMarcacaoTipoAtualizar
       item
         Name = 'MARCACAO_TIPO_ID'
         Attributes = [faRequired]
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Precision = 20
         Size = 2
       end
@@ -575,7 +575,7 @@ inherited frmMarcacaoTipoAtualizar: TfrmMarcacaoTipoAtualizar
       end
       item
         Name = 'SISTEMA_ID'
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Precision = 20
         Size = 2
       end
@@ -645,7 +645,7 @@ inherited frmMarcacaoTipoAtualizar: TfrmMarcacaoTipoAtualizar
     StoreDefs = True
     Left = 387
     Top = 351
-    object FMTBCDField1: TFMTBCDField
+    object FMTBCDField1: TBCDField
       FieldName = 'MARCACAO_TIPO_ID'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
       Required = True
@@ -671,7 +671,7 @@ inherited frmMarcacaoTipoAtualizar: TfrmMarcacaoTipoAtualizar
       FieldName = 'SITUACAO'
       Size = 1
     end
-    object FMTBCDField2: TFMTBCDField
+    object FMTBCDField2: TBCDField
       FieldName = 'SISTEMA_ID'
       Precision = 15
       Size = 2

@@ -4,6 +4,7 @@ interface
 
 uses
   I9Query,
+  I9Query,
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, CadBasico, FMTBcd, cxTextEdit, cxDBEdit,
   cxControls, cxContainer, cxEdit, cxLabel, DB, DBClient, Provider, SqlExpr,

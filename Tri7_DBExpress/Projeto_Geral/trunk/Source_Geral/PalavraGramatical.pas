@@ -3,6 +3,7 @@ unit PalavraGramatical;
 interface
 
 uses
+  I9Query,
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, ExtCtrls, DB, DBClient, SimpleDS, StdCtrls, cxButtons, cxLabel,
   cxContainer, cxGroupBox, cxDBEdit, cxControls,
@@ -12,9 +13,9 @@ uses
 type
   TfrmPalavraGramatical = class(TForm)
     Panel1: TPanel;
-    sqlGramatica: TSimpleDataSet;
+    sqlGramatica: TI9Query;
     dtsPalavraGramatical: TDataSource;
-    sqlGramaticaGRAMATICA_ID: TFMTBCDField;
+    sqlGramaticaGRAMATICA_ID: TBCDField;
     sqlGramaticaPALAVRA: TStringField;
     sqlGramaticaPREFIXO: TStringField;
     cxLabel1: TcxLabel;

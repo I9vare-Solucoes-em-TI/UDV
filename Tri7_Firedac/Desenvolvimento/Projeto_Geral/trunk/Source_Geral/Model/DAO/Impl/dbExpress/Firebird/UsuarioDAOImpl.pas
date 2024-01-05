@@ -4,6 +4,7 @@ interface
 
 uses
   I9Query,
+  I9Query,
   I9Connection,
   UsuarioDAO,
   Data.SqlExpr,

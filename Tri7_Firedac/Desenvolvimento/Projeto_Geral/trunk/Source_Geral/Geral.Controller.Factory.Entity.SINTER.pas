@@ -3,6 +3,7 @@ unit Geral.Controller.Factory.Entity.SINTER;
 interface
 
 uses
+  FireDAC.Stan.Param,
   Geral.Model.Entity.Spec.Factory,
   Geral.Model.Entity.Spec.SINTER;
 

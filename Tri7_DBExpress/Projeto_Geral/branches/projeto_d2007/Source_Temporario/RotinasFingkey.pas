@@ -113,7 +113,7 @@ var
          dtmControles.sqlAuxiliar.ParamByName('OBJETO').AsBlob := CompressString(vlobjExtraction.TextEncodeFIR)
     else dtmControles.sqlAuxiliar.ParamByName('OBJETO').AsBlob := CompressString(vlCodigoDigital);
     dtmControles.sqlAuxiliar.ParamByName('CHAVE_ID').AsInteger := vlVetBiometria.Chave_id;
-    dtmControles.sqlAuxiliar.ExecSQL(FALSE);
+    dtmControles.sqlAuxiliar.ExecSQL;
   end;
 
 begin

@@ -316,7 +316,7 @@ inherited frmImportarTabelas: TfrmImportarTabelas
         FFFFFFFFF5F5F5EFF0EF}
     end
   end
-  inherited DataSetAncestral: TSQLDataSet
+  inherited DataSetAncestral: TI9Query
     Left = 291
     Top = 119
   end
@@ -331,14 +331,13 @@ inherited frmImportarTabelas: TfrmImportarTabelas
     Left = 291
     Top = 55
   end
-  object sqlG_Emolumento_Periodo: TSimpleDataSet
+  object sqlG_Emolumento_Periodo: TI9Query
     Aggregates = <>
     Connection = dtmControles.DB
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT * FROM G_EMOLUMENTO'#13#10'WHERE EMOLUMENTO_ID <> :EMOLUMENTO_I' +
-      'D'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <
+      'D')
+    ParamData = <
       item
         DataType = ftFloat
         Name = 'EMOLUMENTO_PERIODO_ID'
@@ -354,7 +353,7 @@ inherited frmImportarTabelas: TfrmImportarTabelas
       end>
     Left = 264
     Top = 65531
-    object sqlG_Emolumento_PeriodoEMOLUMENTO_ID: TFMTBCDField
+    object sqlG_Emolumento_PeriodoEMOLUMENTO_ID: TBCDField
       FieldName = 'EMOLUMENTO_ID'
       Precision = 20
       Size = 2

@@ -202,7 +202,7 @@ procedure TfrmGridVisualizacao.SalvarConfiguracao;
       ParamByName('ID').AsInteger      := ClientGridID.AsInteger;
       ParamByName('SITUACAO').AsString := ClientGridSITUACAO.AsString;
       ParamByName('FORM').AsString     := vgGrid.form;
-      ExecSQL(False);
+      ExecSQL;
     end;;
 
   end;

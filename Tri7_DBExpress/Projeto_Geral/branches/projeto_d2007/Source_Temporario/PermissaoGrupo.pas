@@ -3,6 +3,7 @@ unit PermissaoGrupo;
 interface
 
 uses
+  I9Query,
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, ExtCtrls, StdCtrls, DBCtrls, ComCtrls, DB, DBClient, SimpleDS,
   ImgList, Buttons, Grids, DBGrids, cxControls, cxContainer, cxEdit,
@@ -28,28 +29,28 @@ type
     StatusBar1: TStatusBar;
     Panel3: TPanel;
     Label1: TLabel;
-    sqlRotina: TSimpleDataSet;
-    sqlGrupo: TSimpleDataSet;
+    sqlRotina: TI9Query;
+    sqlGrupo: TI9Query;
     dsGrupo: TDataSource;
     ImageList1: TImageList;
-    sqlPermgrupo: TSimpleDataSet;
+    sqlPermgrupo: TI9Query;
     grdRotinas: TcxGrid;
     grdRotinasDBTableView1: TcxGridDBTableView;
     grdRotinasLevel1: TcxGridLevel;
     dsRotina: TDataSource;
-    sqlRotinaSISTEMA_ROTINA_ID: TFMTBCDField;
+    sqlRotinaSISTEMA_ROTINA_ID: TBCDField;
     sqlRotinaDESCROTINA: TStringField;
-    sqlRotinaSISTEMA_MENU_ID: TFMTBCDField;
+    sqlRotinaSISTEMA_MENU_ID: TBCDField;
     sqlRotinaDESCMENU: TStringField;
     grdRotinasDBTableView1SISTEMA_ROTINA_ID: TcxGridDBColumn;
     grdRotinasDBTableView1DESCROTINA: TcxGridDBColumn;
     grdRotinasDBTableView1SISTEMA_MENU_ID: TcxGridDBColumn;
     grdRotinasDBTableView1DESCMENU: TcxGridDBColumn;
-    sqlGrupoUSUARIO_GRUPO_ID: TFMTBCDField;
+    sqlGrupoUSUARIO_GRUPO_ID: TBCDField;
     sqlGrupoDESCRICAO: TStringField;
     sqlGrupoSITUACAO: TStringField;
-    sqlPermgrupoUSUARIO_GRUPO_ID: TFMTBCDField;
-    sqlPermgrupoSISTEMA_ROTINA_ID: TFMTBCDField;
+    sqlPermgrupoUSUARIO_GRUPO_ID: TBCDField;
+    sqlPermgrupoSISTEMA_ROTINA_ID: TBCDField;
     sqlPermgrupoPERMISSAO: TStringField;
     grdRotinasDBTableView1DBColumn1: TcxGridDBColumn;
     GroupBox1: TcxGroupBox;
@@ -152,11 +153,11 @@ begin
   sqlPermgrupo.Connection := dtmControles.DB;
 
   sqlRotina.Close;
-  sqlRotina.DataSet.Params[0].AsInteger := vgId;
+  sqlRotina.Params[0].AsInteger := vgId;
   sqlRotina.Open;
 
   sqlGrupo.Close;
-  sqlGrupo.DataSet.Params[0].AsInteger := vgId;
+  sqlGrupo.Params[0].AsInteger := vgId;
   sqlGrupo.Open;
 
   lcbGrupos.EditValue := sqlGrupoUSUARIO_GRUPO_ID.AsInteger;
@@ -178,7 +179,7 @@ begin
    with sqlPermgrupo do
    begin
       Close;
-      DataSet.Params[0].Value := lcbGrupos.EditValue;
+      Params[0].Value := lcbGrupos.EditValue;
       Open;
    end;
 end;

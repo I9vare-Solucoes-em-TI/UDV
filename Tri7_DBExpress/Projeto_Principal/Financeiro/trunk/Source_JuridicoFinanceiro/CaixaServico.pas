@@ -36,8 +36,8 @@ type
     ClientAncestralDESCRICAO: TStringField;
     ClientAncestralSITUACAO: TStringField;
     ClientAncestralTIPO_TRANSACAO: TStringField;
-    ClientAncestralSISTEMA_ID: TFMTBCDField;
-    ClientAncestralCAIXA_SERVICO_ID: TFMTBCDField;
+    ClientAncestralSISTEMA_ID: TBCDField;
+    ClientAncestralCAIXA_SERVICO_ID: TBCDField;
     grdServicoDBTableView1CAIXA_SERVICO_ID: TcxGridDBColumn;
     grdServicoDBTableView1DESCRICAO: TcxGridDBColumn;
     grdServicoDBTableView1SITUACAO: TcxGridDBColumn;

@@ -40,8 +40,8 @@ begin
   with dtmControles.SimpleAuxiliar do
   begin
     Active := False;
-    DataSet.CommandText := '';
-    DataSet.CommandText := vpSql;
+    SQL.Text := '';
+    SQL.Text := vpSql;
     case vpTipo of
       0 : Active := True;
       1 : Execute;
@@ -103,7 +103,7 @@ begin
     SQL.Add(vpSql);
     case vpTipo of
       0 : Active := True;
-      1 : ExecSQL(FALSE);
+      1 : ExecSQL;
       // Tipo = 2, significa que vai receber parametros.
     end;
   end;
@@ -147,7 +147,7 @@ var
          dtmControles.sqlAuxiliar.ParamByName('OBJETO').AsBlob := CompressString(vlobjExtraction.TextEncodeFIR)
     else dtmControles.sqlAuxiliar.ParamByName('OBJETO').AsBlob := CompressString(vlCodigoDigital);
     dtmControles.sqlAuxiliar.ParamByName('CHAVE_ID').AsInteger := vlVetBiometria.Chave_id;
-    dtmControles.sqlAuxiliar.ExecSQL(FALSE);
+    dtmControles.sqlAuxiliar.ExecSQL;
   end;
 
 begin

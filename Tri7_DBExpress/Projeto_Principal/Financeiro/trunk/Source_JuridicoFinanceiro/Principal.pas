@@ -3,6 +3,7 @@ unit Principal;
 interface
 
 uses
+  I9Query,
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, ImgList, cxControls, cxSplitter, Menus, jpeg,
   ExtCtrls, DB, SqlExpr, ToolWin, ActnMan, ActnCtrls, ActnList,
@@ -130,48 +131,48 @@ type
     popImportacao: TAdvPopupMenu;
     MenuItem1: TMenuItem;
     AdvGlowMenuFavorito: TAdvGlowMenuButton;
-    sqlLancamentoFavorito: TSimpleDataSet;
-    sqlLancamentoFavoritoLIVRO_CAIXA_ID: TFMTBCDField;
-    sqlLancamentoFavoritoCAIXA_ID: TFMTBCDField;
-    sqlLancamentoFavoritoVALOR: TFMTBCDField;
+    sqlLancamentoFavorito: TI9Query;
+    sqlLancamentoFavoritoLIVRO_CAIXA_ID: TBCDField;
+    sqlLancamentoFavoritoCAIXA_ID: TBCDField;
+    sqlLancamentoFavoritoVALOR: TBCDField;
     sqlLancamentoFavoritoOPERACAO: TStringField;
-    sqlLancamentoFavoritoPESSOA_ID: TFMTBCDField;
+    sqlLancamentoFavoritoPESSOA_ID: TBCDField;
     sqlLancamentoFavoritoDATA_PAGAMENTO: TSQLTimeStampField;
     sqlLancamentoFavoritoREFERENCIA: TStringField;
     sqlLancamentoFavoritoOBSERVACAO: TStringField;
-    sqlLancamentoFavoritoCONTABIL_CONTA_ID: TFMTBCDField;
-    sqlLancamentoFavoritoCENTRO_CUSTO_ID: TFMTBCDField;
+    sqlLancamentoFavoritoCONTABIL_CONTA_ID: TBCDField;
+    sqlLancamentoFavoritoCENTRO_CUSTO_ID: TBCDField;
     sqlLancamentoFavoritoESPECIE: TStringField;
     sqlLancamentoFavoritoDOCUMENTO_DESCRICAO: TStringField;
-    sqlLancamentoFavoritoBALANCETE_GRUPO_ID: TFMTBCDField;
-    sqlLancamentoFavoritoLIVRO_FINANCEIRO_ID: TFMTBCDField;
+    sqlLancamentoFavoritoBALANCETE_GRUPO_ID: TBCDField;
+    sqlLancamentoFavoritoLIVRO_FINANCEIRO_ID: TBCDField;
     sqlLancamentoFavoritoHISTORICO: TStringField;
     sqlLancamentoFavoritoANO_MES_REGISTRO: TStringField;
     sqlLancamentoFavoritoDATA_VENCIMENTO: TSQLTimeStampField;
     sqlLancamentoFavoritoSITUACAO: TStringField;
-    sqlLancamentoFavoritoCAIXA_TRANSFERENCIA_ID: TFMTBCDField;
+    sqlLancamentoFavoritoCAIXA_TRANSFERENCIA_ID: TBCDField;
     sqlLancamentoFavoritoIR: TStringField;
     sqlLancamentoFavoritoCNJ: TStringField;
-    sqlLancamentoFavoritoCONTABIL_GRUPO_ID: TFMTBCDField;
+    sqlLancamentoFavoritoCONTABIL_GRUPO_ID: TBCDField;
     sqlLancamentoFavoritoDOCUMENTO_NUMERO: TStringField;
     sqlLancamentoFavoritoAUTOMATICO: TStringField;
-    sqlLancamentoFavoritoCODIGO_FINALIZACAO: TFMTBCDField;
-    sqlLancamentoFavoritoORCAMENTO_ID: TFMTBCDField;
+    sqlLancamentoFavoritoCODIGO_FINALIZACAO: TBCDField;
+    sqlLancamentoFavoritoORCAMENTO_ID: TBCDField;
     sqlLancamentoFavoritoDOC_TIPO: TStringField;
     sqlLancamentoFavoritoDATA_LANCAMENTO: TSQLTimeStampField;
     sqlLancamentoFavoritoFAVORITO_SITUACAO: TStringField;
-    sqlLancamentoFavoritoFAVORITO_VALOR: TFMTBCDField;
-    sqlLancamentoFavoritoTIPO_MODALIDADE_ID: TFMTBCDField;
-    sqlLancamentoFavoritoTIPO_CARGA_ID: TFMTBCDField;
-    sqlLancamentoFavoritoCENTRO_RESERVA_ID: TFMTBCDField;
-    sqlLancamentoFavoritoORDEM: TFMTBCDField;
+    sqlLancamentoFavoritoFAVORITO_VALOR: TBCDField;
+    sqlLancamentoFavoritoTIPO_MODALIDADE_ID: TBCDField;
+    sqlLancamentoFavoritoTIPO_CARGA_ID: TBCDField;
+    sqlLancamentoFavoritoCENTRO_RESERVA_ID: TBCDField;
+    sqlLancamentoFavoritoORDEM: TBCDField;
     sqlLancamentoFavoritoFATURAMENTO: TStringField;
-    sqlLancamentoFavoritoVALOR_DESCONTO: TFMTBCDField;
-    sqlLancamentoFavoritoVALOR_JUROS: TFMTBCDField;
-    sqlLancamentoFavoritoVALOR_MULTA: TFMTBCDField;
+    sqlLancamentoFavoritoVALOR_DESCONTO: TBCDField;
+    sqlLancamentoFavoritoVALOR_JUROS: TBCDField;
+    sqlLancamentoFavoritoVALOR_MULTA: TBCDField;
     sqlLancamentoFavoritoOBSERVACAO_MONETARIA: TStringField;
-    sqlLancamentoFavoritoVALOR_OUTRA_DEDUCAO: TFMTBCDField;
-    sqlLancamentoFavoritoVALOR_FATURADO: TFMTBCDField;
+    sqlLancamentoFavoritoVALOR_OUTRA_DEDUCAO: TBCDField;
+    sqlLancamentoFavoritoVALOR_FATURADO: TBCDField;
     dtsLancamentoFavorito: TDataSource;
     pppFavoritos: TAdvPopupMenu;
     actFavoritos: TAction;
@@ -180,7 +181,7 @@ type
     AdvGlowMenuButton4: TAdvGlowMenuButton;
     AdvToolBar4: TAdvToolBar;
     AdvGlowButton22: TAdvGlowButton;
-    sqlLancamentoFavoritoVALOR_OUTRAS_TAXAS: TFMTBCDField;
+    sqlLancamentoFavoritoVALOR_OUTRAS_TAXAS: TBCDField;
     procedure CAD_USUARIOExecute(Sender: TObject);
     procedure SairExecute(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -358,7 +359,7 @@ var
   T : TMenuItem;
 begin
   dtmControles.sqlRelatorio.Connection := dtmControles.DB;
-  dtmControles.sqlRelatorio.DataSet.Params[0].AsInteger := vgId;
+  dtmControles.sqlRelatorio.Params[0].AsInteger := vgId;
   dtmControles.sqlRelatorio.Open;
 
   if not dtmControles.sqlRelatorio.IsEmpty then

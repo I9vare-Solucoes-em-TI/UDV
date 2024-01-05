@@ -4,6 +4,7 @@ unit CarregarXml;
 interface
 
 uses
+  I9Query,
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, Menus,
   cxFilter, cxEdit, DB, cxDBData, cxContainer,
@@ -142,10 +143,10 @@ type
     cxLabel1: TcxLabel;
     cxLabel2: TcxLabel;
     lcxTipoSelo: TcxLookupComboBox;
-    sqlTipoSelo: TSimpleDataSet;
-    sqlTipoSeloSELO_GRUPO_ID: TFMTBCDField;
+    sqlTipoSelo: TI9Query;
+    sqlTipoSeloSELO_GRUPO_ID: TBCDField;
     sqlTipoSeloDESCRICAO_COMPLETA: TStringField;
-    sqlTipoSeloNUMERO: TFMTBCDField;
+    sqlTipoSeloNUMERO: TBCDField;
     dtsTipoSelo: TDataSource;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure btnCarregarClick(Sender: TObject);
@@ -950,7 +951,7 @@ begin
     sqlTipoSelo.Active := False;
     if icxTipoSistema.ItemIndex <> -1 then
     begin
-      sqlTipoSelo.DataSet.ParamByName('TIPO_CARTORIO').AsString   := icxTipoSistema.EditValue;
+      sqlTipoSelo.ParamByName('TIPO_CARTORIO').AsString   := icxTipoSistema.EditValue;
       sqlTipoSelo.Active    := True;
       lcxTipoSelo.enabled   := True;
     end

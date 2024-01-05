@@ -186,8 +186,8 @@ inherited frmEmolumento_Periodo: TfrmEmolumento_Periodo
     Left = 13
     Top = 282
   end
-  inherited DataSetAncestral: TSQLDataSet
-    CommandText = 'SELECT * FROM G_EMOLUMENTO_PERIODO'
+  inherited DataSetAncestral: TI9Query
+    SQL.Strings = ('SELECT * FROM G_EMOLUMENTO_PERIODO')
     Left = 43
     Top = 282
   end
@@ -198,7 +198,7 @@ inherited frmEmolumento_Periodo: TfrmEmolumento_Periodo
   inherited ClientAncestral: TClientDataSet
     Left = 107
     Top = 282
-    object ClientAncestralEMOLUMENTO_PERIODO_ID: TFMTBCDField
+    object ClientAncestralEMOLUMENTO_PERIODO_ID: TBCDField
       FieldName = 'EMOLUMENTO_PERIODO_ID'
       Required = True
       Precision = 15

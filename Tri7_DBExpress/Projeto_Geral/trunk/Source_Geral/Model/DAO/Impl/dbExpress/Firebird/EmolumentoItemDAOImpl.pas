@@ -3,6 +3,9 @@ unit EmolumentoItemDAOImpl;
 interface
 
 uses
+  FireDAC.Stan.Param,
+  I9Query,
+  I9Connection,
   EmolumentoItemDAO,
   Data.SqlExpr,
   Data.DB,
@@ -15,14 +18,14 @@ type
   // Implementar Prefix
   TEmolumentoItemDAO = class(TInterfacedObject, IEmolumentoItemDAO)
   private
-    FSQLConnection: TSQLConnection;
+    FConnection: TI9Connection;
 
     procedure PreencherParametros(
-      const vpSQLDataSet: TSQLDataSet;
+      const vpI9Query: TI9Query;
       const vpValue: IEmolumentoItem);
   public
     constructor Create(
-      const vpSQLConnection: TSQLConnection); reintroduce;
+      const vpConnection: TI9Connection); reintroduce;
 
     function Get(
       const vpValue: TDataSet): IEmolumentoItem;
@@ -38,7 +41,7 @@ type
       const vpValor: Currency): IEmolumentoItem;
 
     class function New(
-      const vpSQLConnection: TSQLConnection): IEmolumentoItemDAO; static;
+      const vpConnection: TI9Connection): IEmolumentoItemDAO; static;
 
     procedure Inserir(
       const vpValue: IEmolumentoItem);
@@ -62,10 +65,10 @@ uses
 { TEmolumentoItemDAO }
 
 constructor TEmolumentoItemDAO.Create(
-  const vpSQLConnection: TSQLConnection);
+  const vpConnection: TI9Connection);
 begin
   inherited Create;
-  FSQLConnection := vpSQLConnection;
+  FConnection := vpConnection;
 end;
 
 function TEmolumentoItemDAO.Get(
@@ -88,7 +91,7 @@ begin
     viField := FindField('G_E_EMOLUMENTO_ID');
     if Assigned(viField) then
     begin
-      viEmolumentoDAO := TEmolumentoDAO.Create(FSQLConnection);
+      viEmolumentoDAO := TEmolumentoDAO.Create(FConnection);
       try
         Emolumento := viEmolumentoDAO.Get(vpValue);
       finally
@@ -99,7 +102,7 @@ begin
     viField := FindField('G_EP_EMOLUMENTO_PERIODO_ID');
     if Assigned(viField) then
     begin
-      viEmolumentoPeriodoDAO := TEmolumentoPeriodoDAO.Create(FSQLConnection);
+      viEmolumentoPeriodoDAO := TEmolumentoPeriodoDAO.Create(FConnection);
       try
         EmolumentoPeriodo := viEmolumentoPeriodoDAO.Get(vpValue);
       finally
@@ -157,8 +160,8 @@ const
 {$REGION 'Variáveis'}
 var
   viSQL: TStrings;
-  viCommandText: string;
-  viSQLDataSet: TSQLDataSet;
+  viSQLText: string;
+  viSQLDataSet: TI9Query;
 {$ENDREGION}
 begin
   Result := nil;
@@ -199,19 +202,19 @@ begin
 
       {$ENDREGION}
 
-      viCommandText := Text;
+      viSQLText := Text;
     end;
   finally
     FreeAndNil(viSQL);
   end;
 
-  viSQLDataSet := TSQLDataSet.Create(nil);
-  viSQLDataSet.SQLConnection := FSQLConnection;
+  viSQLDataSet := TI9Query.Create(nil);
+  viSQLDataSet.Connection := FConnection;
 
   try
     with viSQLDataSet do
     begin
-      CommandText := viCommandText;
+      SQL.Text := viSQLText;
 
       {$REGION 'Preencher valores dos parâmetros'}
       ParamByName('P_EMOLUMENTO_ID').AsInteger := vpEmolumento.EmolumentoID;
@@ -245,12 +248,12 @@ procedure TEmolumentoItemDAO.Inserir(
   const vpValue: IEmolumentoItem);
 {$REGION 'Variáveis'}
 var
-  viSQLDataSet: TSQLDataSet;
+  viSQLDataSet: TI9Query;
   viSQL: TStrings;
 {$ENDREGION}
 begin
-  viSQLDataSet := TSQLDataSet.Create(nil);
-  viSQLDataSet.SQLConnection := FSQLConnection;
+  viSQLDataSet := TI9Query.Create(nil);
+  viSQLDataSet.Connection := FConnection;
 
   viSQL := TStringList.Create;
 
@@ -305,7 +308,7 @@ begin
         {$ENDREGION}
       end;
 
-      CommandText := viSQL.Text;
+      SQL.Text := viSQL.Text;
       PreencherParametros(viSQLDataSet, vpValue);
       ExecSQL;
     end;
@@ -316,20 +319,20 @@ begin
 end;
 
 class function TEmolumentoItemDAO.New(
-  const vpSQLConnection: TSQLConnection): IEmolumentoItemDAO;
+  const vpConnection: TI9Connection): IEmolumentoItemDAO;
 begin
-  Result := TEmolumentoItemDAO.Create(vpSQLConnection);
+  Result := TEmolumentoItemDAO.Create(vpConnection);
 end;
 
 procedure TEmolumentoItemDAO.PreencherParametros(
-  const vpSQLDataSet: TSQLDataSet;
+  const vpI9Query: TI9Query;
   const vpValue: IEmolumentoItem);
 {$REGION 'Variáveis'}
 var
-  viParam: TParam;
+  viParam: TFDParam;
 {$ENDREGION}
 begin
-  with vpSQLDataSet.Params, vpValue do
+  with vpI9Query.Params, vpValue do
   begin
     viParam := FindParam('P_EMOLUMENTO_ITEM_ID');
     if Assigned(viParam) then

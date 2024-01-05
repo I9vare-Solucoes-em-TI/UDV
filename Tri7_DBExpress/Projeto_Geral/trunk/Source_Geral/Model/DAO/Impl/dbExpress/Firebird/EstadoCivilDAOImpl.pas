@@ -3,6 +3,8 @@ unit EstadoCivilDAOImpl;
 interface
 
 uses
+  I9Query,
+  I9Connection,
   EstadoCivilDAO,
   Data.SqlExpr,
   Data.DB,
@@ -13,10 +15,10 @@ uses
 type
   TEstadoCivilDAO = class(TInterfacedObject, IEstadoCivilDAO)
   private
-    FSQLConnection: TSQLConnection;
+    FConnection: TI9Connection;
   public
     constructor Create(
-      const vpValue: TSQLConnection); reintroduce;
+      const vpValue: TI9Connection); reintroduce;
 
     function Get(
       const vpValue: TDataSet): IEstadoCivil; overload;
@@ -56,10 +58,10 @@ uses
 { TEstadoCivilDAO }
 
 constructor TEstadoCivilDAO.Create(
-  const vpValue: TSQLConnection);
+  const vpValue: TI9Connection);
 begin
   inherited Create;
-  FSQLConnection := vpValue;
+  FConnection := vpValue;
 end;
 
 function TEstadoCivilDAO.Get(
@@ -89,7 +91,7 @@ begin
     if Assigned(viField) and
       viField.IsNull.&Not then
     begin
-      viSistemaDAO := TSistemaDAO.Create(FSQLConnection);
+      viSistemaDAO := TSistemaDAO.Create(FConnection);
       try
         Sistema := viSistemaDAO.Get(vpValue);
       finally
@@ -127,7 +129,7 @@ begin
     if Assigned(viField) and
       viField.IsNull.&Not then
     begin
-      viSistemaDAO := TSistemaDAO.Create(FSQLConnection);
+      viSistemaDAO := TSistemaDAO.Create(FConnection);
       try
         Sistema := viSistemaDAO.Get(vpValue, vpPrefix);
       finally
@@ -148,8 +150,8 @@ const
 {$REGION 'Variáveis'}
 var
   viSQL: TStrings;
-  viCommandText: string;
-  viSQLDataSet: TSQLDataSet;
+  viSQLText: string;
+  viSQLDataSet: TI9Query;
   viEstadoCivil: IEstadoCivil;
 {$ENDREGION}
 begin
@@ -182,18 +184,18 @@ begin
 
       {$ENDREGION}
 
-      viCommandText := Text;
+      viSQLText := Text;
     end;
   finally
     FreeAndNil(viSQL);
   end;
 
-  viSQLDataSet := TSQLDataSet.Create(nil);
+  viSQLDataSet := TI9Query.Create(nil);
   try
     with viSQLDataSet do
     begin
-      SQLConnection := FSQLConnection;
-      CommandText := viCommandText;
+      Connection := FConnection;
+      SQL.Text := viSQLText;
 
       {$REGION 'Preencher valores dos parâmetros'}
       ParamByName('P_SISTEMA_ID').AsInteger := vpSistema.SistemaID;

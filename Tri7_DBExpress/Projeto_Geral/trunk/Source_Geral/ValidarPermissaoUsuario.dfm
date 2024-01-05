@@ -150,7 +150,7 @@ inherited frmValidarPermissaoUsuario: TfrmValidarPermissaoUsuario
       OnClick = btnConfirmarClick
     end
   end
-  inherited DataSetAncestral: TSQLDataSet
+  inherited DataSetAncestral: TI9Query
     Left = 83
     Top = 7
   end

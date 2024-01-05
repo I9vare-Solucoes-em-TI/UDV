@@ -432,7 +432,7 @@ inherited frmCadDuplicaEmolumento: TfrmCadDuplicaEmolumento
         FFFFFFFFF5F5F5EFF0EF}
     end
   end
-  inherited DataSetAncestral: TSQLDataSet
+  inherited DataSetAncestral: TI9Query
     Left = 291
     Top = 119
   end
@@ -447,14 +447,13 @@ inherited frmCadDuplicaEmolumento: TfrmCadDuplicaEmolumento
     Left = 291
     Top = 55
   end
-  object sqlG_Emolumento_Periodo: TSimpleDataSet
+  object sqlG_Emolumento_Periodo: TI9Query
     Aggregates = <>
     Connection = dtmControles.DB
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT * FROM G_EMOLUMENTO_PERIODO'#13#10'WHERE EMOLUMENTO_PERIODO_ID ' +
-      '<> :EMOLUMENTO_PERIODO_ID'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <
+      '<> :EMOLUMENTO_PERIODO_ID')
+    ParamData = <
       item
         DataType = ftUnknown
         Name = 'EMOLUMENTO_PERIODO_ID'
@@ -469,7 +468,7 @@ inherited frmCadDuplicaEmolumento: TfrmCadDuplicaEmolumento
       end>
     Left = 264
     Top = 65531
-    object sqlG_Emolumento_PeriodoEMOLUMENTO_PERIODO_ID: TFMTBCDField
+    object sqlG_Emolumento_PeriodoEMOLUMENTO_PERIODO_ID: TBCDField
       FieldName = 'EMOLUMENTO_PERIODO_ID'
       Required = True
       Precision = 15

@@ -3,6 +3,7 @@
 interface
 
 uses
+  I9Query,
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, cxGraphics, cxControls, cxLookAndFeels,
   cxLookAndFeelPainters, cxContainer, cxEdit, Vcl.Menus, dxBarBuiltInMenu, cxPC,
@@ -32,7 +33,7 @@ type
     dtsClientArquivo: TDataSource;
     OFXLeitura: TYMOFXReader;
     dtsVinculoEncontrado: TDataSource;
-    sqlVinculoEncontrado: TSimpleDataSet;
+    sqlVinculoEncontrado: TI9Query;
     ClientArquivoDATA: TStringField;
     ClientArquivoDESCRICAO: TStringField;
     ClientArquivoVALOR: TCurrencyField;
@@ -47,37 +48,37 @@ type
     ClientArquivoLIBERADO: TStringField;
     ClientArquivoREGISTRADO: TBooleanField;
     ClientArquivoALTERADO: TBooleanField;
-    sqlVinculoEncontradoID: TFMTBCDField;
+    sqlVinculoEncontradoID: TBCDField;
     sqlVinculoEncontradoDATA: TSQLTimeStampField;
-    sqlVinculoEncontradoBALANCETE_GRUPO_ID: TFMTBCDField;
-    sqlVinculoEncontradoCONTABIL_CONTA_ID: TFMTBCDField;
+    sqlVinculoEncontradoBALANCETE_GRUPO_ID: TBCDField;
+    sqlVinculoEncontradoCONTABIL_CONTA_ID: TBCDField;
     sqlVinculoEncontradoHISTORICO: TStringField;
     sqlVinculoEncontradoDOCUMENTO_NUMERO: TStringField;
-    sqlVinculoEncontradoCAIXA_ID: TFMTBCDField;
+    sqlVinculoEncontradoCAIXA_ID: TBCDField;
     sqlVinculoEncontradoOPERACAO: TStringField;
-    sqlVinculoEncontradoPESSOA_ID: TFMTBCDField;
-    sqlVinculoEncontradoVALOR: TFMTBCDField;
+    sqlVinculoEncontradoPESSOA_ID: TBCDField;
+    sqlVinculoEncontradoVALOR: TBCDField;
     sqlVinculoEncontradoCALC_OBSERVACAO: TStringField;
     ClientArquivoMODELO: TStringField;
     ClientArquivoREALIZAR_PLANEJAMENTO: TStringField;
     sqlVinculoEncontradoCONCILIACAO_IDENTIFICADOR: TStringField;
-    sqlContasBancarias: TSimpleDataSet;
+    sqlContasBancarias: TI9Query;
     StringField1: TStringField;
-    FMTBCDField1: TFMTBCDField;
+    FMTBCDField1: TBCDField;
     dtsContasBancarias: TDataSource;
-    sqlLivroCaixa: TSimpleDataSet;
+    sqlLivroCaixa: TI9Query;
     sqlLivroCaixaCALC_PESSOA: TStringField;
     sqlLivroCaixaCALC_OBSERVACAO: TStringField;
     sqlLivroCaixaDATA_PAGAMENTO: TSQLTimeStampField;
-    sqlLivroCaixaLIVRO_CAIXA_ID: TFMTBCDField;
-    sqlLivroCaixaCAIXA_ID: TFMTBCDField;
-    sqlLivroCaixaVALOR: TFMTBCDField;
+    sqlLivroCaixaLIVRO_CAIXA_ID: TBCDField;
+    sqlLivroCaixaCAIXA_ID: TBCDField;
+    sqlLivroCaixaVALOR: TBCDField;
     sqlLivroCaixaOPERACAO: TStringField;
-    sqlLivroCaixaPESSOA_ID: TFMTBCDField;
+    sqlLivroCaixaPESSOA_ID: TBCDField;
     sqlLivroCaixaREFERENCIA: TStringField;
     sqlLivroCaixaOBSERVACAO: TStringField;
-    sqlLivroCaixaCONTABIL_CONTA_ID: TFMTBCDField;
-    sqlLivroCaixaCENTRO_CUSTO_ID: TFMTBCDField;
+    sqlLivroCaixaCONTABIL_CONTA_ID: TBCDField;
+    sqlLivroCaixaCENTRO_CUSTO_ID: TBCDField;
     sqlLivroCaixacalc_ValorDespesa: TCurrencyField;
     sqlLivroCaixacalc_ValorReceita: TCurrencyField;
     sqlLivroCaixacalc_vinculo: TBooleanField;
@@ -85,61 +86,61 @@ type
     sqlLivroCaixacalc_Agrupado: TBooleanField;
     sqlLivroCaixaESPECIE: TStringField;
     sqlLivroCaixaDOCUMENTO_DESCRICAO: TStringField;
-    sqlLivroCaixaBALANCETE_GRUPO_ID: TFMTBCDField;
-    sqlLivroCaixaLIVRO_FINANCEIRO_ID: TFMTBCDField;
-    sqlLivroCaixaPROCESSO_ID: TFMTBCDField;
+    sqlLivroCaixaBALANCETE_GRUPO_ID: TBCDField;
+    sqlLivroCaixaLIVRO_FINANCEIRO_ID: TBCDField;
+    sqlLivroCaixaPROCESSO_ID: TBCDField;
     sqlLivroCaixaHISTORICO: TStringField;
     sqlLivroCaixaANO_MES_REGISTRO: TStringField;
     sqlLivroCaixaDATA_VENCIMENTO: TSQLTimeStampField;
-    sqlLivroCaixaPROCESSO_CONTRATO_ITEM_ID: TFMTBCDField;
-    sqlLivroCaixaLIVRO_AGENDAMENTO_ID: TFMTBCDField;
-    sqlLivroCaixaLIVRO_REMUNERACAO_ID: TFMTBCDField;
+    sqlLivroCaixaPROCESSO_CONTRATO_ITEM_ID: TBCDField;
+    sqlLivroCaixaLIVRO_AGENDAMENTO_ID: TBCDField;
+    sqlLivroCaixaLIVRO_REMUNERACAO_ID: TBCDField;
     sqlLivroCaixaCONTABIL_CONTA_DESCRICAO: TStringField;
     sqlLivroCaixaGRUPO_SECUDARIO: TStringField;
     sqlLivroCaixaGRUPO_PRINCIPAL: TStringField;
     sqlLivroCaixacalc_ValorMovimento: TCurrencyField;
-    sqlLivroCaixaCAIXA_TRANSFERENCIA_ID: TFMTBCDField;
+    sqlLivroCaixaCAIXA_TRANSFERENCIA_ID: TBCDField;
     sqlLivroCaixaIR: TStringField;
     sqlLivroCaixaCNJ: TStringField;
     sqlLivroCaixaDOCUMENTO_NUMERO: TStringField;
     sqlLivroCaixacalc_captador: TStringField;
     sqlLivroCaixaINTERNO: TStringField;
     sqlLivroCaixaAUTOMATICO: TStringField;
-    sqlLivroCaixaORCAMENTO_ID: TFMTBCDField;
-    sqlLivroCaixaINDICE_IMAGEM: TFMTBCDField;
-    sqlLivroCaixaIDENTIFICADOR_ID: TFMTBCDField;
+    sqlLivroCaixaORCAMENTO_ID: TBCDField;
+    sqlLivroCaixaINDICE_IMAGEM: TBCDField;
+    sqlLivroCaixaIDENTIFICADOR_ID: TBCDField;
     sqlLivroCaixacalc_identificador: TStringField;
     sqlLivroCaixaDATA_LANCAMENTO: TSQLTimeStampField;
     sqlLivroCaixaDOC_TIPO: TStringField;
     sqlLivroCaixaFAVORITO_SITUACAO: TStringField;
-    sqlLivroCaixaTIPO_MODALIDADE_ID: TFMTBCDField;
+    sqlLivroCaixaTIPO_MODALIDADE_ID: TBCDField;
     sqlLivroCaixaNOME: TStringField;
     sqlLivroCaixaRESPONSAVEL: TStringField;
     sqlLivroCaixaIDENTIFICADOR_TIPO: TStringField;
-    sqlLivroCaixaRESPONSAVEL_ID: TFMTBCDField;
+    sqlLivroCaixaRESPONSAVEL_ID: TBCDField;
     sqlLivroCaixaCONFERIDO: TStringField;
-    sqlLivroCaixaCENTRO_RESERVA_ID: TFMTBCDField;
+    sqlLivroCaixaCENTRO_RESERVA_ID: TBCDField;
     sqlLivroCaixaFATURAMENTO: TStringField;
-    sqlLivroCaixaORDEM: TFMTBCDField;
+    sqlLivroCaixaORDEM: TBCDField;
     dtsLivroCaixa: TDataSource;
-    sqlLivroCaixaCONTABIL_GRUPO_ID: TFMTBCDField;
-    sqlFinanceiroCompromisso: TSimpleDataSet;
-    sqlFinanceiroCompromissoLIVRO_FINANCEIRO_ID: TFMTBCDField;
+    sqlLivroCaixaCONTABIL_GRUPO_ID: TBCDField;
+    sqlFinanceiroCompromisso: TI9Query;
+    sqlFinanceiroCompromissoLIVRO_FINANCEIRO_ID: TBCDField;
     sqlFinanceiroCompromissoDATA_VENCIMENTO: TSQLTimeStampField;
-    sqlFinanceiroCompromissoVALOR_AGENDADO: TFMTBCDField;
+    sqlFinanceiroCompromissoVALOR_AGENDADO: TBCDField;
     sqlFinanceiroCompromissoSITUACAO: TStringField;
     sqlFinanceiroCompromissocalc_Referencia: TStringField;
-    sqlFinanceiroCompromissoCONTABIL_CONTA_ID: TFMTBCDField;
-    sqlFinanceiroCompromissoCENTRO_CUSTO_ID: TFMTBCDField;
+    sqlFinanceiroCompromissoCONTABIL_CONTA_ID: TBCDField;
+    sqlFinanceiroCompromissoCENTRO_CUSTO_ID: TBCDField;
     sqlFinanceiroCompromissoANO_MES_REFERENCIA: TStringField;
-    sqlFinanceiroCompromissoBALANCETE_GRUPO_ID: TFMTBCDField;
+    sqlFinanceiroCompromissoBALANCETE_GRUPO_ID: TBCDField;
     tt: TStringField;
-    sqlFinanceiroCompromissoBOLETA_ID: TFMTBCDField;
+    sqlFinanceiroCompromissoBOLETA_ID: TBCDField;
     sqlFinanceiroCompromissoATUALIZADO: TStringField;
     sqlFinanceiroCompromissoOPERACAO: TStringField;
-    sqlFinanceiroCompromissoPESSOA_ID: TFMTBCDField;
+    sqlFinanceiroCompromissoPESSOA_ID: TBCDField;
     sqlFinanceiroCompromissocalc_Selecionado: TBooleanField;
-    sqlFinanceiroCompromissoVALOR_DOCUMENTO: TFMTBCDField;
+    sqlFinanceiroCompromissoVALOR_DOCUMENTO: TBCDField;
     sqlFinanceiroCompromissoCALC_VALOR_RECEBER: TCurrencyField;
     sqlFinanceiroCompromissocalc_Observacao: TStringField;
     sqlFinanceiroCompromissoCALC_GRUPO: TStringField;
@@ -147,46 +148,46 @@ type
     sqlFinanceiroCompromissocalc_TipoFinanceiro: TStringField;
     sqlFinanceiroCompromissoHISTORICO: TStringField;
     sqlFinanceiroCompromissoOBSERVACAO: TStringField;
-    sqlFinanceiroCompromissoLIVRO_AGENDAMENTO_ID: TFMTBCDField;
-    sqlFinanceiroCompromissoPROCESSO_CONTRATO_ITEM_ID: TFMTBCDField;
+    sqlFinanceiroCompromissoLIVRO_AGENDAMENTO_ID: TBCDField;
+    sqlFinanceiroCompromissoPROCESSO_CONTRATO_ITEM_ID: TBCDField;
     sqlFinanceiroCompromissocalc_Entrada: TCurrencyField;
     sqlFinanceiroCompromissocalc_saida: TCurrencyField;
     sqlFinanceiroCompromissoIR: TStringField;
     sqlFinanceiroCompromissoCNJ: TStringField;
-    sqlFinanceiroCompromissoCAIXA_ID: TFMTBCDField;
+    sqlFinanceiroCompromissoCAIXA_ID: TBCDField;
     sqlFinanceiroCompromissoDOCUMENTO_NUMERO: TStringField;
     sqlFinanceiroCompromissoREGISTRO_PARCIAL: TStringField;
-    sqlFinanceiroCompromissoVALOR_PAGO_SOMA: TFMTBCDField;
+    sqlFinanceiroCompromissoVALOR_PAGO_SOMA: TBCDField;
     sqlFinanceiroCompromissoUTILIZA_BOLETO: TStringField;
-    sqlFinanceiroCompromissoORCAMENTO_ID: TFMTBCDField;
-    sqlFinanceiroCompromissoVALOR_ORCAMENTO_COMPROMETIDO: TFMTBCDField;
-    sqlFinanceiroCompromissoVALOR_ORCAMENTO_PAGO: TFMTBCDField;
+    sqlFinanceiroCompromissoORCAMENTO_ID: TBCDField;
+    sqlFinanceiroCompromissoVALOR_ORCAMENTO_COMPROMETIDO: TBCDField;
+    sqlFinanceiroCompromissoVALOR_ORCAMENTO_PAGO: TBCDField;
     sqlFinanceiroCompromissocalc_caixa: TIntegerField;
     sqlFinanceiroCompromissocalc_compromisso: TIntegerField;
     sqlFinanceiroCompromissocalc_historico: TStringField;
     sqlFinanceiroCompromissocalc_nome: TStringField;
     sqlFinanceiroCompromissocalc_orcamento: TBooleanField;
-    sqlFinanceiroCompromissoVALOR_RESERVA_ENTRADA: TFMTBCDField;
-    sqlFinanceiroCompromissoVALOR_RESERVA_SAIDA: TFMTBCDField;
+    sqlFinanceiroCompromissoVALOR_RESERVA_ENTRADA: TBCDField;
+    sqlFinanceiroCompromissoVALOR_RESERVA_SAIDA: TBCDField;
     sqlFinanceiroCompromissoCALC_SALDO: TCurrencyField;
     sqlFinanceiroCompromissoPERIODO: TStringField;
-    sqlFinanceiroCompromissoPARCELA: TFMTBCDField;
-    sqlFinanceiroCompromissoQTD: TFMTBCDField;
-    sqlFinanceiroCompromissoPARCELA_INICIAL: TFMTBCDField;
+    sqlFinanceiroCompromissoPARCELA: TBCDField;
+    sqlFinanceiroCompromissoQTD: TBCDField;
+    sqlFinanceiroCompromissoPARCELA_INICIAL: TBCDField;
     sqlFinanceiroCompromissoCALC_PARCELA: TStringField;
     sqlFinanceiroCompromissoDOC_TIPO: TStringField;
     sqlFinanceiroCompromissoREFERENCIA_PERIODO: TStringField;
-    sqlFinanceiroCompromissoNOSSO_NUMERO: TFMTBCDField;
+    sqlFinanceiroCompromissoNOSSO_NUMERO: TBCDField;
     sqlFinanceiroCompromissoIDENTIFICACAO: TStringField;
     sqlFinanceiroCompromissoTIPO: TStringField;
-    sqlFinanceiroCompromissoTIPO_MODALIDADE_ID: TFMTBCDField;
-    sqlFinanceiroCompromissoTIPO_CARGA_ID: TFMTBCDField;
+    sqlFinanceiroCompromissoTIPO_MODALIDADE_ID: TBCDField;
+    sqlFinanceiroCompromissoTIPO_CARGA_ID: TBCDField;
     sqlFinanceiroCompromissoSITUACAO_COMISSAO: TStringField;
     sqlFinanceiroCompromissoCALC_CENTROCUSTO: TIntegerField;
     sqlFinanceiroCompromissoCONFERIDO: TStringField;
-    sqlFinanceiroCompromissoCENTRO_RESERVA_ID: TFMTBCDField;
+    sqlFinanceiroCompromissoCENTRO_RESERVA_ID: TBCDField;
     dtsFinanceiroCompromisso: TDataSource;
-    sqlVinculoEncontradoUSUARIO_ID: TFMTBCDField;
+    sqlVinculoEncontradoUSUARIO_ID: TBCDField;
     ClientArquivoCALC_SELECIONADO: TBooleanField;
     ClientArquivoCONCILIACAO_VINCULO_ID: TStringField;
     pgcConciliacao: TcxPageControl;
@@ -239,42 +240,42 @@ type
     btnTransferenciaManual: TcxButton;
     btnLancamentoManual: TcxButton;
     btnLancamentoProgramado: TcxButton;
-    sqlPesquisaConciliacao: TSimpleDataSet;
+    sqlPesquisaConciliacao: TI9Query;
     dtsPesquisaConcliacao: TDataSource;
-    sqlPesquisaConciliacaoCONCILIACAO_ID: TFMTBCDField;
+    sqlPesquisaConciliacaoCONCILIACAO_ID: TBCDField;
     sqlPesquisaConciliacaoARQUIVO: TStringField;
     sqlPesquisaConciliacaoDATA_CARREGAMENTO: TSQLTimeStampField;
     sqlPesquisaConciliacaoDATA_CONCILIACAO: TSQLTimeStampField;
     sqlPesquisaConciliacaoSITUACAO: TStringField;
-    sqlPesquisaConciliacaoCAIXA_ID: TFMTBCDField;
+    sqlPesquisaConciliacaoCAIXA_ID: TBCDField;
     btnConcliacaoIncluir: TcxButton;
-    sqlDadosConciliacao: TSimpleDataSet;
+    sqlDadosConciliacao: TI9Query;
     dtsDadosConciliacao: TDataSource;
     sqlDadosConciliacaoCONCILIACAO_REGISTRADO_ID: TStringField;
     sqlDadosConciliacaoDATA_CONCILIACAO: TSQLTimeStampField;
     sqlDadosConciliacaoDATA_PAGAMENTO: TSQLTimeStampField;
     sqlDadosConciliacaoDESCRICAO: TStringField;
-    sqlDadosConciliacaoVALOR: TFMTBCDField;
-    sqlDadosConciliacaoLANCAMENTO_ID: TFMTBCDField;
+    sqlDadosConciliacaoVALOR: TBCDField;
+    sqlDadosConciliacaoLANCAMENTO_ID: TBCDField;
     sqlDadosConciliacaoOBSERVACAO: TStringField;
     sqlDadosConciliacaoSITUACAO: TStringField;
     sqlDadosConciliacaoLIBERADO: TStringField;
     sqlDadosConciliacaoVINCULO: TStringField;
     sqlDadosConciliacaoLANCAMENTO: TStringField;
     sqlDadosConciliacaoCONCILIACAO_VINCULO_ID: TStringField;
-    sqlDadosConciliacaoCONCILIACAO_ID: TFMTBCDField;
+    sqlDadosConciliacaoCONCILIACAO_ID: TBCDField;
     sqlDadosConciliacaoOPERACAO: TStringField;
     sqlDadosConciliacaoID_REGISTRO: TStringField;
     sqlDadosConciliacaoDOCUMENTO: TStringField;
     btnConcluir: TcxButton;
     pnlInformacaoConciliacao: TPanel;
     ClientArquivoREGISTRO: TStringField;
-    sqlLivroCaixaVALOR_DESCONTO: TFMTBCDField;
-    sqlLivroCaixaVALOR_JUROS: TFMTBCDField;
-    sqlLivroCaixaVALOR_MULTA: TFMTBCDField;
+    sqlLivroCaixaVALOR_DESCONTO: TBCDField;
+    sqlLivroCaixaVALOR_JUROS: TBCDField;
+    sqlLivroCaixaVALOR_MULTA: TBCDField;
     sqlLivroCaixaOBSERVACAO_MONETARIA: TStringField;
-    sqlLivroCaixaVALOR_OUTRA_DEDUCAO: TFMTBCDField;
-    sqlLivroCaixaVALOR_FATURADO: TFMTBCDField;
+    sqlLivroCaixaVALOR_OUTRA_DEDUCAO: TBCDField;
+    sqlLivroCaixaVALOR_FATURADO: TBCDField;
     grdBasicaDBTableView1Documento: TcxGridDBColumn;
     ClientArquivoVINCULO: TStringField;
     tbcPeriodo: TcxTabControl;
@@ -300,14 +301,14 @@ type
     lblDesmarcarTodos: TcxLabel;
     sqlLivroCaixaCONTABIL_RL: TStringField;
     sqlFinanceiroCompromissoCONTABIL_RL: TStringField;
-    sqlFinanceiroCompromissoVALOR_DESCONTO: TFMTBCDField;
-    sqlFinanceiroCompromissoVALOR_JUROS: TFMTBCDField;
-    sqlFinanceiroCompromissoVALOR_MULTA: TFMTBCDField;
-    sqlFinanceiroCompromissoVALOR_OUTRA_DEDUCAO: TFMTBCDField;
-    sqlFinanceiroCompromissoVALOR_CALCULO: TFMTBCDField;
+    sqlFinanceiroCompromissoVALOR_DESCONTO: TBCDField;
+    sqlFinanceiroCompromissoVALOR_JUROS: TBCDField;
+    sqlFinanceiroCompromissoVALOR_MULTA: TBCDField;
+    sqlFinanceiroCompromissoVALOR_OUTRA_DEDUCAO: TBCDField;
+    sqlFinanceiroCompromissoVALOR_CALCULO: TBCDField;
     sqlFinanceiroCompromissoOBSERVACAO_MONETARIA: TStringField;
-    sqlFinanceiroCompromissoVALOR_OUTRAS_TAXAS: TFMTBCDField;
-    sqlLivroCaixaVALOR_OUTRAS_TAXAS: TFMTBCDField;
+    sqlFinanceiroCompromissoVALOR_OUTRAS_TAXAS: TBCDField;
+    sqlLivroCaixaVALOR_OUTRAS_TAXAS: TBCDField;
     cxTabSheet1: TcxTabSheet;
     cxGrid2: TcxGrid;
     cxGridDBTableView2: TcxGridDBTableView;
@@ -322,23 +323,23 @@ type
     cxGridDBColumn11: TcxGridDBColumn;
     cxGridLevel3: TcxGridLevel;
     dtsModelosProgramados: TDataSource;
-    sqlModelosProgramados: TSimpleDataSet;
+    sqlModelosProgramados: TI9Query;
     Panel3: TPanel;
     lblExcluirModelo: TcxLabel;
     cxGridDBTableView2Column1: TcxGridDBColumn;
-    sqlModelosProgramadosID: TFMTBCDField;
+    sqlModelosProgramadosID: TBCDField;
     sqlModelosProgramadosDATA: TSQLTimeStampField;
-    sqlModelosProgramadosBALANCETE_GRUPO_ID: TFMTBCDField;
-    sqlModelosProgramadosCONTABIL_CONTA_ID: TFMTBCDField;
+    sqlModelosProgramadosBALANCETE_GRUPO_ID: TBCDField;
+    sqlModelosProgramadosCONTABIL_CONTA_ID: TBCDField;
     sqlModelosProgramadosHISTORICO: TStringField;
     sqlModelosProgramadosDOCUMENTO_NUMERO: TStringField;
-    sqlModelosProgramadosCAIXA_ID: TFMTBCDField;
+    sqlModelosProgramadosCAIXA_ID: TBCDField;
     sqlModelosProgramadosOPERACAO: TStringField;
-    sqlModelosProgramadosPESSOA_ID: TFMTBCDField;
-    sqlModelosProgramadosVALOR: TFMTBCDField;
+    sqlModelosProgramadosPESSOA_ID: TBCDField;
+    sqlModelosProgramadosVALOR: TBCDField;
     sqlModelosProgramadosCALC_OBSERVACAO: TStringField;
     sqlModelosProgramadosCONCILIACAO_IDENTIFICADOR: TStringField;
-    sqlModelosProgramadosUSUARIO_ID: TFMTBCDField;
+    sqlModelosProgramadosUSUARIO_ID: TBCDField;
     lblDesfazerConciliacao: TcxLabel;
     btnReabrir: TcxButton;
     lblConciliarSemRegistro: TcxLabel;
@@ -446,7 +447,7 @@ begin
     if ClientArquivoMODELO.AsString = 'S' then
          ParamByName('IDENTIFICADOR').AsString := vpIdentificador
     else ParamByName('IDENTIFICADOR').AsString := '';
-    ExecSQL(FALSE);
+    ExecSQL;
   end;
 end;
 
@@ -567,7 +568,7 @@ procedure TfrmConciliacaoBancaria.btnLancamentoProgramadoClick(Sender: TObject);
       vgDadosLivroCaixa.DuplicarItem  := False;
 
       sqlFinanceiroCompromisso.Active := False;
-      sqlFinanceiroCompromisso.DataSet.ParamByName('LIVRO_FINANCEIRO_ID').AsInteger := ClientArquivoLIVRO_FINANCEIRO_ID.AsInteger;
+      sqlFinanceiroCompromisso.ParamByName('LIVRO_FINANCEIRO_ID').AsInteger := ClientArquivoLIVRO_FINANCEIRO_ID.AsInteger;
       sqlFinanceiroCompromisso.Active := True;
 
       dtmLookupServico.CarregarDadosLancamento(2, 0, sqlFinanceiroCompromisso);
@@ -578,7 +579,7 @@ procedure TfrmConciliacaoBancaria.btnLancamentoProgramadoClick(Sender: TObject);
     begin
       vgDadosLivroCaixa.DuplicarItem  := True;
       sqlLivroCaixa.Active := False;
-      sqlLivroCaixa.DataSet.ParamByName('LIVRO_CAIXA_ID').AsInteger := ClientArquivoLIVRO_CAIXA_ID.AsInteger;
+      sqlLivroCaixa.ParamByName('LIVRO_CAIXA_ID').AsInteger := ClientArquivoLIVRO_CAIXA_ID.AsInteger;
       sqlLivroCaixa.Active := True;
       dtmLookupServico.CarregarDadosLancamento(2, ClientArquivoLIVRO_CAIXA_ID.AsInteger, sqlLivroCaixa);
       vgDadosLivroCaixa.ContabilContaID  := sqlLivroCaixaCONTABIL_CONTA_ID.AsInteger;
@@ -705,7 +706,7 @@ begin
 
   MontarCondicao;
   sqlPesquisaConciliacao.Active := False;
-  sqlPesquisaConciliacao.DataSet.CommandText := viSql + viCondicao;
+  sqlPesquisaConciliacao.SQL.Text := viSql + viCondicao;
   sqlPesquisaConciliacao.Active := True;
 
   dtmLookup.MarcarDesmarcarItensSimpleDataSet('N', sqlPesquisaConciliacao);
@@ -769,10 +770,10 @@ procedure TfrmConciliacaoBancaria.BuscarVinculoRegistro;
       1     : CarregarSqlLivroFinanceiro(vpCampo, vpOperacao)
     end;
 
-    sqlVinculoEncontrado.DataSet.CommandText := vlSql;
+    sqlVinculoEncontrado.SQL.Text := vlSql;
     if vpId <> '' then
     begin
-      sqlVinculoEncontrado.DataSet.ParamByName('ID').AsString := vpId;
+      sqlVinculoEncontrado.ParamByName('ID').AsString := vpId;
       sqlVinculoEncontrado.Active    := True;
     end;
     tabVinculo.Tabs[vpTab].Visible := True;
@@ -1358,7 +1359,7 @@ begin
     LockWindowUpdate(Handle);
     repeat
       sqlDadosConciliacao.Active := False;
-      sqlDadosConciliacao.DataSet.ParamByName('CONCILIACAO_ID').AsInteger := sqlPesquisaConciliacaoCONCILIACAO_ID.AsInteger;
+      sqlDadosConciliacao.ParamByName('CONCILIACAO_ID').AsInteger := sqlPesquisaConciliacaoCONCILIACAO_ID.AsInteger;
       sqlDadosConciliacao.Active := True;
 
       if sqlPesquisaConciliacao.Filtered then
@@ -1499,7 +1500,7 @@ var
       ParamByName('LANCAMENTO').AsString                := vpLancamento;
       ParamByName('VINCULO').AsString                   := ClientArquivoVinculo.AsString;
       ParamByName('OBSERVACAO').AsString                := ClientArquivoOBSERVACAO.AsString;
-      ExecSQL(False);
+      ExecSQL;
     end;
   end;
 
@@ -1642,11 +1643,11 @@ var
     vlSql := vlSql +
             ' AND DATA_PAGAMENTO = :DATA_PAGAMENTO';
     sqlVinculoEncontrado.Active := False;
-    sqlVinculoEncontrado.DataSet.CommandText := vlSql;
-    sqlVinculoEncontrado.DataSet.ParamByName('ID').AsCurrency         := ClientArquivoVALOR.AsCurrency;
-    sqlVinculoEncontrado.DataSet.ParamByName('DATA_PAGAMENTO').AsDate := ClientArquivoDATA.AsDateTime;
-    sqlVinculoEncontrado.DataSet.ParamByName('OPERACAO1').AsString    := ClientArquivoOPERACAO.AsString;
-    sqlVinculoEncontrado.DataSet.ParamByName('OPERACAO2').AsString    := 'T'+ClientArquivoOPERACAO.AsString;
+    sqlVinculoEncontrado.SQL.Text := vlSql;
+    sqlVinculoEncontrado.ParamByName('ID').AsCurrency         := ClientArquivoVALOR.AsCurrency;
+    sqlVinculoEncontrado.ParamByName('DATA_PAGAMENTO').AsDate := ClientArquivoDATA.AsDateTime;
+    sqlVinculoEncontrado.ParamByName('OPERACAO1').AsString    := ClientArquivoOPERACAO.AsString;
+    sqlVinculoEncontrado.ParamByName('OPERACAO2').AsString    := 'T'+ClientArquivoOPERACAO.AsString;
     sqlVinculoEncontrado.Active := True;
 
     if sqlVinculoEncontrado.IsEmpty then
@@ -1673,9 +1674,9 @@ var
     CarregarSqlLivroFinanceiro('LF.VALOR_AGENDADO', ClientArquivoOPERACAO.AsString);
     vlSql := vlSql + ' AND LF.ANO_MES_REFERENCIA = :ANO_MES_REFERENCIA';
     sqlVinculoEncontrado.Active := False;
-    sqlVinculoEncontrado.DataSet.CommandText := vlSql;
-    sqlVinculoEncontrado.DataSet.ParamByName('ID').AsCurrency               := ClientArquivoVALOR.AsCurrency;
-    sqlVinculoEncontrado.DataSet.ParamByName('ANO_MES_REFERENCIA').AsString := PegarAnoMes(ClientArquivoDATA.AsString);
+    sqlVinculoEncontrado.SQL.Text := vlSql;
+    sqlVinculoEncontrado.ParamByName('ID').AsCurrency               := ClientArquivoVALOR.AsCurrency;
+    sqlVinculoEncontrado.ParamByName('ANO_MES_REFERENCIA').AsString := PegarAnoMes(ClientArquivoDATA.AsString);
     sqlVinculoEncontrado.Active := True;
 
     if sqlVinculoEncontrado.IsEmpty then
@@ -1841,7 +1842,7 @@ begin
       vgDadosLivroCaixa.LivroFinanceiroID  := FieldByName('LIVRO_FINANCEIRO_ID').AsInteger;
 
       dtmLookupServico.sqlLivroAgendamento.Active := False;
-      dtmLookupServico.sqlLivroAgendamento.DataSet.ParamByName('LIVRO_AGENDAMENTO_ID').AsBCD := vgDadosLivroCaixa.LivroAgendamentoId;
+      dtmLookupServico.sqlLivroAgendamento.ParamByName('LIVRO_AGENDAMENTO_ID').AsBCD := vgDadosLivroCaixa.LivroAgendamentoId;
       dtmLookupServico.sqlLivroAgendamento.Active := True;
     end;
 
@@ -1903,7 +1904,7 @@ begin
       ParamByName('DATA_PAGAMENTO').AsString   := FormatDateTime('DD.MM.YYYY', ClientArquivoDATA.AsDateTime);
       ParamByName('ANO_MES_REGISTRO').AsString := PegarAnoMes(ClientArquivoDATA.AsString);
     end;
-    ExecSQL(FALSE);
+    ExecSQL;
   end;
 
   AtualizaSituacaoRegistroItem(ClientArquivoID.AsString);

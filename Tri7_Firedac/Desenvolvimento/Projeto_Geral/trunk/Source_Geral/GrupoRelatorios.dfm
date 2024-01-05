@@ -151,7 +151,6 @@ inherited frmGrupoRelatorio: TfrmGrupoRelatorio
   inherited DataSetAncestral: TI9Query
     MasterFields = 'SISTEMA_ID'
     SQL.Strings = (
-      
         'select *  from G_GRUPO_RELATORIO'#13#10'where SISTEMA_ID =  :SISTEMA_I' +
         'D'#13#10'   or sistema_id = :SISTEMA_ID1'#13#10'order by DESCRICAO')
     Top = 162

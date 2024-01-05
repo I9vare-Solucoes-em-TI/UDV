@@ -3,6 +3,7 @@ unit ItensAgendamento;
 interface
 
 uses
+  I9Query,
   Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
   Vcl.Controls, Vcl.Forms, Vcl.Dialogs, cxGraphics, cxControls, cxLookAndFeels,
   cxLookAndFeelPainters, cxContainer, cxEdit, Vcl.Menus, cxStyles, cxCustomData,
@@ -25,19 +26,19 @@ type
     cxGridLevel7: TcxGridLevel;
     frxDBDatasetItens: TfrxDBDataset;
     btnCancelar: TcxButton;
-    sqlItensAgendamento: TSimpleDataSet;
+    sqlItensAgendamento: TI9Query;
     dtsItensAgendamento: TDataSource;
     sqlItensAgendamentoDATA_VENCIMENTO: TSQLTimeStampField;
-    sqlItensAgendamentoVALOR_AGENDADO: TFMTBCDField;
+    sqlItensAgendamentoVALOR_AGENDADO: TBCDField;
     sqlItensAgendamentoOPERACAO: TStringField;
     sqlItensAgendamentoCOMPROMISSO: TStringField;
     sqlItensAgendamentoHISTORICO: TStringField;
-    sqlItensAgendamentoQTD: TFMTBCDField;
-    sqlItensAgendamentoPARCELA: TFMTBCDField;
-    sqlItensAgendamentoPARCELA_INICIAL: TFMTBCDField;
-    sqlItensAgendamentoCAIXA_ID: TFMTBCDField;
+    sqlItensAgendamentoQTD: TBCDField;
+    sqlItensAgendamentoPARCELA: TBCDField;
+    sqlItensAgendamentoPARCELA_INICIAL: TBCDField;
+    sqlItensAgendamentoCAIXA_ID: TBCDField;
     sqlItensAgendamentoDATA_PAGAMENTO: TSQLTimeStampField;
-    sqlItensAgendamentoVALOR_REGISTRADO: TFMTBCDField;
+    sqlItensAgendamentoVALOR_REGISTRADO: TBCDField;
     cxGridDBTablePrevisaoColumn1: TcxGridDBColumn;
     cxGridDBTablePrevisaoColumn3: TcxGridDBColumn;
     cxGridDBTablePrevisaoColumn4: TcxGridDBColumn;
@@ -47,7 +48,7 @@ type
     cxGridDBTablePrevisaoColumn8: TcxGridDBColumn;
     cxGridDBTablePrevisaoColumn2: TcxGridDBColumn;
     cxGridDBTablePrevisaoColumn9: TcxGridDBColumn;
-    sqlItensAgendamentoLIVRO_FINANCEIRO_ID: TFMTBCDField;
+    sqlItensAgendamentoLIVRO_FINANCEIRO_ID: TBCDField;
     sqlItensAgendamentoCALC_PARCELA: TStringField;
     sqlItensAgendamentoSITUACAO: TStringField;
     cxGridDBTablePrevisaoColumn10: TcxGridDBColumn;
@@ -112,7 +113,7 @@ end;
 procedure TfrmItensAgendamento.FormActivate(Sender: TObject);
 begin
   sqlItensAgendamento.Active := False;
-  sqlItensAgendamento.DataSet.ParamByName('LIVRO_AGENDAMENTO_ID').AsInteger := vgItemAgendamentoId;
+  sqlItensAgendamento.ParamByName('LIVRO_AGENDAMENTO_ID').AsInteger := vgItemAgendamentoId;
   sqlItensAgendamento.Active := True;
 
   if sqlItensAgendamentoDATA_FINAL.IsNull then

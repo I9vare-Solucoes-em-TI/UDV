@@ -37,7 +37,7 @@ type
     cxGridPesquisaColumn2: TcxGridDBColumn;
     ClientAncestralDESCRICAO: TStringField;
     ClientAncestralSITUACAO: TStringField;
-    ClientAncestralTIPO_MODALIDADE_ID: TFMTBCDField;
+    ClientAncestralTIPO_MODALIDADE_ID: TBCDField;
     ClientAncestralTIPO: TStringField;
     edtDescricao: TcxDBTextEdit;
     icxTipoModalidade: TcxDBImageComboBox;

@@ -920,9 +920,8 @@ inherited frmCadSeloLote: TfrmCadSeloLote
       Visible = False
     end
   end
-  inherited DataSetAncestral: TSQLDataSet
-    SchemaName = 'SYSDBA'
-    CommandText = 'SELECT *'#13#10'FROM G_SELO_LOTE'#13#10'ORDER BY SELO_GRUPO_ID, DATA_LOTE'
+  inherited DataSetAncestral: TI9Query
+    SQL.Strings = ('SELECT *'#13#10'FROM G_SELO_LOTE'#13#10'ORDER BY SELO_GRUPO_ID, DATA_LOTE')
     Left = 475
     Top = 338
   end
@@ -940,14 +939,14 @@ inherited frmCadSeloLote: TfrmCadSeloLote
       FieldName = 'SITUACAO'
       Size = 1
     end
-    object ClientAncestralSELO_LOTE_ID: TFMTBCDField
+    object ClientAncestralSELO_LOTE_ID: TBCDField
       FieldName = 'SELO_LOTE_ID'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
       Required = True
       Precision = 15
       Size = 2
     end
-    object ClientAncestralSELO_GRUPO_ID: TFMTBCDField
+    object ClientAncestralSELO_GRUPO_ID: TBCDField
       FieldName = 'SELO_GRUPO_ID'
       Precision = 15
       Size = 2
@@ -956,12 +955,12 @@ inherited frmCadSeloLote: TfrmCadSeloLote
       FieldName = 'OBSERVACAO'
       Size = 120
     end
-    object ClientAncestralNUMERO_INICIAL: TFMTBCDField
+    object ClientAncestralNUMERO_INICIAL: TBCDField
       FieldName = 'NUMERO_INICIAL'
       Precision = 15
       Size = 2
     end
-    object ClientAncestralNUMERO_FINAL: TFMTBCDField
+    object ClientAncestralNUMERO_FINAL: TBCDField
       FieldName = 'NUMERO_FINAL'
       Precision = 15
       Size = 2
@@ -994,16 +993,15 @@ inherited frmCadSeloLote: TfrmCadSeloLote
     Left = 571
     Top = 338
   end
-  object sqlSeloLivro: TSimpleDataSet
+  object sqlSeloLivro: TI9Query
     Aggregates = <>
     Connection = dtmControles.DB
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT * '#13#10'FROM G_SELO_LIVRO'#13#10'WHERE SELO_LOTE_ID = :SELO_LOTE_ID' +
-      #13#10'ORDER BY NUMERO'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <
+      #13#10'ORDER BY NUMERO')
+    ParamData = <
       item
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Name = 'SELO_LOTE_ID'
         ParamType = ptInput
       end>
@@ -1011,18 +1009,18 @@ inherited frmCadSeloLote: TfrmCadSeloLote
     OnCalcFields = sqlSeloLivroCalcFields
     Left = 539
     Top = 291
-    object sqlSeloLivroSELO_LIVRO_ID: TFMTBCDField
+    object sqlSeloLivroSELO_LIVRO_ID: TBCDField
       FieldName = 'SELO_LIVRO_ID'
       Required = True
       Precision = 15
       Size = 2
     end
-    object sqlSeloLivroNUMERO: TFMTBCDField
+    object sqlSeloLivroNUMERO: TBCDField
       FieldName = 'NUMERO'
       Precision = 15
       Size = 2
     end
-    object sqlSeloLivroSELO_SITUACAO_ID: TFMTBCDField
+    object sqlSeloLivroSELO_SITUACAO_ID: TBCDField
       FieldName = 'SELO_SITUACAO_ID'
       Precision = 15
       Size = 2
@@ -1031,7 +1029,7 @@ inherited frmCadSeloLote: TfrmCadSeloLote
       FieldName = 'OBSERVACAO'
       Size = 90
     end
-    object sqlSeloLivroSELO_LOTE_ID: TFMTBCDField
+    object sqlSeloLivroSELO_LOTE_ID: TBCDField
       FieldName = 'SELO_LOTE_ID'
       Precision = 15
       Size = 2
@@ -1047,12 +1045,12 @@ inherited frmCadSeloLote: TfrmCadSeloLote
       FieldName = 'TABELA'
       Size = 30
     end
-    object sqlSeloLivroCAMPO_ID: TFMTBCDField
+    object sqlSeloLivroCAMPO_ID: TBCDField
       FieldName = 'CAMPO_ID'
       Precision = 20
       Size = 2
     end
-    object sqlSeloLivroUSUARIO_ID: TFMTBCDField
+    object sqlSeloLivroUSUARIO_ID: TBCDField
       FieldName = 'USUARIO_ID'
       Precision = 20
       Size = 2
@@ -1078,19 +1076,18 @@ inherited frmCadSeloLote: TfrmCadSeloLote
     Left = 571
     Top = 291
   end
-  object sqlSeloGrupo: TSimpleDataSet
+  object sqlSeloGrupo: TI9Query
     Aggregates = <>
     Connection = dtmControles.DB
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT SG.* , ST.DESCRICAO AS DESCRICAO_TIPO_CARTORIO'#13#10'FROM G_SE' +
       'LO_GRUPO SG'#13#10'LEFT JOIN G_SELO_TIPO_CARTORIO ST ON'#13#10'   SG.TIPO_CA' +
-      'RTORIO = ST.SELO_TIPO_CARTORIO_ID'#13#10'ORDER BY SG.DESCRICAO'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <>
+      'RTORIO = ST.SELO_TIPO_CARTORIO_ID'#13#10'ORDER BY SG.DESCRICAO')
+    ParamData = <>
     Params = <>
     Left = 539
     Top = 251
-    object sqlSeloGrupoSELO_GRUPO_ID: TFMTBCDField
+    object sqlSeloGrupoSELO_GRUPO_ID: TBCDField
       FieldName = 'SELO_GRUPO_ID'
       Required = True
       Precision = 15
@@ -1104,7 +1101,7 @@ inherited frmCadSeloLote: TfrmCadSeloLote
       FieldName = 'SITUACAO'
       Size = 1
     end
-    object sqlSeloGrupoNUMERO: TFMTBCDField
+    object sqlSeloGrupoNUMERO: TBCDField
       FieldName = 'NUMERO'
       Precision = 20
       Size = 2
@@ -1127,16 +1124,15 @@ inherited frmCadSeloLote: TfrmCadSeloLote
     Left = 579
     Top = 243
   end
-  object sqlSeloSituacao: TSimpleDataSet
+  object sqlSeloSituacao: TI9Query
     Aggregates = <>
     Connection = dtmControles.DB
-    DataSet.CommandText = 'SELECT * '#13#10'FROM G_SELO_SITUACAO'#13#10'ORDER BY DESCRICAO'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <>
+    SQL.Strings = ('SELECT * '#13#10'FROM G_SELO_SITUACAO'#13#10'ORDER BY DESCRICAO')
+    ParamData = <>
     Params = <>
     Left = 371
     Top = 339
-    object sqlSeloSituacaoSELO_SITUACAO_ID: TFMTBCDField
+    object sqlSeloSituacaoSELO_SITUACAO_ID: TBCDField
       FieldName = 'SELO_SITUACAO_ID'
       Precision = 20
       Size = 2

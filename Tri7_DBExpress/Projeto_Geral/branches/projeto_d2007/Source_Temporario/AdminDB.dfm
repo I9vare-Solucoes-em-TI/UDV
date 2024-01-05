@@ -1840,30 +1840,27 @@ object frmAdminDB: TfrmAdminDB
     Left = 400
     Top = 133
   end
-  object sqlExecute: TSimpleDataSet
+  object sqlExecute: TI9Query
     Aggregates = <>
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <>
+    ParamData = <>
     Params = <>
     AfterPost = sqlExecuteAfterPost
     AfterDelete = sqlExecuteAfterDelete
     Left = 364
     Top = 132
   end
-  object sqlAtualiza: TSQLQuery
-    MaxBlobSize = -1
+  object sqlAtualiza: TI9Query
     Params = <>
-    SQLConnection = dtmControles.DB
+    Connection = dtmControles.DB
     Left = 365
     Top = 95
   end
-  object sqlTabela: TSimpleDataSet
+  object sqlTabela: TI9Query
     Aggregates = <>
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT RDB$RELATION_NAME TABELA FROM RDB$RELATIONS '#13#10'WHERE RDB$S' +
-      'YSTEM_FLAG = 0 '#13#10'ORDER  BY RDB$RELATION_NAME'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <>
+      'YSTEM_FLAG = 0 '#13#10'ORDER  BY RDB$RELATION_NAME')
+    ParamData = <>
     Params = <>
     Left = 28
     Top = 92
@@ -1878,13 +1875,12 @@ object frmAdminDB: TfrmAdminDB
     Left = 64
     Top = 93
   end
-  object sqlCampo: TSimpleDataSet
+  object sqlCampo: TI9Query
     Aggregates = <>
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT RDB$FIELD_NAME AS CAMPO FROM RDB$RELATION_FIELDS'#13#10'ORDER B' +
-      'Y RDB$FIELD_NAME'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <>
+      'Y RDB$FIELD_NAME')
+    ParamData = <>
     Params = <>
     Left = 36
     Top = 284

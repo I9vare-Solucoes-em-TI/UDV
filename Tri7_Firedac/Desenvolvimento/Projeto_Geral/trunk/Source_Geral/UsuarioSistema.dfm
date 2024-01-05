@@ -203,7 +203,6 @@ inherited frmUsuarioSistema: TfrmUsuarioSistema
   end
   inherited DataSetAncestral: TI9Query
     SQL.Strings = (
-      
         'select * from G_USUARIO_SISTEMA'#13#10'where SISTEMA_ID = :SISTEMA_ID'#13 +
         #10'order by USUARIO_GRUPO_ID')
     Left = 115
@@ -249,7 +248,6 @@ inherited frmUsuarioSistema: TfrmUsuarioSistema
     FetchOptions.AssignedValues = [evMode]
     FetchOptions.Mode = fmAll
     SQL.Strings = (
-      
         'select * from G_USUARIO_GRUPO'#13#10'where SITUACAO = '#39'A'#39#13#10'order by DE' +
         'SCRICAO')
     Left = 601
@@ -274,7 +272,6 @@ inherited frmUsuarioSistema: TfrmUsuarioSistema
     FetchOptions.AssignedValues = [evMode]
     FetchOptions.Mode = fmAll
     SQL.Strings = (
-      
         'select USUARIO_ID, NOME_COMPLETO from G_USUARIO '#13#10'where SITUACAO' +
         ' = '#39'A'#39#13#10'order by NOME_COMPLETO')
     Left = 601

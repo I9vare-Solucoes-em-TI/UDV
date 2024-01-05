@@ -3,6 +3,8 @@ unit ProfissaoDAOImpl;
 interface
 
 uses
+  I9Query,
+  I9Connection,
   ProfissaoDAO,
   FireDAC.Comp.Client,
   FireDAC.Comp.DataSet,
@@ -13,14 +15,14 @@ uses
 type
   TProfissaoDAO = class(TInterfacedObject, IProfissaoDAO)
   private
-    FFDConnection: TFDConnection;
+    FFDConnection: TI9Connection;
 
     procedure PreencherParametros(
       const vpFDDataSet: TFDDataSet;
       const vpValue: IProfissao);
   public
     constructor Create(
-      const vpFDConnection: TFDConnection); reintroduce;
+      const vpFDConnection: TI9Connection); reintroduce;
 
     function Get(
       const vpValue: TDataSet): IProfissao;
@@ -54,7 +56,7 @@ uses
 { TProfissaoDAO }
 
 constructor TProfissaoDAO.Create(
-  const vpFDConnection: TFDConnection);
+  const vpFDConnection: TI9Connection);
 begin
   inherited Create;
   FFDConnection := vpFDConnection;
@@ -97,10 +99,10 @@ const
 
 {$REGION 'Variáveis'}
 var
-  viFDQuery: TFDQuery;
+  viFDQuery: TI9Query;
 {$ENDREGION}
 begin
-  viFDQuery := TFDQuery.Create(nil);
+  viFDQuery := TI9Query.Create(nil);
 
   try
     with viFDQuery do

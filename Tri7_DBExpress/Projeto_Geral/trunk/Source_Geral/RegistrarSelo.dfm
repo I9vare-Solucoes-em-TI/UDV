@@ -330,7 +330,7 @@ inherited frmSeloRegistrar: TfrmSeloRegistrar
       Transparent = True
     end
   end
-  inherited DataSetAncestral: TSQLDataSet
+  inherited DataSetAncestral: TI9Query
     Left = 99
     Top = 119
   end
@@ -346,19 +346,18 @@ inherited frmSeloRegistrar: TfrmSeloRegistrar
     Left = 243
     Top = 119
   end
-  object sqlUsuarioSistema: TSimpleDataSet
+  object sqlUsuarioSistema: TI9Query
     Aggregates = <>
     Connection = dtmControles.DB
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT U.USUARIO_ID, U.LOGIN'#13#10'FROM G_USUARIO U RIGHT OUTER JOIN ' +
       'G_USUARIO_SISTEMA S'#13#10'  ON U.USUARIO_ID = S.USUARIO_ID'#13#10'WHERE U.S' +
-      'ITUACAO = '#39'A'#39#13#10'ORDER BY U.LOGIN'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <>
+      'ITUACAO = '#39'A'#39#13#10'ORDER BY U.LOGIN')
+    ParamData = <>
     Params = <>
     Left = 378
     Top = 74
-    object sqlUsuarioSistemaUSUARIO_ID: TFMTBCDField
+    object sqlUsuarioSistemaUSUARIO_ID: TBCDField
       FieldName = 'USUARIO_ID'
       Precision = 15
       Size = 2

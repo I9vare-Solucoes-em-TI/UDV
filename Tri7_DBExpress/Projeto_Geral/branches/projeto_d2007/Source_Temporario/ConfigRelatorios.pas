@@ -3,6 +3,7 @@ unit ConfigRelatorios;
 interface
 
 uses
+  I9Query,
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, CadBasico, cxLookAndFeelPainters, FMTBcd, cxTextEdit, cxDBEdit,
   cxControls, cxContainer, cxEdit, cxLabel, DB, DBClient, Provider,
@@ -34,17 +35,17 @@ type
     grdConfRelLevel1: TcxGridLevel;
     grdConfRelDBTableView1CONFIG_RELATORIO_ID: TcxGridDBColumn;
     grdConfRelDBTableView1DESCRICAO: TcxGridDBColumn;
-    ClientAncestralCONFIG_RELATORIO_ID: TFMTBCDField;
+    ClientAncestralCONFIG_RELATORIO_ID: TBCDField;
     ClientAncestralDESCRICAO: TStringField;
     ClientAncestralRELATORIO: TBlobField;
     cxSplitter1: TcxSplitter;
     cxLabel5: TcxLabel;
-    sqlGrupoRelatorio: TSimpleDataSet;
+    sqlGrupoRelatorio: TI9Query;
     dsGrupoRelatorio: TDataSource;
-    sqlGrupoRelatorioGRUPO_RELATORIO_ID: TFMTBCDField;
+    sqlGrupoRelatorioGRUPO_RELATORIO_ID: TBCDField;
     sqlGrupoRelatorioDESCRICAO: TStringField;
-    ClientAncestralGRUPO_RELATORIO_ID: TFMTBCDField;
-    ClientAncestralSISTEMA_ID: TFMTBCDField;
+    ClientAncestralGRUPO_RELATORIO_ID: TBCDField;
+    ClientAncestralSISTEMA_ID: TBCDField;
     grdConfRelDBTableView1GRUPO_RELATORIO_ID: TcxGridDBColumn;
     ClientAncestralSITUACAO: TStringField;
     ClientAncestralHISTORICO: TBlobField;
@@ -113,7 +114,7 @@ begin
   CriarFuncoesRelatorio(frxRelatorio);
   inherited;
   sqlGrupoRelatorio.Close;
-  sqlGrupoRelatorio.DataSet.Params[0].AsInteger := vgId;
+  sqlGrupoRelatorio.Params[0].AsInteger := vgId;
   sqlGrupoRelatorio.Open;
 
   DataSetAncestral.Close;

@@ -3,6 +3,9 @@ unit SeloSelecionado;
 interface
 
 uses
+  FireDAC.Stan.Param,
+  I9Query,
+  I9Connection,
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, Menus, cxControls, SeloFundo,
   cxContainer, cxEdit, cxLabel, StdCtrls, cxButtons, ExtCtrls, DB, DBClient,
@@ -181,7 +184,7 @@ begin
     with dtmControles.sqlAuxiliar do
     begin
       ParamByName('DATA').AsString := dtmControles.DataHoraBanco(5);
-      ExecSQL(FALSE);
+      ExecSQL;
     end;
   end;
 
@@ -343,7 +346,7 @@ var
       else ParamByName('USUARIO_ID').AsString := vgDadosSelo.Serventuario;
 
       ParamByName('USUARIO_ATO_ID').AsString := vgUsuarioID;
-      ExecSQL(FALSE);
+      ExecSQL;
     end;
 
     if Assigned(vpSeloFundos) then
@@ -496,7 +499,7 @@ var
   viSelo, viPesquisa : String;
   viSeloLivroList: TSeloLivroList;
   viSQL: string;
-  viParams: TParams;
+  viParams: TFDParams;
   viDataSet: TDataSet;
   viSeloLivro: ISeloLivro;
 {$ENDREGION}
@@ -561,7 +564,7 @@ begin
 
       {$ENDREGION}
 
-      viParams := TParams.Create;
+      viParams := TFDParams.Create;
       try
         if vpNumeroAgrupador.IsEmpty then
         begin
@@ -721,14 +724,14 @@ var
 begin
   viStrings := TStringList.Create;
   try
-    TDataSetAPI<TFDQuery>.New(
-      TFDQuery.Create(
+    TDataSetAPI<TI9Query>.New(
+      TI9Query.Create(
         nil))
     .AutoClose
     .AutoDestroy
     .ExecuteAction(
       procedure(
-        const vpFDQuery: TFDQuery)
+        const vpFDQuery: TI9Query)
       begin
         vpFDQuery.Connection := dtmFD.FDConnection;
 
@@ -798,7 +801,7 @@ begin
     .Open
     .ForEach(
       procedure(
-        const vpFDQuery: TFDQuery)
+        const vpFDQuery: TI9Query)
       begin
         viStrings.Add(
           vpFDQuery.FieldByName(

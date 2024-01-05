@@ -16,7 +16,7 @@ type
   TfrmSeloMostrar = class(TfrmCadAuxiliar)
     ClientAncestralSIGLA: TStringField;
     ClientAncestralNUMERO: TIntegerField;
-    ClientAncestralSELO_LIVRO_ID: TFMTBCDField;
+    ClientAncestralSELO_LIVRO_ID: TBCDField;
     ClientAncestralDESCRICAO_COMPLETA: TStringField;
     lblInformacao: TcxLabel;
     ClientAncestralcalc_Selo: TStringField;
@@ -84,7 +84,7 @@ begin
   viSql := viSql + ' ORDER BY SIGLA, NUMERO';
 
   ClientAncestral.Active := False;
-  DataSetAncestral.CommandText := viSql;
+  DataSetAncestral.SQL.Text := viSql;
   ClientAncestral.Active := True;
   ClientAncestral.ReadOnly := True;
 

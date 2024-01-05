@@ -266,10 +266,10 @@ inherited frmIndexacaoTipo: TfrmIndexacaoTipo
     Left = 109
     Top = 210
   end
-  inherited DataSetAncestral: TSQLDataSet
-    CommandText = 
+  inherited DataSetAncestral: TI9Query
+    SQL.Strings = (
       'select *  from  G_INDEXACAO_TIPO'#13#10'where SISTEMA_ID =  :SISTEMA_I' +
-      'D'#13#10'order by DESCRICAO'
+      'D'#13#10'order by DESCRICAO')
     Params = <
       item
         DataType = ftString
@@ -287,7 +287,7 @@ inherited frmIndexacaoTipo: TfrmIndexacaoTipo
   inherited ClientAncestral: TClientDataSet
     Left = 203
     Top = 210
-    object ClientAncestralINDEXACAO_TIPO_ID: TFMTBCDField
+    object ClientAncestralINDEXACAO_TIPO_ID: TBCDField
       FieldName = 'INDEXACAO_TIPO_ID'
       Required = True
       Precision = 15
@@ -309,7 +309,7 @@ inherited frmIndexacaoTipo: TfrmIndexacaoTipo
       FieldName = 'SITUACAO'
       Size = 1
     end
-    object ClientAncestralSISTEMA_ID: TFMTBCDField
+    object ClientAncestralSISTEMA_ID: TBCDField
       FieldName = 'SISTEMA_ID'
       Precision = 15
       Size = 2

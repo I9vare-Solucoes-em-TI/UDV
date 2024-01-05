@@ -646,7 +646,6 @@ inherited frmTextroLavrado: TfrmTextroLavrado
   end
   inherited DataSetAncestral: TI9Query
     SQL.Strings = (
-      
         'SELECT A.TEXTO, A.PROTOCOLO, A.FOLHA_INICIAL, A.FOLHA_FINAL, A.D' +
         'ATA_LAVRATURA,'#13#10'      VP.PESSOA_NOME, LA.NUMERO_LIVRO, A.ATO_ID'#13 +
         #10'FROM T_ATO A'#13#10'  LEFT OUTER JOIN T_ATO_VINCULOPARTE VP'#13#10'  ON A.A' +

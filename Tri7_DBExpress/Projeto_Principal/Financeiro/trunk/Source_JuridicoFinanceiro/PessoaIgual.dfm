@@ -887,10 +887,10 @@ inherited frmPessoaIgual: TfrmPessoaIgual
       NumGlyphs = 2
     end
   end
-  inherited DataSetAncestral: TSQLDataSet
-    CommandText = 
+  inherited DataSetAncestral: TI9Query
+    SQL.Strings = (
       'SELECT NOME, CPF_CNPJ, DOCUMENTO, PESSOA_ID, CPF_TERCEIRO'#13#10'FROM ' +
-      'T_PESSOA'#13#10'WHERE CPF_CNPJ = :CPF'#13#10'ORDER BY PESSOA_ID'
+      'T_PESSOA'#13#10'WHERE CPF_CNPJ = :CPF'#13#10'ORDER BY PESSOA_ID')
     Params = <
       item
         DataType = ftString
@@ -916,7 +916,7 @@ inherited frmPessoaIgual: TfrmPessoaIgual
       FieldName = 'DOCUMENTO'
       Size = 30
     end
-    object ClientAncestralPESSOA_ID: TFMTBCDField
+    object ClientAncestralPESSOA_ID: TBCDField
       FieldName = 'PESSOA_ID'
       Required = True
       Precision = 15

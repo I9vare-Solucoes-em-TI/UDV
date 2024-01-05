@@ -276,7 +276,6 @@ inherited frmPessoaPreCadastro: TfrmPessoaPreCadastro
   end
   inherited DataSetAncestral: TI9Query
     SQL.Strings = (
-      
         'SELECT NOME, CPF_CNPJ, DOCUMENTO, PESSOA_TIPO, PESSOA_ID, CPF_TE' +
         'RCEIRO'#13#10'FROM T_PESSOA'#13#10'ORDER BY NOME')
     Top = 47

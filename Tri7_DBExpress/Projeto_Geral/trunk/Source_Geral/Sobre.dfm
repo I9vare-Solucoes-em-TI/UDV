@@ -382,7 +382,6 @@ object frmSobre: TfrmSobre
         'Vers'#227'o 1.0.1'
         ''
         '(C) 2014 Tri7 Solu'#231#245'es em TI. Todos os direiros reservados.'
-        
           'Este '#233' um Software legalizado com Licen'#231'a de Direito de Uso dos ' +
           'Fontes para Tri7 Solu'#231#245'es '
         'em TI.'
@@ -567,7 +566,7 @@ object frmSobre: TfrmSobre
       Width = 465
     end
   end
-  object DB: TFDConnection
+  object DB: TI9Connection
     Params.Strings = (
       'Server=mysql.tri7.com.br'
       'Database=tri701'
@@ -591,7 +590,7 @@ object frmSobre: TfrmSobre
     Left = 55
     Top = 213
   end
-  object qryVersaoHistorico: TFDQuery
+  object qryVersaoHistorico: TI9Query
     Connection = DB
     SQL.Strings = (
       'select * from versao_historico '

@@ -39,11 +39,11 @@ type
     grdBasicaLevel1: TcxGridLevel;
     ClientAncestralHISTORICO: TStringField;
     ClientAncestralOBSERVACAO: TStringField;
-    ClientAncestralPESSOA_ID: TFMTBCDField;
+    ClientAncestralPESSOA_ID: TBCDField;
     ClientAncestralOPERACAO: TStringField;
-    ClientAncestralVALOR: TFMTBCDField;
+    ClientAncestralVALOR: TBCDField;
     ClientAncestralCALC_SELECIONADO: TBooleanField;
-    ClientAncestralCONTABIL_CONTA_ID: TFMTBCDField;
+    ClientAncestralCONTABIL_CONTA_ID: TBCDField;
     ClientConciliacao: TClientDataSet;
     ClientConciliacaoDATA: TStringField;
     ClientConciliacaoDESCRICAO: TStringField;
@@ -57,7 +57,7 @@ type
     Panel3: TPanel;
     rdbOperacaoSomente: TcxRadioButton;
     rdbOperacaoQualquer: TcxRadioButton;
-    ClientAncestralID: TFMTBCDField;
+    ClientAncestralID: TBCDField;
     ClientAncestralDATA: TSQLTimeStampField;
     icxPeriodo: TcxImageComboBox;
     icxManterValor: TcxImageComboBox;
@@ -165,7 +165,7 @@ var
       end;
 
       ClientAncestral.Active := False;
-      DataSetAncestral.CommandText := viSql;
+      DataSetAncestral.SQL.Text := viSql;
       DataSetAncestral.ParamByName('CAIXA_ID').AsBCD     := sqlPesquisaConciliacaoCAIXA_ID.AsInteger;
       DataSetAncestral.ParamByName('DATA').AsDate        := StrToDate(dtmControles.GetStr(' SELECT CONCILIACAO_DATA_INICIO FROM J_CAIXA WHERE CAIXA_ID = '+sqlPesquisaConciliacaoCAIXA_ID.AsString));
 
@@ -264,7 +264,7 @@ var
       end;
 
       ClientAncestral.Active := False;
-      DataSetAncestral.CommandText := viSql;
+      DataSetAncestral.SQL.Text := viSql;
 
       if rdbOperacaoSomente.Checked then
       begin

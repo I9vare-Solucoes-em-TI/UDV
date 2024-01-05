@@ -34,12 +34,12 @@ type
     grdGrupoRelatorioDBTableView1GRUPO: TcxGridDBColumn;
     grdGrupoRelatorioDBTableView1SITUACAO: TcxGridDBColumn;
     grdGrupoRelatorioDBTableView1INDEXACAO_TIPO_ID: TcxGridDBColumn;
-    ClientAncestralINDEXACAO_TIPO_ID: TFMTBCDField;
+    ClientAncestralINDEXACAO_TIPO_ID: TBCDField;
     ClientAncestralDESCRICAO: TStringField;
     ClientAncestralSIGLA: TStringField;
     ClientAncestralGRUPO: TStringField;
     ClientAncestralSITUACAO: TStringField;
-    ClientAncestralSISTEMA_ID: TFMTBCDField;
+    ClientAncestralSISTEMA_ID: TBCDField;
     ClientAncestralBD: TStringField;
     icx: TcxDBImageComboBox;
     cxLabel5: TcxLabel;

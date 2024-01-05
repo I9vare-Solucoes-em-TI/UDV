@@ -136,7 +136,7 @@ var
         ParamByName('IDENTIFICACAO').AsString := AnsiUpperCase(vpConvenio);
         ParamByName('TIPO_PESSOA').AsString   := AnsiUpperCase('J');
         ParamByName('SEXO').AsString          := AnsiUpperCase('I');
-        ExecSQL(FALSE);
+        ExecSQL;
         Result := viPessoaPesquisaId;
       end;
     end;
@@ -222,7 +222,7 @@ var
       ParamByName('CONTROLE_ID_IMPORTACAO').AsInteger    := viCodImportacao;
       ParamByName('CONTROLE_PLANILHA').AsString          := ExtractFileName(OpenDialog1.FileName);
       ParamByName('CONTROLE_DATA_IMPORTACAO').AsString   := dtmControles.DataHoraBanco(5);
-      ExecSQL(FALSE);
+      ExecSQL;
     end;
   end;
 
@@ -299,7 +299,7 @@ var
       ParamByName('OBSERVACAO').AsString          := '';
       ParamByName('HISTORICO').AsString           := 'Contrato Intimação Nº'+sqlPlanilhaCONTRATO.AsString +
                                                      ', Ação Nº'+sqlPlanilhaACAO.AsString;
-      ExecSQL(FALSE);
+      ExecSQL;
     end;
   end;
 
@@ -373,7 +373,7 @@ var
       ParamByName('DATA').AsString             := dtmControles.DataHoraBanco(5);
       ParamByName('CEDENTE_ID').AsCurrency     := vgCedenteAtivo;
       ParamByName('NOME_ARQUIVO').AsString     := ExtractFileName(OpenDialog1.FileName);
-      ExecSQL(FALSE);
+      ExecSQL;
     end;
   end;
 

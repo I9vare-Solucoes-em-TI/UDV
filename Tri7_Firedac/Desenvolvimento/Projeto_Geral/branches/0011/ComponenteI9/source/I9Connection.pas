@@ -3,6 +3,7 @@ unit I9Connection;
 interface
 
 uses
+  I9Connection,
   FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Error, FireDAC.UI.Intf,
   FireDAC.Phys.Intf, FireDAC.Stan.Def, FireDAC.Stan.Pool, FireDAC.Stan.Async,
   FireDAC.Phys, FireDAC.Stan.Param, FireDAC.DatS, FireDAC.DApt.Intf,
@@ -12,7 +13,7 @@ uses
   I9Query;
 
 type
-  TI9Connection = class(TFDConnection)
+  TI9Connection = class(TI9Connection)
     fbDriver: TFDPhysFBDriverLink;
   private
     function NewQuery(

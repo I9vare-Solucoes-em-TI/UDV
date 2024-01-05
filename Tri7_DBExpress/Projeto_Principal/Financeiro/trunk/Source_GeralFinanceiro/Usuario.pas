@@ -3,6 +3,7 @@ unit Usuario;
 interface
 
 uses
+  I9Query,
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, CadBasico, cxLookAndFeelPainters, FMTBcd, DB, DBClient,
   Provider, SqlExpr, ActnList, ComCtrls, StdCtrls, cxButtons, ExtCtrls,
@@ -35,19 +36,19 @@ type
     grdRotinas: TcxGrid;
     grdRotinasDBTableView1: TcxGridDBTableView;
     grdRotinasLevel1: TcxGridLevel;
-    sqlGrupo: TSimpleDataSet;
-    sqlGrupoUSUARIO_GRUPO_ID: TFMTBCDField;
+    sqlGrupo: TI9Query;
+    sqlGrupoUSUARIO_GRUPO_ID: TBCDField;
     sqlGrupoDESCRICAO: TStringField;
     sqlGrupoSITUACAO: TStringField;
     dsGrupo: TDataSource;
     dsRotina: TDataSource;
-    sqlGrupoUsuario: TSimpleDataSet;
-    FMTBCDField1: TFMTBCDField;
+    sqlGrupoUsuario: TI9Query;
+    FMTBCDField1: TBCDField;
     StringField1: TStringField;
     StringField2: TStringField;
     dtsGrupoUsuario: TDataSource;
     ImageList1: TImageList;
-    ClientAncestralUSUARIO_ID: TFMTBCDField;
+    ClientAncestralUSUARIO_ID: TBCDField;
     ClientAncestralTROCARSENHA: TStringField;
     ClientAncestralLOGIN: TStringField;
     ClientAncestralSENHA: TStringField;
@@ -62,11 +63,11 @@ type
     cxGridBasica: TcxGrid;
     gridMenus: TcxGridDBTableView;
     cxGridBasicaLevel1: TcxGridLevel;
-    sqlMenu: TSimpleDataSet;
+    sqlMenu: TI9Query;
     dtsMenu: TDataSource;
-    sqlMenuSISTEMA_MENU_ID: TFMTBCDField;
+    sqlMenuSISTEMA_MENU_ID: TBCDField;
     sqlMenuDESCRICAO: TStringField;
-    sqlMenuSISTEMA_ID: TFMTBCDField;
+    sqlMenuSISTEMA_ID: TBCDField;
     gridMenusDESCRICAO: TcxGridDBColumn;
     Panel1: TPanel;
     Label1: TLabel;
@@ -83,11 +84,11 @@ type
     DesmarcarEste1: TMenuItem;
     N1: TMenuItem;
     grdRotinasDBTableView1DBColumn1: TcxGridDBColumn;
-    sqlRotina: TSimpleDataSet;
+    sqlRotina: TI9Query;
     sqlRotinaCHAVE_ROTINA: TStringField;
-    sqlRotinaSISTEMA_MENU_ID: TFMTBCDField;
+    sqlRotinaSISTEMA_MENU_ID: TBCDField;
     sqlRotinaDESCROTINA: TStringField;
-    sqlRotinaSISTEMA_ROTINA_ID: TFMTBCDField;
+    sqlRotinaSISTEMA_ROTINA_ID: TBCDField;
     sqlRotinaPERMISSAO: TStringField;
     sqlRotinapIncluir: TStringField;
     sqlRotinapAlterar: TStringField;
@@ -95,7 +96,7 @@ type
     sqlRotinapPesquisar: TStringField;
     sqlRotinapRelatorio: TStringField;
     sqlRotinapEspecial: TStringField;
-    ClientAncestralPESSOA_ID: TFMTBCDField;
+    ClientAncestralPESSOA_ID: TBCDField;
     grdUsuario: TcxGrid;
     grdUsuarioDBTableView1: TcxGridDBTableView;
     grdUsuarioDBTableView1NOME_COMPLETO: TcxGridDBColumn;
@@ -120,15 +121,15 @@ type
     btnAtualizaGrupo: TcxButton;
     btnCancelarCopia: TcxButton;
     btnConfirmarCopiaGrupo: TcxButton;
-    sqlPessoaVinculada: TSimpleDataSet;
+    sqlPessoaVinculada: TI9Query;
     dtsPessoaVinculada: TDataSource;
-    SimpleDataSet1: TSimpleDataSet;
-    FMTBCDField3: TFMTBCDField;
+    SimpleDataSet1: TI9Query;
+    FMTBCDField3: TBCDField;
     StringField5: TStringField;
     StringField6: TStringField;
     DataSource1: TDataSource;
     sqlPessoaVinculadaNOME: TStringField;
-    sqlPessoaVinculadaPESSOA_ID: TFMTBCDField;
+    sqlPessoaVinculadaPESSOA_ID: TBCDField;
     ClientAncestralPESSOAS_VINCULADAS: TStringField;
     btnAdicionarPessoa: TcxButton;
     btnLimparPessoa: TcxButton;
@@ -182,7 +183,7 @@ type
     procedure VerificarPessoasVinculadas(vpPessoasId: String);
   public
     { Public declarations }
-    vgQuery: TSimpleDataSet;
+    vgQuery: TI9Query;
     function Permissao: String;
     procedure SetState(AState: TDataSetState); override;
     procedure LoadData; override;
@@ -211,11 +212,11 @@ begin
   ClientAncestral.Open;
 
   sqlGrupo.Close;
-  sqlGrupo.DataSet.Params[0].AsInteger := vgId;
+  sqlGrupo.Params[0].AsInteger := vgId;
   sqlGrupo.Open;
 
   sqlMenu.Close;
-  sqlMenu.DataSet.Params[0].AsInteger := vgId;
+  sqlMenu.Params[0].AsInteger := vgId;
   sqlMenu.Open;
 
   lcbGrupos.EditValue := sqlGrupoUSUARIO_GRUPO_ID.AsInteger;
@@ -339,7 +340,7 @@ begin
   if vpPessoasId <> 'S' then
     viSql := viSql + ' AND PESSOA_ID IN (' + vpPessoasId + ')';
 
-  sqlPessoaVinculada.DataSet.CommandText := viSql;
+  sqlPessoaVinculada.SQL.Text := viSql;
   sqlPessoaVinculada.Active := True;
 end;
 
@@ -616,8 +617,8 @@ procedure TfrmUsuario.sqlMenuAfterScroll(DataSet: TDataSet);
 begin
   inherited;
   sqlRotina.Close;
-  sqlRotina.DataSet.Params[0].AsInteger := sqlGrupoUSUARIO_GRUPO_ID.AsInteger;
-  sqlRotina.DataSet.Params[1].AsInteger := sqlMenuSISTEMA_MENU_ID.AsInteger;
+  sqlRotina.Params[0].AsInteger := sqlGrupoUSUARIO_GRUPO_ID.AsInteger;
+  sqlRotina.Params[1].AsInteger := sqlMenuSISTEMA_MENU_ID.AsInteger;
   sqlRotina.Open;
 end;
 

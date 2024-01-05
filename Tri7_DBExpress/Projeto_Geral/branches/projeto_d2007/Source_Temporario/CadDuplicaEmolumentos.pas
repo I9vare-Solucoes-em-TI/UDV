@@ -3,6 +3,8 @@ unit CadDuplicaEmolumentos;
 interface
 
 uses
+  I9Query,
+  I9Connection,
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, CadAuxiliar, Menus, cxLookAndFeelPainters, FMTBcd, cxGraphics,
   dxSkinsCore, dxSkinBlack, dxSkinBlue, dxSkinCaramel, dxSkinCoffee,
@@ -23,8 +25,8 @@ uses
 
 type
   TfrmCadDuplicaEmolumento = class(TfrmCadAuxiliar)
-    sqlG_Emolumento_Periodo: TSimpleDataSet;
-    sqlG_Emolumento_PeriodoEMOLUMENTO_PERIODO_ID: TFMTBCDField;
+    sqlG_Emolumento_Periodo: TI9Query;
+    sqlG_Emolumento_PeriodoEMOLUMENTO_PERIODO_ID: TBCDField;
     sqlG_Emolumento_PeriodoDESCRICAO: TStringField;
     sqlG_Emolumento_PeriodoSITUACAO: TStringField;
     dtsG_Emolumento_Periodo: TDataSource;
@@ -62,7 +64,7 @@ type
     procedure FormCloseQuery(Sender: TObject; var CanClose: Boolean);
   private
     { Private declarations }
-    QueryEmolItem : TSQLQuery;
+    QueryEmolItem : TI9Query;
     procedure CarregaEmolumentoItem(periodoId : integer; emolumentoId : string);
     procedure StatusOpcoesTela(AtivaDesativa : boolean); // desabilitar ou habilitar as opcoes existentes na tela em caso de estar processando a duplicação
   public
@@ -181,7 +183,7 @@ end;
 
 procedure TfrmCadDuplicaEmolumento.DuplicarPeriodo;
 var
-  QueryInserir_Emol_Item, QueryEmol : TSQLQuery;
+  QueryInserir_Emol_Item, QueryEmol : TI9Query;
   vlMsg : String;
   vlInt : integer;
 begin
@@ -236,11 +238,11 @@ begin
     {$ENDREGION}
 
     //instanciando componente
-    QueryInserir_Emol_Item := TSQLQuery.Create(nil);
-    QueryEmol              := TSQLQuery.Create(nil);
+    QueryInserir_Emol_Item := TI9Query.Create(nil);
+    QueryEmol              := TI9Query.Create(nil);
     //conectando componente
-    QueryInserir_Emol_Item.SQLConnection := dtmControles.DB;
-    QueryEmol.SQLConnection              := dtmControles.DB;
+    QueryInserir_Emol_Item.Connection := dtmControles.DB;
+    QueryEmol.Connection              := dtmControles.DB;
     //
     with QueryEmolItem do
     begin
@@ -501,8 +503,8 @@ end;
 procedure TfrmCadDuplicaEmolumento.FormCreate(Sender: TObject);
 begin
   inherited;
-  QueryEmolItem               := TSQLQuery.Create(nil);
-  QueryEmolItem.SQLConnection := dtmControles.DB;
+  QueryEmolItem               := TI9Query.Create(nil);
+  QueryEmolItem.Connection := dtmControles.DB;
 end;
 
 procedure TfrmCadDuplicaEmolumento.lcxPeriodoDestinoPropertiesChange(

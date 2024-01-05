@@ -323,11 +323,10 @@ inherited frmCadastroRapidoOrcamento: TfrmCadastroRapidoOrcamento
       end
     end
   end
-  inherited DataSetAncestral: TSQLDataSet
-    SchemaName = 'SYSDBA'
-    CommandText = 
+  inherited DataSetAncestral: TI9Query
+    SQL.Strings = (
       'SELECT * '#13#10'FROM J_LIVRO_AGENDAMENTO'#13#10'WHERE LIVRO_AGENDAMENTO_ID ' +
-      '= 0'
+      '= 0')
     Left = 228
     Top = 50
   end
@@ -338,7 +337,7 @@ inherited frmCadastroRapidoOrcamento: TfrmCadastroRapidoOrcamento
   inherited ClientAncestral: TClientDataSet
     Left = 294
     Top = 50
-    object ClientAncestralLIVRO_AGENDAMENTO_ID: TFMTBCDField
+    object ClientAncestralLIVRO_AGENDAMENTO_ID: TBCDField
       FieldName = 'LIVRO_AGENDAMENTO_ID'
       ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
       Required = True
@@ -355,12 +354,12 @@ inherited frmCadastroRapidoOrcamento: TfrmCadastroRapidoOrcamento
       FieldName = 'PERIODO'
       Size = 1
     end
-    object ClientAncestralVALOR_PARCELA: TFMTBCDField
+    object ClientAncestralVALOR_PARCELA: TBCDField
       FieldName = 'VALOR_PARCELA'
       Precision = 20
       Size = 3
     end
-    object ClientAncestralQTD: TFMTBCDField
+    object ClientAncestralQTD: TBCDField
       FieldName = 'QTD'
       Precision = 20
       Size = 2
@@ -373,7 +372,7 @@ inherited frmCadastroRapidoOrcamento: TfrmCadastroRapidoOrcamento
       FieldName = 'ESPECIE'
       Size = 1
     end
-    object ClientAncestralBALANCETE_GRUPO_ID: TFMTBCDField
+    object ClientAncestralBALANCETE_GRUPO_ID: TBCDField
       FieldName = 'BALANCETE_GRUPO_ID'
       Precision = 20
       Size = 2
@@ -386,17 +385,17 @@ inherited frmCadastroRapidoOrcamento: TfrmCadastroRapidoOrcamento
       FieldName = 'OBSERVACAO'
       Size = 260
     end
-    object ClientAncestralPROCESSO_TRAMITE_ID: TFMTBCDField
+    object ClientAncestralPROCESSO_TRAMITE_ID: TBCDField
       FieldName = 'PROCESSO_TRAMITE_ID'
       Precision = 20
       Size = 2
     end
-    object ClientAncestralCONTABIL_CONTA_ID: TFMTBCDField
+    object ClientAncestralCONTABIL_CONTA_ID: TBCDField
       FieldName = 'CONTABIL_CONTA_ID'
       Precision = 20
       Size = 2
     end
-    object ClientAncestralPESSOA_ID: TFMTBCDField
+    object ClientAncestralPESSOA_ID: TBCDField
       FieldName = 'PESSOA_ID'
       Precision = 20
       Size = 2
@@ -404,12 +403,12 @@ inherited frmCadastroRapidoOrcamento: TfrmCadastroRapidoOrcamento
     object ClientAncestralDATA_REGISTRO: TSQLTimeStampField
       FieldName = 'DATA_REGISTRO'
     end
-    object ClientAncestralVALOR_PROLABORE: TFMTBCDField
+    object ClientAncestralVALOR_PROLABORE: TBCDField
       FieldName = 'VALOR_PROLABORE'
       Precision = 20
       Size = 3
     end
-    object ClientAncestralCENTRO_CUSTO_ID: TFMTBCDField
+    object ClientAncestralCENTRO_CUSTO_ID: TBCDField
       FieldName = 'CENTRO_CUSTO_ID'
       Precision = 20
       Size = 2
@@ -426,12 +425,12 @@ inherited frmCadastroRapidoOrcamento: TfrmCadastroRapidoOrcamento
       FieldName = 'CNJ'
       Size = 1
     end
-    object ClientAncestralCAIXA_ID: TFMTBCDField
+    object ClientAncestralCAIXA_ID: TBCDField
       FieldName = 'CAIXA_ID'
       Precision = 15
       Size = 2
     end
-    object ClientAncestralCONTABIL_GRUPO_ID: TFMTBCDField
+    object ClientAncestralCONTABIL_GRUPO_ID: TBCDField
       FieldName = 'CONTABIL_GRUPO_ID'
       Precision = 15
       Size = 2
@@ -458,17 +457,16 @@ inherited frmCadastroRapidoOrcamento: TfrmCadastroRapidoOrcamento
     Left = 173
     Top = 133
   end
-  object sqlPlanoContas: TSimpleDataSet
+  object sqlPlanoContas: TI9Query
     Aggregates = <>
     Connection = dtmControles.DB
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT CC.CONTABIL_CONTA_ID, CC.DESCRICAO, CC.IR, CC.CNJ'#13#10'FROM J' +
       '_CONTABIL_CONTA CC LEFT OUTER JOIN J_CONTABIL_GRUPO CG ON'#13#10'  CC.' +
       'CONTABIL_GRUPO_ID = CG.CONTABIL_GRUPO_ID'#13#10'WHERE CC.SITUACAO = '#39'A' +
       #39#13#10'  AND CC.CONTABIL_GRUPO_ID = :CONTABIL_GRUPO_ID'#13#10'ORDER BY CC.' +
-      'DESCRICAO'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <
+      'DESCRICAO')
+    ParamData = <
       item
         DataType = ftBCD
         Name = 'CONTABIL_GRUPO_ID'
@@ -477,7 +475,7 @@ inherited frmCadastroRapidoOrcamento: TfrmCadastroRapidoOrcamento
     Params = <>
     Left = 173
     Top = 103
-    object sqlPlanoContasCONTABIL_CONTA_ID: TFMTBCDField
+    object sqlPlanoContasCONTABIL_CONTA_ID: TBCDField
       FieldName = 'CONTABIL_CONTA_ID'
       Precision = 20
       Size = 2
@@ -500,23 +498,22 @@ inherited frmCadastroRapidoOrcamento: TfrmCadastroRapidoOrcamento
     Left = 209
     Top = 134
   end
-  object sqlGrupoContabil: TSimpleDataSet
+  object sqlGrupoContabil: TI9Query
     Aggregates = <>
     Connection = dtmControles.DB
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT DESCRICAO, CONTABIL_GRUPO_ID, BALANCETE_GRUPO_ID'#13#10'FROM J_' +
       'CONTABIL_GRUPO'#13#10'WHERE SITUACAO = '#39'A'#39' '#13#10'     AND TIPO = :TIPO'#13#10'  ' +
       '  AND BALANCETE_GRUPO_ID = :BALANCETE_GRUPO_ID'#13#10'ORDER BY DESCRIC' +
-      'AO'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <
+      'AO')
+    ParamData = <
       item
         DataType = ftString
         Name = 'TIPO'
         ParamType = ptInput
       end
       item
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Name = 'BALANCETE_GRUPO_ID'
         ParamType = ptInput
       end>
@@ -527,12 +524,12 @@ inherited frmCadastroRapidoOrcamento: TfrmCadastroRapidoOrcamento
       FieldName = 'DESCRICAO'
       Size = 90
     end
-    object sqlGrupoContabilCONTABIL_GRUPO_ID: TFMTBCDField
+    object sqlGrupoContabilCONTABIL_GRUPO_ID: TBCDField
       FieldName = 'CONTABIL_GRUPO_ID'
       Precision = 20
       Size = 2
     end
-    object sqlGrupoContabilBALANCETE_GRUPO_ID: TFMTBCDField
+    object sqlGrupoContabilBALANCETE_GRUPO_ID: TBCDField
       FieldName = 'BALANCETE_GRUPO_ID'
       Precision = 20
       Size = 2

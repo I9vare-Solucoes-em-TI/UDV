@@ -1818,11 +1818,11 @@ inherited frmPessoa: TfrmPessoa
     Left = 525
     Top = 18
   end
-  inherited DataSetAncestral: TSQLDataSet
-    CommandText = 'SELECT *'#13#10'FROM T_PESSOA'#13#10'WHERE PESSOA_ID = :PESSOA_ID'
+  inherited DataSetAncestral: TI9Query
+    SQL.Strings = ('SELECT *'#13#10'FROM T_PESSOA'#13#10'WHERE PESSOA_ID = :PESSOA_ID')
     Params = <
       item
-        DataType = ftFMTBcd
+        DataType = ftBCD
         NumericScale = 2
         Name = 'PESSOA_ID'
         ParamType = ptInput
@@ -1840,7 +1840,7 @@ inherited frmPessoa: TfrmPessoa
     AfterScroll = ClientAncestralAfterScroll
     Left = 619
     Top = 18
-    object ClientAncestralPESSOA_ID: TFMTBCDField
+    object ClientAncestralPESSOA_ID: TBCDField
       FieldName = 'PESSOA_ID'
       Required = True
       Precision = 15
@@ -1862,17 +1862,17 @@ inherited frmPessoa: TfrmPessoa
       FieldName = 'DOCUMENTO'
       Size = 30
     end
-    object ClientAncestralTB_DOCUMENTOTIPO_ID: TFMTBCDField
+    object ClientAncestralTB_DOCUMENTOTIPO_ID: TBCDField
       FieldName = 'TB_DOCUMENTOTIPO_ID'
       Precision = 15
       Size = 2
     end
-    object ClientAncestralTB_PROFISSAO_ID: TFMTBCDField
+    object ClientAncestralTB_PROFISSAO_ID: TBCDField
       FieldName = 'TB_PROFISSAO_ID'
       Precision = 15
       Size = 2
     end
-    object ClientAncestralTB_ESTADOCIVIL_ID: TFMTBCDField
+    object ClientAncestralTB_ESTADOCIVIL_ID: TBCDField
       FieldName = 'TB_ESTADOCIVIL_ID'
       Precision = 15
       Size = 2
@@ -1915,12 +1915,12 @@ inherited frmPessoa: TfrmPessoa
       FieldName = 'SEXO'
       Size = 1
     end
-    object ClientAncestralTB_REGIMECOMUNHAO_ID: TFMTBCDField
+    object ClientAncestralTB_REGIMECOMUNHAO_ID: TBCDField
       FieldName = 'TB_REGIMECOMUNHAO_ID'
       Precision = 15
       Size = 2
     end
-    object ClientAncestralPESSOA_CONJUGE_ID: TFMTBCDField
+    object ClientAncestralPESSOA_CONJUGE_ID: TBCDField
       FieldName = 'PESSOA_CONJUGE_ID'
       Precision = 15
       Size = 2
@@ -1968,21 +1968,20 @@ inherited frmPessoa: TfrmPessoa
     Left = 651
     Top = 18
   end
-  object sqlConjuge: TSimpleDataSet
+  object sqlConjuge: TI9Query
     Aggregates = <>
     Connection = dtmControles.DB
-    DataSet.CommandText = 'SELECT *'#13#10'FROM T_PESSOA'#13#10'WHERE PESSOA_ID = :PESSOA_ID'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <
+    SQL.Strings = ('SELECT *'#13#10'FROM T_PESSOA'#13#10'WHERE PESSOA_ID = :PESSOA_ID')
+    ParamData = <
       item
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Name = 'PESSOA_ID'
         ParamType = ptInput
       end>
     Params = <>
     Left = 452
     Top = 18
-    object sqlConjugePESSOA_ID: TFMTBCDField
+    object sqlConjugePESSOA_ID: TBCDField
       FieldName = 'PESSOA_ID'
       Required = True
       Precision = 15
@@ -2004,17 +2003,17 @@ inherited frmPessoa: TfrmPessoa
       FieldName = 'DOCUMENTO'
       Size = 30
     end
-    object sqlConjugeTB_DOCUMENTOTIPO_ID: TFMTBCDField
+    object sqlConjugeTB_DOCUMENTOTIPO_ID: TBCDField
       FieldName = 'TB_DOCUMENTOTIPO_ID'
       Precision = 15
       Size = 2
     end
-    object sqlConjugeTB_PROFISSAO_ID: TFMTBCDField
+    object sqlConjugeTB_PROFISSAO_ID: TBCDField
       FieldName = 'TB_PROFISSAO_ID'
       Precision = 15
       Size = 2
     end
-    object sqlConjugeTB_ESTADOCIVIL_ID: TFMTBCDField
+    object sqlConjugeTB_ESTADOCIVIL_ID: TBCDField
       FieldName = 'TB_ESTADOCIVIL_ID'
       Precision = 15
       Size = 2
@@ -2057,12 +2056,12 @@ inherited frmPessoa: TfrmPessoa
       FieldName = 'SEXO'
       Size = 1
     end
-    object sqlConjugeTB_REGIMECOMUNHAO_ID: TFMTBCDField
+    object sqlConjugeTB_REGIMECOMUNHAO_ID: TBCDField
       FieldName = 'TB_REGIMECOMUNHAO_ID'
       Precision = 15
       Size = 2
     end
-    object sqlConjugePESSOA_CONJUGE_ID: TFMTBCDField
+    object sqlConjugePESSOA_CONJUGE_ID: TBCDField
       FieldName = 'PESSOA_CONJUGE_ID'
       Precision = 15
       Size = 2
@@ -2111,50 +2110,48 @@ inherited frmPessoa: TfrmPessoa
     Left = 484
     Top = 18
   end
-  object sqlRepresentante: TSimpleDataSet
+  object sqlRepresentante: TI9Query
     Aggregates = <>
     Connection = dtmControles.DB
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT *'#13#10'FROM T_PESSOA_REPRESENTANTE'#13#10'WHERE PESSOA_ID = :PESSOA' +
-      '_ID'#13#10'ORDER BY PESSOA_REPRESENTANTE_ID'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <
+      '_ID'#13#10'ORDER BY PESSOA_REPRESENTANTE_ID')
+    ParamData = <
       item
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Name = 'PESSOA_ID'
         ParamType = ptInput
       end>
     IndexFieldNames = 'PESSOA_ID'
     MasterFields = 'PESSOA_ID'
     MasterSource = SourceAncestral
-    PacketRecords = 0
     Params = <>
     BeforePost = sqlRepresentanteBeforePost
     OnCalcFields = sqlRepresentanteCalcFields
     Left = 388
     Top = 18
-    object sqlRepresentantePESSOA_REPRESENTANTE_ID: TFMTBCDField
+    object sqlRepresentantePESSOA_REPRESENTANTE_ID: TBCDField
       FieldName = 'PESSOA_REPRESENTANTE_ID'
       Required = True
       Precision = 15
       Size = 2
     end
-    object sqlRepresentantePESSOA_ID: TFMTBCDField
+    object sqlRepresentantePESSOA_ID: TBCDField
       FieldName = 'PESSOA_ID'
       Precision = 15
       Size = 2
     end
-    object sqlRepresentanteREPRESENTANTE_ID: TFMTBCDField
+    object sqlRepresentanteREPRESENTANTE_ID: TBCDField
       FieldName = 'REPRESENTANTE_ID'
       Precision = 15
       Size = 2
     end
-    object sqlRepresentanteATO_PARTETIPO_ID: TFMTBCDField
+    object sqlRepresentanteATO_PARTETIPO_ID: TBCDField
       FieldName = 'ATO_PARTETIPO_ID'
       Precision = 15
       Size = 2
     end
-    object sqlRepresentanteMARCACAO_TIPO_ID: TFMTBCDField
+    object sqlRepresentanteMARCACAO_TIPO_ID: TBCDField
       FieldName = 'MARCACAO_TIPO_ID'
       Precision = 15
       Size = 2
@@ -2169,7 +2166,7 @@ inherited frmPessoa: TfrmPessoa
       FieldName = 'ASSINATURA_TIPO'
       Size = 1
     end
-    object sqlRepresentantePESSOA_AUXILIAR_ID: TFMTBCDField
+    object sqlRepresentantePESSOA_AUXILIAR_ID: TBCDField
       FieldName = 'PESSOA_AUXILIAR_ID'
       Precision = 15
       Size = 2
@@ -2186,17 +2183,16 @@ inherited frmPessoa: TfrmPessoa
     Left = 420
     Top = 18
   end
-  object sqlPessoaAuxiliar: TSimpleDataSet
+  object sqlPessoaAuxiliar: TI9Query
     Aggregates = <>
     Connection = dtmControles.DB
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT P.NOME, PR.REPRESENTANTE_ID'#13#10'FROM T_PESSOA P, T_PESSOA_RE' +
       'PRESENTANTE PR'#13#10'WHERE P.PESSOA_ID = PR.REPRESENTANTE_ID'#13#10'     AN' +
       'D PR.PESSOA_AUXILIAR_ID IS NULL'#13#10'     AND (PR.PESSOA_ID = :PESSO' +
       'A_ID'#13#10'     AND NOT PR.REPRESENTANTE_ID = :REPRESENTANTE_ID)'#13#10'ORD' +
-      'ER BY P.NOME'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <
+      'ER BY P.NOME')
+    ParamData = <
       item
         DataType = ftBCD
         Name = 'PESSOA_ID'
@@ -2214,7 +2210,7 @@ inherited frmPessoa: TfrmPessoa
       FieldName = 'NOME'
       Size = 120
     end
-    object sqlPessoaAuxiliarREPRESENTANTE_ID: TFMTBCDField
+    object sqlPessoaAuxiliarREPRESENTANTE_ID: TBCDField
       FieldName = 'REPRESENTANTE_ID'
       Precision = 15
       Size = 2
@@ -2225,29 +2221,27 @@ inherited frmPessoa: TfrmPessoa
     Left = 348
     Top = 18
   end
-  object sqlSinalPublico: TSimpleDataSet
+  object sqlSinalPublico: TI9Query
     Aggregates = <>
     Connection = dtmControles.DB
-    DataSet.CommandText = 
+    SQL.Strings = (
       'SELECT *'#13#10'FROM T_PESSOA_SINALPUBLICO'#13#10'WHERE PESSOA_ID = :PESSOA_' +
-      'ID'
-    DataSet.MaxBlobSize = -1
-    DataSet.Params = <
+      'ID')
+    ParamData = <
       item
-        DataType = ftFMTBcd
+        DataType = ftBCD
         Name = 'PESSOA_ID'
         ParamType = ptInput
       end>
     IndexFieldNames = 'PESSOA_ID'
     MasterFields = 'PESSOA_ID'
     MasterSource = SourceAncestral
-    PacketRecords = 0
     Params = <>
     BeforePost = sqlSinalPublicoBeforePost
     OnCalcFields = sqlRepresentanteCalcFields
     Left = 388
     Top = 50
-    object sqlSinalPublicoPESSOA_SINALPUBLICO_ID: TFMTBCDField
+    object sqlSinalPublicoPESSOA_SINALPUBLICO_ID: TBCDField
       FieldName = 'PESSOA_SINALPUBLICO_ID'
       Required = True
       Precision = 15
@@ -2257,12 +2251,12 @@ inherited frmPessoa: TfrmPessoa
       FieldName = 'NOME'
       Size = 120
     end
-    object sqlSinalPublicoTB_SINALPUBLICO_ID: TFMTBCDField
+    object sqlSinalPublicoTB_SINALPUBLICO_ID: TBCDField
       FieldName = 'TB_SINALPUBLICO_ID'
       Precision = 15
       Size = 2
     end
-    object sqlSinalPublicoPESSOA_ID: TFMTBCDField
+    object sqlSinalPublicoPESSOA_ID: TBCDField
       FieldName = 'PESSOA_ID'
       Precision = 15
       Size = 2

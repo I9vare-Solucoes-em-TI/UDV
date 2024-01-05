@@ -18,10 +18,10 @@ uses
 
 type
   TfrmCadSeloGrupo = class(TfrmCadBasico)
-    ClientAncestralSELO_GRUPO_ID: TFMTBCDField;
+    ClientAncestralSELO_GRUPO_ID: TBCDField;
     ClientAncestralDESCRICAO: TStringField;
     ClientAncestralSITUACAO: TStringField;
-    ClientAncestralNUMERO: TFMTBCDField;
+    ClientAncestralNUMERO: TBCDField;
     ClientAncestralCONTROLE_AUTOMATICO: TStringField;
     ClientAncestralTIPO_CARTORIO: TStringField;
     ClientAncestralDESCRICAO_COMPLETA: TStringField;
@@ -36,7 +36,7 @@ type
     cxDBLookupComboBox1: TcxDBLookupComboBox;
     cxLabel6: TcxLabel;
     edtEstoqueMinimo: TcxDBTextEdit;
-    ClientAncestralESTOQUE_MINIMO: TFMTBCDField;
+    ClientAncestralESTOQUE_MINIMO: TBCDField;
     tabGrupo: TcxTabControl;
     grdBasica: TcxGrid;
     grdBasicaDBTableView1: TcxGridDBTableView;

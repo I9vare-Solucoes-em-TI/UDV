@@ -878,7 +878,7 @@ inherited frmCapturarBiometria: TfrmCapturarBiometria
       OnClick = btnRetornarClick
     end
   end
-  inherited DataSetAncestral: TSQLDataSet
+  inherited DataSetAncestral: TI9Query
     Left = 35
     Top = 151
   end

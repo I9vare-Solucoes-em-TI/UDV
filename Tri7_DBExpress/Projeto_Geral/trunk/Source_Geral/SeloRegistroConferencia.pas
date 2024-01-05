@@ -3,6 +3,7 @@ unit SeloRegistroConferencia;
 interface
 
 uses
+  I9Query,
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, Menus,
 
@@ -32,7 +33,7 @@ type
     ClientRegistroSELO_GRUPO_ID: TIntegerField;
     dtsRegistro: TDataSource;
     cxGridPesquisaColumn6: TcxGridDBColumn;
-    sqlPesquisa: TSQLQuery;
+    sqlPesquisa: TI9Query;
     ClientRegistroQTD_TOTAL: TIntegerField;
     cxGridPesquisaColumn7: TcxGridDBColumn;
     ClientRegistroUsuario_id: TIntegerField;

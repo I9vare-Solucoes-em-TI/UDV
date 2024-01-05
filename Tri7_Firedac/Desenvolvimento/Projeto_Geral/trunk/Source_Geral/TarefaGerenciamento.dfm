@@ -659,7 +659,6 @@ object FrmTarefaGerenciamento: TFrmTarefaGerenciamento
       '       G_US.NOME_COMPLETO           AS USUARIO_NOME'
       ''
       '  FROM G_TAREFA G_TR'
-      
         ' INNER JOIN G_TAREFA_ITEM G_TI ON G_TR.TAREFA_ID = G_TI.TAREFA_I' +
         'D'
       ' INNER JOIN G_USUARIO G_US ON G_US.USUARIO_ID = G_TI.USUARIO_ID'

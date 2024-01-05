@@ -3,6 +3,7 @@ unit ControleSelos;
 interface
 
 uses
+  I9Query,
   Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
   Dialogs, ExtCtrls, cxTextEdit, cxMaskEdit, cxGridExportLink,
   cxDropDownEdit, cxLookupEdit, cxDBLookupEdit, cxDBLookupComboBox,
@@ -33,23 +34,23 @@ type
     edtDataSelo: TcxDateEdit;
     btnConfirmar: TcxButton;
     cbxDesfazer: TcxCheckBox;
-    sqlSelos: TSimpleDataSet;
-    sqlSelosCAMPO_ID: TFMTBCDField;
+    sqlSelos: TI9Query;
+    sqlSelosCAMPO_ID: TBCDField;
     sqlSelosTABELA: TStringField;
     sqlSelosTIPO_SELO: TStringField;
     sqlSelosAPRESENTANTE: TStringField;
     sqlSelosDESCRICAO: TStringField;
     sqlSelosNUMERO_SELO: TStringField;
     sqlSelosLOTE_SELO: TStringField;
-    sqlSelosVALOR_EMOLUMENTO: TFMTBCDField;
-    sqlSelosVALOR_TAXA_JUDICIARIA: TFMTBCDField;
+    sqlSelosVALOR_EMOLUMENTO: TBCDField;
+    sqlSelosVALOR_TAXA_JUDICIARIA: TBCDField;
     sqlSelosCALC_SELECIONADO: TBooleanField;
-    sqlSelosVALOR_FUNDESP: TFMTBCDField;
+    sqlSelosVALOR_FUNDESP: TBCDField;
     sqlSelosTIPO_CARTORIO: TStringField;
     sqlSelosCALC_PROTOCOLO: TStringField;
     sqlSelosDATA: TDateField;
     sqlSelosDATA_EXPORTACAO: TSQLTimeStampField;
-    sqlSelosSELO_LIVRO_ID: TFMTBCDField;
+    sqlSelosSELO_LIVRO_ID: TBCDField;
     dtsSelos: TDataSource;
     gridExportar: TcxGrid;
     gridExportarTable: TcxGridDBTableView;
@@ -376,7 +377,7 @@ begin
   sqlSelos.Active := False;
   sqlSelos.Filtered := False;
   sqlSelos.Filter := '';
-  sqlSelos.DataSet.CommandText := viSql;
+  sqlSelos.SQL.Text := viSql;
   sqlSelos.Active := True;
 
   VerificarProtocoloSelo;
