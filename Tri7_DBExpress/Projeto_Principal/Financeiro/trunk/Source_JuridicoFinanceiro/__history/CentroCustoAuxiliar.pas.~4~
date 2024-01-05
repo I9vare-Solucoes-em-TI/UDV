@@ -1,0 +1,84 @@
+unit CentroCustoAuxiliar;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, CadastroAuxSimplificado, cxGraphics,
+  cxControls, cxLookAndFeels, cxLookAndFeelPainters, cxContainer, cxEdit,
+  Vcl.Menus, Data.FMTBcd, Data.DB, Datasnap.DBClient, Datasnap.Provider,
+  Data.SqlExpr, Vcl.StdCtrls, cxButtons, Vcl.ExtCtrls, cxLabel, cxStyles,
+  cxCustomData, cxFilter, cxData, cxDataStorage, cxNavigator, cxDBData,
+  cxCurrencyEdit, cxTextEdit, cxMaskEdit, cxDropDownEdit, cxLookupEdit,
+  cxDBLookupEdit, cxDBLookupComboBox, cxGridLevel, cxGridCustomTableView,
+  cxGridTableView, cxGridDBTableView, cxClasses, cxGridCustomView, cxGrid;
+
+type
+  TfrmCentroCustoPersonalizado = class(TfrmCadastroAuxSimplificado)
+    Panel3: TPanel;
+    cxLabel5: TcxLabel;
+    cxLabel1: TcxLabel;
+    grdBasica: TcxGrid;
+    cxGridPesquisa: TcxGridDBTableView;
+    cxGridPesquisaColumn1: TcxGridDBColumn;
+    cxGridPesquisaColumn2: TcxGridDBColumn;
+    grdBasicaLevel1: TcxGridLevel;
+    lcbCentroCusto: TcxLookupComboBox;
+    edtPorcentagem: TcxCurrencyEdit;
+    btnAdicionarCentro: TcxButton;
+    btnExcluirParcela: TcxButton;
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure FormActivate(Sender: TObject);
+    procedure edtPorcentagemKeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure btnAdicionarCentroClick(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  frmCentroCustoPersonalizado: TfrmCentroCustoPersonalizado;
+
+implementation
+
+uses
+  Lookup_Contabil;
+
+{$R *.dfm}
+
+procedure TfrmCentroCustoPersonalizado.btnAdicionarCentroClick(
+  Sender: TObject);
+begin
+  inherited;
+  //
+end;
+
+procedure TfrmCentroCustoPersonalizado.edtPorcentagemKeyDown(Sender: TObject;
+  var Key: Word; Shift: TShiftState);
+begin
+  inherited;
+  if Key = 13 then
+  begin
+    btnAdicionarCentro.SetFocus;
+    btnAdicionarCentroClick(self);
+  end;
+end;
+
+procedure TfrmCentroCustoPersonalizado.FormActivate(Sender: TObject);
+begin
+  inherited;
+  lcbCentroCusto.SetFocus;
+end;
+
+procedure TfrmCentroCustoPersonalizado.FormClose(Sender: TObject;
+  var Action: TCloseAction);
+begin
+  Action := caFree;
+  frmCadastroRapidoContas := nil;
+
+  inherited;
+end;
+
+end.

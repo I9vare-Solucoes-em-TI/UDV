@@ -1,0 +1,351 @@
+unit Cadastro;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms;
+
+  procedure CriarCadastrosGerais(vpTabela, vpCaption : String; vpTexto, vpSistema : Boolean; FormModal : Boolean = false);
+  function ValidarPermissao(vpRotina : String) : String;
+
+  {Cadastros}
+  procedure CadGruposTextoModelo(FormModal : Boolean = false);
+  procedure CadConfig;
+  procedure CadDicionarioGramatical;
+  procedure CadUsuarioGrupo(FormModal : Boolean = false);
+  procedure CadUsuario;
+  procedure CadMarcacaoTipo;
+  procedure CadConfigRelatorio;
+  procedure CadGrupoRelatorio;
+  procedure CadTextoModelo;
+  procedure CadCedente(FormModal : Boolean = false);
+  procedure CadGrupoContabil(FormModal : Boolean = false);
+  procedure CadReservaCadastro(FormModal : Boolean = false);
+  procedure CadGrupoBalancete(FormModal : Boolean = false);
+  procedure CadPlanoContas(FormModal : Boolean = false);
+  procedure CadAlterarCedente(FormModal : Boolean = false);
+  procedure CadPessoaUDV(FormModal : Boolean = false);
+  procedure CadPessoa(FormModal : Boolean = false);
+  procedure CadPesquisaPessoa;
+  procedure CadGrupoFamiliar(FormModal : Boolean = false);
+  procedure CadgerenciadorCompromisso;
+  procedure CadCentroCusto(FormModal : Boolean = false);
+  procedure CadSincronizarReuni(FormModal : Boolean = false);
+  procedure CadGerenciadorRecebimento(FormModal : Boolean = false);
+  procedure CadConfigEmail(FormModal : Boolean = false);
+  procedure CadGerenciadorSaida(FormModal : Boolean = false);
+  procedure CadMovimentacao;
+  procedure CadControleBalancete(FormModal : Boolean = false);
+  procedure CadOrcamento(FormModal : Boolean = False);
+  procedure CadGerenciaBoletoERemessa;
+  procedure CadEmailPadrao(FormModal: Boolean = False);
+
+  // Financeiro
+//  procedure CadLivroCaixa;
+  procedure CadAgendamento;
+  procedure CadFinanceiro;
+  procedure CadSaldoDetalhado;
+  procedure CadTransferencia(FormModal : Boolean = false);
+  procedure CadTransfProvisao(FormModal : Boolean = false);
+  procedure CadCaixaFinanceiro(FormModal : Boolean = false);
+  procedure CadLivroCaixa;
+  procedure CadLancamentoCaixa(FormModal : Boolean = false);
+  procedure CadTipoSaida(FormModal : Boolean = false);
+
+implementation
+
+uses CadastroBasicoGeral, Rotinas, Config,
+  DicionarioGramatical, Usuario, MarcacaoTipo, ConfigRelatorios,
+  GrupoRelatorios, Relatorio,  TextoModelo,
+  CadAuxiliar, EditorTexto, Controles, CadCedente, CadGrupoContabil,
+  CadPlanoContas, MostrarCedente, PessoaUDV, PessoaPesquisa, CadGrupoFamiliar,
+  CadBalanceteGrupo, GerenciadorCompromisso, CadCentroCusto, Sincronizar,
+  GerenciadorRecebimento, CadEnvioEmail, GerenciadorSaidas, Movimentacao,
+  ControleBalancete, Pessoa, SaldoDetalhado, CadastroRapidoTransferencia,
+  Agenda, Agendamento, Previsao, CaixaFinanceiro, LivroCaixa,
+  CadReservaCadastro, CadastroRapidoOrcamento, GerenciaBoletoERemessa,
+  CadastroRapidoLancamento, CadTipoSaida, CadastroRapidoTransfProvisao,
+  CadEmailTextoPadraoFin;
+
+{Monta o cadastro conforme os dados passados pelos parâmetros. Este procedimento
+só deve ser usado para os cadastro que possuem até 4 campos sendo esse :
+Chave, Descrição, Texto e Situação}
+procedure CriarCadastrosGerais(vpTabela, vpCaption : String; vpTexto, vpSistema : Boolean; FormModal : Boolean = false);
+begin
+  with Application do
+  begin
+    if frmCadastroBasicoGeral <> nil then
+       frmCadastroBasicoGeral.ExecuteFecharExecute(nil);
+    vgDadosCadastroGeral.Tabela  := vpTabela;
+    vgDadosCadastroGeral.Chave   := copy(vpTabela, 3, length(vpTabela)) + '_ID';
+    vgDadosCadastroGeral.Texto   := vpTexto;
+    vgDadosCadastroGeral.Caption := vpCaption;
+    vgDadosCadastroGeral.Sistema := vpSistema;
+    ExibirFormulario(TfrmCadastroBasicoGeral, frmCadastroBasicoGeral, FormModal);
+  end;
+end;
+
+function ValidarPermissao(vpRotina : String) : String;
+begin
+  Result := dtmControles.CodPermissao(vpRotina);;
+  if Result = '000000' then
+  begin
+    Application.MessageBox('Usuário não tem permissão de acessar esta rotina!', 'Atenção', MB_OK + MB_ICONWARNING);
+    Abort;
+  end;
+end;
+
+{******************************Montar Cadastros********************************}
+
+{Montar o cadastro de Grupos Texto Modelo}
+procedure CadGruposTextoModelo(FormModal : Boolean = false);
+begin
+  vgPermissaoRotina := ValidarPermissao('CAD_MODELOGRUPO');
+  CriarCadastrosGerais('G_TB_TXMODELOGRUPO', 'Grupos Texto Modelo' , False, True, FormModal);
+end;
+
+{Montar cadastro de Configuração do sistema}
+procedure CadConfig;
+begin
+  vgPermissaoRotina := ValidarPermissao('CAD_CONFSIS');
+  ExibirFormulario(TfrmConfig, frmConfig);
+end;
+
+{Montar cadastro de Dicionário Gramatical}
+procedure CadDicionarioGramatical;
+begin
+  vgPermissaoRotina := ValidarPermissao('CAD_DICGRAM');
+  ExibirFormulario(TfrmDicionarioGramatical, frmDicionarioGramatical);
+end;
+
+{Montar cadastro de Grupo de Usuário}
+procedure CadUsuarioGrupo(FormModal : Boolean = false);
+begin
+  vgPermissaoRotina := ValidarPermissao('CAD_GRUPOUSUARIO');
+  CriarCadastrosGerais('G_USUARIO_GRUPO', 'Grupo de Usuários', False, False, FormModal);
+end;
+
+procedure CadEmailPadrao(FormModal: Boolean = False);
+begin
+  vgPermissaoRotina := ValidarPermissao('CAD_EMAIL_PADRAO');
+  ExibirFormulario(TfrmCadEmailTextoPadraoFin, frmCadEmailTextoPadraoFin, FormModal);
+end;
+
+{Montar cadastro de Usuário}
+procedure CadUsuario;
+begin
+  vgPermissaoRotina := ValidarPermissao('CAD_USUARIO');
+  ExibirFormulario(TfrmUsuario, frmUsuario);
+end;
+
+procedure CadLancamentoCaixa(FormModal : Boolean = false);
+begin
+  vgPermissaoRotina := ValidarPermissao('CAD_LANCAMENTO_CAIXA');
+  ExibirFormulario(TfrmCadastroRapidoLancamento, frmCadastroRapidoLancamento, FormModal);
+end;
+
+{Montar quaçificar tipo}
+procedure CadMarcacaoTipo;
+begin
+  vgPermissaoRotina := ValidarPermissao('CAD_MARCACAOTIPO');
+  ExibirFormulario(TfrmMarcacaoTipo, frmMarcacaoTipo);
+end;
+
+{Montar config. relatórios}
+procedure CadConfigRelatorio;
+begin
+  vgPermissaoRotina := ValidarPermissao('CAD_CONFIGREL');
+  ExibirFormulario(TfrmConfigRelatorios, frmConfigRelatorios);
+end;
+
+{Montar grupo relatórios}
+procedure CadGrupoRelatorio;
+begin
+  vgPermissaoRotina := ValidarPermissao('CAD_GRUPOREL');
+  ExibirFormulario(TfrmGrupoRelatorio, frmGrupoRelatorio);
+end;
+
+procedure CadTextoModelo;
+begin
+  vgPermissaoRotina := ValidarPermissao('CAD_TEXTO');
+  ExibirFormulario(TfrmTextoModelo, frmTextoModelo);
+end;
+
+procedure CadCedente(FormModal : Boolean = false);
+begin
+  vgPermissaoRotina := ValidarPermissao('CAD_CEDENTE');
+  ExibirFormulario(TfrmCadCedente, frmCadCedente, FormModal);
+end;
+
+procedure CadGrupoContabil(FormModal : Boolean = false);
+begin
+  vgPermissaoRotina := ValidarPermissao('CAD_GRUPO_CONTABIL');
+  ExibirFormulario(TfrmCadGrupoContabil, frmCadGrupoContabil, FormModal);
+end;
+
+procedure CadPlanoContas(FormModal : Boolean = false);
+begin
+  vgPermissaoRotina := ValidarPermissao('CAD_PLANO_CONTAS');
+  ExibirFormulario(TfrmCadPlanoContas, frmCadPlanoContas, FormModal);
+end;
+
+procedure CadAlterarCedente(FormModal : Boolean = false);
+begin
+  vgPermissaoRotina := ValidarPermissao('CAD_ALTERAR_CEDENTE_ATIVO');
+  ExibirFormulario(TfrmAlterarCedente, frmAlterarCedente, FormModal);
+end;
+
+procedure CadPessoaUDV(FormModal : Boolean = false);
+begin
+  vgPermissaoRotina := ValidarPermissao('CAD_PESSOA');
+  ExibirFormulario(TfrmCadPessoaUDV, frmCadPessoaUDV, FormModal);
+end;
+
+procedure CadPessoa(FormModal : Boolean = false);
+begin
+  vgPermissaoRotina := ValidarPermissao('CAD_PESSOA');
+  ExibirFormulario(TfrmCadPessoa, frmCadPessoa, FormModal);
+end;
+
+procedure CadPesquisaPessoa;
+begin
+  vgPermissaoRotina := ValidarPermissao('CAD_PESSOA_PESQUISA');
+  ExibirFormulario(TfrmPessoaPesquisa, frmPessoaPesquisa);
+end;
+
+procedure CadGrupoFamiliar(FormModal : Boolean = false);
+begin
+  vgPermissaoRotina := ValidarPermissao('CAD_GRUPO_FAMILIAR');
+  ExibirFormulario(TfrmCadGrupoFamiliar, frmCadGrupoFamiliar, FormModal);
+end;
+
+procedure CadGrupoBalancete(FormModal : Boolean = false);
+begin
+  vgPermissaoRotina := ValidarPermissao('CAD_BALANCETE_GRUPO');
+  ExibirFormulario(TfrmCadGrupoBalancete, frmCadGrupoBalancete, FormModal);
+end;
+
+procedure CadGerenciadorCompromisso;
+begin
+  vgPermissaoRotina := ValidarPermissao('CAD_GERENCIADOR_COMPROMISSO');
+  ExibirFormulario(TfrmGerenciadorCompromisso, frmGerenciadorCompromisso);
+end;
+
+procedure CadCentroCusto(FormModal : Boolean = false);
+begin
+  vgPermissaoRotina := ValidarPermissao('CAD_CENTRO_CUSTO');
+  ExibirFormulario(TfrmCadCentroCusto, frmCadCentroCusto, FormModal);
+end;
+
+procedure CadSincronizarReuni(FormModal : Boolean = false);
+begin
+  vgPermissaoRotina := ValidarPermissao('CAD_SINCRONIZAR_REUNI');
+  ExibirFormulario(TfrmSincronizar, frmSincronizar,FormModal);
+end;
+
+procedure CadGerenciadorRecebimento(FormModal : Boolean = false);
+begin
+  vgPermissaoRotina := ValidarPermissao('CAD_GERENCIADOR_RECEBIMENTO');
+  ExibirFormulario(TfrmGerenciadorRecebimento, frmGerenciadorRecebimento,FormModal);
+end;
+
+procedure CadConfigEmail(FormModal : Boolean = false);
+begin
+  vgPermissaoRotina := ValidarPermissao('CAD_CONFIG_EMAIL');
+  ExibirFormulario(tfrmCadEnvioEmail, frmCadEnvioEmail, FormModal);
+end;
+
+procedure CadGerenciadorSaida(FormModal : Boolean = false);
+begin
+  vgPermissaoRotina := ValidarPermissao('CAD_GERENCIADOR_SAIDA');
+  ExibirFormulario(TfrmGerenciadorSaidas, frmGerenciadorSaidas, FormModal);
+end;
+
+procedure CadMovimentacao;
+begin
+  vgPermissaoRotina := ValidarPermissao('CAD_MOVIMENTACAO');
+  ExibirFormulario(TfrmMovimentacao, frmMovimentacao);
+end;
+
+procedure CadControleBalancete(FormModal : Boolean = false);
+begin
+  vgPermissaoRotina := ValidarPermissao('CAD_CONTROLE_BALANCETE');
+  ExibirFormulario(TfrmControleBalancete, frmControleBalancete, FormModal);
+end;
+
+{procedure CadLivroCaixa;
+begin
+  vgPermissaoRotina := ValidarPermissao('CAD_LIVRO_CAIXA');
+  ExibirFormulario(TfrmLivroCaixa, frmLivroCaixa);
+end; }
+
+procedure CadAgendamento;
+begin
+  vgPermissaoRotina := ValidarPermissao('CAD_AGENDAMENTO');
+  ExibirFormulario(TfrmAgendamento, frmAgendamento);
+end;
+
+procedure CadFinanceiro;
+begin
+  vgPermissaoRotina := ValidarPermissao('CAD_FINANCEIRO');
+  vgTipoForm := '3';
+  ExibirFormulario(TfrmPrevisao, frmPrevisao);
+end;
+
+procedure CadTransferencia(FormModal : Boolean = false);
+begin
+  vgPermissaoRotina := ValidarPermissao('CAD_TRANSFERENCIA');
+  ExibirFormulario(TfrmCadastroRapidoTransferencia, frmCadastroRapidoTransferencia, FormModal);
+end;
+
+procedure CadTransfProvisao(FormModal : Boolean = false);
+begin
+  vgPermissaoRotina := ValidarPermissao('CAD_TRANSFERENCIA');
+  ExibirFormulario(TfrmCadastroRapidoTransfProvisao, frmCadastroRapidoTransfProvisao, FormModal);
+end;
+
+procedure CadSaldoDetalhado;
+begin
+  vgPermissaoRotina := ValidarPermissao('CAD_SALDO_DETALHADO');
+  ExibirFormulario(TfrmSaldoDetalhado, frmSaldoDetalhado);
+end;
+
+procedure CadCaixaFinanceiro(FormModal : Boolean = false);
+begin
+  vgPermissaoRotina := ValidarPermissao('CAD_CAIXA_FINANCEIRO');
+  ExibirFormulario(TfrmCaixaFinanceiro, frmCaixaFinanceiro, FormModal);
+end;
+
+procedure CadLivroCaixa;
+begin
+  vgPermissaoRotina := ValidarPermissao('CAD_LIVRO_CAIXA');
+  ExibirFormulario(TfrmLivroCaixa, frmLivroCaixa);
+end;
+
+procedure CadReservaCadastro(FormModal : Boolean = false);
+begin
+  vgPermissaoRotina := ValidarPermissao('CAD_RESERVA_CADASTRO');
+  ExibirFormulario(TfrmCadReservaCadastro, frmCadReservaCadastro, FormModal);
+end;
+
+procedure CadOrcamento(FormModal : Boolean = False);
+begin
+  vgPermissaoRotina := ValidarPermissao('CAD_ORCAMENTO');
+  ExibirFormulario(TfrmCadastroRapidoOrcamento, frmCadastroRapidoOrcamento, FormModal);
+end;
+
+procedure CadGerenciaBoletoERemessa;
+begin
+  vgPermissaoRotina := ValidarPermissao('CAD_GERENCIA_BOLETO_REMESSA');
+  ExibirFormulario(TfrmGerenciaBoletoRemessa, frmGerenciaBoletoRemessa);
+end;
+
+procedure CadTipoSaida(FormModal : Boolean = false);
+begin
+  vgPermissaoRotina := ValidarPermissao('CAD_TIPO_SAIDA');
+  ExibirFormulario(TfrmCadTipoSaida, frmCadTipoSaida, FormModal);
+end;
+
+end.
+
+

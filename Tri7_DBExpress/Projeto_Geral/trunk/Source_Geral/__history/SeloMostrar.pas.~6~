@@ -1,0 +1,86 @@
+unit SeloMostrar;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, CadAuxiliar, cxGraphics, cxLookAndFeels,
+  cxLookAndFeelPainters, Vcl.Menus, Data.FMTBcd, Data.DB, Datasnap.DBClient,
+  Datasnap.Provider, Data.SqlExpr, Vcl.StdCtrls, cxButtons, Vcl.ExtCtrls,
+  cxControls, cxStyles, cxCustomData, cxFilter, cxData, cxDataStorage, cxEdit,
+  cxNavigator, cxDBData, cxTextEdit, cxGridLevel, cxGridCustomTableView,
+  cxGridTableView, cxGridDBTableView, cxClasses, cxGridCustomView, cxGrid,
+  cxContainer, cxLabel;
+
+type
+  TfrmSeloMostrar = class(TfrmCadAuxiliar)
+    cxGrid2: TcxGrid;
+    cxGridDBTableView6: TcxGridDBTableView;
+    cxGridDBColumnSeloNumero: TcxGridDBColumn;
+    cxGridDBTableView6Column1: TcxGridDBColumn;
+    cxGridLevel8: TcxGridLevel;
+    ClientAncestralSIGLA: TStringField;
+    ClientAncestralNUMERO: TIntegerField;
+    ClientAncestralSELO_LIVRO_ID: TFMTBCDField;
+    ClientAncestralDESCRICAO_COMPLETA: TStringField;
+    cxGridDBTableView6Column3: TcxGridDBColumn;
+    lblInformacao: TcxLabel;
+    procedure FormCreate(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  frmSeloMostrar: TfrmSeloMostrar;
+  vgSeloMostrarTabela, vgSeloMostrarCampoId, vgSeloMostrarCodBusca1, vgSeloMostrarCodBusca2 : string;
+
+implementation
+
+uses
+  Controles;
+
+{$R *.dfm}
+
+procedure TfrmSeloMostrar.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  inherited;
+  Action := caFree;
+  frmSeloMostrar := nil;
+end;
+
+procedure TfrmSeloMostrar.FormCreate(Sender: TObject);
+var
+  viSql : String;
+begin
+  inherited;
+
+  viSql := ' SELECT SL.SIGLA, CAST(SL.NUMERO AS INTEGER) AS NUMERO, SL.SELO_LIVRO_ID, '+
+           '               SG.DESCRICAO_COMPLETA '+
+           ' FROM G_SELO_LIVRO SL '+
+           ' LEFT OUTER JOIN G_SELO_LOTE ST ON '+
+           '   SL.SELO_LOTE_ID = ST.SELO_LOTE_ID '+
+           '   LEFT OUTER JOIN G_SELO_GRUPO SG ON '+
+           '   ST.SELO_GRUPO_ID = SG.SELO_GRUPO_ID '+
+           ' WHERE TABELA = '+QuotedStr(vgSeloMostrarTabela);
+  if vgSeloMostrarCampoId <> '' then
+    viSql := viSql + ' AND CAMPO_ID = '+ QuotedStr(vgSeloMostrarCampoId);
+
+  if vgSeloMostrarCodBusca1 <> '' then
+    viSql := viSql + ' AND CODIGO_BUSCA1 = '+ QuotedStr(vgSeloMostrarCodBusca1);
+
+  if vgSeloMostrarCodBusca2 <> '' then
+    viSql := viSql + ' AND CODIGO_BUSCA1 = '+ QuotedStr(vgSeloMostrarCodBusca2);
+
+  viSql := viSql + ' ORDER BY SIGLA, NUMERO';
+
+  ClientAncestral.Active := False;
+  DataSetAncestral.CommandText := viSql;
+  ClientAncestral.Active := True;
+
+  lblInformacao.Caption := AnsiUpperCase(vgUsuarioNome)+', utilize o(s) seguinte(s) selo(s) neste serviço'
+end;
+
+end.

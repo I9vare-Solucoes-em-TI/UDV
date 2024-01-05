@@ -1,0 +1,173 @@
+unit CodigoPix;
+
+interface
+
+Uses System.SysUtils;
+
+  type
+    TPix = Record
+      Identificacao : String;
+      Valor         : Currency;
+      Texto         : String;
+      PixTexto      : String;
+      ChavePix      : String;
+      Cidade        : String;
+    End;
+
+  function CRC16CCITT(texto: string): WORD;
+  function bloco54Valor(valor : Currency): string;
+  function bloco62Identificacao(identificador : string): string;
+  function blocoTextoSimples(idBloco : String; conteudo : string): string;
+  function bloco59MerchantName(nome : string): string;
+  function bloco26MAInformation(chavePix : string): string;
+  function zeroPad(const Value: Integer): string;
+  function GerarCodigoPIX:String;
+
+  var
+    vgPIx : TPix;
+
+implementation
+
+uses
+  Rotinas;
+
+function zeroPad(const Value: Integer): string;
+begin
+  //  zeroPad := Format('%.2d', [Value]);
+end;
+
+function bloco26MAInformation(chavePix : string): string;
+var
+    texto : string;
+    bloco0 : string;
+    bloco1 : string;
+    tam : integer;
+begin
+    texto  := '26';
+    bloco0 := '0014BR.GOV.BCB.PIX';
+    bloco1 := '01';
+
+{    bloco1 := bloco1 + zeroPad(integer(chavePix[0])) + chavePix;
+    tam := integer(bloco0[0]) + integer(bloco1[0]);
+    texto := texto + zeroPad(tam) + bloco0 + bloco1;
+    bloco26MAInformation := texto;  }
+end;
+
+function bloco59MerchantName(nome : string): string;
+var
+    texto : string;
+    tam : integer;
+begin
+  {  texto := '59';
+    tam := integer(nome[0]);
+    texto := texto + zeroPad(tam) + nome;
+    bloco59MerchantName := texto;}
+end;
+
+function blocoTextoSimples(idBloco : String; conteudo : string): string;
+var
+    tam : integer;
+begin
+    tam := Length(conteudo);
+    idBloco := idBloco + zeroPad(tam) + conteudo;
+    blocoTextoSimples := idBloco;
+end;
+
+function bloco62Identificacao(identificador : string): string;
+var
+    texto : string;
+    bloco05 : string;
+    tam : integer;
+begin
+    texto := '62';
+    bloco05 := '05';
+
+  {  tam := integer(identificador[0]);
+    bloco05 := bloco05 + zeroPad(tam) + identificador;
+    tam := integer(bloco05[0]);
+    texto := texto + zeroPad(tam) + bloco05;
+    bloco62Identificacao := texto;}
+end;
+
+function bloco54Valor(valor : Currency): string;
+var
+  texto : string;
+	txtValor : string;
+  tam : integer;
+begin
+    texto := '54';
+ //  	txtValor := Format('%f', [valor]);
+//    tam := integer(txtValor[0]);
+  	txtValor := CurrToStr(valor);
+    txtValor := TrocaVirgPPto(txtValor);
+    tam := Length(txtValor);
+    texto := texto + zeroPad(tam) + txtValor;
+    bloco54Valor := texto;
+end;
+
+function CRC16CCITT(texto: string): WORD;
+const
+  polynomial = $1021;
+var
+  crc: WORD;
+  i, j: Integer;
+  b: Byte;
+  bit, c15: Boolean;
+begin
+  crc := $FFFF;
+  for i := 1 to length(texto) do
+  begin
+    b := Byte(texto[i]);
+    for j := 0 to 7 do
+    begin
+      bit := (((b shr (7 - j)) and 1) = 1);
+      c15 := (((crc shr 15) and 1) = 1);
+      crc := crc shl 1;
+      if (c15 xor bit) then
+        crc := crc xor polynomial;
+    end;
+  end;
+  CRC16CCITT := crc and $FFFF;
+end;
+
+function GerarCodigoPIX:String;
+var
+  Texto, chavePix : String;
+begin
+  //  chavePix := '17023315802'; (* <- coloque a sua chave *)
+{    texto := texto + bloco26MAInformation(chavePix);
+    texto := texto + '52040000'; (* bloco 52 - Merchant Category Code *)
+    texto := texto + '5303986'; (* bloco 53 - Transaction Currency *)
+    texto := texto + '5802BR'; (* bloco 58 - Country Code *)
+    (* Na função abaixo, coloque em maiúsculo e sem acentos *)
+    texto := texto + blocoTextoSimples('59', 'FERNANDO ORSI'); //Merchant Name
+    texto := texto + blocoTextoSimples('60', 'GOIANIA'); //Merchant City
+    texto := texto + bloco62Identificacao('789');
+    texto := texto + bloco54Valor(0.01);
+    texto := texto + '6304'; (* bloco 63 - CRC16 *)
+    writeln(CRC16CCITT(texto));
+//    texto := texto + IntToHex(CRC16CCITT(texto), 4);}
+
+//    writeln(texto);
+
+    chavePix := '00020126580014BR.GOV.BCB.PIX0136'+
+                 vgPIx.ChavePix+
+                '520400005303986'+
+                 bloco54Valor(vgPIx.Valor)+
+                '5802BR5903UDV'+
+                 blocoTextoSimples('60', vgPIx.Cidade)+
+                '62260522'+
+                '3H4bVCgzv3yW8RfSg3TRDR6304';
+    chavePix := chavePix + IntToHex(CRC16CCITT(chavePix), 4);
+    Result := chavePix;
+end;
+
+end.
+
+
+00020126580014BR.GOV.BCB.PIX0136 5dfab72a-9817-4749-a70f-792d551f96dc 52040000530398654 06 586.30 5802BR59 25TRI 7   SOLUCOES EM TI LT 6009SAO PAULO 62260522 5oQWuNfhyQDLLwxc6gil2O6304A67A
+
+00020126580014BR.GOV.BCB.PIX0136 1a69a27a-e0b4-443f-a9a7-e85af71212d0 52040000530398654 06 452.86 5802BR59 03UDV 6012BONFINOPOLIS 62260522 3H4bVCgzv3yW8RfSg3TRDR6304 DD2F
+
+00020126580014BR.GOV.BCB.PIX0136 1a69a27a-e0b4-443f-a9a7-e85af71212d0 52040000530398654 05 47.00 5802BR59 03UDV 6012BONFINOPOLIS  62260522 3H4bVCgzv3yW8RfSg3TRDR6304 3FC5
+00020126580014BR.GOV.BCB.PIX0136 7dfbf1b0-10b2-4423-886f-61b9c7e8b87a 52040000530398654 06 352.20 5802BR59 15I937 TECNOLOGIA 6009SAO PAULO 62260522 6DEksfBeSewOLc2AxdjFt9630432C8

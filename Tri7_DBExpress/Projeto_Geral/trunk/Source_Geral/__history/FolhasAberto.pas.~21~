@@ -1,0 +1,146 @@
+unit FolhasAberto;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, DB, DBClient,
+  SimpleDS, DBCGrids,
+  cxLabel, StdCtrls, DBCtrls, Menus,
+  cxButtons, ExtCtrls, cxGraphics, cxLookAndFeels, cxLookAndFeelPainters,
+  DbxDevartInterBase, cxControls, dxBarBuiltInMenu, cxPC, cxContainer, cxEdit,
+  cxTextEdit, cxMaskEdit, cxDropDownEdit, cxImageComboBox, cxDBEdit;
+
+type
+  TfrmFolhasAberto = class(TForm)
+    dtsFolhas: TDataSource;
+    Panel1: TPanel;
+    btnCancelar: TcxButton;
+    btnConfirmar: TcxButton;
+    cxTabControl1: TcxTabControl;
+    DBCtrlGrid1: TDBCtrlGrid;
+    DBText1: TDBText;
+    ClientFolhas: TClientDataSet;
+    ClientFolhasPagina: TIntegerField;
+    ClientFolhasLivro: TIntegerField;
+    ClientFolhasSituacao: TStringField;
+    cxDBImageComboBox1: TcxDBImageComboBox;
+    procedure btnCancelarClick(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure FormActivate(Sender: TObject);
+    procedure btnConfirmarClick(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure DBText1Click(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    procedure VerificarFolhasAberto(vpLivroNaturezaId, vpLivro : String);
+  end;
+
+var
+  frmFolhasAberto: TfrmFolhasAberto;
+
+implementation
+
+uses Controles, SeloSelecionado, Rotinas;
+
+{$R *.dfm}
+
+procedure TfrmFolhasAberto.btnCancelarClick(Sender: TObject);
+begin
+  Close;
+end;
+
+procedure TfrmFolhasAberto.btnConfirmarClick(Sender: TObject);
+begin
+{  vgDadosSelo.Confirmado    := True;
+  vgDadosSelo.SeloLivroId   := sqlSeloItensSELO_LIVRO_ID.AsString;
+  vgDadosSelo.SeloAgrupador := TiraCaractere(sqlSeloItensNUMERO.AsString,'-');
+  frmSeloSelecionado. lblSelo.Caption := sqlSeloItensNUMERO.aSString;}
+  Close;
+end;
+
+procedure TfrmFolhasAberto.DBText1Click(Sender: TObject);
+begin
+  btnConfirmarClick(Self);
+end;
+
+procedure TfrmFolhasAberto.FormActivate(Sender: TObject);
+begin
+  DBCtrlGrid1.SetFocus;
+end;
+
+procedure TfrmFolhasAberto.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  Action          := caFree;
+  frmFolhasAberto := nil;
+end;
+
+procedure TfrmFolhasAberto.FormCreate(Sender: TObject);
+begin
+//  sqlSeloItens.Connection := dtmControles.DB;
+
+{  sqlSeloItens.Active := False;
+  sqlSeloItens.DataSet.ParamByName('SELO_GRUPO_ID').AsBCD := vgDadosSelo.SeloGrupoId;
+  sqlSeloItens.Active := True;}
+  VerificarFolhasAberto('1', '');
+end;
+
+procedure TfrmFolhasAberto.VerificarFolhasAberto(vpLivroNaturezaId, vpLivro : String);
+var
+  viPaginaFlag, viPaginaInicial, viQtdFolhas, viLivro, i : Integer;
+  viPaginas : array[1..400] of integer;
+  viSql, viLivroInicial : String;
+begin
+  viLivroInicial := dtmControles.GetStr(' SELECT LIVRO_INICIAL_VALIDA_FOLHA FROM T_LIVRO_NATUREZA '+
+                                        ' WHERE LIVRO_NATUREZA_ID = '+vpLivroNaturezaId);
+
+  viSql := ' SELECT LIVRO_ANDAMENTO_ID, NUMERO_LIVRO, NUMERO_FOLHAS FROM T_LIVRO_ANDAMENTO '+
+           ' WHERE  LIVRO_NATUREZA_ID = '+ vpLivroNaturezaId;
+  if viLivro <> '' then
+    viSql := viSql + ' AND NUMERO_LIVRO = '+vpLivro
+  else
+    if viLivroInicial <> '' then
+      viSql := viSql + ' AND NUMERO_LIVRO >= '+viLivroInicial;
+  ExecutaSimpleDSAux(viSql, 0);
+
+
+  viQtdFolhas := dtmControles.SimpleAuxiliar.FieldByName('NUMERO_FOLHAS').AsInteger;
+  viLivro     := dtmControles.SimpleAuxiliar.FieldByName('NUMERO_LIVRO').AsInteger;
+  while not dtmControles.SimpleAuxiliar.Eof do
+  begin
+    ExecutaSqlAuxiliar(' SELECT FOLHA_INICIAL, FOLHA_FINAL '+
+                       ' FROM T_ATO WHERE LIVRO_ANDAMENTO_ID = '+ dtmControles.SimpleAuxiliar.FieldByName('LIVRO_ANDAMENTO_ID').AsString+
+                       ' ORDER BY FOLHA_INICIAL',0);
+    for i:= 1 to 200 do
+      viPaginas[i] := 0;
+
+    while not dtmControles.sqlAuxiliar.Eof  do
+    begin
+      viPaginaInicial := dtmControles.sqlAuxiliar.FieldByName('FOLHA_INICIAL').AsInteger;
+      viPaginaFlag    := dtmControles.sqlAuxiliar.FieldByName('FOLHA_FINAL').AsInteger;
+      repeat
+        viPaginas[viPaginaInicial] := viPaginaInicial;
+        Inc(viPaginaInicial);
+      until viPaginaInicial > viPaginaFlag;
+      dtmControles.sqlAuxiliar.Next;
+    end;
+    dtmControles.SimpleAuxiliar.Next;
+  end;
+
+  ClientFolhas.EmptyDataSet;
+  for i:= 1 to viQtdFolhas do
+  begin
+    if viPaginas[i] = 0 then
+    begin
+      ClientFolhas.Append;
+      ClientFolhasPagina.AsInteger   := i;
+      ClientFolhasLivro.AsInteger    := viLivro;
+      ClientFolhasSituacao.AsString  := '0';
+      ClientFolhas.Post;
+    end;
+  end;
+  ClientFolhas.First;
+end;
+
+end.

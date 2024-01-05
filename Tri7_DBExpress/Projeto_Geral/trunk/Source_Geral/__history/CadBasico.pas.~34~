@@ -1,0 +1,334 @@
+unit CadBasico;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, ActnList, ComCtrls, ExtCtrls, StdCtrls, cxButtons, DB, DBClient,
+  Provider, SqlExpr, WPCTRRich, DBCtrls, Wpdbrich, DBGrids, Controles,
+  cxGridCustomView, Menus, System.Actions, Data.FMTBcd, cxGraphics,
+  cxLookAndFeels, cxLookAndFeelPainters, dxSkinsCore, dxSkinBlack,
+  dxSkinDevExpressDarkStyle, dxSkinDevExpressStyle, dxSkinMcSkin,
+  dxSkinOffice2007Black, dxSkinOffice2007Blue, dxSkinOffice2007Green,
+  dxSkinOffice2007Pink, dxSkinOffice2007Silver, dxSkinsDefaultPainters;
+
+type
+  TExecuteProc = procedure of object;
+
+  TfrmCadBasico = class(TForm)
+    PanelBotoes: TPanel;
+    PanelBotoesBasicos: TPanel;
+    PanelBotaoFechar: TPanel;
+    ActionList1: TActionList;
+    ExecuteIncluir: TAction;
+    ExecuteAlterar: TAction;
+    ExecuteExcluir: TAction;
+    ExecuteGravar: TAction;
+    ExecuteCancelar: TAction;
+    ExecutePesquisa: TAction;
+    ExecuteFechar: TAction;
+    DataSetAncestral: TSQLDataSet;
+    ProviderAncestral: TDataSetProvider;
+    ClientAncestral: TClientDataSet;
+    SourceAncestral: TDataSource;
+    StatusBar: TStatusBar;
+    PanelGeral: TPanel;
+    PanelData: TPanel;
+    cxBtnFechar: TcxButton;
+    PanelBasicoBotoes: TPanel;
+    cxBtnPesquisar: TcxButton;
+    cxBtnCancelar: TcxButton;
+    cxBtnGravar: TcxButton;
+    cxBtnExcluir: TcxButton;
+    cxBtnAlterar: TcxButton;
+    cxBtnIncluir: TcxButton;
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure ExecuteIncluirExecute(Sender: TObject);
+    procedure ExecuteAlterarExecute(Sender: TObject);
+    procedure ExecuteExcluirExecute(Sender: TObject);
+    procedure ExecuteGravarExecute(Sender: TObject);
+    procedure ExecuteCancelarExecute(Sender: TObject);
+    procedure ExecutePesquisaExecute(Sender: TObject);
+    procedure ExecuteFecharExecute(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure ClientAncestralReconcileError(DataSet: TCustomClientDataSet;
+      E: EReconcileError; UpdateKind: TUpdateKind;
+      var Action: TReconcileAction);
+    procedure FormKeyPress(Sender: TObject; var Key: Char);
+    procedure FormShow(Sender: TObject);
+    procedure FormActivate(Sender: TObject);
+  private
+    Status: string;
+    ErroPost :  Boolean;
+    { Private declarations }
+    procedure SequenciaID;
+  public
+    vgPermissao,
+    vgChavePrimaria,
+    vgNomeTabela,
+    vgChave,
+    vgOperacao : String;
+    State : TDataSetState;
+    vgExecutarAferScrool : Boolean;
+    ExecGravar : TExecuteProc;
+    ExecExcluir : TExecuteProc;
+    procedure SetState (AState : TDataSetState); virtual;
+    procedure LoadData; virtual;
+    procedure CheckState;
+    procedure SetStatus (S : string);
+    { Public declarations }
+  end;
+
+var
+  frmCadBasico: TfrmCadBasico;
+  vgMaximizar : Boolean;
+
+implementation
+
+uses Rotinas;
+
+{$R *.dfm}
+
+procedure TfrmCadBasico.SetStatus (S : string);
+begin
+  Status := S;
+  if StatusBar.SimplePanel then
+     StatusBar.SimpleText := S
+  else StatusBar.Panels [0].Text := S;
+end;
+
+//Controla os status dos botões
+procedure TfrmCadBasico.CheckState;
+begin
+  case State of
+    dsEdit   : SetStatus ('Alterando'  );
+    dsInsert : SetStatus ('Incluindo'  );
+    dsBrowse : SetStatus ('Consultando');
+  else
+    SetStatus ('');
+  end; {case}
+
+  LockWindowUpdate(handle);
+  ExecuteIncluir.Enabled  := (State = dsBrowse);
+  if ClientAncestral.Active then
+     ExecuteAlterar.Enabled  := ((State = dsBrowse) and (ClientAncestral.RecordCount > 0))
+  else ExecuteAlterar.Enabled  := False;
+  ExecuteExcluir.Enabled  := (ExecuteAlterar.Enabled);
+  ExecutePesquisa.Enabled := (State = dsBrowse);
+  ExecuteGravar.Enabled   := State in [dsInsert, dsEdit];
+  ExecuteFechar.Enabled   := not ExecuteGravar.Enabled;
+  ExecuteCancelar.Enabled := ExecuteGravar.Enabled;
+  PanelData.Enabled       := (State in [dsInsert, dsEdit]);
+  LockWindowUpdate(0);
+
+  if State in [dsInsert, dsEdit] then
+     Tag := 1
+  else
+     Tag := 0;
+end;
+
+procedure TfrmCadBasico.LoadData;
+begin
+  State := dsBrowse;
+  SetState(State);
+end;
+
+procedure TfrmCadBasico.SetState (AState : TDataSetState);
+begin
+  State := AState;
+  CheckState;
+end;
+
+procedure TfrmCadBasico.FormActivate(Sender: TObject);
+begin
+  if FormStyle = fsMDIChild then
+    WindowState := wsMaximized;
+end;
+
+procedure TfrmCadBasico.FormClose(Sender: TObject;
+  var Action: TCloseAction);
+begin
+  ClientAncestral.Close;
+  Action := caFree;
+  frmCadBasico := nil;
+end;
+
+procedure TfrmCadBasico.ExecuteIncluirExecute(Sender: TObject);
+begin
+  VerificarPermissao(vgPermissao[1]);
+  if State <> dsBrowse then
+     Exit;
+  if (ClientAncestral.State in[dsInsert, dsEdit]) then
+      ClientAncestral.Cancel;
+  ClientAncestral.Insert;
+  SetState (dsInsert);
+end;
+
+procedure TfrmCadBasico.ExecuteAlterarExecute(Sender: TObject);
+begin
+  VerificarPermissao(vgPermissao[2]);
+  if State <> dsBrowse then
+     Exit;
+  if ClientAncestral.State in[dsInsert, dsEdit] then
+      ClientAncestral.Cancel;
+  ClientAncestral.Edit;
+  SetState (dsEdit);
+end;
+
+procedure TfrmCadBasico.ExecuteExcluirExecute(Sender: TObject);
+begin
+  VerificarPermissao(vgPermissao[3]);
+  vgOperacao := 'E';
+  vgExecutarAferScrool := False;
+  if State <> dsBrowse then
+     Exit;
+  SetStatus ('Excluindo');
+  dtmControles.StartTransaction;
+  try
+    if Application.MessageBox ('Deseja excluir este registro?', 'Confirmar', mb_IconQuestion + mb_YesNo) = idYes then
+    begin
+       {Executa qualquer código que se queira executar antes de excluir}
+       if @ExecExcluir <> nil then
+           ExecExcluir;
+       ClientAncestral.Delete;
+       ClientAncestral.ApplyUpdates(-1);
+       SetState(dsBrowse);
+    end;
+  except
+     dtmControles.Roolback;
+  end;
+  dtmControles.Commit;
+  SetStatus ('Consultando');
+  vgExecutarAferScrool := True;
+end;
+
+procedure TfrmCadBasico.ExecuteGravarExecute(Sender: TObject);
+begin
+  if State = dsInsert then
+     vgOperacao := 'I'
+  else vgOperacao := 'A';
+
+  vgExecutarAferScrool := False;
+  ErroPost := False;
+
+  //Gravar
+  dtmControles.StartTransaction;
+
+  SequenciaID;
+
+  ClientAncestral.Post;
+  ClientAncestral.ApplyUpdates(-1);
+
+  if ErroPost then
+  begin
+    SetState (dsBrowse);
+    dtmControles.Roolback;
+    Abort;
+  end;
+
+  dtmControles.Commit;
+
+  {Executa qualquer código que se queira executar depois de gravar}
+  if @ExecGravar <> nil then
+     ExecGravar;
+
+  SetState (dsBrowse);
+  vgExecutarAferScrool := True;
+end;
+
+procedure TfrmCadBasico.ExecuteCancelarExecute(Sender: TObject);
+begin
+  if State = dsBrowse then
+     Exit;
+  ClientAncestral.Cancel;
+  SetState (dsBrowse);
+end;
+
+procedure TfrmCadBasico.ExecutePesquisaExecute(Sender: TObject);
+begin
+  VerificarPermissao(vgPermissao[4]);
+end;
+
+procedure TfrmCadBasico.ExecuteFecharExecute(Sender: TObject);
+begin
+  Close;
+end;
+
+
+procedure TfrmCadBasico.FormCreate(Sender: TObject);
+begin
+  vgPermissao     := '';
+  vgChavePrimaria := '';
+  vgNomeTabela    := '';
+
+  if vgCodAtalho <> '' then
+     StatusBar.Panels[1].Text := 'Atalho: ' + vgCodAtalho
+  else StatusBar.Panels[1].Text := '';
+
+  DataSetAncestral.SQLConnection := dtmControles.DB;
+  vgChave := '';
+  ExecExcluir := nil;
+  ExecGravar  := nil;
+  vgExecutarAferScrool := False;
+end;
+
+procedure TfrmCadBasico.ClientAncestralReconcileError(
+  DataSet: TCustomClientDataSet; E: EReconcileError;
+  UpdateKind: TUpdateKind; var Action: TReconcileAction);
+begin
+  Action := raCancel;
+  ErroPost := True;
+  dtmControles.MostraErro(E);
+end;
+
+procedure TfrmCadBasico.FormKeyPress(Sender: TObject; var Key: Char);
+begin
+  case Key of
+    #27 : begin
+            Key := #0;
+            if State <> dsBrowse then
+            begin
+              if Application.MessageBox('Deseja cancelar essa operação?', 'Atenção', MB_YESNO + MB_ICONQUESTION) = IDYES then
+              begin
+                ClientAncestral.Cancel;
+                SetState (dsBrowse);
+              end;
+            end
+            else if Application.MessageBox('Deseja fechar este formulário?', 'Atenção', MB_YESNO + MB_ICONQUESTION) = IDYES then
+                   Close;
+          end;
+    #13 : begin
+            if (not (ActiveControl is TMemo)) and (not (ActiveControl is TDBMemo)) and
+               (not (ActiveControl is TWPRichText)) and (not (ActiveControl is TDBWPRichText)) and
+               (not (ActiveControl is TDBRichEdit)) and (not (ActiveControl is TDBGrid)) and
+               (not (ActiveControl is TcxGridSite)) then
+            begin
+              Key := #0;
+              PostMessage (Handle, WM_NEXTDLGCTL, 0, 0);
+            end;
+          end;
+  end; {case}
+end;
+
+procedure TfrmCadBasico.FormShow(Sender: TObject);
+begin
+  if vgPermissaoRotina = '' then
+     vgPermissao := '000000'
+  else vgPermissao := vgPermissaoRotina;
+  LoadData;
+   vgExecutarAferScrool := True;
+end;
+
+procedure TfrmCadBasico.SequenciaID;
+begin
+  if Trim(vgChavePrimaria) <> '' then
+     if State = dsInsert then
+        ClientAncestral.FieldByName(vgChavePrimaria).AsInteger := dtmControles.GerarSequencia(vgNomeTabela);
+end;
+
+end.
+
+
+
+
+

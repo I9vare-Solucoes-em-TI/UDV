@@ -1,0 +1,401 @@
+unit SaldoDetalhado;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, DB, DBClient, cxGraphics, cxControls, cxLookAndFeels,
+  cxLookAndFeelPainters, dxSkinsCore, dxSkinBlack, dxSkinBlue, dxSkinBlueprint,
+  dxSkinCaramel, dxSkinCoffee, dxSkinDarkRoom, dxSkinDevExpressDarkStyle,
+  dxSkinDevExpressStyle, dxSkinFoggy, dxSkinGlassOceans, dxSkinHighContrast,
+  dxSkiniMaginary, dxSkinLilian, dxSkinLiquidSky, dxSkinLondonLiquidSky,
+  dxSkinMcSkin, dxSkinMoneyTwins, dxSkinOffice2007Black, dxSkinOffice2007Blue,
+  dxSkinOffice2007Green, dxSkinOffice2007Pink, dxSkinOffice2007Silver,
+  dxSkinOffice2010Black, dxSkinOffice2010Blue, dxSkinOffice2010Silver,
+  dxSkinOffice2013White, dxSkinPumpkin, dxSkinSeven, dxSkinSevenClassic,
+  dxSkinSharp, dxSkinSharpPlus, dxSkinSilver, dxSkinSpringTime, dxSkinStardust,
+  dxSkinSummer2008, dxSkinTheAsphaltWorld, dxSkinsDefaultPainters,
+  dxSkinValentine, dxSkinVS2010, dxSkinWhiteprint, dxSkinXmas2008Blue,
+  dxSkinscxPCPainter, cxPCdxBarPopupMenu, cxContainer, cxEdit, ComCtrls, dxCore,
+  cxDateUtils, Menus, cxStyles, cxCustomData, cxFilter, cxData, cxDataStorage,
+  cxNavigator, cxDBData, cxCurrencyEdit, cxGridCustomTableView, cxGridTableView,
+  cxGridDBTableView, cxGridLevel, cxClasses, cxGridCustomView, cxGrid, StdCtrls,
+  cxButtons, cxTextEdit, cxMaskEdit, cxDropDownEdit, cxCalendar, cxLabel, cxPC,
+  ExtCtrls, dxBarBuiltInMenu, cxImageComboBox, cxRadioGroup;
+
+type
+  TfrmSaldoDetalhado = class(TForm)
+    ClientSaldoDetalhado: TClientDataSet;
+    IntegerField1: TIntegerField;
+    StringField1: TStringField;
+    CurrencyField1: TCurrencyField;
+    IntegerField2: TIntegerField;
+    StringField2: TStringField;
+    StringField3: TStringField;
+    ClientSaldoDetalhadoSALDO_ANTERIOR: TCurrencyField;
+    ClientSaldoDetalhadoRECEITAS: TCurrencyField;
+    ClientSaldoDetalhadoDESPESAS: TCurrencyField;
+    ClientSaldoDetalhadoENTRADAS: TCurrencyField;
+    ClientSaldoDetalhadoSAIDAS: TCurrencyField;
+    dtsSaldoDetalhado: TDataSource;
+    Panel1: TPanel;
+    pgcPeriodo: TcxPageControl;
+    cxTabSheet2: TcxTabSheet;
+    Panel2: TPanel;
+    cxBtnFechar: TcxButton;
+    pgcPesquisa: TcxPageControl;
+    cxTabSheet1: TcxTabSheet;
+    rdbAnoMesAtual: TcxRadioButton;
+    rdbAnoMesFechamento: TcxRadioButton;
+    cxTabSheet3: TcxTabSheet;
+    cxLabel2: TcxLabel;
+    edtDataInicial: TcxDateEdit;
+    edtDataFinal: TcxDateEdit;
+    cxLabel1: TcxLabel;
+    btnPesquisar: TcxButton;
+    chxInativos: TCheckBox;
+    icxMes: TcxImageComboBox;
+    icxAno: TcxImageComboBox;
+    btnFecharLivroCaixa: TcxButton;
+    btnReabrirLivroCaixa: TcxButton;
+    lcxInformacao: TcxLabel;
+    btnPesquisarSaldo: TcxButton;
+    rdbAnoMesEscolher: TcxRadioButton;
+    ClientSaldoDetalhadoBALANCETE_GRUPO_ID: TIntegerField;
+    tabDistribuicao: TcxTabControl;
+    ClientReserva: TClientDataSet;
+    dtsReserva: TDataSource;
+    pgcGridPesquisa: TcxPageControl;
+    cxTabSheet4: TcxTabSheet;
+    cxTabSheet5: TcxTabSheet;
+    gdrCompromissoAgendado: TcxGrid;
+    cxGridDBTablePrevisao: TcxGridDBTableView;
+    cxGridDBTablePrevisaoBalancete: TcxGridDBColumn;
+    cxGridDBTablePrevisaoCaixa: TcxGridDBColumn;
+    cxGridDBTablePrevisaoSaldoAnterior: TcxGridDBColumn;
+    cxGridDBTablePrevisaoReceitas: TcxGridDBColumn;
+    cxGridDBTablePrevisaoDespesas: TcxGridDBColumn;
+    cxGridDBTablePrevisaoEntradas: TcxGridDBColumn;
+    cxGridDBTablePrevisaoSaidas: TcxGridDBColumn;
+    cxGridDBTablePrevisaoSaldo: TcxGridDBColumn;
+    cxGridLevel7: TcxGridLevel;
+    ClientReservaRESERVA_DESCRICAO: TStringField;
+    ClientReservaVALOR_RESERVA: TCurrencyField;
+    ClientReservaBALANCETE_GRUPO_ID: TIntegerField;
+    ClientReservaVALOR_ENTRADA: TCurrencyField;
+    ClientReservaVALOR_SAIDA: TCurrencyField;
+    ClientReservaRESERVA_ID: TIntegerField;
+    cxGrid1: TcxGrid;
+    cxGridDBTableView1: TcxGridDBTableView;
+    cxGridDBReservaDescricao: TcxGridDBColumn;
+    cxGridDBReservaSaldoAnterior: TcxGridDBColumn;
+    cxGridDBReservaValorEntrada: TcxGridDBColumn;
+    cxGridDBReservaValorSaida: TcxGridDBColumn;
+    cxGridDBReservaTranfEntrada: TcxGridDBColumn;
+    cxGridDBReservaTranfSaida: TcxGridDBColumn;
+    cxGridDBReservaValorDisponivel: TcxGridDBColumn;
+    cxGridLevel1: TcxGridLevel;
+    cxGridDBReservaBalancete: TcxGridDBColumn;
+    ClientReservaSALDO_ANTERIOR: TCurrencyField;
+    ClientReservaRESULTADO_MES: TCurrencyField;
+    ClientReservaTRANSFERENCIA_ENTRADA: TCurrencyField;
+    ClientReservaTRANSFERENCIA_SAIDA: TCurrencyField;
+    ClientSaldoReserva: TClientDataSet;
+    ClientSaldoReservaRESERVA_DESCRICAO: TStringField;
+    ClientSaldoReservaVALOR_RESERVA: TCurrencyField;
+    ClientSaldoReservaBALANCETE_GRUPO_ID: TIntegerField;
+    ClientSaldoReservaVALOR_ENTRADA: TCurrencyField;
+    ClientSaldoReservaVALOR_SAIDA: TCurrencyField;
+    ClientSaldoReservaRESERVA_ID: TIntegerField;
+    ClientSaldoReservaSALDO_ANTERIOR: TCurrencyField;
+    ClientSaldoReservaRESULTADO_MES: TCurrencyField;
+    cxGridDBReservaResultado: TcxGridDBColumn;
+    ClientSaldoReservaTRANSFERENCIA_ENTRADA: TCurrencyField;
+    ClientSaldoReservaTRANSFERENCIA_SAIDA: TCurrencyField;
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure btnPesquisarClick(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure FormActivate(Sender: TObject);
+    procedure cxBtnFecharClick(Sender: TObject);
+    procedure chxInativosClick(Sender: TObject);
+    procedure pgcPesquisaChange(Sender: TObject);
+    procedure rdbAnoMesAtualClick(Sender: TObject);
+    procedure rdbAnoMesFechamentoClick(Sender: TObject);
+    procedure rdbAnoMesEscolherClick(Sender: TObject);
+    procedure btnPesquisarSaldoClick(Sender: TObject);
+    procedure btnFecharLivroCaixaClick(Sender: TObject);
+    procedure btnReabrirLivroCaixaClick(Sender: TObject);
+    procedure tabDistribuicaoChange(Sender: TObject);
+  private
+    vgAnoMesFechamento,  vgAnoMesFechado : String;
+    vpAbrindoForm : Boolean;
+    procedure AberturaFechamentoCaixa(vpOpcao : Integer; vpAnoMes : String);
+  public
+    { Public declarations }
+  end;
+
+var
+  frmSaldoDetalhado: TfrmSaldoDetalhado;
+
+implementation
+
+uses Lookup_Contabil, Controles, Lookup, Rotinas, ValidarPermissaoUsuario;
+
+{$R *.dfm}
+
+procedure TfrmSaldoDetalhado.AberturaFechamentoCaixa(vpOpcao : Integer; vpAnoMes : String);
+var
+  viAnoMesProximo, viDataFinal : String;
+  viQtdAberta, viDocPendente : Integer;
+begin
+  vgAnoMesFechado := dtmControles.GetStr(' SELECT ANO_MES_FECHAMENTO FROM T_CEDENTE '+
+                                         ' WHERE CEDENTE_ID = '+IntToStr(vgCedenteAtivo));
+
+  case vpOpcao of
+    1 : begin
+          btnReabrirLivroCaixa.Enabled := vgAnoMesFechado = vpAnoMes;
+          if vgAnoMesFechado = '' then
+          begin
+            vgAnoMesFechado := dtmControles.GetStr(' SELECT MIN(ANO_MES_REGISTRO) FROM J_LIVRO_CAIXA '+
+                                                      ' WHERE SITUACAO IS NULL ');
+            vgAnoMesFechamento          := vgAnoMesFechado;
+            lcxInformacao.Caption       := '  Nenhum Livro Caixa Fechado';
+            btnFecharLivroCaixa.Enabled := vgAnoMesFechado = vpAnoMes
+          end
+          else
+          begin
+            vgAnoMesFechamento := dtmLookupContabil.InclementarAnoMes(vgAnoMesFechado);
+            lcxInformacao.Caption := '  Livro Caixa Fechado até '+ Mes[StrToInt(copy(vgAnoMesFechado,5,2))] +' de '+copy(vgAnoMesFechado,1,4);
+            btnFecharLivroCaixa.Enabled  := vpAnoMes = vgAnoMesFechamento;
+            btnReabrirLivroCaixa.Enabled := vgAnoMesFechado = vpAnoMes;
+          end;
+        end;
+    2 : begin
+          viAnoMesProximo := dtmControles.GetStr(' SELECT MIN(ANO_MES_REGISTRO) FROM J_LIVRO_CAIXA '+
+                                                 ' WHERE SITUACAO IS NULL ');
+          if viAnoMesProximo = '' then
+          begin
+            Application.MessageBox('Não existem Lançamentos no Livro Caixa em Aberto!','Aviso', MB_OK + MB_ICONINFORMATION);
+            Exit;
+          end;
+
+          viDocPendente := dtmControles.GetInt(' SELECT COUNT(LIVRO_CAIXA_ID) FROM J_LIVRO_CAIXA '+
+                                               ' WHERE SITUACAO IS NULL '+
+                                               '   AND DOC_TIPO = '+QuotedStr('0')+
+                                               '   AND ANO_MES_REGISTRO = '+QuotedStr(viAnoMesProximo));
+          if viDocPendente > 0 then
+          begin
+            Application.MessageBox(Pchar('Existe(m) Iten(s) no Livro Caixa com Documento(s) Pendente(s)!'+#13+#13+
+                                         'Operação de Fechamento Cancelada!!!'),'Aviso', MB_OK + MB_ICONINFORMATION);
+            Exit;
+          end;
+
+          viDataFinal := dtmLookupContabil.PegarDataFinalMes(icxAno.EditValue+icxMes.EditValue);
+          viQtdAberta := dtmControles.GetInt(' SELECT COUNT(LIVRO_FINANCEIRO_ID) '+
+                                             ' FROM J_LIVRO_FINANCEIRO '+
+                                             ' WHERE SITUACAO IN (1, 2) '+
+                                             '   AND DATA_VENCIMENTO <= '+QuotedStr(TrocaBarraPPonto(viDataFinal)));
+          if viQtdAberta > 0 then
+          begin
+            if Application.MessageBox(Pchar('ATENÇÃO, existem lançamentos agendados ainda não realizados. '+#13+#13+
+                                            'Quer continuar com o Fechamento do Livro Caixa de '+dtmLookupContabil.FormatarAnoMes(viAnoMesProximo)+'?'), 'Confirmação', MB_YESNO) = IDNO then
+              exit;
+
+          end
+          else
+            if Application.MessageBox(Pchar('Realizar Fechamento do Livro Caixa de '+icxMes.Text +' de '+ icxAno.Text +'?'), 'Confirmação', MB_YESNO) = IDNO then
+               exit;
+
+          if (LiberarPermissaoUsuario('ESP_FECHAMENTO_CAIXA')[6] = '0') then
+            exit;
+
+          ExecutaSqlAuxiliar(' UPDATE J_LIVRO_CAIXA SET SITUACAO = '+QuotedStr('F')+
+                             ' WHERE ANO_MES_REGISTRO = '+QuotedStr(viAnoMesProximo),1);
+
+          ExecutaSqlAuxiliar(' UPDATE T_CEDENTE SET ANO_MES_FECHAMENTO = '+QuotedStr(viAnoMesProximo)+
+                             ' WHERE CEDENTE_ID = '+IntToStr(vgCedenteAtivo),1);
+
+          AberturaFechamentoCaixa(1,vpAnoMes);
+        end;
+    3 : begin
+          if Application.MessageBox(Pchar('Reabrindo Livro Caixa de '+icxMes.text + ' de '+ icxAno.Text+'. CONFIRMA?'), 'Confirmação', MB_YESNO) = IDNO then
+            exit;
+
+          if (LiberarPermissaoUsuario('ESP_REABRIR_CAIXA')[6] = '0') then
+            exit;
+
+          ExecutaSqlAuxiliar(' UPDATE J_LIVRO_CAIXA SET SITUACAO = NULL'+
+                             ' WHERE ANO_MES_REGISTRO = '+QuotedStr(vgAnoMesFechado),1);
+
+          ExecutaSqlAuxiliar(' UPDATE T_CEDENTE SET ANO_MES_FECHAMENTO = '+QuotedStr(dtmLookupContabil.DeclementarAnoMes(vgAnoMesFechado))+
+                             ' WHERE CEDENTE_ID = '+IntToStr(vgCedenteAtivo),1);
+          AberturaFechamentoCaixa(1, vpAnoMes);
+        end;
+
+  end;
+end;
+
+procedure TfrmSaldoDetalhado.btnFecharLivroCaixaClick(Sender: TObject);
+begin
+  AberturaFechamentoCaixa(2, icxAno.EditValue+icxMes.EditValue);
+end;
+
+procedure TfrmSaldoDetalhado.btnPesquisarClick(Sender: TObject);
+begin
+  VerificarPreenchimentoDTA_TX(edtDataInicial.Text, 'Data Inicial', edtDataInicial);
+  VerificarPreenchimentoDTA_TX(edtDataInicial.Text, 'Data Final', edtDataFinal);
+
+  if edtDataFinal.Date < edtDataInicial.Date then
+  begin
+    Application.MessageBox('Data Inicial não pode ser maior que a Data Final!!!', 'Aviso', MB_OK + MB_ICONWARNING + MB_DEFBUTTON1);
+    edtDataFinal.SetFocus;
+    exit;
+  end;
+
+  case tabDistribuicao.TabIndex of
+    0 :   dtmLookupContabil.CarregarSaldoDetalhado(ClientSaldoDetalhado,edtDataInicial.Text,edtDataFinal.Text, False, chxInativos.Checked);
+    1 :   dtmLookupContabil.CarregarSaldoDetalhado(ClientSaldoDetalhado,edtDataInicial.Text,edtDataFinal.Text, True, chxInativos.Checked);
+  end;
+end;
+
+procedure TfrmSaldoDetalhado.chxInativosClick(Sender: TObject);
+begin
+  btnPesquisarClick(Self);
+end;
+
+procedure TfrmSaldoDetalhado.cxBtnFecharClick(Sender: TObject);
+begin
+  Close;
+end;
+
+procedure TfrmSaldoDetalhado.btnPesquisarSaldoClick(Sender: TObject);
+var
+  viDataInicial, viDataFinal : String;
+begin
+  if rdbAnoMesEscolher.Checked then
+    AberturaFechamentoCaixa(1, icxAno.EditValue+icxMes.EditValue);
+
+  viDataInicial := '01/'+icxMes.EditValue+'/'+icxAno.EditValue;
+  viDataFinal   := dtmLookupContabil.PegarDataFinalMes(icxAno.EditValue+icxMes.EditValue);
+
+  case tabDistribuicao.TabIndex of
+    0 : dtmLookupContabil.CarregarSaldoDetalhado(ClientSaldoDetalhado,viDataInicial,viDataFinal, False, True);
+    1 : dtmLookupContabil.CarregarSaldoDetalhado(ClientSaldoDetalhado,viDataInicial,viDataFinal, True, True);
+    2 : dtmLookupContabil.CarregarSaldoReservas(ClientReserva, ClientSaldoReserva, icxAno.EditValue+icxMes.EditValue, True);
+  end;
+end;
+
+procedure TfrmSaldoDetalhado.btnReabrirLivroCaixaClick(Sender: TObject);
+begin
+  AberturaFechamentoCaixa(3, icxAno.EditValue+icxMes.EditValue);
+end;
+
+procedure TfrmSaldoDetalhado.FormActivate(Sender: TObject);
+begin
+  vpAbrindoForm := False;
+  pgcPesquisa.ActivePageIndex := 0;
+  if rdbAnoMesAtual.Checked then
+    rdbAnoMesAtualClick(self)
+  else
+    if rdbAnoMesFechamento.Checked then
+      rdbAnoMesFechamentoClick(self)
+  else btnPesquisarSaldoClick(self);
+  tabDistribuicaoChange(Self);
+end;
+
+procedure TfrmSaldoDetalhado.FormClose(Sender: TObject;
+  var Action: TCloseAction);
+begin
+  Action := caFree;
+  frmSaldoDetalhado := nil;
+end;
+
+procedure TfrmSaldoDetalhado.FormCreate(Sender: TObject);
+begin
+  vpAbrindoForm := True;
+  vgDataAtualTipo4 := dtmControles.DataHoraBanco(4);
+  pgcGridPesquisa.HideTabs        := True;
+  pgcGridPesquisa.ActivePageIndex := 0;
+  dtmLookup.CarregarAno(icxAno);
+  tabDistribuicao.TabIndex := 0;
+end;
+
+procedure TfrmSaldoDetalhado.pgcPesquisaChange(Sender: TObject);
+var
+  viDataIni, viDataFin : String;
+begin
+  if vpAbrindoForm then
+    exit;
+
+  if pgcPesquisa.ActivePageIndex = 1 then
+  begin
+    tabDistribuicao.Tabs[2].Visible := False;
+    if edtDataInicial.Text <> '' then
+      exit;
+
+    MontarDataInicioFinal(vgDataAtualTipo4, viDataIni, viDataFin, '/');
+    edtDataInicial.Text := viDataIni;
+    edtDataFinal.Text   := viDataFin;
+
+    if tabDistribuicao.TabIndex = 2 then
+      tabDistribuicao.TabIndex := 0;
+  end
+  else tabDistribuicao.Tabs[2].Visible := True;
+end;
+
+procedure TfrmSaldoDetalhado.rdbAnoMesAtualClick(Sender: TObject);
+begin
+  icxMes.EditValue := Copy(vgPeriodoAtualS,1,2);
+  icxAno.EditValue := Copy(vgPeriodoAtualS,4,4);
+  icxMes.Enabled   := False;
+  icxAno.Enabled   := False;
+  AberturaFechamentoCaixa(1, IntToStr(vgPeriodoAtual));
+  rdbAnoMesFechamento.Enabled := (IntToStr(vgPeriodoAtual) <> vgAnoMesFechamento);
+  btnPesquisarSaldoClick(Self);
+end;
+
+procedure TfrmSaldoDetalhado.rdbAnoMesEscolherClick(Sender: TObject);
+begin
+  icxMes.Enabled   := True;
+  icxAno.Enabled   := True;
+  btnFecharLivroCaixa.Enabled  := False;
+  btnReabrirLivroCaixa.Enabled := False;
+end;
+
+procedure TfrmSaldoDetalhado.rdbAnoMesFechamentoClick(Sender: TObject);
+begin
+  icxMes.EditValue := Copy(vgAnoMesFechamento,5,2);
+  icxAno.EditValue := Copy(vgAnoMesFechamento,1,4);
+  icxMes.Enabled   := False;
+  icxAno.Enabled   := False;
+  AberturaFechamentoCaixa(1, vgAnoMesFechamento);
+  btnPesquisarSaldoClick(Self);
+end;
+
+procedure TfrmSaldoDetalhado.tabDistribuicaoChange(Sender: TObject);
+begin
+  cxGridDBTablePrevisaoCaixa.Visible := tabDistribuicao.TabIndex     = 0;
+  cxGridDBTablePrevisaoBalancete.Visible := tabDistribuicao.TabIndex = 1;
+
+  if vpAbrindoForm then
+    exit;
+
+  if tabDistribuicao.TabIndex in [0,1] then
+  begin
+    pgcGridPesquisa.ActivePageIndex := 0;
+    if pgcPesquisa.ActivePageIndex = 0 then
+         btnPesquisarSaldoClick(self)
+    else btnPesquisarClick(self);
+  end
+  else
+  begin
+    pgcGridPesquisa.ActivePageIndex := 1;
+    btnPesquisarSaldoClick(self);
+    cxGridDBTableView1.DataController.Groups.FullExpand;
+  end;
+
+  ClientSaldoDetalhado.Filtered := tabDistribuicao.TabIndex = 2;
+end;
+
+end.
+

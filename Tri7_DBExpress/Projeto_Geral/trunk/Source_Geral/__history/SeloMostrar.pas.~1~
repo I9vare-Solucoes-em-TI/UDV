@@ -1,0 +1,26 @@
+unit SeloMostrar;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, CadAuxiliar, cxGraphics, cxLookAndFeels,
+  cxLookAndFeelPainters, Vcl.Menus, Data.FMTBcd, Data.DB, Datasnap.DBClient,
+  Datasnap.Provider, Data.SqlExpr, Vcl.StdCtrls, cxButtons, Vcl.ExtCtrls;
+
+type
+  TfrmSeloMostrar = class(TfrmCadAuxiliar)
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  frmSeloMostrar: TfrmSeloMostrar;
+
+implementation
+
+{$R *.dfm}
+
+end.

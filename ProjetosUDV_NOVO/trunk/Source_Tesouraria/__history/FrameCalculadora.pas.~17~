@@ -1,0 +1,259 @@
+unit FrameCalculadora;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes,
+  Vcl.Graphics, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, cxGraphics, cxControls,
+  cxLookAndFeels, cxLookAndFeelPainters, cxContainer, cxEdit, Vcl.Menus,
+  cxStyles, cxCustomData, cxFilter, cxData, cxDataStorage, cxNavigator, Data.DB,
+  cxDBData, cxImageComboBox, cxCurrencyEdit, cxGridLevel, cxGridCustomTableView,
+  cxGridTableView, cxGridDBTableView, cxClasses, cxGridCustomView, cxGrid,
+  cxGroupBox, Vcl.StdCtrls, cxButtons, cxSpinEdit, cxRadioGroup, cxTextEdit,
+  cxMaskEdit, cxDropDownEdit, cxLabel, Vcl.ExtCtrls, Datasnap.DBClient;
+
+type
+  TfmeCalculadora = class(TFrame)
+    pnlValores: TPanel;
+    cxLabel1: TcxLabel;
+    cxLabel2: TcxLabel;
+    lblRegistroQtd: TcxLabel;
+    icxTipo: TcxImageComboBox;
+    rdbRegistrarValor: TcxRadioButton;
+    rdbRegistrarQtd: TcxRadioButton;
+    edtValor: TcxCurrencyEdit;
+    icxTipoEspecie: TcxImageComboBox;
+    spnQtd: TcxSpinEdit;
+    btnValorAdicionar: TcxButton;
+    btnValorExcluir: TcxButton;
+    cxGroupBox3: TcxGroupBox;
+    grdPessoasCitadas: TcxGrid;
+    cxGridDBTableValores: TcxGridDBTableView;
+    cxGridDBTableTipo: TcxGridDBColumn;
+    cxGridDBTableValoresColumn2: TcxGridDBColumn;
+    cxGridDBTableValoresColumn1: TcxGridDBColumn;
+    cxGridDBTableValor: TcxGridDBColumn;
+    cxGridLevel1: TcxGridLevel;
+    ClientValores: TClientDataSet;
+    ClientValoresTIPO: TStringField;
+    ClientValoresVALOR: TCurrencyField;
+    ClientValoresQTD: TIntegerField;
+    ClientValoresTIPO_NOTA: TCurrencyField;
+    dtsValores: TDataSource;
+    btnLimpar: TcxButton;
+    ClientValoresCODIGO: TIntegerField;
+    procedure icxTipoPropertiesEditValueChanged(Sender: TObject);
+    procedure rdbRegistrarValorClick(Sender: TObject);
+    procedure rdbRegistrarQtdClick(Sender: TObject);
+    procedure btnValorAdicionarClick(Sender: TObject);
+    procedure edtValorKeyPress(Sender: TObject; var Key: Char);
+    procedure spnQtdKeyPress(Sender: TObject; var Key: Char);
+    procedure btnValorExcluirClick(Sender: TObject);
+    procedure ClientValoresAfterScroll(DataSet: TDataSet);
+    procedure btnLimparClick(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    procedure CarregarNotaMoeda(vpTipo : string);
+    procedure CarregarDadosSalvo;
+    function SalvarDados:Integer;
+    procedure ApagarDados(vpId : Integer);
+  end;
+
+implementation
+
+uses
+  Controles, Lookup;
+
+{$R *.dfm}
+
+procedure TfmeCalculadora.ApagarDados(vpId: Integer);
+begin
+  if vpId > 0 then
+       ExecutaSqlAuxiliar(' DELETE FROM J_CALCULADORA WHERE CALCULADORA_ID = '+IntToStr(vpId),1)
+  else ExecutaSqlAuxiliar(' DELETE FROM J_CALCULADORA',1);
+end;
+
+procedure TfmeCalculadora.btnLimparClick(Sender: TObject);
+begin
+  if Application.MessageBox('Limpar Calculadora?', 'Confirmação', MB_YESNO) = IDNO then
+    exit;
+   ClientValores.EmptyDataSet;
+   ApagarDados(0);
+end;
+
+procedure TfmeCalculadora.btnValorAdicionarClick(Sender: TObject);
+begin
+  inherited;
+  VerificarPreenchimentoICX_TX(icxTipo.Text, 'Tipo', icxTipo);
+  if rdbRegistrarQtd.Checked then
+  begin
+    VerificarPreenchimentoICX_TX(icxTipoEspecie.Text, 'Tipo Nota', icxTipoEspecie);
+    if spnQtd.EditValue = 0 then
+    begin
+      Application.MessageBox('Qtd deve ser maior que 0!!!', 'Atenção', MB_OK + MB_ICONWARNING);
+      spnQtd.SetFocus;
+      exit;
+    end;
+  end;
+
+  if (edtValor.EditValue = Null) or (edtValor.Text = '') then
+    edtValor.EditValue := 0;
+
+  ClientValores.Append;
+  ClientValoresCODIGO.AsInteger := SalvarDados;
+  ClientValoresTIPO.AsString    := icxTipo.EditValue;
+  if rdbRegistrarValor.Checked then
+  begin
+    ClientValoresQTD.AsInteger       := 0;
+    ClientValoresTIPO_NOTA.AsInteger := 0;
+    ClientValoresVALOR.AsCurrency    := edtValor.EditValue;
+  end
+  else
+  begin
+    ClientValoresQTD.AsInteger        := spnQtd.EditValue;
+    ClientValoresTIPO_NOTA.AsCurrency := icxTipoEspecie.EditValue;
+    ClientValoresVALOR.AsCurrency     := ClientValoresQTD.AsInteger * ClientValoresTIPO_NOTA.AsCurrency;
+  end;
+  ClientValores.Post;
+
+  cxGridDBTableValores.DataController.Groups.FullExpand;
+  edtValor.Clear;
+  if rdbRegistrarQtd.Checked then
+       rdbRegistrarQtdClick(self)
+  else rdbRegistrarValorClick(self);
+end;
+
+procedure TfmeCalculadora.btnValorExcluirClick(Sender: TObject);
+begin
+  ApagarDados(ClientValoresCODIGO.AsInteger);
+  ClientValores.Delete;
+end;
+
+procedure TfmeCalculadora.CarregarDadosSalvo;
+begin
+  ExecutaSimpleDSAux(' SELECT * FROM J_CALCULADORA',0);
+  ClientValores.EmptyDataSet;
+  while not dtmControles.SimpleAuxiliar.Eof do
+  begin
+    ClientValores.Insert;
+    ClientValoresVALOR.AsCurrency     := dtmControles.SimpleAuxiliar.FieldByName('VALOR').AsCurrency;
+    ClientValoresQTD.AsInteger        := dtmControles.SimpleAuxiliar.FieldByName('QTD').AsInteger;
+    ClientValoresTIPO_NOTA.AsString   := dtmControles.SimpleAuxiliar.FieldByName('TIPO_NOTA').AsString;
+    ClientValoresTIPO.AsString        := dtmControles.SimpleAuxiliar.FieldByName('TIPO').AsString;
+    ClientValoresCODIGO.AsInteger     := dtmControles.SimpleAuxiliar.FieldByName('CALCULADORA_ID').AsInteger;
+    ClientValores.Post;
+    dtmControles.SimpleAuxiliar.Next;
+  end;
+  dtmControles.SimpleAuxiliar.Active := False;
+end;
+
+procedure TfmeCalculadora.CarregarNotaMoeda(vpTipo: string);
+begin
+  icxTipoEspecie.Properties.Items.Clear; if vpTipo = 'D' then
+  begin
+    lblRegistroQtd.Caption := 'Valor Nota          Qtd        ';
+    dtmLookup.CarregarIcxComboBox('2', '2,00', icxTipoEspecie);
+    dtmLookup.CarregarIcxComboBox('5', '5,00', icxTipoEspecie);
+    dtmLookup.CarregarIcxComboBox('10','10,00', icxTipoEspecie);
+    dtmLookup.CarregarIcxComboBox('20','20,00', icxTipoEspecie);
+    dtmLookup.CarregarIcxComboBox('50','50,00', icxTipoEspecie);
+    dtmLookup.CarregarIcxComboBox('100','100,00', icxTipoEspecie);
+  end
+  else
+  begin
+    lblRegistroQtd.Caption := 'Valor Moeda         Qtd        ';
+    dtmLookup.CarregarIcxComboBox('0,05','0.05', icxTipoEspecie);
+    dtmLookup.CarregarIcxComboBox('0,10','0.10', icxTipoEspecie);
+    dtmLookup.CarregarIcxComboBox('0,25','0.25', icxTipoEspecie);
+    dtmLookup.CarregarIcxComboBox('0,50','0.50', icxTipoEspecie);
+    dtmLookup.CarregarIcxComboBox('1','1.00', icxTipoEspecie);
+  end;
+end;
+
+procedure TfmeCalculadora.ClientValoresAfterScroll(DataSet: TDataSet);
+begin
+  btnValorExcluir.Enabled := not ClientValores.IsEmpty;
+end;
+
+procedure TfmeCalculadora.edtValorKeyPress(Sender: TObject; var Key: Char);
+begin
+  if Key = #13 then
+  begin
+    btnValorAdicionar.SetFocus;
+    btnValorAdicionarClick(self);
+  end;
+end;
+
+procedure TfmeCalculadora.icxTipoPropertiesEditValueChanged(Sender: TObject);
+begin
+  rdbRegistrarValor.Enabled := (icxTipo.EditValue = 'D') or (icxTipo.EditValue = 'O');
+  rdbRegistrarQtd.Enabled   := (icxTipo.EditValue = 'D') or (icxTipo.EditValue = 'O');
+  rdbRegistrarValor.Checked := True;
+  rdbRegistrarValorClick(self);
+  if (icxTipo.EditValue = 'D') or (icxTipo.EditValue = 'O') then
+    CarregarNotaMoeda(icxTipo.EditValue);
+end;
+
+procedure TfmeCalculadora.rdbRegistrarQtdClick(Sender: TObject);
+begin
+  edtValor.Enabled        := False;
+  icxTipoEspecie.Enabled  := True;
+  spnQtd.Enabled          := True;
+  lblRegistroQtd.Enabled  := True;
+
+  edtValor.EditValue := 0;
+  spnQtd.EditValue   := 0;
+  icxTipoEspecie.ItemIndex := -1;
+  icxTipoEspecie.SetFocus;
+end;
+
+procedure TfmeCalculadora.rdbRegistrarValorClick(Sender: TObject);
+begin
+  edtValor.Enabled        := True;
+  icxTipoEspecie.Enabled  := False;
+  spnQtd.Enabled          := False;
+  lblRegistroQtd.Enabled  := False;
+
+  spnQtd.EditValue := 0;
+  icxTipoEspecie.ItemIndex := -1;
+
+  edtValor.SetFocus;
+end;
+
+function TfmeCalculadora.SalvarDados:Integer;
+begin
+  ExecutaSqlAuxiliar(' INSERT INTO J_CALCULADORA( ' +
+        '              CALCULADORA_ID, '+
+        '              VALOR, ' +
+        '              QTD, ' +
+        '              TIPO_NOTA, '+
+        '              TIPO) '+
+        ' VALUES(      :CALCULADORA_ID, ' +
+        '              :VALOR, ' +
+        '              :QTD, ' +
+        '              :TIPO_NOTA, '+
+        '              :TIPO)', 2);
+
+  with dtmControles.sqlAuxiliar do
+  begin
+    Result := dtmControles.GerarSequencia('J_CALCULADORA');
+    ParamByName('CALCULADORA_ID').AsBCD  := Result;
+    ParamByName('VALOR').AsCurrency      := ClientValoresVALOR.AsCurrency;
+    ParamByName('QTD').AsInteger         := ClientValoresQTD.AsInteger;
+    ParamByName('TIPO_NOTA').AsString    := ClientValoresTIPO_NOTA.AsString;
+    ParamByName('TIPO').AsString         := ClientValoresTIPO.AsString;
+    ExecSQL(False);
+  end;
+end;
+
+procedure TfmeCalculadora.spnQtdKeyPress(Sender: TObject; var Key: Char);
+begin
+  if Key = #13 then
+  begin
+    btnValorAdicionar.SetFocus;
+    btnValorAdicionarClick(self);
+  end;
+end;
+
+end.

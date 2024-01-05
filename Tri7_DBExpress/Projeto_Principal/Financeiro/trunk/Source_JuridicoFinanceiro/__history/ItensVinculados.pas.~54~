@@ -1,0 +1,354 @@
+unit ItensVinculados;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, CadastroAuxSimplificado, cxGraphics,
+  cxControls, cxLookAndFeels, cxLookAndFeelPainters, cxContainer, cxEdit,
+  Vcl.Menus, Data.FMTBcd, Data.DB, Datasnap.DBClient, Datasnap.Provider,
+  Data.SqlExpr, Vcl.StdCtrls, cxButtons, Vcl.ExtCtrls, cxLabel, cxStyles,
+  cxCustomData, cxFilter, cxData, cxDataStorage, cxNavigator, cxDBData,
+  cxCalendar, cxCurrencyEdit, cxGridLevel, cxGridCustomTableView,
+  cxGridTableView, cxGridDBTableView, cxClasses, cxGridCustomView, cxGrid,
+  dxBarBuiltInMenu, cxPC, cxImageComboBox, DbxDevartInterBase, SimpleDS,
+  frxClass, frxDBSet, cxCheckBox;
+
+type
+  TItensVinculados = record
+    Id, Campo, Titulo, AnoMesReferencia : String;
+    visualizar : Boolean;
+  end;
+
+  TfrmItensVinculados = class(TfrmCadastroAuxSimplificado)
+    ClientAncestralcalc_Entrada: TCurrencyField;
+    ClientAncestralcalc_saida: TCurrencyField;
+    dtsOrcamento: TDataSource;
+    sqlOrcamento: TSimpleDataSet;
+    CLientOrcamento: TClientDataSet;
+    CLientOrcamentoDATA_VENCIMENTO: TSQLTimeStampField;
+    CLientOrcamentoDOCUMENTO_NUMERO: TStringField;
+    CLientOrcamentoTIPO_MODALIDADE_ID: TFMTBCDField;
+    CLientOrcamentoPESSOA_ID: TFMTBCDField;
+    CLientOrcamentoCONTABIL_CONTA_ID: TFMTBCDField;
+    CLientOrcamentoHISTORICO: TStringField;
+    CLientOrcamentoVALOR_AGENDADO: TFMTBCDField;
+    CLientOrcamentoOPERACAO: TStringField;
+    CLientOrcamentocalc_Entrada: TCurrencyField;
+    CLientOrcamentocalc_saida: TCurrencyField;
+    CLientOrcamentoNOME: TStringField;
+    CLientOrcamentoTIPO: TIntegerField;
+    ClientAncestralDATA: TSQLTimeStampField;
+    ClientAncestralDOCUMENTO_NUMERO: TStringField;
+    ClientAncestralTIPO_MODALIDADE_ID: TFMTBCDField;
+    ClientAncestralPESSOA_ID: TFMTBCDField;
+    ClientAncestralCONTABIL_CONTA_ID: TFMTBCDField;
+    ClientAncestralHISTORICO: TStringField;
+    ClientAncestralVALOR: TFMTBCDField;
+    ClientAncestralOPERACAO: TStringField;
+    ClientAncestralNOME: TStringField;
+    btnRelatorio: TcxButton;
+    frxDBDatasetItens: TfrxDBDataset;
+    ClientAncestralCOMPROMISSO: TStringField;
+    CLientOrcamentoCOMPROMISSO: TStringField;
+    ClientAncestralcalc_Selecionado: TBooleanField;
+    Panel3: TPanel;
+    lblMarcar: TcxLabel;
+    lblDesmarcar: TcxLabel;
+    ClientAncestralcalc_valor_pagar: TCurrencyField;
+    ClientAncestralLIVRO_FINANCEIRO_ID: TFMTBCDField;
+    ClientAncestralLIVRO_CAIXA_FATURADO_ID: TFMTBCDField;
+    ClientAncestralcalc_Registrado: TBooleanField;
+    tbcItens: TcxTabControl;
+    gdrCompromissoAgendado: TcxGrid;
+    cxGridDBTablePrevisao: TcxGridDBTableView;
+    cxGridDBTableCompromissoDataPrevista: TcxGridDBColumn;
+    cxGridDBTablePrevisaoTipo: TcxGridDBColumn;
+    cxGridDBTablePrevisaoProtocolo: TcxGridDBColumn;
+    cxGridDBTableViewModalidade: TcxGridDBColumn;
+    cxGridDBTableCompromissoClienteGeral: TcxGridDBColumn;
+    cxGridDBTableCompromissoCompromisso: TcxGridDBColumn;
+    cxGridDBTablePrevisaoHistorico: TcxGridDBColumn;
+    cxGridDBTablePrevisaoOperacao: TcxGridDBColumn;
+    cxGridDBTableCompromissoEntrada: TcxGridDBColumn;
+    cxGridDBTableCompromissoSaida: TcxGridDBColumn;
+    cxGridDBTablePrevisaoSelecionar: TcxGridDBColumn;
+    cxGridDBTablePrevisaoColumn1: TcxGridDBColumn;
+    cxGridLevel7: TcxGridLevel;
+    procedure ClientAncestralCalcFields(DataSet: TDataSet);
+    procedure FormActivate(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure FormCreate(Sender: TObject);
+    procedure CLientOrcamentoCalcFields(DataSet: TDataSet);
+    procedure btnRelatorioClick(Sender: TObject);
+    procedure lblMarcarClick(Sender: TObject);
+    procedure lblDesmarcarClick(Sender: TObject);
+    procedure cxGridDBTablePrevisaoSelecionarPropertiesChange(Sender: TObject);
+    procedure btnConfirmarClick(Sender: TObject);
+    procedure btnCancelarClick(Sender: TObject);
+    procedure cxGridDBTablePrevisaoSelecionarCustomDrawCell(
+      Sender: TcxCustomGridTableView; ACanvas: TcxCanvas;
+      AViewInfo: TcxGridTableDataCellViewInfo; var ADone: Boolean);
+    procedure tbcItensChange(Sender: TObject);
+  private
+    procedure CarregarItens;
+    procedure ParametrosRelatorio;
+  public
+    { Public declarations }
+  end;
+
+var
+  frmItensVinculados: TfrmItensVinculados;
+  vgItensVinculados : TItensVinculados;
+  vgConfirmarItensProtocolo : Boolean;
+
+implementation
+
+uses
+  Lookup, Controles, Lookup_Contabil, VisualizaRelatorios, Previsao;
+
+{$R *.dfm}
+
+procedure TfrmItensVinculados.btnCancelarClick(Sender: TObject);
+begin
+  vgConfirmarItensProtocolo := False;
+  inherited;
+
+end;
+
+procedure TfrmItensVinculados.btnConfirmarClick(Sender: TObject);
+begin
+  vgDadosLivroCaixa.ValorProtocolo := cxGridDBTablePrevisao.DataController.Summary.FooterSummaryValues[2];
+  if vgDadosLivroCaixa.ValorProtocolo > 0 then
+  begin
+    vgConfirmarItensProtocolo := True;
+    frmPrevisao.RegistraPagamentoFaturamento;
+    if vgDadosLivroCaixa.Confirmado then
+    begin
+      ClientAncestral.DisableControls;
+      ClientAncestral.Filtered := False;
+      ClientAncestral.Filter   := 'CALC_SELECIONADO = TRUE';
+      ClientAncestral.Filtered := True;
+      ClientAncestral.First;
+
+      while not ClientAncestral.Eof do
+      begin
+        ExecutaSqlAuxiliar(' UPDATE J_LIVRO_FINANCEIRO SET LIVRO_CAIXA_FATURADO_ID = '+IntToStr(vgDadosLivroCaixa.LivroCaixaId)+
+                           ' WHERE LIVRO_FINANCEIRO_ID = '+ ClientAncestralLIVRO_FINANCEIRO_ID.AsString,1);
+        ClientAncestral.Next;
+      end;
+    end;
+    Close;
+  end
+  else
+  begin
+    Application.MessageBox(Pchar('Nenhum Item Selecionado!!!'), 'Atenção', MB_OK + MB_ICONWARNING);
+    exit;
+  end;
+end;
+
+procedure TfrmItensVinculados.btnRelatorioClick(Sender: TObject);
+var
+  viRelatorio : string;
+begin
+  viRelatorio := dtmControles.BuscarConfig('FINANCEIRO', 'RELATORIO','RELATORIO_ITENS_FINANCEIRO', 'S');
+  if viRelatorio = '' then
+  begin
+    Application.MessageBox(Pchar('Relatório não configurado!!!'), 'Atenção', MB_OK + MB_ICONWARNING);
+    exit;
+  end;
+  ExibirRelatorio(dtmControles.frxRelatorio, viRelatorio, ParametrosRelatorio, True);
+end;
+
+procedure TfrmItensVinculados.CarregarItens;
+var
+  viSql : String;
+
+  procedure PreencherDadosOrcamento(vpTipo : Integer);
+  begin
+    sqlOrcamento.First;
+    while not sqlOrcamento.Eof do
+    begin
+      ClientOrcamento.Append;
+      ClientOrcamentoDATA_VENCIMENTO.AsVariant    := sqlOrcamento.FieldByName('DATA').AsVariant;
+      ClientOrcamentoDOCUMENTO_NUMERO.AsVariant   := sqlOrcamento.FieldByName('DOCUMENTO_NUMERO').AsVariant;
+      ClientOrcamentoTIPO_MODALIDADE_ID.AsVariant := sqlOrcamento.FieldByName('TIPO_MODALIDADE_ID').AsVariant;
+      ClientOrcamentoPESSOA_ID.AsVariant          := sqlOrcamento.FieldByName('PESSOA_ID').AsVariant;
+      ClientOrcamentoCONTABIL_CONTA_ID.AsVariant  := sqlOrcamento.FieldByName('CONTABIL_CONTA_ID').AsVariant;
+      ClientOrcamentoHISTORICO.AsVariant          := sqlOrcamento.FieldByName('HISTORICO').AsVariant;
+      ClientOrcamentoVALOR_AGENDADO.AsVariant     := sqlOrcamento.FieldByName('VALOR').AsVariant;
+      ClientOrcamentoOPERACAO.AsVariant           := sqlOrcamento.FieldByName('OPERACAO').AsVariant;
+      CLientOrcamentoCOMPROMISSO.AsVariant        := sqlOrcamento.FieldByName('COMPROMISSO').AsVariant;
+      ClientOrcamentoTIPO.AsInteger               := vpTipo;
+      ClientOrcamento.Post;
+      sqlOrcamento.Next;
+    end;
+  end;
+
+  procedure PreencherSql;
+  begin
+    viSql := ' SELECT LF.DATA_VENCIMENTO AS DATA, '+
+             '       LF.LIVRO_FINANCEIRO_ID, '+
+             '       LF.LIVRO_CAIXA_FATURADO_ID, '+
+             '       LF.DOCUMENTO_NUMERO, '+
+             '       LF.TIPO_MODALIDADE_ID, '+
+             '       LF.PESSOA_ID, '+
+             '       LF.CONTABIL_CONTA_ID, '+
+             '       LF.HISTORICO, '+
+             '       LF.VALOR_AGENDADO AS VALOR, '+
+             '       LF.OPERACAO, '+
+             '       LF.PARCELA, '+
+             '       P.NOME, '+
+             '       CC.DESCRICAO AS COMPROMISSO '+
+             ' FROM J_LIVRO_FINANCEIRO LF '+
+             '   LEFT OUTER JOIN J_PESSOA P ON '+
+             '   LF.PESSOA_ID = P.PESSOA_ID '+
+             '   LEFT OUTER JOIN J_CONTABIL_CONTA CC ON '+
+             '   LF.CONTABIL_CONTA_ID = CC.CONTABIL_CONTA_ID '+
+             ' WHERE '+vgItensVinculados.campo + ' = ' + vgItensVinculados.Id;
+
+    if vgItensVinculados.AnoMesReferencia <> '' then
+      viSql := viSql + ' AND ANO_MES_REFERENCIA = '+ QuotedStr(vgItensVinculados.AnoMesReferencia);
+  end;
+
+begin
+  ClientOrcamento.EmptyDataSet;
+  if vgItensVinculados.AnoMesReferencia <> '' then
+  begin
+    sqlOrcamento.Active := False;
+    sqlOrcamento.DataSet.ParamByName('ORCAMENTO_ID').AsInteger      := StrToInt(vgItensVinculados.Id);
+    sqlOrcamento.DataSet.ParamByName('ANO_MES_REFERENCIA').AsString := vgItensVinculados.AnoMesReferencia;
+    sqlOrcamento.Active := True;
+    PreencherDadosOrcamento(2);
+
+    PreencherSql;
+    sqlOrcamento.Active := False;
+    sqlOrcamento.DataSet.CommandText := viSql;
+    sqlOrcamento.Active := True;
+    PreencherDadosOrcamento(1);
+
+    cxGridDBTablePrevisao.DataController.DataSource := dtsOrcamento;
+  end
+  else
+  begin
+    PreencherSql;
+    ClientAncestral.Active := False;
+
+    if tbcItens.TabIndex = 0 then
+         viSql := viSql + ' AND LF.LIVRO_CAIXA_FATURADO_ID IS NULL '
+    else viSql := viSql + ' AND LF.LIVRO_CAIXA_FATURADO_ID > 0';
+
+    DataSetAncestral.CommandText := viSql;
+    ClientAncestral.Active := True;
+  end;
+end;
+
+procedure TfrmItensVinculados.ClientAncestralCalcFields(DataSet: TDataSet);
+begin
+  inherited;
+  if pos('D', ClientAncestralOPERACAO.AsString) > 0 then
+    ClientAncestralcalc_saida.AsCurrency   := ClientAncestralVALOR.AsCurrency
+  else
+    if pos('R', ClientAncestralOPERACAO.AsString) > 0 then
+      ClientAncestralcalc_Entrada.AsCurrency := ClientAncestralVALOR.AsCurrency;
+
+  if ClientAncestralcalc_Selecionado.AsBoolean then
+       ClientAncestralcalc_valor_pagar.AsCurrency :=  ClientAncestralVALOR.AsCurrency
+  else ClientAncestralcalc_valor_pagar.AsCurrency :=  0;
+  ClientAncestralcalc_Registrado.AsBoolean := ClientAncestralLIVRO_CAIXA_FATURADO_ID.AsInteger > 0;
+end;
+
+procedure TfrmItensVinculados.CLientOrcamentoCalcFields(DataSet: TDataSet);
+begin
+  inherited;
+  if pos('D', CLientOrcamentoOPERACAO.AsString) > 0 then
+    CLientOrcamentocalc_saida.AsCurrency   := CLientOrcamentoVALOR_AGENDADO.AsCurrency
+  else
+    if pos('R', CLientOrcamentoOPERACAO.AsString) > 0 then
+      ClientAncestralcalc_Entrada.AsCurrency := CLientOrcamentoVALOR_AGENDADO.AsCurrency
+end;
+
+procedure TfrmItensVinculados.cxGridDBTablePrevisaoSelecionarCustomDrawCell(
+  Sender: TcxCustomGridTableView; ACanvas: TcxCanvas;
+  AViewInfo: TcxGridTableDataCellViewInfo; var ADone: Boolean);
+begin
+  inherited;
+  if (AViewInfo.RecordViewInfo.GridRecord.Values[11] = True) then
+  begin
+    ACanvas.Brush.Color    := clSilver;
+    AviewInfo.item.Editing := False;
+  end;
+end;
+
+procedure TfrmItensVinculados.cxGridDBTablePrevisaoSelecionarPropertiesChange(
+  Sender: TObject);
+begin
+  inherited;
+  ClientAncestral.Post;
+end;
+
+procedure TfrmItensVinculados.lblDesmarcarClick(Sender: TObject);
+begin
+  inherited;
+  dtmLookup.MarcarDesmarcarItensClietDataSet('N', ClientAncestral);
+end;
+
+procedure TfrmItensVinculados.lblMarcarClick(Sender: TObject);
+begin
+  inherited;
+  dtmLookup.MarcarDesmarcarItensClietDataSet('S', ClientAncestral);
+end;
+
+procedure TfrmItensVinculados.FormActivate(Sender: TObject);
+begin
+  inherited;
+  lblInformaca.Caption      := vgItensVinculados.Titulo;
+  vgConfirmarItensProtocolo := False;
+  btnConfirmar.Visible                    := not vgItensVinculados.visualizar;
+  cxGridDBTablePrevisaoSelecionar.Visible := not vgItensVinculados.visualizar;
+  tbcItens.TabIndex := 0;
+  tbcItensChange(tbcItens);
+end;
+
+procedure TfrmItensVinculados.FormClose(Sender: TObject;
+  var Action: TCloseAction);
+begin
+  vgItensVinculados.visualizar := False;
+  inherited;
+  Action             := caFree;
+  frmItensVinculados := nil;
+end;
+
+procedure TfrmItensVinculados.FormCreate(Sender: TObject);
+begin
+  inherited;
+  sqlOrcamento.Connection := dtmControles.DB;
+
+  if vgItensVinculados.Campo = 'FECHAMENTO_ID' then
+    cxGridDBTablePrevisaoProtocolo.GroupIndex := 0
+  else
+  begin
+    cxGridDBTablePrevisaoTipo.DataBinding.FieldName := 'TIPO';
+    cxGridDBTablePrevisaoTipo.GroupIndex := 0;
+  end;
+
+end;
+
+procedure TfrmItensVinculados.ParametrosRelatorio;
+begin
+  dtmControles.frxRelatorio.Variables.Variables['Titulo'] := QuotedStr(lblInformaca.Caption);
+end;
+
+procedure TfrmItensVinculados.tbcItensChange(Sender: TObject);
+begin
+  inherited;
+  lblDesmarcar.Enabled := tbcItens.TabIndex = 0;
+  lblMarcar.Enabled    := tbcItens.TabIndex = 0;
+  CarregarItens;
+  if tbcItens.TabIndex = 0 then
+       lblMarcarClick(self)
+  else lblDesmarcarClick(self);
+  cxGridDBTablePrevisao.DataController.Groups.FullExpand;
+end;
+
+end.

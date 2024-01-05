@@ -1,0 +1,281 @@
+inherited frmCadastroRapidoOrcTransf: TfrmCadastroRapidoOrcTransf
+  ClientHeight = 180
+  ClientWidth = 519
+  KeyPreview = True
+  OnActivate = FormActivate
+  ExplicitWidth = 525
+  ExplicitHeight = 209
+  PixelsPerInch = 96
+  TextHeight = 13
+  inherited Panel2: TPanel
+    Width = 519
+    TabOrder = 1
+    ExplicitWidth = 637
+    inherited lblInformaca: TcxLabel
+      Caption = 'Transfer'#234'ncia de Valores de Or'#231'amento'
+      Style.IsFontAssigned = True
+      ExplicitLeft = 84
+      ExplicitTop = -4
+      ExplicitWidth = 222
+      Width = 276
+      AnchorY = 19
+    end
+    inherited Panel6: TPanel
+      Left = 311
+      Width = 208
+      ExplicitLeft = 300
+      ExplicitWidth = 208
+      inherited btnCancelar: TcxButton
+        Left = 1
+        LookAndFeel.SkinName = ''
+        ExplicitLeft = 1
+      end
+      inherited btnConfirmar: TcxButton
+        Left = 103
+        LookAndFeel.SkinName = ''
+        ExplicitLeft = 103
+      end
+    end
+  end
+  inherited Panel1: TPanel
+    Width = 519
+    Height = 142
+    TabOrder = 0
+    ExplicitTop = 37
+    ExplicitWidth = 519
+    ExplicitHeight = 142
+    object cxLabel5: TcxLabel
+      Left = 14
+      Top = 8
+      Caption = 'Or'#231'amento Origem'
+      ParentFont = False
+      Style.Font.Charset = DEFAULT_CHARSET
+      Style.Font.Color = clWindow
+      Style.Font.Height = -11
+      Style.Font.Name = 'Tahoma'
+      Style.Font.Style = [fsUnderline]
+      Style.TextColor = 4210688
+      Style.TextStyle = [fsUnderline]
+      Style.IsFontAssigned = True
+      Transparent = True
+    end
+    object cxLabel6: TcxLabel
+      Left = 14
+      Top = 49
+      Caption = 'Or'#231'amento Destino'
+      ParentFont = False
+      Style.Font.Charset = DEFAULT_CHARSET
+      Style.Font.Color = clWindow
+      Style.Font.Height = -11
+      Style.Font.Name = 'Tahoma'
+      Style.Font.Style = [fsUnderline]
+      Style.TextColor = 4210688
+      Style.TextStyle = [fsUnderline]
+      Style.IsFontAssigned = True
+      Transparent = True
+    end
+    object cxLabel1: TcxLabel
+      Left = 14
+      Top = 92
+      Caption = 'Observa'#231#227'o'
+      ParentFont = False
+      Style.Font.Charset = DEFAULT_CHARSET
+      Style.Font.Color = clWindow
+      Style.Font.Height = -11
+      Style.Font.Name = 'Tahoma'
+      Style.Font.Style = [fsUnderline]
+      Style.TextColor = 4210688
+      Style.TextStyle = [fsUnderline]
+      Style.IsFontAssigned = True
+      Transparent = True
+    end
+    object cxLabel2: TcxLabel
+      Left = 400
+      Top = 49
+      Caption = 'Valor a Transferir'
+      ParentColor = False
+      ParentFont = False
+      Style.Font.Charset = DEFAULT_CHARSET
+      Style.Font.Color = clWindow
+      Style.Font.Height = -11
+      Style.Font.Name = 'Tahoma'
+      Style.Font.Style = [fsUnderline]
+      Style.TextColor = 4210688
+      Style.TextStyle = [fsUnderline]
+      Style.IsFontAssigned = True
+      Transparent = True
+    end
+    object cxLabel3: TcxLabel
+      Left = 400
+      Top = 5
+      Caption = 'Valor Disponivel'
+      ParentColor = False
+      ParentFont = False
+      Style.Font.Charset = DEFAULT_CHARSET
+      Style.Font.Color = clWindow
+      Style.Font.Height = -11
+      Style.Font.Name = 'Tahoma'
+      Style.Font.Style = [fsUnderline]
+      Style.TextColor = 4210688
+      Style.TextStyle = [fsUnderline]
+      Style.IsFontAssigned = True
+      Transparent = True
+    end
+    object edtValorDisponivel: TcxDBCurrencyEdit
+      Left = 400
+      Top = 24
+      DataBinding.DataField = 'VALOR_PARCELA'
+      DataBinding.DataSource = SourceAncestral
+      ParentFont = False
+      Style.StyleController = dtmControles.cxEsc_EditsNormal
+      TabOrder = 5
+      Width = 108
+    end
+    object lcxOrcamentoDestino: TcxDBLookupComboBox
+      Left = 13
+      Top = 67
+      RepositoryItem = dtmLookupFinanceiro.ListaOrcamentos
+      DataBinding.DataField = 'ORCAMENTO_ID'
+      DataBinding.DataSource = SourceAncestral
+      ParentFont = False
+      Properties.DropDownListStyle = lsFixedList
+      Properties.GridMode = True
+      Properties.KeyFieldNames = 'LIVRO_AGENDAMENTO_ID'
+      Properties.ListColumns = <
+        item
+          FieldName = 'HISTORICO'
+        end>
+      Properties.ListOptions.ShowHeader = False
+      Style.StyleController = dtmControles.cxEsc_EditsNormal
+      TabOrder = 6
+      Width = 381
+    end
+    object edtValorTransferir: TcxDBCurrencyEdit
+      Left = 400
+      Top = 67
+      DataBinding.DataField = 'VALOR_PARCELA'
+      DataBinding.DataSource = SourceAncestral
+      ParentFont = False
+      Style.StyleController = dtmControles.cxEsc_EditsNormal
+      TabOrder = 7
+      Width = 108
+    end
+    object edtHistorico: TcxDBTextEdit
+      Left = 13
+      Top = 110
+      DataBinding.DataField = 'HISTORICO'
+      DataBinding.DataSource = SourceAncestral
+      ParentFont = False
+      Properties.CharCase = ecUpperCase
+      Style.StyleController = dtmControles.cxEsc_EditsNormal
+      TabOrder = 8
+      Width = 496
+    end
+    object edtOrcamentoOrigem: TcxTextEdit
+      Left = 13
+      Top = 25
+      Enabled = False
+      ParentFont = False
+      Properties.CharCase = ecUpperCase
+      Style.StyleController = dtmControles.cxEsc_EditsObrigatorio
+      TabOrder = 9
+      Width = 381
+    end
+  end
+  inherited DataSetAncestral: TSQLDataSet
+    SchemaName = 'SYSDBA'
+    Left = 204
+    Top = 139
+  end
+  inherited ProviderAncestral: TDataSetProvider
+    Left = 236
+    Top = 139
+  end
+  inherited ClientAncestral: TClientDataSet
+    Left = 270
+    Top = 139
+  end
+  inherited SourceAncestral: TDataSource
+    Left = 300
+    Top = 139
+  end
+  object ClientOrcamentoOrigem: TClientDataSet
+    PersistDataPacket.Data = {
+      810000009619E0BD0100000018000000030000000000030000008100094F5243
+      414D454E544F0100490000000100055749445448020002005A00134C4956524F
+      5F46494E414E434549524F5F494404000100000000001056414C4F525F444953
+      504F4E4956454C080004000000010007535542545950450200490006004D6F6E
+      6579000000}
+    Active = True
+    Aggregates = <>
+    FieldDefs = <
+      item
+        Name = 'ORCAMENTO'
+        DataType = ftString
+        Size = 90
+      end
+      item
+        Name = 'LIVRO_FINANCEIRO_ID'
+        DataType = ftInteger
+      end
+      item
+        Name = 'VALOR_DISPONIVEL'
+        DataType = ftCurrency
+      end>
+    IndexDefs = <>
+    Params = <>
+    StoreDefs = True
+    Left = 192
+    Top = 6
+    object ClientOrcamentoOrigemORCAMENTO: TStringField
+      FieldName = 'ORCAMENTO'
+      Size = 90
+    end
+    object ClientOrcamentoOrigemLIVRO_FINANCEIRO_ID: TIntegerField
+      FieldName = 'LIVRO_FINANCEIRO_ID'
+    end
+    object ClientOrcamentoOrigemVALOR_DISPONIVEL: TCurrencyField
+      FieldName = 'VALOR_DISPONIVEL'
+    end
+  end
+  object dtsOrcamentoOrigem: TDataSource
+    DataSet = ClientOrcamentoOrigem
+    Left = 192
+    Top = 54
+  end
+  object dtsOrcamentoDestino: TDataSource
+    DataSet = ClientOrcamentoDestino
+    Left = 296
+    Top = 54
+  end
+  object ClientOrcamentoDestino: TClientDataSet
+    PersistDataPacket.Data = {
+      540000009619E0BD0100000018000000020000000000030000005400094F5243
+      414D454E544F0100490000000100055749445448020002005A00134C4956524F
+      5F46494E414E434549524F5F494404000100000000000000}
+    Active = True
+    Aggregates = <>
+    FieldDefs = <
+      item
+        Name = 'ORCAMENTO'
+        DataType = ftString
+        Size = 90
+      end
+      item
+        Name = 'LIVRO_FINANCEIRO_ID'
+        DataType = ftInteger
+      end>
+    IndexDefs = <>
+    Params = <>
+    StoreDefs = True
+    Left = 296
+    Top = 6
+    object ClientOrcamentoDestinoORCAMENTO: TStringField
+      FieldName = 'ORCAMENTO'
+      Size = 90
+    end
+    object ClientOrcamentoDestinoLIVRO_FINANCEIRO_ID: TIntegerField
+      FieldName = 'LIVRO_FINANCEIRO_ID'
+    end
+  end
+end

@@ -1,0 +1,295 @@
+inherited frmCademailTextoPadrao: TfrmCademailTextoPadrao
+  Caption = 'Cadastro de Textos Padr'#245'es de Email'
+  ClientHeight = 510
+  ClientWidth = 782
+  ExplicitWidth = 798
+  ExplicitHeight = 549
+  PixelsPerInch = 96
+  TextHeight = 13
+  inherited PanelBotoes: TPanel
+    Width = 782
+    ExplicitWidth = 982
+    inherited PanelBotoesBasicos: TPanel
+      Width = 700
+      ExplicitWidth = 900
+      inherited PanelBasicoBotoes: TPanel
+        inherited cxBtnPesquisar: TcxButton
+          Visible = False
+        end
+      end
+    end
+    inherited PanelBotaoFechar: TPanel
+      Left = 702
+      ExplicitLeft = 902
+    end
+  end
+  inherited StatusBar: TStatusBar
+    Top = 490
+    Width = 782
+    ExplicitTop = 476
+    ExplicitWidth = 982
+  end
+  inherited PanelGeral: TPanel
+    Width = 782
+    Height = 434
+    ExplicitWidth = 982
+    ExplicitHeight = 420
+    inherited PanelData: TPanel
+      Width = 780
+      Height = 65
+      ExplicitWidth = 980
+      ExplicitHeight = 65
+      object cxLabel1: TcxLabel
+        Left = 7
+        Top = 16
+        Caption = 'Descri'#231#227'o:'
+        ParentFont = False
+        Style.StyleController = dtmControles.cxStyleLabel
+      end
+      object cxLabel5: TcxLabel
+        Left = 7
+        Top = 40
+        Caption = 'Assunto:'
+        ParentFont = False
+        Style.StyleController = dtmControles.cxStyleLabel
+      end
+      object edtDescricao: TcxDBTextEdit
+        Left = 63
+        Top = 11
+        DataBinding.DataField = 'DESCRICAO'
+        DataBinding.DataSource = SourceAncestral
+        ParentFont = False
+        Properties.MaxLength = 60
+        Style.StyleController = dtmControles.cxEsc_EditsObrigatorio
+        TabOrder = 2
+        Width = 699
+      end
+      object edtAssunto: TcxDBTextEdit
+        Left = 63
+        Top = 38
+        DataBinding.DataField = 'ASSUNTO'
+        DataBinding.DataSource = SourceAncestral
+        ParentFont = False
+        Properties.MaxLength = 60
+        Style.StyleController = dtmControles.cxEsc_EditsObrigatorio
+        TabOrder = 3
+        Width = 699
+      end
+    end
+    object Panel1: TPanel
+      Left = 1
+      Top = 66
+      Width = 780
+      Height = 367
+      Align = alClient
+      Color = 14807280
+      ParentBackground = False
+      TabOrder = 1
+      ExplicitWidth = 980
+      ExplicitHeight = 353
+      object cxSplitter1: TcxSplitter
+        Left = 1
+        Top = 1
+        Width = 778
+        Height = 8
+        HotZoneClassName = 'TcxMediaPlayer9Style'
+        HotZone.SizePercent = 60
+        AlignSplitter = salTop
+        MinSize = 36
+        ExplicitWidth = 978
+      end
+      object grdBasica: TcxGrid
+        Left = 1
+        Top = 9
+        Width = 778
+        Height = 178
+        Align = alTop
+        TabOrder = 1
+        LookAndFeel.Kind = lfUltraFlat
+        LookAndFeel.NativeStyle = False
+        ExplicitWidth = 978
+        object grdBasicaDBTableView1: TcxGridDBTableView
+          Navigator.Buttons.CustomButtons = <>
+          Navigator.Buttons.PriorPage.Visible = False
+          Navigator.Buttons.NextPage.Visible = False
+          Navigator.Buttons.Insert.Visible = False
+          Navigator.Buttons.Delete.Visible = False
+          Navigator.Buttons.Edit.Visible = False
+          Navigator.Buttons.Post.Visible = False
+          Navigator.Buttons.Cancel.Visible = False
+          Navigator.Buttons.Refresh.Visible = False
+          Navigator.Buttons.SaveBookmark.Visible = False
+          Navigator.Buttons.GotoBookmark.Visible = False
+          Navigator.Buttons.Filter.Visible = False
+          Navigator.Visible = True
+          DataController.DataSource = SourceAncestral
+          DataController.Summary.DefaultGroupSummaryItems = <>
+          DataController.Summary.FooterSummaryItems = <
+            item
+              Format = 'Total:0'
+              Kind = skCount
+              FieldName = 'NATUREZA_ID'
+              Column = cxGridBasicaDBCodigo
+            end>
+          DataController.Summary.SummaryGroups = <>
+          OptionsBehavior.ColumnHeaderHints = False
+          OptionsData.CancelOnExit = False
+          OptionsData.Deleting = False
+          OptionsData.DeletingConfirmation = False
+          OptionsData.Editing = False
+          OptionsData.Inserting = False
+          OptionsSelection.CellSelect = False
+          OptionsView.ColumnAutoWidth = True
+          OptionsView.Footer = True
+          OptionsView.GridLines = glVertical
+          OptionsView.GroupByBox = False
+          Styles.StyleSheet = dtmControles.GridTableViewStyleSheetDevExpress
+          object cxGridBasicaDBCodigo: TcxGridDBColumn
+            Caption = 'C'#243'digo'
+            DataBinding.FieldName = 'EMAIL_TEXTO_PADRAO_ID'
+            Width = 82
+          end
+          object cxGridBasicaDBDescricao: TcxGridDBColumn
+            Caption = 'Descri'#231#227'o'
+            DataBinding.FieldName = 'DESCRICAO'
+            Width = 481
+          end
+        end
+        object grdBasicaLevel1: TcxGridLevel
+          GridView = grdBasicaDBTableView1
+        end
+      end
+      object cxSplitter2: TcxSplitter
+        Left = 1
+        Top = 187
+        Width = 778
+        Height = 8
+        HotZoneClassName = 'TcxMediaPlayer9Style'
+        HotZone.SizePercent = 60
+        HotZone.ArrowHighlightColor = 14807280
+        HotZone.ShadowStartColor = 14807280
+        AlignSplitter = salTop
+        Control = grdBasica
+        Color = 14807280
+        ParentColor = False
+        ExplicitWidth = 978
+      end
+      inline fmeEditorSimples: TfmeEditor
+        Left = 1
+        Top = 195
+        Width = 778
+        Height = 171
+        Align = alClient
+        TabOrder = 3
+        ExplicitLeft = 1
+        ExplicitTop = 195
+        ExplicitWidth = 978
+        ExplicitHeight = 157
+        inherited wptFerramentas: TWPToolbar
+          Width = 778
+          ExplicitWidth = 978
+          inherited btnGravacaoAutomatica: TSpeedButton
+            Left = 375
+            ExplicitLeft = 375
+          end
+          inherited WPToolPanel1: TWPToolPanel
+            Left = 396
+            ExplicitLeft = 396
+          end
+          inherited speNumColunas: TcxSpinEdit
+            ExplicitHeight = 19
+          end
+        end
+        inherited WPReguaHorizontal: TWPRuler
+          Width = 778
+          ExplicitWidth = 978
+        end
+        inherited PanelMarcacao: TPanel
+          Width = 778
+          ExplicitWidth = 978
+          inherited lblInfoMarcacaoInterna: TcxLabel
+            AnchorX = 657
+            AnchorY = 14
+          end
+          inherited btnDicionarioGramatical: TcxButton
+            LookAndFeel.SkinName = ''
+          end
+          inherited btnMarcacaoAutomatica: TcxButton
+            LookAndFeel.SkinName = ''
+          end
+          inherited btnMarcacaoManual: TcxButton
+            LookAndFeel.SkinName = ''
+          end
+          inherited btnVerificarMarcacao: TcxButton
+            LookAndFeel.SkinName = ''
+          end
+        end
+        inherited wptTexto: TWPRichText
+          Width = 752
+          Height = 43
+          OnKeyDown = fmeEditorSimpleswptTextoKeyDown
+          OnKeyPress = fmeEditorSimpleswptTextoKeyPress
+          ExplicitWidth = 809
+          ExplicitHeight = 29
+        end
+        inherited WPVertRuler1: TWPVertRuler
+          Height = 43
+          ExplicitHeight = 29
+        end
+        inherited StatusBar: TStatusBar
+          Top = 152
+          Width = 778
+          ExplicitTop = 138
+          ExplicitWidth = 978
+        end
+      end
+    end
+  end
+  inherited ActionList1: TActionList
+    Left = 479
+    Top = 233
+  end
+  inherited DataSetAncestral: TSQLDataSet
+    SchemaName = 'SYSDBA'
+    CommandText = 'SELECT *'#13#10'FROM G_EMAIL_TEXTO_PADRAO'#13#10'ORDER BY DESCRICAO'
+    Left = 509
+    Top = 233
+  end
+  inherited ProviderAncestral: TDataSetProvider
+    Left = 541
+    Top = 233
+  end
+  inherited ClientAncestral: TClientDataSet
+    AfterScroll = ClientAncestralAfterScroll
+    Left = 573
+    Top = 233
+    object ClientAncestralEMAIL_TEXTO_PADRAO_ID: TFMTBCDField
+      FieldName = 'EMAIL_TEXTO_PADRAO_ID'
+      Required = True
+      Precision = 20
+      Size = 2
+    end
+    object ClientAncestralDESCRICAO: TStringField
+      FieldName = 'DESCRICAO'
+      Size = 60
+    end
+    object ClientAncestralTEXTO: TBlobField
+      FieldName = 'TEXTO'
+    end
+    object ClientAncestralASSUNTO: TStringField
+      FieldName = 'ASSUNTO'
+      Size = 90
+    end
+    object ClientAncestralTIPO_EMAIL: TStringField
+      FieldName = 'TIPO_EMAIL'
+    end
+    object ClientAncestralASSUNTO_PADRAO: TStringField
+      FieldName = 'ASSUNTO_PADRAO'
+      Size = 1
+    end
+  end
+  inherited SourceAncestral: TDataSource
+    Left = 605
+    Top = 233
+  end
+end

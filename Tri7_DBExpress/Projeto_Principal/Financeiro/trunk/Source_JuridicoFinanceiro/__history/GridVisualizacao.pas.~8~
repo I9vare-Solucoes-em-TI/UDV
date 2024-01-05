@@ -1,0 +1,218 @@
+unit GridVisualizacao;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, CadastroAuxSimplificado, cxGraphics,
+  cxControls, cxLookAndFeels, cxLookAndFeelPainters, cxContainer, cxEdit,
+  dxSkinsCore, dxSkinBlack, dxSkinDevExpressDarkStyle, dxSkinDevExpressStyle,
+  dxSkinMcSkin, dxSkinOffice2007Black, dxSkinOffice2007Blue,
+  dxSkinOffice2007Green, dxSkinOffice2007Pink, dxSkinOffice2007Silver,
+  dxSkinsDefaultPainters, Vcl.Menus, Data.FMTBcd, Data.DB, Datasnap.DBClient,
+  Datasnap.Provider, Data.SqlExpr, Vcl.StdCtrls, cxButtons, Vcl.ExtCtrls,
+  cxLabel, cxStyles, dxSkinscxPCPainter, cxCustomData, cxFilter, cxData,
+  cxDataStorage, cxNavigator, cxDBData, cxGridCustomTableView, cxGridTableView,
+  cxGridDBTableView, cxGridLevel, cxClasses, cxGridCustomView, cxGrid;
+
+type
+  TGrid = Record
+    grid : TcxGridDBTableView;
+    form, caption : String;
+  End;
+
+  TfrmGridVisualizacao = class(TfrmCadastroAuxSimplificado)
+    ClientGrid: TClientDataSet;
+    dtsClientGrid: TDataSource;
+    ClientGridCAMPO: TStringField;
+    ClientGridID: TIntegerField;
+    ClientGridSITUACAO: TStringField;
+    grdBasica: TcxGrid;
+    cxGridPesquisa: TcxGridDBTableView;
+    grdBasicaLevel1: TcxGridLevel;
+    cxGridPesquisaColumn1: TcxGridDBColumn;
+    cxGridPesquisaColumn2: TcxGridDBColumn;
+    btnResetar: TcxButton;
+    procedure FormCreate(Sender: TObject);
+    procedure btnConfirmarClick(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+  private
+    { Private declarations }
+  public
+    procedure CarregarGrid(vpGrid : TcxGridDBTableView);
+    procedure SalvarConfiguracao;
+  end;
+
+var
+  frmGridVisualizacao: TfrmGridVisualizacao;
+  vgGrid : TGrid;
+
+  procedure  SetarConfiguracao(vpGrid : TcxGridDBTableView; vpForm : String);
+  procedure  AtualizarConfiguracoes(vpGrid : TcxGridDBTableView; vpForm : String);
+
+implementation
+
+uses
+  Lookup, Controles;
+
+{$R *.dfm}
+
+{ TfrmGridVisualizacao }
+
+procedure SetarConfiguracao(vpGrid : TcxGridDBTableView; vpForm : String);
+begin
+  ExecutaSimpleDSAux(' SELECT * FROM J_GRID WHERE FORM = '+QuotedStr(vpForm),0);
+  while dtmControles.SimpleAuxiliar.IsEmpty do
+    exit;
+
+  with dtmControles.SimpleAuxiliar do
+  begin
+    while not eof do
+    begin
+      vpGrid.Items[FieldByName('ID').AsInteger].Visible := FieldByName('SITUACAO').AsString = 'S';
+      Next;
+    end;
+  end;
+end;
+
+procedure  AtualizarConfiguracoes(vpGrid : TcxGridDBTableView; vpForm : String);
+var
+  i : Integer;
+begin
+  ExecutaSimpleDSAux(' SELECT * FROM J_GRID WHERE FORM = '+QuotedStr(vgGrid.form),0);
+  if not dtmControles.SimpleAuxiliar.IsEmpty then
+  begin
+    with dtmControles.SimpleAuxiliar do
+    begin
+      // Verifica a Ordem dos Registros;
+      for i := 0 to vpGrid.ItemCount - 1 do
+      begin
+        if Locate('CAMPO', FieldByName('CAMPO').AsString,[loCaseInsensitive]) then
+        begin
+          if (FieldByName('ID').AsString <> vpGrid.Items[i].Index) then
+          begin
+            Edit;
+            FieldByName('ID').AsInteger := vpGrid.Items[i].Index;
+            ApplyUpdates(-1);
+          end;
+        end;
+      end;
+    end;
+  end;
+end;
+
+
+procedure TfrmGridVisualizacao.btnConfirmarClick(Sender: TObject);
+begin
+  SalvarConfiguracao;
+  SetarConfiguracao(vgGrid.grid, vgGrid.form);
+  inherited;
+end;
+
+
+procedure TfrmGridVisualizacao.CarregarGrid(vpGrid : TcxGridDBTableView);
+var
+  i : Integer;
+
+  procedure GravarRegistro(vpCampo, vpId, vpSituacao : string);
+  begin
+    ClientGrid.Append;
+    ClientGridCAMPO.AsString    := vpCampo;
+    ClientGridID.AsString       := vpId;
+    ClientGridSITUACAO.AsString := vpSituacao;
+    ClientGrid.Post;
+  end;
+begin
+  ExecutaSimpleDSAux(' SELECT * FROM J_GRID WHERE FORM = '+QuotedStr(vgGrid.form),0);
+  ClientGrid.EmptyDataSet;
+  if dtmControles.SimpleAuxiliar.IsEmpty then
+  begin
+    for i := 0 to vpGrid.ItemCount - 1 do
+    begin
+      if (vpGrid.Items[i].Caption <> '') and (vpGrid.Items[i].Visible) then
+        GravarRegistro(vpGrid.Items[i].Caption, IntToStr(vpGrid.Items[i].Index), 'S');
+    end;
+  end
+  else
+  begin
+    with dtmControles.SimpleAuxiliar do
+    begin
+      while not Eof do
+      begin
+        GravarRegistro(FieldByName('CAMPO').AsString, FieldByName('ID').AsString, FieldByName('SITUACAO').AsString);
+        Next;
+      end;
+
+      // Verifica a Ordem dos Registros;
+      for i := 0 to vpGrid.ItemCount - 1 do
+      begin
+        if ClientGrid.Locate('CAMPO',vpGrid.Items[i].Caption,[loCaseInsensitive]) then
+        begin
+          if (ClientGridID.AsInteger <> vpGrid.Items[i].Index) then
+          begin
+            ClientGrid.Edit;
+            ClientGridID.AsInteger := vpGrid.Items[i].Index;
+            ClientGrid.Post;
+          end;
+        end
+        else
+          if (vpGrid.Items[i].Caption <> '') and (vpGrid.Items[i].Visible) then
+            GravarRegistro(vpGrid.Items[i].Caption, IntToStr(vpGrid.Items[i].Index), 'S');
+      end;
+    end;
+  end;
+end;
+
+procedure TfrmGridVisualizacao.FormClose(Sender: TObject;
+  var Action: TCloseAction);
+begin
+  inherited;
+  Action := caFree;
+  frmGridVisualizacao := nil;
+end;
+
+procedure TfrmGridVisualizacao.FormCreate(Sender: TObject);
+begin
+  lblInformaca.Caption := vgGrid.caption;
+  CarregarGrid(vgGrid.grid);
+  inherited;
+end;
+
+procedure TfrmGridVisualizacao.SalvarConfiguracao;
+ procedure GravarRegistro;
+  begin
+    ExecutaSqlAuxiliar(' INSERT INTO J_GRID( ' +
+        '              GRID_ID, '+
+        '              CAMPO, ' +
+        '              ID, ' +
+        '              SITUACAO, ' +
+        '              FORM) ' +
+        ' VALUES(      :GRID_ID, ' +
+        '              :CAMPO, ' +
+        '              :ID, ' +
+        '              :SITUACAO, ' +
+        '              :FORM)', 2);
+    with dtmControles.sqlAuxiliar do
+    begin
+      ParamByName('GRID_ID').AsBCD     := dtmControles.GerarSequencia('J_GRID');
+      ParamByName('CAMPO').AsString    := ClientGridCAMPO.AsString;
+      ParamByName('ID').AsInteger      := ClientGridID.AsInteger;
+      ParamByName('SITUACAO').AsString := ClientGridSITUACAO.AsString;
+      ParamByName('FORM').AsString     := vgGrid.form;
+      ExecSQL(False);
+    end;;
+
+  end;
+begin
+  ExecutaSqlAuxiliar(' DELETE FROM J_GRID '+
+                     ' WHERE FORM =  '+QuotedStr(vgGrid.form),1);
+  ClientGrid.First;
+  while not ClientGrid.eof do
+  begin
+    GravarRegistro;
+    ClientGrid.Next;
+  end;
+end;
+
+end.
+

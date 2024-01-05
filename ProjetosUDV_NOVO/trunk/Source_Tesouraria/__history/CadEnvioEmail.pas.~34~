@@ -1,0 +1,630 @@
+unit CadEnvioEmail;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, dxSkinsCore, dxSkinBlack, dxSkinBlue, dxSkinCaramel, dxSkinCoffee,
+  dxSkinDarkSide, dxSkinGlassOceans, dxSkiniMaginary, dxSkinLilian,
+  dxSkinLiquidSky, dxSkinLondonLiquidSky, dxSkinMcSkin, dxSkinMoneyTwins,
+  dxSkinOffice2007Black, dxSkinOffice2007Blue, dxSkinOffice2007Green,
+  dxSkinOffice2007Pink, dxSkinOffice2007Silver, dxSkinPumpkin, dxSkinSilver,
+  dxSkinStardust, dxSkinSummer2008, dxSkinsDefaultPainters, dxSkinValentine,
+  dxSkinXmas2008Blue, dxSkinscxPCPainter, Menus, cxLookAndFeelPainters, FMTBcd,
+  DB, DBClient, Provider, SqlExpr, StdCtrls, cxButtons, cxTextEdit, cxDBEdit,
+  cxCheckBox, cxContainer, cxEdit, cxLabel, ExtCtrls, cxPC, cxControls,
+  cxMaskEdit, cxSpinEdit, cxRadioGroup, cxMemo, cxRichEdit, cxProgressBar,
+  OleCtrls, CHILKATMAILLib2_TLB, cxGraphics, cxDropDownEdit, cxImageComboBox,
+  cxGroupBox, cxLookAndFeels, dxSkinBlueprint, dxSkinDarkRoom,
+  dxSkinDevExpressDarkStyle, dxSkinDevExpressStyle, dxSkinFoggy,
+  dxSkinHighContrast, dxSkinOffice2010Black, dxSkinOffice2010Blue,
+  dxSkinOffice2010Silver, dxSkinOffice2013White, dxSkinSeven,
+  dxSkinSevenClassic, dxSkinSharp, dxSkinSharpPlus, dxSkinSpringTime,
+  dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint, cxPCdxBarPopupMenu,
+  dxBarBuiltInMenu, cxLookupEdit, cxDBLookupEdit, cxDBLookupComboBox,
+  Vcl.ComCtrls,WPCTRRich;
+
+type
+  TRetornoCompromisso = record
+    cliente: Integer;
+    emailPrimario: string;
+    caminhoArquivo: string;
+    compromissoId: array of Integer;
+  end;
+
+  TArrayOfRetornoCompromisso = array of TRetornoCompromisso;
+  TRetornoEnvioEmail = record
+    houveErro: Boolean;
+    enviarEmail : Boolean;
+    compromisso: TArrayOfRetornoCompromisso;
+  end;
+
+  TfrmCadEnvioEmail = class(TForm)
+    pgcConfig: TcxPageControl;
+    tabConexao: TcxTabSheet;
+    Panel2: TPanel;
+    cxLabel3: TcxLabel;
+    cxLabel1: TcxLabel;
+    cxLabel2: TcxLabel;
+    cxLabel5: TcxLabel;
+    cxLabel6: TcxLabel;
+    chxAutenticar: TcxDBCheckBox;
+    chxEmailPadrao: TcxDBCheckBox;
+    tabTextoPadrao: TcxTabSheet;
+    Panel3: TPanel;
+    tabRodape: TcxTabSheet;
+    memTextoRodape: TMemo;
+    Panel1: TPanel;
+    DataSetAncestral: TSQLDataSet;
+    ProviderAncestral: TDataSetProvider;
+    ClientAncestral: TClientDataSet;
+    ClientAncestralEMAIL_CONFIG_ID: TFMTBCDField;
+    ClientAncestralTEXTO_EMAIL: TBlobField;
+    ClientAncestralHOST_SMTP: TStringField;
+    ClientAncestralHOST_POP3: TStringField;
+    ClientAncestralUSER_NAME: TStringField;
+    ClientAncestralPASSWORD: TStringField;
+    ClientAncestralAUTENTICAR_SERVIDOR: TStringField;
+    ClientAncestralASSUNTO_PADRAO: TStringField;
+    ClientAncestralEMAIL_PADRAO: TStringField;
+    ClientAncestralUSAR_EMAIL_USUARIO: TStringField;
+    SourceAncestral: TDataSource;
+    Panel4: TPanel;
+    cxLabel7: TcxLabel;
+    pnlEnvio: TPanel;
+    ClientAncestralTEXTO_RODAPE: TBlobField;
+    ClientAncestralESPACO_TEXTO_RODAPE: TFMTBCDField;
+    ClientAncestralADICIONAR_ASSINATURA_USUARIO: TStringField;
+    chxAssinaturaUsuario: TcxDBCheckBox;
+    lblEnviando: TcxLabel;
+    edtLinhas: TcxSpinEdit;
+    cxLabel8: TcxLabel;
+    chxCC: TcxCheckBox;
+    rdbArquivoRTF: TcxRadioButton;
+    cxRichEdit1: TcxRichEdit;
+    cxLabel4: TcxLabel;
+    edtHostSMTP: TcxDBTextEdit;
+    edtUsuario: TcxDBTextEdit;
+    edtSenha: TcxDBTextEdit;
+    edtPorta: TcxDBTextEdit;
+    edtEmailPadrao: TcxDBTextEdit;
+    cxDBTextEdit2: TcxDBTextEdit;
+    ClientAncestralPORTA: TStringField;
+    cxProgress: TcxProgressBar;
+    cxTabSheet1: TcxTabSheet;
+    Panel5: TPanel;
+    cxGroupBox1: TcxGroupBox;
+    cxLabel9: TcxLabel;
+    cxLabel10: TcxLabel;
+    cxLabel11: TcxLabel;
+    cxLabel12: TcxLabel;
+    cxLabel13: TcxLabel;
+    icxProxyMetodo: TcxImageComboBox;
+    edtProxyHostName: TcxTextEdit;
+    edtProxyPorta: TcxTextEdit;
+    edtProxyUsuario: TcxTextEdit;
+    edtProxyHostSenha: TcxTextEdit;
+    chxUsarProxy: TcxCheckBox;
+    edtAssuntoEmail: TcxTextEdit;
+    edtCC: TcxTextEdit;
+    rdbArquivoPDF: TcxRadioButton;
+    btnEnviar: TcxButton;
+    btnConfirmar: TcxButton;
+    cxButton1: TcxButton;
+    Panel6: TPanel;
+    cxLabel14: TcxLabel;
+    lcxEmailTextoPadrao: TcxLookupComboBox;
+    memTextoPadrao: TRichEdit;
+    procedure btnConfirmarClick(Sender: TObject);
+    procedure btnCancelarClick(Sender: TObject);
+    procedure pgcConfigChange(Sender: TObject);
+    procedure FormActivate(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure chxAutenticarClick(Sender: TObject);
+    procedure chxEmailPadraoClick(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure btnEnviarClick(Sender: TObject);
+    procedure chxCCClick(Sender: TObject);
+    procedure SendMail(vBodyHtml : String; vEmailCC: string; vAttachment: String; vAnexo: TStrings);
+    procedure lcxEmailTextoPadraoPropertiesChange(Sender: TObject);
+  private
+    vgNovo : Boolean;
+  public
+    { Public declarations }
+  end;
+
+var
+  frmCadEnvioEmail: TfrmCadEnvioEmail;
+  vgEnviarEmail, vgEmailBoleto, vgEmailEncaminhado : Boolean;
+  vgRetornoEmail: TRetornoEnvioEmail;
+  vgEmailTipo : String;
+
+implementation
+
+uses Controles, Lookup, Rotinas, SelecionarBoletoEnviar, Lookup_Contabil,
+  GerenciadorRecebimento, LookupBoleto, ConfirmacaoRecibo, VisualizaRelatorios;
+
+{$R *.dfm}
+
+procedure TfrmCadEnvioEmail.btnCancelarClick(Sender: TObject);
+begin
+  if vgEnviarEmail then
+    ClientAncestral.CancelUpdates
+  else
+  begin
+    FreeAndNil(vgEmailConfig.TextoEmail);
+    FreeAndNil(vgEmailConfig.TextoRodape);
+  end;
+  Close;
+end;
+
+procedure TfrmCadEnvioEmail.btnConfirmarClick(Sender: TObject);
+begin
+  if vgNovo then
+    ClientAncestralEMAIL_CONFIG_ID.AsCurrency := dtmControles.GerarSequencia('T_CONFIG_EMAIL');
+
+  ClientAncestralTEXTO_RODAPE.AsString := Trim(memTextoRodape.Text);
+  ClientAncestralTEXTO_EMAIL.AsString  := Trim(memTextoPadrao.Text);
+  ClientAncestralESPACO_TEXTO_RODAPE.AsInteger := edtLinhas.EditValue;
+  ClientAncestral.ApplyUpdates(-1);
+  Close;
+end;
+
+procedure TfrmCadEnvioEmail.btnEnviarClick(Sender: TObject);
+var
+  i, viPessoaTerceiro, viPessoaId : integer;
+  viTexto : String;
+  vlAttachmentFile, viNome : String;
+
+  procedure EncaminharBoletoEmail;
+  begin
+    ExecutaSimpleDSAux(' SELECT CAMINHO_ARQUIVO, PESSOA_ID, PESSOA_GRUPO_ID, BOLETA_ID FROM T_BOLETA '+
+                       ' WHERE BOLETA_ID IN ('+vgBoleto.Selecao+')',0);
+
+    IniciarIncrementarProgressBar(cxProgress, dtmControles.SimpleAuxiliar.RecordCount);
+    Screen.Cursor := crHourGlass;
+    while not dtmControles.SimpleAuxiliar.Eof do
+    begin
+      with dtmControles.SimpleAuxiliar do
+      begin
+        frmCadEnvioEmail.Refresh;
+
+        vlAttachmentFile := FieldByName('CAMINHO_ARQUIVO').AsString;
+        if not FileExists(vlAttachmentFile) then
+          vlAttachmentFile := dtmLookupContabil.LocalizarBoleto(FieldByName('PESSOA_ID').AsString, FieldByName('PESSOA_GRUPO_ID').AsString,
+                                                                FieldByName('BOLETA_ID').AsString);
+
+        if FieldByName('PESSOA_ID').IsNull then
+        begin
+          viNome := dtmControles.GetStr(' SELECT DESCRICAO FROM T_PESSOA_GRUPO WHERE PESSOA_GRUPO_ID = '+FieldByName('PESSOA_GRUPO_ID').AsString);
+          lblEnviando.Caption := 'Enviando = B - '+ viNome;
+          vgEmailConfig.EmailDestino := dtmControles.GetStr(' SELECT FIRST 1 EMAIL FROM T_PESSOA '+
+                                                            ' WHERE PESSOA_GRUPO_ID = '+FieldByName('PESSOA_GRUPO_ID').AsString+
+                                                            '   AND EMAIL_GRUPO_PADRAO ='+QuotedStr('S'));
+        end
+        else
+        begin
+          viNome := dtmControles.GetStr(' SELECT NOME FROM T_PESSOA WHERE PESSOA_ID = '+FieldByName('PESSOA_ID').AsString);
+          lblEnviando.Caption := 'Enviando = B - '+viNome;
+
+          // Verifica se vai mandar para o email de terceiro
+          viPessoaTerceiro := dtmControles.GetInt(' SELECT PESSOA_TERCEIRO_ID FROM T_PESSOA WHERE PESSOA_ID = '+FieldByName('PESSOA_ID').AsString);
+          if viPessoaTerceiro > 0 then
+               vgEmailConfig.EmailDestino := dtmControles.GetStr(' SELECT EMAIL FROM T_PESSOA WHERE PESSOA_ID = '+InttoStr(viPessoaTerceiro))
+          else vgEmailConfig.EmailDestino := dtmControles.GetStr(' SELECT EMAIL FROM T_PESSOA WHERE PESSOA_ID = '+FieldByName('PESSOA_ID').AsString);
+        end;
+
+        lblEnviando.Refresh;
+        if vgEmailConfig.EmailDestino = '' then
+          Application.MessageBox(PChar('E-mail do Associado e/ou Grupo '+viNome+ ' esta em branco.' +#13+#13+
+                                       'E-mail não transmitido!!!'),'Informação', MB_ICONINFORMATION + MB_OK)
+        else
+        begin
+          if not vgEmailConfig.Autenticar then
+          begin
+            if chxCC.Checked then
+                 dtmControles.EnviarEmail(viTexto, edtCC.Text, vlAttachmentFile, nil)
+            else dtmControles.EnviarEmail(viTexto, '', vlAttachmentFile, nil);
+          end
+          else SendMail(viTexto, edtCC.Text, vlAttachmentFile, nil);
+
+          ExecutaSqlAuxiliar(' UPDATE T_BOLETA SET TRANSMITIDO = '+QuotedStr('S')+
+                             ' WHERE BOLETA_ID = '+FieldByName('BOLETA_ID').AsString,1);
+        end;
+        Next;
+      end;
+      IniciarIncrementarProgressBar(cxProgress, 1, True);
+      Application.ProcessMessages;
+    end;
+  end;
+
+  procedure EncaminharReciboEmail;
+
+    procedure ParametrosRecibo;
+    var
+      vpSql, vpComplemento : string;
+      vpValorDivida, ValorAPagar : Currency;
+    begin
+      with frmGerenciadorRecebimento do
+      begin
+        frxReportNAoAss.Variables.Variables['DataDocumento'] := QuotedStr(FormatDateTime('dd ''de'' mmmm ''de'' yyyy', vgDadosConfirmacao.data));
+
+        if not dtmControles.SimpleAuxiliar.FieldByName('QUITADO_GRUPO_ID').IsNull then
+        begin
+          frxReportNAoAss.Variables.Variables['FAMILIAR']   := QuotedStr('S');
+          frxReportNAoAss.Variables.Variables['SacadoNome'] := QuotedStr('Grupo Associado '+ viNome);
+        end
+        else
+        begin
+          frxReportNAoAss.Variables.Variables['FAMILIAR']   := QuotedStr('N');
+          frxReportNAoAss.Variables.Variables['SacadoNome'] := QuotedStr(viNome);
+        end;
+        frxReportNAoAss.Variables.Variables['RECIBO_NUMERO'] := QuotedStr( dtmControles.SimpleAuxiliar.FieldByName('RECIBO_NUMERO').AsString);
+      end;
+    end;
+
+    procedure GerarReciboEmail(vpNumeroRecibo : String);
+    var
+      viSql, vlRelatorioRecibo, vlRelatorioId : string;
+      viFlag, viLimpar : Boolean;
+      viReciboAnterior : Integer;
+    begin
+      with frmGerenciadorRecebimento do
+      begin
+        dtmLookupBoleto.frxPDFExport1.FileName := vgBoletoDados.DiretorioRecibo + 'ReciboTesouraria_'+viNome+'_'+vpNumeroRecibo+'.pdf';
+
+        vgCompromissoRealizado := True;
+        if dtmControles.SimpleAuxiliar.FieldByName('QUITADO_GRUPO_ID').AsInteger > 0 then
+             FiltrarAssociadoBoleto('', dtmControles.SimpleAuxiliar.FieldByName('QUITADO_GRUPO_ID').AsString,True)
+        else FiltrarAssociadoBoleto(IntToStr(viPessoaId), '', True);
+
+        FiltrarCompromissoBoleto('','',vpNumeroRecibo);
+        vgDadosConfirmacao.data         := dtmControles.SimpleAuxiliar.FieldByName('DATA_REALIZACAO').AsDateTime;
+        vgDadosConfirmacao.NumeroRecibo := vpNumeroRecibo;
+        vlFiltrarCompromissoBoleto := True;
+
+        dtmLookup.CarregarCabecalho(vgBalancetePrincipal);
+        if dtmControles.SimpleAuxiliar.FieldByName('QUITADO_GRUPO_ID').AsInteger > 0 then
+             vlRelatorioId := '2'
+        else vlRelatorioId := '2';
+
+        viSql := ' SELECT RELATORIO '+
+                 ' FROM G_CONFIG_RELATORIO '+
+                 ' WHERE CONFIG_RELATORIO_ID = '+vlRelatorioId;
+
+        ExecutaSqlAuxiliar(viSql , 0);
+        vlRelatorioRecibo := dtmControles.sqlAuxiliar.FieldByName('RELATORIO').AsString;
+        CarregaRelatorio(vlRelatorioId, vlRelatorioRecibo, frxReportNAoAss);
+
+        ParametrosRecibo;
+        frxReportNAoAss.PrepareReport(True);
+        viLimpar := False;
+
+        frxReportNAoAss.Export(dtmLookupBoleto.frxPDFExport1);
+        vlFiltrarCompromissoBoleto      := False;
+        vgDadosConfirmacao.NumeroRecibo := '';
+      end;
+    end;
+
+  begin
+    ExecutaSimpleDSAux(' SELECT DATA_REALIZACAO, QUITADO_GRUPO_ID, RECIBO_NUMERO  '+
+                       ' FROM T_COMPROMISSO_VENCIDO '+
+                       ' WHERE RECIBO_NUMERO IN ('+vgBoleto.Selecao+')'+
+                       ' GROUP BY DATA_REALIZACAO, QUITADO_GRUPO_ID, RECIBO_NUMERO',0);
+
+    IniciarIncrementarProgressBar(cxProgress, dtmControles.SimpleAuxiliar.RecordCount);
+    Screen.Cursor := crHourGlass;
+    while not dtmControles.SimpleAuxiliar.Eof do
+    begin
+      with dtmControles.SimpleAuxiliar do
+      begin
+        viPessoaId := dtmControles.GetInt(' SELECT FIRST 1 PESSOA_ID FROM T_COMPROMISSO_VENCIDO WHERE RECIBO_NUMERO = '+FieldByName('RECIBO_NUMERO').AsString);
+        if not FieldByName('QUITADO_GRUPO_ID').IsNull then
+        begin
+          viNome     := dtmControles.GetStr(' SELECT DESCRICAO FROM T_PESSOA_GRUPO WHERE PESSOA_GRUPO_ID = '+FieldByName('QUITADO_GRUPO_ID').AsString);
+          lblEnviando.Caption := 'Enviando = B - '+ viNome;
+          vgEmailConfig.EmailDestino := dtmControles.GetStr(' SELECT FIRST 1 EMAIL FROM T_PESSOA '+
+                                                            ' WHERE PESSOA_GRUPO_ID = '+FieldByName('QUITADO_GRUPO_ID').AsString+
+                                                            '   AND EMAIL_GRUPO_PADRAO ='+QuotedStr('S'));
+        end
+        else
+        begin
+          viNome := dtmControles.GetStr(' SELECT NOME FROM T_PESSOA WHERE PESSOA_ID = '+IntToStr(viPessoaId));
+          lblEnviando.Caption := 'Enviando = B - '+viNome;
+
+          // Verifica se vai mandar para o email de terceiro
+          viPessoaTerceiro := dtmControles.GetInt(' SELECT PESSOA_TERCEIRO_ID FROM T_PESSOA WHERE PESSOA_ID = '+IntToStr(viPessoaId));
+          if viPessoaTerceiro > 0 then
+               vgEmailConfig.EmailDestino := dtmControles.GetStr(' SELECT EMAIL FROM T_PESSOA WHERE PESSOA_ID = '+InttoStr(viPessoaTerceiro))
+          else vgEmailConfig.EmailDestino := dtmControles.GetStr(' SELECT EMAIL FROM T_PESSOA WHERE PESSOA_ID = '+IntToStr(viPessoaId));
+        end;
+
+        GerarReciboEmail(FieldByName('RECIBO_NUMERO').AsString);
+        lblEnviando.Refresh;
+        frmCadEnvioEmail.Refresh;
+
+        vlAttachmentFile := dtmLookupBoleto.frxPDFExport1.FileName;
+        if vgEmailConfig.EmailDestino = '' then
+          Application.MessageBox(PChar('E-mail do Associado e/ou Grupo '+viNome+ ' esta em branco.' +#13+#13+
+                                       'E-mail não transmitido!!!'),'Informação', MB_ICONINFORMATION + MB_OK)
+        else
+        begin
+          if not vgEmailConfig.Autenticar then
+          begin
+            if chxCC.Checked then
+                 dtmControles.EnviarEmail(viTexto, edtCC.Text, vlAttachmentFile, nil)
+            else dtmControles.EnviarEmail(viTexto, '', vlAttachmentFile, nil);
+          end
+          else SendMail(viTexto, edtCC.Text, vlAttachmentFile, nil);
+
+          ExecutaSqlAuxiliar(' UPDATE T_COMPROMISSO_VENCIDO SET EMAIL_ENCAMINHAR = '+QuotedStr('S')+
+                             ' WHERE RECIBO_NUMERO = '+FieldByName('RECIBO_NUMERO').AsString,1);
+        end;
+        Next;
+      end;
+      IniciarIncrementarProgressBar(cxProgress, 1, True);
+      Application.ProcessMessages;
+    end;
+  end;
+
+begin
+  try
+    if Application.MessageBox('Confirma o envio do email?','Pergunta', mb_IconQuestion + mb_YesNo) = idNo then
+      exit;
+
+    lblEnviando.Visible := True;
+    cxProgress.Visible  := True;
+    frmCadEnvioEmail.Refresh;
+    vgEmailConfig.TextoEmail.Text  := memTextoPadrao.Text;
+    vgEmailConfig.TextoRodape.Text := memTextoRodape.Text;
+    vgEmailConfig.EspacoAssinatura := edtLinhas.EditValue;
+    vgEmailConfig.AssuntoPadrao    := edtAssuntoEmail.EditValue;
+
+    viTexto := '';
+    for i := 0 to vgEmailConfig.TextoEmail.Count-1 do
+    begin
+      if trim(vgEmailConfig.TextoEmail.Strings[i]) = '' then
+           viTexto := viTexto + '<br />'
+      else viTexto := viTexto + vgEmailConfig.TextoEmail.Strings[i]+'<br />';
+    end;
+
+    for i := 1 to vgEmailConfig.EspacoAssinatura do
+      viTexto := viTexto + '<br />';
+
+    for i := 0 to vgEmailConfig.TextoRodape.Count-1 do
+    begin
+      if trim(vgEmailConfig.TextoRodape.Strings[i]) = '' then
+           viTexto := viTexto + '<br />'
+      else viTexto := viTexto + vgEmailConfig.TextoRodape.Strings[i]+'<br />';
+    end;
+
+    if vgEmailBoleto then
+         EncaminharBoletoEmail
+    else EncaminharReciboEmail;
+
+    Screen.Cursor := crDefault;
+    vgEmailEncaminhado := True;
+  except
+    Screen.Cursor := crDefault;
+    Application.MessageBox('Erro de envio!!!','Informação', MB_ICONINFORMATION + MB_OK)
+  end;
+
+  Close;
+  FreeAndNil(vgEmailConfig.TextoEmail);
+  FreeAndNil(vgEmailConfig.TextoRodape);
+end;
+
+procedure TfrmCadEnvioEmail.chxAutenticarClick(Sender: TObject);
+begin
+  edtPorta.Enabled := chxAutenticar.Checked;
+end;
+
+procedure TfrmCadEnvioEmail.chxCCClick(Sender: TObject);
+begin
+  edtCC.Enabled := chxCC.Checked;
+  if chxCC.Checked then
+    edtCC.EditValue := vgEmailConfig.EmailEnvio;
+
+end;
+
+procedure TfrmCadEnvioEmail.chxEmailPadraoClick(Sender: TObject);
+begin
+  edtEmailPadrao.Enabled := not chxEmailPadrao.Checked;
+end;
+
+procedure TfrmCadEnvioEmail.FormActivate(Sender: TObject);
+begin
+  if not vgEnviarEmail then
+  begin
+    pgcConfig.ActivePageIndex := 0;
+    chxAutenticarClick(Self);
+    chxEmailPadraoClick(Self);
+    edtHostSMTP.SetFocus;
+  end
+  else
+  begin
+    tabConexao.TabVisible := False;
+    pgcConfig.ActivePage  := tabTextoPadrao;
+    pgcConfigChange(Self);
+  end;
+  vgEnviarEmail := False;
+end;
+
+procedure TfrmCadEnvioEmail.FormClose(Sender: TObject;
+  var Action: TCloseAction);
+begin
+  vgEmailBoleto := False;
+  vgEmailTipo   := '';
+
+  Action := caFree;
+  frmCadEnvioEmail := nil;
+end;
+
+procedure TfrmCadEnvioEmail.FormCreate(Sender: TObject);
+begin
+  btnEnviar.Visible             := vgEnviarEmail;
+  pnlEnvio.Visible              := vgEnviarEmail;
+  edtAssuntoEmail.Enabled       := vgEnviarEmail;
+  btnConfirmar.Enabled          := not vgEnviarEmail;
+  chxAssinaturaUsuario.Visible  := not vgEnviarEmail;
+  vgEmailEncaminhado            := False;
+
+  if not vgEnviarEmail then
+  begin
+    ClientAncestral.Open;
+    vgNovo         := ClientAncestral.IsEmpty;
+    pnlEnvio.Color := clSilver;
+    if ClientAncestral.IsEmpty then
+    begin
+      ClientAncestral.Insert;
+      ClientAncestralAUTENTICAR_SERVIDOR.AsString  := 'N';
+      ClientAncestralUSAR_EMAIL_USUARIO.AsString   := 'N';
+      edtLinhas.EditValue := 1;
+      memTextoRodape.Lines.Clear;
+      memTextoPadrao.Lines.Clear;
+    end
+    else
+    begin
+      ClientAncestral.Edit;
+      memTextoRodape.Text  := ClientAncestralTEXTO_RODAPE.AsString;
+      edtLinhas.EditValue  := ClientAncestralESPACO_TEXTO_RODAPE.AsInteger;
+    end;
+  end
+  else
+  begin
+    dtmLookup.LerDadadosConfigEmail(vgEmailConfig.Tabela);
+
+    if vgEmailTipo <> '' then
+    begin
+      lcxEmailTextoPadrao.EditValue := dtmControles.GetInt(' SELECT FIRST 1 EMAIL_TEXTO_PADRAO_ID '+
+                                                           ' FROM G_EMAIL_TEXTO_PADRAO '+
+                                                           ' WHERE TIPO_EMAIL = '+QuotedStr(vgEmailTipo));
+      edtAssuntoEmail.EditValue := dtmLookup.sqlEmailTextoPadraoASSUNTO.AsString;
+    end
+    else
+    begin
+      memTextoPadrao.Text       := vgEmailConfig.TextoEmail.Text;
+      edtAssuntoEmail.EditValue := vgEmailConfig.AssuntoPadrao;
+    end;
+
+    edtLinhas.EditValue       := vgEmailConfig.EspacoAssinatura;
+
+    memTextoRodape.Lines.Clear;
+    if vgEmailConfig.AdAssinaturaUsuario then
+    begin
+      memTextoRodape.Lines.Add(dtmControles.GetStr(' SELECT NOME_COMPLETO FROM G_USUARIO WHERE USUARIO_ID = '+vgUsuarioID));
+      memTextoRodape.Lines.Add(dtmControles.GetStr(' SELECT FUNCAO FROM G_USUARIO WHERE USUARIO_ID = '+vgUsuarioID));
+      memTextoRodape.Text := memTextoRodape.Text + vgEmailConfig.TextoRodape.Text;
+    end
+    else memTextoRodape.Text := vgEmailConfig.TextoRodape.Text;
+  end;
+end;
+
+procedure TfrmCadEnvioEmail.lcxEmailTextoPadraoPropertiesChange(
+  Sender: TObject);
+var
+  viWptTexto: TWPRichText;
+begin
+  viWptTexto := TWPRichText.Create(nil);
+  viWptTexto.AsString       := DeCompressString(dtmLookup.sqlEmailTextoPadraoTEXTO.AsString);
+
+  memTextoPadrao.Text       := viWptTexto.Text;
+  edtAssuntoEmail.EditValue := DeCompressString(dtmLookup.sqlEmailTextoPadraoASSUNTO.AsString);
+  FreeAndNil(viWptTexto);
+end;
+
+procedure TfrmCadEnvioEmail.pgcConfigChange(Sender: TObject);
+begin
+  if pgcConfig.ActivePage = tabConexao then
+    edtHostSMTP.SetFocus
+  else
+    if pgcConfig.ActivePage = tabTextoPadrao then
+         memTextoPadrao.SetFocus
+  else
+    if pgcConfig.ActivePage = tabRodape then
+       memTextoRodape.SetFocus;
+end;
+
+procedure TfrmCadEnvioEmail.SendMail(vBodyHtml, vEmailCC, vAttachment: String;
+  vAnexo: TStrings);
+var
+  mailman: TChilkatMailMan2;
+  success: Integer;
+  email  : CHILKATMAILLib2_TLB.IChilkatEmail2;
+
+  Procedure AddEmail(vpLista : String);
+  var
+    viPos : Integer;
+  begin
+    repeat
+      viPos := pos(';', vpLista);
+      if viPos > 0 then
+        email.AddTo('', Copy(vpLista,1,viPos-1))
+      else
+      begin
+        email.AddTo('', vpLista);
+        vpLista := '';
+      end;
+      Delete(vpLista,1,viPos);
+    until vpLista = '';
+  end;
+
+begin
+  //  The mailman object is used for sending and receiving email.
+  mailman := TChilkatMailMan2.Create(Self);
+
+  //  Any string argument automatically begins the 30-day trial.
+  success := mailman.UnlockComponent('MAIL12345678_1D8C95A8G82H');
+  if (success <> 1) then
+  begin
+    Screen.Cursor := crDefault;
+    ShowMessage('Component unlock failed');
+    exit;
+  end;
+
+  if chxUsarProxy.Checked then
+  begin
+    mailman.HttpProxyAuthMethod := icxProxyMetodo.EditValue;
+    mailman.HttpProxyHostname   := edtProxyHostName.EditValue;
+    mailman.HttpProxyPort       := StrToInt(edtProxyPorta.EditValue);
+    mailman.HttpProxyUsername   := edtProxyUsuario.EditValue;
+    mailman.HttpProxyPassword   := edtProxyHostSenha.EditValue;
+  end;
+
+  //  Set the SMTP server.
+  mailman.SmtpHost     := vgEmailConfig.HostSmtp;
+  mailman.SmtpUsername := vgEmailConfig.UserName;
+  mailman.SmtpPassword := vgEmailConfig.PassWord;
+  mailman.SmtpSsl      := 1;
+  mailman.SmtpPort     := StrToInt(vgEmailConfig.Porta);
+
+  //  Create a new email object
+  email := CoChilkatEmail2.Create();
+
+  email.Subject := vgEmailConfig.AssuntoPadrao;
+  email.SetHtmlBody(vBodyHtml);
+  email.From    := vgEmailConfig.EmailEnvio;
+  AddEmail(vgEmailConfig.EmailDestino);
+  email.AddCC('',vEmailCC);
+
+  if vAttachment <> '' then
+    email.AddFileAttachment2(vAttachment, 'application/pdf');
+
+  success := mailman.SendEmail(email As CHILKATMAILLib2_TLB.IChilkatEmail2);
+  if (success <> 1) then
+  begin
+    Screen.Cursor := crDefault;
+    ShowMessage(mailman.LastErrorText);
+    Abort;
+  end;
+
+  success := mailman.CloseSmtpConnection();
+  if (success <> 1) then
+  begin
+    Screen.Cursor := crDefault;
+    ShowMessage('Connection to SMTP server not closed cleanly.');
+  end;
+
+end;
+
+end.

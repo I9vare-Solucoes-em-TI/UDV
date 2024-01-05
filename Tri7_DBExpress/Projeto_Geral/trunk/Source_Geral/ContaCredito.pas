@@ -1,0 +1,326 @@
+unit ContaCredito;
+
+interface
+
+uses
+  Graphics, DB, Controls, FMTBcd, SqlExpr, Registry, Variants,
+  Grids, DBGrids, ComCtrls, Classes, SysUtils, StdCtrls,
+  Forms, ClipBrd, Windows;
+
+type
+  TDadosContaCredito = Record
+    ContaClienteId, ContaHistoricoId, CaixaItemId, ContaSelecionadaId : Integer;
+    Nome, Observacao, Descricao, Operacao, Tabela, Campo, CPF_CNPJ, TipoServico : String;
+    DataAbertura, DataHistorico : TDate;
+    Selecionar : Boolean;
+    Valor, Saldo : Currency;
+  End;
+
+Var
+  vgDadosContaCredito : TDadosContaCredito;
+
+  function PesquisarPessoaContaCredito(vpCPF : String):Boolean;
+  procedure RegistrarNovaContaCliente;
+  procedure RegistrarEntradaSaidaContaCliente;
+  procedure RegistrarCaixa;
+  Function VerificarSaldoContaCliente(vpCPF, vpTabela, vpCampo : String;
+          vpContaClienteId : Integer = 0):Currency;
+
+implementation
+
+uses Controles, Rotinas;
+
+
+function PesquisarPessoaContaCredito(vpCPF : String):Boolean;
+var
+  viSql, viMensagem : String;
+begin
+  viMensagem := '';
+  if Length(vpCpf) <= 11 then
+  begin
+    if not TestaCpf(vpCPF) then
+       viMensagem := 'Cpf Inválido. Deseja Continuar?'
+  end
+  else
+    if not TestaCnpj(vpCPF) then
+       viMensagem := 'CNPJ Inválido. Deseja Continuar?';
+
+  if viMensagem <> '' then
+    if Application.MessageBox(Pchar(viMensagem), 'Pergunta', mb_IconQuestion + mb_YesNo + MB_DEFBUTTON2) = idNo then
+      abort;
+
+  viSql  := ' SELECT CONTA_CLIENTE_ID, NOME, DATA_ABERTURA FROM C_CONTA_CLIENTE WHERE CPF_CNPJ = '+QuotedStr(vpCPF);
+  ExecutaSqlAuxiliar(viSql, 0);
+
+  if dtmControles.sqlAuxiliar.IsEmpty then
+  begin
+    vgDadosContaCredito.ContaClienteId := 0;
+    Result := False;
+  end
+  else
+  begin
+    vgDadosContaCredito.ContaClienteId := dtmControles.sqlAuxiliar.FieldByName('CONTA_CLIENTE_ID').AsInteger;
+    vgDadosContaCredito.Nome           := dtmControles.sqlAuxiliar.FieldByName('NOME').AsString;
+    vgDadosContaCredito.DataAbertura   := dtmControles.sqlAuxiliar.FieldByName('DATA_ABERTURA').AsDateTime;
+    Result := True;
+  end;
+end;
+
+procedure RegistrarNovaContaCliente;
+begin
+  ExecutaSqlAuxiliar(' INSERT INTO C_CONTA_CLIENTE( '+
+                       '              CONTA_CLIENTE_ID, '+
+                       '              NOME, '+
+                       '              CPF_CNPJ, '+
+                       '              SITUACAO, '+
+                       '              CAMPO, '+
+                       '              TABELA, '+
+                       '              DATA_ABERTURA) '+
+                       ' VALUES(      :CONTA_CLIENTE_ID, '+
+                       '              :NOME, '+
+                       '              :CPF_CNPJ, '+
+                       '              :SITUACAO, '+
+                       '              :CAMPO, '+
+                       '              :TABELA, '+
+                       '              :DATA_ABERTURA)',2);
+    with dtmControles.sqlAuxiliar do
+    begin
+      vgDadosContaCredito.ContaClienteId      := dtmControles.GerarSequencia('C_CONTA_CLIENTE');
+      ParamByName('CONTA_CLIENTE_ID').AsBCD   := vgDadosContaCredito.ContaClienteId;
+      ParamByName('NOME').AsString            := vgDadosContaCredito.Nome;
+      ParamByName('CPF_CNPJ').AsString        := vgDadosContaCredito.CPF_CNPJ;
+      ParamByName('SITUACAO').AsString        := '1';
+      ParamByName('CAMPO').AsString           := vgDadosContaCredito.Campo;
+      ParamByName('TABELA').AsString          := vgDadosContaCredito.Tabela;
+      ParamByName('DATA_ABERTURA').AsString   := FormatDateTime('DD.MM.YYYY HH:MM:SS', vgDadosContaCredito.DataAbertura);
+      ExecSQL(FALSE);
+    end;
+end;
+
+procedure RegistrarEntradaSaidaContaCliente;
+begin
+  ExecutaSqlAuxiliar(' INSERT INTO C_CONTA_HISTORICO( '+
+                       '              CONTA_HISTORICO_ID, '+
+                       '              CONTA_CLIENTE_ID, '+
+                       '              DATA, '+
+                       '              DESCRICAO, '+
+                       '              VALOR, '+
+                       '              OPERACAO, '+
+                       '              CAIXA_ITEM_ID, '+
+                       '              SITUACAO, '+
+                       '              TABELA, '+
+                       '              CAMPO, '+
+                       '              OBSERVACAO) '+
+                       ' VALUES(      :CONTA_HISTORICO_ID, '+
+                       '              :CONTA_CLIENTE_ID, '+
+                       '              :DATA, '+
+                       '              :DESCRICAO, '+
+                       '              :VALOR, '+
+                       '              :OPERACAO, '+
+                       '              :CAIXA_ITEM_ID, '+
+                       '              :SITUACAO, '+
+                       '              :TABELA, '+
+                       '              :CAMPO, '+
+                       '              :OBSERVACAO)',2);
+    with dtmControles.sqlAuxiliar do
+    begin
+      vgDadosContaCredito.ContaHistoricoId       := dtmControles.GerarSequencia('C_CONTA_HISTORICO');
+      ParamByName('CONTA_HISTORICO_ID').AsBCD    := vgDadosContaCredito.ContaHistoricoId;
+      ParamByName('CONTA_CLIENTE_ID').AsBCD      := vgDadosContaCredito.ContaClienteId;
+      ParamByName('DATA').AsString               := FormatDateTime('DD.MM.YYYY HH:MM:SS', vgDadosContaCredito.DataHistorico);
+      ParamByName('DESCRICAO').AsString          := vgDadosContaCredito.Descricao;
+      ParamByName('VALOR').AsCurrency            := vgDadosContaCredito.Valor;
+      ParamByName('OPERACAO').AsString           := vgDadosContaCredito.Operacao;
+      ParamByName('CAIXA_ITEM_ID').AsBCD         := vgDadosContaCredito.CaixaItemId;
+      ParamByName('SITUACAO').AsString           := 'A';
+      ParamByName('TABELA').AsString             := vgDadosContaCredito.Tabela;
+      ParamByName('CAMPO').AsString              := vgDadosContaCredito.Campo;
+      ParamByName('OBSERVACAO').AsString         := vgDadosContaCredito.Observacao;
+      ExecSQL(FALSE);
+    end;
+end;
+
+procedure RegistrarCaixa;
+var
+  viSql, viServicoCaixa, viChaveCaixaID : String;
+
+  procedure PegarChaveServicoDepositoPrevio;
+  begin
+    // Pega a chave do Servico do Caixa do Vale
+    viSql := ' SELECT VALOR FROM G_CONFIG '+
+             ' WHERE NOME = '+QuotedStr('DEPOSITO_PREVIO')+
+             '   AND SECAO    = '+ QuotedStr('GERAL')+
+             '   AND CONFIG_GRUPO_ID = (SELECT CONFIG_GRUPO_ID FROM G_CONFIG_GRUPO '+
+                       '                          WHERE DESCRICAO = '+QuotedStr('CONTA_CLIENTE')+
+                       '                            AND SISTEMA_ID = 5)';
+    viServicoCaixa := IntToStr(dtmControles.GetInt(viSql));
+    if viServicoCaixa = '0' then
+    begin
+      Application.MessageBox('Configure a Chave do Serviço de Caixa do Depósito Previo no Sistema de Caixa!!!', 'Atenção', mb_Ok + MB_ICONEXCLAMATION);
+      abort;
+    end;
+  end;
+
+  procedure PegarChaveCaixaAberto;
+  begin
+    viSql := ' SELECT CAIXA_ITEM_ID FROM C_CAIXA_ITEM ' +
+             ' WHERE DATA_PAGAMENTO = ' + QuotedStr(dtmControles.DataHoraBanco(1)) +
+             '  AND CAIXA_SERVICO_ID = 1 ' +
+             '  AND SITUACAO = ''1''';
+
+    viChaveCaixaID := IntToStr(dtmControles.GetInt(viSql));
+    if viChaveCaixaID = '0' then
+      viChaveCaixaID := '';
+  end;
+
+  Function VerificaUsuarioCaixa:String;
+  begin
+    viSql  := ' SELECT USUARIO_ID FROM G_USUARIO WHERE LOGIN = '+ QuotedStr(vgLogin);
+    Result := dtmControles.GetStr(viSql);
+    if Result = '0' then
+      Result := ''
+  end;
+
+  procedure RegistrarItemCaixa;
+  begin
+    vgDadosContaCredito.CaixaItemId := dtmControles.GerarSequencia('C_CAIXA_ITEM');
+    viSql  := 'INSERT INTO C_CAIXA_ITEM ('+
+           '            CAIXA_ITEM_ID, '+
+           '            CAIXA_SERVICO_ID, '+
+           '            USUARIO_SERVICO_ID, '+
+           '            USUARIO_CAIXA_ID, '+
+           '            CHAVE_SERVICO, '+
+           '            DESCRICAO, '+
+           '            DATA_PAGAMENTO, '+
+           '            HORA_PAGAMENTO, ' +
+           '            SITUACAO, ' +
+           '            CAIXA_ID, ' +
+           '            RECIBO_ID, ' +
+           '            TIPO_TRANSACAO, '+
+           '            TIPO_DOCUMENTO, '+
+           '            ESPECIE_PAGAMENTO, '+
+           '            VALOR_SERVICO,'+
+           '            APRESENTANTE,'+
+           '            TIPO_SERVICO,'+
+           '            MENSALISTA_ID,'+
+           '            QTD,'+
+           '            REGISTRADO,'+
+           '            EMOLUMENTO,'+
+           '            TAXA_JUDICIARIA,'+
+           '            FUNDESP,'+
+           '            OUTRA_TAXA1,'+
+           '            DESCONTO,'+
+           '            VALOR_DOCUMENTO,'+
+           '            EMOLUMENTO_ITEM_ID,'+
+           '            VALOR_PAGO) '+
+           'VALUES (' + IntToStr(vgDadosContaCredito.CaixaItemId) + ', '+
+                        viServicoCaixa + ', ' +
+                        RetNull(VerificaUsuarioCaixa) + ', '+
+                        RetNull(VerificaUsuarioCaixa) + ', '+
+                        RetNull('') + ', ' +
+                        QuotedStr(vgDadosContaCredito.Descricao) + ', '+
+                        QuotedStr(dtmControles.DataHoraBanco(1)) + ', '+
+                        QuotedStr(dtmControles.DataHoraBanco(2)) + ', '+
+                        QuotedStr('12') + ', '+
+                        RetNull(viChaveCaixaID) + ', ' +
+                        RetNull('') + ', ' +
+                        QuotedStr(vgDadosContaCredito.Operacao) + ', ' +
+                        QuotedStr('R') + ', ' +
+                        RetNull(QuotedStr('D')) + ', ' +
+                        QuotedStr(TrocaVirgPPto(CurrtoStr(vgDadosContaCredito.Valor))) + ', '+
+                        QuotedStr(vgDadosContaCredito.Nome) + ', '+
+                        QuotedStr(vgDadosContaCredito.TipoServico) + ', ' +
+                        RetNull('') + ', ' +
+                        CurrToStr(1) + ', ' +
+                        QuotedStr('1') + ', ' +
+                        QuotedStr(TrocaVirgPPto(CurrtoStr(0))) + ', ' +
+                        QuotedStr(TrocaVirgPPto(CurrtoStr(0))) + ', ' +
+                        QuotedStr(TrocaVirgPPto(CurrtoStr(0))) + ', ' +
+                        QuotedStr(TrocaVirgPPto(CurrtoStr(0))) + ', ' +
+                        QuotedStr(TrocaVirgPPto(CurrtoStr(0))) + ', ' +
+                        QuotedStr(TrocaVirgPPto(CurrtoStr(0))) + ', ' +
+                        RetNull('') + ', ' +
+                        QuotedStr(TrocaVirgPPto(CurrtoStr(vgDadosContaCredito.Valor))) + ')';
+    dtmControles.sqlAuxiliar.Active := False;
+    dtmControles.sqlAuxiliar.CommandText := viSql;
+    dtmControles.sqlAuxiliar.ExecSQL(FALSE);
+  end;
+
+begin
+  dtmControles.StartTransaction;
+  try
+    PegarChaveServicoDepositoPrevio;
+    PegarChaveCaixaAberto;
+    RegistrarItemCaixa;
+    dtmControles.Commit;
+  except
+    dtmControles.Roolback;
+  end;
+end;
+
+Function VerificarSaldoContaCliente(vpCPF, vpTabela, vpCampo : String;
+        vpContaClienteId : Integer = 0):Currency;
+var
+  viCredito, viDebito : Currency;
+  viSql, viCondicao, viComplemento : string;
+  viContaClienteId : Integer;
+
+  Function PegarSomaValores(vpOperacao : String):Currency;
+  begin
+    viSql  := ' SELECT SUM(VALOR) AS VALOR, CC.CONTA_CLIENTE_ID FROM C_CONTA_HISTORICO CH '+
+              '    LEFT OUTER JOIN C_CONTA_CLIENTE CC ON '+
+              '    CC.CONTA_CLIENTE_ID = CH.CONTA_CLIENTE_ID '+
+              ' WHERE CH.OPERACAO = '+ QuotedStr(vpOperacao)+viCondicao+
+              ' GROUP BY CC.CONTA_CLIENTE_ID ';
+    ExecutaSqlAuxiliar(viSql, 0);
+    if dtmControles.sqlAuxiliar.IsEmpty then
+    begin
+      Result := 0;
+      vgDadosContaCredito.ContaSelecionadaId := 0;
+    end
+    else
+    begin
+      Result := dtmControles.sqlAuxiliar.FieldByName('VALOR').AsCurrency;
+      vgDadosContaCredito.ContaSelecionadaId := dtmControles.sqlAuxiliar.FieldByName('CONTA_CLIENTE_ID').AsInteger;
+    end;
+  end;
+
+begin
+  viCondicao       := '';
+  viComplemento    := '';
+  vgDadosContaCredito.ContaSelecionadaId := 0;
+
+  if vpCPF <> '' then
+    viCondicao := '  AND CC.CPF_CNPJ = '+QuotedStr(vpCPF);
+
+  if (vpTabela <> '') AND (vpCampo <> '') then
+  begin
+    viContaClienteId := dtmControles.GetInt(' SELECT DISTINCT(CONTA_CLIENTE_ID) '+
+                                            ' FROM C_CONTA_HISTORICO '+
+                                            ' WHERE TABELA = '+QuotedStr(vpTabela)+
+                                            '   AND CAMPO = '+QuotedStr(vpCampo));
+    if viContaClienteId <> 0 then
+    begin
+      viCondicao := viCondicao + '  AND CC.CONTA_CLIENTE_ID = '+IntToStr(viContaClienteId);
+      vgDadosContaCredito.ContaSelecionadaId := viContaClienteId;
+    end
+    else
+    begin
+      if viCondicao = '' then
+        viCondicao := ' AND ((CH.TABELA = '+QuotedStr(vpTabela)+')'+
+                      ' AND (CH.CAMPO = '+QuotedStr(vpCampo)+'))'
+    end;
+  end
+  else
+    if vpContaClienteId > 0 then
+      viCondicao := viCondicao + '  AND CC.CONTA_CLIENTE_ID = '+IntToStr(vpContaClienteId);
+
+  viCredito := PegarSomaValores('C');
+  viDebito  := PegarSomaValores('D');
+  Result    := viCredito - viDebito;
+end;
+
+end.
+
+
+

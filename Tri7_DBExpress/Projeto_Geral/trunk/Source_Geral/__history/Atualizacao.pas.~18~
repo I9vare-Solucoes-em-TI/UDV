@@ -1,0 +1,29 @@
+unit Atualizacao;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, jpeg, ExtCtrls, StdCtrls,
+  cxControls, cxContainer, cxEdit, cxLabel, cxGraphics, cxLookAndFeels,
+  cxLookAndFeelPainters, frxClass;
+
+type
+  TfrmAtualizacao = class(TForm)
+    Panel1: TPanel;
+    lblTexto: TcxLabel;
+    Image1: TImage;
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  frmAtualizacao: TfrmAtualizacao;
+
+implementation
+
+{$R *.dfm}
+
+end.

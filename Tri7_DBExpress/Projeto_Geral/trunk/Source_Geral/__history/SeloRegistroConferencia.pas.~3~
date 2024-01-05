@@ -1,0 +1,286 @@
+unit SeloRegistroConferencia;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, Menus,
+
+  DB, cxGridLevel, cxGridCustomTableView,
+  cxGridTableView, cxGridDBTableView, cxClasses, cxControls, cxGridCustomView,
+  cxGrid, StdCtrls, cxButtons, ExtCtrls, DBClient, FMTBcd, SqlExpr, cxGraphics,
+  cxLookAndFeels, cxLookAndFeelPainters, cxStyles, cxCustomData, cxFilter,
+  cxData, cxDataStorage, cxEdit, cxNavigator, cxDBData, cxTextEdit;
+
+type
+  TfrmSeloRegistroConferencia = class(TForm)
+    Panel1: TPanel;
+    btnConfirmar: TcxButton;
+    btnCancelar: TcxButton;
+    grdPesquisa: TcxGrid;
+    cxGridPesquisa: TcxGridDBTableView;
+    cxGridPesquisaColumn2: TcxGridDBColumn;
+    cxGridPesquisaColumn3: TcxGridDBColumn;
+    cxGridPesquisaColumn4: TcxGridDBColumn;
+    cxGridPesquisaColumn5: TcxGridDBColumn;
+    cxGridLevel1: TcxGridLevel;
+    ClientRegistro: TClientDataSet;
+    ClientRegistroQTD: TIntegerField;
+    ClientRegistroCODIGO: TIntegerField;
+    ClientRegistroSELO_INICIAL: TStringField;
+    ClientRegistroSELO_FINAL: TStringField;
+    ClientRegistroSELO_GRUPO_ID: TIntegerField;
+    dtsRegistro: TDataSource;
+    cxGridPesquisaColumn6: TcxGridDBColumn;
+    sqlPesquisa: TSQLQuery;
+    ClientRegistroQTD_TOTAL: TIntegerField;
+    cxGridPesquisaColumn7: TcxGridDBColumn;
+    ClientRegistroUsuario_id: TIntegerField;
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure btnCancelarClick(Sender: TObject);
+    procedure btnConfirmarClick(Sender: TObject);
+    procedure FormActivate(Sender: TObject);
+    procedure ClientRegistroQTD_CORRECAOChange(Sender: TField);
+  private
+    vlQtdCorretiva : TStringList;
+    vlInsercaoNova : boolean;
+    procedure LiberarReservarLiberarSelos(vpSequencialSelos : String; vpTravar : Boolean);
+    procedure ArmazenarRegistro(vpNovo : Boolean);
+  public
+    { Public declarations }
+  end;
+
+var
+  frmSeloRegistroConferencia: TfrmSeloRegistroConferencia;
+  vgSeloDataRegistroAutomatico : TDate;
+  vgSeloRegistroConfirmado : Boolean;
+  vgSeloCaixaId : Integer;
+
+implementation
+
+uses Lookup, Controles, SeloSelecionado;
+
+{$R *.dfm}
+
+procedure TfrmSeloRegistroConferencia.ArmazenarRegistro(vpNovo : Boolean);
+var
+  viLiberado, viFlag : Boolean;
+  viOrdem, viContador, viRegistro : Integer;
+  viValorISS : Currency;
+
+  procedure VerificarRegistroSelos;
+  var
+    viQtdTotal, viQtdGeral, viNumeroInicial, viNumeroFinal, viProximoNumero, viUsuario : Integer;
+    viSigla : String;
+    viValor : TStringList;
+
+    procedure VerificarNumeracaoSelo;
+    var
+      viBreak : Boolean;
+    begin
+      viNumeroInicial := dtmControles.SimpleAuxiliar.FieldByName('NUMERO').AsInteger;
+      viNumeroFinal   := dtmControles.SimpleAuxiliar.FieldByName('NUMERO').AsInteger;
+      viSigla         := dtmControles.SimpleAuxiliar.FieldByName('SIGLA').AsString;
+      viUsuario       := dtmControles.SimpleAuxiliar.FieldByName('USUARIO_ID').AsInteger;
+      viBreak         := False;
+      repeat
+        dtmControles.SimpleAuxiliar.Next;
+        if (viNumeroFinal+1) = dtmControles.SimpleAuxiliar.FieldByName('NUMERO').AsInteger then
+             viNumeroFinal := dtmControles.SimpleAuxiliar.FieldByName('NUMERO').AsInteger
+        else viBreak := True;
+      until viBreak;
+      viQtdTotal := (viNumeroFinal - viNumeroInicial)+1;
+    end;
+
+  begin
+    ExecutaSqlAuxiliar(' SELECT SELO_GRUPO_ID, NUMERO '+
+                       ' FROM G_SELO_GRUPO '+
+                       ' WHERE CONTROLE_AUTOMATICO = '+QuotedStr('S'),0);
+    while not dtmControles.sqlAuxiliar.eof do
+    begin
+      ExecutaSimpleDSAux(' SELECT SL.NUMERO, SL.SIGLA, SL.DATA, SL.USUARIO '+
+                         ' FROM G_SELO_LIVRO SL '+
+                         '    LEFT OUTER JOIN G_SELO_LOTE ST ON '+
+                         '    SL.SELO_LOTE_ID = ST.SELO_LOTE_ID '+
+                         ' WHERE (SL.DATA '+MontarSqlData(dtmControles.DataHoraBanco(3), dtmControles.DataHoraBanco(3))+ ')'+
+                         '   AND SL.SELO_SITUACAO_ID = 6 '+
+                         '   AND ST.SELO_GRUPO_ID ='+ dtmControles.sqlAuxiliar.FieldByName('SELO_GRUPO_ID').AsString+
+                         ' ORDER BY SL.SIGLA, SL.NUMERO',0);
+      dtmControles.SimpleAuxiliar.First;
+      viQtdGeral := dtmControles.SimpleAuxiliar.RecordCount;
+      repeat
+        VerificarNumeracaoSelo;
+
+        ClientRegistro.Insert;
+        ClientRegistroQTD.AsInteger           := viQtdTotal;
+        ClientRegistroCODIGO.AsString         := dtmControles.sqlAuxiliar.FieldByName('NUMERO').AsString;
+        ClientRegistroSELO_INICIAL.AsString   := viSigla+IntToStr(viNumeroInicial);
+        ClientRegistroSELO_FINAL.AsString     := viSigla+IntToStr(viNumeroFinal);
+        ClientRegistroSELO_GRUPO_ID.AsInteger := dtmControles.sqlAuxiliar.FieldByName('SELO_GRUPO_ID').AsInteger;
+        ClientRegistroUsuario_id.AsInteger    := viUsuario;
+        ClientRegistro.Post;
+      until dtmControles.SimpleAuxiliar.RecNo = viQtdGeral;
+      dtmControles.sqlAuxiliar.Next;
+    end;
+  end;
+begin
+  Screen.Cursor := crHourGlass;
+  ClientRegistro.EmptyDataSet;
+  VerificarRegistroSelos;
+  Screen.Cursor := crDefault;
+end;
+
+procedure TfrmSeloRegistroConferencia.btnCancelarClick(Sender: TObject);
+begin
+  vgSeloRegistroConfirmado := False;
+  Close;
+end;
+
+procedure TfrmSeloRegistroConferencia.btnConfirmarClick(Sender: TObject);
+var
+  viRegistroSeloId : Integer;
+
+  procedure RegistraCaixaSelo;
+  begin
+    ExecutaSqlAuxiliar(' INSERT INTO C_CAIXA_REGISTROSELO( '+
+                       '              CAIXA_REGISTROSELO_ID, '+
+                       '              SELO_INICIAL, '+
+                       '              SELO_FINAL, '+
+                       '              CODIGO, '+
+                       '              SELO_GRUPO_ID, '+
+                       '              EMOLUMENTO, '+
+                       '              TAXA_JUDICIARIA, '+
+                       '              OUTRA_TAXA1, '+
+                       '              ISS, '+
+                       '              QTD, '+
+                       '              QTD_CORRECAO, '+
+                       '              USUARIO_ID, '+
+                       '              CAIXA_ID, '+
+                       '              DATA) '+
+                       ' VALUES(      :CAIXA_REGISTROSELO_ID, '+
+                       '              :SELO_INICIAL, '+
+                       '              :SELO_FINAL, '+
+                       '              :CODIGO, '+
+                       '              :SELO_GRUPO_ID, '+
+                       '              :EMOLUMENTO, '+
+                       '              :TAXA_JUDICIARIA, '+
+                       '              :OUTRA_TAXA1, '+
+                       '              :ISS, '+
+                       '              :QTD, '+
+                       '              :QTD_CORRECAO, '+
+                       '              :USUARIO_ID, '+
+                       '              :CAIXA_ID, '+
+                       '              :DATA)',2);
+    with dtmControles.sqlAuxiliar do
+    begin
+      viRegistroSeloId := dtmControles.GerarSequencia('C_CAIXA_REGISTROSELO');
+      ParamByName('CAIXA_REGISTROSELO_ID').AsBCD := viRegistroSeloId;
+      ParamByName('SELO_INICIAL').AsString       := ClientRegistroSELO_INICIAL.AsString;
+      ParamByName('SELO_FINAL').AsString         := ClientRegistroSELO_FINAL.AsString;
+      ParamByName('CODIGO').AsCurrency           := ClientRegistroCODIGO.AsCurrency;
+      ParamByName('SELO_GRUPO_ID').AsInteger     := ClientRegistroSELO_GRUPO_ID.AsInteger;
+      ParamByName('EMOLUMENTO').AsBCD            := ClientRegistroEMOLUMENTO.AsCurrency;
+      ParamByName('TAXA_JUDICIARIA').AsBCD       := ClientRegistroTAXA_JUDICIARIA.AsCurrency;
+      ParamByName('OUTRA_TAXA1').AsBCD           := ClientRegistroOUTRA_TAXA1.AsCurrency;
+      ParamByName('ISS').AsBCD                   := ClientRegistroISS.AsCurrency;
+      ParamByName('QTD').AsBCD                   := ClientRegistroQTD.AsCurrency;
+      ParamByName('QTD_CORRECAO').AsBCD          := ClientRegistroQTD_CORRECAO.AsCurrency;
+      ParamByName('USUARIO_ID').AsBCD            := StrToInt(vgUsuarioID);
+      ParamByName('CAIXA_ID').AsBCD              := vgSeloCaixaId;
+      ParamByName('DATA').AsString               := FormatDateTime('YYYY/MM/DD', vgSeloDataRegistroAutomatico);
+      ExecSQL(FALSE);
+    end;
+  end;
+
+  procedure VerificarLivroDiario;
+  begin
+    vgLivroDiario.Serventia      := '1';
+    vgLivroDiario.Apresentante   := 'REGISTRO AUTOMATICO';
+    vgLivroDiario.Valor          := ClientRegistroEMOLUMENTO.AsCurrency;
+    vgLivroDiario.Operacao       := 'C';
+    vgLivroDiario.Data           := vgSeloDataRegistroAutomatico;
+    vgLivroDiario.Qtd            := ClientRegistroQTD.AsInteger;
+    vgLivroDiario.Escrevente     := StrToInt(vgUsuarioID);
+    if ClientRegistroCODIGO.AsString = '2002' then
+          vgLivroDiario.CaixaServicoID := dtmControles.BuscarConfig('REGISTRO_DIARIO', 'GERAL', 'SERVICO_CAIXA_AUTENTICACAO', 'I')
+    else  vgLivroDiario.CaixaServicoID := dtmControles.BuscarConfig('REGISTRO_DIARIO', 'GERAL', 'SERVICO_CAIXA_RECONHECIMENTO', 'I');
+    vgLivroDiario.ControleID     := 0;
+    vgLivroDiario.Selo           := ClientRegistroSELO_INICIAL.AsString +' a '+ ClientRegistroSELO_FINAL.AsString;
+    dtmLookup.RegistrarLivroDiario;
+  end;
+
+begin
+  if Application.MessageBox('Confirma Registro do Selos?', 'Pergunta', MB_YESNO + MB_DEFBUTTON2 + MB_ICONQUESTION) = IDNO then
+    Exit;
+
+  try
+    dtmControles.StartTransaction;
+    ClientRegistro.First;
+    while not ClientRegistro.eof do
+    begin
+      RegistraCaixaSelo;
+      frmSeloSelecionado.GravarDadosSelo('', 'T_CAIXA_REGISTROSELO', IntToStr(viRegistroSeloId), 'Registro Automático', True, DateToStr(vgSeloDataRegistroAutomatico), ClientRegistroORDEM_REGISTRO.AsInteger);
+//      VerificarLivroDiario;
+
+      // Atualiza Dados do Caixa
+      ExecutaSqlAuxiliar(' UPDATE C_CAIXA_ITEM SET CAIXA_REGISTROSELO_ID = '+IntToStr(viRegistroSeloId) +
+                         ' WHERE DATA_PAGAMENTO = :DATA '+
+                         '   AND SITUACAO = ''4'''+
+                         '   AND EMOLUMENTO_ITEM_ID = '+ ClientRegistroEMOLUMENTO_ITEM_ID.AsString,2);
+      With dtmControles.sqlAuxiliar do
+      begin
+        ParamByName('DATA').AsString := FormatDateTime('YYYY/MM/DD', vgSeloDataRegistroAutomatico);
+        ExecSQL(False);
+      end;
+
+      ClientRegistro.Next;
+    end;
+    dtmControles.Commit;
+    vgSeloRegistroConfirmado := True;
+  except
+    dtmControles.Roolback;
+    ShowMessage('Erro ao registrar o Selo. VerifiQue com o Administrador do Sistema!!!');
+  end;
+  Close;
+end;
+
+procedure TfrmSeloRegistroConferencia.ClientRegistroQTD_CORRECAOChange(
+  Sender: TField);
+begin
+  if not vlInsercaoNova then
+  begin
+    vlQtdCorretiva.Values[ClientRegistroORDEM.AsString] := IntToStr(Sender.Value);
+    ArmazenarRegistro(False);
+  end;
+end;
+
+procedure TfrmSeloRegistroConferencia.FormActivate(Sender: TObject);
+begin
+  vlQtdCorretiva := TStringList.Create;
+  ArmazenarRegistro(True);
+end;
+
+procedure TfrmSeloRegistroConferencia.FormClose(Sender: TObject;
+  var Action: TCloseAction);
+begin
+  LiberarReservarLiberarSelos('', False);
+
+  Action := caFree;
+  frmSeloRegistroConferencia = nil;
+end;
+
+procedure TfrmSeloRegistroConferencia.LiberarReservarLiberarSelos(
+  vpSequencialSelos: String; vpTravar: Boolean);
+var
+  visql : String;
+begin
+  if vpTravar then
+    viSql := ' UPDATE G_SELO_LIVRO SET RESERVADO = ''S'''+
+             ' WHERE SELO_LIVRO_ID IN ('+vpSequencialSelos+')'
+  else
+    viSql := ' UPDATE G_SELO_LIVRO SET RESERVADO = ''N'''+
+             ' WHERE RESERVADO = ''S''';
+  ExecutaSqlAuxiliar(visql, 1);
+end;
+
+end.

@@ -1,0 +1,285 @@
+unit ImportarSelo;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, Menus, cxLookAndFeelPainters, cxStyles, dxSkinsCore, dxSkinBlack,
+  dxSkinBlue, dxSkinCaramel, dxSkinCoffee, dxSkinDarkSide, dxSkinGlassOceans,
+  dxSkiniMaginary, dxSkinLilian, dxSkinLiquidSky, dxSkinLondonLiquidSky,
+  dxSkinMcSkin, dxSkinMoneyTwins, dxSkinOffice2007Black, dxSkinOffice2007Blue,
+  dxSkinOffice2007Green, dxSkinOffice2007Pink, dxSkinOffice2007Silver,
+  dxSkinPumpkin, dxSkinSilver, dxSkinStardust, dxSkinSummer2008,
+  dxSkinsDefaultPainters, dxSkinValentine, dxSkinXmas2008Blue,
+  dxSkinscxPCPainter, cxCustomData, cxGraphics, cxFilter, cxData, cxDataStorage,
+  cxEdit, DB, cxDBData, cxContainer, cxProgressBar, cxGridLevel, cxClasses,
+  cxControls, cxGridCustomView, cxGridCustomTableView, cxGridTableView,
+  cxGridDBTableView, cxGrid, StdCtrls, cxButtons, ExtCtrls,
+  xmldom, XMLIntf, msxmldom, XMLDoc, DBClient, SimpleDS, cxDBLookupComboBox,
+  cxLabel;
+
+type
+  TfrmImportarSelo = class(TForm)
+    pnlConvenio: TPanel;
+    Panel4: TPanel;
+    gridImportar: TcxGrid;
+    gridSelos: TcxGridDBTableView;
+    gridImportarLevel1: TcxGridLevel;
+    ProgressBar1: TcxProgressBar;
+    OpenDialog1: TOpenDialog;
+    dtsSelos: TDataSource;
+    sqlSelos: TClientDataSet;
+    XMLDocument1: TXMLDocument;
+    sqlSelosidentificacao_pedido: TIntegerField;
+    sqlSelostipo_de_ato: TIntegerField;
+    sqlSelosdata_da_solicitacao: TStringField;
+    sqlSeloscodigo_inicial_do_selo: TStringField;
+    sqlSeloscodigo_final_do_selo: TStringField;
+    sqlSelosquantidade_de_selos: TIntegerField;
+    sqlSelossilga: TStringField;
+    sqlSelosselo_inicial: TIntegerField;
+    sqlSelosselo_final: TIntegerField;
+    gridSelosidentificacao_pedido: TcxGridDBColumn;
+    gridSelostipo_de_ato: TcxGridDBColumn;
+    gridSelosdata_da_solicitacao: TcxGridDBColumn;
+    gridSeloscodigo_inicial_do_selo: TcxGridDBColumn;
+    gridSeloscodigo_final_do_selo: TcxGridDBColumn;
+    gridSelosquantidade_de_selos: TcxGridDBColumn;
+    gridSelossilga: TcxGridDBColumn;
+    gridSelosselo_inicial: TcxGridDBColumn;
+    gridSelosselo_final: TcxGridDBColumn;
+    gridSelosdescricao_tipo_ato: TcxGridDBColumn;
+    sqlPesquisa: TSimpleDataSet;
+    cxLabel1: TcxLabel;
+    ProgressBar2: TcxProgressBar;
+    cxLabel2: TcxLabel;
+    cxBtnFechar: TcxButton;
+    btnCarregar: TcxButton;
+    btnImportar: TcxButton;
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure btnCarregarClick(Sender: TObject);
+    procedure cxBtnFecharClick(Sender: TObject);
+    procedure btnImportarClick(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+  private
+    function ReformataDataSolicitacao(vfData: String): string;
+    { Private declarations }
+  public
+    { Public declarations }
+    procedure CarregarSelos;
+    procedure CriarSeloLote;
+  end;
+
+var
+  frmImportarSelo: TfrmImportarSelo;
+
+implementation
+
+uses
+  Rotinas, Lookup, Atualizacao, Controles;
+
+{$R *.dfm}
+
+procedure TfrmImportarSelo.btnCarregarClick(Sender: TObject);
+begin
+  if OpenDialog1.Execute then
+  begin
+    sqlSelos.EmptyDataSet;
+    CarregarSelos;
+  end;
+end;
+
+function TfrmImportarSelo.ReformataDataSolicitacao(vfData : String) : string;
+begin
+  Result := RetornaNumerico(vfData);
+  Result := Copy(Result,7,2) + '/' + Copy(Result,5,2) + '/' + Copy(Result,1,4)
+end;
+
+procedure TfrmImportarSelo.btnImportarClick(Sender: TObject);
+begin
+  if sqlSelos.IsEmpty then
+  begin
+    Application.MessageBox('Não há selos carregados para importação!', 'Atenção', MB_Ok + MB_ICONWARNING);
+    Abort;
+  end;
+
+  if Application.MessageBox('Confirma Importação de Lote de Selos?', 'Atenção', MB_YESNO + MB_ICONQUESTION) = IDYES then
+  begin
+    try
+      Application.CreateForm(TfrmAtualizacao,frmAtualizacao);
+
+      frmAtualizacao.lblTexto.Caption := 'Criando Lote de Selos, Aguarde!!!';
+      frmAtualizacao.Show;
+      Application.ProcessMessages;
+
+      Screen.Cursor := crHourGlass;
+      gridImportar.Enabled := False;
+      sqlSelos.DisableControls;
+
+      ProgressBar1.Properties.Max := sqlSelos.RecordCount;
+      ProgressBar1.Position := 0;
+
+      sqlSelos.First;
+      while not sqlSelos.Eof do
+      begin
+        ProgressBar1.Position := sqlSelos.RecNo;
+        Application.ProcessMessages;
+        CriarSeloLote;
+        sqlSelos.Next;
+      end;
+
+      sqlSelos.EnableControls;
+      gridImportar.Enabled := True;
+      ShowMessage('Lote importado com sucesso!!!');
+    except
+      dtmControles.Roolback;
+      sqlSelos.EnableControls;
+      gridImportar.Enabled := True;
+      ShowMessage('Erro ao tentar importar lote. Tente novamente!!!');
+    end;
+  end;
+
+  ProgressBar1.Position := 0;
+  Screen.Cursor := crDefault;
+  frmAtualizacao.hide;
+  frmAtualizacao.free;
+end;
+
+procedure TfrmImportarSelo.CarregarSelos;
+var
+  vNodeLotePedidos: IXMLNode;
+  vNodePedidoSeloEletronico: IXMLNode;
+  vIdentificacaoPedido: string;
+  vTipoAto: string;
+  vDataSolicitacao: string;
+  vCodigoInicialSelo: string;
+  vCodigoFinalSelo: string;
+  vQuantidadeSelos: string;
+  vAssinaturaDigital: string;
+begin
+  XMLDocument1.FileName := OpenDialog1.FileName;
+  XMLDocument1.Active   := True;
+
+  vNodeLotePedidos      := XMLDocument1.DocumentElement.ChildNodes.FindNode('lote_dos_pedidos');
+  vNodeLotePedidos.ChildNodes.First;
+  vNodePedidoSeloEletronico := vNodeLotePedidos.ChildNodes['pedido_do_selo_eletronico'];
+  vNodePedidoSeloEletronico.ChildNodes.First;
+
+  repeat
+    vIdentificacaoPedido := vNodePedidoSeloEletronico.ChildNodes['identificacao_pedido'].text;
+    vTipoAto             := vNodePedidoSeloEletronico.ChildNodes['tipo_de_ato'].text;
+    vDataSolicitacao     := vNodePedidoSeloEletronico.ChildNodes['data_da_solicitacao'].text;
+    vCodigoInicialSelo   := vNodePedidoSeloEletronico.ChildNodes['codigo_inicial_do_selo'].text;
+    vCodigoFinalSelo     := vNodePedidoSeloEletronico.ChildNodes['codigo_final_do_selo'].text;
+    vQuantidadeSelos     := vNodePedidoSeloEletronico.ChildNodes['quantidade_de_selos'].text;
+    vAssinaturaDigital   := vNodePedidoSeloEletronico.ChildNodes['assinatura_digital'].text;
+
+    sqlSelos.Append;
+    sqlSelosidentificacao_pedido.AsString   := vIdentificacaoPedido;
+    sqlSelostipo_de_ato.AsString            := vTipoAto;
+    sqlSelosdata_da_solicitacao.AsString    := ReformataDataSolicitacao(vDataSolicitacao);
+    sqlSeloscodigo_inicial_do_selo.AsString := vCodigoInicialSelo;
+    sqlSeloscodigo_final_do_selo.AsString   := vCodigoFinalSelo;
+    sqlSelosquantidade_de_selos.AsString    := vQuantidadeSelos;
+
+    sqlSelossilga.AsString                  := Copy(vCodigoInicialSelo, 1, Length(vCodigoInicialSelo) - 6);
+    sqlSelosselo_inicial.AsString           := Copy(vCodigoInicialSelo, Length(vCodigoInicialSelo) - 5, 6);
+    sqlSelosselo_final.AsString             := Copy(vCodigoFinalSelo, Length(vCodigoFinalSelo) - 5, 6);
+
+    sqlSelos.Post;
+
+    vNodePedidoSeloEletronico := vNodePedidoSeloEletronico.NextSibling;
+  until vNodePedidoSeloEletronico = nil;
+
+end;
+
+procedure TfrmImportarSelo.CriarSeloLote;
+var
+  viSql,
+  viIdSeloLote : String;
+  i, j : Integer;
+begin
+  viSql := 'SELECT SELO_LOTE_ID FROM G_SELO_LOTE WHERE NOTA_FISCAL = ' + sqlSelosidentificacao_pedido.AsString;
+
+  sqlPesquisa.Close;
+  sqlPesquisa.DataSet.CommandText := viSql;
+  sqlPesquisa.Open;
+
+  if sqlPesquisa.IsEmpty then
+  begin
+    dtmControles.StartTransaction;
+    viIdSeloLote := dtmControles.GerarSequencia('G_SELO_LOTE');
+    //Lote
+    viSql := 'INSERT INTO G_SELO_LOTE ( '+
+                         'SELO_LOTE_ID, '+
+                         'SITUACAO, '+
+                         'NUMERO_INICIAL, '+
+                         'NUMERO_FINAL, '+
+                         'SELO_GRUPO_ID, '+
+                         'SIGLA, '+
+                         'DATA_LOTE, '+
+                         'NOTA_FISCAL, '+
+                         'QUANTIDADE) '+
+             'VALUES ( '+ viIdSeloLote + ', ''I'', ' +
+                          sqlSelosselo_inicial.AsString + ', ' +
+                          sqlSelosselo_final.AsString + ', ' +
+                          dtmControles.GetStr('SELECT SELO_GRUPO_ID FROM G_SELO_GRUPO WHERE NUMERO = ' + sqlSelostipo_de_ato.AsString) + ', ' +
+                          QuotedStr(sqlSelossilga.AsString) + ', '+
+                          QuotedStr(dtmControles.DataParaString(StrToDate(sqlSelosdata_da_solicitacao.AsString))) + ', ' +
+                          QuotedStr(sqlSelosidentificacao_pedido.AsString) + ', ' +
+                          sqlSelosquantidade_de_selos.AsString + ')';
+    dtmControles.ExecSQL(viSql);
+
+    ProgressBar2.Properties.Max := sqlSelosselo_final.AsInteger - sqlSelosselo_inicial.AsInteger;
+    ProgressBar2.Position := 0;
+
+    j := 0;
+    //Livro
+    for i := sqlSelosselo_inicial.AsInteger to sqlSelosselo_final.AsInteger do
+    begin
+      viSql := 'INSERT INTO G_SELO_LIVRO ( '+
+                           'SELO_LIVRO_ID, '+
+                           'SELO_SITUACAO_ID, '+
+                           'NUMERO, '+
+                           'SELO_LOTE_ID, '+
+                           'SIGLA) '+
+               'VALUES ( '+ dtmControles.GerarSequencia('G_SELO_LIVRO') +
+                            ', 1, ' +
+                            IntToStr(i) + ', ' +
+                            viIdSeloLote + ', ' +
+                            QuotedStr(sqlSelossilga.AsString) + ')';
+      dtmControles.ExecSQL(viSql);
+
+      j := j + 1;
+      if j = 500 then
+      begin
+        dtmControles.Commit;
+        dtmControles.StartTransaction;
+        j := 0;
+      end;
+
+     ProgressBar2.Position := ProgressBar2.Position + 1;
+     Application.ProcessMessages;
+    end;
+    dtmControles.Commit;
+  end
+  else Application.MessageBox(PAnsiChar('Lote de selo já importado! Nº Pedido: ' + sqlSelosidentificacao_pedido.AsString), 'Atenção', MB_OK + MB_ICONWARNING);
+end;
+
+procedure TfrmImportarSelo.cxBtnFecharClick(Sender: TObject);
+begin
+  Close;
+end;
+
+procedure TfrmImportarSelo.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  Action := CaFree;
+  frmImportarSelo := Nil;
+end;
+
+procedure TfrmImportarSelo.FormCreate(Sender: TObject);
+begin
+  sqlPesquisa.Connection := dtmControles.DB;
+end;
+
+end.

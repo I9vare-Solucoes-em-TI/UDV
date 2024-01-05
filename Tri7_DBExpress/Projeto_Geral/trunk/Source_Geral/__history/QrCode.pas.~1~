@@ -1,0 +1,62 @@
+unit QrCode;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls,
+  Dialogs, ExtCtrls, StdCtrls, ACBrDelphiZXingQRCode;
+
+  function GerarQrCode(vfValor: string): TImage;
+
+implementation
+
+function GerarQrCode(vfValor: string): TImage;
+var
+  bitmap: TBitmap;
+  qr: TDelphiZXingQRCode;
+  r: Integer;
+  c: Integer;
+  scala: Double;
+begin
+  bitmap := TBitmap.create;
+  Result := TImage.Create(nil);
+
+  try
+    qr := TDelphiZXingQRCode.create;
+    try
+      qr.Data := vfValor;
+
+      // ajuta o tamanho do bitmap para o tamanho do qrcode
+      bitmap.SetSize(qr.Rows, qr.Columns);
+
+      // copia o qrcode para o bitmap
+      for r := 0 to qr.Rows - 1 do
+        for c := 0 to qr.Columns - 1 do
+          if qr.IsBlack[r, c] then
+            bitmap.Canvas.Pixels[c, r] := clBlack
+          else
+            bitmap.Canvas.Pixels[c, r] := clWhite;
+
+      // prepara para redimensionar o qrcode para o tamanho do canvas
+      if (100 < bitmap.Height) then
+      begin
+        scala := 100 / bitmap.Width;
+      end
+      else
+      begin
+        scala := 100 / bitmap.Height;
+      end;
+
+      // transfere o bitmap para a imagem
+      Result.Picture.Bitmap.Canvas.StretchDraw(Rect(0, 0, Trunc(scala * bitmap.Width),
+        Trunc(scala * bitmap.Height)), bitmap);
+
+    finally
+      qr.Free;
+    end;
+  finally
+    bitmap.Free;
+  end;
+end;
+
+end.

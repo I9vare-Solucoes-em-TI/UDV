@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2016/11/08 12:01:25.000.243,D:\Tri7\Desenvolvimento\Projeto_Principal\Financeiro\trunk\Unit1.dfm=D:\Tri7\Desenvolvimento\Projeto_Principal\Financeiro\trunk\Source_JuridicoFinanceiro\CadCedente.dfm</Transaction>
+    <Transaction>2016/11/14 08:21:25.000.086,D:\Tri7\Desenvolvimento\Projeto_Principal\Financeiro\trunk\Source_JuridicoFinanceiro\CadEnvioEmailFinanceiro.dfm=D:\Tri7\Desenvolvimento\Projeto_Principal\Financeiro\trunk\Source_JuridicoFinanceiro\CadEnvioEmail.dfm</Transaction>
+  </Transactions>
+</BorlandProject>

@@ -1,0 +1,908 @@
+inherited frmCadPlanoContas: TfrmCadPlanoContas
+  Caption = 'Plano de Contas (Ativos/Despesas/Receitas)'
+  ClientHeight = 601
+  ClientWidth = 1097
+  ExplicitWidth = 1113
+  ExplicitHeight = 640
+  PixelsPerInch = 96
+  TextHeight = 14
+  inherited PanelBotoes: TPanel
+    Width = 1097
+    ExplicitWidth = 1086
+    inherited PanelBotoesBasicos: TPanel
+      Width = 891
+      ExplicitWidth = 880
+      inherited PanelBasicoBotoes: TPanel
+        inherited cxBtnPesquisar: TcxButton
+          Visible = False
+        end
+      end
+    end
+    inherited PanelBotaoFechar: TPanel
+      Left = 893
+      Width = 202
+      ExplicitLeft = 882
+      ExplicitWidth = 202
+      inherited cxBtnFechar: TcxButton
+        Left = 128
+        Top = 5
+        ExplicitLeft = 128
+        ExplicitTop = 5
+      end
+      object btnImprimir: TcxButton
+        Left = 57
+        Top = 5
+        Width = 65
+        Height = 49
+        Cursor = crHandPoint
+        Hint = 'Fechar (Esc)'
+        Caption = 'Imprimir'
+        Colors.Default = clWhite
+        LookAndFeel.Kind = lfUltraFlat
+        LookAndFeel.NativeStyle = False
+        OptionsImage.Glyph.Data = {
+          9E050000424D9E05000000000000360400002800000012000000120000000100
+          080000000000680100000000000000000000000100000000000000000000D3D3
+          D300626262001D1D1D00FFFFFF009595950051515100A4A4A40013131300DEDE
+          DE0081818100E2E2E200C0C0C0007E7E7E0025252500B5B5B500B2B2B2000404
+          0400EDEDED0029292900DBDBDB009F9F9F00525252006E6E6E005D5D5D002222
+          220084848400E9E9E900999999002C2C2C001616160020202000DFDFDF00F0F0
+          F000000000000707070000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000040418000000
+          000000000000000000000002000004041B130D1A0A0A0A0A0A0A0A1A0D1E1321
+          000004040F16200404040404040404042008160F000004040000060109141414
+          141414010600000000000404000000030E191919191919030000000000000404
+          0000000000000000000000000000000000000404000000000000000000000000
+          00000000000004040E1D001F130E0E0E0E0E0E1F001E1D0E00000404140B230C
+          201414141414140C230A0B14000004040404111B040404040404041B11150404
+          00000404040400140404040404040414001C0404000004040404001404040404
+          0404041400050404000004040404001404040404040404140005040400000404
+          040400140404040404040414001C040400000404040411171A0A0A0A0A0A0A17
+          1107040400000404040400000000000000000000001004040000040404040404
+          0404040404040404040404040000040404040404040404040404040404040404
+          0000}
+        OptionsImage.ImageIndex = 4
+        OptionsImage.Layout = blGlyphTop
+        ParentShowHint = False
+        ShowHint = True
+        TabOrder = 1
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clBlack
+        Font.Height = -12
+        Font.Name = 'MS Sans Serif'
+        Font.Style = []
+        ParentFont = False
+        OnClick = btnImprimirClick
+      end
+    end
+  end
+  inherited StatusBar: TStatusBar
+    Top = 580
+    Width = 1097
+    ExplicitTop = 580
+    ExplicitWidth = 1086
+  end
+  inherited PanelGeral: TPanel
+    Width = 1097
+    Height = 520
+    ExplicitWidth = 1086
+    ExplicitHeight = 520
+    inherited PanelData: TPanel
+      Width = 1095
+      Height = 152
+      ExplicitWidth = 1084
+      ExplicitHeight = 152
+      object tabBalancete: TcxTabControl
+        Left = 1
+        Top = 1
+        Width = 1093
+        Height = 150
+        Align = alClient
+        TabOrder = 0
+        Properties.CustomButtons.Buttons = <>
+        Properties.TabIndex = 0
+        Properties.Tabs.Strings = (
+          '')
+        LookAndFeel.Kind = lfFlat
+        LookAndFeel.NativeStyle = False
+        LookAndFeel.SkinName = 'iMaginary'
+        OnChange = tabBalanceteChange
+        OnChanging = tabBalanceteChanging
+        ExplicitLeft = 0
+        ExplicitHeight = 119
+        ClientRectBottom = 149
+        ClientRectLeft = 1
+        ClientRectRight = 1092
+        ClientRectTop = 22
+        object pnlDados: TPanel
+          Left = 1
+          Top = 22
+          Width = 1091
+          Height = 127
+          Align = alClient
+          BevelOuter = bvNone
+          Color = 14807280
+          ParentBackground = False
+          TabOrder = 0
+          ExplicitWidth = 1080
+          ExplicitHeight = 96
+          object cxLabel5: TcxLabel
+            Left = 331
+            Top = 6
+            Caption = 'Grupo Cont'#225'bil:'
+            ParentColor = False
+            Style.Color = clBtnFace
+            Style.TextColor = 4210688
+            Transparent = True
+          end
+          object cxLabel9: TcxLabel
+            Left = 15
+            Top = 6
+            Caption = 'Tipo da Opera'#231#227'o:'
+            ParentColor = False
+            Style.Color = clBtnFace
+            Style.TextColor = 4210688
+            Transparent = True
+          end
+          object cxLabel3: TcxLabel
+            Left = 15
+            Top = 34
+            Caption = 'Grupo Descri'#231#227'o:'
+            Style.TextColor = 4210688
+            Transparent = True
+          end
+          object lcxItem: TcxLabel
+            Left = 331
+            Top = 34
+            Caption = 'Plano de Conta:'
+            Style.TextColor = 4210688
+            Style.TextStyle = []
+            Transparent = True
+          end
+          object icxTipo: TcxImageComboBox
+            Left = 117
+            Top = 6
+            RepositoryItem = dtmLookupContabil.Combo_EntradaSaida
+            Enabled = False
+            ParentFont = False
+            Properties.Items = <>
+            Properties.OnEditValueChanged = icxTipoPropertiesEditValueChanged
+            Style.StyleController = dtmControles.cxEsc_EditsNormal
+            TabOrder = 4
+            Width = 209
+          end
+          object lcxGrupoContabil: TcxDBLookupComboBox
+            Left = 418
+            Top = 4
+            DataBinding.DataField = 'CONTABIL_GRUPO_ID'
+            DataBinding.DataSource = SourceAncestral
+            ParentFont = False
+            Properties.DropDownListStyle = lsFixedList
+            Properties.GridMode = True
+            Properties.KeyFieldNames = 'CONTABIL_GRUPO_ID'
+            Properties.ListColumns = <
+              item
+                FieldName = 'DESCRICAO'
+              end>
+            Properties.ListOptions.ShowHeader = False
+            Properties.ListSource = dtsGrupoContabil
+            Properties.OnEditValueChanged = lcxGrupoContabilPropertiesEditValueChanged
+            Style.StyleController = dtmControles.cxEsc_EditsObrigatorio
+            TabOrder = 5
+            Width = 476
+          end
+          object cbxGrupoPlano: TcxComboBox
+            Left = 115
+            Top = 32
+            ParentFont = False
+            Properties.CharCase = ecUpperCase
+            Style.StyleController = dtmControles.cxEsc_EditsObrigatorio
+            TabOrder = 6
+            Width = 212
+          end
+          object edtDescricao: TcxDBTextEdit
+            Left = 418
+            Top = 32
+            DataBinding.DataField = 'DESCRICAO'
+            DataBinding.DataSource = SourceAncestral
+            ParentFont = False
+            Style.StyleController = dtmControles.cxEsc_EditsObrigatorio
+            TabOrder = 7
+            Width = 476
+          end
+          object chbSituacao: TcxDBCheckBox
+            Left = 15
+            Top = 64
+            AutoSize = False
+            Caption = 'Ativo'
+            DataBinding.DataField = 'SITUACAO'
+            DataBinding.DataSource = SourceAncestral
+            ParentBackground = False
+            ParentColor = False
+            ParentFont = False
+            Properties.DisplayChecked = 'A'
+            Properties.DisplayGrayed = 'I'
+            Properties.NullStyle = nssUnchecked
+            Properties.ValueChecked = 'A'
+            Properties.ValueUnchecked = 'I'
+            TabOrder = 8
+            Transparent = True
+            Height = 22
+            Width = 64
+          end
+          object cxDBCheckBox1: TcxDBCheckBox
+            Left = 198
+            Top = 64
+            AutoSize = False
+            Caption = 'Interno'
+            DataBinding.DataField = 'INTERNO'
+            DataBinding.DataSource = SourceAncestral
+            ParentBackground = False
+            ParentColor = False
+            ParentFont = False
+            Properties.DisplayChecked = 'S'
+            Properties.DisplayGrayed = 'N'
+            Properties.NullStyle = nssUnchecked
+            Properties.ValueChecked = 'S'
+            Properties.ValueUnchecked = 'N'
+            TabOrder = 9
+            Transparent = True
+            Visible = False
+            Height = 22
+            Width = 76
+          end
+          object cxDBCheckBox2: TcxDBCheckBox
+            Left = 76
+            Top = 64
+            AutoSize = False
+            Caption = 'IR'
+            DataBinding.DataField = 'IR'
+            DataBinding.DataSource = SourceAncestral
+            ParentBackground = False
+            ParentColor = False
+            ParentFont = False
+            Properties.DisplayChecked = 'S'
+            Properties.DisplayGrayed = 'N'
+            Properties.NullStyle = nssUnchecked
+            Properties.ValueChecked = 'S'
+            Properties.ValueUnchecked = 'N'
+            TabOrder = 10
+            Transparent = True
+            Height = 22
+            Width = 51
+          end
+          object cxDBCheckBox3: TcxDBCheckBox
+            Left = 139
+            Top = 64
+            AutoSize = False
+            Caption = 'CNJ'
+            DataBinding.DataField = 'CNJ'
+            DataBinding.DataSource = SourceAncestral
+            ParentBackground = False
+            ParentColor = False
+            ParentFont = False
+            Properties.DisplayChecked = 'S'
+            Properties.DisplayGrayed = 'N'
+            Properties.NullStyle = nssUnchecked
+            Properties.ValueChecked = 'S'
+            Properties.ValueUnchecked = 'N'
+            TabOrder = 11
+            Transparent = True
+            Height = 22
+            Width = 51
+          end
+          object cxDBCheckBox4: TcxDBCheckBox
+            Left = 263
+            Top = 64
+            RepositoryItem = dtmLookup.Check_SimNao
+            AutoSize = False
+            Caption = 'Item Balancete Global'
+            DataBinding.DataField = 'TIPO_GLOBAL'
+            DataBinding.DataSource = SourceAncestral
+            ParentFont = False
+            Properties.DisplayChecked = 'S'
+            Properties.DisplayGrayed = 'N'
+            Properties.NullStyle = nssUnchecked
+            Properties.ReadOnly = True
+            Properties.ValueChecked = 'S'
+            Properties.ValueUnchecked = 'N'
+            Style.Font.Charset = DEFAULT_CHARSET
+            Style.Font.Color = clWindowText
+            Style.Font.Height = -12
+            Style.Font.Name = 'MS Sans Serif'
+            Style.Font.Style = []
+            Style.IsFontAssigned = True
+            StyleDisabled.TextColor = clGray
+            TabOrder = 12
+            Transparent = True
+            Visible = False
+            Height = 22
+            Width = 144
+          end
+          object pnlPesquisa: TPanel
+            Left = 0
+            Top = 96
+            Width = 1091
+            Height = 31
+            Align = alBottom
+            BevelOuter = bvNone
+            Color = clWhite
+            ParentBackground = False
+            TabOrder = 13
+            ExplicitLeft = -1
+            ExplicitTop = 115
+            ExplicitWidth = 1093
+            object cxLabel4: TcxLabel
+              Left = 17
+              Top = 6
+              Caption = 'Pesquisa:'
+              Style.TextColor = 16384
+              Style.TextStyle = []
+              Transparent = True
+            end
+            object edtPalavraPesquisa: TcxTextEdit
+              Left = 67
+              Top = 5
+              ParentFont = False
+              Properties.CharCase = ecUpperCase
+              Style.BorderStyle = ebsUltraFlat
+              Style.LookAndFeel.Kind = lfOffice11
+              Style.LookAndFeel.NativeStyle = False
+              Style.StyleController = dtmControles.cxEsc_EditsNormal
+              StyleDisabled.LookAndFeel.Kind = lfOffice11
+              StyleDisabled.LookAndFeel.NativeStyle = False
+              StyleFocused.LookAndFeel.Kind = lfOffice11
+              StyleFocused.LookAndFeel.NativeStyle = False
+              StyleHot.LookAndFeel.Kind = lfOffice11
+              StyleHot.LookAndFeel.NativeStyle = False
+              TabOrder = 1
+              OnKeyDown = edtPalavraPesquisaKeyDown
+              Width = 238
+            end
+            object btnPesquisar: TcxButton
+              Left = 308
+              Top = 4
+              Width = 32
+              Height = 22
+              Colors.Default = clWhite
+              LookAndFeel.Kind = lfUltraFlat
+              LookAndFeel.NativeStyle = False
+              LookAndFeel.SkinName = ''
+              OptionsImage.Glyph.Data = {
+                C6050000424DC605000000000000360400002800000014000000140000000100
+                08000000000090010000130B0000130B00000001000000000000000000000101
+                0100020202000303030004040400050505000606060007070700080808000909
+                09000A0A0A000B0B0B000C0C0C000D0D0D000E0E0E000F0F0F00101010001111
+                1100121212001313130014141400151515001616160017171700181818001919
+                19001A1A1A001B1B1B001C1C1C001D1D1D001E1E1E001F1F1F00202020002121
+                2100222222002323230024242400252525002626260027272700282828002929
+                29002A2A2A002B2B2B002C2C2C002D2D2D002E2E2E002F2F2F00303030003131
+                3100323232003333330034343400353535003636360037373700383838003939
+                39003A3A3A003B3B3B003C3C3C003D3D3D003E3E3E003F3F3F00404040004141
+                4100424242004343430044444400454545004646460047474700484848004949
+                49004A4A4A004B4B4B004C4C4C004D4D4D004E4E4E004F4F4F00505050005151
+                5100525252005353530054545400555555005656560057575700585858005959
+                59005A5A5A005B5B5B005C5C5C005D5D5D005E5E5E005F5F5F00606060006161
+                6100626262006363630064646400656565006666660067676700686868006969
+                69006A6A6A006B6B6B006C6C6C006D6D6D006E6E6E006F6F6F00707070007171
+                7100727272007373730074747400757575007676760077777700787878007979
+                79007A7A7A007B7B7B007C7C7C007D7D7D007E7E7E007F7F7F00808080008181
+                8100828282008383830084848400858585008686860087878700888888008989
+                89008A8A8A008B8B8B008C8C8C008D8D8D008E8E8E008F8F8F00909090009191
+                9100929292009393930094949400959595009696960097979700989898009999
+                99009A9A9A009B9B9B009C9C9C009D9D9D009E9E9E009F9F9F00A0A0A000A1A1
+                A100A2A2A200A3A3A300A4A4A400A5A5A500A6A6A600A7A7A700A8A8A800A9A9
+                A900AAAAAA00ABABAB00ACACAC00ADADAD00AEAEAE00AFAFAF00B0B0B000B1B1
+                B100B2B2B200B3B3B300B4B4B400B5B5B500B6B6B600B7B7B700B8B8B800B9B9
+                B900BABABA00BBBBBB00BCBCBC00BDBDBD00BEBEBE00BFBFBF00C0C0C000C1C1
+                C100C2C2C200C3C3C300C4C4C400C5C5C500C6C6C600C7C7C700C8C8C800C9C9
+                C900CACACA00CBCBCB00CCCCCC00CDCDCD00CECECE00CFCFCF00D0D0D000D1D1
+                D100D2D2D200D3D3D300D4D4D400D5D5D500D6D6D600D7D7D700D8D8D800D9D9
+                D900DADADA00DBDBDB00DCDCDC00DDDDDD00DEDEDE00DFDFDF00E0E0E000E1E1
+                E100E2E2E200E3E3E300E4E4E400E5E5E500E6E6E600E7E7E700E8E8E800E9E9
+                E900EAEAEA00EBEBEB00ECECEC00EDEDED00EEEEEE00EFEFEF00F0F0F000F1F1
+                F100F2F2F200F3F3F300F4F4F400F5F5F500F6F6F600F7F7F700F8F8F800F9F9
+                F900FAFAFA00FBFBFB00FCFCFC00FDFDFD00FEFEFE00FFFFFF00FFFFFFFFFFFF
+                FFFFFFFFFFFFFFFFFFF8E2F5FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFCA3379E
+                F5FFFFFFFFFFFFFFFFFFFFFFFFFFFFFBAC20022C9EF5FFFFFFFFFFFFFFFFFFFF
+                FFFFFCAA2900000146E6FFFFFFFFFFFFFFFFFFFFFFFCAC290200002FB7FAFFFF
+                FFFFFFFFFFFFFFFFF7A31E00000338C1FFFFFFFFFFFFFFEAE0E0E7F1A6210000
+                0038BEFFFFFFFFFFFFEFAE5F51515B761F0000002CC2FFFFFFFFFFFFEB7E2139
+                7175511100000030B7FFFFFFFFFFFFF68E1672E3F1F2E9AF150130B9FBFFFFFF
+                FFFFFEC83571F0FFFFFFFFFFB41382F8FFFFFFFFFFFFFA9D2DC0FEFFFFFFFFFF
+                E9535DE6FFFFFFFFFFFFF78B3FD4FFFFFFFFFFFFF27651E0FFFFFFFFFFFFF88E
+                39D0FFFFFFFFFFFFF17252E0FFFFFFFFFFFFFCA927AEFDFFFFFFFFFFE23864EB
+                FFFFFFFFFFFFFFDF543ECEFDFFFFFEF07222AEFEFFFFFFFFFFFFFFFDB6343FAC
+                D1D2BD6F147EF0FFFFFFFFFFFFFFFFFFF8B553233B3D2A378BECFFFFFFFFFFFF
+                FFFFFFFFFFFCDEA88F8C9BCAF5FFFFFFFFFFFFFFFFFFFFFFFFFFFFFBF8F8FAFE
+                FFFFFFFFFFFFFFFFFFFF}
+              TabOrder = 2
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clWindowText
+              Font.Height = -11
+              Font.Name = 'Tahoma'
+              Font.Style = []
+              ParentFont = False
+              OnClick = btnPesquisarClick
+            end
+            object btnLimpar: TcxButton
+              Left = 343
+              Top = 4
+              Width = 95
+              Height = 22
+              Caption = 'Limpar'
+              Colors.Default = clWhite
+              LookAndFeel.Kind = lfUltraFlat
+              LookAndFeel.NativeStyle = False
+              LookAndFeel.SkinName = ''
+              OptionsImage.Glyph.Data = {
+                C6050000424DC605000000000000360400002800000014000000140000000100
+                08000000000090010000B00D0000B00D00000001000000000000000000000101
+                0100020202000303030004040400050505000606060007070700080808000909
+                09000A0A0A000B0B0B000C0C0C000D0D0D000E0E0E000F0F0F00101010001111
+                1100121212001313130014141400151515001616160017171700181818001919
+                19001A1A1A001B1B1B001C1C1C001D1D1D001E1E1E001F1F1F00202020002121
+                2100222222002323230024242400252525002626260027272700282828002929
+                29002A2A2A002B2B2B002C2C2C002D2D2D002E2E2E002F2F2F00303030003131
+                3100323232003333330034343400353535003636360037373700383838003939
+                39003A3A3A003B3B3B003C3C3C003D3D3D003E3E3E003F3F3F00404040004141
+                4100424242004343430044444400454545004646460047474700484848004949
+                49004A4A4A004B4B4B004C4C4C004D4D4D004E4E4E004F4F4F00505050005151
+                5100525252005353530054545400555555005656560057575700585858005959
+                59005A5A5A005B5B5B005C5C5C005D5D5D005E5E5E005F5F5F00606060006161
+                6100626262006363630064646400656565006666660067676700686868006969
+                69006A6A6A006B6B6B006C6C6C006D6D6D006E6E6E006F6F6F00707070007171
+                7100727272007373730074747400757575007676760077777700787878007979
+                79007A7A7A007B7B7B007C7C7C007D7D7D007E7E7E007F7F7F00808080008181
+                8100828282008383830084848400858585008686860087878700888888008989
+                89008A8A8A008B8B8B008C8C8C008D8D8D008E8E8E008F8F8F00909090009191
+                9100929292009393930094949400959595009696960097979700989898009999
+                99009A9A9A009B9B9B009C9C9C009D9D9D009E9E9E009F9F9F00A0A0A000A1A1
+                A100A2A2A200A3A3A300A4A4A400A5A5A500A6A6A600A7A7A700A8A8A800A9A9
+                A900AAAAAA00ABABAB00ACACAC00ADADAD00AEAEAE00AFAFAF00B0B0B000B1B1
+                B100B2B2B200B3B3B300B4B4B400B5B5B500B6B6B600B7B7B700B8B8B800B9B9
+                B900BABABA00BBBBBB00BCBCBC00BDBDBD00BEBEBE00BFBFBF00C0C0C000C1C1
+                C100C2C2C200C3C3C300C4C4C400C5C5C500C6C6C600C7C7C700C8C8C800C9C9
+                C900CACACA00CBCBCB00CCCCCC00CDCDCD00CECECE00CFCFCF00D0D0D000D1D1
+                D100D2D2D200D3D3D300D4D4D400D5D5D500D6D6D600D7D7D700D8D8D800D9D9
+                D900DADADA00DBDBDB00DCDCDC00DDDDDD00DEDEDE00DFDFDF00E0E0E000E1E1
+                E100E2E2E200E3E3E300E4E4E400E5E5E500E6E6E600E7E7E700E8E8E800E9E9
+                E900EAEAEA00EBEBEB00ECECEC00EDEDED00EEEEEE00EFEFEF00F0F0F000F1F1
+                F100F2F2F200F3F3F300F4F4F400F5F5F500F6F6F600F7F7F700F8F8F800F9F9
+                F900FAFAFA00FBFBFB00FCFCFC00FDFDFD00FEFEFE00FFFFFF00FFFFFFFFFFFF
+                FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+                FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+                FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+                FFFFFFFFFCDF9A80808282817F8282C1FFFFFFFFFFFFFFFBD49376696A76776D
+                687679BCFFFFFFFFFFFFFDC78770739D9D63618BAB7770B8FFFFFFFFFFFCC078
+                68687EE2F2A693E3FA8D68B4FFFFFFFFFAB66D5E5E5E628FF8F6F3FCB2655EAF
+                FFFFFFFFBA5950535353524D99FFFFBA585153A9FFFFFFFFF7A650484B4B507B
+                F6F3EDFA9F534BA5FFFFFFFFFFFAB1473D425FDCF09F8DDFF87142A1FFFFFFFF
+                FFFFFCB5483443868E4540769A49399CFFFFFFFFFFFFFFFBBD482C3637303034
+                39303098FFFFFFFFFFFFFFFFFFD05E3B3B3B3B3B3B3B3B9DFFFFFFFFFFFFFFFF
+                FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+                FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+                FFFFFFFFFFFFFFFFFFFF}
+              TabOrder = 3
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = clWindowText
+              Font.Height = -11
+              Font.Name = 'Tahoma'
+              Font.Style = []
+              ParentFont = False
+              OnClick = btnLimparClick
+            end
+          end
+        end
+      end
+    end
+    object tbcOperacao: TcxTabControl
+      Left = 1
+      Top = 153
+      Width = 1095
+      Height = 366
+      Align = alClient
+      TabOrder = 1
+      Properties.CustomButtons.Buttons = <>
+      Properties.TabIndex = 0
+      Properties.Tabs.Strings = (
+        'Sa'#237'das'
+        'Entradas'
+        'Aporte'
+        'Retirada'
+        'Transfer'#234'ncia')
+      LookAndFeel.Kind = lfUltraFlat
+      LookAndFeel.NativeStyle = False
+      OnChange = tbcOperacaoChange
+      ExplicitWidth = 1084
+      ClientRectBottom = 366
+      ClientRectRight = 1095
+      ClientRectTop = 25
+      object grdBasica: TcxGrid
+        Left = 0
+        Top = 47
+        Width = 1095
+        Height = 319
+        Align = alClient
+        Font.Charset = DEFAULT_CHARSET
+        Font.Color = clWindowText
+        Font.Height = -12
+        Font.Name = 'MS Sans Serif'
+        Font.Style = []
+        ParentFont = False
+        PopupMenu = popImprimir
+        TabOrder = 0
+        LookAndFeel.Kind = lfUltraFlat
+        LookAndFeel.NativeStyle = False
+        ExplicitLeft = 1
+        ExplicitTop = 50
+        object cxGridPesquisa: TcxGridDBTableView
+          Navigator.Buttons.CustomButtons = <>
+          Navigator.Buttons.PriorPage.Visible = False
+          Navigator.Buttons.NextPage.Visible = False
+          Navigator.Buttons.Insert.Visible = False
+          Navigator.Buttons.Delete.Visible = False
+          Navigator.Buttons.Edit.Visible = False
+          Navigator.Buttons.Post.Visible = False
+          Navigator.Buttons.Cancel.Visible = False
+          Navigator.Buttons.Refresh.Visible = False
+          Navigator.Buttons.SaveBookmark.Visible = False
+          Navigator.Buttons.GotoBookmark.Visible = False
+          Navigator.Buttons.Filter.Visible = False
+          Navigator.Visible = True
+          FilterBox.CustomizeDialog = False
+          FilterBox.Position = fpTop
+          FilterBox.Visible = fvNever
+          OnFocusedRecordChanged = cxGridPesquisaFocusedRecordChanged
+          DataController.DataSource = SourceAncestral
+          DataController.Filter.Active = True
+          DataController.Summary.DefaultGroupSummaryItems = <
+            item
+              Format = 'R$ ,#0.00'
+              Kind = skSum
+              Position = spFooter
+              FieldName = 'VALOR'
+            end
+            item
+              Format = 'R$ ,#0.00'
+              Kind = skSum
+              Position = spFooter
+              FieldName = 'calc_ValorDevido'
+            end>
+          DataController.Summary.FooterSummaryItems = <>
+          DataController.Summary.SummaryGroups = <>
+          Filtering.MRUItemsListCount = 5
+          Filtering.ColumnPopup.MaxDropDownItemCount = 10
+          OptionsBehavior.ColumnHeaderHints = False
+          OptionsCustomize.ColumnGrouping = False
+          OptionsData.CancelOnExit = False
+          OptionsData.Deleting = False
+          OptionsData.DeletingConfirmation = False
+          OptionsData.Inserting = False
+          OptionsView.ColumnAutoWidth = True
+          OptionsView.GridLines = glHorizontal
+          OptionsView.GroupByBox = False
+          OptionsView.GroupRowHeight = 25
+          OptionsView.GroupRowStyle = grsOffice11
+          Preview.Visible = True
+          Styles.Group = dtmControles.cxStyle9
+          Styles.StyleSheet = dtmControles.GridTableViewStyleSheetDevExpress
+          object cxGridPesquisaColumn8: TcxGridDBColumn
+            Caption = 'Cod. '
+            DataBinding.FieldName = 'CONTABIL_CONTA_ID'
+            Width = 60
+          end
+          object cxGridPesquisaColumn6: TcxGridDBColumn
+            DataBinding.FieldName = 'SELECIONAR'
+            PropertiesClassName = 'TcxCheckBoxProperties'
+            Width = 35
+            IsCaptionAssigned = True
+          end
+          object cxGridPesquisaColumn2: TcxGridDBColumn
+            Caption = 'Grupo Cont'#225'bil'
+            DataBinding.FieldName = 'CONTABIL_GRUPO_ID'
+            RepositoryItem = dtmLookupContabil.Lista_GrupoContabilTodos
+            GroupIndex = 0
+            Options.Editing = False
+            Options.Focusing = False
+            Width = 213
+          end
+          object cxGridPesquisaColumn3: TcxGridDBColumn
+            Caption = 'Grupo Descri'#231#227'o'
+            DataBinding.FieldName = 'GRUPO'
+            Options.Editing = False
+            Options.Focusing = False
+            Width = 274
+          end
+          object cxGridPesquisaColumn1: TcxGridDBColumn
+            Caption = 'Plano de Conta'
+            DataBinding.FieldName = 'DESCRICAO'
+            Options.Editing = False
+            Options.Focusing = False
+            Width = 253
+          end
+          object cxGridPesquisaColumn4: TcxGridDBColumn
+            DataBinding.FieldName = 'IR'
+            RepositoryItem = dtmLookup.Check_SimNao
+            Options.Editing = False
+            Options.Focusing = False
+            Width = 36
+          end
+          object cxGridPesquisaColumn7: TcxGridDBColumn
+            Caption = 'Situa'#231#227'o'
+            DataBinding.FieldName = 'SITUACAO'
+            RepositoryItem = dtmLookup.Combo_AtivoInativo
+            Options.Editing = False
+            Options.Focusing = False
+            Width = 71
+          end
+          object cxGridPesquisaColumn5: TcxGridDBColumn
+            DataBinding.FieldName = 'CNJ'
+            RepositoryItem = dtmLookup.Check_SimNao
+            Options.Editing = False
+            Options.Focusing = False
+            Width = 38
+          end
+          object cxGridPesquisaColumn9: TcxGridDBColumn
+            Caption = 'Interno'
+            DataBinding.FieldName = 'INTERNO'
+            RepositoryItem = dtmLookup.Check_SimNao
+            Options.Editing = False
+            Options.Focusing = False
+            Width = 49
+          end
+          object cxGridPesquisaColumn10: TcxGridDBColumn
+            Caption = 'Global'
+            DataBinding.FieldName = 'TIPO_GLOBAL'
+            RepositoryItem = dtmLookup.Check_SimNao
+            Options.Editing = False
+            Options.Focusing = False
+            Width = 53
+          end
+          object cxGridPesquisaTipo: TcxGridDBColumn
+            DataBinding.FieldName = 'TIPO'
+            RepositoryItem = dtmLookupContabil.Combo_EntradaSaida
+            Visible = False
+          end
+        end
+        object grdBasicaLevel1: TcxGridLevel
+          GridView = cxGridPesquisa
+        end
+      end
+      object Panel1: TPanel
+        Left = 0
+        Top = 25
+        Width = 1095
+        Height = 22
+        Align = alTop
+        BevelOuter = bvNone
+        TabOrder = 1
+        ExplicitWidth = 1084
+        object cxLabel1: TcxLabel
+          Left = 8
+          Top = 1
+          Cursor = crHandPoint
+          Caption = 'Expandir'
+          Style.TextColor = clBlue
+          Style.TextStyle = [fsUnderline]
+          Transparent = True
+          OnClick = cxLabel1Click
+        end
+        object cxLabel2: TcxLabel
+          Left = 62
+          Top = 1
+          Cursor = crHandPoint
+          Caption = 'Agrupar'
+          Style.TextColor = clBlue
+          Style.TextStyle = [fsUnderline]
+          Transparent = True
+          OnClick = cxLabel2Click
+        end
+      end
+    end
+  end
+  inherited ActionList1: TActionList
+    Left = 371
+    Top = 244
+  end
+  inherited DataSetAncestral: TSQLDataSet
+    SchemaName = 'SYSDBA'
+    CommandText = 
+      'SELECT CC.*, CG.TIPO'#13#10'FROM J_CONTABIL_CONTA CC'#13#10'  LEFT OUTER JOI' +
+      'N J_CONTABIL_GRUPO CG ON'#13#10'  CC.CONTABIL_GRUPO_ID = CG.CONTABIL_G' +
+      'RUPO_ID'#13#10'WHERE ((CC.BALANCETE_GRUPO_ID  = :BALANCETE_GRUPO_ID)'#13#10 +
+      '      OR (CC.TIPO_GLOBAL = '#39'S'#39'))'#13#10'      AND CG.SITUACAO = '#39'A'#39#13#10'O' +
+      'RDER BY CC.DESCRICAO'
+    Params = <
+      item
+        DataType = ftBCD
+        Name = 'BALANCETE_GRUPO_ID'
+        ParamType = ptInput
+      end>
+    Left = 695
+    Top = 222
+  end
+  inherited ProviderAncestral: TDataSetProvider
+    Left = 703
+    Top = 286
+  end
+  inherited ClientAncestral: TClientDataSet
+    Left = 701
+    Top = 334
+    object ClientAncestralCONTABIL_CONTA_ID: TFMTBCDField
+      FieldName = 'CONTABIL_CONTA_ID'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Precision = 20
+      Size = 2
+    end
+    object ClientAncestralDESCRICAO: TStringField
+      FieldName = 'DESCRICAO'
+      Size = 60
+    end
+    object ClientAncestralGRUPO: TStringField
+      FieldName = 'GRUPO'
+      Size = 60
+    end
+    object ClientAncestralSITUACAO: TStringField
+      FieldName = 'SITUACAO'
+      Size = 1
+    end
+    object ClientAncestralBALANCETE_GRUPO_ID: TFMTBCDField
+      FieldName = 'BALANCETE_GRUPO_ID'
+      Precision = 20
+      Size = 2
+    end
+    object ClientAncestralCONTABIL_GRUPO_ID: TFMTBCDField
+      FieldName = 'CONTABIL_GRUPO_ID'
+      Precision = 20
+      Size = 2
+    end
+    object ClientAncestralINTERNO: TStringField
+      FieldName = 'INTERNO'
+      Size = 1
+    end
+    object ClientAncestralEXIGE_CONTRATO: TStringField
+      FieldName = 'EXIGE_CONTRATO'
+      Size = 1
+    end
+    object ClientAncestralIR: TStringField
+      FieldName = 'IR'
+      Size = 1
+    end
+    object ClientAncestralCNJ: TStringField
+      FieldName = 'CNJ'
+      Size = 1
+    end
+    object ClientAncestralSELECIONAR: TBooleanField
+      FieldKind = fkInternalCalc
+      FieldName = 'SELECIONAR'
+    end
+    object ClientAncestralTIPO_GLOBAL: TStringField
+      FieldName = 'TIPO_GLOBAL'
+      Size = 1
+    end
+    object ClientAncestralTIPO: TStringField
+      FieldName = 'TIPO'
+      Size = 1
+    end
+  end
+  inherited SourceAncestral: TDataSource
+    Left = 703
+    Top = 382
+  end
+  object sqlGrupoContabil: TSimpleDataSet
+    Aggregates = <>
+    Connection = dtmControles.DB
+    DataSet.CommandText = 
+      'SELECT DESCRICAO, CONTABIL_GRUPO_ID, BALANCETE_GRUPO_ID'#13#10'FROM J_' +
+      'CONTABIL_GRUPO'#13#10'WHERE SITUACAO = '#39'A'#39' '#13#10'     AND TIPO = :TIPO'#13#10'  ' +
+      '   AND ((BALANCETE_GRUPO_ID = :BALANCETE_GRUPO_ID)'#13#10'      OR (TI' +
+      'PO_GLOBAL = '#39'S'#39'))'#13#10'ORDER BY DESCRICAO'
+    DataSet.MaxBlobSize = -1
+    DataSet.Params = <
+      item
+        DataType = ftString
+        Name = 'TIPO'
+        ParamType = ptInput
+      end
+      item
+        DataType = ftUnknown
+        Name = 'BALANCETE_GRUPO_ID'
+        ParamType = ptInput
+      end>
+    Params = <>
+    Left = 476
+    Top = 304
+    object sqlGrupoContabilDESCRICAO: TStringField
+      FieldName = 'DESCRICAO'
+      Size = 90
+    end
+    object sqlGrupoContabilCONTABIL_GRUPO_ID: TFMTBCDField
+      FieldName = 'CONTABIL_GRUPO_ID'
+      Precision = 20
+      Size = 2
+    end
+    object sqlGrupoContabilBALANCETE_GRUPO_ID: TFMTBCDField
+      FieldName = 'BALANCETE_GRUPO_ID'
+      Precision = 20
+      Size = 2
+    end
+  end
+  object dtsGrupoContabil: TDataSource
+    DataSet = sqlGrupoContabil
+    Left = 476
+    Top = 360
+  end
+  object dxComponentPrinter1: TdxComponentPrinter
+    CurrentLink = dxComponentPrinter1Link1
+    PrintTitle = 'Detalhamento do Plano de Contas - Financeiro Tri7'
+    Version = 0
+    Left = 592
+    Top = 304
+    object dxComponentPrinter1Link1: TdxGridReportLink
+      Active = True
+      Component = grdBasica
+      PrinterPage.DMPaper = 9
+      PrinterPage.Footer = 6350
+      PrinterPage.GrayShading = True
+      PrinterPage.Header = 6350
+      PrinterPage.Margins.Bottom = 12700
+      PrinterPage.Margins.Left = 12700
+      PrinterPage.Margins.Right = 12700
+      PrinterPage.Margins.Top = 12700
+      PrinterPage.Orientation = poLandscape
+      PrinterPage.PageSize.X = 210000
+      PrinterPage.PageSize.Y = 297000
+      PrinterPage._dxMeasurementUnits_ = 0
+      PrinterPage._dxLastMU_ = 2
+      ReportDocument.CreationDate = 43194.646928379640000000
+      OptionsCards.AutoWidth = True
+      OptionsSize.AutoWidth = True
+      OptionsView.Caption = False
+      OptionsView.FilterBar = False
+      BuiltInReportLink = True
+    end
+  end
+  object popImprimir: TPopupMenu
+    Left = 370
+    Top = 312
+    object mniImprimirPlanoContas: TMenuItem
+      Caption = 'Imprimir Plano de Contas'
+      ImageIndex = 49
+      OnClick = mniImprimirPlanoContasClick
+    end
+    object N1: TMenuItem
+      Caption = '-'
+    end
+    object ExcluirTodosSelecionados1: TMenuItem
+      Caption = 'Excluir Todos Selecionados'
+      OnClick = ExcluirTodosSelecionados1Click
+    end
+  end
+end

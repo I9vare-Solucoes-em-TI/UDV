@@ -1,0 +1,135 @@
+unit Conexao;
+
+interface
+
+uses
+  Graphics, DB, Controls, FMTBcd, SqlExpr, Registry, Variants,
+  Grids, DBGrids, ComCtrls, Classes, SysUtils, SimpleDS, StdCtrls,
+  WPCTRRich, WPRTEDefs, Forms, ClipBrd,
+  WPCTRMemo, WPRTEDefsConsts, Windows;
+
+  Function VerificarConexao(vpUsuarioId, vpSistemaId : Integer):Boolean;
+  procedure DesativarConexao(vpUsuarioId, vpSistemaId : Integer);
+
+implementation
+
+uses Controles, Rotinas;
+
+procedure DesativarConexao(vpUsuarioId, vpSistemaId : Integer);
+begin
+   ExecutaSqlAuxiliar(' UPDATE G_CONEXAO SET STATUS = '+QuotedStr('I')+
+                      ' WHERE SISTEMA_ID = '+ IntToStr(vpSistemaId)+
+                      '   AND USUARIO_ID = '+ IntToStr(vpUsuarioId),1);
+end;
+
+Function VerificarConexao(vpUsuarioId, vpSistemaId : Integer):Boolean;
+var
+  viConexao : TStringList;
+
+  procedure RegistrarConexao;
+  begin
+    ExecutaSqlAuxiliar(' INSERT INTO G_CONEXAO( ' +
+        '              CONEXAO_ID, '+
+        '              IP_USUARIO, ' +
+        '              USUARIO_ID, ' +
+        '              DATA_HORA, ' +
+        '              SISTEMA_ID, ' +
+        '              STATUS) ' +
+        ' VALUES(      :CONEXAO_ID, ' +
+        '              :IP_USUARIO, ' +
+        '              :USUARIO_ID, ' +
+        '              :DATA_HORA, ' +
+        '              :SISTEMA_ID, ' +
+        '              :STATUS)', 2);
+    with dtmControles.sqlAuxiliar do
+    begin
+      ParamByName('CONEXAO_ID').AsBCD     := dtmControles.GerarSequencia('G_CONEXAO');
+      ParamByName('IP_USUARIO').AsString  := RetornaIP;
+      ParamByName('USUARIO_ID').AsInteger := vpUsuarioId;
+      ParamByName('DATA_HORA').AsString   := dtmControles.DataHoraBanco(5);
+      ParamByName('SISTEMA_ID').AsInteger := vpSistemaId;
+      ParamByName('STATUS').AsString      := 'A';
+      ExecSQL(False);
+    end;
+  end;
+
+  procedure AtualizarConexao;
+  begin
+     ExecutaSqlAuxiliar(' UPDATE G_CONEXAO SET IP_USUARIO = :IP_USUARIO, '+
+                        '              DATA_HORA = :DATA_HORA, '+
+                        '              STATUS = :STATUS'+
+                        ' WHERE CONEXAO_ID = '+ viConexao.Values['CONEXAO_ID'],2);
+    with dtmControles.sqlAuxiliar do
+    begin
+      ParamByName('IP_USUARIO').AsString  := RetornaIP;
+      ParamByName('DATA_HORA').AsString   := dtmControles.DataHoraBanco(5);
+      ParamByName('STATUS').AsString      := 'A';
+      ExecSQL(False);
+    end;
+  end;
+
+  function VerificarUsuarioLogado:Boolean;
+  var
+    viUsuarioId : Integer;
+  begin
+    viUsuarioId := dtmControles.GetInt(' SELECT FIRST 1 USUARIO_ID FROM G_CONEXAO '+
+                                       ' WHERE SISTEMA_ID = '+IntToStr(vpSistemaId)+
+                                       '   AND IP_USUARIO = '+QuotedStr(viConexao.Values['IP_USUARIO'])+
+                                       ' ORDER BY CONEXAO_ID DESC');
+    if IntToStr(viUsuarioId) = viConexao.Values['USUARIO_ID'] then
+         Result := False
+    else Result := True;
+  end;
+
+  Function VerificarIPConexao:Boolean;
+  var
+    viConectado : Boolean;
+  begin
+    if viConexao.Values['IP_USUARIO'] = RetornaIP then
+      AtualizarConexao
+    else
+    begin
+      try
+        viConectado := dtmControles.GetInt(' SELECT MON$ATTACHMENTS.MON$ATTACHMENT_ID from MON$ATTACHMENTS '+
+                                           ' WHERE MON$REMOTE_ADDRESS = '+QuotedStr(viConexao.Values['IP_USUARIO'])+
+                                           '  AND MON$REMOTE_PROCESS LIKE '+QuotedStr('%Tabelionato%')) > 0;
+      finally
+        dtmControles.Commit
+      end;
+      if not viConectado then
+        AtualizarConexao
+      else
+        if VerificarUsuarioLogado then
+             AtualizarConexao
+        else
+        begin
+          Result := False;
+          exit;
+        end;
+    end;
+    Result := True;
+  end;
+
+begin
+  viConexao := dtmControles.GetFields(' SELECT CONEXAO_ID, STATUS, IP_USUARIO, USUARIO_ID FROM G_CONEXAO '+
+                                      ' WHERE USUARIO_ID = '+IntToStr(vpUsuarioId)+
+                                      '   AND SISTEMA_ID = '+IntToStr(vpSistemaId));
+  Result := True;
+  if viConexao.Values['CONEXAO_ID'] = '' then
+    RegistrarConexao
+  else
+    if viConexao.Values['STATUS'] = 'I' then
+      AtualizarConexao
+  else
+    if not VerificarIPConexao then
+    begin
+       Application.MessageBox('Este usuário está logado em outra maquina!!!',
+      'Informação', MB_ICONINFORMATION + MB_OK);
+      Result := False;
+      exit;
+    end;
+  Result := True;
+end;
+
+end.
+

@@ -1,0 +1,81 @@
+unit RelatorioEstatistico;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, cxGraphics, cxControls, cxLookAndFeels,
+  cxLookAndFeelPainters, cxContainer, cxEdit, Vcl.Menus, dxBarBuiltInMenu, cxPC,
+  Vcl.StdCtrls, cxButtons, Vcl.ExtCtrls, cxLabel, cxRadioGroup, cxTextEdit,
+  cxMaskEdit, Data.DB, Datasnap.DBClient, DbxDevartInterBase, dxCore,
+  dxCoreClasses, dxHashUtils, dxSpreadSheetCore, dxSpreadSheetPrinting,
+  dxSpreadSheetFormulas, dxSpreadSheetFunctions, dxSpreadSheetGraphics,
+  dxSpreadSheetClasses, dxSpreadSheetTypes, dxSpreadSheet, tmsAdvGridExcel,
+  SimpleDS;
+
+type
+  TfrmRelatorioEstatistico = class(TForm)
+    Panel1: TPanel;
+    Bevel4: TBevel;
+    lblInformaca: TcxLabel;
+    Panel4: TPanel;
+    imgTitulo: TImage;
+    Panel7: TPanel;
+    cxButton1: TcxButton;
+    Panel2: TPanel;
+    cxPageControl2: TcxPageControl;
+    cxTabSheet2: TcxTabSheet;
+    dtsDados: TDataSource;
+    ClientDados: TClientDataSet;
+    ClientDadosOPERACAO: TStringField;
+    ClientDadosGRUPO_CONTABIL: TStringField;
+    ClientDadosCOMPROMISSO: TStringField;
+    ClientDadosAMO_MES: TIntegerField;
+    ClientDadosVALOR_REGISTRADO: TCurrencyField;
+    ClientDadosVALOR_PERCENTUAL: TCurrencyField;
+    lblMesAnoReferencia: TcxLabel;
+    edtMesAnoContaInicial: TcxMaskEdit;
+    edtMesAnoContaFinal: TcxMaskEdit;
+    cxLabel4: TcxLabel;
+    btnPesquisar: TcxButton;
+    btnLimpar: TcxButton;
+    cxRadioButton1: TcxRadioButton;
+    cxLabel1: TcxLabel;
+    cxRadioButton2: TcxRadioButton;
+    sqlDados: TSimpleDataSet;
+    sqlDadosTIPO: TStringField;
+    sqlDadosGRUPO_CONTABIL: TStringField;
+    sqlDadosGRUPO_SECUNDARIO: TStringField;
+    sqlDadosCOMPROMISSO: TStringField;
+    sqlDadosANO_MES_REGISTRO: TStringField;
+    sqlDadosVALOR: TFMTBCDField;
+    AdvGridExcelIO1: TAdvGridExcelIO;
+    dxSpreadSheet1: TdxSpreadSheet;
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure cxButton1Click(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  frmRelatorioEstatistico: TfrmRelatorioEstatistico;
+
+implementation
+
+{$R *.dfm}
+
+procedure TfrmRelatorioEstatistico.cxButton1Click(Sender: TObject);
+begin
+  close;
+end;
+
+procedure TfrmRelatorioEstatistico.FormClose(Sender: TObject;
+  var Action: TCloseAction);
+begin
+  Action := caFree;
+  frmRelatorioEstatistico := nil;
+end;
+
+end.

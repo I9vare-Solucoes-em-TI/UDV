@@ -1,0 +1,299 @@
+inherited frmCadPessoaFuncao: TfrmCadPessoaFuncao
+  Caption = 'Tipos de Sa'#237'da'
+  ClientHeight = 425
+  ClientWidth = 736
+  ExplicitWidth = 752
+  ExplicitHeight = 464
+  PixelsPerInch = 96
+  TextHeight = 13
+  inherited PanelBotoes: TPanel
+    Width = 736
+    ExplicitWidth = 657
+    inherited PanelBotoesBasicos: TPanel
+      Width = 654
+      ExplicitWidth = 575
+      inherited PanelBasicoBotoes: TPanel
+        inherited cxBtnPesquisar: TcxButton
+          Visible = False
+        end
+      end
+    end
+    inherited PanelBotaoFechar: TPanel
+      Left = 656
+      ExplicitLeft = 577
+      inherited cxBtnFechar: TcxButton
+        Left = 6
+        ExplicitLeft = 6
+      end
+    end
+  end
+  inherited StatusBar: TStatusBar
+    Top = 405
+    Width = 736
+    ExplicitTop = 405
+    ExplicitWidth = 657
+  end
+  inherited PanelGeral: TPanel
+    Width = 736
+    Height = 349
+    ExplicitWidth = 657
+    ExplicitHeight = 349
+    inherited PanelData: TPanel
+      Width = 734
+      Height = 69
+      ExplicitLeft = 2
+      ExplicitWidth = 734
+      ExplicitHeight = 69
+      object cxLabel1: TcxLabel
+        Left = 9
+        Top = 4
+        Caption = 'Descri'#231#227'o'
+        Style.TextColor = 4210688
+        Style.TextStyle = []
+      end
+      object cxLabel2: TcxLabel
+        Left = 366
+        Top = 4
+        Caption = 'Respons'#225'vel'
+        Style.TextColor = 4210688
+        Style.TextStyle = []
+      end
+      object edtDescricao: TcxDBTextEdit
+        Left = 9
+        Top = 21
+        DataBinding.DataField = 'DESCRICAO'
+        DataBinding.DataSource = SourceAncestral
+        ParentFont = False
+        Properties.CharCase = ecUpperCase
+        Style.StyleController = dtmControles.cxEsc_EditsObrigatorio
+        TabOrder = 2
+        Width = 352
+      end
+      object lcxResponsavel: TcxDBLookupComboBox
+        Left = 367
+        Top = 21
+        DataBinding.DataField = 'PESSOA_ID'
+        DataBinding.DataSource = SourceAncestral
+        ParentFont = False
+        Properties.ListColumns = <>
+        Style.StyleController = dtmControles.cxEsc_EditsNormal
+        TabOrder = 3
+        Width = 354
+      end
+      object chbSituacao: TcxDBCheckBox
+        Left = 7
+        Top = 43
+        AutoSize = False
+        Caption = 'Ativo'
+        DataBinding.DataField = 'SITUACAO'
+        DataBinding.DataSource = SourceAncestral
+        ParentFont = False
+        Properties.DisplayChecked = 'A'
+        Properties.DisplayGrayed = 'I'
+        Properties.NullStyle = nssUnchecked
+        Properties.ValueChecked = 'A'
+        Properties.ValueUnchecked = 'I'
+        Style.Font.Charset = DEFAULT_CHARSET
+        Style.Font.Color = clWindowText
+        Style.Font.Height = -11
+        Style.Font.Name = 'MS Sans Serif'
+        Style.Font.Style = [fsBold]
+        Style.IsFontAssigned = True
+        TabOrder = 4
+        Height = 21
+        Width = 59
+      end
+      object chxExigeResponsavel: TcxDBCheckBox
+        Left = 68
+        Top = 43
+        AutoSize = False
+        Caption = 'Exige Respons'#225'vel'
+        DataBinding.DataField = 'EXIGE_RESPONSAVEL'
+        DataBinding.DataSource = SourceAncestral
+        Enabled = False
+        ParentFont = False
+        Properties.DisplayChecked = 'S'
+        Properties.DisplayGrayed = 'N'
+        Properties.NullStyle = nssUnchecked
+        Properties.ValueChecked = 'S'
+        Properties.ValueUnchecked = 'N'
+        Style.Font.Charset = DEFAULT_CHARSET
+        Style.Font.Color = clWindowText
+        Style.Font.Height = -11
+        Style.Font.Name = 'MS Sans Serif'
+        Style.Font.Style = [fsBold]
+        Style.IsFontAssigned = True
+        StyleDisabled.TextColor = clRed
+        StyleDisabled.TextStyle = []
+        TabOrder = 5
+        Height = 21
+        Width = 123
+      end
+      object chxPadraoSistema: TcxDBCheckBox
+        Left = 194
+        Top = 43
+        AutoSize = False
+        Caption = 'Padr'#227'o do Sistema'
+        DataBinding.DataField = 'INTERNO'
+        DataBinding.DataSource = SourceAncestral
+        Enabled = False
+        ParentFont = False
+        Properties.DisplayChecked = 'S'
+        Properties.DisplayGrayed = 'N'
+        Properties.NullStyle = nssUnchecked
+        Properties.ValueChecked = 'S'
+        Properties.ValueUnchecked = 'N'
+        Style.Font.Charset = DEFAULT_CHARSET
+        Style.Font.Color = clWindowText
+        Style.Font.Height = -11
+        Style.Font.Name = 'MS Sans Serif'
+        Style.Font.Style = [fsBold]
+        Style.IsFontAssigned = True
+        StyleDisabled.TextColor = clRed
+        StyleDisabled.TextStyle = []
+        TabOrder = 6
+        Height = 21
+        Width = 123
+      end
+    end
+    object grdBasica: TcxGrid
+      Left = 1
+      Top = 70
+      Width = 734
+      Height = 278
+      Align = alClient
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'MS Sans Serif'
+      Font.Style = []
+      ParentFont = False
+      TabOrder = 1
+      LookAndFeel.Kind = lfUltraFlat
+      LookAndFeel.NativeStyle = False
+      ExplicitTop = 51
+      ExplicitWidth = 655
+      ExplicitHeight = 297
+      object cxGridPesquisa: TcxGridDBTableView
+        Navigator.Buttons.CustomButtons = <>
+        Navigator.Buttons.PriorPage.Visible = False
+        Navigator.Buttons.NextPage.Visible = False
+        Navigator.Buttons.Insert.Visible = False
+        Navigator.Buttons.Delete.Visible = False
+        Navigator.Buttons.Edit.Visible = False
+        Navigator.Buttons.Post.Visible = False
+        Navigator.Buttons.Cancel.Visible = False
+        Navigator.Buttons.Refresh.Visible = False
+        Navigator.Buttons.SaveBookmark.Visible = False
+        Navigator.Buttons.GotoBookmark.Visible = False
+        Navigator.Buttons.Filter.Visible = False
+        Navigator.Visible = True
+        FilterBox.CustomizeDialog = False
+        FilterBox.Position = fpTop
+        DataController.DataSource = SourceAncestral
+        DataController.Summary.DefaultGroupSummaryItems = <
+          item
+            Format = 'R$ ,#0.00'
+            Kind = skSum
+            Position = spFooter
+            FieldName = 'VALOR'
+          end
+          item
+            Format = 'R$ ,#0.00'
+            Kind = skSum
+            Position = spFooter
+            FieldName = 'calc_ValorDevido'
+          end>
+        DataController.Summary.FooterSummaryItems = <>
+        DataController.Summary.SummaryGroups = <>
+        Filtering.MRUItemsListCount = 5
+        Filtering.ColumnPopup.MaxDropDownItemCount = 10
+        OptionsBehavior.ColumnHeaderHints = False
+        OptionsCustomize.ColumnGrouping = False
+        OptionsData.CancelOnExit = False
+        OptionsData.Deleting = False
+        OptionsData.DeletingConfirmation = False
+        OptionsData.Editing = False
+        OptionsData.Inserting = False
+        OptionsSelection.CellSelect = False
+        OptionsView.ColumnAutoWidth = True
+        OptionsView.GridLines = glHorizontal
+        OptionsView.GroupByBox = False
+        OptionsView.GroupRowHeight = 25
+        OptionsView.GroupRowStyle = grsOffice11
+        Preview.Visible = True
+        Styles.StyleSheet = dtmControles.GridTableViewStyleSheetDevExpress
+        object cxGridPesquisaColumn1: TcxGridDBColumn
+          Caption = 'Descri'#231#227'o'
+          DataBinding.FieldName = 'DESCRICAO'
+          Width = 331
+        end
+        object cxGridPesquisaColumn4: TcxGridDBColumn
+          Caption = 'Valor Hora'
+          DataBinding.FieldName = 'SIGLA'
+          PropertiesClassName = 'TcxCurrencyEditProperties'
+          Width = 166
+        end
+        object cxGridPesquisaColumn3: TcxGridDBColumn
+          Caption = 'Ativo'
+          DataBinding.FieldName = 'SITUACAO'
+          RepositoryItem = dtmLookup.Combo_AtivoInativo
+          Width = 156
+        end
+      end
+      object grdBasicaLevel1: TcxGridLevel
+        GridView = cxGridPesquisa
+      end
+    end
+  end
+  inherited ActionList1: TActionList
+    Left = 89
+    Top = 214
+  end
+  inherited DataSetAncestral: TSQLDataSet
+    SchemaName = 'SYSDBA'
+    CommandText = 'SELECT *'#13#10'FROM J_TIPO_DESPESA'#13#10'ORDER BY DESCRICAO'
+    Left = 119
+    Top = 214
+  end
+  inherited ProviderAncestral: TDataSetProvider
+    Left = 151
+    Top = 214
+  end
+  inherited ClientAncestral: TClientDataSet
+    BeforePost = ClientAncestralBeforePost
+    Top = 216
+    object ClientAncestralTIPO_DESPESA_ID: TFMTBCDField
+      FieldName = 'TIPO_DESPESA_ID'
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      Required = True
+      Precision = 20
+      Size = 2
+    end
+    object ClientAncestralDESCRICAO: TStringField
+      FieldName = 'DESCRICAO'
+      Size = 60
+    end
+    object ClientAncestralINTERNO: TStringField
+      FieldName = 'INTERNO'
+      Size = 1
+    end
+    object ClientAncestralPESSOA_ID: TFMTBCDField
+      FieldName = 'PESSOA_ID'
+      Precision = 20
+      Size = 2
+    end
+    object ClientAncestralEXIGE_RESPONSAVEL: TStringField
+      FieldName = 'EXIGE_RESPONSAVEL'
+      Size = 1
+    end
+    object ClientAncestralSITUACAO: TStringField
+      FieldName = 'SITUACAO'
+      Size = 1
+    end
+  end
+  inherited SourceAncestral: TDataSource
+    Left = 215
+    Top = 214
+  end
+end

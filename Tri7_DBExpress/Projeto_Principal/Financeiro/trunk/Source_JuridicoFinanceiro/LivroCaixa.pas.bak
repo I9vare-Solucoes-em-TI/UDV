@@ -1,0 +1,763 @@
+unit LivroCaixa;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, dxSkinsCore, dxSkinCoffee, dxSkinMcSkin, dxSkinOffice2007Silver,
+  cxGraphics, cxLookAndFeelPainters, dxSkinscxPCPainter, Menus, cxStyles,
+  cxCustomData, cxFilter, cxData, cxDataStorage, cxEdit, DB, cxDBData,
+  cxImageComboBox, cxTextEdit, cxCalendar, cxCurrencyEdit, dxSkinsdxBarPainter,
+  dxBar, dxBarExtItems, cxClasses, dxGDIPlusClasses, cxImage, GIFImg, ExtCtrls,
+  cxGridLevel, cxGridCustomTableView, cxGridTableView, cxGridDBTableView,
+  cxControls, cxGridCustomView, cxGrid, cxPC, cxDropDownEdit, StdCtrls,
+  cxButtons, cxGroupBox, cxMaskEdit, cxLookupEdit, cxDBLookupEdit,
+  cxDBLookupComboBox, cxContainer, cxLabel, DBClient, SimpleDS, cxRadioGroup,
+  cxLookAndFeels, dxSkinBlueprint, dxSkinDarkRoom, dxSkinDevExpressStyle,
+  dxSkinFoggy, dxSkinHighContrast, dxSkinOffice2010Black, dxSkinOffice2010Blue,
+  dxSkinOffice2010Silver, dxSkinOffice2013White, dxSkinSeven,
+  dxSkinSevenClassic, dxSkinSharp, dxSkinSharpPlus, dxSkinSpringTime,
+  dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint, cxPCdxBarPopupMenu,
+  ComCtrls, dxCore, cxDateUtils, cxNavigator, ImgList, dxSkinBlack,
+  dxSkinBlue, dxSkinCaramel, dxSkinGlassOceans, dxSkiniMaginary, dxSkinLilian,
+  dxSkinLiquidSky, dxSkinLondonLiquidSky, dxSkinMoneyTwins,
+  dxSkinOffice2007Black, dxSkinOffice2007Blue, dxSkinOffice2007Green,
+  dxSkinOffice2007Pink, dxSkinPumpkin, dxSkinSilver, dxSkinStardust,
+  dxSkinSummer2008, dxSkinsDefaultPainters, dxSkinValentine, dxSkinXmas2008Blue,
+  dxSkinDevExpressDarkStyle, frxClass, frxDBSet, FrameImagem;
+
+type
+
+  TVetMeses = array[1..12,1..2] of string;
+
+  TfrmLivroCaixa = class(TForm)
+    pnlFiltro: TPanel;
+    Panel1: TPanel;
+    PanelBotoesBasicos: TPanel;
+    Panel3: TPanel;
+    Panel4: TPanel;
+    Shape1: TShape;
+    cxLabel1: TcxLabel;
+    lcbConta: TcxLookupComboBox;
+    PanelBotaoFechar: TPanel;
+    gbxSomaItensSelecionados: TcxGroupBox;
+    edtValorSomaSelecionados: TcxCurrencyEdit;
+    pgcFiltro: TcxPageControl;
+    tbcFiltro: TcxTabSheet;
+    pnlDadosFiltro: TPanel;
+    cxLabel4: TcxLabel;
+    Panel2: TPanel;
+    cxBtnIncluir: TcxButton;
+    cxBtnExluir: TcxButton;
+    cxBtnAlterar: TcxButton;
+    cxBtnFechar: TcxButton;
+    tabOpcoes: TcxTabControl;
+    pgcDados: TcxPageControl;
+    cxTabSheet1: TcxTabSheet;
+    tbcPeriodo: TcxTabControl;
+    grdBasica: TcxGrid;
+    cxGridPesquisa: TcxGridDBTableView;
+    cxGridPesquisaColumn1: TcxGridDBColumn;
+    cxGridBasicaDBCodigo: TcxGridDBColumn;
+    cxGridPesquisaImagemVinculada: TcxGridDBColumn;
+    cxGridBasicaDBVinculoOrcamento: TcxGridDBColumn;
+    cxGridBasicaDBTipoConta: TcxGridDBColumn;
+    cxGridBasicaDBFavorecido: TcxGridDBColumn;
+    cxGridPesquisaHistorico: TcxGridDBColumn;
+    cxGridBasicaDBPlanoConta: TcxGridDBColumn;
+    cxGridBasicaDBDataPag: TcxGridDBColumn;
+    cxGridBasicaDBTipo: TcxGridDBColumn;
+    cxGridBasicaDBValorReceita: TcxGridDBColumn;
+    cxGridBasicaDBValorDespesa: TcxGridDBColumn;
+    grdBasicaLevel1: TcxGridLevel;
+    pnlAgrupar: TPanel;
+    Image1: TImage;
+    Image2: TImage;
+    Image7: TImage;
+    lblAgrupar: TcxLabel;
+    lblexcluirItemAgrupado: TcxLabel;
+    lblDesfazerAgrupamento: TcxLabel;
+    pnlOrdenacao: TPanel;
+    imgOrdenarAvancar: TcxImage;
+    imgOrdenarVoltar: TcxImage;
+    cxTabSheet2: TcxTabSheet;
+    dxBarManager1: TdxBarManager;
+    dxBarManager1Bar1: TdxBar;
+    dxBarSubItem1: TdxBarSubItem;
+    dxBarProgressPagar: TdxBarProgressItem;
+    dxBarProgressReceber: TdxBarProgressItem;
+    dxBarProgressSaldo: TdxBarProgressItem;
+    dxBarButton1: TdxBarButton;
+    dxBarSubItem2: TdxBarSubItem;
+    dxBarHistorico: TdxBarButton;
+    dxBarSaldo: TdxBarButton;
+    dxBarPlanoConta: TdxBarButton;
+    dxBarLancamentoMaisUsados: TdxBarButton;
+    dxBarAjusteSaldo: TdxBarButton;
+    dxBarSubItem3: TdxBarSubItem;
+    dxBarCancelado: TdxBarButton;
+    dxBarAtivado: TdxBarButton;
+    dxBarEstornar: TdxBarButton;
+    dxBarCompensado: TdxBarButton;
+    dxBarUsuario: TdxBarButton;
+    dxBarFechaMovimento: TdxBarButton;
+    dxBarDuplicar: TdxBarButton;
+    pnlDadosFiltroPersonalizado: TPanel;
+    sqlLivroCaixa: TSimpleDataSet;
+    dtsLivroCaixa: TDataSource;
+    sqlLivroCaixaLIVRO_CAIXA_ID: TFMTBCDField;
+    sqlLivroCaixaCAIXA_ID: TFMTBCDField;
+    sqlLivroCaixaVALOR: TFMTBCDField;
+    sqlLivroCaixaOPERACAO: TStringField;
+    sqlLivroCaixaPESSOA_ID: TFMTBCDField;
+    sqlLivroCaixaDATA_PAGAMENTO: TSQLTimeStampField;
+    sqlLivroCaixaREFERENCIA: TStringField;
+    sqlLivroCaixaOBSERVACAO: TStringField;
+    sqlLivroCaixaCONTABIL_CONTA_ID: TFMTBCDField;
+    sqlLivroCaixaCENTRO_CUSTO_ID: TFMTBCDField;
+    sqlLivroCaixaESPECIE: TStringField;
+    sqlLivroCaixaDOCUMENTO_DESCRICAO: TStringField;
+    sqlLivroCaixaBALANCETE_GRUPO_ID: TFMTBCDField;
+    sqlLivroCaixaLIVRO_FINANCEIRO_ID: TFMTBCDField;
+    sqlLivroCaixaPROCESSO_ID: TFMTBCDField;
+    sqlLivroCaixacalc_ValorDespesa: TCurrencyField;
+    sqlLivroCaixacalc_ValorReceita: TCurrencyField;
+    sqlLivroCaixacalc_vinculo: TBooleanField;
+    sqlLivroCaixacalc_ImagemVinculada: TStringField;
+    sqlLivroCaixacalc_Agrupado: TBooleanField;
+    dtsCaixa: TDataSource;
+    ClientCaixa: TClientDataSet;
+    rdbPesquisaSimplificada: TcxRadioButton;
+    rdbPesquisaPersonalizada: TcxRadioButton;
+    pnlPesquisaPersonalizada: TPanel;
+    cxLabel6: TcxLabel;
+    cxLabel10: TcxLabel;
+    cxLabel3: TcxLabel;
+    cxLabel7: TcxLabel;
+    edtDataInicial: TcxDateEdit;
+    edtDataFinal: TcxDateEdit;
+    edtHistorico: TcxTextEdit;
+    lcxPesqCompromisso: TcxLookupComboBox;
+    Panel6: TPanel;
+    btnLimpar: TcxButton;
+    btnPesquisar: TcxButton;
+    cbxAgrupar: TcxComboBox;
+    cxLabel9: TcxLabel;
+    icxTipoCredito: TcxImageComboBox;
+    edtBuscaRapida: TcxTextEdit;
+    cxLabel2: TcxLabel;
+    ClientCaixaCAIXA_ID: TIntegerField;
+    ClientCaixaPRINCIPAL: TStringField;
+    ClientCaixaVALOR: TCurrencyField;
+    ClientCaixaPESSOA_ID: TIntegerField;
+    ClientCaixaDESCRICAO: TStringField;
+    sqlLivroCaixaHISTORICO: TStringField;
+    sqlLivroCaixaANO_MES_REGISTRO: TStringField;
+    cxButton3: TcxButton;
+    ImageList1: TImageList;
+    sqlLivroCaixaDATA_VENCIMENTO: TSQLTimeStampField;
+    sqlLivroCaixaPROCESSO_CONTRATO_ITEM_ID: TFMTBCDField;
+    sqlLivroCaixaLIVRO_AGENDAMENTO_ID: TFMTBCDField;
+    sqlLivroCaixaLIVRO_REMUNERACAO_ID: TFMTBCDField;
+    cxGridPesquisaObservacao: TcxGridDBColumn;
+    btnImprimir: TcxButton;
+    frxDBDataSetDemonstrativo: TfrxDBDataset;
+    sqlLivroCaixaCONTABIL_CONTA_DESCRICAO: TStringField;
+    sqlLivroCaixaGRUPO_SECUDARIO: TStringField;
+    sqlLivroCaixaGRUPO_PRINCIPAL: TStringField;
+    frxReport1: TfrxReport;
+    sqlRelatorioDetalhado: TSimpleDataSet;
+    dtsRelatorioDetalhado: TDataSource;
+    sqlRelatorioDetalhadoLIVRO_CAIXA_ID: TFMTBCDField;
+    sqlRelatorioDetalhadoCAIXA_ID: TFMTBCDField;
+    sqlRelatorioDetalhadoVALOR: TFMTBCDField;
+    sqlRelatorioDetalhadoOPERACAO: TStringField;
+    sqlRelatorioDetalhadoPESSOA_ID: TFMTBCDField;
+    sqlRelatorioDetalhadoDATA_PAGAMENTO: TSQLTimeStampField;
+    sqlRelatorioDetalhadoREFERENCIA: TStringField;
+    sqlRelatorioDetalhadoOBSERVACAO: TStringField;
+    sqlRelatorioDetalhadoCONTABIL_CONTA_ID: TFMTBCDField;
+    sqlRelatorioDetalhadoCENTRO_CUSTO_ID: TFMTBCDField;
+    sqlRelatorioDetalhadocalc_ValorDespesa: TCurrencyField;
+    sqlRelatorioDetalhadocalc_ValorReceita: TCurrencyField;
+    sqlRelatorioDetalhadocalc_vinculo: TBooleanField;
+    sqlRelatorioDetalhadocalc_ImagemVinculada: TStringField;
+    sqlRelatorioDetalhadocalc_Agrupado: TBooleanField;
+    sqlRelatorioDetalhadoESPECIE: TStringField;
+    sqlRelatorioDetalhadoDOCUMENTO_DESCRICAO: TStringField;
+    sqlRelatorioDetalhadoBALANCETE_GRUPO_ID: TFMTBCDField;
+    sqlRelatorioDetalhadoLIVRO_FINANCEIRO_ID: TFMTBCDField;
+    sqlRelatorioDetalhadoPROCESSO_ID: TFMTBCDField;
+    sqlRelatorioDetalhadoHISTORICO: TStringField;
+    sqlRelatorioDetalhadoANO_MES_REGISTRO: TStringField;
+    sqlRelatorioDetalhadoDATA_VENCIMENTO: TSQLTimeStampField;
+    sqlRelatorioDetalhadoPROCESSO_CONTRATO_ITEM_ID: TFMTBCDField;
+    sqlRelatorioDetalhadoLIVRO_AGENDAMENTO_ID: TFMTBCDField;
+    sqlRelatorioDetalhadoLIVRO_REMUNERACAO_ID: TFMTBCDField;
+    sqlRelatorioDetalhadoCONTABIL_CONTA_DESCRICAO: TStringField;
+    sqlRelatorioDetalhadoGRUPO_SECUDARIO: TStringField;
+    sqlRelatorioDetalhadoGRUPO_PRINCIPAL: TStringField;
+    sqlRelatorioSimplkificado: TSimpleDataSet;
+    dtsRelatorioSimplificado: TDataSource;
+    sqlRelatorioSimplkificadoVALOR: TFMTBCDField;
+    sqlRelatorioSimplkificadoOPERACAO: TStringField;
+    sqlRelatorioSimplkificadoCONTABIL_CONTA_DESCRICAO: TStringField;
+    sqlRelatorioSimplkificadoGRUPO_SECUDARIO: TStringField;
+    sqlRelatorioSimplkificadoGRUPO_PRINCIPAL: TStringField;
+    sqlRelatorioDetalhadoNOME: TStringField;
+    sqlRelatorioDetalhadoCLIENTE: TStringField;
+    frxDBDataset1: TfrxDBDataset;
+    fmeImagem1: TfmeImagem;
+    cxGridBasicaDBValorMovimento: TcxGridDBColumn;
+    sqlLivroCaixacalc_ValorMovimento: TCurrencyField;
+    cxGridPesquisadbOperacao: TcxGridDBColumn;
+    sqlLivroCaixaCAIXA_TRANSFERENCIA_ID: TFMTBCDField;
+    cxGridPesquisaIR: TcxGridDBColumn;
+    cxGridPesquisaCNJ: TcxGridDBColumn;
+    sqlLivroCaixaIR: TStringField;
+    sqlLivroCaixaCNJ: TStringField;
+    procedure FormCreate(Sender: TObject);
+    procedure FormActivate(Sender: TObject);
+    procedure lcbContaPropertiesEditValueChanged(Sender: TObject);
+    procedure btnLimparClick(Sender: TObject);
+    procedure btnPesquisarClick(Sender: TObject);
+    procedure rdbPesquisaSimplificadaClick(Sender: TObject);
+    procedure rdbPesquisaPersonalizadaClick(Sender: TObject);
+    procedure tbcPeriodoChange(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure cxBtnFecharClick(Sender: TObject);
+    procedure edtBuscaRapidaKeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure sqlLivroCaixaCalcFields(DataSet: TDataSet);
+    procedure cxButton3Click(Sender: TObject);
+    procedure cxBtnExluirClick(Sender: TObject);
+    procedure tabOpcoesChange(Sender: TObject);
+    procedure dxBarEstornarClick(Sender: TObject);
+    procedure sqlLivroCaixaAfterScroll(DataSet: TDataSet);
+    procedure cxBtnAlterarClick(Sender: TObject);
+    procedure cxGridPesquisaDblClick(Sender: TObject);
+    procedure btnImprimirClick(Sender: TObject);
+  private
+    vlCriandoForm,  vgScannerAtivado : Boolean;
+    vlVetMeses   : TVetMeses;
+    vlVetPeriodo : array[1..12] of string;
+    vlArquivoImagem : string;
+    vlSqlPesquisa, vlCondicao : String;
+
+    function LerImagem(Numero: Integer; vpSiglaImg : Char; vpTipoDocumento : String): Boolean;
+    procedure MontarPeriodos;
+    procedure MontarSqlContas;
+    procedure ParametrosRelatorioBalancete;
+  public
+    { Public declarations }
+  end;
+
+var
+  frmLivroCaixa: TfrmLivroCaixa;
+
+implementation
+
+uses Controles, Lookup_Contabil, Rotinas, Lookup,
+  Lookup_Servico, CadastroRapidoalteraLIvroCaixa, VisualizaRelatorios,
+  LookupFinanceiro, CadastroRapidoTransferencia, Cadastro;
+
+{$R *.dfm}
+
+procedure TfrmLivroCaixa.btnImprimirClick(Sender: TObject);
+begin
+  vlSqlPesquisa := vlSqlPesquisa + vlCondicao + ' AND NOT LC.CONTABIL_CONTA_ID IN (134,135) '+
+                                   ' ORDER BY LC.OPERACAO, CG.DESCRICAO, CC.GRUPO, CC.DESCRICAO';
+
+{  vlSqlPesquisa := ' SELECT SUM(LC.VALOR) AS VALOR, '+
+                   '         LC.OPERACAO, '+
+                   '         CC.DESCRICAO AS CONTABIL_CONTA_DESCRICAO, '+
+                   '         CC.GRUPO AS GRUPO_SECUDARIO, '+
+                   '         CG.DESCRICAO AS GRUPO_PRINCIPAL '+
+                   '  FROM J_LIVRO_CAIXA LC '+
+                   '    LEFT OUTER JOIN J_LIVRO_FINANCEIRO LF ON '+
+                   '    LC.LIVRO_FINANCEIRO_ID = LF.LIVRO_FINANCEIRO_ID '+
+                   '    LEFT OUTER JOIN J_CONTABIL_CONTA CC ON '+
+                   '    LC.CONTABIL_CONTA_ID = CC.CONTABIL_CONTA_ID '+
+                   '    LEFT OUTER JOIN J_CONTABIL_GRUPO CG ON '+
+                   '    CC.CONTABIL_GRUPO_ID = CG.CONTABIL_GRUPO_ID ' +
+                   ' WHERE NOT LC.LIVRO_CAIXA_ID IS NULL '+
+                   vlCondicao +
+                   '    AND NOT LC.CONTABIL_CONTA_ID IN (134,135) '+
+                   ' GROUP BY LC.OPERACAO, CG.DESCRICAO, CC.GRUPO, CC.DESCRICAO'+
+                   ' ORDER BY LC.OPERACAO, CG.DESCRICAO, CC.GRUPO, CC.DESCRICAO';}
+
+  sqlRelatorioDetalhado.Active := False;
+  sqlRelatorioDetalhado.DataSet.CommandText := vlSqlPesquisa;
+  sqlRelatorioDetalhado.Active := True;
+
+{  sqlRelatorioSimplkificado.Active := False;
+  sqlRelatorioSimplkificado.DataSet.CommandText := vlSqlPesquisa;
+  sqlRelatorioSimplkificado.Active := True;}
+
+  ExibirRelatorio(frxReport1, '1', ParametrosRelatorioBalancete, True, frxReport1.PrintOptions.Printer)
+end;
+
+procedure TfrmLivroCaixa.btnLimparClick(Sender: TObject);
+var
+  viDataIni, viDataFin : string;
+begin
+  MontarDataInicioFinal(vgDataAtualTipo4, viDataIni, viDataFin, '/');
+  edtDataInicial.EditValue := StrToDate(viDataIni);
+  edtDataFinal.EditValue   := StrToDate(viDataFin);
+  edtHistorico.Clear;
+  edtBuscaRapida.Clear;
+  lcxPesqCompromisso.EditValue := null;
+
+  if not vlCriandoForm then
+  begin
+    icxTipoCredito.EditValue := '0';
+    btnPesquisarClick(Self);
+  end;
+
+end;
+
+procedure TfrmLivroCaixa.btnPesquisarClick(Sender: TObject);
+begin
+  lcbContaPropertiesEditValueChanged(self);
+end;
+
+procedure TfrmLivroCaixa.cxBtnFecharClick(Sender: TObject);
+begin
+  Close;
+end;
+
+procedure TfrmLivroCaixa.cxBtnAlterarClick(Sender: TObject);
+begin
+  vgDadosCadastro.SomentePesquisa := False;
+  if pos('T',sqlLivroCaixaOPERACAO.AsString) = 0 then
+  begin
+    dtmLookup.CadastrarFormRapido('J_LIVRO_CAIXA', 'LIVRO_CAIXA_ID', 0, 0, sqlLivroCaixaLIVRO_CAIXA_ID.AsInteger);
+    ExibirFormulario(TfrmCadastroRapidoAlteraLivroCaixa, frmCadastroRapidoAlteraLivroCaixa, True);
+  end
+  else
+  begin
+    vgDadosCadastro.SomentePesquisa := True;
+    vgDadosLivroCaixa.Novo          := False;
+    vgDadosLivroCaixa.Data                := sqlLivroCaixaDATA_PAGAMENTO.AsString;
+    vgDadosLivroCaixa.Observacao          := sqlLivroCaixaOBSERVACAO.AsString;
+    vgDadosLivroCaixa.ContabilContaID     := sqlLivroCaixaCONTABIL_CONTA_ID.AsInteger;
+    vgDadosLivroCaixa.Historico           := sqlLivroCaixaHISTORICO.AsString;
+    vgDadosLivroCaixa.ValorCompromisso    := sqlLivroCaixaVALOR.AsCurrency;
+    vgDadosLivroCaixa.CaixaTransferenciaId:= sqlLivroCaixaCAIXA_TRANSFERENCIA_ID.AsInteger;
+    CadTransferencia(True);
+  end;
+
+  if vgDadosCadastro.Confirmado then
+  begin
+    sqlLivroCaixa.Refresh;
+    if vgDadosLivroCaixa.Novo then
+      sqlLivroCaixa.Locate('CAIXA_TRANSFERENCIA_ID', vgDadosLivroCaixa.CaixaTransferenciaId, [loCaseInsensitive]);
+  end;
+end;
+
+procedure TfrmLivroCaixa.cxBtnExluirClick(Sender: TObject);
+var
+  viMensagem, viCaixaTransferenciaID, viSql : String;
+begin
+  if sqlLivroCaixaLIVRO_FINANCEIRO_ID.AsInteger > 0 then
+  begin
+    Application.MessageBox(Pchar('Item não pode ser excluído.'+#13+#13+ 'Estorne e/ou Cancele o Item!!!'), 'Atenção', MB_OK + MB_ICONWARNING);
+    exit;
+  end;
+
+  viCaixaTransferenciaID := '';
+  if sqlLivroCaixaCAIXA_TRANSFERENCIA_ID.AsInteger > 0 then
+  begin
+    viCaixaTransferenciaID := sqlLivroCaixaCAIXA_TRANSFERENCIA_ID.AsString;
+    viMensagem := 'Excluir transferência selecionada'
+  end
+  else
+    if pos('A',sqlLivroCaixaOPERACAO.AsString) > 0 then
+         viMensagem := 'Excluir Aporte selecionado'
+    else viMensagem := 'Excluir item selecionado.';
+
+  if Application.MessageBox(Pchar(viMensagem+'. Confirma?'), 'Pergunta', mb_IconQuestion + mb_YesNo) = idNo then
+    exit;
+
+  viSql := ' DELETE FROM J_LIVRO_CAIXA ';
+  if viCaixaTransferenciaID <> '' then
+       viSql := viSql + ' WHERE CAIXA_TRANSFERENCIA_ID = '+viCaixaTransferenciaID
+  else viSql := viSql + ' WHERE LIVRO_CAIXA_ID = '+ sqlLivroCaixaLIVRO_CAIXA_ID.AsString;
+
+  ExecutaSqlAuxiliar(viSql,1);
+  sqlLivroCaixa.Refresh;
+end;
+
+procedure TfrmLivroCaixa.cxButton3Click(Sender: TObject);
+begin
+  MontarPeriodos;
+  btnLimparClick(self);
+  dtmLookupFinanceiro.CarregarSaldoCaixa(ClientCaixa, True);
+  lcbConta.EditValue := 0;
+end;
+
+procedure TfrmLivroCaixa.cxGridPesquisaDblClick(Sender: TObject);
+begin
+  if cxBtnAlterar.Enabled then
+    cxBtnAlterarClick(self);
+end;
+
+procedure TfrmLivroCaixa.dxBarEstornarClick(Sender: TObject);
+var
+  viId, viTipo : Integer;
+  viLivroFinanceiroId : String;
+
+  function VerificarValorPagoSituacao(vpCampo, vpId, vpLivroFinanceiroId, vpCondicao : String; vpMofificarSituacao : Boolean):Currency;
+  var
+    viValorSoma, viValorAgendado : Currency;
+    viSituacao : String;
+  begin
+    viValorSoma := dtmControles.GetFloat(' SELECT SUM(LC.VALOR) '+
+                                         ' FROM J_LIVRO_CAIXA LC '+
+                                         ' LEFT OUTER JOIN J_LIVRO_FINANCEIRO LF ON '+
+                                         '   LC.LIVRO_FINANCEIRO_ID = LF.LIVRO_FINANCEIRO_ID '+
+                                         ' WHERE LF.'+vpCampo +'='+vpId + vpCondicao);
+
+    if vpLivroFinanceiroId <> '' then
+      viValorAgendado := dtmControles.GetFloat(' SELECT VALOR_AGENDADO FROM J_LIVRO_FINANCEIRO '+
+                                           ' WHERE LIVRO_FINANCEIRO_ID = '+vpLivroFinanceiroId);
+    Result := viValorSoma;
+
+    if vpMofificarSituacao then
+    begin
+      if viValorSoma >= viValorAgendado then
+//        viSituacao := '3'
+        viSituacao := '1'
+      else
+        if viValorSoma = 0 then
+             viSituacao := '1'
+        else viSituacao := '2';
+
+      ExecutaSqlAuxiliar(' UPDATE J_LIVRO_FINANCEIRO SET SITUACAO = '+ viSituacao+
+                         ' WHERE LIVRO_FINANCEIRO_ID = '+vpLivroFinanceiroId,1);
+    end;
+  end;
+
+begin
+  if Application.MessageBox(Pchar('Estornar item selecionado. Confirma?'), 'Pergunta', mb_IconQuestion + mb_YesNo) = idNo then
+    exit;
+
+  viTipo := 0 ;
+  if sqlLivroCaixaLIVRO_REMUNERACAO_ID.AsInteger > 0 then
+  begin
+    viTipo := 1;
+    viId   := sqlLivroCaixaLIVRO_REMUNERACAO_ID.AsInteger;
+  end
+  else
+    if sqlLivroCaixaPROCESSO_CONTRATO_ITEM_ID.AsInteger > 0 then
+    begin
+      viTipo := 2;
+      viId   := sqlLivroCaixaPROCESSO_CONTRATO_ITEM_ID.AsInteger;
+    end
+    else
+    begin
+      viTipo := 3;
+      viId   := sqlLivroCaixaLIVRO_AGENDAMENTO_ID.AsInteger;
+    end;
+
+  viLivroFinanceiroId := sqlLivroCaixaLIVRO_FINANCEIRO_ID.AsString;
+  ExecutaSqlAuxiliar('DELETE FROM J_LIVRO_CAIXA WHERE LIVRO_CAIXA_ID = '+sqlLivroCaixaLIVRO_CAIXA_ID.AsString,1);
+//  if viTipo <> 0 then
+//    ExecutaSqlAuxiliar('UPDATE J_LIVRO_FINANCEIRO SET SITUACAO = 1'+
+//                       'WHERE LIVRO_FINANCEIRO_ID = '+viLivroFinanceiroId,1);
+
+
+  case viTipo of
+    1 : begin
+          dtmLookupServico.VerificarConclusaoItemContrato('J_PROCESSO_CONTRATO_ITEM', ' PROCESSO_CONTRATO_ITEM_ID',
+                                   IntToStr(viId),
+                                   ' AND LIVRO_REMUNERACAO_ID IS NULL ',
+                                   sqlLivroCaixa, True);
+          VerificarValorPagoSituacao('PROCESSO_CONTRATO_ITEM_ID', IntToStr(viId), viLivroFinanceiroId, ' AND LF.LIVRO_REMUNERACAO_ID IS NULL', True);
+        end;
+    2 : begin
+          dtmLookupServico.VerificarConclusaoItemContrato('J_LIVRO_REMUNERACAO', 'LIVRO_REMUNERACAO_ID',
+                                          IntToStr(viId),
+                                          ' AND NOT LIVRO_REMUNERACAO_ID IS NULL ',
+                                          sqlLivroCaixa, True);
+          VerificarValorPagoSituacao('LIVRO_REMUNERACAO_ID', IntToStr(viId),viLivroFinanceiroId, '', True);
+        end;
+    3 : begin
+          dtmLookupServico.VerificarConclusaoItemContrato( 'J_LIVRO_AGENDAMENTO', 'LIVRO_AGENDAMENTO_ID',
+                                         IntToStr(viId), '',
+                                         sqlLivroCaixa, True);
+          VerificarValorPagoSituacao('LIVRO_AGENDAMENTO_ID', IntToStr(viId), viLivroFinanceiroId, '', True);
+        end;
+  end;
+  tbcPeriodoChange(self);
+
+end;
+
+procedure TfrmLivroCaixa.edtBuscaRapidaKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  if key = 13 then
+    btnPesquisarClick(Self);
+end;
+
+procedure TfrmLivroCaixa.FormActivate(Sender: TObject);
+begin
+  if not vlCriandoForm then
+    lcbContaPropertiesEditValueChanged(self)
+  else
+  begin
+    MontarPeriodos;
+    btnLimparClick(self);
+    dtmLookupFinanceiro.CarregarSaldoCaixa(ClientCaixa, True);
+    vlCriandoForm := False;
+    lcbConta.EditValue := 0;
+  end;
+  vlCriandoForm := False;
+
+  edtBuscaRapida.SetFocus;
+end;
+
+procedure TfrmLivroCaixa.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  Action := caFree;
+  frmLivroCaixa := nil;
+end;
+
+procedure TfrmLivroCaixa.FormCreate(Sender: TObject);
+begin
+  vgDataAtualTipo4     := dtmControles.DataHoraBanco(4);
+  vgDataAtualTipoDate  := StrToDate(vgDataAtualTipo4);
+
+  pgcDados.HideTabs        := True;
+  tabOpcoes.TabIndex       := 0;
+  pgcDados.ActivePageIndex := 0;
+
+  sqlLivroCaixa.Connection := dtmControles.DB;
+  vlCriandoForm            := True;
+
+  tbcPeriodo.Tabs.Clear;
+  rdbPesquisaSimplificada.Checked := True;
+  rdbPesquisaSimplificadaClick(self);
+
+  vgScannerAtivado := False;
+  fmeImagem1.SetNomeAquivo('C:\Temp\Imagem.tif');
+end;
+
+procedure TfrmLivroCaixa.lcbContaPropertiesEditValueChanged(Sender: TObject);
+begin
+  if vlCriandoForm then
+    exit;
+
+  MontarSqlContas;
+//  CalcularSaldoPagosRecebidos;
+  cxGridPesquisa.DataController.Groups.FullExpand;
+end;
+
+function TfrmLivroCaixa.LerImagem(Numero: Integer; vpSiglaImg: Char;
+  vpTipoDocumento: String): Boolean;
+var
+  viArquivo : string;
+begin
+  if not dtmLookup.VerificarPastaImagem(vpTipoDocumento, Numero) then
+    exit;
+
+  vlArquivoImagem := vgDadosImagem.Pasta + vpSiglaImg +'_' + FormatFloat('000000',Numero)+'#.i9s';
+  fmeImagem1.SetNomeAquivo(vlArquivoImagem);
+end;
+
+procedure TfrmLivroCaixa.MontarPeriodos;
+var
+  viData1, viData2, viMes, viMesMenor : String;
+  i : Integer;
+  viPrimeiraData : TDate;
+begin
+  MontarDataInicioFinal(vgDataAtualTipo4, viData1, viData2, '/');
+
+  ExecutaSqlAuxiliar(' SELECT FIRST 1 DATA_PAGAMENTO '+
+                     ' FROM J_LIVRO_CAIXA '+
+                     ' ORDER BY DATA_PAGAMENTO ',0);
+
+  if dtmControles.sqlAuxiliar.IsEmpty then
+       viPrimeiraData := StrToDate(viData1)
+  else viPrimeiraData := dtmControles.sqlAuxiliar.FieldByName('DATA_PAGAMENTO').AsDateTime;
+
+  tbcPeriodo.Tabs.Clear;
+  for i := 1 to 12 do
+  begin
+    vlVetMeses[i,1] := viData1;
+    vlVetMeses[i,2] := viData2;
+    vlVetPeriodo[i] := copy(viData1 ,7,4)+copy(viData2 ,4,2);
+
+    tbcPeriodo.Tabs.Add(dtmLookupFinanceiro.MesAnoReferencia(viData1));
+    viData1 := DateToStr(StrToDate(viData1)-28);
+    MontarDataInicioFinal(viData1, viData1, viData2, '/');
+
+    viMes      := copy(viData1,7,4)+copy(viData1,4,2);
+    viMesMenor := copy(DatetoStr(viPrimeiraData) ,7,4)+copy(DatetoStr(viPrimeiraData) ,4,2);
+    if viMes < viMesMenor then
+    begin
+      tbcPeriodo.TabIndex := 0;
+      Break;
+    end;
+  end;
+  tbcPeriodo.TabIndex := 0;
+end;
+
+procedure TfrmLivroCaixa.MontarSqlContas;
+var
+  viSql, viCondicao : String;
+begin
+  Screen.Cursor := crHourGlass;
+  visql := ' SELECT LC.*, '+
+           '        LF.PROCESSO_CONTRATO_ITEM_ID, LF.LIVRO_REMUNERACAO_ID, LF.LIVRO_AGENDAMENTO_ID, '+
+           '        CC.DESCRICAO AS CONTABIL_CONTA_DESCRICAO, '+
+           '        CC.GRUPO AS GRUPO_SECUDARIO, '+
+           '        CG.DESCRICAO AS GRUPO_PRINCIPAL,'+
+           '        P.NOME,   '+
+           '        (SELECT FIRST 1 PP.NOME AS CLIENTE FROM  '+
+           '         J_PROCESSO_PARTE PP '+
+           '         WHERE PP.PRINCIPAL = '+QuotedStr('S')+
+           '           AND PP.PROCESSO_ID = LC.PROCESSO_ID) '+
+           '   FROM J_LIVRO_CAIXA LC '+
+           '   LEFT OUTER JOIN J_LIVRO_FINANCEIRO LF ON '+
+           '   LC.LIVRO_FINANCEIRO_ID = LF.LIVRO_FINANCEIRO_ID '+
+           '   LEFT OUTER JOIN J_CONTABIL_CONTA CC ON '+
+           '   LC.CONTABIL_CONTA_ID = CC.CONTABIL_CONTA_ID '+
+           '   LEFT OUTER JOIN J_CONTABIL_GRUPO CG ON '+
+           '   CC.CONTABIL_GRUPO_ID = CG.CONTABIL_GRUPO_ID '+
+           '   LEFT OUTER JOIN J_PESSOA P ON' +
+           '   LC.PESSOA_ID = P.PESSOA_ID '+
+           ' WHERE NOT LC.LIVRO_CAIXA_ID IS NULL ';
+  viCondicao := '';
+
+  if lcbConta.EditValue > 0 then
+    viCondicao := ' AND LC.CAIXA_ID = '+ IntToStr(lcbConta.EditValue);
+
+  if trim(edtHistorico.Text) <> '' then
+    viCondicao := viCondicao + ' AND ((LC.HISTORICO LIKE '+ QuotedStr('%'+edtHistorico.Text+'%')+')'+
+                               '  OR (LC.OBSERVACAO LIKE '+ QuotedStr('%'+edtHistorico.Text+'%') +'))';
+
+  // Por Periodo Personalizado e/ou Periodo ANO/Referencia
+  if pnlDadosFiltroPersonalizado.Visible then
+    viCondicao := viCondicao +  ' AND LC.DATA_PAGAMENTO '+ MontarSqlData(edtDataInicial.Date , edtDataFinal.Date)
+  else
+    if (tbcPeriodo.Tabs.Count > 0) then
+      viCondicao := viCondicao + ' AND ANO_MES_REGISTRO = '+ vlVetPeriodo[tbcPeriodo.TabIndex+1];
+
+  if trim(edtBuscaRapida.Text) <> '' then
+    viCondicao := viCondicao + ' AND ((LC.HISTORICO LIKE '+ QuotedStr('%'+edtBuscaRapida.Text+'%')+')'+
+                     ' OR (P.NOME LIKE '+ QuotedStr('%'+edtBuscaRapida.Text+'%') +')'+
+                     ' OR (LC.OBSERVACAO LIKE '+ QuotedStr('%'+edtBuscaRapida.Text+'%') +'))';
+
+  if icxTipoCredito.EditValue = 1 then
+    viCondicao := viCondicao + ' AND LC.OPERACAO = '+ QuotedStr('R')
+  else
+    if icxTipoCredito.EditValue = 2 then
+      viCondicao := viCondicao + ' AND LC.OPERACAO = '+ QuotedStr('D');
+
+  vlSqlPesquisa := viSql;
+  vlCondicao    := viCondicao;
+  viSql := viSql + viCondicao + ' ORDER BY LC.DATA_PAGAMENTO ';
+
+  sqlLivroCaixa.AfterScroll := nil;
+  sqlLivroCaixa.Active := False;
+  sqlLivroCaixa.DataSet.CommandText := viSql;
+  sqlLivroCaixa.Active := True;
+
+//  dxBarSaldo.Enabled := viCondicao = '';
+{  if (not dxBarSaldo.Enabled) and (cxGridBasicaDBValorSaldo.Visible) then
+    dxBarSaldoClick(self)
+  else
+    if (dxBarSaldo.Enabled) and (not cxGridBasicaDBValorSaldo.Visible) then
+      dxBarSaldoClick(self);}
+
+  sqlLivroCaixa.AfterScroll := sqlLivroCaixaAfterScroll;
+  sqlLivroCaixaAfterScroll(sqlLivroCaixa);
+  Screen.Cursor := crDefault;
+
+end;
+
+procedure TfrmLivroCaixa.ParametrosRelatorioBalancete;
+var
+  viSaldoAtual : currency;
+begin
+  CriarFuncoesRelatorio(frxReport1);
+end;
+
+procedure TfrmLivroCaixa.rdbPesquisaPersonalizadaClick(Sender: TObject);
+begin
+  pnlDadosFiltroPersonalizado.Visible := True;
+  pnlFiltro.Height := 173;
+  edtDataInicial.SetFocus;
+end;
+
+procedure TfrmLivroCaixa.rdbPesquisaSimplificadaClick(Sender: TObject);
+begin
+  pnlDadosFiltroPersonalizado.Visible := False;
+  pnlFiltro.Height := 129;
+//  if not vlCriandoForm then
+//    edtBuscaRapida.SetFocus;
+end;
+
+procedure TfrmLivroCaixa.sqlLivroCaixaAfterScroll(DataSet: TDataSet);
+begin
+  dxBarEstornar.Enabled := (sqlLivroCaixaLIVRO_AGENDAMENTO_ID.AsInteger > 0) or
+                           (sqlLivroCaixaLIVRO_REMUNERACAO_ID.AsInteger > 0) or
+                           (sqlLivroCaixaPROCESSO_CONTRATO_ITEM_ID.AsInteger > 0);
+  cxBtnAlterar.Enabled := not sqlLivroCaixa.IsEmpty;
+end;
+
+procedure TfrmLivroCaixa.sqlLivroCaixaCalcFields(DataSet: TDataSet);
+var
+  viOperacao : String;
+  procedure VerificarexistenciaImagem;
+  begin
+    // Verifica a existencia de imagem digitalizado no registro, ou imagem do grupo.
+    dtmLookup.VerificarPastaImagem('Financeiro', sqlLivroCaixaLIVRO_CAIXA_ID.AsInteger, True);
+
+    vlArquivoImagem := vgDadosImagem.Pasta + 'F_' + FormatFloat('000000',sqlLivroCaixaLIVRO_CAIXA_ID.AsInteger)+'#.i9s';
+    if FileExists(vlArquivoImagem) then
+      sqlLivroCaixacalc_ImagemVinculada.AsString := '1'
+  end;
+
+begin
+
+  viOperacao := sqlLivroCaixaOPERACAO.AsString;
+
+  case viOperacao[1] of
+    'R' : sqlLivroCaixacalc_ValorReceita.AsCurrency := sqlLivroCaixaVALOR.AsCurrency;
+    'D' : sqlLivroCaixacalc_ValorDespesa.AsCurrency := sqlLivroCaixaVALOR.AsCurrency;
+  else
+    sqlLivroCaixacalc_ValorMovimento.AsCurrency := sqlLivroCaixaVALOR.AsCurrency;
+  end;
+
+  VerificarexistenciaImagem;
+end;
+
+procedure TfrmLivroCaixa.tabOpcoesChange(Sender: TObject);
+begin
+  if tabOpcoes.TabIndex = 0 then
+  begin
+    pgcDados.ActivePageIndex := 0;
+    if sqlLivroCaixa.Active then
+      sqlLivroCaixa.Refresh;
+  end
+  else
+  begin
+    if not vgScannerAtivado then
+       fmeImagem1.Ativar;
+    vgScannerAtivado := True;
+    pgcDados.ActivePageIndex := 1;
+    LerImagem(sqlLivroCaixaLIVRO_CAIXA_ID.AsInteger, 'F', 'Financeiro');
+  end;
+end;
+
+procedure TfrmLivroCaixa.tbcPeriodoChange(Sender: TObject);
+begin
+  btnPesquisarClick(self);
+  if not vlCriandoForm then
+    grdBasica.SetFocus;
+//  CalcularSaldoPagosRecebidos;
+end;
+
+end.

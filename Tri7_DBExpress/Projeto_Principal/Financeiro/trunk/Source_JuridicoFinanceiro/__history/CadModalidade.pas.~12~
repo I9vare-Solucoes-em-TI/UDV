@@ -1,0 +1,129 @@
+unit CadModalidade;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, CadBasico, Menus, cxLookAndFeelPainters, FMTBcd, dxSkinsCore,
+  dxSkinBlack, dxSkinBlue, dxSkinCaramel, dxSkinCoffee, dxSkinDarkSide,
+  dxSkinGlassOceans, dxSkiniMaginary, dxSkinLilian, dxSkinLiquidSky,
+  dxSkinLondonLiquidSky, dxSkinMcSkin, dxSkinMoneyTwins, dxSkinOffice2007Black,
+  dxSkinOffice2007Blue, dxSkinOffice2007Green, dxSkinOffice2007Pink,
+  dxSkinOffice2007Silver, dxSkinPumpkin, dxSkinSilver, dxSkinStardust,
+  dxSkinSummer2008, dxSkinsDefaultPainters, dxSkinValentine, dxSkinXmas2008Blue,
+  dxSkinscxPCPainter, cxStyles, cxCustomData, cxGraphics, cxFilter, cxData,
+  cxDataStorage, cxEdit, DB, cxDBData, cxCheckBox, cxDBEdit, cxCurrencyEdit,
+  cxLookupEdit, cxDBLookupEdit, cxDBLookupComboBox, cxTextEdit, cxMaskEdit,
+  cxDropDownEdit, cxImageComboBox, cxContainer, cxLabel, ExtCtrls, cxGridLevel,
+  cxGridCustomTableView, cxGridTableView, cxGridDBTableView, cxClasses,
+  cxControls, cxGridCustomView, cxGrid, cxPC, DBClient, Provider, SqlExpr,
+  ActnList, ComCtrls, StdCtrls, cxButtons, FrameEditorSimples, cxSplitter,
+  cxLookAndFeels, dxSkinBlueprint, dxSkinDarkRoom, dxSkinDevExpressDarkStyle,
+  dxSkinDevExpressStyle, dxSkinFoggy, dxSkinHighContrast, dxSkinOffice2010Black,
+  dxSkinOffice2010Blue, dxSkinOffice2010Silver, dxSkinOffice2013White,
+  dxSkinSeven, dxSkinSevenClassic, dxSkinSharp, dxSkinSharpPlus,
+  dxSkinSpringTime, dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint,
+  cxNavigator, System.Actions;
+
+type
+  TfrmCadModalidade = class(TfrmCadBasico)
+    cxLabel1: TcxLabel;
+    grdBasica: TcxGrid;
+    cxGridPesquisa: TcxGridDBTableView;
+    cxGridPesquisaColumn1: TcxGridDBColumn;
+    grdBasicaLevel1: TcxGridLevel;
+    cxGridPesquisaColumn3: TcxGridDBColumn;
+    cxLabel2: TcxLabel;
+    edtDescricao: TcxDBTextEdit;
+    chbSituacao: TcxDBCheckBox;
+    cxGridPesquisaColumn2: TcxGridDBColumn;
+    ClientAncestralDESCRICAO: TStringField;
+    ClientAncestralSITUACAO: TStringField;
+    icxTipoModalidade: TcxDBImageComboBox;
+    ClientAncestralTIPO_MODALIDADE_ID: TFMTBCDField;
+    ClientAncestralTIPO: TStringField;
+    procedure FormCreate(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure ExecuteIncluirExecute(Sender: TObject);
+    procedure ExecuteAlterarExecute(Sender: TObject);
+    procedure ExecuteGravarExecute(Sender: TObject);
+    procedure ClientAncestralBeforePost(DataSet: TDataSet);
+  private
+
+  public
+    { Public declarations }
+    procedure SetState (AState : TDataSetState);override;
+    procedure LoadData; override;
+  end;
+
+var
+  frmCadModalidade: TfrmCadModalidade;
+
+implementation
+
+uses Rotinas, Lookup, Controles, Lookup_Contabil, LookupFinanceiro;
+
+{$R *.dfm}
+
+procedure TfrmCadModalidade.ClientAncestralBeforePost(DataSet: TDataSet);
+begin
+  inherited;
+  if State in [dsInsert] then
+    ClientAncestral.FieldByName('TIPO_MODALIDADE_ID').AsCurrency := dtmControles.GerarSequencia('J_TIPO_MODALIDADE');
+end;
+
+procedure TfrmCadModalidade.ExecuteAlterarExecute(Sender: TObject);
+begin
+  inherited;
+  edtDescricao.SetFocus;
+end;
+
+procedure TfrmCadModalidade.ExecuteGravarExecute(Sender: TObject);
+begin
+  VerificarPreenchimentoEDT_DB(edtDescricao.text,'Descrição',edtDescricao);
+  VerificarPreenchimentoICX_DB(icxTipoModalidade.text,'Tipo Modalidade',icxTipoModalidade);
+  ClientAncestralDESCRICAO.AsString := MaiusculoMinusculo(ClientAncestralDESCRICAO.AsString);
+  inherited;
+end;
+
+procedure TfrmCadModalidade.ExecuteIncluirExecute(Sender: TObject);
+begin
+  inherited;
+  ClientAncestralSITUACAO.AsString           := 'A';
+  edtDescricao.SetFocus;
+end;
+
+procedure TfrmCadModalidade.FormClose(Sender: TObject;
+  var Action: TCloseAction);
+begin
+  dtmLookupContabil.AtualizarTabelas;
+  inherited;
+  Action           := caFree;
+  frmCadModalidade := nil;
+end;
+
+procedure TfrmCadModalidade.FormCreate(Sender: TObject);
+begin
+  vgNomeTabela    := 'J_MODALIDADE_COMPROMISSO';
+  vgChavePrimaria := 'MODALIDADE_COMPROMISSO_ID';
+  inherited;
+
+  cxGridPesquisa.DataController.Groups.FullExpand;
+end;
+
+procedure TfrmCadModalidade.LoadData;
+begin
+  ClientAncestral.Open;
+  State := dsBrowse;
+  SetState(State);
+end;
+
+procedure TfrmCadModalidade.SetState(AState: TDataSetState);
+begin
+  State := AState;
+  CheckState;
+  grdBasica.Enabled  := State = dsBrowse;
+end;
+
+end.
+

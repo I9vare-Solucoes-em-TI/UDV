@@ -1,0 +1,373 @@
+object dtmLookupServico: TdtmLookupServico
+  OldCreateOrder = False
+  OnCreate = DataModuleCreate
+  Height = 311
+  Width = 623
+  object dtsParcelas: TDataSource
+    DataSet = ClientParcelas
+    Left = 42
+    Top = 106
+  end
+  object ClientParcelas: TClientDataSet
+    PersistDataPacket.Data = {
+      A90000009619E0BD010000001800000004000000000003000000A9000F444154
+      415F56454E43494D454E544F04000600000000000D56414C4F525F5041524345
+      4C41080004000000010007535542545950450200490006004D6F6E6579000853
+      4954554143414F01004900000001000557494454480200020001000543484156
+      450100490000000100055749445448020002000F0001000D44454641554C545F
+      4F524445520200820000000000}
+    Active = True
+    Aggregates = <>
+    FieldDefs = <
+      item
+        Name = 'DATA_VENCIMENTO'
+        DataType = ftDate
+      end
+      item
+        Name = 'VALOR_PARCELA'
+        DataType = ftCurrency
+      end
+      item
+        Name = 'SITUACAO'
+        DataType = ftString
+        Size = 1
+      end
+      item
+        Name = 'CHAVE'
+        DataType = ftString
+        Size = 15
+      end>
+    IndexDefs = <
+      item
+        Name = 'DEFAULT_ORDER'
+      end
+      item
+        Name = 'CHANGEINDEX'
+      end
+      item
+        Name = 'DataVencimento'
+        Fields = 'DATA_VENCIMENTO'
+      end>
+    IndexName = 'DataVencimento'
+    Params = <>
+    StoreDefs = True
+    BeforePost = ClientParcelasBeforePost
+    AfterPost = ClientParcelasAfterPost
+    AfterScroll = ClientParcelasAfterScroll
+    Left = 42
+    Top = 50
+    object ClientParcelasDATA_VENCIMENTO: TDateField
+      FieldName = 'DATA_VENCIMENTO'
+    end
+    object ClientParcelasVALOR_PARCELA: TCurrencyField
+      FieldName = 'VALOR_PARCELA'
+    end
+    object ClientParcelasSITUACAO: TStringField
+      FieldName = 'SITUACAO'
+      Size = 1
+    end
+    object ClientParcelasCHAVE: TStringField
+      FieldName = 'CHAVE'
+      Size = 15
+    end
+  end
+  object sqlLivroAgendamento: TSimpleDataSet
+    Aggregates = <>
+    Connection = dtmControles.DB
+    DataSet.CommandText = 
+      'SELECT *'#13#10'FROM J_LIVRO_AGENDAMENTO'#13#10'WHERE LIVRO_AGENDAMENTO_ID =' +
+      ' :LIVRO_AGENDAMENTO_ID'
+    DataSet.MaxBlobSize = -1
+    DataSet.Params = <
+      item
+        DataType = ftFMTBcd
+        Name = 'LIVRO_AGENDAMENTO_ID'
+        ParamType = ptInput
+      end>
+    Params = <>
+    Left = 144
+    Top = 42
+    object sqlLivroAgendamentoLIVRO_AGENDAMENTO_ID: TFMTBCDField
+      FieldName = 'LIVRO_AGENDAMENTO_ID'
+      Required = True
+      Precision = 20
+      Size = 2
+    end
+    object sqlLivroAgendamentoTIPO: TStringField
+      FieldName = 'TIPO'
+      Size = 1
+    end
+    object sqlLivroAgendamentoDATA_INICIAL: TSQLTimeStampField
+      FieldName = 'DATA_INICIAL'
+    end
+    object sqlLivroAgendamentoDATA_FINAL: TSQLTimeStampField
+      FieldName = 'DATA_FINAL'
+    end
+    object sqlLivroAgendamentoPERIODO: TStringField
+      FieldName = 'PERIODO'
+      Size = 1
+    end
+    object sqlLivroAgendamentoVALOR_PARCELA: TFMTBCDField
+      FieldName = 'VALOR_PARCELA'
+      Precision = 20
+      Size = 3
+    end
+    object sqlLivroAgendamentoQTD: TFMTBCDField
+      FieldName = 'QTD'
+      Precision = 20
+      Size = 2
+    end
+    object sqlLivroAgendamentoVALOR_PROLABORE: TFMTBCDField
+      FieldName = 'VALOR_PROLABORE'
+      Precision = 20
+      Size = 3
+    end
+    object sqlLivroAgendamentoSITUACAO: TStringField
+      FieldName = 'SITUACAO'
+      Size = 1
+    end
+    object sqlLivroAgendamentoESPECIE: TStringField
+      FieldName = 'ESPECIE'
+      Size = 1
+    end
+    object sqlLivroAgendamentoBALANCETE_GRUPO_ID: TFMTBCDField
+      FieldName = 'BALANCETE_GRUPO_ID'
+      Precision = 20
+      Size = 2
+    end
+    object sqlLivroAgendamentoHISTORICO: TStringField
+      FieldName = 'HISTORICO'
+      Size = 90
+    end
+    object sqlLivroAgendamentoOBSERVACAO: TStringField
+      FieldName = 'OBSERVACAO'
+      Size = 260
+    end
+    object sqlLivroAgendamentoPROCESSO_TRAMITE_ID: TFMTBCDField
+      FieldName = 'PROCESSO_TRAMITE_ID'
+      Precision = 20
+      Size = 2
+    end
+    object sqlLivroAgendamentoOPERACAO: TStringField
+      FieldName = 'OPERACAO'
+      Size = 1
+    end
+    object sqlLivroAgendamentoCONTABIL_CONTA_ID: TFMTBCDField
+      FieldName = 'CONTABIL_CONTA_ID'
+      Precision = 20
+      Size = 2
+    end
+    object sqlLivroAgendamentoPESSOA_ID: TFMTBCDField
+      FieldName = 'PESSOA_ID'
+      Precision = 20
+      Size = 2
+    end
+    object sqlLivroAgendamentoDATA_REGISTRO: TSQLTimeStampField
+      FieldName = 'DATA_REGISTRO'
+    end
+    object sqlLivroAgendamentoCENTRO_CUSTO_ID: TFMTBCDField
+      FieldName = 'CENTRO_CUSTO_ID'
+      Precision = 20
+      Size = 2
+    end
+    object sqlLivroAgendamentoIR: TStringField
+      FieldName = 'IR'
+      Size = 1
+    end
+    object sqlLivroAgendamentoCNJ: TStringField
+      FieldName = 'CNJ'
+      Size = 1
+    end
+    object sqlLivroAgendamentoCAIXA_ID: TFMTBCDField
+      FieldName = 'CAIXA_ID'
+      Precision = 15
+      Size = 2
+    end
+    object sqlLivroAgendamentoDOCUMENTO_NUMERO: TStringField
+      FieldName = 'DOCUMENTO_NUMERO'
+      Size = 60
+    end
+    object sqlLivroAgendamentoREGISTRO_PARCIAL: TStringField
+      FieldName = 'REGISTRO_PARCIAL'
+      Size = 1
+    end
+    object sqlLivroAgendamentoORCAMENTO_ID: TFMTBCDField
+      FieldName = 'ORCAMENTO_ID'
+      Precision = 20
+      Size = 2
+    end
+    object sqlLivroAgendamentoPARCELA_INICIAL: TFMTBCDField
+      FieldName = 'PARCELA_INICIAL'
+      Precision = 20
+      Size = 2
+    end
+    object sqlLivroAgendamentoTIPO_MODALIDADE_ID: TFMTBCDField
+      FieldName = 'TIPO_MODALIDADE_ID'
+      Precision = 20
+      Size = 2
+    end
+    object sqlLivroAgendamentoCENTRO_RESERVA_ID: TFMTBCDField
+      FieldName = 'CENTRO_RESERVA_ID'
+      Precision = 20
+      Size = 2
+    end
+  end
+  object dtsLivroAgendamento: TDataSource
+    DataSet = sqlLivroAgendamento
+    Left = 145
+    Top = 106
+  end
+  object sqlFinanceiroAgendamento: TSimpleDataSet
+    Aggregates = <>
+    Connection = dtmControles.DB
+    DataSet.CommandText = 
+      'SELECT *'#13#10'FROM J_LIVRO_FINANCEIRO'#13#10'WHERE LIVRO_AGENDAMENTO_ID = ' +
+      ':LIVRO_AGENDAMENTO_ID'
+    DataSet.MaxBlobSize = -1
+    DataSet.Params = <
+      item
+        DataType = ftFMTBcd
+        Name = 'LIVRO_AGENDAMENTO_ID'
+        ParamType = ptInput
+      end>
+    Params = <>
+    Left = 276
+    Top = 42
+    object sqlFinanceiroAgendamentoLIVRO_FINANCEIRO_ID: TFMTBCDField
+      FieldName = 'LIVRO_FINANCEIRO_ID'
+      Required = True
+      Precision = 20
+      Size = 2
+    end
+    object sqlFinanceiroAgendamentoDATA_VENCIMENTO: TSQLTimeStampField
+      FieldName = 'DATA_VENCIMENTO'
+    end
+    object sqlFinanceiroAgendamentoVALOR_AGENDADO: TFMTBCDField
+      FieldName = 'VALOR_AGENDADO'
+      Precision = 20
+      Size = 3
+    end
+    object sqlFinanceiroAgendamentoSITUACAO: TStringField
+      FieldName = 'SITUACAO'
+      Size = 1
+    end
+    object sqlFinanceiroAgendamentoCONTABIL_CONTA_ID: TFMTBCDField
+      FieldName = 'CONTABIL_CONTA_ID'
+      Precision = 20
+      Size = 2
+    end
+    object sqlFinanceiroAgendamentoCENTRO_CUSTO_ID: TFMTBCDField
+      FieldName = 'CENTRO_CUSTO_ID'
+      Precision = 20
+      Size = 2
+    end
+    object sqlFinanceiroAgendamentoANO_MES_REFERENCIA: TStringField
+      FieldName = 'ANO_MES_REFERENCIA'
+      Size = 10
+    end
+    object sqlFinanceiroAgendamentoBALANCETE_GRUPO_ID: TFMTBCDField
+      FieldName = 'BALANCETE_GRUPO_ID'
+      Precision = 20
+      Size = 2
+    end
+    object sqlFinanceiroAgendamentoESPECIE: TStringField
+      FieldName = 'ESPECIE'
+      Size = 1
+    end
+    object sqlFinanceiroAgendamentoBOLETA_ID: TFMTBCDField
+      FieldName = 'BOLETA_ID'
+      Precision = 20
+      Size = 2
+    end
+    object sqlFinanceiroAgendamentoATUALIZADO: TStringField
+      FieldName = 'ATUALIZADO'
+      Size = 1
+    end
+    object sqlFinanceiroAgendamentoOPERACAO: TStringField
+      FieldName = 'OPERACAO'
+      Size = 1
+    end
+    object sqlFinanceiroAgendamentoPESSOA_ID: TFMTBCDField
+      FieldName = 'PESSOA_ID'
+      Precision = 20
+      Size = 2
+    end
+    object sqlFinanceiroAgendamentoVALOR_DOCUMENTO: TFMTBCDField
+      FieldName = 'VALOR_DOCUMENTO'
+      Precision = 20
+      Size = 3
+    end
+    object sqlFinanceiroAgendamentoHISTORICO: TStringField
+      FieldName = 'HISTORICO'
+      Size = 90
+    end
+    object sqlFinanceiroAgendamentoOBSERVACAO: TStringField
+      FieldName = 'OBSERVACAO'
+      Size = 260
+    end
+    object sqlFinanceiroAgendamentoDATA_OPERACAO: TSQLTimeStampField
+      FieldName = 'DATA_OPERACAO'
+    end
+    object sqlFinanceiroAgendamentoLIVRO_AGENDAMENTO_ID: TFMTBCDField
+      FieldName = 'LIVRO_AGENDAMENTO_ID'
+      Precision = 20
+      Size = 2
+    end
+    object sqlFinanceiroAgendamentoDESCONTO: TFMTBCDField
+      FieldName = 'DESCONTO'
+      Precision = 20
+      Size = 3
+    end
+    object sqlFinanceiroAgendamentoCAIXA_ID: TFMTBCDField
+      FieldName = 'CAIXA_ID'
+      Precision = 15
+      Size = 2
+    end
+    object sqlFinanceiroAgendamentoDOCUMENTO_NUMERO: TStringField
+      FieldName = 'DOCUMENTO_NUMERO'
+      Size = 60
+    end
+    object sqlFinanceiroAgendamentoIR: TStringField
+      FieldName = 'IR'
+      Size = 1
+    end
+    object sqlFinanceiroAgendamentoREGISTRO_PARCIAL: TStringField
+      FieldName = 'REGISTRO_PARCIAL'
+      Size = 1
+    end
+    object sqlFinanceiroAgendamentoORCAMENTO_ID: TFMTBCDField
+      FieldName = 'ORCAMENTO_ID'
+      Precision = 20
+      Size = 2
+    end
+    object sqlFinanceiroAgendamentoPROCESSO_CONTRATO_ITEM_ID: TFMTBCDField
+      FieldName = 'PROCESSO_CONTRATO_ITEM_ID'
+      Precision = 20
+      Size = 2
+    end
+    object sqlFinanceiroAgendamentoPROCESSO_CONTRATO_ID: TFMTBCDField
+      FieldName = 'PROCESSO_CONTRATO_ID'
+      Precision = 20
+      Size = 2
+    end
+    object sqlFinanceiroAgendamentoLIVRO_REMUNERACAO_ID: TFMTBCDField
+      FieldName = 'LIVRO_REMUNERACAO_ID'
+      Precision = 20
+      Size = 2
+    end
+    object sqlFinanceiroAgendamentoFINANCEIRO_REMUNERACAO_ID: TFMTBCDField
+      FieldName = 'FINANCEIRO_REMUNERACAO_ID'
+      Precision = 20
+      Size = 2
+    end
+    object sqlFinanceiroAgendamentoCNJ: TStringField
+      FieldName = 'CNJ'
+      Size = 1
+    end
+  end
+  object dtsFinanceiroAgendamento: TDataSource
+    DataSet = sqlFinanceiroAgendamento
+    Left = 277
+    Top = 106
+  end
+end

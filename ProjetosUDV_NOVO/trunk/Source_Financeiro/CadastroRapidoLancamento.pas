@@ -1,0 +1,901 @@
+unit CadastroRapidoLancamento;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, CadastroAuxSimplificado, dxSkinsCore, dxSkinBlack, dxSkinBlue,
+  dxSkinCaramel, dxSkinCoffee, dxSkinDarkSide, dxSkinGlassOceans,
+  dxSkiniMaginary, dxSkinLilian, dxSkinLiquidSky, dxSkinLondonLiquidSky,
+  dxSkinMcSkin, dxSkinMoneyTwins, dxSkinOffice2007Black, dxSkinOffice2007Blue,
+  dxSkinOffice2007Green, dxSkinOffice2007Pink, dxSkinOffice2007Silver,
+  dxSkinPumpkin, dxSkinSilver, dxSkinStardust, dxSkinSummer2008,
+  dxSkinsDefaultPainters, dxSkinValentine, dxSkinXmas2008Blue, Menus,
+  cxLookAndFeelPainters, FMTBcd, DB, DBClient, Provider, SqlExpr, StdCtrls,
+  cxButtons, ExtCtrls, cxControls, cxContainer, cxEdit, cxLabel, cxCheckBox,
+  cxDBEdit, cxTextEdit, cxGroupBox, cxGraphics, cxLookupEdit, cxDBLookupEdit,
+  cxDBLookupComboBox, cxMaskEdit, cxDropDownEdit, SimpleDS, cxSpinEdit,
+  cxTimeEdit, cxCalendar, cxMemo, cxRichEdit, cxImageComboBox, cxCurrencyEdit,
+  dxSkinscxPCPainter, cxPC, cxStyles, cxCustomData, cxFilter, cxData,
+  cxDataStorage, cxDBData, cxGridLevel, cxGridCustomTableView, cxGridTableView,
+  cxGridDBTableView, cxClasses, cxGridCustomView, cxGrid, ComCtrls, DBCGrids,
+  cxImage, cxRadioGroup, cxLookAndFeels, dxSkinBlueprint, dxSkinDarkRoom,
+  dxSkinDevExpressStyle, dxSkinFoggy, dxSkinHighContrast, dxSkinOffice2010Black,
+  dxSkinOffice2010Blue, dxSkinOffice2010Silver, dxSkinOffice2013White,
+  dxSkinSeven, dxSkinSevenClassic, dxSkinSharp, dxSkinSharpPlus,
+  dxSkinSpringTime, dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint,
+  cxPCdxBarPopupMenu, dxCore, cxDateUtils, dxSkinDevExpressDarkStyle,
+  dxBarBuiltInMenu, DbxDevartInterBase;
+
+type
+  TfrmCadastroRapidoLancamento = class(TfrmCadastroAuxSimplificado)
+    tabBalancete: TcxTabControl;
+    ClientAncestralLIVRO_AGENDAMENTO_ID: TFMTBCDField;
+    ClientAncestralDATA_INICIAL: TSQLTimeStampField;
+    ClientAncestralDATA_FINAL: TSQLTimeStampField;
+    ClientAncestralPERIODO: TStringField;
+    ClientAncestralVALOR_PARCELA: TFMTBCDField;
+    ClientAncestralQTD: TFMTBCDField;
+    ClientAncestralSITUACAO: TStringField;
+    ClientAncestralESPECIE: TStringField;
+    ClientAncestralBALANCETE_GRUPO_ID: TFMTBCDField;
+    ClientAncestralHISTORICO: TStringField;
+    ClientAncestralOBSERVACAO: TStringField;
+    ClientAncestralOPERACAO: TStringField;
+    ClientAncestralCONTABIL_CONTA_ID: TFMTBCDField;
+    ClientAncestralPESSOA_ID: TFMTBCDField;
+    ClientAncestralDATA_REGISTRO: TSQLTimeStampField;
+    ClientAncestralVALOR_PROLABORE: TFMTBCDField;
+    ClientAncestralCENTRO_CUSTO_ID: TFMTBCDField;
+    sqlGrupoContabil: TSimpleDataSet;
+    sqlGrupoContabilDESCRICAO: TStringField;
+    sqlGrupoContabilCONTABIL_GRUPO_ID: TFMTBCDField;
+    sqlGrupoContabilBALANCETE_GRUPO_ID: TFMTBCDField;
+    dtsGrupoContabil: TDataSource;
+    sqlPlanoContas: TSimpleDataSet;
+    sqlPlanoContasCONTABIL_CONTA_ID: TFMTBCDField;
+    sqlPlanoContasDESCRICAO: TStringField;
+    dtsPlanoContas: TDataSource;
+    ClientAncestralIR: TStringField;
+    sqlPlanoContasIR: TStringField;
+    pnlSalvarComo: TPanel;
+    btnSalvarNovo: TcxButton;
+    StatusBar: TStatusBar;
+    pgcDados: TcxPageControl;
+    tabContasFixa: TcxTabSheet;
+    tabOrcamento: TcxTabSheet;
+    cxButton4: TcxButton;
+    ClientAncestralORCAMENTO_ID: TFMTBCDField;
+    lcxOrcamento: TcxLookupComboBox;
+    pnlDadosPrincipais: TPanel;
+    cxLabel5: TcxLabel;
+    cxLabel12: TcxLabel;
+    cxLabel3: TcxLabel;
+    cxButton3: TcxButton;
+    pnlDadosPermitidos: TPanel;
+    cxLabel4: TcxLabel;
+    cxLabel7: TcxLabel;
+    cxLabel15: TcxLabel;
+    edtHistorico: TcxTextEdit;
+    cxButton2: TcxButton;
+    icxDocTipo: TcxImageComboBox;
+    edtDocumentoNumero: TcxTextEdit;
+    edtDetalhe: TcxTextEdit;
+    chxIR: TcxCheckBox;
+    chxRegistroParcial: TcxCheckBox;
+    tabReserva: TcxTabSheet;
+    lcxReserva: TcxLookupComboBox;
+    cxLabel1: TcxLabel;
+    cxLabel2: TcxLabel;
+    lblDataDespesa: TcxLabel;
+    edtDataLancamento: TcxDateEdit;
+    cxLabel8: TcxLabel;
+    icxOperacao: TcxImageComboBox;
+    pgcPessoa: TcxPageControl;
+    tabPessoa: TcxTabSheet;
+    lcxFavorecido: TcxLookupComboBox;
+    cxButton1: TcxButton;
+    btnPessoaAlterar: TcxButton;
+    tabAssociado: TcxTabSheet;
+    lcxAssociado: TcxLookupComboBox;
+    chxFavorecido: TcxCheckBox;
+    lcxGrupoContabil: TcxLookupComboBox;
+    lcxCompromisso: TcxLookupComboBox;
+    cxLabel6: TcxLabel;
+    edtDataVencimento: TcxDateEdit;
+    edtRefAnoMes: TcxMaskEdit;
+    edtDataPagamento: TcxDateEdit;
+    lcxTipoDespesa: TcxLookupComboBox;
+    edtValor: TcxCurrencyEdit;
+    icxEspecie: TcxImageComboBox;
+    lcxConta: TcxLookupComboBox;
+    ClientAncestralTIPO_DESPESA_ID: TFMTBCDField;
+    sqlReservasAtivas: TSimpleDataSet;
+    sqlReservasAtivasDESCRICAO: TStringField;
+    sqlReservasAtivasRESERVA_ID: TFMTBCDField;
+    dtsReservasAtivas: TDataSource;
+    tabCentroCustos: TcxTabSheet;
+    lcxCentroCusto: TcxLookupComboBox;
+    cxButton5: TcxButton;
+    procedure FormActivate(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure FormCreate(Sender: TObject);
+    procedure btnConfirmarClick(Sender: TObject);
+    procedure tabBalanceteChange(Sender: TObject);
+    procedure lcxCompromissoPropertiesEditValueChanged(Sender: TObject);
+    procedure cxButton1Click(Sender: TObject);
+    procedure icxOperacaoPropertiesChange(Sender: TObject);
+    procedure lcxGrupoContabilPropertiesEditValueChanged(Sender: TObject);
+    procedure cxButton2Click(Sender: TObject);
+    procedure cxButton3Click(Sender: TObject);
+    procedure lcxFavorecidoPropertiesEditValueChanged(Sender: TObject);
+    procedure btnSalvarNovoClick(Sender: TObject);
+    procedure cxButton4Click(Sender: TObject);
+    procedure lcxOrcamentoPropertiesChange(Sender: TObject);
+    procedure tabBalanceteChanging(Sender: TObject; var AllowChange: Boolean);
+    procedure icxDocTipoPropertiesEditValueChanged(Sender: TObject);
+    procedure lcxReservaPropertiesChange(Sender: TObject);
+    procedure btnPessoaAlterarClick(Sender: TObject);
+    procedure chxFavorecidoClick(Sender: TObject);
+    procedure pgcPessoaChange(Sender: TObject);
+    procedure lcxCentroCustoPropertiesChange(Sender: TObject);
+    procedure cxButton5Click(Sender: TObject);
+  private
+    vlContratoItemParcela : Boolean;
+    vlOperacaoDefault : String;
+    vlBalcanteceteDefault : integer;
+    procedure HabilitarTabValor(vpOperacao : String);
+    procedure SalvarRegistro(vpSalvarComo : Boolean = False);
+    procedure LimparCampos;
+  public
+    vlCriandoForm, vlAtivandoForm : Boolean;
+    { Public declarations }
+  end;
+
+  function InserirLancamentoAutomaticoLivroCaixa(vpRegistro: string): Boolean;
+
+var
+  frmCadastroRapidoLancamento: TfrmCadastroRapidoLancamento;
+
+implementation
+
+uses
+  Lookup, Controles, Rotinas,
+  Lookup_Contabil, Lookup_Servico, Pessoa, PessoaPreCadastro, RegistroParcial,
+  ValidarPermissaoUsuario, LookupFinanceiro, Cadastro, Previsao;
+
+{$R *.dfm}
+function InserirLancamentoAutomaticoLivroCaixa(vpRegistro: string): Boolean;
+begin
+  try
+
+  except on E: Exception do
+    Result := False;
+  end;
+end;
+
+procedure TfrmCadastroRapidoLancamento.btnConfirmarClick(Sender: TObject);
+begin
+  SalvarRegistro;
+  vgDadosLivroCaixa.Confirmado  := True;
+  vgDadosCadastro.AtualizarSaldo:= True;
+  Close;
+end;
+
+procedure TfrmCadastroRapidoLancamento.btnPessoaAlterarClick(Sender: TObject);
+begin
+  inherited;
+  vgNovoCadastro := False;
+  vgPessoa.Nome  := '';
+  vgPessoa.PessoaId := lcxFavorecido.EditValue;
+  CadPessoa(True);
+end;
+
+procedure TfrmCadastroRapidoLancamento.btnSalvarNovoClick(Sender: TObject);
+begin
+  SalvarRegistro;
+  inherited;
+  vlOperacaoDefault     := icxOperacao.EditValue;
+  vlBalcanteceteDefault := tabBalancete.TabIndex;
+
+  vgDadosLivroCaixa.Confirmado  := True;
+//  vgDadosCadastro.AtualizarSaldo:= True;
+
+  LimparCampos;
+  FormCreate(self);
+  FormActivate(self);
+end;
+
+procedure TfrmCadastroRapidoLancamento.chxFavorecidoClick(Sender: TObject);
+begin
+  inherited;
+  tabPessoa.TabVisible := not chxFavorecido.Checked;
+  if chxFavorecido.Checked then
+    lcxFavorecido.EditValue := Null;
+end;
+
+procedure TfrmCadastroRapidoLancamento.cxButton1Click(Sender: TObject);
+begin
+  inherited;
+  vgPessoa.PessoaTipo        := 'F';
+  vgPessoa.CPF_CNPJ          := '';
+  vgPessoa.Selecionar        := True;
+  vgPessoa.PessoaTipoVinculo := '6:Padrão';
+  vgPessoa.Nome              := '';
+
+  frmPessoaPreCadastro := TfrmPessoaPreCadastro.Create(self);
+  frmPessoaPreCadastro.ShowModal;
+  if vgPessoa.PessoaId = - 1 then
+    exit
+  else
+    if vgPessoa.PessoaId > 0 then
+    begin
+      ClientAncestralPESSOA_ID.AsInteger := vgPessoa.PessoaId;
+      exit;
+    end;
+
+  vgCadastrarFuncao := False;
+  vgNovoCadastro    := True;
+  vgPessoa.PessoaId := 0;
+  CadPessoa(True);
+
+  if vgPessoa.PessoaId > 0 then
+    lcxFavorecido.editValue := vgPessoa.PessoaId;
+end;
+
+procedure TfrmCadastroRapidoLancamento.cxButton2Click(Sender: TObject);
+begin
+  inherited;
+  if lcxCompromisso.Text = '' then
+    exit;
+
+  dtmLookupContabil.GravarHistorico(edtHistorico.Text, IntToStr(lcxCompromisso.EditValue));
+end;
+
+procedure TfrmCadastroRapidoLancamento.cxButton3Click(Sender: TObject);
+begin
+  inherited;
+  if lcxFavorecido.Text = '' then
+    exit;
+
+  if lcxCompromisso.Text = '' then
+       dtmLookupContabil.GravarCompromissoPadrao(IntToStr(lcxFavorecido.EditValue), '')
+  else dtmLookupContabil.GravarCompromissoPadrao(IntToStr(lcxFavorecido.EditValue), IntToStr(lcxCompromisso.EditValue));
+end;
+
+procedure TfrmCadastroRapidoLancamento.cxButton4Click(Sender: TObject);
+begin
+  inherited;
+  lcxOrcamento.EditValue := null;
+end;
+
+procedure TfrmCadastroRapidoLancamento.cxButton5Click(Sender: TObject);
+begin
+  inherited;
+  lcxAssociado.EditValue := null;
+end;
+
+procedure TfrmCadastroRapidoLancamento.FormActivate(Sender: TObject);
+begin
+  inherited;
+  vlAtivandoForm := True;
+  pnlSalvarComo.Visible     := vgDadosLivroCaixa.Novo;
+  pgcDados.ActivePageIndex  := 0;
+
+  if not vgDadosLivroCaixa.Bloqueado then
+  begin
+    if (vgDadosLivroCaixa.Novo)then
+      icxOperacao.SetFocus
+    else
+      if vgDadosLivroCaixa.DuplicarItem then
+        edtValor.SetFocus
+    else
+      if vgDadosLivroCaixa.LivroAgendamentoId > 0 then
+           edtHistorico.SetFocus
+      else
+      begin
+        if pgcPessoa.ActivePage = tabPessoa then
+             lcxFavorecido.SetFocus
+        else lcxAssociado.SetFocus;
+      end;
+  end;
+
+  vlCriandoForm := False;
+  icxOperacaoPropertiesChange(Self);
+
+  lcxGrupoContabil.EditValue  := dtmControles.GetInt(' SELECT CONTABIL_GRUPO_ID FROM T_CONTABIL_CONTA '+
+                                                     ' WHERE CONTABIL_CONTA_ID = '+IntToStr(vgDadosLivroCaixa.ContabilContaID));
+  lcxCompromisso.EditValue    := vgDadosLivroCaixa.ContabilContaID;
+  edtHistorico.EditValue      := vgDadosLivroCaixa.Historico;
+  chxIR.EditValue             := vgDadosLivroCaixa.IR;
+
+  vlAtivandoForm := False;
+end;
+
+procedure TfrmCadastroRapidoLancamento.FormClose(Sender: TObject;
+  var Action: TCloseAction);
+begin
+  inherited;
+  vgDadosCadastro.SomentePesquisa := False;
+  dtmLookupFinanceiro.AbrirFecharTelaBranco(False);
+  vgDadosLivroCaixa.Bloqueado     := False;
+  vgDadosCadastro.AtualizarSaldo  := True;
+  if frmPrevisao <> nil then
+    frmPrevisao.FormActivate(Self);
+
+  Action := caFree;
+  frmCadastroRapidoLancamento := nil;
+end;
+
+procedure TfrmCadastroRapidoLancamento.FormCreate(Sender: TObject);
+var
+  viCaixaId : Integer;
+  procedure VerificarOpcoePermitidas;
+  begin
+    if dtmControles.CodPermissao('ESP_OPCAO_APORTE_RETIRADA') = '000000' then
+         icxOperacao.RepositoryItem := dtmLookupContabil.ComboDespesaReceitaSomente
+    else icxOperacao.RepositoryItem := dtmLookupContabil.ComboDespesaReceitaOutros;
+  end;
+
+  procedure HabilitarRegistroNovo;
+  begin
+    if vlOperacaoDefault = '' then
+      icxOperacao.EditValue := 'D'
+    else
+    begin
+      icxOperacao.EditValue := vlOperacaoDefault;
+      tabBalancete.TabIndex := vlBalcanteceteDefault;
+    end;
+
+    edtDataVencimento.EditValue := dtmControles.DataHoraBanco(3);
+    edtDataLancamento.EditValue := dtmControles.DataHoraBanco(3);
+    edtDataPagamento.Date       := dtmControles.DataHoraBanco(3);
+    edtRefAnoMes.EditValue      := vgDadosLivroCaixa.AnoMesReferencia;
+    lcxCentroCusto.EditValue    := vgCentroCustoPrincipal[tabBalancete.TabIndex];
+
+    edtDocumentoNumero.EditValue:= '';
+    icxEspecie.EditValue        := 'D';
+    lcxConta.EditValue          := viCaixaId;
+    edtDetalhe.EditValue        := '';
+  end;
+
+  procedure HabilitarRegistroAgendado;
+  begin
+    tabBalancete.TabIndex := dtmLookupContabil.SetarBalanceteItem(vgDadosLivroCaixa.BalanceteGrupoId);
+
+    if vgDadosLivroCaixa.Operacao <> 'O' then
+    begin
+      edtDataVencimento.Enabled          := vgDadosLivroCaixa.LivroAgendamentoId = 0;
+      icxOperacao.EditValue              := vgDadosLivroCaixa.Operacao;
+      edtValor.EditValue                 := vgDadosLivroCaixa.ValorCompromisso - vgDadosLivroCaixa.ValorPago;
+      vgDadosLivroCaixa.ValorCompromisso := edtValor.EditValue;
+
+      if vgDadosLivroCaixa.OrcamentoId > 0 then
+        lcxOrcamento.EditValue := vgDadosLivroCaixa.OrcamentoId;
+
+      if vgDadosLivroCaixa.ReservaId > 0 then
+        lcxReserva.EditValue := vgDadosLivroCaixa.ReservaId;
+
+      if vgDadosLivroCaixa.DuplicarItem then
+      begin
+        vgDadosLivroCaixa.LivroCaixaId       := 0;
+        vgDadosLivroCaixa.LivroAgendamentoId := 0;
+        vgDadosLivroCaixa.LivroFinanceiroID  := 0;
+        lblInformaca.Caption                 := 'Duplicando Lançamento';
+      end;
+    end
+    else
+    begin
+      icxOperacao.Enabled    := False;
+      icxOperacao.EditValue  := 'D';
+      lcxOrcamento.EditValue := vgDadosLivroCaixa.LivroAgendamentoId;
+      vgDadosLivroCaixa.LivroAgendamentoId := 0;
+      vgDadosLivroCaixa.LivroFinanceiroID  := 0;
+      edtValor.EditValue                   := 0;
+    end;
+
+    if vgDadosLivroCaixa.AssociadoFavorecido = 'S' then
+      pgcPessoa.ActivePage := tabAssociado;
+
+    if vgDadosLivroCaixa.DuplicarItem then
+    begin
+      edtDataVencimento.EditValue := dtmControles.DataHoraBanco(3);
+      edtDataLancamento.EditValue := dtmControles.DataHoraBanco(3);
+      edtDataPagamento.Date       := dtmControles.DataHoraBanco(3);
+      edtRefAnoMes.EditValue      := vgDadosLivroCaixa.AnoMesReferencia;
+      edtDocumentoNumero.EditValue:= '';
+      edtDetalhe.EditValue        := '';
+    end
+    else
+    begin
+      edtDataVencimento.Date      := StrToDate(TrocaPtoPBarra(vgDadosLivroCaixa.DataVencimento));
+      edtDataLancamento.EditValue := vgDadosLivroCaixa.DataLancamento;
+      edtDataPagamento.EditValue  := vgDadosLivroCaixa.DataPagamento;
+      edtRefAnoMes.EditValue      := vgDadosLivroCaixa.AnoMesReferencia;
+      edtDetalhe.EditValue         := vgDadosLivroCaixa.Observacao;
+      edtDocumentoNumero.EditValue := vgDadosLivroCaixa.DocumentoNumero;
+    end;
+
+    edtRefAnoMes.EditValue      := vgDadosLivroCaixa.AnoMesReferencia;
+    chxFavorecido.Checked       := vgDadosLivroCaixa.AssociadoFavorecido = 'S';
+
+    icxEspecie.EditValue        := vgDadosLivroCaixa.Especie;
+    if vgDadosLivroCaixa.CaixaID <> 0 then
+         lcxConta.EditValue := vgDadosLivroCaixa.CaixaID
+    else lcxConta.EditValue := viCaixaId;
+
+    edtDetalhe.EditValue         := vgDadosLivroCaixa.Observacao;
+
+    if vgDadosLivroCaixa.PessoaId > 0 then
+      lcxFavorecido.EditValue    := vgDadosLivroCaixa.PessoaId;
+
+    if vgDadosLivroCaixa.AssociadoId > 0 then
+      lcxAssociado.EditValue     := vgDadosLivroCaixa.AssociadoId;
+
+    chxRegistroParcial.EditValue := vgDadosLivroCaixa.RegistroParcial;
+    icxDocTipo.EditValue         := vgDadosLivroCaixa.DocTipo;
+    icxOperacao.Enabled          := vgDadosLivroCaixa.LivroCaixaId = 0;
+    chxRegistroParcial.Visible   := vgDadosLivroCaixa.LivroCaixaId = 0;
+    lcxTipoDespesa.EditValue     := vgDadosLivroCaixa.TipoDespesaID;
+    lcxCentroCusto.EditValue     := vgDadosLivroCaixa.CentroCustoId;
+
+    pnlDadosPrincipais.Enabled := (vgDadosLivroCaixa.LivroAgendamentoId = 0) and (not vgDadosLivroCaixa.Bloqueado);
+    pnlDadosPermitidos.Enabled := (not vgDadosLivroCaixa.Bloqueado);
+    pgcDados.Enabled           := (not vgDadosLivroCaixa.Bloqueado);
+    tabBalancete.Enabled       := (not vgDadosLivroCaixa.Bloqueado);
+    btnConfirmar.Enabled       := (not vgDadosLivroCaixa.Bloqueado);
+
+    if (vgDadosLivroCaixa.LivroAgendamentoId > 0) and (vgDadosLivroCaixa.Operacao <> 'O') then
+      pnlDadosPrincipais.Color := $00C4E1E1;
+
+    if vgDadosLivroCaixa.Bloqueado then
+      StatusBar.Panels[0].Text := 'ALTERAÇÃO NÃO PERMITIDA. RECIBO E/OU COMPROVANTE JÁ EMITIDO!!!';
+  end;
+begin
+  dtmLookupFinanceiro.AbrirFecharTelaBranco;
+  vlCriandoForm := True;
+  vgDadosLivroCaixa.Confirmado := False;
+  pgcPessoa.ActivePageIndex    := 0;
+  inherited;
+
+  sqlPlanoContas.Connection    := dtmControles.DB;
+  sqlGrupoContabil.Connection  := dtmControles.DB;
+  sqlReservasAtivas.Connection := dtmControles.DB;
+  VerificarOpcoePermitidas;
+
+  viCaixaId := dtmControles.GetInt(' SELECT CAIXA_ID FROM J_CAIXA WHERE PRINCIPAL = '+QuotedStr('S'));
+
+  dtmLookupContabil.CarregarTabBalancete(tabBalancete);
+  if vgDadosLivroCaixa.Novo then
+       HabilitarRegistroNovo
+  else HabilitarRegistroAgendado;
+ tabBalanceteChange(self);
+end;
+
+procedure TfrmCadastroRapidoLancamento.HabilitarTabValor(vpOperacao : String);
+var
+  viBalancete : Integer;
+  viCaption, viClienteText : String;
+begin
+  viBalancete := vgTabBalancete[tabBalancete.TabIndex];
+
+  viClienteText := 'Cliente (Receber de quem?)';
+
+  case icxOperacao.ItemIndex of
+    0 : begin
+            viCaption := 'de Pagamento';
+            if viBalancete <> 3 then
+              viClienteText := 'Favorecido (Pagar pra quem?)';
+          end;
+    1 : begin
+            viCaption := 'de Entrada';
+          end;
+    2 : begin
+            viCaption     := 'do Aporte';
+            viClienteText := 'Pessoa que fez o Aporte?';
+          end;
+    3 : begin
+            viCaption := 'da Retirada';
+            viClienteText := 'Pessoa que fez a Retirada?';
+          end;
+  end;
+
+  lblDataDespesa.Caption := 'Data '+viCaption;
+  tabPessoa.Caption      := viClienteText;
+end;
+
+procedure TfrmCadastroRapidoLancamento.icxDocTipoPropertiesEditValueChanged(
+  Sender: TObject);
+begin
+  inherited;
+  edtDocumentoNumero.Enabled := icxDocTipo.ItemIndex = 0;
+  if (not icxDocTipo.Enabled) and (ClientAncestral.State in [dsEdit, dsInsert]) then
+   edtDocumentoNumero.EditValue := null;
+end;
+
+procedure TfrmCadastroRapidoLancamento.icxOperacaoPropertiesChange(Sender: TObject);
+begin
+  inherited;
+//icxDocTipo.Enabled         := (icxOperacao.EditValue = 'D') OR (icxOperacao.EditValue = 'AD');
+//edtDocumentoNumero.Enabled := (icxOperacao.EditValue = 'D') OR (icxOperacao.EditValue = 'AD');
+  lcxTipoDespesa.Enabled     := (icxOperacao.EditValue = 'D');
+
+  if vlCriandoForm then
+    exit;
+
+{  if (not icxDocTipo.Enabled) and (ClientAncestral.State in [dsEdit, dsInsert]) then
+  begin
+    icxDocTipo.EditValue := null;
+    edtDocumentoNumero.EditValue := null;
+  end;                               }
+
+  if not lcxTipoDespesa.Enabled then
+    lcxTipoDespesa.EditValue := null;
+
+  tabBalanceteChange(self);
+end;
+
+procedure TfrmCadastroRapidoLancamento.lcxCentroCustoPropertiesChange(
+  Sender: TObject);
+begin
+  inherited;
+  if lcxCentroCusto.Text = '' then
+       tabCentroCustos.Caption := 'Vincular Centro Custo'
+  else tabCentroCustos.Caption := 'Centro Custo '+lcxCentroCusto.Text;
+end;
+
+procedure TfrmCadastroRapidoLancamento.lcxCompromissoPropertiesEditValueChanged(
+  Sender: TObject);
+begin
+  if (lcxCompromisso.Text = '') or vlAtivandoForm then
+    exit;
+
+  edtHistorico.EditValue := dtmLookupContabil.VerificarHistoricoPadrao(lcxCompromisso.Text, IntToStr(lcxCompromisso.EditValue));
+  chxIR.EditValue        := sqlPlanoContasIR.AsString;
+end;
+
+procedure TfrmCadastroRapidoLancamento.lcxFavorecidoPropertiesEditValueChanged(
+  Sender: TObject);
+var
+  viLista : TStringList;
+begin
+  inherited;
+  btnPessoaAlterar.Enabled := lcxFavorecido.EditValue <> null;
+  if lcxFavorecido.Text = '' then
+    exit;
+
+  viLista := dtmControles.GetFields(' SELECT CG.CONTABIL_GRUPO_ID, P.CONTABIL_CONTA_ID '+
+                                   ' FROM J_PESSOA P '+
+                                    '   LEFT OUTER JOIN T_CONTABIL_CONTA CC ON '+
+                                    '   P.CONTABIL_CONTA_ID = CC.CONTABIL_CONTA_ID '+
+                                    '   LEFT OUTER JOIN T_CONTABIL_GRUPO CG ON '+
+                                    '   CC.CONTABIL_GRUPO_ID = CG.CONTABIL_GRUPO_iD '+
+                                    ' WHERE P.PESSOA_ID = '+IntToStr(lcxFavorecido.EditValue));
+  if viLista.Values['CONTABIL_GRUPO_ID'] = '' then
+    exit;
+
+  lcxGrupoContabil.EditValue := viLista.Values['CONTABIL_GRUPO_ID'];
+  lcxCompromisso.EditValue   := viLista.Values['CONTABIL_CONTA_ID'];
+  lcxCompromissoPropertiesEditValueChanged(self)
+end;
+
+procedure TfrmCadastroRapidoLancamento.lcxGrupoContabilPropertiesEditValueChanged(
+  Sender: TObject);
+var
+  viOperacao, viSql : String;
+
+begin
+  inherited;
+  if vlCriandoForm or (lcxGrupoContabil.Text = '') then
+    exit;
+
+  edtHistorico.Text := lcxCompromisso.Text;
+
+  viSql := ' SELECT CC.CONTABIL_CONTA_ID, CC.DESCRICAO, CC.IR '+
+           '   FROM T_CONTABIL_CONTA CC LEFT OUTER JOIN T_CONTABIL_GRUPO CG ON '+
+           '     CC.CONTABIL_GRUPO_ID = CG.CONTABIL_GRUPO_ID '+
+           ' WHERE CC.SITUACAO = '+QuotedStr('A')+
+           '     AND CC.CONTABIL_GRUPO_ID = '+IntToStr(lcxGrupoContabil.EditValue);
+
+  if icxOperacao.EditValue = 'R' then
+    viSql := viSql + ' AND FIXO <> '+QuotedStr('S');
+
+  viSql := viSql + ' ORDER BY CC.DESCRICAO ';
+
+  sqlPlanoContas.Active := False;
+  sqlPlanoContas.DataSet.CommandText := viSql;
+
+  if icxOperacao.Text = '' then
+    exit;
+
+  viOperacao := icxOperacao.editvalue;
+  sqlPlanoContas.Active  := True;
+  lcxCompromisso.Enabled := True;
+
+  if sqlPlanoContas.RecordCount = 1 then
+    lcxCompromisso.EditValue := sqlPlanoContasCONTABIL_CONTA_ID.AsInteger;
+end;
+
+procedure TfrmCadastroRapidoLancamento.lcxOrcamentoPropertiesChange(
+  Sender: TObject);
+begin
+  inherited;
+  if lcxOrcamento.Text = '' then
+       tabOrcamento.Caption := 'Vincular Orçamento'
+  else tabOrcamento.Caption := 'Compromisso Vinculado ao Orçamento '+dtmLookupFinanceiro.sqlOrcamentoHISTORICO.AsString;
+
+  tabOrcamento.Highlighted := lcxOrcamento.Text <> '';
+end;
+
+procedure TfrmCadastroRapidoLancamento.lcxReservaPropertiesChange(
+  Sender: TObject);
+begin
+  inherited;
+  if lcxReserva.Text = '' then
+       tabReserva.Caption := 'Vincular Reserva'
+  else tabReserva.Caption := 'Vinculado a '+lcxReserva.Text;
+
+  tabReserva.Highlighted := lcxReserva.Text <> '';
+end;
+
+procedure TfrmCadastroRapidoLancamento.LimparCampos;
+begin
+  vgDadosLivroCaixa.ContabilContaID := 0;
+  vgDadosLivroCaixa.Historico := '';
+
+  lcxFavorecido.EditValue    := Null;
+  lcxCompromisso.EditValue   := null;
+  lcxGrupoContabil.EditValue := Null;
+  edtHistorico.Clear;
+  edtDocumentoNumero.Clear;
+  edtDetalhe.Clear;
+  edtValor.Clear;
+  edtDataLancamento.Clear;
+  icxEspecie.Clear;
+  lcxConta.EditValue := null;
+  chxIR.Checked := False;
+end;
+
+procedure TfrmCadastroRapidoLancamento.pgcPessoaChange(Sender: TObject);
+begin
+  inherited;
+  if vlCriandoForm then
+    exit;
+
+  if pgcPessoa.ActivePage = tabPessoa then
+       lcxFavorecido.SetFocus
+  else lcxAssociado.SetFocus;
+end;
+
+procedure TfrmCadastroRapidoLancamento.SalvarRegistro(vpSalvarComo: Boolean);
+var
+  viSituacao : String;
+
+  {$REGION 'VALIDAR DADOS'}
+  procedure ValidarDados;
+  begin
+    if not chxFavorecido.Checked then
+         VerificarPreenchimentoLCX_TX(lcxFavorecido.Text, tabPessoa.Caption, lcxFavorecido)
+    else VerificarPreenchimentoLCX_TX(lcxAssociado.Text, 'Associado', lcxAssociado);
+
+    VerificarPreenchimentoLCX_TX(lcxGrupoContabil.Text, 'Grupo do Compromisso', lcxGrupoContabil);
+    VerificarPreenchimentoLCX_TX(lcxCompromisso.Text, 'Compromisso', lcxCompromisso);
+    VerificarPreenchimentoEDT_TX(edtHistorico.Text, 'Histórico', edtHistorico);
+    VerificarPreenchimentoDTA_TX(edtDataVencimento.Text, 'Data de Vencimento', edtDataVencimento);
+    VerificarPreenchimentoDTA_TX(edtDataLancamento.Text, 'Data de Lançamento', edtDataLancamento);
+    VerificarPreenchimentoCUR_TX(edtValor.EditValue, 'Valor', edtValor);
+    if icxDocTipo.Enabled then
+      VerificarPreenchimentoICX_TX(icxDocTipo.Text, 'Doc. Tipo', icxDocTipo);
+
+    if (edtValor.EditValue = null) or (edtValor.Text = '') then
+    begin
+      Application.MessageBox(Pchar('Campo Valor não pode ser vazio!!!'), 'Aviso', MB_OK + MB_DEFBUTTON1 + MB_ICONINFORMATION);
+      edtValor.SetFocus;
+      Abort;
+    end;
+
+    if ((edtDataLancamento.Date + 30) < StrToDate(dtmControles.DataHoraBanco(4))) then
+    begin
+      if Application.MessageBox('Data de Lançamento inferior a 30 dias. Solicitar Permissão?', 'Confirmação', MB_YESNO) = IDNO then
+        Abort;
+
+      if LiberarPermissaoUsuario('ESP_PERMISSAO_DATA')[6] = '0' then
+        Abort;
+    end;
+
+    if (StrToDate(FormatDateTime('DD/MM/YYYY',edtDataPagamento.Date)) > StrToDate(dtmControles.DataHoraBanco(4))) then
+    begin
+      Application.MessageBox(Pchar('Data de Lançamento não pode ser maior que a Data Atual!!!'), 'Aviso', MB_OK + MB_DEFBUTTON1 + MB_ICONINFORMATION);
+      Abort;
+    end;
+
+    dtmLookupContabil.VerificaAnoMesFechado(DateToStr(edtDataPagamento.Date));
+
+    if lcxTipoDespesa.Enabled then
+      VerificarPreenchimentoLCX_TX(lcxTipoDespesa.Text, 'Identificador da Despesa', lcxTipoDespesa);
+
+    pgcDados.ActivePage := tabReserva;
+    VerificarPreenchimentoLCX_TX(lcxReserva.Text, 'Reserva', lcxReserva);
+  end;
+  {$ENDREGION}
+
+  procedure VerificarPermissao;
+  begin
+    if vgLogin <> 'I937' then
+    begin
+      if (DateToStr(edtDataLancamento.Date) <> dtmControles.DataHoraBanco(4))  then
+      begin
+        if Application.MessageBox('Data de Lançamento Diferente da Data Atual. Solicitar Permissão?', 'Confirmação', MB_YESNO) = IDNO then
+          Abort;
+
+        if LiberarPermissaoUsuario('ESP_PERMISSAO_DATA')[6] = '0' then
+          Abort;
+
+      end;
+
+      if ((icxOperacao.EditValue = 'AR') or (icxOperacao.EditValue = 'AD')) and (vgLogin <> 'I937') then
+        if LiberarPermissaoUsuario('ESP_OPCAO_APORTE_RETIRADA')[6] = '0' then
+          Abort;
+    end;
+  end;
+
+  procedure PreparaDadosSalvar;
+  begin
+    vgDadosLivroCaixa.CaixaID           := lcxConta.EditValue;
+    vgDadosLivroCaixa.DataLancamento    := FormatDateTime('DD.MM.YYYY',edtDataLancamento.Date);
+    vgDadosLivroCaixa.DataPagamento     := FormatDateTime('DD.MM.YYYY',edtDataPagamento.Date);
+    vgDadosLivroCaixa.DataVencimento    := FormatDateTime('DD.MM.YYYY',edtDataVencimento.Date);
+    if vgDadosLivroCaixa.Ordem = 0 then
+      vgDadosLivroCaixa.Ordem := dtmControles.GerarSequencia('J_LIVRO_CAIXA_ORDEM');
+
+    if vgDadosLivroCaixa.Novo or vgDadosLivroCaixa.DuplicarItem then
+      vgDadosLivroCaixa.ValorCompromisso:= 0
+    else
+      if vgDadosLivroCaixa.Operacao = 'O' then
+        vgDadosLivroCaixa.ValorCompromisso := edtValor.EditValue;
+
+    if lcxFavorecido.EditValue <> null then
+         vgDadosLivroCaixa.PessoaId := lcxFavorecido.EditValue
+    else vgDadosLivroCaixa.PessoaId := 0;
+
+    if lcxAssociado.EditValue <> null then
+         vgDadosLivroCaixa.AssociadoId := lcxAssociado.EditValue
+    else vgDadosLivroCaixa.AssociadoId := 0;
+
+    vgDadosLivroCaixa.ValorCompromisso  := Arredondamento(maArimeticoSimetrico, vgDadosLivroCaixa.ValorCompromisso, 2);
+    vgDadosLivroCaixa.ValorPago         := Arredondamento(maArimeticoSimetrico, edtValor.EditValue, 2);
+    vgDadosLivroCaixa.Especie           := icxEspecie.EditValue;
+    vgDadosLivroCaixa.Referencia        := edtRefAnoMes.EditValue;
+    vgDadosLivroCaixa.Operacao          := icxOperacao.EditValue;
+    vgDadosLivroCaixa.ContabilContaID   := lcxCompromisso.EditValue;
+    vgDadosLivroCaixa.ContabilGrupoId   := lcxGrupoContabil.EditValue;
+    vgDadosLivroCaixa.CentroCustoId     := lcxCentroCusto.EditValue;
+    vgDadosLivroCaixa.BalanceteGrupoId  := vgTabBalancete[tabBalancete.TabIndex];
+    vgDadosLivroCaixa.Historico         := edtHistorico.EditValue;
+    vgDadosLivroCaixa.AnoMesRegistro    := IntToStr(dtmLookupContabil.PegarAnoMes(vgDadosLivroCaixa.DataPagamento));
+    vgDadosLivroCaixa.Observacao        := edtDetalhe.EditValue;
+    vgDadosLivroCaixa.IR                := chxIR.EditValue;
+    vgDadosLivroCaixa.DocumentoNumero   := edtDocumentoNumero.EditValue;
+    vgDadosLivroCaixa.ReservaId         := lcxReserva.EditValue;
+    vgDadosLivroCaixa.IdentificacaoId      := 0;
+    vgDadosLivroCaixa.IdentificacaoTipo    := '';
+    vgDadosLivroCaixa.CompromissoVencidoId := 0;
+    vgDadosLivroCaixa.DescricaoAgrupador   := '';
+
+    if lcxTipoDespesa.EditValue <> null then
+         vgDadosLivroCaixa.TipoDespesaID := lcxTipoDespesa.EditValue
+    else vgDadosLivroCaixa.TipoDespesaID := 0;
+
+    if chxFavorecido.Checked then
+         vgDadosLivroCaixa.AssociadoFavorecido := 'S'
+    else vgDadosLivroCaixa.AssociadoFavorecido := 'N';
+
+    if icxDocTipo.Enabled then
+         vgDadosLivroCaixa.DocTipo := icxDocTipo.EditValue
+    else vgDadosLivroCaixa.DocTipo := '';
+
+    if lcxOrcamento.Text = '' then
+         vgDadosLivroCaixa.OrcamentoId := 0
+    else vgDadosLivroCaixa.OrcamentoId := lcxOrcamento.EditValue;
+
+    if lcxTipoDespesa.Enabled then
+         vgDadosLivroCaixa.ResponsavelId := dtmControles.GetInt('SELECT PESSOA_ID FROM J_TIPO_DESPESA WHERE TIPO_DESPESA_ID = '+IntToStr(lcxTipoDespesa.EditValue))
+    else vgDadosLivroCaixa.ResponsavelId := 0;
+  end;
+
+begin
+  ValidarDados;
+  viSituacao := '3';
+  VerificarPermissao;
+
+  if chxRegistroParcial.Checked then
+  begin
+    vgDadosCadastro.SomentePesquisa := True;
+    vgDadosLivroCaixa.Novo          := True;
+    vgAgendamentoValorAgendado      := vgDadosLivroCaixa.ValorCompromisso - vgDadosLivroCaixa.ValorPago;
+    vgAgendamentoValorPagar         := Arredondamento(maArimeticoSimetrico, edtValor.EditValue, 2);
+    ExibirFormulario(TfrmCadastroRapidoRegistroParcial, frmCadastroRapidoRegistroParcial, True);
+    if not vgDadosCadastro.Confirmado then
+      Abort;
+    viSituacao := vgAgendamentoSituacaoParcial;
+  end
+  else
+    if Application.MessageBox('Confirma Lançamento no Livro Caixa?',
+        'Confirmação', MB_YESNO) = IDNO then
+      abort;
+
+  try
+    dtmControles.StartTransaction;
+    PreparaDadosSalvar;
+
+    if vgDadosLivroCaixa.LivroCaixaId = 0 then
+    begin
+      dtmLookupContabil.RegistrarRecebimentoFinanceiro;
+      dtmLookupFinanceiro.BaixarEstornar('R', viSituacao, vgDadosLivroCaixa.LivroFinanceiroID, vgDadosLivroCaixa.LIvroAgendamentoId, 0, 0);
+      dtmControles.Commit;
+      if viSituacao = '3' then
+        dtmLookupServico.VerificarAtualizacaoAgendamento;
+    end
+    else
+    begin
+      dtmLookupContabil.RegistrarRecebimentoFinanceiro(0, True);
+      dtmControles.Commit;
+      vgDadosCadastro.Confirmado := True;
+    end
+  except
+    dtmControles.Roolback;
+    ShowMessage('Problemas na Gravação. Tente Novamente!!!');
+    Abort;
+  end;
+end;
+
+procedure TfrmCadastroRapidoLancamento.tabBalanceteChange(Sender: TObject);
+begin
+  inherited;
+
+  sqlGrupoContabil.Active  := False;
+  sqlReservasAtivas.Active := False;
+  if icxOperacao.Text = '' then
+    exit;
+
+  sqlGrupoContabil.DataSet.ParamByName('TIPO').AsString := IntToStr((icxOperacao.ItemIndex+1));
+  sqlGrupoContabil.DataSet.ParamByName('BALANCETE_GRUPO_ID').AsInteger := vgTabBalancete[tabBalancete.TabIndex];
+  sqlGrupoContabil.Active := True;
+
+  sqlReservasAtivas.DataSet.ParamByName('BALANCETE_GRUPO_ID').AsInteger := vgTabBalancete[tabBalancete.TabIndex];
+  sqlReservasAtivas.Active := True;
+
+  dtmLookup.sqlCentroCustoAtivo.Filtered := False;
+  dtmLookup.sqlCentroCustoAtivo.Filter   := 'BALANCETE_GRUPO_ID = ' +IntToStr(vgTabBalancete[tabBalancete.TabIndex]);
+  dtmLookup.sqlCentroCustoAtivo.Filtered := True;
+
+  if not vlAtivandoForm then
+  begin
+    lcxGrupoContabil.EditValue := null;
+    lcxCompromisso.EditValue   := Null;
+    lcxCompromisso.Enabled     := False;
+
+    if vgDadosLivroCaixa.Novo then
+    begin
+      if sqlGrupoContabil.RecordCount = 1 then
+        lcxGrupoContabil.EditValue := sqlGrupoContabilCONTABIL_GRUPO_ID.AsInteger;
+
+      if sqlReservasAtivas.RecordCount = 1 then
+           lcxReserva.EditValue := sqlReservasAtivasRESERVA_ID.AsInteger
+      else lcxReserva.EditValue := null;
+    end;
+  end;
+  HabilitarTabValor(icxOperacao.EditValue);
+end;
+
+procedure TfrmCadastroRapidoLancamento.tabBalanceteChanging(Sender: TObject;
+  var AllowChange: Boolean);
+begin
+  if (not vlCriandoForm) and
+     ((vgDadosLivroCaixa.LivroAgendamentoId > 0) or (vgDadosLivroCaixa.Operacao = 'O')) then
+    abort;
+
+  inherited;
+end;
+
+end.

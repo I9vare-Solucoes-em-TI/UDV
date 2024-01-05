@@ -1,0 +1,1436 @@
+object frmTarefaAgendada: TfrmTarefaAgendada
+  Left = 0
+  Top = 0
+  Hint = 
+    'Todas as tarefas'#13#10'Tarefas que n'#227'o foram realizadas anteriormente' +
+    #13#10'Tarefas de hoje'#13#10'Tarefas a vencer nos pr'#243'ximos 10 dias'#13#10'Tarefa' +
+    's a vencer neste m'#234's'#13#10'Tarefas a vencer nos pr'#243'ximos 3 meses'#13#10'Tar' +
+    'efas a vencer nos pr'#243'ximos 6 meses'#13#10'Tarefas a vencer em um ano'
+  BorderIcons = [biSystemMenu, biMaximize]
+  Caption = 'Tarefas Agendadas'
+  ClientHeight = 458
+  ClientWidth = 920
+  Color = clWhite
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  Position = poMainFormCenter
+  OnClose = FormClose
+  OnCreate = FormCreate
+  OnShow = FormShow
+  PixelsPerInch = 96
+  TextHeight = 13
+  object PnlBottom: TPanel
+    Left = 0
+    Top = 435
+    Width = 920
+    Height = 23
+    Align = alBottom
+    BevelOuter = bvNone
+    TabOrder = 0
+    object LblTarefasCanceladas: TLabel
+      Left = 109
+      Top = 5
+      Width = 56
+      Height = 13
+      Caption = 'Canceladas'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = 4210688
+      Font.Height = -11
+      Font.Name = 'MS Sans Serif'
+      Font.Style = []
+      ParentFont = False
+    end
+    object ShpTarefasCanceladas: TShape
+      Tag = 2
+      Left = 89
+      Top = 3
+      Width = 16
+      Height = 16
+      Hint = 'Valor Errado'
+      Brush.Color = 4605026
+      ParentShowHint = False
+      Pen.Color = 2565687
+      Shape = stRoundSquare
+      ShowHint = True
+    end
+    object ShpTarefasVencer3Dias: TShape
+      Tag = 2
+      Left = 341
+      Top = 3
+      Width = 16
+      Height = 16
+      Hint = 'Valor Errado'
+      Brush.Color = 12016384
+      ParentShowHint = False
+      Pen.Color = 7814144
+      Shape = stRoundSquare
+      ShowHint = True
+    end
+    object LblTarefasVencer3Dias: TLabel
+      Left = 361
+      Top = 6
+      Width = 47
+      Height = 13
+      Caption = 'At'#233' 3 dias'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = 4210688
+      Font.Height = -11
+      Font.Name = 'MS Sans Serif'
+      Font.Style = []
+      ParentFont = False
+    end
+    object ShpTarefasVencer10Dias: TShape
+      Tag = 2
+      Left = 418
+      Top = 3
+      Width = 16
+      Height = 16
+      Hint = 'Valor Errado'
+      Brush.Color = 16721042
+      ParentShowHint = False
+      Pen.Color = 10158158
+      Shape = stRoundSquare
+      ShowHint = True
+    end
+    object LblTarefasVencer10Dias: TLabel
+      Left = 438
+      Top = 6
+      Width = 53
+      Height = 13
+      Caption = 'At'#233' 10 dias'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = 4210688
+      Font.Height = -11
+      Font.Name = 'MS Sans Serif'
+      Font.Style = []
+      ParentFont = False
+    end
+    object ShpTarefasVencemHoje: TShape
+      Tag = 2
+      Left = 249
+      Top = 3
+      Width = 16
+      Height = 16
+      Hint = 'Valor Errado'
+      Brush.Color = 30186
+      ParentShowHint = False
+      Pen.Color = 22446
+      Shape = stRoundSquare
+      ShowHint = True
+    end
+    object LblTarefasVencemHoje: TLabel
+      Left = 269
+      Top = 6
+      Width = 62
+      Height = 13
+      Caption = 'Vencem hoje'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = 4210688
+      Font.Height = -11
+      Font.Name = 'MS Sans Serif'
+      Font.Style = []
+      ParentFont = False
+    end
+    object ShpOutrasTarefas: TShape
+      Tag = 2
+      Left = 501
+      Top = 3
+      Width = 16
+      Height = 16
+      Hint = 'Valor Errado'
+      Brush.Color = 5329233
+      ParentShowHint = False
+      Pen.Color = 2631720
+      Shape = stRoundSquare
+      ShowHint = True
+    end
+    object LblOutrasTarefas: TLabel
+      Left = 521
+      Top = 6
+      Width = 66
+      Height = 13
+      Caption = 'Outras tarefas'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = 4210688
+      Font.Height = -11
+      Font.Name = 'MS Sans Serif'
+      Font.Style = []
+      ParentFont = False
+    end
+    object LblTarefasRealizadas: TLabel
+      Left = 27
+      Top = 5
+      Width = 52
+      Height = 13
+      Caption = 'Realizadas'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = 4210688
+      Font.Height = -11
+      Font.Name = 'MS Sans Serif'
+      Font.Style = []
+      ParentFont = False
+    end
+    object ShpTarefasRealizadas: TShape
+      Tag = 2
+      Left = 7
+      Top = 3
+      Width = 16
+      Height = 16
+      Hint = 'Valor Errado'
+      Brush.Color = 10206230
+      ParentShowHint = False
+      Pen.Color = 6859270
+      Shape = stRoundSquare
+      ShowHint = True
+    end
+    object ShpTarefasVencidas: TShape
+      Tag = 2
+      Left = 175
+      Top = 3
+      Width = 16
+      Height = 16
+      Hint = 'Valor Errado'
+      Brush.Color = 210
+      ParentShowHint = False
+      Pen.Color = 176
+      Shape = stRoundSquare
+      ShowHint = True
+    end
+    object LblTarefasVencidas: TLabel
+      Left = 195
+      Top = 6
+      Width = 44
+      Height = 13
+      Caption = 'Vencidas'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = 4210688
+      Font.Height = -11
+      Font.Name = 'MS Sans Serif'
+      Font.Style = []
+      ParentFont = False
+    end
+  end
+  object pnlClient: TPanel
+    Left = 0
+    Top = 0
+    Width = 920
+    Height = 435
+    Align = alClient
+    BevelOuter = bvNone
+    Color = clWhite
+    ParentBackground = False
+    TabOrder = 1
+    object PnlLembrete: TPanel
+      Left = 0
+      Top = 0
+      Width = 920
+      Height = 435
+      Align = alClient
+      BevelOuter = bvNone
+      Color = clWhite
+      ParentBackground = False
+      TabOrder = 0
+      object tbcLembrete: TcxTabControl
+        Left = 0
+        Top = 0
+        Width = 920
+        Height = 435
+        Align = alClient
+        TabOrder = 0
+        Properties.CustomButtons.Buttons = <>
+        Properties.TabIndex = 2
+        Properties.Tabs.Strings = (
+          'Todas'
+          'Vencidas'
+          'Hoje'
+          '10 dias'
+          '1 m'#234's'
+          '3 meses'
+          '6 meses'
+          '1 ano'
+          'Personalizado')
+        LookAndFeel.Kind = lfUltraFlat
+        LookAndFeel.NativeStyle = False
+        LookAndFeel.SkinName = 'McSkin'
+        OnChange = tbcLembreteChange
+        ClientRectBottom = 431
+        ClientRectLeft = 4
+        ClientRectRight = 916
+        ClientRectTop = 28
+        object grdLembrete: TcxGrid
+          AlignWithMargins = True
+          Left = 4
+          Top = 115
+          Width = 872
+          Height = 316
+          Margins.Left = 0
+          Margins.Right = 0
+          Margins.Bottom = 0
+          Align = alClient
+          PopupMenu = ppmLembrete
+          TabOrder = 0
+          object grdLembreteDBTableView: TcxGridDBTableView
+            Navigator.Buttons.CustomButtons = <>
+            OnCustomDrawCell = grdLembreteDBTableViewCustomDrawCell
+            DataController.DataSource = dtsLembrete
+            DataController.Summary.DefaultGroupSummaryItems = <>
+            DataController.Summary.FooterSummaryItems = <>
+            DataController.Summary.SummaryGroups = <>
+            OptionsData.Deleting = False
+            OptionsData.DeletingConfirmation = False
+            OptionsData.Editing = False
+            OptionsData.Inserting = False
+            OptionsSelection.CellSelect = False
+            OptionsView.CellAutoHeight = True
+            OptionsView.GroupByBox = False
+            OptionsView.HeaderAutoHeight = True
+            Preview.Column = grdLembreteDBTableViewMOTIVO
+            Preview.LeftIndent = 0
+            Preview.RightIndent = 0
+            Preview.Visible = True
+            Styles.Preview = cxStyle2
+            Styles.StyleSheet = GridTableViewStyleSheetLigth
+            object grdLembreteDBTableViewASSUNTO: TcxGridDBColumn
+              Caption = 'Assunto'
+              DataBinding.FieldName = 'ASSUNTO'
+              Width = 173
+            end
+            object grdLembreteDBTableViewMENSAGEM: TcxGridDBColumn
+              Caption = 'Mensagem'
+              DataBinding.FieldName = 'MENSAGEM'
+              Width = 335
+            end
+            object grdLembreteDBTableViewDATA_INICIAL: TcxGridDBColumn
+              Caption = 'Inicio'
+              DataBinding.FieldName = 'DATA_INICIAL'
+              Width = 88
+            end
+            object grdLembreteDBTableViewDATA_FINAL: TcxGridDBColumn
+              Caption = 'Fim'
+              DataBinding.FieldName = 'DATA_FINAL'
+              Width = 80
+            end
+            object grdLembreteDBTableViewSITUACAO: TcxGridDBColumn
+              Caption = 'Situa'#231#227'o'
+              DataBinding.FieldName = 'SITUACAO'
+              RepositoryItem = dtmLookup.Combo_SituacaoTarefa
+              Width = 92
+            end
+            object grdLembreteDBTableViewDATA_HORA_REALIZADO: TcxGridDBColumn
+              Caption = 'Data Realizado'
+              DataBinding.FieldName = 'DATA_HORA_REALIZADO'
+              Width = 75
+            end
+            object grdLembreteDBTableViewMOTIVO: TcxGridDBColumn
+              DataBinding.FieldName = 'MOTIVO'
+            end
+          end
+          object grdLembreteLevel: TcxGridLevel
+            GridView = grdLembreteDBTableView
+          end
+        end
+        object PnlFiltro: TPanel
+          Left = 4
+          Top = 28
+          Width = 912
+          Height = 84
+          Align = alTop
+          BevelOuter = bvNone
+          Color = clWhite
+          ParentBackground = False
+          TabOrder = 1
+          object lblTarefaGrupo: TcxLabel
+            Left = 10
+            Top = 3
+            Caption = 'Grupo'
+            ParentFont = False
+            Style.Font.Charset = DEFAULT_CHARSET
+            Style.Font.Color = clWindow
+            Style.Font.Height = -11
+            Style.Font.Name = 'Tahoma'
+            Style.Font.Style = [fsUnderline]
+            Style.TextColor = 4210688
+            Style.TextStyle = []
+            Style.IsFontAssigned = True
+            Transparent = True
+          end
+          object lcxTarefaGrupo: TcxImageComboBox
+            Left = 10
+            Top = 21
+            ParentFont = False
+            Properties.Items = <>
+            Style.StyleController = dtmControles.cxEsc_EditsNormal
+            TabOrder = 1
+            Width = 193
+          end
+          object BtnLimpar: TcxButton
+            Left = 498
+            Top = 53
+            Width = 106
+            Height = 25
+            Caption = 'Limpar'
+            Colors.Default = clWhite
+            LookAndFeel.Kind = lfUltraFlat
+            LookAndFeel.NativeStyle = False
+            LookAndFeel.SkinName = ''
+            OptionsImage.Glyph.Data = {
+              C6050000424DC605000000000000360400002800000014000000140000000100
+              08000000000090010000B00D0000B00D00000001000000000000000000000101
+              0100020202000303030004040400050505000606060007070700080808000909
+              09000A0A0A000B0B0B000C0C0C000D0D0D000E0E0E000F0F0F00101010001111
+              1100121212001313130014141400151515001616160017171700181818001919
+              19001A1A1A001B1B1B001C1C1C001D1D1D001E1E1E001F1F1F00202020002121
+              2100222222002323230024242400252525002626260027272700282828002929
+              29002A2A2A002B2B2B002C2C2C002D2D2D002E2E2E002F2F2F00303030003131
+              3100323232003333330034343400353535003636360037373700383838003939
+              39003A3A3A003B3B3B003C3C3C003D3D3D003E3E3E003F3F3F00404040004141
+              4100424242004343430044444400454545004646460047474700484848004949
+              49004A4A4A004B4B4B004C4C4C004D4D4D004E4E4E004F4F4F00505050005151
+              5100525252005353530054545400555555005656560057575700585858005959
+              59005A5A5A005B5B5B005C5C5C005D5D5D005E5E5E005F5F5F00606060006161
+              6100626262006363630064646400656565006666660067676700686868006969
+              69006A6A6A006B6B6B006C6C6C006D6D6D006E6E6E006F6F6F00707070007171
+              7100727272007373730074747400757575007676760077777700787878007979
+              79007A7A7A007B7B7B007C7C7C007D7D7D007E7E7E007F7F7F00808080008181
+              8100828282008383830084848400858585008686860087878700888888008989
+              89008A8A8A008B8B8B008C8C8C008D8D8D008E8E8E008F8F8F00909090009191
+              9100929292009393930094949400959595009696960097979700989898009999
+              99009A9A9A009B9B9B009C9C9C009D9D9D009E9E9E009F9F9F00A0A0A000A1A1
+              A100A2A2A200A3A3A300A4A4A400A5A5A500A6A6A600A7A7A700A8A8A800A9A9
+              A900AAAAAA00ABABAB00ACACAC00ADADAD00AEAEAE00AFAFAF00B0B0B000B1B1
+              B100B2B2B200B3B3B300B4B4B400B5B5B500B6B6B600B7B7B700B8B8B800B9B9
+              B900BABABA00BBBBBB00BCBCBC00BDBDBD00BEBEBE00BFBFBF00C0C0C000C1C1
+              C100C2C2C200C3C3C300C4C4C400C5C5C500C6C6C600C7C7C700C8C8C800C9C9
+              C900CACACA00CBCBCB00CCCCCC00CDCDCD00CECECE00CFCFCF00D0D0D000D1D1
+              D100D2D2D200D3D3D300D4D4D400D5D5D500D6D6D600D7D7D700D8D8D800D9D9
+              D900DADADA00DBDBDB00DCDCDC00DDDDDD00DEDEDE00DFDFDF00E0E0E000E1E1
+              E100E2E2E200E3E3E300E4E4E400E5E5E500E6E6E600E7E7E700E8E8E800E9E9
+              E900EAEAEA00EBEBEB00ECECEC00EDEDED00EEEEEE00EFEFEF00F0F0F000F1F1
+              F100F2F2F200F3F3F300F4F4F400F5F5F500F6F6F600F7F7F700F8F8F800F9F9
+              F900FAFAFA00FBFBFB00FCFCFC00FDFDFD00FEFEFE00FFFFFF00FFFFFFFFFFFF
+              FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+              FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+              FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+              FFFFFFFFFCDF9A80808282817F8282C1FFFFFFFFFFFFFFFBD49376696A76776D
+              687679BCFFFFFFFFFFFFFDC78770739D9D63618BAB7770B8FFFFFFFFFFFCC078
+              68687EE2F2A693E3FA8D68B4FFFFFFFFFAB66D5E5E5E628FF8F6F3FCB2655EAF
+              FFFFFFFFBA5950535353524D99FFFFBA585153A9FFFFFFFFF7A650484B4B507B
+              F6F3EDFA9F534BA5FFFFFFFFFFFAB1473D425FDCF09F8DDFF87142A1FFFFFFFF
+              FFFFFCB5483443868E4540769A49399CFFFFFFFFFFFFFFFBBD482C3637303034
+              39303098FFFFFFFFFFFFFFFFFFD05E3B3B3B3B3B3B3B3B9DFFFFFFFFFFFFFFFF
+              FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+              FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+              FFFFFFFFFFFFFFFFFFFF}
+            TabOrder = 2
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'Tahoma'
+            Font.Style = []
+            ParentFont = False
+            OnClick = BtnLimparClick
+          end
+          object LblSituacao: TcxLabel
+            Left = 209
+            Top = 3
+            Caption = 'Situa'#231#227'o'
+            ParentFont = False
+            Style.Font.Charset = DEFAULT_CHARSET
+            Style.Font.Color = clWindow
+            Style.Font.Height = -11
+            Style.Font.Name = 'Tahoma'
+            Style.Font.Style = [fsUnderline]
+            Style.TextColor = 4210688
+            Style.TextStyle = []
+            Style.IsFontAssigned = True
+            Transparent = True
+          end
+          object LcbSituacao: TcxComboBox
+            Left = 207
+            Top = 21
+            ParentFont = False
+            Properties.DropDownListStyle = lsFixedList
+            Properties.Items.Strings = (
+              'Todos'
+              'Aguardando'
+              'Realizado'
+              'Cancelado')
+            Style.StyleController = dtmControles.cxEsc_EditsNormal
+            TabOrder = 4
+            Text = 'Aguardando'
+            Width = 108
+          end
+          object BtnPesquisar: TcxButton
+            Left = 498
+            Top = 21
+            Width = 106
+            Height = 25
+            Caption = 'Pesquisar'
+            Colors.Default = clWhite
+            LookAndFeel.Kind = lfUltraFlat
+            LookAndFeel.NativeStyle = False
+            LookAndFeel.SkinName = ''
+            OptionsImage.Glyph.Data = {
+              C6050000424DC605000000000000360400002800000014000000140000000100
+              08000000000090010000130B0000130B00000001000000000000000000000101
+              0100020202000303030004040400050505000606060007070700080808000909
+              09000A0A0A000B0B0B000C0C0C000D0D0D000E0E0E000F0F0F00101010001111
+              1100121212001313130014141400151515001616160017171700181818001919
+              19001A1A1A001B1B1B001C1C1C001D1D1D001E1E1E001F1F1F00202020002121
+              2100222222002323230024242400252525002626260027272700282828002929
+              29002A2A2A002B2B2B002C2C2C002D2D2D002E2E2E002F2F2F00303030003131
+              3100323232003333330034343400353535003636360037373700383838003939
+              39003A3A3A003B3B3B003C3C3C003D3D3D003E3E3E003F3F3F00404040004141
+              4100424242004343430044444400454545004646460047474700484848004949
+              49004A4A4A004B4B4B004C4C4C004D4D4D004E4E4E004F4F4F00505050005151
+              5100525252005353530054545400555555005656560057575700585858005959
+              59005A5A5A005B5B5B005C5C5C005D5D5D005E5E5E005F5F5F00606060006161
+              6100626262006363630064646400656565006666660067676700686868006969
+              69006A6A6A006B6B6B006C6C6C006D6D6D006E6E6E006F6F6F00707070007171
+              7100727272007373730074747400757575007676760077777700787878007979
+              79007A7A7A007B7B7B007C7C7C007D7D7D007E7E7E007F7F7F00808080008181
+              8100828282008383830084848400858585008686860087878700888888008989
+              89008A8A8A008B8B8B008C8C8C008D8D8D008E8E8E008F8F8F00909090009191
+              9100929292009393930094949400959595009696960097979700989898009999
+              99009A9A9A009B9B9B009C9C9C009D9D9D009E9E9E009F9F9F00A0A0A000A1A1
+              A100A2A2A200A3A3A300A4A4A400A5A5A500A6A6A600A7A7A700A8A8A800A9A9
+              A900AAAAAA00ABABAB00ACACAC00ADADAD00AEAEAE00AFAFAF00B0B0B000B1B1
+              B100B2B2B200B3B3B300B4B4B400B5B5B500B6B6B600B7B7B700B8B8B800B9B9
+              B900BABABA00BBBBBB00BCBCBC00BDBDBD00BEBEBE00BFBFBF00C0C0C000C1C1
+              C100C2C2C200C3C3C300C4C4C400C5C5C500C6C6C600C7C7C700C8C8C800C9C9
+              C900CACACA00CBCBCB00CCCCCC00CDCDCD00CECECE00CFCFCF00D0D0D000D1D1
+              D100D2D2D200D3D3D300D4D4D400D5D5D500D6D6D600D7D7D700D8D8D800D9D9
+              D900DADADA00DBDBDB00DCDCDC00DDDDDD00DEDEDE00DFDFDF00E0E0E000E1E1
+              E100E2E2E200E3E3E300E4E4E400E5E5E500E6E6E600E7E7E700E8E8E800E9E9
+              E900EAEAEA00EBEBEB00ECECEC00EDEDED00EEEEEE00EFEFEF00F0F0F000F1F1
+              F100F2F2F200F3F3F300F4F4F400F5F5F500F6F6F600F7F7F700F8F8F800F9F9
+              F900FAFAFA00FBFBFB00FCFCFC00FDFDFD00FEFEFE00FFFFFF00FFFFFFFFFFFF
+              FFFFFFFFFFFFFFFFFFF8E2F5FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFCA3379E
+              F5FFFFFFFFFFFFFFFFFFFFFFFFFFFFFBAC20022C9EF5FFFFFFFFFFFFFFFFFFFF
+              FFFFFCAA2900000146E6FFFFFFFFFFFFFFFFFFFFFFFCAC290200002FB7FAFFFF
+              FFFFFFFFFFFFFFFFF7A31E00000338C1FFFFFFFFFFFFFFEAE0E0E7F1A6210000
+              0038BEFFFFFFFFFFFFEFAE5F51515B761F0000002CC2FFFFFFFFFFFFEB7E2139
+              7175511100000030B7FFFFFFFFFFFFF68E1672E3F1F2E9AF150130B9FBFFFFFF
+              FFFFFEC83571F0FFFFFFFFFFB41382F8FFFFFFFFFFFFFA9D2DC0FEFFFFFFFFFF
+              E9535DE6FFFFFFFFFFFFF78B3FD4FFFFFFFFFFFFF27651E0FFFFFFFFFFFFF88E
+              39D0FFFFFFFFFFFFF17252E0FFFFFFFFFFFFFCA927AEFDFFFFFFFFFFE23864EB
+              FFFFFFFFFFFFFFDF543ECEFDFFFFFEF07222AEFEFFFFFFFFFFFFFFFDB6343FAC
+              D1D2BD6F147EF0FFFFFFFFFFFFFFFFFFF8B553233B3D2A378BECFFFFFFFFFFFF
+              FFFFFFFFFFFCDEA88F8C9BCAF5FFFFFFFFFFFFFFFFFFFFFFFFFFFFFBF8F8FAFE
+              FFFFFFFFFFFFFFFFFFFF}
+            TabOrder = 5
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'Tahoma'
+            Font.Style = []
+            ParentFont = False
+            OnClick = BtnPesquisarClick
+          end
+          object LblAssunto: TcxLabel
+            Left = 10
+            Top = 42
+            Caption = 'Assunto'
+            ParentFont = False
+            Style.Font.Charset = DEFAULT_CHARSET
+            Style.Font.Color = clWindow
+            Style.Font.Height = -11
+            Style.Font.Name = 'Tahoma'
+            Style.Font.Style = [fsUnderline]
+            Style.TextColor = 4210688
+            Style.TextStyle = []
+            Style.IsFontAssigned = True
+            Transparent = True
+          end
+          object EdtAssunto: TcxTextEdit
+            Left = 10
+            Top = 59
+            ParentFont = False
+            Style.StyleController = dtmControles.cxEsc_EditsNormal
+            TabOrder = 7
+            Width = 307
+          end
+          object gpxPeriodo: TcxGroupBox
+            Left = 321
+            Top = 15
+            Caption = ' Per'#237'odo '
+            ParentFont = False
+            Style.StyleController = dtmControles.cxEditStyleGroup
+            TabOrder = 8
+            Height = 64
+            Width = 173
+            object DteDataInicial: TcxDateEdit
+              Left = 5
+              Top = 38
+              EditValue = 43466d
+              ParentFont = False
+              Properties.DateButtons = []
+              Properties.InputKind = ikMask
+              Properties.SaveTime = False
+              Properties.ShowTime = False
+              Style.StyleController = dtmControles.cxEsc_EditsNormal
+              TabOrder = 0
+              Width = 80
+            end
+            object DteDataFinal: TcxDateEdit
+              Left = 88
+              Top = 38
+              EditValue = 43466d
+              ParentFont = False
+              Properties.DateButtons = []
+              Properties.InputKind = ikMask
+              Properties.SaveTime = False
+              Properties.ShowTime = False
+              Style.StyleController = dtmControles.cxEsc_EditsNormal
+              TabOrder = 1
+              Width = 80
+            end
+            object RbtAgendado: TcxRadioButton
+              Left = 7
+              Top = 15
+              Width = 76
+              Height = 17
+              Caption = 'Agendado'
+              Checked = True
+              Color = clWhite
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = 4210688
+              Font.Height = -11
+              Font.Name = 'MS Sans Serif'
+              Font.Style = []
+              ParentColor = False
+              ParentFont = False
+              TabOrder = 2
+              TabStop = True
+              ParentBackground = False
+            end
+            object RbtRealizado: TcxRadioButton
+              Left = 89
+              Top = 15
+              Width = 76
+              Height = 17
+              Caption = 'Realizado'
+              Color = clWhite
+              Font.Charset = DEFAULT_CHARSET
+              Font.Color = 4210688
+              Font.Height = -11
+              Font.Name = 'MS Sans Serif'
+              Font.Style = []
+              ParentColor = False
+              ParentFont = False
+              TabOrder = 3
+              ParentBackground = False
+            end
+          end
+        end
+        object pnlAcoesMotivo: TPanel
+          Left = 876
+          Top = 112
+          Width = 40
+          Height = 319
+          Align = alRight
+          BevelOuter = bvNone
+          Color = clWhite
+          ParentBackground = False
+          TabOrder = 2
+          object btnIncluirTarefa: TcxButton
+            Left = 4
+            Top = 7
+            Width = 32
+            Height = 25
+            Hint = 'Incluir Tarefa'
+            Colors.Default = clWhite
+            LookAndFeel.Kind = lfUltraFlat
+            OptionsImage.Glyph.Data = {
+              C6050000424DC605000000000000360400002800000014000000140000000100
+              0800000000009001000000000000000000000001000000000000000000000101
+              0100020202000303030004040400050505000606060007070700080808000909
+              09000A0A0A000B0B0B000C0C0C000D0D0D000E0E0E000F0F0F00101010001111
+              1100121212001313130014141400151515001616160017171700181818001919
+              19001A1A1A001B1B1B001C1C1C001D1D1D001E1E1E001F1F1F00202020002121
+              2100222222002323230024242400252525002626260027272700282828002929
+              29002A2A2A002B2B2B002C2C2C002D2D2D002E2E2E002F2F2F00303030003131
+              3100323232003333330034343400353535003636360037373700383838003939
+              39003A3A3A003B3B3B003C3C3C003D3D3D003E3E3E003F3F3F00404040004141
+              4100424242004343430044444400454545004646460047474700484848004949
+              49004A4A4A004B4B4B004C4C4C004D4D4D004E4E4E004F4F4F00505050005151
+              5100525252005353530054545400555555005656560057575700585858005959
+              59005A5A5A005B5B5B005C5C5C005D5D5D005E5E5E005F5F5F00606060006161
+              6100626262006363630064646400656565006666660067676700686868006969
+              69006A6A6A006B6B6B006C6C6C006D6D6D006E6E6E006F6F6F00707070007171
+              7100727272007373730074747400757575007676760077777700787878007979
+              79007A7A7A007B7B7B007C7C7C007D7D7D007E7E7E007F7F7F00808080008181
+              8100828282008383830084848400858585008686860087878700888888008989
+              89008A8A8A008B8B8B008C8C8C008D8D8D008E8E8E008F8F8F00909090009191
+              9100929292009393930094949400959595009696960097979700989898009999
+              99009A9A9A009B9B9B009C9C9C009D9D9D009E9E9E009F9F9F00A0A0A000A1A1
+              A100A2A2A200A3A3A300A4A4A400A5A5A500A6A6A600A7A7A700A8A8A800A9A9
+              A900AAAAAA00ABABAB00ACACAC00ADADAD00AEAEAE00AFAFAF00B0B0B000B1B1
+              B100B2B2B200B3B3B300B4B4B400B5B5B500B6B6B600B7B7B700B8B8B800B9B9
+              B900BABABA00BBBBBB00BCBCBC00BDBDBD00BEBEBE00BFBFBF00C0C0C000C1C1
+              C100C2C2C200C3C3C300C4C4C400C5C5C500C6C6C600C7C7C700C8C8C800C9C9
+              C900CACACA00CBCBCB00CCCCCC00CDCDCD00CECECE00CFCFCF00D0D0D000D1D1
+              D100D2D2D200D3D3D300D4D4D400D5D5D500D6D6D600D7D7D700D8D8D800D9D9
+              D900DADADA00DBDBDB00DCDCDC00DDDDDD00DEDEDE00DFDFDF00E0E0E000E1E1
+              E100E2E2E200E3E3E300E4E4E400E5E5E500E6E6E600E7E7E700E8E8E800E9E9
+              E900EAEAEA00EBEBEB00ECECEC00EDEDED00EEEEEE00EFEFEF00F0F0F000F1F1
+              F100F2F2F200F3F3F300F4F4F400F5F5F500F6F6F600F7F7F700F8F8F800F9F9
+              F900FAFAFA00FBFBFB00FCFCFC00FDFDFD00FEFEFE00FFFFFF00FFFFFFFFFFFF
+              FFF5DCD4D4D4E0F8FFFFFFFFFFFFFFFFFFFFFFFFFFC42E00000045D8FFFFFFFF
+              FFFFFFFFFFFFFFFFFFC42E00000045D8FFFFFFFFFFFFFFFFFFFFFFFFFFC42E00
+              000045D8FFFFFFFFFFFFFFFFFFFFFFFFFFC42E00000045D8FFFFFFFFFFFFFFFF
+              FFFFFFFFFFC62F00000047D9FFFFFFFFFFFFFFF2D8D8D8D8D8AB2A00000040BA
+              D8D8D8D8D8F9FFC14545454545350C000000133A4545454545E0FFAA00000000
+              00000000000000000000000000D5FFAA00000000000000000000000000000000
+              00D5FFAA0000000000000000000000000000000000D5FFB92E2E2E2E2E230800
+              00000D272E2E2E2E2EDDFFECC5C5C5C5C59B2600000039A9C5C5C5C5C5F5FFFF
+              FFFFFFFFFFC73000000048DAFFFFFFFFFFFFFFFFFFFFFFFFFFC42E00000045D8
+              FFFFFFFFFFFFFFFFFFFFFFFFFFC42E00000045D8FFFFFFFFFFFFFFFFFFFFFFFF
+              FFC42E00000045D8FFFFFFFFFFFFFFFFFFFFFFFFFFC42E00000045D8FFFFFFFF
+              FFFFFFFFFFFFFFFFFFEBB9AAAAAAC1F2FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+              FFFFFFFFFFFFFFFFFFFF}
+            ParentShowHint = False
+            ShowHint = True
+            TabOrder = 0
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'MS Sans Serif'
+            Font.Style = []
+            ParentFont = False
+            OnClick = btnIncluirTarefaClick
+          end
+          object btnAlterarTarefa: TcxButton
+            Left = 4
+            Top = 36
+            Width = 32
+            Height = 25
+            Hint = 'Alterar Tarefa'
+            Colors.Default = clWhite
+            LookAndFeel.Kind = lfUltraFlat
+            OptionsImage.Glyph.Data = {
+              C6050000424DC605000000000000360400002800000014000000140000000100
+              0800000000009001000000000000000000000001000000000000000000000101
+              0100020202000303030004040400050505000606060007070700080808000909
+              09000A0A0A000B0B0B000C0C0C000D0D0D000E0E0E000F0F0F00101010001111
+              1100121212001313130014141400151515001616160017171700181818001919
+              19001A1A1A001B1B1B001C1C1C001D1D1D001E1E1E001F1F1F00202020002121
+              2100222222002323230024242400252525002626260027272700282828002929
+              29002A2A2A002B2B2B002C2C2C002D2D2D002E2E2E002F2F2F00303030003131
+              3100323232003333330034343400353535003636360037373700383838003939
+              39003A3A3A003B3B3B003C3C3C003D3D3D003E3E3E003F3F3F00404040004141
+              4100424242004343430044444400454545004646460047474700484848004949
+              49004A4A4A004B4B4B004C4C4C004D4D4D004E4E4E004F4F4F00505050005151
+              5100525252005353530054545400555555005656560057575700585858005959
+              59005A5A5A005B5B5B005C5C5C005D5D5D005E5E5E005F5F5F00606060006161
+              6100626262006363630064646400656565006666660067676700686868006969
+              69006A6A6A006B6B6B006C6C6C006D6D6D006E6E6E006F6F6F00707070007171
+              7100727272007373730074747400757575007676760077777700787878007979
+              79007A7A7A007B7B7B007C7C7C007D7D7D007E7E7E007F7F7F00808080008181
+              8100828282008383830084848400858585008686860087878700888888008989
+              89008A8A8A008B8B8B008C8C8C008D8D8D008E8E8E008F8F8F00909090009191
+              9100929292009393930094949400959595009696960097979700989898009999
+              99009A9A9A009B9B9B009C9C9C009D9D9D009E9E9E009F9F9F00A0A0A000A1A1
+              A100A2A2A200A3A3A300A4A4A400A5A5A500A6A6A600A7A7A700A8A8A800A9A9
+              A900AAAAAA00ABABAB00ACACAC00ADADAD00AEAEAE00AFAFAF00B0B0B000B1B1
+              B100B2B2B200B3B3B300B4B4B400B5B5B500B6B6B600B7B7B700B8B8B800B9B9
+              B900BABABA00BBBBBB00BCBCBC00BDBDBD00BEBEBE00BFBFBF00C0C0C000C1C1
+              C100C2C2C200C3C3C300C4C4C400C5C5C500C6C6C600C7C7C700C8C8C800C9C9
+              C900CACACA00CBCBCB00CCCCCC00CDCDCD00CECECE00CFCFCF00D0D0D000D1D1
+              D100D2D2D200D3D3D300D4D4D400D5D5D500D6D6D600D7D7D700D8D8D800D9D9
+              D900DADADA00DBDBDB00DCDCDC00DDDDDD00DEDEDE00DFDFDF00E0E0E000E1E1
+              E100E2E2E200E3E3E300E4E4E400E5E5E500E6E6E600E7E7E700E8E8E800E9E9
+              E900EAEAEA00EBEBEB00ECECEC00EDEDED00EEEEEE00EFEFEF00F0F0F000F1F1
+              F100F2F2F200F3F3F300F4F4F400F5F5F500F6F6F600F7F7F700F8F8F800F9F9
+              F900FAFAFA00FBFBFB00FCFCFC00FDFDFD00FEFEFE00FFFFFF00FFFF87101010
+              10101010101010101026B7FFFFFFFFFFC99494949494949494949494949FE2FF
+              FFFFFFFFC58C8A9CEAFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF8409098EE5DCF4FF
+              FFFFFFFFFFFFFFFFFFFFFFFF7F057BEB962E9EF8FFFFFFFFFFFFFFFFFFFFFFFF
+              9285EB8E0A00119AF8FFFFFFFFFFFFFFFFFFFFFFE9E2980B00000011A3F4FFFF
+              FFFFFFFFFFFFFFFFFFD32300000000001E9BF4FFFFFFFFFFFFFFFFFFFFF09007
+              0000000002259DF5FFFFFFFFFFFFFFFFFFFFF6840700000000021FA0F8FFFFFF
+              FFFFFFFFFFFFFFF58E150100000000129CF8FFFFFFFFFFFFFFFFFFFFF08C1A01
+              0000000011A3F4FFFFFFFFFFFFFFFFFFFFED8A1400000000001F9DF4FFFFFFFF
+              FFFFFFFFFFFFEE90070000000002259DF5FFFFFFFFFFFFFFFFFFFFF584050000
+              00000221A4F9FFFFFFFFFFFFFFFFFFFFF58E1501000000001593FFFFFFFFFFFF
+              FFFFFFFFFFEF8A19000000000E60FFFFFFFFFFFFFFFFFFFFFFFFEC881500000D
+              6ADEFFFFFFFFFFFFFFFFFFFFFFFFFFEE910B0E6BDEFEFFFFFFFFFFFFFFFFFFFF
+              FFFFFFFFF57859E1FEFF}
+            ParentShowHint = False
+            ShowHint = True
+            TabOrder = 1
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'MS Sans Serif'
+            Font.Style = []
+            ParentFont = False
+            OnClick = btnAlterarTarefaClick
+          end
+          object btnExcluirTafefa: TcxButton
+            Left = 4
+            Top = 65
+            Width = 32
+            Height = 25
+            Hint = 'Excluir Tarefa'
+            Colors.Default = clWhite
+            LookAndFeel.Kind = lfUltraFlat
+            OptionsImage.Glyph.Data = {
+              C6050000424DC605000000000000360400002800000014000000140000000100
+              0800000000009001000000000000000000000001000000000000000000000101
+              0100020202000303030004040400050505000606060007070700080808000909
+              09000A0A0A000B0B0B000C0C0C000D0D0D000E0E0E000F0F0F00101010001111
+              1100121212001313130014141400151515001616160017171700181818001919
+              19001A1A1A001B1B1B001C1C1C001D1D1D001E1E1E001F1F1F00202020002121
+              2100222222002323230024242400252525002626260027272700282828002929
+              29002A2A2A002B2B2B002C2C2C002D2D2D002E2E2E002F2F2F00303030003131
+              3100323232003333330034343400353535003636360037373700383838003939
+              39003A3A3A003B3B3B003C3C3C003D3D3D003E3E3E003F3F3F00404040004141
+              4100424242004343430044444400454545004646460047474700484848004949
+              49004A4A4A004B4B4B004C4C4C004D4D4D004E4E4E004F4F4F00505050005151
+              5100525252005353530054545400555555005656560057575700585858005959
+              59005A5A5A005B5B5B005C5C5C005D5D5D005E5E5E005F5F5F00606060006161
+              6100626262006363630064646400656565006666660067676700686868006969
+              69006A6A6A006B6B6B006C6C6C006D6D6D006E6E6E006F6F6F00707070007171
+              7100727272007373730074747400757575007676760077777700787878007979
+              79007A7A7A007B7B7B007C7C7C007D7D7D007E7E7E007F7F7F00808080008181
+              8100828282008383830084848400858585008686860087878700888888008989
+              89008A8A8A008B8B8B008C8C8C008D8D8D008E8E8E008F8F8F00909090009191
+              9100929292009393930094949400959595009696960097979700989898009999
+              99009A9A9A009B9B9B009C9C9C009D9D9D009E9E9E009F9F9F00A0A0A000A1A1
+              A100A2A2A200A3A3A300A4A4A400A5A5A500A6A6A600A7A7A700A8A8A800A9A9
+              A900AAAAAA00ABABAB00ACACAC00ADADAD00AEAEAE00AFAFAF00B0B0B000B1B1
+              B100B2B2B200B3B3B300B4B4B400B5B5B500B6B6B600B7B7B700B8B8B800B9B9
+              B900BABABA00BBBBBB00BCBCBC00BDBDBD00BEBEBE00BFBFBF00C0C0C000C1C1
+              C100C2C2C200C3C3C300C4C4C400C5C5C500C6C6C600C7C7C700C8C8C800C9C9
+              C900CACACA00CBCBCB00CCCCCC00CDCDCD00CECECE00CFCFCF00D0D0D000D1D1
+              D100D2D2D200D3D3D300D4D4D400D5D5D500D6D6D600D7D7D700D8D8D800D9D9
+              D900DADADA00DBDBDB00DCDCDC00DDDDDD00DEDEDE00DFDFDF00E0E0E000E1E1
+              E100E2E2E200E3E3E300E4E4E400E5E5E500E6E6E600E7E7E700E8E8E800E9E9
+              E900EAEAEA00EBEBEB00ECECEC00EDEDED00EEEEEE00EFEFEF00F0F0F000F1F1
+              F100F2F2F200F3F3F300F4F4F400F5F5F500F6F6F600F7F7F700F8F8F800F9F9
+              F900FAFAFA00FBFBFB00FCFCFC00FDFDFD00FEFEFE00FFFFFF00FFFFFEE8E9FF
+              FFFFFFFFFFFFFFFFFFF8E2F5FFFFFFFEDC5753E5FFFFFFFFFFFFFFFFFCA3379F
+              F5FFFDD6610D0467DFFFFFFFFFFFFFFBAB20022D9EF5FAA31500000A62DDFFFF
+              FFFFFCAA2900000146E6FEE2660800000A65E4FFFFFCAC290200002FB7FAFFFF
+              EF760F00000259DDF7A21D00000338C1FFFFFFFFFFEC72070000005F9A210000
+              0038BEFFFFFFFFFFFFFFED690C000008110000002CC2FFFFFFFFFFFFFFFFFFE3
+              6F0D000000000332B7FFFFFFFFFFFFFFFFFFFFFEDF56000000001CADFBFFFFFF
+              FFFFFFFFFFFFFFF7A52100000000095EDDFFFFFFFFFFFFFFFFFFFCA521000000
+              0200000056E4FFFFFFFFFFFFFFFBAB1D000000315A0C00000265DFFFFFFFFFFF
+              FCAA2900000030BBDE6E0A00000A62DDFFFFFFFCAC290200002DB8FBFEE26608
+              00000A67E5FFFAAD1F00000338C1FFFFFFFFEF750F00000256EAFBB831030038
+              BEFFFFFFFFFFFFEC720700136DEDFFF8B23630C2FFFFFFFFFFFFFFFFEC6A1F77
+              E7FFFFFFF8BDC7FFFFFFFFFFFFFFFFFFFFE5B1E7FFFFFFFFFFFCFEFFFFFFFFFF
+              FFFFFFFFFFFEFCFFFFFF}
+            ParentShowHint = False
+            ShowHint = True
+            TabOrder = 2
+            Font.Charset = DEFAULT_CHARSET
+            Font.Color = clWindowText
+            Font.Height = -11
+            Font.Name = 'MS Sans Serif'
+            Font.Style = []
+            ParentFont = False
+            OnClick = btnExcluirTafefaClick
+          end
+        end
+      end
+    end
+  end
+  object btnFechar: TcxButton
+    AlignWithMargins = True
+    Left = 858
+    Top = 4
+    Width = 57
+    Height = 46
+    Cursor = crHandPoint
+    Margins.Top = 10
+    Margins.Right = 10
+    Caption = 'Sair'
+    Colors.Default = clWhite
+    LookAndFeel.Kind = lfUltraFlat
+    LookAndFeel.NativeStyle = False
+    OptionsImage.Glyph.Data = {
+      76060000424D7606000000000000360400002800000018000000180000000100
+      080000000000400200009B0E00009B0E0000000100000000000000000000D7D7
+      D7007D7D7D0033333300C3C3C300FFFFFF004C4C4C00A0A0A000181818007777
+      7700EDEDED0099999900BCBCBC00444444006666660041414100CCCCCC00DEDE
+      DE0026262600F0F0F000A5A5A500030303005252520037373700FBFBFB00ADAD
+      AD00DDDDDD00E5E5E500828282003D3D3D00C7C7C7009C9C9C00575757004E4E
+      4E00C1C1C100E3E3E3000909090047474700000000001A1A1A00A3A3A300EFEF
+      EF005050500049494900C5C5C500C9C9C9000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      000000000000000000000000000000000000000000000000000005050505130D
+      0000000000000000000000000024090505050505050A06000000000000000000
+      000000000000001C05050505050E00212D1010101010101010101010100C0800
+      0A050505051D0007050505050505050505050505050525001A050505050F000B
+      05050505050505050505050505050D001A050505050F000B0505050505050505
+      050505050505170011050505050F000B0505050505050505052D061B05051415
+      01050505050F000B0505050505050505051F00271E05050423050505050F000B
+      0505050505050505051900001528050505050505050F000B0505050B16161616
+      160300000000020505050505050F000B05050527000000000000000000000020
+      18050505050F000B0505051200000000000000000000000003220505050F000B
+      0505051200000000000000000000000003220505050F000B0505052700000000
+      000000000000002018050505050F000B0505050B161616161603000000000205
+      05050505050F000B0505050505050505051900001528050505050505050F000B
+      0505050505050505051F00271E05050423050505050F000B0505050505050505
+      052C2B1B0505141501050505050F000B05050505050505050505050505051700
+      11050505050F000B05050505050505050505050505050D001A050505051D0007
+      050505050505050505050505050525001A050505050E00212D10101010101010
+      10101010100C08000A050505050A06000000000000000000000000000000001C
+      050505050505130D000000000000000000000000002409050505}
+    OptionsImage.Layout = blGlyphTop
+    ParentShowHint = False
+    ShowHint = True
+    TabOrder = 2
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clBlack
+    Font.Height = -11
+    Font.Name = 'MS Sans Serif'
+    Font.Style = []
+    ParentFont = False
+    OnClick = btnFecharClick
+  end
+  object tblLembrete: TI9MemTable
+    FieldDefs = <>
+    IndexDefs = <>
+    FetchOptions.AssignedValues = [evMode]
+    FetchOptions.Mode = fmAll
+    ResourceOptions.AssignedValues = [rvSilentMode]
+    ResourceOptions.SilentMode = True
+    UpdateOptions.AssignedValues = [uvCheckRequired]
+    UpdateOptions.CheckRequired = False
+    AutoCommitUpdates = False
+    StoreDefs = True
+    Left = 168
+    Top = 151
+    object tblLembreteTAREFA_ID: TIntegerField
+      FieldName = 'TAREFA_ID'
+    end
+    object tblLembreteTAREFA_ITEM_ID: TIntegerField
+      FieldName = 'TAREFA_ITEM_ID'
+    end
+    object tblLembreteASSUNTO: TStringField
+      FieldName = 'ASSUNTO'
+      Size = 260
+    end
+    object tblLembreteMENSAGEM: TStringField
+      FieldName = 'MENSAGEM'
+      Size = 260
+    end
+    object tblLembreteDATA_INICIAL: TDateTimeField
+      FieldName = 'DATA_INICIAL'
+    end
+    object tblLembreteDATA_FINAL: TDateTimeField
+      FieldName = 'DATA_FINAL'
+    end
+    object tblLembreteSITUACAO: TStringField
+      FieldName = 'SITUACAO'
+      Size = 30
+    end
+    object tblLembretePERCENTUAL: TCurrencyField
+      FieldName = 'PERCENTUAL'
+    end
+    object tblLembreteMOTIVO: TStringField
+      DisplayLabel = 'Motivo'
+      FieldName = 'MOTIVO'
+      Size = 520
+    end
+    object tblLembreteDATA_HORA_REALIZADO: TDateTimeField
+      FieldName = 'DATA_HORA_REALIZADO'
+    end
+  end
+  object dtsLembrete: TDataSource
+    DataSet = tblLembrete
+    Left = 168
+    Top = 204
+  end
+  object ppmLembrete: TPopupMenu
+    OnPopup = ppmLembretePopup
+    Left = 80
+    Top = 144
+    object mniConcluirTarefa: TMenuItem
+      Caption = 'Marcar como realizada'
+      OnClick = mniConcluirTarefaClick
+    end
+    object N1: TMenuItem
+      Caption = '-'
+    end
+    object mniCancelarTarefa: TMenuItem
+      Caption = 'Marcar como cancelada'
+      OnClick = mniCancelarTarefaClick
+    end
+    object mniDesfazerTarefa: TMenuItem
+      Caption = 'Marcar como n'#227'o realizada'
+      OnClick = mniDesfazerTarefaClick
+    end
+  end
+  object stlRepositorio: TcxStyleRepository
+    Left = 77
+    Top = 194
+    PixelsPerInch = 96
+    object cxStyle1: TcxStyle
+      AssignedValues = [svColor]
+      Color = 13034466
+    end
+    object cxStyle2: TcxStyle
+      AssignedValues = [svColor, svFont, svTextColor]
+      Color = clWhite
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      TextColor = 4210688
+    end
+    object cxStyle3: TcxStyle
+      AssignedValues = [svColor, svFont, svTextColor]
+      Color = 10867666
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      TextColor = 4210688
+    end
+    object cxStyle4: TcxStyle
+      AssignedValues = [svColor, svFont, svTextColor]
+      Color = clWhite
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      TextColor = 4210688
+    end
+    object cxStyle5: TcxStyle
+      AssignedValues = [svColor, svTextColor]
+      Color = clBtnFace
+      TextColor = clBlack
+    end
+    object cxStyle6: TcxStyle
+      AssignedValues = [svColor, svFont, svTextColor]
+      Color = 15132390
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'MS Sans Serif'
+      Font.Style = [fsBold]
+      TextColor = 4210688
+    end
+    object cxStyle7: TcxStyle
+      AssignedValues = [svColor]
+      Color = 14872561
+    end
+    object cxStyle8: TcxStyle
+      AssignedValues = [svColor, svTextColor]
+      Color = 4707838
+      TextColor = clBlack
+    end
+    object cxStyle9: TcxStyle
+      AssignedValues = [svColor, svFont, svTextColor]
+      Color = clBtnFace
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'MS Sans Serif'
+      Font.Style = [fsBold]
+      TextColor = clBlack
+    end
+    object cxStyle10: TcxStyle
+      AssignedValues = [svColor, svFont, svTextColor]
+      Color = clSilver
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      TextColor = clBlack
+    end
+    object cxStyle11: TcxStyle
+      AssignedValues = [svColor, svFont, svTextColor]
+      Color = clSilver
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'MS Sans Serif'
+      Font.Style = [fsBold]
+      TextColor = clBlack
+    end
+    object cxStyle12: TcxStyle
+      AssignedValues = [svColor, svFont, svTextColor]
+      Color = clSilver
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      TextColor = clBlack
+    end
+    object cxStyle13: TcxStyle
+      AssignedValues = [svColor, svFont, svTextColor]
+      Color = 14811135
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNavy
+      Font.Height = -11
+      Font.Name = 'MS Sans Serif'
+      Font.Style = [fsBold]
+      TextColor = 4210688
+    end
+    object cxStyle14: TcxStyle
+      AssignedValues = [svColor, svFont, svTextColor]
+      Color = 12124063
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      TextColor = clWhite
+    end
+    object cxStyle15: TcxStyle
+      AssignedValues = [svColor]
+      Color = 15451300
+    end
+    object cxStyle16: TcxStyle
+      AssignedValues = [svColor, svFont, svTextColor]
+      Color = 12937777
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'MS Sans Serif'
+      Font.Style = [fsBold]
+      TextColor = clWhite
+    end
+    object cxStyle17: TcxStyle
+      AssignedValues = [svColor, svFont, svTextColor]
+      Color = 12937777
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'MS Sans Serif'
+      Font.Style = [fsBold]
+      TextColor = clWhite
+    end
+    object cxStyle18: TcxStyle
+      AssignedValues = [svColor, svFont, svTextColor]
+      Color = 16247513
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clBlack
+      Font.Height = -11
+      Font.Name = 'MS Sans Serif'
+      Font.Style = []
+      TextColor = clBlack
+    end
+    object cxStyle19: TcxStyle
+      AssignedValues = [svColor, svTextColor]
+      Color = 15451300
+      TextColor = clBlack
+    end
+    object cxStyle20: TcxStyle
+      AssignedValues = [svColor, svTextColor]
+      Color = 16247513
+      TextColor = clBlack
+    end
+    object cxStyle21: TcxStyle
+      AssignedValues = [svColor]
+      Color = 15451300
+    end
+    object cxStyle22: TcxStyle
+      AssignedValues = [svFont, svTextColor]
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'MS Sans Serif'
+      Font.Style = [fsBold]
+      TextColor = clNavy
+    end
+    object cxStyle23: TcxStyle
+      AssignedValues = [svColor, svFont, svTextColor]
+      Color = clSkyBlue
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'MS Sans Serif'
+      Font.Style = [fsBold]
+      TextColor = clBlack
+    end
+    object cxStyle24: TcxStyle
+      AssignedValues = [svColor, svFont, svTextColor]
+      Color = clTeal
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'MS Sans Serif'
+      Font.Style = [fsBold]
+      TextColor = clWhite
+    end
+    object cxStyle25: TcxStyle
+      AssignedValues = [svColor, svFont, svTextColor]
+      Color = 15138815
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'MS Sans Serif'
+      Font.Style = []
+      TextColor = clDefault
+    end
+    object cxStyle26: TcxStyle
+      AssignedValues = [svColor, svFont, svTextColor]
+      Color = clWindow
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'MS Sans Serif'
+      Font.Style = []
+      TextColor = clWindowText
+    end
+    object cxStyleDestaque: TcxStyle
+      AssignedValues = [svColor, svTextColor]
+      Color = 4707838
+      TextColor = 4707838
+    end
+    object cxStyle27: TcxStyle
+      AssignedValues = [svColor]
+      Color = 16247513
+    end
+    object cxStyle28: TcxStyle
+      AssignedValues = [svColor, svFont, svTextColor]
+      Color = 14544093
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNavy
+      Font.Height = -11
+      Font.Name = 'MS Sans Serif'
+      Font.Style = []
+      TextColor = clNavy
+    end
+    object cxStyle29: TcxStyle
+      AssignedValues = [svColor, svFont, svTextColor]
+      Color = 16247513
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNavy
+      Font.Height = -11
+      Font.Name = 'MS Sans Serif'
+      Font.Style = []
+      TextColor = clNavy
+    end
+    object cxStyle30: TcxStyle
+      AssignedValues = [svFont, svTextColor]
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNavy
+      Font.Height = -11
+      Font.Name = 'MS Sans Serif'
+      Font.Style = []
+      TextColor = clNavy
+    end
+    object cxStyle31: TcxStyle
+      AssignedValues = [svColor, svTextColor]
+      Color = 14811135
+      TextColor = clBlack
+    end
+    object cxStyle32: TcxStyle
+      AssignedValues = [svColor, svFont, svTextColor]
+      Color = 14811135
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'MS Sans Serif'
+      Font.Style = [fsBold]
+      TextColor = clNavy
+    end
+    object cxStyle33: TcxStyle
+      AssignedValues = [svColor]
+      Color = 14872561
+    end
+    object cxStyle34: TcxStyle
+      AssignedValues = [svColor, svTextColor]
+      Color = 4707838
+      TextColor = clBlack
+    end
+    object cxStyle35: TcxStyle
+      AssignedValues = [svColor, svFont, svTextColor]
+      Color = 12937777
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'MS Sans Serif'
+      Font.Style = [fsBold]
+      TextColor = clWhite
+    end
+    object cxStyle36: TcxStyle
+      AssignedValues = [svColor, svTextColor]
+      Color = 16744448
+      TextColor = clWindow
+    end
+    object cxStyle37: TcxStyle
+      AssignedValues = [svColor, svTextColor]
+      Color = 4707838
+      TextColor = clBlack
+    end
+    object cxStyle38: TcxStyle
+      AssignedValues = [svColor]
+      Color = 15451300
+    end
+    object cxStyle39: TcxStyle
+      AssignedValues = [svColor, svFont, svTextColor]
+      Color = 14811135
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clNavy
+      Font.Height = -11
+      Font.Name = 'MS Sans Serif'
+      Font.Style = [fsBold]
+      TextColor = clNavy
+    end
+    object cxStyle40: TcxStyle
+      AssignedValues = [svColor, svTextColor]
+      Color = 12937777
+      TextColor = clBlack
+    end
+    object cxStyle41: TcxStyle
+    end
+    object cxStyle42: TcxStyle
+      AssignedValues = [svColor, svFont, svTextColor]
+      Color = 14538385
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -16
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      TextColor = clWindowText
+    end
+    object cxStyle43: TcxStyle
+      AssignedValues = [svColor, svFont, svTextColor]
+      Color = clWindow
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      TextColor = clRed
+    end
+    object cxStyle44: TcxStyle
+      AssignedValues = [svColor]
+      Color = 10867666
+    end
+    object cxStyle45: TcxStyle
+      AssignedValues = [svFont, svTextColor]
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = [fsBold]
+      TextColor = clWhite
+    end
+    object cxStyle46: TcxStyle
+      AssignedValues = [svColor, svTextColor]
+      Color = clWhite
+      TextColor = 33023
+    end
+    object cxStyle47: TcxStyle
+      AssignedValues = [svColor, svFont, svTextColor]
+      Color = clSilver
+      Font.Charset = ANSI_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'MS Sans Serif'
+      Font.Style = [fsBold]
+      TextColor = clRed
+    end
+    object GridTableViewStyleSheetDevExpress: TcxGridTableViewStyleSheet
+      Caption = 'DevExpress'
+      Styles.Background = cxStyle1
+      Styles.Content = cxStyle2
+      Styles.ContentEven = cxStyle3
+      Styles.ContentOdd = cxStyle4
+      Styles.FilterBox = cxStyle5
+      Styles.Inactive = cxStyle10
+      Styles.IncSearch = cxStyle11
+      Styles.Selection = cxStyle14
+      Styles.Footer = cxStyle6
+      Styles.Group = cxStyle12
+      Styles.GroupByBox = cxStyle8
+      Styles.Header = cxStyle9
+      Styles.Indicator = cxStyle12
+      Styles.Preview = cxStyle13
+      BuiltIn = True
+    end
+    object GridTableViewStyleSheetLigth: TcxGridTableViewStyleSheet
+      Caption = 'DevExpress'
+      Styles.Background = cxStyle41
+      Styles.Content = cxStyle2
+      Styles.Inactive = cxStyle10
+      Styles.Selection = cxStyle14
+      Styles.Footer = cxStyle6
+      Styles.Header = cxStyle9
+      Styles.Indicator = cxStyle12
+      Styles.Preview = cxStyle13
+      BuiltIn = True
+    end
+  end
+  object hldFeriados: TcxSchedulerHolidays
+    Locations = <>
+    Left = 78
+    Top = 295
+  end
+  object sdbStorage: TcxSchedulerDBStorage
+    GenerateGUIDForID = True
+    Reminders.Active = False
+    Resources.Items = <>
+    CustomFields = <>
+    Holidays = hldFeriados
+    FieldNames.ActualFinish = 'ActualFinish'
+    FieldNames.ActualStart = 'ActualStart'
+    FieldNames.Caption = 'caption'
+    FieldNames.GroupID = 'GroupId'
+    FieldNames.EventType = 'EventType'
+    FieldNames.Finish = 'Finish'
+    FieldNames.ID = 'ID'
+    FieldNames.LabelColor = 'LabelColor'
+    FieldNames.Location = 'Location'
+    FieldNames.Message = 'Message'
+    FieldNames.Options = 'Options'
+    FieldNames.ParentID = 'ParentID'
+    FieldNames.RecurrenceIndex = 'RecurrenceIndex'
+    FieldNames.RecurrenceInfo = 'RecurrenceInfo'
+    FieldNames.ReminderDate = 'ReminderDate'
+    FieldNames.ReminderMinutesBeforeStart = 'ReminderMinutesBeforeStart'
+    FieldNames.ReminderResourcesData = 'ReminderResourcesData'
+    FieldNames.ResourceID = 'ResourceID'
+    FieldNames.Start = 'Start'
+    FieldNames.State = 'State'
+    FieldNames.TaskCompleteField = 'TaskCompleteField'
+    FieldNames.TaskIndexField = 'TaskIndexField'
+    FieldNames.TaskLinksField = 'TaskLinkField'
+    FieldNames.TaskStatusField = 'TaskStatusField'
+    Left = 80
+    Top = 248
+  end
+end

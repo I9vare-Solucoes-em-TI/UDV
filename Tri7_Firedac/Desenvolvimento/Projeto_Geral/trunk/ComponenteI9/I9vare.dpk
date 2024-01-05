@@ -1,0 +1,47 @@
+package I9vare;
+
+{$R *.res}
+{$IFDEF IMPLICITBUILDING This IFDEF should not be used by users}
+{$ALIGN 8}
+{$ASSERTIONS ON}
+{$BOOLEVAL OFF}
+{$DEBUGINFO OFF}
+{$EXTENDEDSYNTAX ON}
+{$IMPORTEDDATA ON}
+{$IOCHECKS ON}
+{$LOCALSYMBOLS ON}
+{$LONGSTRINGS ON}
+{$OPENSTRINGS ON}
+{$OPTIMIZATION OFF}
+{$OVERFLOWCHECKS OFF}
+{$RANGECHECKS OFF}
+{$REFERENCEINFO ON}
+{$SAFEDIVIDE OFF}
+{$STACKFRAMES ON}
+{$TYPEDADDRESS OFF}
+{$VARSTRINGCHECKS ON}
+{$WRITEABLECONST OFF}
+{$MINENUMSIZE 1}
+{$IMAGEBASE $400000}
+{$DEFINE DEBUG}
+{$ENDIF IMPLICITBUILDING}
+{$IMPLICITBUILD ON}
+
+requires
+  rtl,
+  dbrtl,
+  FireDACCommon,
+  FireDACCommonDriver,
+  FireDAC,
+  FireDACIBDriver,
+  vcl;
+
+contains
+  I9Query in 'source\I9Query.pas',
+  I9Connection in 'source\I9Connection.pas',
+  I9Register in 'source\I9Register.pas',
+  I9StoredProc in 'source\I9StoredProc.pas',
+  I9Transaction in 'source\I9Transaction.pas',
+  I9MemTable in 'source\I9MemTable.pas';
+
+end.

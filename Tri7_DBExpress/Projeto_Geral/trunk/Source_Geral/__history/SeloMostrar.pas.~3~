@@ -1,0 +1,58 @@
+unit SeloMostrar;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, CadAuxiliar, cxGraphics, cxLookAndFeels,
+  cxLookAndFeelPainters, Vcl.Menus, Data.FMTBcd, Data.DB, Datasnap.DBClient,
+  Datasnap.Provider, Data.SqlExpr, Vcl.StdCtrls, cxButtons, Vcl.ExtCtrls,
+  cxControls, cxStyles, cxCustomData, cxFilter, cxData, cxDataStorage, cxEdit,
+  cxNavigator, cxDBData, cxTextEdit, cxGridLevel, cxGridCustomTableView,
+  cxGridTableView, cxGridDBTableView, cxClasses, cxGridCustomView, cxGrid;
+
+type
+  TfrmSeloMostrar = class(TfrmCadAuxiliar)
+    cxGrid2: TcxGrid;
+    cxGridDBTableView6: TcxGridDBTableView;
+    cxGridDBColumnSeloNumero: TcxGridDBColumn;
+    cxGridDBTableView6Column1: TcxGridDBColumn;
+    cxGridLevel8: TcxGridLevel;
+    ClientAncestralSIGLA: TStringField;
+    ClientAncestralNUMERO: TIntegerField;
+    ClientAncestralSELO_LIVRO_ID: TFMTBCDField;
+    ClientAncestralDESCRICAO_COMPLETA: TStringField;
+    cxGridDBTableView6Column3: TcxGridDBColumn;
+    procedure FormCreate(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  frmSeloMostrar: TfrmSeloMostrar;
+  vgSeloMostrarTabela, vgSeloMostrarCampoId : string;
+
+implementation
+
+{$R *.dfm}
+
+procedure TfrmSeloMostrar.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  inherited;
+  Action := caFree;
+  frmSeloMostrar := nil;
+end;
+
+procedure TfrmSeloMostrar.FormCreate(Sender: TObject);
+begin
+  inherited;
+  ClientAncestral.Active := False;
+  DataSetAncestral.ParamByName('TABELA').AsString   := vgSeloMostrarTabela;
+  DataSetAncestral.ParamByName('CAMPO_ID').AsString := vgSeloMostrarCampoId;
+  ClientAncestral.Active := True;
+end;
+
+end.

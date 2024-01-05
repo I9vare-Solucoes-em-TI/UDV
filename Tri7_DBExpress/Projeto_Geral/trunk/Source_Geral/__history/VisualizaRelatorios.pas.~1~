@@ -1,0 +1,498 @@
+unit VisualizaRelatorios;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, ExtCtrls, StdCtrls, Buttons, Menus, Mask, DB,
+  frxClass, frxPreview, frxExportPDF, frxExportRTF, frxExportXLS, 
+  frxExportTXT, ComCtrls, Controles, DBClient, SimpleDS, frxRichEditor,
+  cxLookAndFeelPainters, cxButtons, Printers, cxGraphics, cxLookAndFeels,
+  frxDesgn, frxRich, frxEditMemo;
+
+type
+  TExecProcValores = procedure (Valor : String) of object;
+
+  TfrmVisualizaRelatorios = class(TForm)
+    pnlTop: TPanel;
+    Panel3: TPanel;
+    btnPrimeiro: TBitBtn;
+    btnAnterior: TBitBtn;
+    btnProximo: TBitBtn;
+    btnUltimo: TBitBtn;
+    btnZoomMais: TBitBtn;
+    btnZoomMenos: TBitBtn;
+    pnlZoom: TPanel;
+    edtZoom: TMaskEdit;
+    spbPreviewWhole: TSpeedButton;
+    spbPreviewWidth: TSpeedButton;
+    spbPreview100Percent: TSpeedButton;
+    frxXLSExport1: TfrxXLSExport;
+    frxRTFExport1: TfrxRTFExport;
+    frxPDFExport1: TfrxPDFExport;
+    btnExportarRTF: TBitBtn;
+    btnExportarXLS: TBitBtn;
+    btnExportarPDF: TBitBtn;
+    StatusBar: TStatusBar;
+    btnFind: TBitBtn;
+    Panel1: TPanel;
+    btnFechar: TcxButton;
+    btnImprimir: TcxButton;
+    frxPreview: TfrxPreview;
+    procedure btnPrimeiroClick(Sender: TObject);
+    procedure btnAnteriorClick(Sender: TObject);
+    procedure btnProximoClick(Sender: TObject);
+    procedure btnUltimoClick(Sender: TObject);
+    procedure btnZoomMaisClick(Sender: TObject);
+    procedure btnZoomMenosClick(Sender: TObject);
+    procedure edtZoomExit(Sender: TObject);
+    procedure edtZoomKeyPress(Sender: TObject; var Key: Char);
+    procedure ppVisualizaRelatoriosPageChange(Sender: TObject);
+    procedure spbPreviewWholeClick(Sender: TObject);
+    procedure spbPreviewWidthClick(Sender: TObject);
+    procedure spbPreview100PercentClick(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure btnExportarRTFClick(Sender: TObject);
+    procedure btnExportarXLSClick(Sender: TObject);
+    procedure btnExportarPDFClick(Sender: TObject);
+    procedure frxPreviewPageChanged(Sender: TfrxPreview; PageNo: Integer);
+    procedure btnFindClick(Sender: TObject);
+    procedure btnFecharClick(Sender: TObject);
+    procedure btnImprimirClick(Sender: TObject);
+    procedure frxReportDblClickObject(Sender: TfrxView; Button: TMouseButton;
+      Shift: TShiftState; var Modified: Boolean);
+  private
+    procedure UpdateZoom;
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  frmVisualizaRelatorios: TfrmVisualizaRelatorios;
+  ExecRetornaValores : TExecProcValores;
+  vgNomeRel, vgHistoricoRel : String;
+
+  procedure ShowPreview(Nome : String; Report: TfrxReport; WindowState:TWindowState = wsNormal);
+  procedure ExibirRelatorio(frxReport : TfrxReport; ID : String; ExecProcedure : TExecuteProcedure = nil;
+               VisualizarImpressao: Boolean = True; vpImpressora : String = ''; vpSolicitarImpressora : Boolean = False);
+  procedure CarregaRelatorio(ID, Relatorio : String; frxReport : TfrxReport);
+  procedure GravarRelatorio(ID : String);
+  procedure CriarFuncoesRelatorio(frRelatorio : TfrxReport);
+  function ExecutarFuncoesRelatorio(NameFuncao: String; var Parametros: Variant): Variant;
+
+implementation
+
+uses Rotinas;
+
+{$R *.dfm}
+
+procedure ShowPreview;
+begin
+  if frmVisualizaRelatorios = nil then
+     frmVisualizaRelatorios := TfrmVisualizaRelatorios.Create(Application);
+  Report.ShowProgress := True;   
+  Report.PrintOptions.ShowDialog := True;
+  Report.Preview := frmVisualizaRelatorios.frxPreview;
+  frmVisualizaRelatorios.frxPreview.ZoomMode := zmPageWidth;
+
+  if Report.PrepareReport then
+  begin
+    Report.ShowPreparedReport;
+    frmVisualizaRelatorios.UpdateZoom;
+    frmVisualizaRelatorios.Caption := Nome;
+    frmVisualizaRelatorios.WindowState := WindowState;
+    frmVisualizaRelatorios.ShowModal;
+  end
+end;
+
+procedure ExibirRelatorio(frxReport : TfrxReport; ID : String; ExecProcedure : TExecuteProcedure = nil;
+            VisualizarImpressao: Boolean = True; vpImpressora : String = ''; vpSolicitarImpressora : Boolean = False);
+var Sql : String;
+    Designer : Boolean;
+begin
+  with dtmControles do
+  begin
+    Sql := 'SELECT RELATORIO, INTERNO FROM G_CONFIG_RELATORIO ' +
+           'WHERE CONFIG_RELATORIO_ID = ' + ID;
+    ExecutaSqlAuxiliar(Sql , 0);
+    vgVersao1 := 0;
+    vgVersao2 := 0;
+    Designer := sqlAuxiliar.FieldByName('INTERNO').AsString <> 'S';
+    CarregaRelatorio(ID, sqlAuxiliar.FieldByName('RELATORIO').AsString, frxReport);
+    sqlAuxiliar.Active := False;
+
+    if @ExecProcedure <> nil then
+       ExecProcedure;
+    //Editar Relatorio
+    frxReport.OnDblClickObject := frmVisualizaRelatorios.frxReportDblClickObject;
+
+    frxReport.ShowProgress := True;
+    frxReport.PrintOptions.ShowDialog := True;
+    if vpImpressora <> '' then
+         frxReport.PrintOptions.Printer := vpImpressora
+    else frxReport.PrintOptions.Printer := printer.Printers[Printer.PrinterIndex];
+    frxReport.PrintOptions.PrintOnSheet := 2;
+
+    if Designer then
+    begin
+      frxReport.DesignReport;
+      GravarRelatorio(ID);
+    end
+    else begin
+         DeleteFile(vgNomeRel);
+         DeleteFile(vgHistoricoRel);
+
+         if VisualizarImpressao then
+            ShowPreview('Preview',frxReport, wsMaximized)
+         else
+         begin
+           PrintDialog1.Options := PrintDialog1.Options + [poPrintToFile];
+           frxReport.PrintOptions.ShowDialog := vpSolicitarImpressora;
+           frxReport.PrepareReport(True);
+           frxReport.Print;
+         end;
+    end;
+  end;
+
+end;
+
+procedure TfrmVisualizaRelatorios.btnPrimeiroClick(Sender: TObject);
+begin
+  Screen.Cursor := crHourGlass;
+  frxPreview.First;
+  Screen.Cursor := crDefault;
+end;
+
+procedure TfrmVisualizaRelatorios.btnAnteriorClick(Sender: TObject);
+begin
+  Screen.Cursor := crHourGlass;
+  frxPreview.Prior;
+  Screen.Cursor := crDefault;
+end;
+
+procedure TfrmVisualizaRelatorios.btnProximoClick(Sender: TObject);
+begin
+  Screen.Cursor := crHourGlass;
+  frxPreview.Next;
+  Screen.Cursor := crDefault;
+end;
+
+procedure TfrmVisualizaRelatorios.btnUltimoClick(Sender: TObject);
+begin
+  Screen.Cursor := crHourGlass;
+  frxPreview.Last;
+  Screen.Cursor := crDefault;
+end;
+
+procedure TfrmVisualizaRelatorios.btnZoomMaisClick(Sender: TObject);
+begin
+  frxPreview.Zoom := frxPreview.Zoom + 0.05;
+  spbPreviewWhole.Down := False;
+  spbPreviewWidth.Down := False;
+  spbPreview100Percent.Down := False;
+  UpdateZoom;
+end;
+
+procedure TfrmVisualizaRelatorios.btnZoomMenosClick(Sender: TObject);
+begin
+  frxPreview.Zoom :=  frxPreview.Zoom - 0.05;
+  spbPreviewWhole.Down := False;
+  spbPreviewWidth.Down := False;
+  spbPreview100Percent.Down := False;
+  UpdateZoom;
+end;
+
+procedure TfrmVisualizaRelatorios.edtZoomExit(Sender: TObject);
+begin
+  if Trim(edtZoom.Text) <> '' then
+  begin
+    frxPreview.Zoom := StrToFloat(edtZoom.Text) / 100;
+  end;
+end;
+
+procedure TfrmVisualizaRelatorios.edtZoomKeyPress(Sender: TObject;
+  var Key: Char);
+var
+  liPercentage: Double;
+begin
+  if (Key = #13) then
+  begin
+    liPercentage := (StrToFloat(edtZoom.Text) / 100);
+
+    frxPreview.Zoom := liPercentage;
+
+    spbPreviewWhole.Down := False;
+    spbPreviewWidth.Down := False;
+    spbPreview100Percent.Down := False;
+
+    UpdateZoom;
+  end;
+end;
+
+procedure TfrmVisualizaRelatorios.ppVisualizaRelatoriosPageChange(
+  Sender: TObject);
+begin
+  UpdateZoom;
+end;
+
+procedure TfrmVisualizaRelatorios.spbPreviewWholeClick(Sender: TObject);
+begin
+  frxPreview.ZoomMode := zmWholePage;
+  UpdateZoom;
+end;
+
+procedure TfrmVisualizaRelatorios.spbPreviewWidthClick(Sender: TObject);
+begin
+  frxPreview.ZoomMode := zmPageWidth;
+  UpdateZoom;
+end;
+
+procedure TfrmVisualizaRelatorios.spbPreview100PercentClick(
+  Sender: TObject);
+begin
+  frxPreview.Zoom := 1;
+  UpdateZoom;
+end;
+
+procedure TfrmVisualizaRelatorios.FormClose(Sender: TObject;
+  var Action: TCloseAction);
+begin
+  Action := caFree;
+  frmVisualizaRelatorios := nil;
+end;
+
+procedure TfrmVisualizaRelatorios.UpdateZoom;
+begin
+  edtZoom.Text := IntToStr(Round(frxPreview.Zoom * 100));
+end;
+
+procedure TfrmVisualizaRelatorios.btnExportarRTFClick(Sender: TObject);
+begin
+  frxPreview.Export(frxRTFExport1);
+end;
+
+procedure TfrmVisualizaRelatorios.btnExportarXLSClick(Sender: TObject);
+begin
+  frxPreview.Export(frxXLSExport1);
+end;
+
+procedure TfrmVisualizaRelatorios.btnExportarPDFClick(Sender: TObject);
+begin
+  frxPreview.Export(frxPDFExport1);
+end;
+
+procedure TfrmVisualizaRelatorios.frxPreviewPageChanged(
+  Sender: TfrxPreview; PageNo: Integer);
+begin
+  StatusBar.Panels[0].Text := 'Páginas : ' + IntToStr(frxPreview.PageNo) + ' de ' +
+                              IntToStr(frxPreview.PageCount);
+end;
+
+procedure TfrmVisualizaRelatorios.btnFindClick(Sender: TObject);
+begin
+  frxPreview.Find;
+end;
+
+procedure CarregaRelatorio(ID, Relatorio: String;
+  frxReport: TfrxReport);
+var Rel : TStringList;
+    WPath :  string;
+begin
+  with dtmControles do
+  begin
+    WPath := vgDiretorioCorrente + '\';
+    if Trim(Relatorio) <> '' then
+    begin
+      vgNomeRel      := WPath + ID + '.fr3';
+      vgHistoricoRel := WPath + 'H' + ID + '.fr3';
+      Rel := TStringList.Create;
+      Rel.Text := DeCompressString(Relatorio);
+      Rel.SaveToFile(vgNomeRel);
+      Rel.SaveToFile(vgHistoricoRel);
+      Application.ProcessMessages;
+      FreeAndNil(Rel);
+      vgVersao1 := DataHoraModificacao(vgNomeRel);
+      frxReport.Clear;
+      frxReport.LoadFromFile(WPath + ID + '.fr3');
+    end
+    else begin
+         vgNomeRel   := WPath + ID + '.fr3';
+         CopyFiles(WPath + 'New.fr3', vgNomeRel);
+         Application.ProcessMessages;
+         frxReport.Clear;
+         frxReport.LoadFromFile(vgNomeRel);
+    end;
+  end;
+end;
+
+procedure GravarRelatorio(ID : String);
+var Caminho,
+    Historico,
+    Sql,
+    WPath :  string;
+    sqlRelatorio : TSimpleDataSet;
+begin
+  Application.ProcessMessages;
+  sqlRelatorio := TSimpleDataSet.Create(Application);
+
+  WPath := vgDiretorioCorrente + '\';
+  with sqlRelatorio  do
+  begin
+    Connection := dtmControles.DB;
+    Caminho   := WPath + ID + '.fr3';
+    Historico := WPath + 'H' + ID + '.fr3';
+    vgVersao2 := DataHoraModificacao(Caminho);
+
+    Active := False;
+    DataSet.Prepared := False;
+
+    if vgVersao2 <> 0 then
+       if vgVersao2 > vgVersao1 then
+       begin
+         if FileExists(Caminho) then
+         begin
+           if Application.MessageBox('Deseja gravar essa alterção?', 'Atenção', MB_YESNO + MB_ICONQUESTION) = IDYES then
+           begin
+             Sql := 'UPDATE G_CONFIG_RELATORIO SET ' +
+                  '       RELATORIO = :RELATORIO ';
+             if FileExists(Historico) then
+             begin
+               if Application.MessageBox('Deseja gravar o histórico dessa alterção?', 'Atenção', MB_YESNO + MB_ICONQUESTION) = IDYES then
+               begin
+                  Sql := Sql +  ' ,HISTORICO = :HISTORICO ' +
+                                ' WHERE CONFIG_RELATORIO_ID = :CONFIG_RELATORIO_ID';
+                  DataSet.CommandText := Sql;
+                  DataSet.Prepared := True;
+
+                  DataSet.ParamByName('HISTORICO').ParamType := ptInput;
+                  DataSet.ParamByName('HISTORICO').DataType  := ftBlob;
+                  DataSet.ParamByName('HISTORICO').LoadFromFile(Historico, ftBlob);
+                  DataSet.ParamByName('HISTORICO').AsBlob := CompressString(DataSet.ParamByName('HISTORICO').AsString);
+               end
+               else begin
+                    Sql := Sql + ' WHERE CONFIG_RELATORIO_ID = :CONFIG_RELATORIO_ID';
+                    DataSet.CommandText := Sql;
+                    DataSet.Prepared := True;
+               end;
+             end
+             else begin
+                  Sql := Sql + ' WHERE CONFIG_RELATORIO_ID = :CONFIG_RELATORIO_ID';
+                  DataSet.CommandText := Sql;
+                  DataSet.Prepared := True;
+             end;
+             DataSet.ParamByName('RELATORIO').ParamType := ptInput;
+             DataSet.ParamByName('RELATORIO').DataType  := ftBlob;
+             DataSet.ParamByName('RELATORIO').LoadFromFile(Caminho, ftBlob);
+             DataSet.ParamByName('RELATORIO').AsBlob := CompressString(DataSet.ParamByName('RELATORIO').AsString);
+
+             DataSet.ParamByName('CONFIG_RELATORIO_ID').ParamType := ptInput;
+             DataSet.ParamByName('CONFIG_RELATORIO_ID').DataType  := ftInteger;
+             DataSet.ParamByName('CONFIG_RELATORIO_ID').AsString  := ID;
+             Execute;
+           end
+         end;
+         Application.ProcessMessages;
+       end;
+    DeleteFile(Caminho);
+    DeleteFile(Historico);
+    sqlRelatorio.Free;
+  end;
+end;
+
+procedure CriarFuncoesRelatorio(frRelatorio: TfrxReport);
+begin
+  frRelatorio.AddFunction('function BuscarConfig(vpGrupo, vpSecao, vpNome : string; vpTipoValor: char): Variant', 'I937', 'Retorna o valor dos parâmetros de configuração do sistema');
+  frRelatorio.AddFunction('function ExecSQL(Qry: string):Boolean', 'I937', 'Executa o SQL passado como parâmetro');
+  frRelatorio.AddFunction('function GetStr(Qry: string): string', 'I937', 'Retorna o valor do SELECT passado no formato de STRING');
+  frRelatorio.AddFunction('function RetornaNumerico(Valor : String) : String', 'I937', 'Retorna apenas os valores numericos no formato STRING');
+  frRelatorio.AddFunction('function QuotedStr(Valor : String) : String', 'I937', 'Retorna uma STRING com delimitadores');
+  frRelatorio.AddFunction('function TrocaVirgPPto(Valor: string): String', 'I937', 'Troca as "," por "."');
+  frRelatorio.AddFunction('function ValorExtenso(Valor: Double; TipoExtenso : Integer = 3): String', 'I937', 'Retorna o valor por extenso');
+  frRelatorio.AddFunction('procedure RetornaValores(Valor: String)', 'I937', 'Retorna valores internos para a aplicação');
+  frRelatorio.AddFunction('procedure MaiusculoMinusculo(Valor: String)', 'I937', 'Retorna Nome em Maiusculo/Minusculo');
+  frRelatorio.AddFunction('procedure RetornaCPFCNPJFormatado(Valor: String)', 'I937', 'Retorna CPF/CNPJ Formatado');
+end;
+
+
+function ExecutarFuncoesRelatorio(NameFuncao: String; var Parametros: Variant): Variant;
+var TipoExtenco: Integer;
+begin
+ Result := Null;
+ if AnsiSameText(NameFuncao, 'BuscarConfig') then
+    Result := dtmControles.BuscarConfig(Parametros[0], Parametros[1], Parametros[2], String(Parametros[3])[1])
+ else
+ if AnsiSameText(NameFuncao, 'ExecSQL') then
+    Result := dtmControles.ExecSQL(Parametros[0])
+ else
+ if AnsiSameText(NameFuncao, 'GetStr') then
+    Result := dtmControles.GetStr(Parametros[0])
+ else
+ if AnsiSameText(NameFuncao, 'RetornaNumerico') then
+    Result := RetornaNumerico(Parametros[0])
+ else
+ if AnsiSameText(NameFuncao, 'QuotedStr') then
+    Result := QuotedStr(Parametros[0])
+ else
+ if AnsiSameText(NameFuncao, 'TrocaVirgPPto') then
+    Result := TrocaVirgPPto(Parametros[0])
+ else
+ if AnsiSameText(NameFuncao, 'MaiusculoMinusculo') then
+    Result := MaiusculoMinusculo(Parametros[0])
+ else
+ if AnsiSameText(NameFuncao, 'RetornaCPFCNPJFormatado') then
+    Result := RetornaCPFCNPJFormatado(Parametros[0])
+ else
+ if AnsiSameText(NameFuncao, 'ValorExtenso') then
+ begin
+   TipoExtenco := Parametros[1];
+   Result := MaiusculoMinusculo(Trim(ValorExtenso(Parametros[0], '', '', TipoExtenco)));
+ end
+ else
+ if AnsiSameText(NameFuncao, 'RetornaValores') then
+    if @ExecRetornaValores <> nil then
+       ExecRetornaValores(Parametros[0]);
+end;
+
+procedure TfrmVisualizaRelatorios.btnFecharClick(Sender: TObject);
+begin
+  Close;
+end;
+
+procedure TfrmVisualizaRelatorios.btnImprimirClick(Sender: TObject);
+begin
+  frxPreview.Print;
+  Close;
+end;
+
+procedure TfrmVisualizaRelatorios.frxReportDblClickObject(Sender: TfrxView;
+  Button: TMouseButton; Shift: TShiftState; var Modified: Boolean);
+var
+  viTexto : string;
+begin
+  if Sender is TfrxRichView then
+  begin
+    if  AnsiUpperCase(TfrxRichView(Sender).TagStr) = 'EDITAR' then
+      with TfrxRichEditorForm.Create(frmVisualizaRelatorios) do
+      begin
+        RichView := TfrxRichView(Sender);
+        Modified := ShowModal = mrOk;
+        Free;
+      end;
+  end
+  else
+  if Sender is TfrxMemoView then
+    if  AnsiUpperCase(TfrxMemoView(Sender).TagStr) = 'EDITAR' then
+    begin
+      viTexto := TfrxMemoView(Sender).Text;
+      SetLength(viTexto, Length(viTexto) - 2); // cut off #13#10
+      if InputQueryA('Alterar', 'Valor:', viTexto) then
+      begin
+        TfrxMemoView(Sender).Text := viTexto;
+        Modified := True;
+      end;
+    end;
+end;
+
+
+end.

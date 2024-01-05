@@ -1,0 +1,184 @@
+unit ConsultaCNPJ;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics,
+  Controls, Forms, Dialogs, ExtCtrls, StdCtrls, Buttons,
+  ACBrBase, ACBrSocket, ACBrConsultaCNPJ, Mask;
+
+type
+  TDadosCNPJ = record
+    Tipo :string;
+    RazaoSocial :string;
+    Abertura :string;
+    Fantasia :string;
+    Endereco :string;
+    Numero :string;
+    Complemento :string;
+    Bairro :string;
+    Cidade :string;
+    UF :string;
+    CEP :string;
+    Situacao :string;
+    CNAE1 :string;
+    Email :string;
+    Telefone :string;
+  end;
+
+  TfrmConsultaCNPJ = class(TForm)
+    Panel1: TPanel;
+    Label1: TLabel;
+    ButBuscar: TBitBtn;
+    EditCaptcha: TEdit;
+    Label14: TLabel;
+    Timer1: TTimer;
+    ACBrConsultaCNPJ1: TACBrConsultaCNPJ;
+    EditCNPJ: TMaskEdit;
+    Panel3: TPanel;
+    Image1: TImage;
+    LabAtualizarCaptcha: TLabel;
+    ckRemoverEspacosDuplos: TCheckBox;
+    procedure LabAtualizarCaptchaClick(Sender: TObject);
+    procedure ButBuscarClick(Sender: TObject);
+    procedure Timer1Timer(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+    procedure EditCaptchaKeyPress(Sender: TObject; var Key: Char);
+    procedure FormCreate(Sender: TObject);
+  private
+    { Private declarations }
+    vlDadosCNPJ : TDadosCNPJ;
+  public
+    { Public declarations }
+  end;
+
+var
+  frmConsultaCNPJ: TfrmConsultaCNPJ;
+  function ConsultarCNPJ(vfCnpj: string): TDadosCNPJ;
+
+implementation
+
+uses
+  pngimage, Controles;
+
+{$R *.dfm}
+
+function ConsultarCNPJ(vfCnpj: string): TDadosCNPJ;
+begin
+  try
+    if frmConsultaCNPJ = nil then
+      Application.CreateForm(TfrmConsultaCNPJ, frmConsultaCNPJ);
+    frmConsultaCNPJ.EditCNPJ.Text := vfCnpj;
+    frmConsultaCNPJ.ShowModal;
+
+    if frmConsultaCNPJ.ModalResult = mrOk then
+      Result := frmConsultaCNPJ.vlDadosCNPJ;
+
+  finally
+    frmConsultaCNPJ.Close;
+    FreeAndNil(frmConsultaCNPJ);
+  end;
+end;
+
+procedure TfrmConsultaCNPJ.ButBuscarClick(Sender: TObject);
+var
+  I: Integer;
+begin
+  ModalResult := mrNone;
+
+  if EditCaptcha.Text <> '' then
+  begin
+    try
+      if ACBrConsultaCNPJ1.Consulta(
+        EditCNPJ.Text,
+        EditCaptcha.Text,
+        ckRemoverEspacosDuplos.Checked
+      ) then
+      begin
+        vlDadosCNPJ.Tipo        := ACBrConsultaCNPJ1.EmpresaTipo;
+        vlDadosCNPJ.RazaoSocial := ACBrConsultaCNPJ1.RazaoSocial;
+        vlDadosCNPJ.Abertura    := DateToStr( ACBrConsultaCNPJ1.Abertura );
+        vlDadosCNPJ.Fantasia    := ACBrConsultaCNPJ1.Fantasia;
+        vlDadosCNPJ.Endereco    := ACBrConsultaCNPJ1.Endereco;
+        vlDadosCNPJ.Numero      := ACBrConsultaCNPJ1.Numero;
+        vlDadosCNPJ.Complemento := ACBrConsultaCNPJ1.Complemento;
+        vlDadosCNPJ.Bairro      := ACBrConsultaCNPJ1.Bairro;
+        vlDadosCNPJ.Complemento := ACBrConsultaCNPJ1.Complemento;
+        vlDadosCNPJ.Cidade      := ACBrConsultaCNPJ1.Cidade;
+        vlDadosCNPJ.UF          := ACBrConsultaCNPJ1.UF;
+        vlDadosCNPJ.CEP         := ACBrConsultaCNPJ1.CEP;
+        vlDadosCNPJ.Situacao    := ACBrConsultaCNPJ1.Situacao;
+        vlDadosCNPJ.CNAE1       := ACBrConsultaCNPJ1.CNAE1;
+        vlDadosCNPJ.Email       := ACBrConsultaCNPJ1.EndEletronico;
+        vlDadosCNPJ.Telefone    := ACBrConsultaCNPJ1.Telefone;
+      end;
+    Except
+      Application.MessageBox('Erro ao realizar a pesquisa, tente novamente!', 'Atenção', MB_OK);
+      EditCaptcha.Clear;
+      EditCaptcha.SetFocus;
+      Exit;
+    end;
+    ModalResult := mrOk;
+  end
+  else
+  begin
+    ShowMessage('É necessário digitar o captcha.');
+    EditCaptcha.SetFocus;
+  end;
+end;
+
+procedure TfrmConsultaCNPJ.EditCaptchaKeyPress(Sender: TObject; var Key: Char);
+begin
+  if Key = #13 then
+    ButBuscarClick(ButBuscar);
+end;
+
+procedure TfrmConsultaCNPJ.FormCreate(Sender: TObject);
+begin
+  if dtmControles.vlUsarProxy then
+  begin
+    ACBrConsultaCNPJ1.ProxyHost := dtmControles.vlProxyServer;
+    ACBrConsultaCNPJ1.ProxyPort := dtmControles.vlProxyPort;
+    ACBrConsultaCNPJ1.ProxyUser := dtmControles.vlProxyUsername;
+    ACBrConsultaCNPJ1.ProxyPass := dtmControles.vlProxyPassword;
+  end;
+end;
+
+procedure TfrmConsultaCNPJ.FormShow(Sender: TObject);
+begin
+  Timer1.Enabled:= True;
+end;
+
+procedure TfrmConsultaCNPJ.LabAtualizarCaptchaClick(Sender: TObject);
+var
+  Stream: TMemoryStream;
+  png: TPngImage;
+begin
+  Stream:= TMemoryStream.Create;
+  try
+    ACBrConsultaCNPJ1.Captcha(Stream);
+
+    png:= TPngImage.Create;
+    try
+      png.LoadFromStream(Stream);
+      Image1.Picture.Assign(png);
+
+      EditCaptcha.Clear;
+      EditCaptcha.SetFocus;
+    finally
+      png.Free;
+    end;
+
+  finally
+    Stream.Free;
+  end;
+end;
+
+procedure TfrmConsultaCNPJ.Timer1Timer(Sender: TObject);
+begin
+  Timer1.Enabled:= False;
+  LabAtualizarCaptchaClick(LabAtualizarCaptcha);
+  EditCNPJ.SetFocus;
+end;
+
+end.

@@ -1,0 +1,38 @@
+unit CentroCustoAuxiliar;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, CadastroAuxSimplificado, cxGraphics,
+  cxControls, cxLookAndFeels, cxLookAndFeelPainters, cxContainer, cxEdit,
+  Vcl.Menus, Data.FMTBcd, Data.DB, Datasnap.DBClient, Datasnap.Provider,
+  Data.SqlExpr, Vcl.StdCtrls, cxButtons, Vcl.ExtCtrls, cxLabel;
+
+type
+  TfrmCentroCustoPersonalizado = class(TfrmCadastroAuxSimplificado)
+    Panel3: TPanel;
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  frmCentroCustoPersonalizado: TfrmCentroCustoPersonalizado;
+
+implementation
+
+{$R *.dfm}
+
+procedure TfrmCentroCustoPersonalizado.FormClose(Sender: TObject;
+  var Action: TCloseAction);
+begin
+  Action := caFree;
+  frmCadastroRapidoContas := nil;
+
+  inherited;
+end;
+
+end.

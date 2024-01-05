@@ -1,0 +1,169 @@
+inherited frmValidarPermissaoUsuario: TfrmValidarPermissaoUsuario
+  Left = 268
+  Caption = 'Validar Permiss'#227'o'
+  ClientHeight = 128
+  ClientWidth = 262
+  KeyPreview = True
+  OldCreateOrder = True
+  OnClose = FormClose
+  OnCreate = FormCreate
+  OnKeyPress = FormKeyPress
+  OnShow = FormShow
+  ExplicitWidth = 268
+  ExplicitHeight = 157
+  PixelsPerInch = 96
+  TextHeight = 13
+  inherited Panel1: TPanel
+    Width = 262
+    Height = 128
+    ExplicitWidth = 262
+    ExplicitHeight = 128
+    inherited Shape1: TShape
+      Width = 250
+      Height = 116
+      ExplicitLeft = 4
+      ExplicitTop = 4
+      ExplicitWidth = 250
+      ExplicitHeight = 116
+    end
+    object Label1: TLabel [1]
+      Left = 22
+      Top = 23
+      Width = 48
+      Height = 13
+      Caption = 'Usu'#225'rio:'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = 4210688
+      Font.Height = -11
+      Font.Name = 'MS Sans Serif'
+      Font.Style = [fsBold]
+      ParentFont = False
+      Transparent = True
+    end
+    object Label2: TLabel [2]
+      Left = 22
+      Top = 59
+      Width = 41
+      Height = 13
+      Caption = 'Senha:'
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = 4210688
+      Font.Height = -11
+      Font.Name = 'MS Sans Serif'
+      Font.Style = [fsBold]
+      ParentFont = False
+      Transparent = True
+    end
+    inherited btnCancelar: TcxButton
+      Left = 137
+      Top = 88
+      LookAndFeel.SkinName = ''
+      ExplicitLeft = 137
+      ExplicitTop = 88
+    end
+    object edtUsuario: TcxTextEdit
+      Left = 72
+      Top = 19
+      ParentFont = False
+      Properties.CharCase = ecUpperCase
+      Style.StyleController = dtmControles.cxEsc_EditsNormal
+      StyleFocused.Color = clSkyBlue
+      StyleFocused.TextColor = clGreen
+      StyleFocused.TextStyle = [fsBold]
+      StyleHot.TextStyle = [fsBold]
+      TabOrder = 1
+      OnKeyDown = edtUsuarioKeyDown
+      Width = 160
+    end
+    object edtSenha: TcxTextEdit
+      Left = 72
+      Top = 56
+      ParentFont = False
+      Properties.CharCase = ecUpperCase
+      Properties.EchoMode = eemPassword
+      Style.StyleController = dtmControles.cxEsc_EditsNormal
+      StyleFocused.Color = clSkyBlue
+      StyleFocused.TextColor = clGreen
+      StyleFocused.TextStyle = [fsBold]
+      StyleHot.TextStyle = [fsBold]
+      TabOrder = 2
+      Width = 160
+    end
+    object btnConfirmar: TcxButton
+      Left = 38
+      Top = 88
+      Width = 95
+      Height = 22
+      Caption = 'Confirmar'
+      Colors.Default = clWhite
+      LookAndFeel.Kind = lfUltraFlat
+      LookAndFeel.NativeStyle = False
+      LookAndFeel.SkinName = ''
+      OptionsImage.Glyph.Data = {
+        E6040000424DE604000000000000360000002800000014000000140000000100
+        180000000000B0040000130B0000130B00000000000000000000FFFFFFFFFFFF
+        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFEFEFEFDFEFEFFFFFFFFFFFFFFFFFFFFFF
+        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFFFFFFFFFFFFFFFFFFFFE7E8E7D0D2D1F6F6F6FFFFFFFFFFFFFFFFFFFFFFFF
+        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFFFFFFEEEEEE8E8F8E515452B9BBBAFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF8F8F8
+        AAABAA3D3E3D232423565756E5E7E5FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFCDCECD4A4C4A27
+        2827292B29282928848785F7F8F7FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFE3E5E35253522929292F2F2F2E2E
+        2E2E2E2E353635A1A2A1F9F9F9FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFFFFFFFFFFFFFFFFFFFFEBECEB797B792A2B2A2F302F2D2D2D2E2E2E303130
+        2C2E2C4F514FC3C4C3FBFBFBFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFFFFFFF0F1F0979897393A392F302F3334335252524546452F312F31323133
+        3433707270DEDFDEFEFEFEFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF8F9F9
+        B3B5B34B4C4B323332333433747574CECFCEB6B7B6484948323232323332393B
+        39919391F3F3F3FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFDFEFDCED0CF5A5C5A34
+        35342D2E2D7C7D7CEAEAEAFEFEFEFAFAFABFBFBF343534333533353535444544
+        B9BABAFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFE7E8E76D6E6D3233323A3A3A8D8D
+        8DFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFBCBCBC4546453536353536354F5250DD
+        DFDEFFFFFFFFFFFFFFFFFFFFFFFFA6A8A63B3D3B4547459A9A9AF4F4F4FFFFFF
+        FFFFFFFFFFFFFFFFFFFFFFFFF8F8F8ACACAC494A493839383636367A7C7BECED
+        ECFFFFFFFFFFFFFFFFFF5A5C5B545554ADADADF2F2F2FFFFFFFFFFFFFFFFFFFF
+        FFFFFFFFFFFFFFFFFFFFFFF3F3F3A7A7A7494A49393A39444544A1A2A2F4F5F5
+        FFFFFFFFFFFFB9B9B9CCCCCCF6F6F6FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFFFFFFFFFFFFFFFFFFF2F2F2A2A3A23F403F3D3D3D595B5AC2C3C3FCFCFCFF
+        FFFFFCFCFCFEFEFEFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFFFFFFFFFFFFFFFFF6F6F6A1A2A1343634404140737573E0E0E0FFFFFFFFFF
+        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFFFFFFFFFFFFFFFFFFFF9999994041404142418C8F8CEFF0EFFFFFFFFFFFFF
+        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFFFFFFFFFFFFF3F3F39797974647464C4D4CBABABAFFFFFFFFFFFFFFFFFFFF
+        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFFFFFFFFFFECECEC9494944647465C5E5CFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFFFFFFFFECECEC9C9C9C7E7F7EFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF
+        FFFFFFFFF5F5F5EFF0EF}
+      TabOrder = 3
+      Font.Charset = DEFAULT_CHARSET
+      Font.Color = clWindowText
+      Font.Height = -11
+      Font.Name = 'Tahoma'
+      Font.Style = []
+      ParentFont = False
+      OnClick = btnConfirmarClick
+    end
+  end
+  inherited DataSetAncestral: TSQLDataSet
+    Left = 83
+    Top = 7
+  end
+  inherited ProviderAncestral: TDataSetProvider
+    Left = 115
+    Top = 7
+  end
+  inherited ClientAncestral: TClientDataSet
+    Left = 147
+    Top = 7
+  end
+  inherited SourceAncestral: TDataSource
+    Left = 179
+    Top = 7
+  end
+end

@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2016/11/08 12:01:25.000.243,D:\Tri7\Desenvolvimento\Projeto_Principal\Financeiro\trunk\Source_JuridicoFinanceiro\CadCedente.dfm=D:\Tri7\Desenvolvimento\Projeto_Principal\Financeiro\trunk\Unit1.dfm</Transaction>
+    <Transaction>2016/11/14 08:21:25.000.086,D:\Tri7\Desenvolvimento\Projeto_Principal\Financeiro\trunk\Source_JuridicoFinanceiro\CadEnvioEmail.dfm=D:\Tri7\Desenvolvimento\Projeto_Principal\Financeiro\trunk\Source_JuridicoFinanceiro\CadEnvioEmailFinanceiro.dfm</Transaction>
+    <Transaction>2016/12/06 12:19:02.000.168,E:\Tri7\Projeto_Tri7_XE7\Projeto_Principal\Financeiro\trunk\Source_JuridicoFinanceiro\CadastroRapidoOrcamento.dfm=E:\Tri7\Projeto_Tri7_XE7\Projeto_Principal\Financeiro\trunk\Source_JuridicoFinanceiro\CadastroRapidoalteraLIvroCaixa.dfm</Transaction>
+    <Transaction>2016/12/06 14:13:13.000.738,E:\Tri7\Projeto_Tri7_XE7\Projeto_Principal\Financeiro\trunk\Source_JuridicoFinanceiro\CadastroRapidoOrcamento.dfm=E:\Tri7\Projeto_Tri7_XE7\Projeto_Principal\Financeiro\trunk\Source_JuridicoFinanceiro\CadastroRapidoContas.dfm</Transaction>
+    <Transaction>2016/12/08 11:25:43.000.783,E:\Tri7\Projeto_Tri7_XE7\Projeto_Principal\Financeiro\trunk\Source_JuridicoFinanceiro\CadastroRapidoOrcTransf.dfm=E:\Tri7\Projeto_Tri7_XE7\Projeto_Principal\Financeiro\trunk\Source_JuridicoFinanceiro\CadastroRapidoTransferencia.dfm</Transaction>
+    <Transaction>2017/03/08 12:07:52.000.813,D:\Tri7\Projeto_Tri7_XE7\Projeto_Principal\Financeiro\trunk\Source_JuridicoFinanceiro\CadModalidade.dfm=D:\Tri7\Projeto_Tri7_XE7\Projeto_Principal\Financeiro\trunk\Source_JuridicoFinanceiro\CadTipoSaida.dfm</Transaction>
+    <Transaction>2017/04/28 16:04:51.000.968,D:\Tri7\Projeto_Tri7_XE7\Projeto_Principal\Financeiro\trunk\Source_JuridicoFinanceiro\ConciliacaoBancaria.dfm=D:\Tri7\Projeto_Tri7_XE7\Projeto_Principal\Financeiro\trunk\Unit1.dfm</Transaction>
+    <Transaction>2017/05/26 17:31:25.000.497,D:\Tri7\Projeto_Tri7_XE7\Projeto_Principal\Financeiro\trunk\Source_JuridicoFinanceiro\CentroCustoAuxiliar.dfm=D:\Tri7\Projeto_Tri7_XE7\Projeto_Principal\Financeiro\trunk\Unit1.dfm</Transaction>
+    <Transaction>2017/06/05 16:44:57.000.252,D:\Tri7\Projeto_Tri7_XE7\Projeto_Principal\Financeiro\trunk\Source_JuridicoFinanceiro\CentroCustoAuxiliar.dfm=D:\Tri7\Projeto_Tri7_XE7\Projeto_Principal\Financeiro\trunk\Source_JuridicoFinanceiro\CentroCustoPersonalizado.dfm</Transaction>
+    <Transaction>2017/06/29 11:08:06.000.189,D:\Tri7\Projeto_Tri7_XE7\Projeto_Principal\Financeiro\trunk\Source_JuridicoFinanceiro\ItensVinculados.dfm=D:\Tri7\Projeto_Tri7_XE7\Projeto_Principal\Financeiro\trunk\Unit1.dfm</Transaction>
+    <Transaction>2017/08/03 14:48:46.000.073,D:\Tri7\Projeto_Tri7_XE7\Projeto_Principal\Financeiro\trunk\Unit1.dfm=D:\Tri7\Projeto_Tri7_XE7\Projeto_Principal\Financeiro\trunk\Source_JuridicoFinanceiro\VinculoConciliacaoBancaria.dfm</Transaction>
+    <Transaction>2017/08/07 12:15:36.000.135,D:\Tri7\Projeto_Tri7_XE7\Projeto_Principal\Financeiro\trunk\Source_JuridicoFinanceiro\ConciliacaoCarregarArquivo.dfm=D:\Tri7\Projeto_Tri7_XE7\Projeto_Principal\Financeiro\trunk\Unit1.dfm</Transaction>
+    <Transaction>2017/08/18 08:35:01.000.305,D:\Tri7\Projeto_Tri7_XE7\Projeto_Principal\Financeiro\trunk\Unit1.dfm=D:\Tri7\Projeto_Tri7_XE7\Projeto_Principal\Financeiro\trunk\Source_JuridicoFinanceiro\PessoaPesquisaAux.dfm</Transaction>
+    <Transaction>2017/11/03 17:04:19.000.217,D:\Tri7\Projeto_Tri7_XE7\Projeto_Principal\Financeiro\trunk\Source_JuridicoFinanceiro\Sincronizar.dfm=D:\Tri7\Projeto_Tri7_XE7\Projeto_Principal\Financeiro\trunk\Source_JuridicoFinanceiro\PlanilhaML.dfm</Transaction>
+    <Transaction>2017/11/14 15:11:06.000.891,D:\Tri7\Projeto_Tri7_XE7\Projeto_Principal\Financeiro\trunk\Source_JuridicoFinanceiro\CadastroRapidoOrcamento.dfm=D:\Tri7\Projeto_Tri7_XE7\Projeto_Principal\Financeiro\trunk\Source_JuridicoFinanceiro\ModificarFavorecidoCaucaia.dfm</Transaction>
+  </Transactions>
+</BorlandProject>

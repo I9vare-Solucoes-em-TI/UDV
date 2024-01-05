@@ -1,0 +1,134 @@
+unit I9Query;
+
+interface
+
+uses
+  System.SysUtils, System.Classes, Vcl.Clipbrd,
+  FireDAC.Stan.Option, FireDAC.Comp.Client, Data.DB;
+
+type
+  TI9Query = class(TFDQuery)
+  private
+
+    procedure ValidarQueryOpen;
+    procedure ValidarQueryExecute;
+
+  protected
+
+  public
+    constructor Create(AOwner: TComponent); override;
+    destructor Destroy; override;
+
+    procedure Open; overload;
+    function ExecSQL: Integer; overload;
+    function CopiaSql: string;
+  published
+  end;
+
+implementation
+
+{ TI9Query }
+
+function TI9Query.CopiaSql: string;
+begin
+  Result := '';
+
+  if Self = nil then
+    raise Exception.Create('(Create) Criar Componente antes de seu Uso.');
+
+  Clipboard.SetTextBuf(PChar(Self.SQL.Text));
+
+  Result := Self.SQL.Text;
+end;
+
+constructor TI9Query.Create(AOwner: TComponent);
+begin
+  inherited Create(AOwner);
+  Self.SetParentComponent(Self);
+
+  FreeNotification(Self);
+
+  Self.FetchOptions.Mode := fmAll;
+
+  // https://stackoverflow.com/questions/41744271/firedac-not-insert-symbol-into-sqlite-varchar
+  //Self.ResourceOptions.MacroCreate := True;
+  //Self.ResourceOptions.MacroExpand := False;
+end;
+
+destructor TI9Query.Destroy;
+begin
+  Self.Close;
+  inherited destroy;
+end;
+
+function TI9Query.ExecSQL: Integer;
+begin
+  ValidarQueryExecute;
+
+  //Result := inherited execSQL;
+  inherited execSQL;
+
+  Result := RowsAffected;
+end;
+
+procedure TI9Query.Open;
+begin
+  ValidarQueryOpen;
+
+  inherited Open;
+end;
+
+procedure TI9Query.ValidarQueryOpen;
+const
+  MENSAGEM_ERRO_METODO = 'Não foi possível conectar no Banco de Dados!';
+begin
+  if Self.Connection = nil then
+    raise Exception.Create(MENSAGEM_ERRO_METODO + sLineBreak + 'Motivo: Query sem conector' + sLineBreak + 'QueryName: ' + Self.Name + sLineBreak + 'Erro Técnico: ET0999# ');
+
+  {if Self.Connection.ClassName <> 'TI9Connection' then
+    Raise Exception.Create(MENSAGEM_ERRO_METODO + sLineBreak +  'Motivo: Query com conector inválido!' + sLineBreak + 'QueryName: ' + Self.Name + sLineBreak + 'Erro Técnico: ET0999# ');}
+
+//  if Self.Transaction = nil then
+//    Raise exception.Create(MENSAGEM_ERRO_METODO + sLineBreak +  'Motivo: Conector desta query não tem transação informada!' + sLineBreak + 'QueryName: ' + Self.Name + sLineBreak + 'Erro Técnico: ET0999# ');
+
+  if not (Self.Connection.Connected) then
+  begin
+      if Trim(Self.Connection.Params.Text) = '' then
+        raise Exception.Create(MENSAGEM_ERRO_METODO + sLineBreak + 'Motivo: Conector de Banco de Dados não foi preenchido.' + sLineBreak + 'QueryName: ' + Self.Name + sLineBreak + 'Erro Técnico: ET0999# ');
+
+    try
+      Self.Connection.Connected := True;
+    except
+      on e: Exception do
+        raise Exception.Create(MENSAGEM_ERRO_METODO + sLineBreak + 'Motivo: Conector de Banco de Dados perdeu a Conexão e não foi possível conectá-lo novamente.' + sLineBreak + 'Erro Técnico: ET0999# ');
+    end;
+  end;
+end;
+
+procedure TI9Query.ValidarQueryExecute;
+const
+  MENSAGEM_ERRO_METODO = 'Não foi possível conectar no Banco de Dados!';
+  begin
+    if Self.Connection = nil then
+    raise Exception.Create(MENSAGEM_ERRO_METODO + sLineBreak + 'Motivo: Query sem conector' + sLineBreak + 'QueryName: ' + Self.Name + sLineBreak + 'Erro Técnico: ET0999# ');
+
+  {if Self.Connection.ClassName <> 'TI9Connection' then
+    Raise exception.Create(MENSAGEM_ERRO_METODO + sLineBreak +  'Motivo: Query com conector inválido!' + sLineBreak + 'QueryName: ' + Self.Name + sLineBreak + 'Erro Técnico: ET0999# ');}
+
+  if not (Self.Connection.Connected) then
+  begin
+    if Trim(Self.Connection.Params.Text) = '' then
+      raise Exception.Create(MENSAGEM_ERRO_METODO + sLineBreak + 'Motivo: Conector de Banco de Dados não foi preenchido.' + sLineBreak + 'QueryName: ' + Self.Name + sLineBreak + 'Erro Técnico: ET0999# ');
+
+    try
+      Self.Connection.Connected := True;
+    except
+      on e:Exception do
+        raise Exception.Create(MENSAGEM_ERRO_METODO + sLineBreak + 'Motivo: Conector de Banco de Dados perdeu a Conexão e não foi possível conectá-lo novamente.' + sLineBreak + 'Erro Técnico: ET0999# ');
+    end;
+  end;
+
+end;
+
+end.
+

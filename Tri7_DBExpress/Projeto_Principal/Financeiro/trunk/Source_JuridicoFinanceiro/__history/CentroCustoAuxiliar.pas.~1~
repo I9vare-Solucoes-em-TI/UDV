@@ -1,0 +1,143 @@
+unit CentroCustoAuxiliar;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, CadAuxiliar, Menus, cxLookAndFeelPainters, FMTBcd, dxSkinsCore,
+  dxSkinBlack, dxSkinBlue, dxSkinCaramel, dxSkinCoffee, dxSkinDarkSide,
+  dxSkinGlassOceans, dxSkiniMaginary, dxSkinLilian, dxSkinLiquidSky,
+  dxSkinLondonLiquidSky, dxSkinMcSkin, dxSkinMoneyTwins, dxSkinOffice2007Black,
+  dxSkinOffice2007Blue, dxSkinOffice2007Green, dxSkinOffice2007Pink,
+  dxSkinOffice2007Silver, dxSkinPumpkin, dxSkinSilver, dxSkinStardust,
+  dxSkinSummer2008, dxSkinsDefaultPainters, dxSkinValentine, dxSkinXmas2008Blue,
+  cxGraphics, cxStyles, dxSkinscxPCPainter, cxCustomData, cxFilter, cxData,
+  cxDataStorage, cxEdit, DB, cxDBData, cxGridCustomTableView, cxGridTableView,
+  cxGridDBTableView, cxGridLevel, cxClasses, cxControls, cxGridCustomView,
+  cxGrid, cxCurrencyEdit, cxTextEdit, cxMaskEdit, cxDropDownEdit, cxLookupEdit,
+  cxDBLookupEdit, cxDBLookupComboBox, ExtCtrls, cxContainer, cxLabel, DBClient,
+  Provider, SqlExpr, StdCtrls, cxButtons;
+
+type
+  TfrmCentroCustoAuxiliar = class(TfrmCadAuxiliar)
+    Panel2: TPanel;
+    Bevel4: TBevel;
+    lblInformacaoLancamento: TcxLabel;
+    Panel4: TPanel;
+    imgReceber: TImage;
+    cxLabel5: TcxLabel;
+    lcbCentroCusto: TcxLookupComboBox;
+    cxLabel1: TcxLabel;
+    edtPorcentagem: TcxCurrencyEdit;
+    btnAdicionar: TcxButton;
+    grdBasica: TcxGrid;
+    cxGridPesquisa: TcxGridDBTableView;
+    grdBasicaLevel1: TcxGridLevel;
+    cxGridPesquisaColumn1: TcxGridDBColumn;
+    cxGridPesquisaColumn2: TcxGridDBColumn;
+    btnItemExcluir: TcxButton;
+    btnFechar: TcxButton;
+    procedure btnItemExcluirClick(Sender: TObject);
+    procedure ClientCentroCustosAfterScroll(DataSet: TDataSet);
+    procedure FormActivate(Sender: TObject);
+    procedure btnAdicionarClick(Sender: TObject);
+    procedure btnFecharClick(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  frmCentroCustoAuxiliar: TfrmCentroCustoAuxiliar;
+
+implementation
+
+uses LookupFinanca, Controles, Rotinas;
+
+{$R *.dfm}
+
+procedure TfrmCentroCustoAuxiliar.btnAdicionarClick(Sender: TObject);
+
+  procedure VerificaCentroCusto;
+  begin
+    with dtmLookupFinanca do
+    begin
+      ClientCentroCustos.DisableControls;
+      ClientCentroCustos.First;
+      while not ClientCentroCustos.Eof do
+      begin
+        if ClientCentroCustosCENTRO_CUSTO_ID.AsInteger = lcbCentroCusto.EditValue then
+        begin
+          Application.MessageBox('Centro de Custo ja vinculado!!!', 'Atenção', mb_Ok + MB_ICONEXCLAMATION);
+          lcbCentroCusto.SetFocus;
+          ClientCentroCustos.EnableControls;
+          Abort;
+        end;
+        ClientCentroCustos.Next;
+      end;
+      ClientCentroCustos.EnableControls;
+    end;
+  end;
+
+begin
+  inherited;
+  VerificarPreenchimentoLCX_TX(lcbCentroCusto.Text,'Centro de Custos', lcbCentroCusto);
+  VerificaCentroCusto;
+
+  if edtPorcentagem.EditValue <= 0 then
+  begin
+    Application.MessageBox('Porcentagem Inválida!!!', 'Atenção', mb_Ok + MB_ICONEXCLAMATION);
+    edtPorcentagem.SetFocus;
+    exit;
+  end;
+
+  with dtmLookupFinanca do
+  begin
+    ClientCentroCustos.Insert;
+    ClientCentroCustosCENTRO_CUSTO_ID.AsInteger := lcbCentroCusto.EditValue;
+    ClientCentroCustosPORCENTAGEM.AsCurrency    := edtPorcentagem.EditValue;
+    ClientCentroCustosSITUACAO.AsString         := '1';
+    ClientCentroCustos.Post;
+    lcbCentroCusto.SetFocus;
+  end;
+
+  lcbCentroCusto.EditValue := null;
+  edtPorcentagem.EditValue := 0;
+
+//  edtPorcentagem.EditValue := ClientCentroCustos.FieldByName('TOTAL_PORCENTAGEM').AsFloat;
+end;
+
+procedure TfrmCentroCustoAuxiliar.btnFecharClick(Sender: TObject);
+begin
+  inherited;
+  vgCentroCusto.Confirmado := True;
+  Close;
+end;
+
+procedure TfrmCentroCustoAuxiliar.btnItemExcluirClick(Sender: TObject);
+begin
+  inherited;
+  dtmLookupFinanca.ApagarCentroCusto;
+end;
+
+procedure TfrmCentroCustoAuxiliar.ClientCentroCustosAfterScroll(
+  DataSet: TDataSet);
+begin
+  inherited;
+  btnItemExcluir.Enabled := dtmLookupFinanca.ClientCentroCustos.RecordCount > 0;
+end;
+
+procedure TfrmCentroCustoAuxiliar.FormActivate(Sender: TObject);
+begin
+  inherited;
+  vgCentroCusto.Confirmado := False;
+
+{  if ClientCentroCustos.RecordCount = 0 then
+       edtPorcentagem.EditValue := 100
+  else edtPorcentagem.EditValue := 100 - ClientCentroCustosTOTAL_PORCENTAGEM.AsCurrency;}
+
+  lcbCentroCusto.SetFocus;
+end;
+
+end.

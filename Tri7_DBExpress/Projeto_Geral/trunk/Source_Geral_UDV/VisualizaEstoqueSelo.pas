@@ -1,0 +1,91 @@
+unit VisualizaEstoqueSelo;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, cxGraphics, cxControls, cxLookAndFeels, cxLookAndFeelPainters,
+  cxContainer, cxEdit, dxSkinsCore, dxSkinsDefaultPainters, dxSkinWhiteprint,
+  dxSkinXmas2008Blue, cxTextEdit, cxMemo, cxRichEdit, Menus, StdCtrls,
+  cxButtons, ExtCtrls, printers, dxSkinBlack, dxSkinBlue, dxSkinBlueprint,
+  dxSkinCaramel, dxSkinCoffee, dxSkinDarkRoom, dxSkinDevExpressStyle,
+  dxSkinFoggy, dxSkinGlassOceans, dxSkinHighContrast, dxSkiniMaginary,
+  dxSkinLilian, dxSkinLiquidSky, dxSkinLondonLiquidSky, dxSkinMcSkin,
+  dxSkinMoneyTwins, dxSkinOffice2007Black, dxSkinOffice2007Blue,
+  dxSkinOffice2007Green, dxSkinOffice2007Pink, dxSkinOffice2007Silver,
+  dxSkinOffice2010Black, dxSkinOffice2010Blue, dxSkinOffice2010Silver,
+  dxSkinOffice2013White, dxSkinPumpkin, dxSkinSeven, dxSkinSevenClassic,
+  dxSkinSharp, dxSkinSharpPlus, dxSkinSilver, dxSkinSpringTime, dxSkinStardust,
+  dxSkinSummer2008, dxSkinTheAsphaltWorld, dxSkinValentine, dxSkinVS2010,
+  dxSkinDevExpressDarkStyle;
+
+type
+  TfrmVisualizaEstoqueSelo = class(TForm)
+    rchTexto: TcxRichEdit;
+    Panel1: TPanel;
+    btnImprimirProtocolo: TcxButton;
+    btnFechar: TcxButton;
+    PrintDialog1: TPrintDialog;
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure btnFecharClick(Sender: TObject);
+    procedure btnImprimirProtocoloClick(Sender: TObject);
+  private
+    { Private declarations }
+    procedure SetRichEditMargins(const mLeft, mRight, mTop, mBottom: extended;
+      const re: TcxRichEdit);
+  public
+    { Public declarations }
+  end;
+
+var
+  frmVisualizaEstoqueSelo: TfrmVisualizaEstoqueSelo;
+
+implementation
+
+{$R *.dfm}
+
+procedure TfrmVisualizaEstoqueSelo.btnFecharClick(Sender: TObject);
+begin
+  Close;
+end;
+
+procedure TfrmVisualizaEstoqueSelo.btnImprimirProtocoloClick(Sender: TObject);
+begin
+  if PrintDialog1.Execute then
+  begin
+    SetRichEditMargins(1, 1, 0.5, 0.5, rchTexto) ;
+    rchTexto.Print('Selos Estoque Mínimo');
+  end;
+end;
+
+procedure TfrmVisualizaEstoqueSelo.FormClose(Sender: TObject;
+  var Action: TCloseAction);
+begin
+  Action := caFree;
+  frmVisualizaEstoqueSelo := nil;
+end;
+
+procedure TfrmVisualizaEstoqueSelo.SetRichEditMargins(const mLeft, mRight, mTop, mBottom: extended; const re : TcxRichEdit) ;
+var
+  ppiX,
+  ppiY : integer;
+  spaceLeft,
+  spaceTop : integer;
+  r : TRect;
+begin
+  // pixels per inch
+  ppiX := GetDeviceCaps(Printer.Handle, LOGPIXELSX) ;
+  ppiY := GetDeviceCaps(Printer.Handle, LOGPIXELSY) ;
+  // non-printable margins
+  spaceLeft := GetDeviceCaps(Printer.Handle, PHYSICALOFFSETX) ;
+  spaceTop := GetDeviceCaps(Printer.Handle, PHYSICALOFFSETY) ;
+  //calc margins
+  R.Left := Round(ppiX * mLeft) - spaceLeft;
+  R.Right := Printer.PageWidth - Round(ppiX * mRight) - spaceLeft;
+  R.Top := Round(ppiY * mTop) - spaceTop;
+  R.Bottom := Printer.PageHeight - Round(ppiY * mBottom) - spaceTop;
+  // set margins
+  re.PageRect := r;
+end;
+
+end.

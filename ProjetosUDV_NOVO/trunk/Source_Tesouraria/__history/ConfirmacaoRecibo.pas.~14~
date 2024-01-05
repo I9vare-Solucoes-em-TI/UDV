@@ -1,0 +1,118 @@
+unit ConfirmacaoRecibo;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, dxSkinsCore, dxSkinBlack, dxSkinBlue, dxSkinCaramel, dxSkinCoffee,
+  dxSkinDarkSide, dxSkinGlassOceans, dxSkiniMaginary, dxSkinLilian,
+  dxSkinLiquidSky, dxSkinLondonLiquidSky, dxSkinMcSkin, dxSkinMoneyTwins,
+  dxSkinOffice2007Black, dxSkinOffice2007Blue, dxSkinOffice2007Green,
+  dxSkinOffice2007Pink, dxSkinOffice2007Silver, dxSkinPumpkin, dxSkinSilver,
+  dxSkinStardust, dxSkinSummer2008, dxSkinsDefaultPainters, dxSkinValentine,
+  dxSkinXmas2008Blue, Menus, cxLookAndFeelPainters, StdCtrls, cxButtons,
+  cxCheckBox, cxTextEdit, cxMaskEdit, cxDropDownEdit, cxCalendar, ExtCtrls,
+  cxControls, cxContainer, cxEdit, cxLabel, cxSpinEdit, cxGraphics,
+  cxLookAndFeels, dxSkinBlueprint, dxSkinDarkRoom, dxSkinDevExpressDarkStyle,
+  dxSkinDevExpressStyle, dxSkinFoggy, dxSkinHighContrast, dxSkinOffice2010Black,
+  dxSkinOffice2010Blue, dxSkinOffice2010Silver, dxSkinOffice2013White,
+  dxSkinSeven, dxSkinSevenClassic, dxSkinSharp, dxSkinSharpPlus,
+  dxSkinSpringTime, dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint,
+  ComCtrls, dxCore, cxDateUtils, cxLookupEdit, cxDBLookupEdit,
+  cxDBLookupComboBox, cxImageComboBox;
+
+type
+
+  TDadosConfimacao = Record
+    Data: TDateTime;
+    Qtd, CaixaId : Integer;
+    Confirmado, GerarBoleto, Detalhar : Boolean;
+    Saida : Boolean;
+    Especie, Observacao : String;
+  End;
+
+  TfrmConfirmacaoRecibo = class(TForm)
+    Panel2: TPanel;
+    Bevel4: TBevel;
+    lblInformacaoLancamento: TcxLabel;
+    Panel4: TPanel;
+    imgReceber: TImage;
+    Panel1: TPanel;
+    lblData: TcxLabel;
+    cxLabel2: TcxLabel;
+    cxLabel1: TcxLabel;
+    edtDataRecebimento: TcxDateEdit;
+    lcxConta: TcxLookupComboBox;
+    icxEspecie: TcxImageComboBox;
+    btnConfirmar: TcxButton;
+    btnCancelar: TcxButton;
+    procedure btnConfirmarClick(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure btnCancelarClick(Sender: TObject);
+    procedure FormActivate(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  frmConfirmacaoRecibo: TfrmConfirmacaoRecibo;
+  vgDadosConfirmacao : TDadosConfimacao;
+
+implementation
+
+uses Controles, Lookup, Lookup_Contabil;
+
+{$R *.dfm}
+
+procedure TfrmConfirmacaoRecibo.btnCancelarClick(Sender: TObject);
+begin
+  vgDadosConfirmacao.Confirmado := False;
+  close;
+end;
+
+procedure TfrmConfirmacaoRecibo.btnConfirmarClick(Sender: TObject);
+begin
+  VerificarPreenchimentoDTA_TX(edtDataRecebimento.Text, 'Data da Entrada', edtDataRecebimento);
+  VerificarPreenchimentoLCX_TX(lcxConta.Text, 'Caixa', lcxConta);
+  dtmLookup.VerificarEdicao(IntToStr(dtmLookup.PegarAnoMes(DateToStr(edtDataRecebimento.EditValue))), 'Data de registro');
+  dtmLookupContabil.VerificaAnoMesFechado(DateToStr(edtDataRecebimento.EditValue));
+
+  if Application.MessageBox('Confirma o Registro?',
+      'Confirmação', MB_YESNO) = IDNO then
+    exit;
+
+  vgDadosConfirmacao.Confirmado := True;
+  vgDadosConfirmacao.Data       := edtDataRecebimento.Date;
+  vgDadosConfirmacao.Qtd        := 1;
+  vgDadosConfirmacao.CaixaId    := lcxConta.EditValue;
+  vgDadosConfirmacao.Especie    := icxEspecie.EditValue;
+  vgDadosConfirmacao.Observacao := edtDetalhe.Text;
+  close;
+end;
+
+procedure TfrmConfirmacaoRecibo.FormActivate(Sender: TObject);
+begin
+  if vgDadosConfirmacao.GerarBoleto then
+  begin
+    edtDataRecebimento.enabled  := False;
+    lblData.enabled             := False;
+  end
+  else edtDataRecebimento.SetFocus;
+  edtDataRecebimento.EditValue := dtmControles.DataHoraBanco(3);
+
+  if vgDadosConfirmacao.Detalhar then
+    lblInformacaoLancamento.Caption := 'Confirmação com Detalhamento do(s) Item(s)';
+
+end;
+
+procedure TfrmConfirmacaoRecibo.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  vgDadosConfirmacao.Detalhar := False;
+  Action := caFree;
+  frmConfirmacaoRecibo := nil;
+end;
+
+end.
+

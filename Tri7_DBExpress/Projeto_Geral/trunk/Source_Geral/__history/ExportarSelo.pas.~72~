@@ -1,0 +1,1123 @@
+unit ExportarSelo;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, Menus, ComObj, cxGraphics,
+  cxControls, cxContainer, cxEdit,
+  Vcl.ComCtrls,
+  Data.DB, cxCheckBox, cxImageComboBox,
+  cxLabel, cxDBLookupComboBox, cxCalendar, Datasnap.DBClient, SimpleDS,
+  cxGridLevel, cxGridCustomTableView, cxGridTableView, cxGridDBTableView,
+  cxClasses, cxGridCustomView, cxGrid, Vcl.StdCtrls, Vcl.ExtCtrls,
+  cxProgressBar, cxRadioGroup, cxMemo, cxDropDownEdit, cxLookupEdit,
+  cxDBLookupEdit, cxTextEdit, cxMaskEdit, cxGroupBox, cxPC, cxButtons,
+  cxGridExportLink,
+
+  Vcl.Buttons, cxLookAndFeels, cxLookAndFeelPainters, dxBarBuiltInMenu, dxCore,
+  cxDateUtils, cxStyles, cxCustomData, cxFilter, cxData, cxDataStorage,
+  cxNavigator, cxDBData, DbxDevartInterBase, IdBaseComponent, IdComponent,
+  IdIOHandler, IdIOHandlerSocket, IdIOHandlerStack, IdSSL, IdSSLOpenSSL,
+  IdAntiFreezeBase, Vcl.IdAntiFreeze, IdTCPConnection, IdTCPClient, IdHTTP;
+
+type
+  TfrmExportarSelo = class(TForm)
+    pnlConvenio: TPanel;
+    Panel4: TPanel;
+    sqlSelos: TSimpleDataSet;
+    dtsSelos: TDataSource;
+    sqlSelosNOTA_FISCAL: TStringField;
+    sqlSelosNUMERO_AGRUPADOR: TStringField;
+    sqlSelosSIGLA: TStringField;
+    sqlSelosNUMERO: TFMTBCDField;
+    sqlSelosTIPO_ATO: TFMTBCDField;
+    sqlSelosAPRESENTANTE: TStringField;
+    sqlSelosNOME_COMPLETO: TStringField;
+    sqlSelosDATA: TSQLTimeStampField;
+    sqlSelosIP_MAQUINA: TStringField;
+    sqlSelosVALOR_TOTAL: TFMTBCDField;
+    sqlSelosVALOR_EMOLUMENTO: TFMTBCDField;
+    sqlSelosVALOR_TAXA_JUDICIARIA: TFMTBCDField;
+    sqlSelosVALOR_FUNDESP: TFMTBCDField;
+    sqlSeloscal_numero_selo: TStringField;
+    SaveDialog1: TSaveDialog;
+    gbxPeriodo: TcxPageControl;
+    tbcPeriodo: TcxTabSheet;
+    cxGroupBox5: TcxGroupBox;
+    edtDataInicio: TcxDateEdit;
+    edtDataFinal: TcxDateEdit;
+    cxLabel11: TcxLabel;
+    SqlDataExportacao: TSimpleDataSet;
+    dtsDataExportacao: TDataSource;
+    cxGroupBox3: TcxGroupBox;
+    rdbSelosNaoExp: TcxRadioButton;
+    rdbSelosTodos: TcxRadioButton;
+    gbxPesquisaFiltro: TcxGroupBox;
+    rdbPeriodoSelecionado: TcxRadioButton;
+    rdbPeriodoQualquer: TcxRadioButton;
+    sqlSelosCALC_SELECIONADO: TBooleanField;
+    sqlSelosSELO_LIVRO_ID: TFMTBCDField;
+    SqlDataExportacaoDATA: TSQLTimeStampField;
+    SqlDataExportacaoCODIGO_EXPORTACAO: TFMTBCDField;
+    btnMarcar: TcxButton;
+    btnDesmarcar: TcxButton;
+    sqlSelosCALC_EXPORTADO: TBooleanField;
+    sqlSelosCODIGO_EXPORTACAO: TFMTBCDField;
+    Panel11: TPanel;
+    cxLabel10: TcxLabel;
+    cxLabel5: TcxLabel;
+    Image1: TImage;
+    Image2: TImage;
+    pnlPesquisaSistema: TPanel;
+    PopupMenu1: TPopupMenu;
+    actCorrigirNome: TMenuItem;
+    cxPageControl1: TcxPageControl;
+    tabSelosPesquisados: TcxTabSheet;
+    tabSelosEstoque: TcxTabSheet;
+    gridExportar: TcxGrid;
+    gridSelos: TcxGridDBTableView;
+    gridSelosColumn1: TcxGridDBColumn;
+    gridSelosEXPORTAR: TcxGridDBColumn;
+    gridSelosExportado: TcxGridDBColumn;
+    gridSelosNOTA_FISCAL: TcxGridDBColumn;
+    gridSelosNUMERO_AGRUPADOR: TcxGridDBColumn;
+    gridSelosNUMERO_SELO: TcxGridDBColumn;
+    gridSelosTIPO_ATO: TcxGridDBColumn;
+    gridSelosDATA: TcxGridDBColumn;
+    gridSelosAPRESENTANTE: TcxGridDBColumn;
+    gridSelosNOME_COMPLETO: TcxGridDBColumn;
+    gridSelosIP_MAQUINA: TcxGridDBColumn;
+    gridSelosVALOR_TOTAL: TcxGridDBColumn;
+    gridSelosVALOR_EMOLUMENTO: TcxGridDBColumn;
+    gridSelosVALOR_TAXA_JUDICIARIA: TcxGridDBColumn;
+    gridSelosVALOR_FUNDESP: TcxGridDBColumn;
+    gridExportarLevel1: TcxGridLevel;
+    grdBasica: TcxGrid;
+    grdBasicaDBTableView1: TcxGridDBTableView;
+    cxGridBasicaDDGrupo: TcxGridDBColumn;
+    grdBasicaDBTableView1SELO_GRUPO_ID: TcxGridDBColumn;
+    grdBasicaDBTableView1TIPO_CARTORIO: TcxGridDBColumn;
+    grdBasicaDBTableView1DATA_LOTE: TcxGridDBColumn;
+    grdBasicaDBTableView1SIGLA: TcxGridDBColumn;
+    grdBasicaDBTableView1CALC_NUMERO_INI: TcxGridDBColumn;
+    grdBasicaDBTableView1CALC_NUMERO_FIM: TcxGridDBColumn;
+    cxGridBasicaDBSituacao: TcxGridDBColumn;
+    grdBasicaDBTableView1NOTA_FISCAL: TcxGridDBColumn;
+    grdBasicaLevel1: TcxGridLevel;
+    N1: TMenuItem;
+    CorrigirTodosPesquisados1: TMenuItem;
+    pnlImpressaoTexto: TPanel;
+    sqlTipoSelo: TSimpleDataSet;
+    sqlTipoSeloSELO_GRUPO_ID: TFMTBCDField;
+    sqlTipoSeloDESCRICAO_COMPLETA: TStringField;
+    dtsTipoSelo: TDataSource;
+    chxFiltroSistema: TCheckBox;
+    sqlTipoSeloNUMERO: TFMTBCDField;
+    sqlSeloLote: TSimpleDataSet;
+    dtsSeloLote: TDataSource;
+    sqlSeloLoteSELO_LOTE_ID: TFMTBCDField;
+    sqlSeloLoteNOTA_FISCAL: TStringField;
+    sqlSeloLoteSELO_GRUPO_ID: TFMTBCDField;
+    CorrigirServenturio1: TMenuItem;
+    cxBtnFechar: TcxButton;
+    btnPesquisar: TcxButton;
+    btnXML: TcxButton;
+    tbcListaSelos: TcxTabSheet;
+    cdsSelos: TClientDataSet;
+    cdsSelosNOTA_FISCAL: TStringField;
+    cdsSelosNUMERO_AGRUPADOR: TStringField;
+    cdsSelosSIGLA: TStringField;
+    cdsSelosNUMERO: TFMTBCDField;
+    cdsSelosTIPO_ATO: TFMTBCDField;
+    cdsSelosAPRESENTANTE: TStringField;
+    cdsSelosNOME_COMPLETO: TStringField;
+    cdsSelosDATA: TSQLTimeStampField;
+    cdsSelosIP_MAQUINA: TStringField;
+    cdsSelosVALOR_TOTAL: TFMTBCDField;
+    cdsSelosVALOR_EMOLUMENTO: TFMTBCDField;
+    cdsSelosVALOR_TAXA_JUDICIARIA: TFMTBCDField;
+    cdsSelosVALOR_FUNDESP: TFMTBCDField;
+    cdsSeloscal_numero_selo: TStringField;
+    cdsSelosCALC_SELECIONADO: TBooleanField;
+    cdsSelosSELO_LIVRO_ID: TFMTBCDField;
+    cdsSelosCALC_EXPORTADO: TBooleanField;
+    cdsSelosCODIGO_EXPORTACAO: TFMTBCDField;
+    cdsSelosNOME_CORRIGIDO: TStringField;
+    N2: TMenuItem;
+    ExportarparaExcel1: TMenuItem;
+    ProgressBar: TcxProgressBar;
+    mmoLista: TcxMemo;
+    sqlTipoCodigo: TSimpleDataSet;
+    dtsTipoCodigo: TDataSource;
+    sqlTipoCodigoSELO_GRUPO_ID: TFMTBCDField;
+    sqlTipoCodigoNUMERO: TFMTBCDField;
+    chxTribunal: TcxCheckBox;
+    cxGroupBox1: TcxGroupBox;
+    lcxTipoCodigo: TcxLookupComboBox;
+    cxLabel1: TcxLabel;
+    icxTipoSistema: TcxImageComboBox;
+    cxGroupBox4: TcxGroupBox;
+    lcxTipoSelo: TcxLookupComboBox;
+    lcxLote: TcxLookupComboBox;
+    SpeedButton1: TSpeedButton;
+    SpeedButton2: TSpeedButton;
+    cdsSelosORDEM: TIntegerField;
+    gridSelosColumn2: TcxGridDBColumn;
+    sqlSelosCODIGO_GRATUITO: TFMTBCDField;
+    cdsSelosCODIGO_GRATUITO: TIntegerField;
+    sqlSelosVALIDADO: TStringField;
+    gridSelosColumn3: TcxGridDBColumn;
+    cdsSelosVALIDADO: TStringField;
+    btnValidar: TcxButton;
+    cdsSelosVALIDADO_TJ: TStringField;
+    sqlSelosPROTOCOLO: TFMTBCDField;
+    cdsSelosPROTOCOLO: TIntegerField;
+    sqlSelosSISTEMA_ID: TFMTBCDField;
+    cdsSelosSISTEMA_ID: TFMTBCDField;
+    chxListaSelos: TcxCheckBox;
+    chxSelosNaoValidados: TcxCheckBox;
+    procedure cxBtnFecharClick(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure FormCreate(Sender: TObject);
+    procedure sqlSelosCalcFields(DataSet: TDataSet);
+    procedure btnPesquisarClick(Sender: TObject);
+    procedure btnXMLClick(Sender: TObject);
+    procedure rdbSelosNaoExpClick(Sender: TObject);
+    procedure rdbSelosTodosClick(Sender: TObject);
+    procedure FormActivate(Sender: TObject);
+    procedure rdbPeriodoQualquerClick(Sender: TObject);
+    procedure rdbPeriodoSelecionadoClick(Sender: TObject);
+    procedure btnMarcarClick(Sender: TObject);
+    procedure btnDesmarcarClick(Sender: TObject);
+    procedure actCorrigirNomeClick(Sender: TObject);
+    procedure gridSelosCustomDrawCell(Sender: TcxCustomGridTableView;
+      ACanvas: TcxCanvas; AViewInfo: TcxGridTableDataCellViewInfo;
+      var ADone: Boolean);
+    procedure CorrigirTodosPesquisados1Click(Sender: TObject);
+    procedure icxTipoSistemaPropertiesEditValueChanged(Sender: TObject);
+    procedure chxFiltroSistemaClick(Sender: TObject);
+    procedure lcxTipoSeloPropertiesEditValueChanged(Sender: TObject);
+    procedure CorrigirServenturio1Click(Sender: TObject);
+    procedure gbxPeriodoChange(Sender: TObject);
+    procedure chxListaSelosClick(Sender: TObject);
+    procedure ExportarparaExcel1Click(Sender: TObject);
+    procedure lcxTipoCodigoPropertiesEditValueChanged(Sender: TObject);
+    procedure lcxTipoCodigoEnter(Sender: TObject);
+    procedure lcxTipoSeloEnter(Sender: TObject);
+    procedure SpeedButton1Click(Sender: TObject);
+    procedure SpeedButton2Click(Sender: TObject);
+    procedure btnValidarClick(Sender: TObject);
+  private
+    { Private declarations }
+    vlCodigoCartorio,
+    vlChaveCartorio, vlPermissao_ControleMaster, vlPastaExportacao : string;
+    procedure MarcarDesmarcar(vpMarcar : Boolean);
+    procedure SaveUFT8(vfValor: String);
+  public
+
+  end;
+
+var
+  frmExportarSelo: TfrmExportarSelo;
+
+  function GetHash(vfValor : String) : String;
+
+implementation
+
+uses
+  Controles,
+  Rotinas,
+  Atualizacao,
+  CHILKATCRYPT2Lib_TLB,
+  Lookup,
+  ValidarPermissaoUsuario,
+  MensagemUtils,
+  Geral.Model.Entity.Spec.Maybe,
+  ADM.Model.Entity.Spec.EnvioSelosTJ,
+  ADM.Controller.Factory.Entity.EnvioSelosTJ;
+
+{$R *.dfm}
+
+function getNumeroSelo(vfValor : String) : string;
+var
+  Idx : Integer;
+begin
+  Result := '';
+
+  if vfValor <> '' then
+  begin
+    Idx := Pos('Atos vinculados ao selo', vfValor);
+    if Idx > 0 then
+      Result := RetornaNumerico(Copy(vfValor, Idx, length(vfValor)));
+  end;
+end;
+
+function GetHash(vfValor: String): String;
+var
+  crypt: TChilkatCrypt2;
+  success: Integer;
+begin
+  crypt := TChilkatCrypt2.Create(Application);
+  success := crypt.UnlockComponent('Crypt12345678_1060099AVHNG');
+  if (success <> 1) then
+  begin
+    ShowMessage('Hash component failed');
+  end;
+  crypt.EncodingMode := 'hex';
+  crypt.Charset := 'windows-1252';
+  crypt.HashAlgorithm := 'sha-1';
+  Result := AnsiLowerCase(crypt.HashStringENC(vfValor));
+end;
+
+function RitiraCaracterEspecial(Valor : String) : String;
+var i : Integer;
+begin
+  Result := '';
+  for i := 1 to Length(Valor) do
+  begin
+    if Valor[i] = '&' then
+      Result := Result + 'E'
+    else
+    if (Valor[i] in ['0'..'9', 'a'..'z', 'A'..'Z', '-', '/', '.', '_', ' ', 'à', 'â', 'ê', 'ô', 'û', 'ã', 'õ', 'á', 'é', 'í', 'ó' ,'ú', 'ç', 'ü', 'À', 'Â', 'Ê', 'Ô', 'Û', 'Ã', 'Õ', 'Á', 'É', 'Í', 'Ó', 'Ú', 'Ç', 'Ü']) then
+       Result := Result + Valor[i]
+    else
+      if (Valor[i] = ';') then
+        Result := Result + ' *';
+  end;
+end;
+
+Procedure TfrmExportarSelo.SaveUFT8(vfValor : String);
+var
+  Temp : UTF8String;
+  Stream: TStringStream;
+begin
+  Temp := Utf8Encode(vfValor);
+  Stream:= TStringStream. Create;
+  try
+    Stream.Write (Pointer (Temp) ^, Length (Temp));
+    Stream.SaveToFile(SaveDialog1.FileName);
+  finally
+     Stream. Free;
+  end;
+end;
+
+procedure TfrmExportarSelo.SpeedButton1Click(Sender: TObject);
+begin
+  lcxTipoCodigo.EditValue := null;
+end;
+
+procedure TfrmExportarSelo.SpeedButton2Click(Sender: TObject);
+begin
+  lcxTipoSelo.EditValue := null;
+  lcxLote.EditValue     := null;
+end;
+
+procedure TfrmExportarSelo.btnXMLClick(Sender: TObject);
+{$REGION 'Constantes'}
+const
+  CI_SISTEMA_RI: Integer = 1;
+  CI_SISTEMA_PROTESTO: Integer = 13;
+{$ENDREGION}
+
+{$REGION 'Variáveis'}
+var
+  viXMLGeradoSucesso: Boolean;
+  viXML : TStringList;
+  viHash,
+  viAto, viSelos, viFileName : String;
+  viCont, viCodigoExportacao : Integer;
+  vlExportar : Boolean;
+  viTentarEnvioXML: Boolean;
+  viEnvioSelosTJ: IMaybe<IEnvioSelosTJ>;
+{$ENDREGION}
+
+  procedure RegistrarSelosExportados;
+  begin
+    inc(viCont);
+    if viCont = 1 then
+         viSelos := cdsSelosSELO_LIVRO_ID.AsString
+    else viSelos := viSelos +','+ cdsSelosSELO_LIVRO_ID.AsString;
+    cdsSelos.Next;
+
+    if (viCont = 30) or (cdsSelos.Eof) then
+    begin
+      ExecutaSqlAuxiliar(' UPDATE G_SELO_LIVRO SET DATA_EXPORTACAO = :DATA_EXPORTACAO, '+
+                         '                         CODIGO_EXPORTACAO = :CODIGO_EXPORTACAO'+
+                         ' WHERE SELO_LIVRO_ID IN ('+ viSelos  +')',2);
+      with dtmControles.sqlAuxiliar do
+      begin
+        ParamByName('DATA_EXPORTACAO').AsString    := dtmControles.DataHoraBanco(5);
+        ParamByName('CODIGO_EXPORTACAO').AsInteger := viCodigoExportacao;
+        ExecSQL(FALSE);
+      end;
+      viSelos := '';
+      viCont  := 0;
+    end;
+  end;
+
+  procedure ValidarRegistros;
+  begin
+    cdsSelos.Filtered := False;
+    cdsSelos.DisableControls;
+    cdsSelos.First;
+    while not cdsSelos.Eof do
+    begin
+      cdsSelos.Edit;
+      cdsSelosVALIDADO.AsBoolean := Rotinas.RetornatQdtPalavras(cdsSelosAPRESENTANTE.AsString) > 1;
+      cdsSelos.Post;
+      cdsSelos.Next;
+    end;
+
+    cdsSelos.Filtered := False;
+    cdsSelos.Filter := 'VALIDADO = FALSE';
+    cdsSelos.Filtered := True;
+
+    cdsSelos.EnableControls;
+
+    if not cdsSelos.IsEmpty then
+    begin
+      pnlImpressaoTexto.Visible := True;
+      btnXML.enabled            := not cdsSelos.IsEmpty;
+      Application.MessageBox('Exportação não realizada. Existem registros não validados!!!', 'Atenção', MB_Ok + MB_ICONWARNING);
+      Abort;
+    end
+    else
+    begin
+      cdsSelos.Filtered         := False;
+      pnlImpressaoTexto.Visible := False;
+    end;
+  end;
+
+begin
+  viXMLGeradoSucesso := False;
+  ValidarRegistros;
+
+  if cdsSelos.IsEmpty then
+  begin
+    Application.MessageBox('Não há selos carregados para importação!', 'Atenção', MB_Ok + MB_ICONWARNING);
+    Abort;
+  end;
+
+  viFileName := 'retorno_selo_eletronico_' + RetornaNumerico(dtmControles.DataHoraBanco(1)) +
+                          RetornaNumerico(dtmControles.DataHoraBanco(2))+'.xml';
+
+  vlExportar := vlPastaExportacao <> '';
+  if not vlExportar then
+  begin
+    SaveDialog1.FileName := viFileName;
+    vlExportar := SaveDialog1.Execute;
+  end
+  else SaveDialog1.FileName := vlPastaExportacao + '\'+viFileName;
+
+  if vlExportar then
+  begin
+    try
+      Application.CreateForm(TfrmAtualizacao,frmAtualizacao);
+
+      frmAtualizacao.lblTexto.Caption := 'Gerando XML dos Selos, Aguarde!!!';
+      frmAtualizacao.Show;
+      Application.ProcessMessages;
+
+      viHash := '';
+
+      Screen.Cursor := crHourGlass;
+      gridExportar.Enabled := False;
+      cdsSelos.DisableControls;
+
+      viXML := TStringList.Create;
+      viXML.Add('<selo_eletronico>');
+      viXML.Add('<lote_dos_atos>');
+
+      ProgressBar.Position := 0;
+      ProgressBar.Properties.Max := cdsSelos.RecordCount;
+
+      viCont := 0;
+      viCodigoExportacao := dtmControles.GerarSequencia('SELO_CODIGO_EXPORTACAO');
+      cdsSelos.First;
+      while not cdsSelos.Eof do
+      begin
+        ProgressBar.Position := cdsSelos.RecNo;
+        Application.ProcessMessages;
+
+        if not cdsSelosCALC_SELECIONADO.AsBoolean then
+        begin
+          cdsSelos.Next;
+          Continue;
+        end;
+
+        viAto := '';
+        viAto := viAto + '<ato_utilizado>';
+        viAto := viAto + '<identificacao_pedido_na_cgj>' + cdsSelosNOTA_FISCAL.AsString + '</identificacao_pedido_na_cgj>';
+        viAto := viAto + '<codigo_do_selo>' + cdsSelosNUMERO_AGRUPADOR.AsString + '</codigo_do_selo>';
+        viAto := viAto + '<codigo_do_ato>' + cdsSeloscal_numero_selo.AsString + '</codigo_do_ato>';
+        viAto := viAto + '<tipo_de_ato>' + cdsSelosTIPO_ATO.AsString + '</tipo_de_ato>';
+        viAto := viAto + '<nome_do_civil_do_ato>' + UTF8Encode(RitiraCaracterEspecial(cdsSelosAPRESENTANTE.AsString)) + '</nome_do_civil_do_ato>';
+        viAto := viAto + '<nome_do_serventuario_que_praticou_ato>' + UTF8Encode(RitiraCaracterEspecial(cdsSelosNOME_COMPLETO.AsString)) + '</nome_do_serventuario_que_praticou_ato>';
+        viAto := viAto + '<data_hora_da_solicitacao>' + FormatDateTime('yyyy-mm-dd HH:MM:SS', cdsSelosDATA.AsDateTime) + ' UTC</data_hora_da_solicitacao>';
+        viAto := viAto + '<ip_da_maquina_que_praticou_ato>' + cdsSelosIP_MAQUINA.AsString + '</ip_da_maquina_que_praticou_ato>';
+        viAto := viAto + '<valor_de_entrada_do_ato>' + FormatFloat('#0.00',cdsSelosVALOR_TOTAL.AsCurrency) + '</valor_de_entrada_do_ato>';
+        viAto := viAto + '<emolumento_do_ato>' + FormatFloat('#0.00',cdsSelosVALOR_EMOLUMENTO.AsCurrency) + '</emolumento_do_ato>';
+        viAto := viAto + '<taxa_judiciaria_do_ato>' + FormatFloat('#0.00',cdsSelosVALOR_TAXA_JUDICIARIA.AsCurrency) + '</taxa_judiciaria_do_ato>';
+
+        if StrToDate(dtmControles.DataHoraBanco(4)) < StrToDate('29/03/2016') then
+          viAto := viAto + '<fundesp_do_ato>' + FormatFloat('#0.00',cdsSelosVALOR_FUNDESP.AsCurrency) + '</fundesp_do_ato>'
+        else
+        begin
+          viAto := viAto + '<fundos_estaduais_do_ato>' + FormatFloat('#0.00',cdsSelosVALOR_FUNDESP.AsCurrency) + '</fundos_estaduais_do_ato>';
+          viAto := viAto + '<id_do_ato_isentado>' + cdsSelosCODIGO_GRATUITO.AsString + '</id_do_ato_isentado>';
+
+          if cdsSelosSISTEMA_ID.AsInteger = CI_SISTEMA_RI then
+            viAto := viAto + '<protocolo_do_imovel>' +
+              cdsSelosPROTOCOLO.AsString + '</protocolo_do_imovel>'
+          else
+            if cdsSelosSISTEMA_ID.AsInteger = CI_SISTEMA_PROTESTO then
+              viAto := viAto + '<protocolo_do_protesto>' +
+                cdsSelosPROTOCOLO.AsString + '</protocolo_do_protesto>';
+        end;
+
+        viAto := viAto + '<assinatura_digital>false</assinatura_digital>';
+        viAto := viAto + '</ato_utilizado>';
+
+        viXML.Add(viAto);
+
+        viHash := viHash + viAto;
+        RegistrarSelosExportados;
+      end;
+
+      if viHash <> '' then
+      begin
+        viXML.Add('</lote_dos_atos>');
+
+        viHash := viHash + vlCodigoCartorio + vlChaveCartorio;
+
+        viXML.Add('<hash_conferencia_do_arquivo_xml>' + GetHash(viHash) + '</hash_conferencia_do_arquivo_xml>');
+        viXML.Add('</selo_eletronico>');
+
+        SaveUFT8(viXML.Text);
+
+        ShowMessage('XML gerado com sucesso!!!');
+        viXMLGeradoSucesso := True;
+
+        cdsSelos.EmptyDataSet;
+        SqlDataExportacao.Refresh;
+        btnXML.Enabled := False;
+        btnMarcar.enabled    := not cdsSelos.IsEmpty;
+        btnDesmarcar.enabled := not cdsSelos.IsEmpty;            
+      end
+      else Application.MessageBox('Nenhum selo selecionado para exportação!', 'Atenção', MB_Ok + MB_ICONWARNING);
+
+      cdsSelos.EnableControls;
+      gridExportar.Enabled := True;
+      FreeAndNil(viXML);     
+    except
+      cdsSelos.EnableControls;
+      gridExportar.Enabled := True;
+      FreeAndNil(viXML);
+      ShowMessage('Erro ao tentar gerar XML. Tente novamente!!!');
+    end;
+  end
+  else exit;
+
+  ProgressBar.Position := 0;
+  Screen.Cursor := crDefault;
+  frmAtualizacao.hide;
+  frmAtualizacao.free;
+
+  if viXMLGeradoSucesso and
+    TMensagemUtils.ExibirMensagemPergunta('Deseja enviar o XML para o ' +
+      'Tribunal de Justiça?') then
+  begin
+    viEnvioSelosTJ := TEnvioSelosTJFactory.New(
+      dtmControles.BuscarConfig(
+        'PRINCIPAL',
+        'CARTORIO',
+        'UF',
+        'S'))
+      .GetInstance;
+
+    if not viEnvioSelosTJ.HasValue then
+    begin
+      TMensagemUtils.ExibirMensagemAtencao(
+        'Não há rotina implementada para o envio de selos na UF do cartório.');
+
+      Exit;
+    end;
+
+    viTentarEnvioXML := True;
+    while viTentarEnvioXML do
+      try
+        viEnvioSelosTJ.Value.EnviarArquivoSelos(
+          SaveDialog1.FileName);
+
+        TMensagemUtils.ExibirMensagemInformacao(
+          'XML enviado para o Tribunal de Justiça com sucesso.');
+
+        viTentarEnvioXML := False;
+      except
+        on E: Exception do
+        begin
+          TMensagemUtils.ExibirMensagemErro(
+            E.Message);
+
+          viTentarEnvioXML := TMensagemUtils.ExibirMensagemPergunta(
+            'Deseja tentar enviar o XML novamente para o Tribunal de Justiça?');
+        end;
+      end;
+  end;
+end;
+
+procedure TfrmExportarSelo.chxFiltroSistemaClick(Sender: TObject);
+begin
+  icxTipoSistema.Enabled := chxFiltroSistema.Checked;
+
+  if not chxFiltroSistema.Checked then
+  begin
+    icxTipoSistema.ItemIndex := -1;
+    lcxTipoSelo.Enabled      := False;
+    lcxLote.Enabled          := False;
+    lcxTipoCodigo.Enabled    := False;
+  end;
+end;
+
+procedure TfrmExportarSelo.chxListaSelosClick(Sender: TObject);
+begin
+  if chxListaSelos.Checked then
+  begin
+    cxGroupBox3.Enabled      := False;
+    tbcPeriodo.TabVisible    := False;
+    tbcListaSelos.TabVisible := True;
+    gbxPeriodo.ActivePage    := tbcListaSelos;
+    chxTribunal.Visible      := True;
+  end
+  else
+  begin
+    cxGroupBox3.Enabled      := True;
+    tbcPeriodo.TabVisible    := True;
+    tbcListaSelos.TabVisible := False;
+    gbxPeriodo.ActivePage    := tbcPeriodo;
+    chxTribunal.Visible      := False;
+  end;
+  chxTribunal.Checked := False;
+end;
+
+procedure TfrmExportarSelo.CorrigirServenturio1Click(Sender: TObject);
+var
+  viUsuarioId, viServentuario : String;
+begin
+  viUsuarioId := '';
+  viUsuarioId := dtmControles.BuscarConfig('PRINCIPAL', 'CARTORIO', 'SERVENTUARIO_PADRAO', 'S');
+  if viUsuarioId = '' then
+  begin
+    ShowMessage('Verifique a Configuração do Serventuário em "Configuração/Principal/Cartorio"');
+    exit;
+  end;
+
+  cdsSelos.First;
+  while not cdsSelos.Eof do
+  begin
+   if cdsSelosNOME_COMPLETO.AsString = '' then
+      ExecutaSqlAuxiliar(' UPDATE G_SELO_LIVRO SET USUARIO_ID = '+viUsuarioId+
+                         ' WHERE SELO_LIVRO_ID = '+cdsSelosSELO_LIVRO_ID.AsString,1);
+    cdsSelos.Next;
+  end;
+  ShowMessage('Concluido');
+  btnPesquisarClick(Self);
+end;
+
+procedure TfrmExportarSelo.CorrigirTodosPesquisados1Click(Sender: TObject);
+var
+  viNome : String;
+  viQtdPalavras : Integer;
+begin
+  viNome := '';
+  if not InputQuery('Corrigir Nome Serventuário em branco', 'Nome Serventuário', viNome) then
+    exit;
+
+  cdsSelos.First;
+  while not cdsSelos.Eof do
+  begin
+    viQtdPalavras := Rotinas.RetornatQdtPalavras(cdsSelosAPRESENTANTE.AsString);
+    if viQtdPalavras < 2 then
+      ExecutaSqlAuxiliar(' UPDATE G_SELO_LIVRO SET APRESENTANTE = '+QuotedStr(cdsSelosAPRESENTANTE.AsString +' '+viNome)+
+                         ' WHERE SELO_LIVRO_ID = '+cdsSelosSELO_LIVRO_ID.AsString,1);
+    cdsSelos.Next;
+  end;
+  ShowMessage('Concluido');
+end;
+
+procedure TfrmExportarSelo.btnMarcarClick(Sender: TObject);
+begin
+  Screen.Cursor := crHourGlass;
+  MarcarDesmarcar(True);
+  Screen.Cursor := crDefault;
+end;
+
+procedure TfrmExportarSelo.btnPesquisarClick(Sender: TObject);
+var
+  viSql,
+  viSeloLista,
+  viSeloSigla,
+  viSeloNumero, viNumeroSelo : String;
+  i : Integer;
+  j: Integer;
+begin
+  if (Length(Trim(mmoLista.Lines.Strings[0])) > 23) and (not chxTribunal.Checked) then
+  begin
+    Application.MessageBox('Lista de selos fora do padrão, verifique se a pesquisa não é no formato Tribunal!', 'Atenção', MB_ICONWARNING + MB_OK);
+    Exit;
+  end;
+
+  ProgressBar.Position := 0;
+  cdsSelos.EmptyDataSet;
+  cdsSelos.Filtered := False;
+  sqlSelos.Close;
+  pnlImpressaoTexto.Visible := False;
+
+  cdsSelos.DisableControls;
+
+  viSql := ' SELECT SO.NOTA_FISCAL, '+
+           '       SL.SELO_LIVRO_ID, '+
+           '       SL.NUMERO_AGRUPADOR, '+
+           '       SL.CODIGO_EXPORTACAO, '+
+           '       SL.SIGLA, SL.NUMERO, '+
+           '       SG.NUMERO AS TIPO_ATO, '+
+           '       SL.APRESENTANTE, '+
+           '       U.NOME_COMPLETO, '+
+           '       SL.DATA, '+
+           '       SL.IP_MAQUINA, '+
+           '       SL.VALOR_TOTAL, '+
+           '       SL.VALOR_EMOLUMENTO, '+
+           '       SL.VALOR_TAXA_JUDICIARIA, '+
+           '       SL.VALOR_FUNDESP, '+
+           '       SL.CODIGO_GRATUITO, '+
+           '       SL.PROTOCOLO, '+
+           '       SL.VALIDADO, '+
+           '       SG.SISTEMA_ID ' +
+           ' FROM G_SELO_LIVRO SL '+
+           ' LEFT JOIN G_SELO_LOTE SO ON '+
+           '  SL.SELO_LOTE_ID = SO.SELO_LOTE_ID '+
+           ' LEFT JOIN G_SELO_GRUPO SG ON '+
+           '  SO.SELO_GRUPO_ID = SG.SELO_GRUPO_ID '+
+           ' LEFT JOIN G_USUARIO U ON '+
+           '   SL.USUARIO_ID = U.USUARIO_ID '+
+           ' WHERE NOT SG.TIPO_CARTORIO IS NULL '+
+           '  AND SL.SELO_SITUACAO_ID = 2 ';
+
+  if chxFiltroSistema.Checked then
+  begin
+    // PESQUISA POR SISTEMA
+    if icxTipoSistema.EditValue <> null then
+      viSql := viSql + ' AND SG.TIPO_CARTORIO = '+QuotedStr(icxTipoSistema.EditValue);
+
+    // PESQUISA POR TIPO DE SELO
+    if lcxTipoSelo.EditValue <> null then
+      viSql := viSql + ' AND SG.SELO_GRUPO_ID = '+ IntToStr(lcxTipoSelo.EditValue);
+
+    // PESQUISA POR TIPO DE SELO
+    if lcxTipoCodigo.EditValue <> null then
+      viSql := viSql + ' AND SG.SELO_GRUPO_ID = '+ IntToStr(lcxTipoCodigo.EditValue);
+
+    // PESQUISA POR LOTE
+    if lcxLote.EditValue <> null then
+      viSql := viSql + ' AND SL.SELO_LOTE_ID = '+ IntToStr(lcxLote.EditValue);
+  end;
+
+  if not chxListaSelos.Checked then
+  begin
+    if (rdbPeriodoSelecionado.Checked) then
+    begin
+      VerificarPreenchimentoDTA_TX(edtDataInicio.Text, 'Data Início', edtDataInicio);
+      VerificarPreenchimentoDTA_TX(edtDataFinal.Text, 'Data Final', edtDataFinal);
+      viSql := viSql + ' AND SL.DATA ' + MontarSqlData(edtDataInicio.Date, edtDataFinal.Date)
+    end
+    else viSql := viSql + ' AND NOT SL.DATA IS NULL';
+
+    if rdbSelosNaoExp.Checked then
+      viSql := viSql + ' AND SL.DATA_EXPORTACAO IS NULL ';
+
+    if chxSelosNaoValidados.Checked then
+      viSql := viSql + ' AND ((SL.VALIDADO = ''N'') OR (SL.VALIDADO IS NULL))';
+
+    viSql := viSql + ' ORDER BY SL.NUMERO_AGRUPADOR ';
+
+    sqlSelos.DataSet.CommandText := viSql;
+    sqlSelos.Open;
+
+    ProgressBar.Properties.Max := sqlSelos.RecordCount;
+    sqlSelos.First;
+    while not sqlSelos.Eof do
+    begin
+      cdsSelos.Append;
+      for i := 0 to sqlSelos.FieldCount - 1 do
+        cdsSelos.Fields[i].Value := sqlSelos.Fields[i].Value;
+
+      if cdsSelosNUMERO_AGRUPADOR.AsString = sqlSeloscal_numero_selo.AsString then
+        cdsSelosORDEM.AsInteger := 0
+      else
+        cdsSelosORDEM.AsInteger := 1;
+
+      cdsSelos.Post;
+      sqlSelos.Next;
+
+      ProgressBar.Position := sqlSelos.RecNo;
+      Application.ProcessMessages;
+    end;
+  end
+  else
+  begin
+    if mmoLista.Text = '' then
+    begin
+      Application.MessageBox('Nenhum selo informado na lista para pesquisar!', 'Atenção', MB_OK + MB_ICONWARNING);
+      cdsSelos.EnableControls;
+      Exit;
+    end;
+
+    ProgressBar.Properties.Max := mmoLista.Lines.Count - 1;
+
+    for j := 0 to mmoLista.Lines.Count - 1 do
+    begin
+      viSeloLista  := Trim(mmoLista.Lines.Strings[j]);
+      if chxTribunal.Checked then
+        viSeloLista := getNumeroSelo(viSeloLista);
+
+      if viSeloLista <> '' then
+      begin
+        viSeloSigla  := Copy(viSeloLista,1, 17);
+        viSeloNumero := Copy(viSeloLista,18, 6);
+
+        sqlSelos.Close;
+        sqlSelos.DataSet.CommandText := viSql + ' AND SL.SIGLA = ' + QuotedStr(viSeloSigla) +
+                                                ' AND SL.NUMERO = ' + viSeloNumero +
+                                                ' ORDER BY SL.NUMERO_AGRUPADOR, TIPO_ATO ';;
+        sqlSelos.Open;
+
+        sqlSelos.First;
+        while not sqlSelos.Eof do
+        begin
+          viNumeroSelo := sqlSelosSIGLA.AsString + RetZeros(sqlSelosNUMERO.AsString,6);
+          if cdsSelos.Locate('cal_numero_selo', viNumeroSelo, [loCaseInsensitive]) then
+          begin
+            sqlSelos.Next;
+            Continue;
+          end;
+
+          cdsSelos.Append;
+          for i := 0 to sqlSelos.FieldCount - 1 do
+             cdsSelos.Fields[i].Value := sqlSelos.Fields[i].Value;
+
+          if cdsSelosNUMERO_AGRUPADOR.AsString = sqlSeloscal_numero_selo.AsString then
+            cdsSelosORDEM.AsInteger := 0
+          else
+            cdsSelosORDEM.AsInteger := 1;
+
+          cdsSelos.Post;
+          sqlSelos.Next;
+        end;
+      end;
+
+      ProgressBar.Position := j;
+      Application.ProcessMessages;
+    end;
+  end;
+
+  if cdsSelos.IsEmpty then
+    Application.MessageBox('Nenhum registro encontrado para o período!', 'Atenção', MB_OK + MB_ICONWARNING)
+  else
+    btnMarcarClick(Self);
+
+  cdsSelos.EnableControls;
+  ProgressBar.Position := 0;
+
+  btnMarcar.enabled    := not cdsSelos.IsEmpty;
+  btnDesmarcar.enabled := not cdsSelos.IsEmpty;
+  btnXML.enabled       := not cdsSelos.IsEmpty;
+end;
+
+procedure TfrmExportarSelo.btnValidarClick(Sender: TObject);
+
+  procedure HabilitarBotoes(vpHabilitado : Boolean);
+  begin
+    btnPesquisar.Enabled := vpHabilitado;
+    btnXML.Enabled       := vpHabilitado;
+    btnValidar.Enabled   := vpHabilitado;
+    cxBtnFechar.Enabled  := vpHabilitado;
+  end;
+
+begin
+  cdsSelos.DisableControls;
+  HabilitarBotoes(False);
+  Screen.Cursor := crHourGlass;
+  ProgressBar.Position := 0;
+  ProgressBar.Properties.Max := cdsSelos.RecordCount;
+  cdsSelos.First;
+  while not cdsSelos.Eof do
+  begin
+    cdsSelos.Edit;
+    if cdsSelosVALIDADO_TJ.AsString <> 'S' then
+    begin
+      cdsSelosVALIDADO_TJ.AsString := dtmControles.VerificarSeloTJ(cdsSeloscal_numero_selo.AsString);
+
+      if cdsSelosVALIDADO_TJ.AsString = 'S' then
+        ExecutaSqlAuxiliar(' UPDATE G_SELO_LIVRO SET VALIDADO = '+QuotedStr('S')+
+                           ' WHERE SELO_LIVRO_ID = '+ cdsSelosSELO_LIVRO_ID.AsString,1);
+    end;
+    cdsSelosCALC_SELECIONADO.AsBoolean := cdsSelosVALIDADO_TJ.AsString <> 'S';
+    cdsSelos.Post;
+
+    ProgressBar.Position := ProgressBar.Position + 1;
+    cdsSelos.Next;
+    Application.ProcessMessages;
+  end;
+  Screen.Cursor := crDefault;
+  cdsSelos.EnableControls;
+  HabilitarBotoes(True);
+end;
+
+procedure TfrmExportarSelo.cxBtnFecharClick(Sender: TObject);
+begin
+  Close;
+end;
+
+procedure TfrmExportarSelo.ExportarparaExcel1Click(Sender: TObject);
+var
+  HandleXLS : Variant;
+begin
+  if not cdsSelos.IsEmpty then
+  begin
+  try
+    if not DirectoryExists('C:\Temp') then
+      CreateDir('C:\Temp');
+
+    ExportGridToExcel('C:\temp\RelTemp.xls', gridExportar);
+    HandleXLS := CreateOleObject('Excel.Application');
+    HandleXLS.WorkBooks.Open('C:\temp\RelTemp.xls');
+    HandleXLS.DisplayAlerts := False;
+    HandleXLS.Visible := True;
+  except
+
+  end;
+
+  end
+  else Application.MessageBox('Nenhum registro encontrado para gerar excel!', 'Atenção', MB_OK + MB_ICONWARNING);
+
+
+end;
+
+procedure TfrmExportarSelo.actCorrigirNomeClick(Sender: TObject);
+var
+  viNome : String;
+  viQtdPalavras : Integer;
+begin
+  viNome := cdsSelosAPRESENTANTE.AsString;
+  repeat
+    if not InputQuery('Corrigir Nome Civil', 'Nome Civil', viNome) then
+      exit;
+
+    viQtdPalavras := Rotinas.RetornatQdtPalavras(viNome);
+    if viQtdPalavras < 2 then
+      Application.MessageBox('Nome Inválido!!!', 'Atenção', MB_Ok + MB_ICONWARNING);
+
+  until (viQtdPalavras >= 2);
+
+  ExecutaSqlAuxiliar(' UPDATE G_SELO_LIVRO SET APRESENTANTE = '+QuotedStr(viNome)+
+                     ' WHERE SELO_LIVRO_ID = '+cdsSelosSELO_LIVRO_ID.AsString,1);
+
+  cdsSelos.Edit;
+  cdsSelosNOME_CORRIGIDO.AsString := viNome;
+  cdsSelos.Post;
+end;
+
+procedure TfrmExportarSelo.btnDesmarcarClick(Sender: TObject);
+begin
+  Screen.Cursor := crHourGlass;
+  MarcarDesmarcar(False);
+  Screen.Cursor := crDefault;
+end;
+
+procedure TfrmExportarSelo.FormActivate(Sender: TObject);
+begin
+  chxFiltroSistemaClick(Self);
+end;
+
+procedure TfrmExportarSelo.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  cdsSelos.EmptyDataSet;
+  SqlDataExportacao.Active := False;
+  sqlTipoSelo.Active       := False;
+
+  Action := caFree;
+  frmExportarSelo := Nil;
+end;
+
+procedure TfrmExportarSelo.FormCreate(Sender: TObject);
+begin
+  Tag := 1;
+  edtDataInicio.Date := StrToDate(dtmControles.DataHoraBanco(4));
+  edtDataFinal.Date  := StrToDate(dtmControles.DataHoraBanco(4));
+
+  sqlSelos.Connection          := dtmControles.DB;
+  SqlDataExportacao.Connection := dtmControles.DB;
+  sqlTipoSelo.Connection       := dtmControles.DB;
+  sqlSeloLote.Connection       := dtmControles.DB;
+  sqlTipoCodigo.Connection     := dtmControles.DB;
+  tbcListaSelos.TabVisible     := False;
+//  SqlDataExportacao.Active     := True;
+  sqlSeloLote.Active           := True;
+
+  vlCodigoCartorio      := dtmControles.BuscarConfig('SELO', 'GOIAS', 'CODIGO_CARTORIO', 'S');
+  vlChaveCartorio       := dtmControles.BuscarConfig('SELO', 'GOIAS', 'CHAVE_SEGURANCA', 'S');
+  vlPastaExportacao     := dtmControles.BuscarConfig('SELO', 'EXPORTACAO', 'PASTA_EXPORTACAO', 'S');
+
+  {Parametros de Permissão}
+  vlPermissao_ControleMaster := dtmControles.CodPermissao('ESP_ATOCONTROLEMASTER');
+
+  rdbSelosTodos.Enabled := dtmControles.BuscarConfig('SELO', 'EXPORTACAO', 'PERMISSAO_PESQUISA_TODOS', 'S') =  'S';
+
+  dtmLookup.CarregarListaSistemas(icxTipoSistema);
+  icxTipoSistema.ItemIndex := -1;
+  Tag := 0;
+end;
+
+procedure TfrmExportarSelo.gbxPeriodoChange(Sender: TObject);
+begin
+{  if gbxPeriodo.ActivePage = tbcExportados then
+    if not SqlDataExportacao.Active then
+         SqlDataExportacao.Active := True
+    else SqlDataExportacao.Refresh;}
+end;
+
+procedure TfrmExportarSelo.gridSelosCustomDrawCell(
+  Sender: TcxCustomGridTableView; ACanvas: TcxCanvas;
+  AViewInfo: TcxGridTableDataCellViewInfo; var ADone: Boolean);
+begin
+  if (AViewInfo.RecordViewInfo.GridRecord.Values[0]) <> Null then
+  begin
+    ACanvas.Brush.Color := clSilver;
+    ACanvas.Font.Color  := clOlive;
+  end;
+end;
+
+procedure TfrmExportarSelo.icxTipoSistemaPropertiesEditValueChanged(
+  Sender: TObject);
+begin
+  if Tag = 0 then
+  begin
+    sqlTipoSelo.Active := False;
+    sqlTipoCodigo.Active  := False;
+    if icxTipoSistema.EditValue <> null then
+    begin
+      sqlTipoSelo.DataSet.ParamByName('TIPO_CARTORIO').AsString   := icxTipoSistema.EditValue;
+      sqlTipoCodigo.DataSet.ParamByName('TIPO_CARTORIO').AsString := icxTipoSistema.EditValue;
+      sqlTipoSelo.Active    := True;
+      sqlTipoCodigo.Active  := True;
+
+      lcxTipoSelo.enabled   := True;
+      lcxLote.enabled       := True;
+      lcxTipoCodigo.enabled := True;
+    end;
+    lcxTipoSelo.Clear;
+    btnPesquisarClick(self);
+  end;
+end;
+
+procedure TfrmExportarSelo.lcxTipoCodigoEnter(Sender: TObject);
+begin
+  lcxTipoSelo.EditValue := null;
+end;
+
+procedure TfrmExportarSelo.lcxTipoCodigoPropertiesEditValueChanged(
+  Sender: TObject);
+begin
+  if lcxTipoCodigo.editValue <> null then
+    btnPesquisarClick(self);
+end;
+
+procedure TfrmExportarSelo.lcxTipoSeloEnter(Sender: TObject);
+begin
+  lcxTipoCodigo.EditValue := null;
+end;
+
+procedure TfrmExportarSelo.lcxTipoSeloPropertiesEditValueChanged(
+  Sender: TObject);
+begin
+  if (icxTipoSistema.editValue = null) then
+    exit;
+
+  if lcxTipoSelo.editValue <> null then
+    btnPesquisarClick(self);
+end;
+
+procedure TfrmExportarSelo.MarcarDesmarcar(vpMarcar: Boolean);
+begin
+  cdsSelos.DisableControls;
+  cdsSelos.First;
+  while not cdsSelos.Eof do
+  begin
+    cdsSelos.Edit;
+    cdsSelosCALC_SELECIONADO.AsBoolean := vpMarcar;
+    cdsSelos.Post;
+    cdsSelos.Next;
+  end;
+  cdsSelos.First;
+  cdsSelos.EnableControls;
+end;
+
+procedure TfrmExportarSelo.rdbPeriodoQualquerClick(Sender: TObject);
+begin
+  edtDataInicio.Enabled := False;
+  edtDataFinal.Enabled  := False;
+
+  edtDataInicio.Clear;
+  edtDataFinal.Clear;
+end;
+
+procedure TfrmExportarSelo.rdbPeriodoSelecionadoClick(Sender: TObject);
+begin
+  edtDataInicio.Date := StrToDate(dtmControles.DataHoraBanco(4));
+  edtDataFinal.Date  := StrToDate(dtmControles.DataHoraBanco(4));
+
+  edtDataInicio.Enabled := True;
+  edtDataFinal.Enabled  := True;
+end;
+
+procedure TfrmExportarSelo.rdbSelosNaoExpClick(Sender: TObject);
+begin
+  gbxPeriodo.ActivePageIndex     := 0;
+  tbcPeriodo.TabVisible          := True;
+  gbxPesquisaFiltro.Enabled      := True;
+  rdbPeriodoSelecionado.Enabled  := True;
+  rdbPeriodoQualquer.Enabled     := True;
+
+  if rdbPeriodoSelecionado.Checked then
+    edtDataInicio.SetFocus;
+end;
+
+procedure TfrmExportarSelo.rdbSelosTodosClick(Sender: TObject);
+begin
+  gbxPeriodo.ActivePageIndex     := 0;
+  tbcPeriodo.TabVisible          := True;
+  gbxPesquisaFiltro.Enabled      := True;
+  rdbPeriodoSelecionado.Enabled  := True;
+
+  if rdbSelosTodos.Checked then
+  begin
+    rdbPeriodoQualquer.Enabled    := False;
+    rdbPeriodoSelecionado.Checked := True;
+  end
+  else
+  begin
+    rdbPeriodoQualquer.Enabled    := True;
+  end;
+
+  if rdbPeriodoSelecionado.Checked then
+    edtDataInicio.SetFocus;
+end;
+
+procedure TfrmExportarSelo.sqlSelosCalcFields(DataSet: TDataSet);
+begin
+  sqlSeloscal_numero_selo.AsString := sqlSelosSIGLA.AsString + RetZeros(sqlSelosNUMERO.AsString,6);
+  sqlSelosCALC_EXPORTADO.AsBoolean := NOT sqlSelosCODIGO_EXPORTACAO.IsNull;
+end;
+
+end.

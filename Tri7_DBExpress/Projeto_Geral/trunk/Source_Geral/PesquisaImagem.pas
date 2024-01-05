@@ -1,0 +1,483 @@
+unit PesquisaImagem;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, cxControls, cxContainer, cxEdit, Menus,
+  ComCtrls, ShlObj, cxShellCommon, cxListView, cxShellListView, StdCtrls,
+  cxButtons, cxMaskEdit, cxDropDownEdit,
+  cxTextEdit, cxLabel, ExtCtrls,
+  FrameImagem, cxPC, IniFiles, cxGraphics, cxLookAndFeels,
+  cxLookAndFeelPainters, dxBarBuiltInMenu,
+  {$WARN UNIT_PLATFORM OFF}
+  Vcl.FileCtrl, dxSkinsCore, dxSkinOffice2007Black, dxSkinOffice2007Blue,
+  dxSkinOffice2007Green, dxSkinOffice2007Pink, dxSkinOffice2007Silver,
+  dxSkinscxPCPainter
+  {$WARN UNIT_PLATFORM ON};
+
+type
+  TfrmPesquisaImagem = class(TForm)
+    pnlImagemGeral: TPanel;
+    fmeImagem1: TfmeImagem;
+    Panel1: TPanel;
+    PanelBotaoFechar: TPanel;
+    cxBtnFechar: TcxButton;
+    pgcPesquisa: TcxPageControl;
+    cxTabSheet1: TcxTabSheet;
+    cxLabel5: TcxLabel;
+    cxLabel6: TcxLabel;
+    cxLabel4: TcxLabel;
+    edtPesqLivro: TcxTextEdit;
+    edtPesqFolha: TcxTextEdit;
+    cbxNaturezaPesquisa: TcxComboBox;
+    btnPesquisar: TcxButton;
+    btnLimpar: TcxButton;
+    cxTabSheet2: TcxTabSheet;
+    cxLabel1: TcxLabel;
+    cbxNaturezaGeral: TcxComboBox;
+    lblInfoPesquisaDireta: TcxLabel;
+    lblInfoPesquisaPersonalizada: TcxLabel;
+    Panel2: TPanel;
+    cxShellListViewPastas: TcxShellListView;
+    cxLabelsomenteVisualizacao: TcxLabel;
+    FileListBox1: TFileListBox;
+    procedure cxBtnFecharClick(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure cxShellListViewPastasClick(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure pgcPesquisaChange(Sender: TObject);
+    procedure btnLimparClick(Sender: TObject);
+    procedure btnPesquisarClick(Sender: TObject);
+    procedure edtPesqFolhaKeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure cbxNaturezaPesquisaPropertiesEditValueChanged(Sender: TObject);
+    procedure fmeImagem1btnProximoClick(Sender: TObject);
+    procedure fmeImagem1btnAnteriorClick(Sender: TObject);
+    procedure cbxNaturezaGeralPropertiesChange(Sender: TObject);
+    procedure cxShellListViewPastasChange(Sender: TObject; Item: TListItem;
+      Change: TItemChange);
+    procedure FormActivate(Sender: TObject);
+    procedure fmeImagem1btnUltimoClick(Sender: TObject);
+    procedure FileListBox1Change(Sender: TObject);
+  private
+    vlLocalImagem, vlPasta, vlConfigFrenteVerso, vlConfigInicial, vlConfigPasta,
+    vlDirSelecionado, vlPastaAtual, vlArquivoAtual : String;
+    vlLocalOK, vlCriandoForm, vlFrente, vlAtualizandoDir1  : Boolean;
+    vlLivro, vlFolha : Integer;
+    vlLetra : String;
+    procedure CarregarPastas;
+    procedure GetDirList(Directory: String; var Result: TStrings;
+                     SubPastas: Boolean);
+    function LerImagem(vpPasta, vpArquivo : String): Boolean;
+    procedure CarregarINI(vpPasta : string = '');
+    procedure PesquisarLivroFolhaImagem(vpAvancar : Boolean = False);
+  public
+    { Public declarations }
+  end;
+
+var
+  frmPesquisaImagem: TfrmPesquisaImagem;
+
+implementation
+
+uses Controles, Rotinas;
+
+{$R *.dfm}
+{$WARN SYMBOL_DEPRECATED OFF}
+
+procedure TfrmPesquisaImagem.btnLimparClick(Sender: TObject);
+begin
+  edtPesqLivro.Clear;
+  edtPesqFolha.Clear;
+  edtPesqLivro.SetFocus;
+end;
+
+procedure TfrmPesquisaImagem.btnPesquisarClick(Sender: TObject);
+begin
+  vlFrente := True;
+  PesquisarLivroFolhaImagem;
+end;
+
+procedure TfrmPesquisaImagem.CarregarINI(vpPasta : string = '');
+var
+  Ini  : TIniFile;
+begin
+  if (vpPasta <> '') and (vlConfigPasta = 'Individual') then
+    vpPasta := '\'+vpPasta;
+
+  if FileExists(vlPasta+'\'+cbxNaturezaPesquisa.text+vpPasta+'\Config.ini') then
+       Ini := TIniFile.Create(vlPasta+'\'+cbxNaturezaPesquisa.text+vpPasta+'\Config.ini')
+  else Ini := TIniFile.Create(vlPasta+'\'+cbxNaturezaPesquisa.text+'\Config.ini');
+
+  vlConfigInicial     := Ini.ReadString('GERAL', 'Inicial', '');
+  vlConfigFrenteVerso := Ini.ReadString('GERAL', 'FrenteVerso', '');
+
+  if vpPasta = '' then
+    vlConfigPasta := Ini.ReadString('GERAL', 'Pasta', '');
+
+  if vlConfigInicial = '' then
+    vlConfigInicial := '1';
+
+  if vlConfigFrenteVerso = '' then
+    vlConfigFrenteVerso := 'N';
+
+  Ini.Free; 
+end;
+
+procedure TfrmPesquisaImagem.CarregarPastas;
+var
+  viLista : TStrings;
+begin
+  vlLocalImagem := dtmControles.BuscarConfig('IMAGEM', 'GERAL', 'LOCAL_IMAGEM', 'S');
+  if vlLocalImagem[Length(vlLocalImagem)] = '\' then
+     Delete(vlLocalImagem,Length(vlLocalImagem),1);
+
+  vlLocalOK := False;
+
+  if not DirectoryExists(vlLocalImagem) then
+  begin
+    Application.MessageBox('Local de Imagem não Encontrado!!!', 'Atenção', MB_OK + MB_ICONWARNING);
+    exit;
+  end;
+
+  vlPasta := vlLocalImagem+'\LivrosDigitalizados\'+vgSistemaNome;
+  // Verifica Se Existe a Pasta de Livros Digitalizados
+  if not DirectoryExists(vlPasta) then
+    ForceDirectories(vlLocalImagem+'\LivrosDigitalizados\'+vgSistemaNome);
+
+  viLista   := TStringList.Create;
+  vlLocalOK := True;
+  GetDirList(vlPasta,viLista,false); // o true é se vai mostrar os subdiretórios
+
+  if viLista.Count > 0 then
+  begin
+    cbxNaturezaGeral.Properties.Items.Clear;
+    cbxNaturezaGeral.Properties.Items := viLista;
+    cbxNaturezaPesquisa.Properties.Items.Clear;
+    cbxNaturezaPesquisa.Properties.Items := viLista;
+  end;
+  viLista.Free;
+
+  if cbxNaturezaGeral.Properties.Items.Count > 0 then
+  begin
+    cbxNaturezaGeral.ItemIndex    := 0 ;
+    cbxNaturezaPesquisa.ItemIndex := 0 ;
+  end;
+
+end;
+
+procedure TfrmPesquisaImagem.cbxNaturezaGeralPropertiesChange(Sender: TObject);
+begin
+  LockWindowUpdate(Handle);
+  cxShellListViewPastas.Root.CustomPath := vlPasta + '\'+ cbxNaturezaGeral.Text;
+  cxShellListViewPastas.InnerListView.ItemIndex := 0;
+  LockWindowUpdate(0);
+end;
+
+procedure TfrmPesquisaImagem.cbxNaturezaPesquisaPropertiesEditValueChanged(
+  Sender: TObject);
+begin
+  CarregarINI;
+  LockWindowUpdate(Handle);
+  cxShellListViewPastas.Root.CustomPath := vlPasta + '\'+ cbxNaturezaPesquisa.Text;
+  cxShellListViewPastas.InnerListView.ItemIndex := 0;
+  LockWindowUpdate(0);
+end;
+
+procedure TfrmPesquisaImagem.cxBtnFecharClick(Sender: TObject);
+begin
+  Close;
+end;
+
+procedure TfrmPesquisaImagem.cxShellListViewPastasChange(Sender: TObject;
+  Item: TListItem; Change: TItemChange);
+var
+  vlPastaSelecionada : String;
+begin
+  if cxShellListViewPastas.Root.CustomPath = '' then
+    exit;
+
+  vlPastaSelecionada := cxShellListViewPastas.Path + '\'+ Item.Caption;
+  if (pgcPesquisa.ActivePageIndex = 0) or (vlPastaAtual = vlPastaSelecionada) then
+    exit;
+
+  vlAtualizandoDir1 := True;
+  LockWindowUpdate(Handle);
+  vlDirSelecionado := Item.Caption;
+  FileListBox1.Directory := cxShellListViewPastas.Path + '\'+ Item.Caption;
+  vlAtualizandoDir1 := False;
+  FileListBox1.ItemIndex := 0;
+  vlPastaAtual := cxShellListViewPastas.Path + '\'+ Item.Caption;
+
+  if pgcPesquisa.ActivePageIndex = 1 then
+    FileListBox1Change(self);
+
+  LockWindowUpdate(0);
+end;
+
+procedure TfrmPesquisaImagem.cxShellListViewPastasClick(Sender: TObject);
+begin
+  abort;
+end;
+
+procedure TfrmPesquisaImagem.edtPesqFolhaKeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  if key = 13 then
+    btnPesquisarClick(self);
+end;
+
+procedure TfrmPesquisaImagem.FileListBox1Change(Sender: TObject);
+var
+  viCaption, vlArquivoSelecionado : String;
+begin
+  if pgcPesquisa.ActivePageIndex = 0 then
+    Exit;
+
+  vlArquivoSelecionado := ExtractFileName(FileListBox1.FileName);
+
+  if vlArquivoSelecionado = '' then
+  begin
+    fmeImagem1.Xpress1.Picture := nil;
+    Exit;
+  end;
+
+  if (pgcPesquisa.ActivePageIndex = 0) or vlAtualizandoDir1 or (vlArquivoAtual = FileListBox1.FileName) then
+    Exit;
+
+  LockWindowUpdate(Handle);
+
+  viCaption := Copy(vlArquivoSelecionado, 1, pos('.',vlArquivoSelecionado)-1);
+  if LerImagem(FileListBox1.Directory, FileListBox1.FileName) then
+       viCaption := vlDirSelecionado + ', Imagem '+viCaption
+  else viCaption := '';
+
+  vlArquivoAtual := FileListBox1.FileName;
+  lblInfoPesquisaPersonalizada.Caption := viCaption;
+  LockWindowUpdate(0);
+
+end;
+
+procedure TfrmPesquisaImagem.fmeImagem1btnAnteriorClick(Sender: TObject);
+begin
+  if (vlFolha <= 1) and vlFrente then
+    exit;
+
+  if vlFrente and (vlConfigFrenteVerso = 'S') then
+  begin
+    dec(vlFolha);
+    vlFrente := False
+  end
+  else vlFrente := True;
+
+  edtPesqLivro.Text := IntToStr(vlLivro)+vlLetra;
+  edtPesqFolha.Text := IntToStr(vlFolha);
+  PesquisarLivroFolhaImagem(True);
+end;
+
+procedure TfrmPesquisaImagem.fmeImagem1btnProximoClick(Sender: TObject);
+begin
+  if vlFolha = 0 then
+    exit;
+
+  if vlFrente and (vlConfigFrenteVerso = 'S') then
+    vlFrente := False
+  else
+  begin
+   vlFrente := True;
+   inc(vlFolha);
+  end;
+
+  edtPesqLivro.Text := IntToStr(vlLivro)+vlLetra;
+  edtPesqFolha.Text := IntToStr(vlFolha);
+  PesquisarLivroFolhaImagem(True);
+end;
+
+procedure TfrmPesquisaImagem.fmeImagem1btnUltimoClick(Sender: TObject);
+begin
+  fmeImagem1.btnUltimoClick(Sender);
+
+end;
+
+procedure TfrmPesquisaImagem.FormActivate(Sender: TObject);
+begin
+  pgcPesquisaChange(self);
+end;
+
+procedure TfrmPesquisaImagem.FormClose(Sender: TObject;
+  var Action: TCloseAction);
+begin
+  Action := caFree;
+  frmPesquisaImagem := nil;
+end;
+
+procedure TfrmPesquisaImagem.FormCreate(Sender: TObject);
+begin
+  vlCriandoForm := True;
+  fmeImagem1.CriarTwain;
+  pgcPesquisa.ActivePageIndex := 0;
+
+  fmeImagem1.pagControle.Visible := False;
+  fmeImagem1.cxSplitter2.Visible := False;
+  fmeImagem1.btnImagem.Enabled   := False;
+
+  fmeImagem1.cbxScanImageFloating.Visible := False;
+  fmeImagem1.chxAssinar.Visible           := False;
+  CarregarPastas;
+  vlCriandoForm := False;
+end;
+
+procedure TfrmPesquisaImagem.GetDirList(Directory: String; var Result: TStrings;
+  SubPastas: Boolean);
+var
+  Sr : TSearchRec;
+
+  procedure Recursive(Dir : String); { Sub Procedure, Recursiva }
+  var
+     SrAux : TSearchRec;
+  begin
+    if SrAux.Name = EmptyStr then
+       FindFirst(Directory + '\' + Dir + '\*.*', faDirectory, SrAux);
+    while FindNext(SrAux) = 0 do
+       if SrAux.Name <> '..' then
+          if DirectoryExists(Directory + '\' + Dir + '\' + SrAux.Name) then
+          begin
+             Result.Add(Directory + '\' + Dir + '\' + SrAux.Name);
+             Recursive(Dir + '\' + SrAux.Name);
+          end;
+  end;
+begin
+  FindFirst(Directory + '\*.*', faDirectory, Sr);
+  while FindNext(Sr) = 0 do
+    if Sr.Name <> '..' then
+    if DirectoryExists(Directory + '\' + Sr.Name) then
+    begin
+      Result.Add(Sr.Name);
+
+      if SubPastas then
+        Recursive(Sr.Name);
+    end;
+end;
+
+function TfrmPesquisaImagem.LerImagem(vpPasta, vpArquivo : String): Boolean;
+begin
+  fmeImagem1.vg_CaminhoDiretorio := vpPasta;
+  fmeImagem1.vg_NomeArquivo      := fmeImagem1.vg_CaminhoDiretorio + '\'+ ExtractFileName(vpArquivo);
+  fmeImagem1.CarregaPaginas;
+  fmeImagem1.spbPreviewWholeClick(Self);
+  fmeImagem1.spbPreviewWidthClick(Self);
+
+  if fmeImagem1.Xpress1.FileName = '' then
+       Result := False
+  else Result := True;
+
+  fmeImagem1.btnProximo.Enabled  := (pgcPesquisa.ActivePageIndex = 0) and Result;
+  fmeImagem1.btnAnterior.Enabled := (pgcPesquisa.ActivePageIndex = 0) and Result;
+end;
+
+procedure TfrmPesquisaImagem.PesquisarLivroFolhaImagem(vpAvancar : Boolean = False);
+var
+  viLivro, viLetraLivro, viFolhaStr, viPasta, viCaptionLado : String;
+  viFolhaInt : Integer;
+begin
+  VerificarPreenchimentoEDT_TX(edtPesqLivro.Text, 'Livro', edtPesqLivro);
+  VerificarPreenchimentoEDT_TX(edtPesqFolha.Text, 'Folha', edtPesqFolha);
+
+  viLivro       := 'Livro '+FormatFloat('000', StrToInt(RetornaNumericoValor(edtPesqLivro.Text)));
+  viLetraLivro  := '';
+  viLetraLivro  := RetornaAlfa(edtPesqLivro.Text);
+  if viLetraLivro <> ''  then
+    viLivro := viLivro + '-'+viLetraLivro;
+  viFolhaInt    := StrToInt(edtPesqFolha.Text);
+
+  viPasta := vlPasta+'\'+cbxNaturezaPesquisa.text+'\'+viLivro;
+  CarregarINI(viLivro);
+
+  viCaptionLado := '';
+  if vlConfigFrenteVerso = 'S' then
+  begin
+    viFolhaInt := (viFolhaInt*2)-1;
+    if not vlFrente then
+    begin
+      viFolhaInt := viFolhaInt + 1;
+      viCaptionLado := 'Verso';
+    end
+    else viCaptionLado := 'Frente';
+  end;
+
+  viFolhaInt := viFolhaInt + (StrToInt(vlConfigInicial)-1);
+  viFolhaStr := FormatFloat('000', viFolhaInt);
+
+  if not LerImagem(viPasta, viPasta+'\'+viFolhaStr+'.jpg') then
+  begin
+    if vpAvancar then
+      fmeImagem1.btnAnteriorClick(self)
+    else
+    begin
+      lblInfoPesquisaDireta.Caption := '';
+      Application.MessageBox('Imagem não Encontrada!!!', 'Atenção', MB_OK + MB_ICONWARNING);
+    end;
+    exit;
+  end
+  else
+  begin
+    lblInfoPesquisaDireta.Caption := viLivro + ', Folha '+edtPesqFolha.Text;
+    if viCaptionLado <> '' then
+      lblInfoPesquisaDireta.Caption := lblInfoPesquisaDireta.Caption + ' '+ viCaptionLado;
+  end;
+
+  vlLivro  := StrToInt(RetornaNumericoValor(edtPesqLivro.Text));
+  vlFolha  := StrToInt(edtPesqFolha.Text);
+  vlLetra  := viLetraLivro;
+end;
+
+procedure TfrmPesquisaImagem.pgcPesquisaChange(Sender: TObject);
+begin
+  LockWindowUpdate(Handle);
+  FileListBox1.Visible := False;
+  cxShellListViewPastas.Visible   := False;
+
+  vlLivro := 0;
+  vlFolha := 0;
+  fmeImagem1.Xpress1.FileName := '';
+  fmeImagem1.spbPreviewWholeClick(Self);
+  lblInfoPesquisaPersonalizada.Caption    := '';
+  lblInfoPesquisaDireta.Caption           := '';
+  FileListBox1.Directory := '';
+  cxShellListViewPastas.Root.CustomPath   := '';
+  vlPastaAtual    := '';
+  vlArquivoAtual  := '';
+  vlFrente := True;
+  cxLabelsomenteVisualizacao.Visible := pgcPesquisa.ActivePageIndex = 0;
+
+  cxShellListViewPastas.Visible := True;
+  if pgcPesquisa.ActivePageIndex = 0 then
+  begin
+    if vlCriandoForm then
+    begin
+      LockWindowUpdate(0);
+      exit;
+    end;
+
+    if cbxNaturezaGeral.ItemIndex <> -1 then
+      cbxNaturezaPesquisa.EditValue := cbxNaturezaGeral.EditValue;
+
+    cbxNaturezaPesquisaPropertiesEditValueChanged(Self);
+    edtPesqLivro.SetFocus;
+  end
+  else
+  begin
+    if cbxNaturezaPesquisa.ItemIndex <> -1 then
+      cbxNaturezaGeral.EditValue := cbxNaturezaPesquisa.EditValue;
+
+    FileListBox1.Visible := True;
+    cbxNaturezaGeralPropertiesChange(self);
+    cxShellListViewPastas.SetFocus;
+  end;
+  LockWindowUpdate(0);
+end;
+
+end.
+
+

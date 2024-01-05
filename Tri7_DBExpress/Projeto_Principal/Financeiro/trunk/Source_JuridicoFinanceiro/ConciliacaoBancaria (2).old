@@ -1,0 +1,1279 @@
+unit ConciliacaoBancaria;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, cxGraphics, cxControls, cxLookAndFeels,
+  cxLookAndFeelPainters, cxContainer, cxEdit, Vcl.Menus, dxBarBuiltInMenu, cxPC,
+  cxGroupBox, cxTextEdit, Vcl.StdCtrls, cxButtons, Vcl.ExtCtrls, cxLabel,
+  cxMaskEdit, cxDropDownEdit, cxLookupEdit, cxDBLookupEdit, cxDBLookupComboBox,
+  cxStyles, cxCustomData, cxFilter, cxData, cxDataStorage, cxNavigator, Data.DB,
+  cxDBData, cxGridCustomTableView, cxGridTableView, cxGridDBTableView,
+  cxGridLevel, cxClasses, cxGridCustomView, cxGrid, Datasnap.DBClient,
+  YMOFXReader, cxCurrencyEdit, cxImageComboBox, cxSplitter, cxCalendar,
+  DbxDevartInterBase, SimpleDS, FrameImagem, dxGDIPlusClasses, cxImage,
+  cxRadioGroup, Vcl.Imaging.GIFImg, cxDBEdit, cxProgressBar, cxCheckBox,
+  Vcl.ComCtrls, dxCore, cxDateUtils;
+
+type
+  TfrmConciliacaoBancaria = class(TForm)
+    Panel2: TPanel;
+    lblInformaca: TcxLabel;
+    Panel4: TPanel;
+    imgTitulo: TImage;
+    Panel6: TPanel;
+    btnCancelar: TcxButton;
+    btnConfirmar: TcxButton;
+    OFXLeitura: TYMOFXReader;
+    dtsVinculoEncontrado: TDataSource;
+    sqlVinculoEncontrado: TSimpleDataSet;
+    sqlVinculoEncontradoID: TFMTBCDField;
+    sqlVinculoEncontradoDATA: TSQLTimeStampField;
+    sqlVinculoEncontradoBALANCETE_GRUPO_ID: TFMTBCDField;
+    sqlVinculoEncontradoCONTABIL_CONTA_ID: TFMTBCDField;
+    sqlVinculoEncontradoHISTORICO: TStringField;
+    sqlVinculoEncontradoDOCUMENTO_NUMERO: TStringField;
+    sqlVinculoEncontradoCAIXA_ID: TFMTBCDField;
+    sqlVinculoEncontradoOPERACAO: TStringField;
+    sqlVinculoEncontradoPESSOA_ID: TFMTBCDField;
+    sqlVinculoEncontradoVALOR: TFMTBCDField;
+    sqlVinculoEncontradoCALC_OBSERVACAO: TStringField;
+    sqlVinculoEncontradoCONCILIACAO_IDENTIFICADOR: TStringField;
+    sqlContasBancarias: TSimpleDataSet;
+    StringField1: TStringField;
+    FMTBCDField1: TFMTBCDField;
+    dtsContasBancarias: TDataSource;
+    sqlLivroCaixa: TSimpleDataSet;
+    sqlLivroCaixaCALC_PESSOA: TStringField;
+    sqlLivroCaixaCALC_OBSERVACAO: TStringField;
+    sqlLivroCaixaDATA_PAGAMENTO: TSQLTimeStampField;
+    sqlLivroCaixaLIVRO_CAIXA_ID: TFMTBCDField;
+    sqlLivroCaixaCAIXA_ID: TFMTBCDField;
+    sqlLivroCaixaVALOR: TFMTBCDField;
+    sqlLivroCaixaOPERACAO: TStringField;
+    sqlLivroCaixaPESSOA_ID: TFMTBCDField;
+    sqlLivroCaixaREFERENCIA: TStringField;
+    sqlLivroCaixaOBSERVACAO: TStringField;
+    sqlLivroCaixaCONTABIL_CONTA_ID: TFMTBCDField;
+    sqlLivroCaixaCENTRO_CUSTO_ID: TFMTBCDField;
+    sqlLivroCaixacalc_ValorDespesa: TCurrencyField;
+    sqlLivroCaixacalc_ValorReceita: TCurrencyField;
+    sqlLivroCaixacalc_vinculo: TBooleanField;
+    sqlLivroCaixacalc_ImagemVinculada: TStringField;
+    sqlLivroCaixacalc_Agrupado: TBooleanField;
+    sqlLivroCaixaESPECIE: TStringField;
+    sqlLivroCaixaDOCUMENTO_DESCRICAO: TStringField;
+    sqlLivroCaixaBALANCETE_GRUPO_ID: TFMTBCDField;
+    sqlLivroCaixaLIVRO_FINANCEIRO_ID: TFMTBCDField;
+    sqlLivroCaixaPROCESSO_ID: TFMTBCDField;
+    sqlLivroCaixaHISTORICO: TStringField;
+    sqlLivroCaixaANO_MES_REGISTRO: TStringField;
+    sqlLivroCaixaDATA_VENCIMENTO: TSQLTimeStampField;
+    sqlLivroCaixaPROCESSO_CONTRATO_ITEM_ID: TFMTBCDField;
+    sqlLivroCaixaLIVRO_AGENDAMENTO_ID: TFMTBCDField;
+    sqlLivroCaixaLIVRO_REMUNERACAO_ID: TFMTBCDField;
+    sqlLivroCaixaCONTABIL_CONTA_DESCRICAO: TStringField;
+    sqlLivroCaixaGRUPO_SECUDARIO: TStringField;
+    sqlLivroCaixaGRUPO_PRINCIPAL: TStringField;
+    sqlLivroCaixacalc_ValorMovimento: TCurrencyField;
+    sqlLivroCaixaCAIXA_TRANSFERENCIA_ID: TFMTBCDField;
+    sqlLivroCaixaIR: TStringField;
+    sqlLivroCaixaCNJ: TStringField;
+    sqlLivroCaixaDOCUMENTO_NUMERO: TStringField;
+    sqlLivroCaixacalc_captador: TStringField;
+    sqlLivroCaixaINTERNO: TStringField;
+    sqlLivroCaixaAUTOMATICO: TStringField;
+    sqlLivroCaixaORCAMENTO_ID: TFMTBCDField;
+    sqlLivroCaixaINDICE_IMAGEM: TFMTBCDField;
+    sqlLivroCaixaIDENTIFICADOR_ID: TFMTBCDField;
+    sqlLivroCaixacalc_identificador: TStringField;
+    sqlLivroCaixaDATA_LANCAMENTO: TSQLTimeStampField;
+    sqlLivroCaixaDOC_TIPO: TStringField;
+    sqlLivroCaixaFAVORITO_SITUACAO: TStringField;
+    sqlLivroCaixaTIPO_MODALIDADE_ID: TFMTBCDField;
+    sqlLivroCaixaNOME: TStringField;
+    sqlLivroCaixaRESPONSAVEL: TStringField;
+    sqlLivroCaixaIDENTIFICADOR_TIPO: TStringField;
+    sqlLivroCaixaRESPONSAVEL_ID: TFMTBCDField;
+    sqlLivroCaixaCONFERIDO: TStringField;
+    sqlLivroCaixaCENTRO_RESERVA_ID: TFMTBCDField;
+    sqlLivroCaixaFATURAMENTO: TStringField;
+    sqlLivroCaixaORDEM: TFMTBCDField;
+    dtsLivroCaixa: TDataSource;
+    sqlLivroCaixaCONTABIL_GRUPO_ID: TFMTBCDField;
+    sqlFinanceiroCompromisso: TSimpleDataSet;
+    sqlFinanceiroCompromissoLIVRO_FINANCEIRO_ID: TFMTBCDField;
+    sqlFinanceiroCompromissoDATA_VENCIMENTO: TSQLTimeStampField;
+    sqlFinanceiroCompromissoVALOR_AGENDADO: TFMTBCDField;
+    sqlFinanceiroCompromissoSITUACAO: TStringField;
+    sqlFinanceiroCompromissocalc_Referencia: TStringField;
+    sqlFinanceiroCompromissoCONTABIL_CONTA_ID: TFMTBCDField;
+    sqlFinanceiroCompromissoCENTRO_CUSTO_ID: TFMTBCDField;
+    sqlFinanceiroCompromissoANO_MES_REFERENCIA: TStringField;
+    sqlFinanceiroCompromissoBALANCETE_GRUPO_ID: TFMTBCDField;
+    tt: TStringField;
+    sqlFinanceiroCompromissoBOLETA_ID: TFMTBCDField;
+    sqlFinanceiroCompromissoATUALIZADO: TStringField;
+    sqlFinanceiroCompromissoOPERACAO: TStringField;
+    sqlFinanceiroCompromissoPESSOA_ID: TFMTBCDField;
+    sqlFinanceiroCompromissocalc_Selecionado: TBooleanField;
+    sqlFinanceiroCompromissoVALOR_DOCUMENTO: TFMTBCDField;
+    sqlFinanceiroCompromissoCALC_VALOR_RECEBER: TCurrencyField;
+    sqlFinanceiroCompromissocalc_Observacao: TStringField;
+    sqlFinanceiroCompromissoCALC_GRUPO: TStringField;
+    sqlFinanceiroCompromissoNOME: TStringField;
+    sqlFinanceiroCompromissocalc_TipoFinanceiro: TStringField;
+    sqlFinanceiroCompromissoHISTORICO: TStringField;
+    sqlFinanceiroCompromissoOBSERVACAO: TStringField;
+    sqlFinanceiroCompromissoLIVRO_AGENDAMENTO_ID: TFMTBCDField;
+    sqlFinanceiroCompromissoPROCESSO_CONTRATO_ITEM_ID: TFMTBCDField;
+    sqlFinanceiroCompromissocalc_Entrada: TCurrencyField;
+    sqlFinanceiroCompromissocalc_saida: TCurrencyField;
+    sqlFinanceiroCompromissoIR: TStringField;
+    sqlFinanceiroCompromissoCNJ: TStringField;
+    sqlFinanceiroCompromissoCAIXA_ID: TFMTBCDField;
+    sqlFinanceiroCompromissoDOCUMENTO_NUMERO: TStringField;
+    sqlFinanceiroCompromissoREGISTRO_PARCIAL: TStringField;
+    sqlFinanceiroCompromissoVALOR_PAGO_SOMA: TFMTBCDField;
+    sqlFinanceiroCompromissoUTILIZA_BOLETO: TStringField;
+    sqlFinanceiroCompromissoORCAMENTO_ID: TFMTBCDField;
+    sqlFinanceiroCompromissoVALOR_ORCAMENTO_COMPROMETIDO: TFMTBCDField;
+    sqlFinanceiroCompromissoVALOR_ORCAMENTO_PAGO: TFMTBCDField;
+    sqlFinanceiroCompromissocalc_caixa: TIntegerField;
+    sqlFinanceiroCompromissocalc_compromisso: TIntegerField;
+    sqlFinanceiroCompromissocalc_historico: TStringField;
+    sqlFinanceiroCompromissocalc_nome: TStringField;
+    sqlFinanceiroCompromissocalc_orcamento: TBooleanField;
+    sqlFinanceiroCompromissoVALOR_RESERVA_ENTRADA: TFMTBCDField;
+    sqlFinanceiroCompromissoVALOR_RESERVA_SAIDA: TFMTBCDField;
+    sqlFinanceiroCompromissoCALC_SALDO: TCurrencyField;
+    sqlFinanceiroCompromissoPERIODO: TStringField;
+    sqlFinanceiroCompromissoPARCELA: TFMTBCDField;
+    sqlFinanceiroCompromissoQTD: TFMTBCDField;
+    sqlFinanceiroCompromissoPARCELA_INICIAL: TFMTBCDField;
+    sqlFinanceiroCompromissoCALC_PARCELA: TStringField;
+    sqlFinanceiroCompromissoDOC_TIPO: TStringField;
+    sqlFinanceiroCompromissoREFERENCIA_PERIODO: TStringField;
+    sqlFinanceiroCompromissoNOSSO_NUMERO: TFMTBCDField;
+    sqlFinanceiroCompromissoIDENTIFICACAO: TStringField;
+    sqlFinanceiroCompromissoTIPO: TStringField;
+    sqlFinanceiroCompromissoTIPO_MODALIDADE_ID: TFMTBCDField;
+    sqlFinanceiroCompromissoTIPO_CARGA_ID: TFMTBCDField;
+    sqlFinanceiroCompromissoSITUACAO_COMISSAO: TStringField;
+    sqlFinanceiroCompromissoCALC_CENTROCUSTO: TIntegerField;
+    sqlFinanceiroCompromissoCONFERIDO: TStringField;
+    sqlFinanceiroCompromissoCENTRO_RESERVA_ID: TFMTBCDField;
+    dtsFinanceiroCompromisso: TDataSource;
+    sqlVinculoEncontradoUSUARIO_ID: TFMTBCDField;
+    pgcConciliacao: TcxPageControl;
+    tbcConciliacaoPesquisar: TcxTabSheet;
+    tbcConciliacaoDados: TcxTabSheet;
+    Panel1: TPanel;
+    rdbVinculo: TcxDBRadioGroup;
+    progressBar: TcxProgressBar;
+    cxGroupBox1: TcxGroupBox;
+    grdBasica: TcxGrid;
+    grdBasicaDBTableView1: TcxGridDBTableView;
+    grdBasicaDBTableVinculoId: TcxGridDBColumn;
+    grdBasicaDBTableView1Column1: TcxGridDBColumn;
+    grdBasicaDBTableView1Column2: TcxGridDBColumn;
+    grdBasicaDBTableView1Column3: TcxGridDBColumn;
+    grdBasicaDBTableView1Column4: TcxGridDBColumn;
+    grdBasicaDBTableView1Column5: TcxGridDBColumn;
+    grdBasicaDBTableView1Column7: TcxGridDBColumn;
+    grdBasicaDBTableView1Column8: TcxGridDBColumn;
+    grdBasicaDBTableView1Column9: TcxGridDBColumn;
+    grdBasicaDBTableView1Column6: TcxGridDBColumn;
+    grdBasicaDBTableView1Modelo: TcxGridDBColumn;
+    grdBasicaDBTableViewUnir: TcxGridDBColumn;
+    grdBasicaLevel1: TcxGridLevel;
+    tabVinculo: TcxTabControl;
+    cxGrid1: TcxGrid;
+    cxGridPesquisa: TcxGridDBTableView;
+    cxGridBasicaDBCodigo: TcxGridDBColumn;
+    cxGridBasicaDBDataPag: TcxGridDBColumn;
+    cxGridBasicaDBTipoCaixa: TcxGridDBColumn;
+    cxGridPesquisadbOperacao: TcxGridDBColumn;
+    cxGridPesquisaValor: TcxGridDBColumn;
+    cxGridPesquisaColumn1: TcxGridDBColumn;
+    cxGridBasicaDBPlanoConta: TcxGridDBColumn;
+    cxGridPesquisaHistorico: TcxGridDBColumn;
+    cxGridPesquisaDocNumero: TcxGridDBColumn;
+    cxGridBasicaDBFavorecido: TcxGridDBColumn;
+    cxGridPesquisaColumn2: TcxGridDBColumn;
+    cxGridPesquisaColumn3: TcxGridDBColumn;
+    cxGridLevel1: TcxGridLevel;
+    pnlOpcoes: TPanel;
+    lblLancamentoPlanejado: TcxLabel;
+    lblBuscarItemRegistrado: TcxLabel;
+    lblBuscarItemAgendado: TcxLabel;
+    cxGroupBox6: TcxGroupBox;
+    cxLabel29: TcxLabel;
+    cxLabel1: TcxLabel;
+    cxLabel2: TcxLabel;
+    cxGridConciliacao: TcxGrid;
+    cxGridDBTableView1: TcxGridDBTableView;
+    cxGridLevel2: TcxGridLevel;
+    cxGridDBTableView1Column1: TcxGridDBColumn;
+    cxGridDBTableView1Column2: TcxGridDBColumn;
+    cxGridDBTableView1Column3: TcxGridDBColumn;
+    cxGridDBTableView1Column4: TcxGridDBColumn;
+    btnAtualizar: TcxButton;
+    btnTransferenciaManual: TcxButton;
+    btnLancamentoManual: TcxButton;
+    btnLancamentoProgramado: TcxButton;
+    sqlPesquisaConciliacao: TSimpleDataSet;
+    dtsPesquisaConcliacao: TDataSource;
+    sqlPesquisaConciliacaoCONCILIACAO_ID: TFMTBCDField;
+    sqlPesquisaConciliacaoARQUIVO: TStringField;
+    sqlPesquisaConciliacaoDATA_CARREGAMENTO: TSQLTimeStampField;
+    sqlPesquisaConciliacaoDATA_CONCILIACAO: TSQLTimeStampField;
+    sqlPesquisaConciliacaoSITUACAO: TStringField;
+    sqlPesquisaConciliacaoCAIXA_ID: TFMTBCDField;
+    btnConcliacaoIncluir: TcxButton;
+    edtPesqData: TcxDateEdit;
+    lcxPesqConta: TcxLookupComboBox;
+    icxPesqSituacao: TcxImageComboBox;
+    btnPesquisarConciliacao: TcxButton;
+    btnLimpar: TcxButton;
+    btnConcliacaoExluir: TcxButton;
+    sqlDadosConciliacao: TSimpleDataSet;
+    dtsDadosConciliacao: TDataSource;
+    sqlDadosConciliacaoCONCILIACAO_REGISTRADO_ID: TStringField;
+    sqlDadosConciliacaoDATA_CONCILIACAO: TSQLTimeStampField;
+    sqlDadosConciliacaoDATA_PAGAMENTO: TSQLTimeStampField;
+    sqlDadosConciliacaoDESCRICAO: TStringField;
+    sqlDadosConciliacaoVALOR: TFMTBCDField;
+    sqlDadosConciliacaoLANCAMENTO_ID: TFMTBCDField;
+    sqlDadosConciliacaoOBSERVACAO: TStringField;
+    sqlDadosConciliacaoSITUACAO: TStringField;
+    sqlDadosConciliacaoLIBERADO: TStringField;
+    sqlDadosConciliacaoVINCULO: TStringField;
+    sqlDadosConciliacaoLANCAMENTO: TStringField;
+    sqlDadosConciliacaoCONCILIACAO_VINCULO_ID: TStringField;
+    sqlDadosConciliacaoCONCILIACAO_ID: TFMTBCDField;
+    sqlDadosConciliacaoOPERACAO: TStringField;
+    sqlDadosConciliacaoCALC_LIVRO_CAIXA_ID: TIntegerField;
+    sqlDadosConciliacaoCALC_LIVRO_FINANCEIRO_ID: TIntegerField;
+    sqlDadosConciliacaoCALC_REGISTRADO: TStringField;
+    sqlDadosConciliacaoCALC_ALTERADO: TBooleanField;
+    sqlDadosConciliacaoCALC_MODELO: TStringField;
+    sqlDadosConciliacaoCALC_REALIZAR_PLANEJAMENTO: TStringField;
+    sqlDadosConciliacaoCALC_SELECIONADO: TBooleanField;
+    PnlConciliacao: TPanel;
+    Button1: TButton;
+    sqlDadosConciliacaoID_REGISTRO: TStringField;
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure btnCancelarClick(Sender: TObject);
+    procedure grdBasicaDBTableView1DblClick(Sender: TObject);
+    procedure grdBasicaDBTableView1CustomDrawCell(
+      Sender: TcxCustomGridTableView; ACanvas: TcxCanvas;
+      AViewInfo: TcxGridTableDataCellViewInfo; var ADone: Boolean);
+    procedure FormCreate(Sender: TObject);
+    procedure rdbVinculoPropertiesChange(Sender: TObject);
+    procedure grdBasicaDBTableView1FocusedRecordChanged(
+      Sender: TcxCustomGridTableView; APrevFocusedRecord,
+      AFocusedRecord: TcxCustomGridRecord;
+      ANewItemRecordFocusingChanged: Boolean);
+    procedure lcbContaPropertiesEditValueChanged(Sender: TObject);
+    procedure btnLancamentoManualClick(Sender: TObject);
+    procedure btnConfirmarClick(Sender: TObject);
+    procedure sqlDadosConciliacaoAfterEdit(DataSet: TDataSet);
+    procedure btnLancamentoProgramadoClick(Sender: TObject);
+    procedure lblLancamentoPlanejadoClick(Sender: TObject);
+    procedure btnAtualizarClick(Sender: TObject);
+    procedure btnTransferenciaManualClick(Sender: TObject);
+    procedure grdBasicaDBTableView1Column10PropertiesChange(Sender: TObject);
+    procedure grdBasicaDBTableViewUnirCustomDrawCell(
+      Sender: TcxCustomGridTableView; ACanvas: TcxCanvas;
+      AViewInfo: TcxGridTableDataCellViewInfo; var ADone: Boolean);
+    procedure sqlDadosConciliacaoAfterScroll(DataSet: TDataSet);
+    procedure lblBuscarItemRegistradoClick(Sender: TObject);
+    procedure sqlPesquisaConciliacaoAfterScroll(DataSet: TDataSet);
+    procedure btnConcliacaoIncluirClick(Sender: TObject);
+    procedure btnPesquisarConciliacaoClick(Sender: TObject);
+    procedure btnLimparClick(Sender: TObject);
+    procedure FormActivate(Sender: TObject);
+    procedure sqlVinculoEncontradoCalcFields(DataSet: TDataSet);
+    procedure pgcConciliacaoChange(Sender: TObject);
+    procedure Button1Click(Sender: TObject);
+  private
+    vlSql : String;
+    procedure VerificarConciliacaoRealizada(vpID : string; vpAbrirEdicao : Boolean = False);
+    procedure RegistrarItem(vpTransferencia : Boolean = False);
+    procedure RegistrarConciliacao(vpSituacao, vpLancamento, vpLiberado : string; vpAutomatico : Boolean = False);
+    procedure BuscarVinculoRegistro;
+    procedure CarregarsqlVinculoEncontrado(vpCondicao, vpOperacao : String);
+    procedure CarregarSqlLivroFinanceiro(vpCondicao : String);
+    procedure VerificarSituacaoVinculo(vpSituacao : Integer);
+    procedure HabilitarCampos;
+    procedure AtualizarSituacaoItem(vpSituacao, vpLiberado, vpVinculo, vpLancamento : Variant;
+           vpAbrirEdicao : Boolean = False);
+    procedure SalvarDados(vpAutomatico : Boolean = False);
+    procedure AtualizarLivroCaixa(vpLivroCaixaId : Integer);
+    procedure BuscarModeloPlanejado(vpIdentificador : string; vpId : string = ''; vpColocarEdicao : Boolean = False);
+    procedure IdentificarModelosGrid;
+
+    procedure VincularItemLancamentoCaixa(vpLivroCaixaId, vpIdConciliacao : String);
+    procedure VincularItemConciliadosUnidos;
+    procedure AtualizaSituacaoRegistroItem(vpIdConciliacao : string; vpIdUnir : string = '');
+    procedure AtivarConciliacao;
+  public
+
+  end;
+
+var
+  frmConciliacaoBancaria: TfrmConciliacaoBancaria;
+
+implementation
+
+uses
+  Controles, Lookup, Cadastro, CadastroRapidoLancamento, Lookup_Servico,
+  Rotinas, Lookup_Contabil, LookupFinanceiro, VinculoConciliacaoBancaria,
+  VisualizaRelatorios, ConciliacaoCarregarArquivo;
+
+{$R *.dfm}
+
+procedure TfrmConciliacaoBancaria.AtivarConciliacao;
+begin
+  sqlDadosConciliacao.Active := False;
+  sqlDadosConciliacao.DataSet.ParamByName('CONCILIACAO_ID').AsInteger := sqlPesquisaConciliacaoCONCILIACAO_ID.AsInteger;
+  sqlDadosConciliacao.Active := True;
+
+  sqlDadosConciliacao.First;
+  Screen.Cursor := crHourGlass;
+  while not sqlDadosConciliacao.eof do
+  begin
+    VerificarConciliacaoRealizada(sqlDadosConciliacaoCONCILIACAO_REGISTRADO_ID.AsString);
+    sqlDadosConciliacao.Next;
+  end;
+
+  sqlDadosConciliacao.ApplyUpdates(-1);
+end;
+
+procedure TfrmConciliacaoBancaria.AtualizarLivroCaixa(vpLivroCaixaId : Integer);
+begin
+  ExecutaSqlAuxiliar(' UPDATE J_LIVRO_CAIXA SET CONCILIACAO_REGISTRADO_ID = '+QuotedStr(sqlDadosConciliacaoCONCILIACAO_REGISTRADO_ID.AsString)+','+
+                     '                          CONCILIACAO_MODELO = :MODELO, '+
+                     '                          CONCILIACAO_IDENTIFICADOR = :IDENTIFICADOR '+
+                     ' WHERE LIVRO_CAIXA_ID = '+ IntToStr(vpLivroCaixaId),2);
+  with dtmControles.sqlAuxiliar do
+  begin
+    ParamByName('MODELO').AsString := sqlDadosConciliacaoCALC_MODELO.AsString;
+    if sqlDadosConciliacaoCALC_MODELO.AsString = 'S' then
+         ParamByName('IDENTIFICADOR').AsString := sqlDadosConciliacaoDESCRICAO.AsString
+    else ParamByName('IDENTIFICADOR').AsString := '';
+    ExecSQL(FALSE);
+  end;
+end;
+
+procedure TfrmConciliacaoBancaria.AtualizarSituacaoItem(vpSituacao, vpLiberado,
+         vpVinculo, vpLancamento : Variant; vpAbrirEdicao : Boolean = False);
+begin
+  if vpAbrirEdicao then
+    sqlDadosConciliacao.Edit;
+
+  sqlDadosConciliacaoLIBERADO.AsVariant    := vpLiberado;
+  sqlDadosConciliacaoSITUACAO.AsString     := vpSituacao;
+  sqlDadosConciliacaoVinculo.AsVariant     := vpVinculo;
+  sqlDadosConciliacaoLANCAMENTO.AsVariant  := vpLancamento;
+
+  if vpAbrirEdicao then
+    sqlDadosConciliacao.Post;
+end;
+
+procedure TfrmConciliacaoBancaria.AtualizaSituacaoRegistroItem(vpIdConciliacao : string; vpIdUnir : string = '');
+var
+  viSql : String;
+begin
+  viSql := ' UPDATE J_CONCILIACAO_REGISTRADO SET SITUACAO = '+ QuotedStr('1')+','+
+           '                                     LANCAMENTO = '+ QuotedStr('1')+','+
+           '                                     LIBERADO = '+ QuotedStr('R');
+  if vpIdUnir <> '' then
+    viSql := viSql + ' ,CONCILIACAO_VINCULO_ID = '+QuotedStr(vpIdUnir);
+
+  viSql := viSql + ' WHERE CONCILIACAO_REGISTRADO_ID = '+QuotedStr(vpIdConciliacao);
+  ExecutaSqlAuxiliar(viSql,1);
+end;
+
+procedure TfrmConciliacaoBancaria.btnAtualizarClick(Sender: TObject);
+begin
+//Fernando  CarregarArquivo(False);
+end;
+
+procedure TfrmConciliacaoBancaria.btnCancelarClick(Sender: TObject);
+begin
+  Close;
+end;
+
+procedure TfrmConciliacaoBancaria.btnConcliacaoIncluirClick(Sender: TObject);
+begin
+  vgDadosCadastro.SomentePesquisa := True;
+  ExibirFormulario(TfrmConciliacaoArquivoCarregar, frmConciliacaoArquivoCarregar, True);
+end;
+
+procedure TfrmConciliacaoBancaria.btnConfirmarClick(Sender: TObject);
+begin
+  SalvarDados;
+end;
+
+procedure TfrmConciliacaoBancaria.btnLancamentoManualClick(Sender: TObject);
+begin
+  RegistrarItem;
+end;
+
+procedure TfrmConciliacaoBancaria.btnLancamentoProgramadoClick(Sender: TObject);
+
+  {$REGION 'LancamentoAutomaticoLivroCaixa}
+  procedure LancamentoAutomaticoLivroCaixa(vpAgendado : Boolean = False);
+  begin
+    if vpAgendado then
+    begin
+      vgDadosLivroCaixa.DuplicarItem  := False;
+
+      sqlFinanceiroCompromisso.Active := False;
+      sqlFinanceiroCompromisso.DataSet.ParamByName('LIVRO_FINANCEIRO_ID').AsInteger := sqlDadosConciliacaoCALC_LIVRO_FINANCEIRO_ID.AsInteger;
+      sqlFinanceiroCompromisso.Active := True;
+
+      dtmLookupServico.CarregarDadosLancamento(2, 0, sqlFinanceiroCompromisso);
+      vgDadosLivroCaixa.ContabilContaID  := sqlFinanceiroCompromissoCONTABIL_CONTA_ID.AsInteger;
+      vgDadosLivroCaixa.ContabilGrupoId  := dtmControles.GetInt(' SELECT CONTABIL_GRUPO_ID FROM J_CONTABIL_CONTA WHERE CONTABIL_CONTA_ID = '+ sqlFinanceiroCompromissoCONTABIL_CONTA_ID.AsString);
+    end
+    else
+    begin
+      vgDadosLivroCaixa.DuplicarItem  := True;
+      sqlLivroCaixa.Active := False;
+      sqlLivroCaixa.DataSet.ParamByName('LIVRO_CAIXA_ID').AsInteger := sqlDadosConciliacaoCALC_LIVRO_CAIXA_ID.AsInteger;
+      sqlLivroCaixa.Active := True;
+      dtmLookupServico.CarregarDadosLancamento(2, sqlDadosConciliacaoCALC_LIVRO_CAIXA_ID.AsInteger, sqlLivroCaixa);
+      vgDadosLivroCaixa.ContabilContaID  := sqlLivroCaixaCONTABIL_CONTA_ID.AsInteger;
+      vgDadosLivroCaixa.ContabilGrupoId  := sqlLivroCaixaCONTABIL_GRUPO_ID.AsInteger;
+      vgDadosLivroCaixa.Historico        := sqlDadosConciliacaoDESCRICAO.AsString;
+      vgDadosLivroCaixa.DataVencimento   := FormatDateTime('DD.MM.YYYY',sqlDadosConciliacaoDATA_PAGAMENTO.AsDateTime);
+      vgDadosLivroCaixa.AnoMesReferencia := IntToStr(dtmLookupContabil.PegarAnoMes(vgDadosLivroCaixa.DataPagamento));
+      vgDadosLivroCaixa.DuplicarItem     := False;
+    end;
+
+    vgDadosLivroCaixa.Referencia       := IntToStr(dtmLookupContabil.PegarAnoMes(vgDadosLivroCaixa.DataPagamento));
+    vgDadosLivroCaixa.ValorCompromisso := sqlDadosConciliacaoVALOR.AsCurrency;
+    vgDadosLivroCaixa.ValorPago        := sqlDadosConciliacaoVALOR.AsCurrency;
+
+    vgDadosLivroCaixa.DataPagamento    := FormatDateTime('DD.MM.YYYY',sqlDadosConciliacaoDATA_PAGAMENTO.AsDateTime);
+    vgDadosLivroCaixa.DataLancamento   := FormatDateTime('DD.MM.YYYY',dtmControles.DataHoraBanco(3));
+    vgDadosLivroCaixa.AnoMesRegistro   := IntToStr(dtmLookupContabil.PegarAnoMes(vgDadosLivroCaixa.DataPagamento));
+    vgDadosLivroCaixa.Observacao       := sqlDadosConciliacaoOBSERVACAO.AsString;
+    vgDadosLivroCaixa.Ordem            := dtmControles.GerarSequencia('J_LIVRO_CAIXA_ORDEM');
+    dtmLookupContabil.RegistrarRecebimentoFinanceiro;
+
+    RegistrarConciliacao('1', '1','R', True);
+    if vpAgendado then
+    begin
+      dtmLookupFinanceiro.BaixarEstornar('R', '3', vgDadosLivroCaixa.LivroFinanceiroID, vgDadosLivroCaixa.LIvroAgendamentoId, 0, 0);
+      dtmLookupServico.VerificarAtualizacaoAgendamento;
+      if vgDadosLivroCaixa.Faturamento = 'S' then
+        ExecutaSqlAuxiliar(' UPDATE J_LIVRO_FINANCEIRO SET SITUACAO = '+ QuotedStr('3')+
+                           ' WHERE FECHAMENTO_ID = '+IntToStr(vgDadosLivroCaixa.LivroFinanceiroID),1);
+    end;
+
+    AtualizarLivroCaixa(vgDadosLivroCaixa.LivroCaixaId);
+    VerificarConciliacaoRealizada(sqlDadosConciliacaoCONCILIACAO_REGISTRADO_ID.AsString, True);
+  end;
+  {$ENDREGION}
+
+begin
+  if Application.MessageBox('Executar Lançamentos Programados na Lista?', 'Confirmação', MB_YESNO) = IDNO then
+    exit;
+
+  SalvarDados(True);
+  sqlDadosConciliacao.DisableControls;
+  sqlDadosConciliacao.First;
+  IniciarIncrementarProgressBar(progressBar, sqlDadosConciliacao.RecordCount);
+  Screen.Cursor := crHourGlass;
+
+  try
+    dtmControles.StartTransaction;
+
+    while not sqlDadosConciliacao.Eof do
+    begin
+      case sqlDadosConciliacaoLANCAMENTO.AsInteger of
+        2 : VincularItemLancamentoCaixa(sqlDadosConciliacaoCALC_LIVRO_CAIXA_ID.AsString, sqlDadosConciliacaoCONCILIACAO_REGISTRADO_ID.AsString);
+        3 : LancamentoAutomaticoLivroCaixa;
+        4 : LancamentoAutomaticoLivroCaixa(True);
+      end;
+
+      sqlDadosConciliacao.Next;
+      IniciarIncrementarProgressBar(progressBar, 1, True);
+    end;
+    dtmControles.Commit;
+  except
+    dtmControles.Roolback;
+    Application.MessageBox('Falha ao Salvar Dados!!!','Aviso', MB_OK + MB_ICONINFORMATION);
+  end;
+
+  sqlDadosConciliacao.First;
+  sqlDadosConciliacao.EnableControls;
+  Screen.Cursor := crDefault;
+//Fernando  CarregarArquivo(False);
+  Application.MessageBox('Execução realizada com sucesso!!!','Aviso', MB_OK + MB_ICONINFORMATION);
+  progressBar.Visible := False;
+end;
+
+procedure TfrmConciliacaoBancaria.btnLimparClick(Sender: TObject);
+begin
+  edtPesqData.Clear;
+  lcxPesqConta.EditValue := NULL;
+  icxPesqSituacao.ItemIndex := -1;
+end;
+
+procedure TfrmConciliacaoBancaria.btnPesquisarConciliacaoClick(Sender: TObject);
+var
+  viSql, viCondicao : string;
+begin
+  viSql := ' SELECT * FROM J_CONCILIACAO WHERE NOT CONCILIACAO_ID IS NULL';
+
+  viCondicao := '';
+  if edtPesqData.EditValue <> null then
+    viCondicao := ' AND DATA_CONCILIACAO '+ MontarSqlData(edtPesqData.Date , edtPesqData.Date);
+
+  if lcxPesqConta.EditValue <> null then
+    viCondicao := viCondicao + ' AND CAIXA_ID = '+ IntToStr(lcxPesqConta.EditValue);
+
+  if icxPesqSituacao.Text <> '' then
+    viCondicao := viCondicao + ' AND SITUACAO = '+ IntToStr(icxPesqSituacao.EditValue);
+
+  if viCondicao = '' then
+  begin
+   icxPesqSituacao.ItemIndex := 0;
+   viCondicao := viCondicao + ' AND SITUACAO = '+ QuotedStr(icxPesqSituacao.EditValue);
+  end;
+
+  sqlPesquisaConciliacao.Active := False;
+  sqlPesquisaConciliacao.DataSet.CommandText := viSql + viCondicao;
+  sqlPesquisaConciliacao.Active := True;
+end;
+
+procedure TfrmConciliacaoBancaria.BuscarModeloPlanejado(vpIdentificador : string; vpId :
+        string = ''; vpColocarEdicao : Boolean = False);
+var
+  viLivroCaixaId : Integer;
+begin
+  if vpId = '' then
+    viLivroCaixaId := dtmControles.GetInt(' SELECT LIVRO_CAIXA_ID '+
+                                          ' FROM J_LIVRO_CAIXA '+
+                                          ' WHERE CONCILIACAO_MODELO = '+QuotedStr('S')+
+                                          '   AND CONCILIACAO_IDENTIFICADOR = '+ QuotedStr(vpIdentificador)+
+                                          '   AND CAIXA_ID = '+ sqlPesquisaConciliacaoCAIXA_ID.AsString)
+  else
+    viLivroCaixaId := dtmControles.GetInt(' SELECT LIVRO_CAIXA_ID '+
+                                          ' FROM J_LIVRO_CAIXA '+
+                                          ' WHERE CONCILIACAO_REGISTRADO_ID = '+QuotedStr(vpId)+
+                                          '   AND CAIXA_ID = '+sqlPesquisaConciliacaoCAIXA_ID.AsString+
+                                          '   AND ((CONCILIACAO_IDENTIFICADOR <> '+ QuotedStr('')+')'+
+                                          '   AND (NOT CONCILIACAO_IDENTIFICADOR IS NULL))');
+  if viLivroCaixaId > 0 then
+  begin
+    if vpColocarEdicao then
+      sqlDadosConciliacao.Edit;
+
+    if vpId = '' then
+    begin
+      sqlDadosConciliacaoCALC_LIVRO_CAIXA_ID.AsInteger := viLivroCaixaId;
+      sqlDadosConciliacaoCALC_MODELO.AsString          := 'A';
+      AtualizarSituacaoItem('4','S', 1,'3');
+    end
+    else sqlDadosConciliacaoCALC_MODELO.AsString := 'S';
+
+    if vpColocarEdicao then
+      sqlDadosConciliacao.Post;
+  end;
+end;
+
+procedure TfrmConciliacaoBancaria.BuscarVinculoRegistro;
+
+  procedure CarregarVinculo(vpCampo, vpId : string; vpTab : Integer);
+  begin
+    case vpTab of
+      0,2,3 : CarregarsqlVinculoEncontrado(vpCampo,'');
+      1     : CarregarSqlLivroFinanceiro(vpCampo)
+    end;
+
+    sqlVinculoEncontrado.DataSet.CommandText := vlSql;
+    sqlVinculoEncontrado.DataSet.ParamByName('ID').AsString := vpId;
+    sqlVinculoEncontrado.Active    := True;
+    tabVinculo.Tabs[vpTab].Visible := True;
+//    tabVinculo.Visible             := True;
+
+    cxGridBasicaDBDataPag.Visible   := vpTab <> 2;
+    cxGridBasicaDBTipoCaixa.Visible := vpTab <> 2;
+    cxGridPesquisaValor.Visible     := vpTab <> 2;
+    cxGridPesquisaDocNumero.Visible := vpTab <> 2;
+  end;
+
+begin
+  if sqlDadosConciliacaoSITUACAO.AsVariant = null then
+    exit;
+
+  tabVinculo.Tabs[0].Visible := False;
+  tabVinculo.Tabs[1].Visible := False;
+  tabVinculo.Tabs[2].Visible := False;
+  tabVinculo.Tabs[3].Visible := False;
+
+  sqlVinculoEncontrado.Active := False;
+  case sqlDadosConciliacaoSITUACAO.AsInteger of
+    1 : begin
+          if (sqlDadosConciliacaoCONCILIACAO_VINCULO_ID.AsString = '') then
+            CarregarVinculo('CONCILIACAO_REGISTRADO_ID',sqlDadosConciliacaoCONCILIACAO_REGISTRADO_ID.AsString,0)
+          else
+            if sqlDadosConciliacaoCONCILIACAO_VINCULO_ID.AsString = sqlDadosConciliacaoCONCILIACAO_REGISTRADO_ID.AsString then
+                 CarregarVinculo('CONCILIACAO_REGISTRADO_ID',sqlDadosConciliacaoCONCILIACAO_REGISTRADO_ID.AsString,0)
+            else CarregarVinculo('CONCILIACAO_REGISTRADO_ID', sqlDadosConciliacaoCONCILIACAO_VINCULO_ID.AsString,3)
+        end;
+    2 : CarregarVinculo('LIVRO_CAIXA_ID',sqlDadosConciliacaoCALC_LIVRO_CAIXA_ID.AsString,0);
+    3 : CarregarVinculo('LIVRO_FINANCEIRO_ID',sqlDadosConciliacaoCALC_LIVRO_FINANCEIRO_ID.AsString,1);
+    4 : begin
+          if sqlDadosConciliacaoCALC_LIVRO_CAIXA_ID.AsInteger > 0 then
+            CarregarVinculo('LIVRO_CAIXA_ID',sqlDadosConciliacaoCALC_LIVRO_CAIXA_ID.AsString,2);
+        end;
+  end;
+end;
+
+
+procedure TfrmConciliacaoBancaria.Button1Click(Sender: TObject);
+begin
+  AtivarConciliacao;
+end;
+
+procedure TfrmConciliacaoBancaria.CarregarsqlVinculoEncontrado(vpCondicao, vpOperacao : String);
+begin
+  vlSql := ' SELECT LC.LIVRO_CAIXA_ID AS ID, '+
+           '        LC.DATA_PAGAMENTO AS DATA, '+
+           '        LC.BALANCETE_GRUPO_ID, '+
+           '        LC.CONTABIL_CONTA_ID, '+
+           '        LC.HISTORICO, '+
+           '        LC.DOCUMENTO_NUMERO, '+
+           '        LC.CAIXA_ID, '+
+           '        LC.OPERACAO, '+
+           '        LC.PESSOA_ID, '+
+           '        LC.USUARIO_ID, '+
+           '        LC.VALOR, '+
+           '        LC.CONCILIACAO_IDENTIFICADOR '+
+           ' FROM J_LIVRO_CAIXA LC '+
+           ' WHERE '+vpCondicao+' = :ID'+
+           '   AND CAIXA_ID = '+sqlPesquisaConciliacaoCAIXA_ID.AsString;
+  if vpOperacao = 'S'  then
+    vlSql := vlSql + ' AND (OPERACAO = :OPERACAO1 OR OPERACAO = :OPERACAO2)';
+end;
+
+procedure TfrmConciliacaoBancaria.CarregarSqlLivroFinanceiro(vpCondicao : String);
+begin
+  vlSql := ' SELECT LF.LIVRO_FINANCEIRO_ID AS ID, '+
+           '        LF.DATA_VENCIMENTO AS DATA, '+
+           '        LF.BALANCETE_GRUPO_ID, '+
+           '        LF.CONTABIL_CONTA_ID, '+
+           '        LF.HISTORICO, '+
+           '        LF.DOCUMENTO_NUMERO, '+
+           '        LF.CAIXA_ID, '+
+           '        LF.OPERACAO, '+
+           '        LF.PESSOA_ID, '+
+           '        LF.USUARIO_ID, '+
+           '        LF.VALOR_AGENDADO AS VALOR, '+
+           '        LA.CONCILIACAO_IDENTIFICADOR '+
+           ' FROM J_LIVRO_FINANCEIRO LF '+
+           '  LEFT OUTER JOIN J_LIVRO_AGENDAMENTO LA ON '+
+           '  LF.LIVRO_AGENDAMENTO_ID = LA.LIVRO_AGENDAMENTO_ID '+
+           ' WHERE '+vpCondicao+' = :ID '+
+           '   AND LF.SITUACAO = '+ QuotedStr('1');
+end;
+
+procedure TfrmConciliacaoBancaria.sqlDadosConciliacaoAfterEdit(DataSet: TDataSet);
+begin
+  sqlDadosConciliacaoCALC_ALTERADO.AsBoolean := True;
+end;
+
+procedure TfrmConciliacaoBancaria.sqlDadosConciliacaoAfterScroll(DataSet: TDataSet);
+begin
+  grdBasicaDBTableViewUnir.Properties.ReadOnly := sqlDadosConciliacaoSITUACAO.AsString <> '0';
+end;
+
+procedure TfrmConciliacaoBancaria.btnTransferenciaManualClick(Sender: TObject);
+begin
+  RegistrarItem(True);
+end;
+
+procedure TfrmConciliacaoBancaria.FormActivate(Sender: TObject);
+begin
+  edtPesqData.SetFocus;
+end;
+
+procedure TfrmConciliacaoBancaria.FormClose(Sender: TObject;
+  var Action: TCloseAction);
+begin
+  Action      := caFree;
+  frmConciliacaoBancaria := nil;
+end;
+
+procedure TfrmConciliacaoBancaria.FormCreate(Sender: TObject);
+begin
+  sqlVinculoEncontrado.Connection     := dtmControles.DB;
+  sqlContasBancarias.Connection       := dtmControles.DB;
+  sqlLivroCaixa.Connection            := dtmControles.DB;
+  sqlFinanceiroCompromisso.Connection := dtmControles.DB;
+  pgcConciliacao.ActivePageIndex      := 0;
+  tbcConciliacaoDados.TabVisible      := False;
+  sqlContasBancarias.Active           := True;
+  btnPesquisarConciliacaoClick(self);
+end;
+
+procedure TfrmConciliacaoBancaria.grdBasicaDBTableViewUnirCustomDrawCell(
+  Sender: TcxCustomGridTableView; ACanvas: TcxCanvas;
+  AViewInfo: TcxGridTableDataCellViewInfo; var ADone: Boolean);
+begin
+  if (AViewInfo.RecordViewInfo.GridRecord.Values[6] <> '0') then
+    ACanvas.Brush.Color := clSilver;
+end;
+
+procedure TfrmConciliacaoBancaria.grdBasicaDBTableView1Column10PropertiesChange(
+  Sender: TObject);
+begin
+  sqlDadosConciliacao.Post;
+end;
+
+procedure TfrmConciliacaoBancaria.grdBasicaDBTableView1CustomDrawCell(
+  Sender: TcxCustomGridTableView; ACanvas: TcxCanvas;
+  AViewInfo: TcxGridTableDataCellViewInfo; var ADone: Boolean);
+begin
+  if (AViewInfo.RecordViewInfo.GridRecord.Values[7]) = '1' then
+    ACanvas.Font.Color  := clGrayText;
+
+  if (AViewInfo.RecordViewInfo.GridRecord.Values[0]) <> '' then
+    ACanvas.Brush.Color  := clSilver;
+end;
+
+procedure TfrmConciliacaoBancaria.grdBasicaDBTableView1DblClick(
+  Sender: TObject);
+begin
+  if (not btnLancamentoManual.Enabled) then
+    exit;
+
+  RegistrarItem;
+end;
+
+procedure TfrmConciliacaoBancaria.grdBasicaDBTableView1FocusedRecordChanged(
+  Sender: TcxCustomGridTableView; APrevFocusedRecord,
+  AFocusedRecord: TcxCustomGridRecord; ANewItemRecordFocusingChanged: Boolean);
+begin
+  HabilitarCampos;
+end;
+
+procedure TfrmConciliacaoBancaria.HabilitarCampos;
+begin
+  if sqlDadosConciliacaoSITUACAO.AsString = '' then
+    exit;
+
+  rdbVinculo.Visible     := sqlDadosConciliacaoSITUACAO.AsInteger in [0,2,3,4,5];
+  VerificarSituacaoVinculo(sqlDadosConciliacaoSITUACAO.AsInteger);
+  BuscarVinculoRegistro;
+  sqlDadosConciliacao.ReadOnly          := sqlDadosConciliacaoSITUACAO.AsString = '1';
+  btnLancamentoManual.Enabled     := (sqlDadosConciliacaoLANCAMENTO.AsInteger = 5) and (sqlDadosConciliacaoLIBERADO.AsString = 'N');
+  btnTransferenciaManual.Enabled  := (sqlDadosConciliacaoLANCAMENTO.AsInteger = 5) and (sqlDadosConciliacaoLIBERADO.AsString = 'N');
+  lblBuscarItemRegistrado.Enabled := (sqlDadosConciliacaoLANCAMENTO.AsInteger = 5) and (sqlDadosConciliacaoVINCULO.AsString = '1');
+  lblBuscarItemAgendado.Enabled   := (sqlDadosConciliacaoLANCAMENTO.AsInteger = 5) and (sqlDadosConciliacaoVINCULO.AsString = '1');
+
+  lblLancamentoPlanejado.Enabled  := (sqlDadosConciliacaoLANCAMENTO.AsInteger > 0) and (sqlDadosConciliacaoCALC_MODELO.AsString <> 'A');
+  if sqlDadosConciliacaoCALC_MODELO.AsString = '' then
+       lblLancamentoPlanejado.Caption := '  Colocar Item Lançamento Planejado  (Modelo)'
+  else lblLancamentoPlanejado.Caption := '  Retirar Item Lançamento Planejado  (Modelo)';
+
+  if rdbVinculo.Visible then
+  begin
+    if rdbVinculo.ItemIndex = -1 then
+         rdbVinculo.Style.Color := clMoneyGreen
+    else rdbVinculo.Style.Color := clWindow;
+  end;
+
+end;
+
+procedure TfrmConciliacaoBancaria.IdentificarModelosGrid;
+var
+  viPosicao : Integer;
+begin
+  sqlDadosConciliacao.ReadOnly := False;
+  sqlDadosConciliacao.DisableControls;
+  viPosicao := sqlDadosConciliacao.RecNo;
+  sqlDadosConciliacao.First;
+  while not sqlDadosConciliacao.Eof do
+  begin
+    if sqlDadosConciliacaoSITUACAO.AsInteger = 1 then
+      BuscarModeloPlanejado(sqlDadosConciliacaoDESCRICAO.AsString, sqlDadosConciliacaoCONCILIACAO_REGISTRADO_ID.AsString, True)
+    else
+      if sqlDadosConciliacaoSITUACAO.AsInteger in [0,2,4,5] then
+        BuscarModeloPlanejado(sqlDadosConciliacaoDESCRICAO.AsString, '', True);
+    sqlDadosConciliacao.Next;
+  end;
+  sqlDadosConciliacao.RecNo := viPosicao;
+  sqlDadosConciliacao.EnableControls;
+end;
+
+procedure TfrmConciliacaoBancaria.lblBuscarItemRegistradoClick(Sender: TObject);
+var
+  viQtd : Integer;
+  viConciliado : Boolean;
+  viPosicaoID : String;
+begin
+  vgDadosCadastro.SomentePesquisa := True;
+  ExibirFormulario(TfrmVinculoConciliacaoBancaria, frmVinculoConciliacaoBancaria, True);
+
+  if vgConciliacaoId = '' then
+    exit;
+
+  if sqlDadosConciliacao.Filtered then
+  begin
+    sqlDadosConciliacao.First;
+    viQtd := sqlDadosConciliacao.RecordCount;
+  end
+  else viQtd := 1;
+
+  viPosicaoID  := sqlDadosConciliacaoCONCILIACAO_REGISTRADO_ID.AsString;
+  viConciliado := False;
+  repeat
+    // Registra o Item de Conciliacao e/ou 1º Item de Conciliação nos Item(s) do caixa selecionado(s).
+    if not viConciliado then
+      VincularItemLancamentoCaixa(vgConciliacaoId, sqlDadosConciliacaoCONCILIACAO_REGISTRADO_ID.AsString)
+    else
+    begin
+      // Seta Demais Itens Como Registrado Vinculados ao 1º Item de Conciliacao
+       VincularItemConciliadosUnidos;
+       viQtd := 1;
+    end;
+
+    Dec(viQtd);
+    viConciliado := True;
+  until viQtd = 0;
+
+  sqlDadosConciliacao.Filtered := False;
+  sqlDadosConciliacao.Locate('ID', viPosicaoID, [loCaseInsensitive]);
+  sqlDadosConciliacao.EnableControls;
+  Screen.Cursor := crDefault;
+  Application.MessageBox('Execução realizada com sucesso!!!','Aviso', MB_OK + MB_ICONINFORMATION);
+  progressBar.Visible := False;
+end;
+
+procedure TfrmConciliacaoBancaria.lblLancamentoPlanejadoClick(Sender: TObject);
+var
+  viValor  : String;
+begin
+  if (sqlDadosConciliacaoSITUACAO.AsInteger in [0,1,2,3,4]) then
+  begin
+    if Application.MessageBox(PChar(lblLancamentoPlanejado.Caption+#13+#13+
+                              'Identificador = '+sqlDadosConciliacaoDESCRICAO.AsString), 'Confirmação', MB_YESNO) = IDNO then
+      exit;
+
+    if sqlDadosConciliacaoCALC_MODELO.AsString = 'S' then
+         viValor := ''
+    else viValor := 'S';
+
+    sqlDadosConciliacao.ReadOnly := False;
+    sqlDadosConciliacao.Edit;
+    sqlDadosConciliacaoCALC_MODELO.AsVariant := viValor;
+    sqlDadosConciliacao.Post;
+
+    if sqlDadosConciliacaoSITUACAO.AsInteger in [1,2] then
+    begin
+      if sqlDadosConciliacaoCALC_LIVRO_CAIXA_ID.AsInteger > 0 then
+           AtualizarLivroCaixa(sqlDadosConciliacaoCALC_LIVRO_CAIXA_ID.AsInteger)
+      else AtualizarLivroCaixa(sqlVinculoEncontradoID.AsInteger);
+
+      sqlDadosConciliacao.ReadOnly := False;
+      VerificarConciliacaoRealizada(sqlDadosConciliacaoCONCILIACAO_REGISTRADO_ID.AsString, True);
+      IdentificarModelosGrid;
+    end;
+
+    HabilitarCampos;
+  end;
+end;
+
+procedure TfrmConciliacaoBancaria.lcbContaPropertiesEditValueChanged(
+  Sender: TObject);
+begin
+//  btnPesquisarRetorno.Enabled := True;
+end;
+
+procedure TfrmConciliacaoBancaria.pgcConciliacaoChange(Sender: TObject);
+begin
+  if pgcConciliacao.ActivePageIndex = 0 then
+  begin
+    sqlDadosConciliacao.Active := False;
+    sqlDadosConciliacao.DataSet.ParamByName('CONCILIACAO_ID').AsInteger := sqlPesquisaConciliacaoCONCILIACAO_ID.AsInteger;
+    sqlDadosConciliacao.Active := True;
+    PnlConciliacao.Caption := ' Conciliação Bancária da Conta '+lcxPesqConta.Text + ' do dia '+sqlPesquisaConciliacaoDATA_CONCILIACAO.AsString;
+  end;
+end;
+
+procedure TfrmConciliacaoBancaria.rdbVinculoPropertiesChange(Sender: TObject);
+begin
+  if sqlDadosConciliacao.State in [dsEdit] then
+  begin
+    if sqlDadosConciliacaoSITUACAO.AsInteger in [2,3,4] then
+    begin
+      if rdbVinculo.ItemIndex = 0 then
+      begin
+        case sqlDadosConciliacaoSITUACAO.AsInteger of
+          2 : AtualizarSituacaoItem(sqlDadosConciliacaoSITUACAO.AsString,'S', 1,'2');
+          3 : AtualizarSituacaoItem(sqlDadosConciliacaoSITUACAO.AsString,'S', 1,'4');
+          4 : AtualizarSituacaoItem(sqlDadosConciliacaoSITUACAO.AsString,'S', 1,'3');
+        end
+      end
+      else AtualizarSituacaoItem(sqlDadosConciliacaoSITUACAO.AsString,'N', 0,'5');
+    end
+    else
+    begin
+      if rdbVinculo.ItemIndex = 0 then
+           AtualizarSituacaoItem('0','N', 1,'5')
+      else AtualizarSituacaoItem('5','I', 0,'0')
+    end;
+    sqlDadosConciliacaoCALC_ALTERADO.AsBoolean := True;
+  end;
+  HabilitarCampos;
+  sqlDadosConciliacaoAfterScroll(sqlDadosConciliacao);
+end;
+
+procedure TfrmConciliacaoBancaria.RegistrarConciliacao(vpSituacao, vpLancamento, vpLiberado : string;
+         vpAutomatico : Boolean = False);
+var
+  viSql : String;
+
+  procedure RegistrarAtualizacao;
+  begin
+    viSql :=  ' UPDATE J_CONCILIACAO_REGISTRADO SET ' +
+              '              SITUACAO = :SITUACAO, ' +
+              '              LIBERADO = :LIBERADO, ' +
+              '              VINCULO  = :VINCULO, ' +
+              '              LANCAMENTO = :LANCAMENTO, ' +
+              '              OBSERVACAO = :OBSERVACAO '+
+              ' WHERE CONCILIACAO_REGISTRADO_ID = :CONCILIACAO_REGISTRADO_ID';
+  end;
+
+  procedure RegistrarNovoItem;
+  begin
+    viSql :=  ' INSERT INTO J_CONCILIACAO_REGISTRADO( ' +
+              '              CONCILIACAO_REGISTRADO_ID, '+
+              '              DATA_CONCILIACAO, ' +
+              '              LANCAMENTO_ID, ' +
+              '              DATA_PAGAMENTO, ' +
+              '              DESCRICAO, ' +
+              '              SITUACAO, ' +
+              '              LIBERADO, ' +
+              '              VINCULO, ' +
+              '              LANCAMENTO, ' +
+              '              OBSERVACAO, ' +
+              '              VALOR) '+
+              ' VALUES(      :CONCILIACAO_REGISTRADO_ID, ' +
+              '              :DATA_CONCILIACAO, ' +
+              '              :LANCAMENTO_ID, ' +
+              '              :DATA_PAGAMENTO, ' +
+              '              :DESCRICAO, ' +
+              '              :SITUACAO, ' +
+              '              :LIBERADO, ' +
+              '              :VINCULO, ' +
+              '              :LANCAMENTO, '+
+              '              :OBSERVACAO, ' +
+              '              :VALOR)';
+  end;
+
+  procedure CarregarValoresGravar(vpNovo : Boolean);
+  begin
+    ExecutaSqlAuxiliar(viSql,2);
+    with dtmControles.sqlAuxiliar do
+    begin
+      if vpNovo then
+      begin
+        ParamByName('DATA_CONCILIACAO').AsString          := dtmControles.DataHoraBanco(5);
+        ParamByName('LANCAMENTO_ID').AsInteger            := vgAgendaConc.LancamentoId;
+        ParamByName('DATA_PAGAMENTO').AsString            := FormatDateTime('DD.MM.YYYY HH:MM:SS', sqlDadosConciliacaoDATA_PAGAMENTO.AsDateTime);
+        ParamByName('DESCRICAO').AsString                 := sqlDadosConciliacaoDESCRICAO.AsString;
+        ParamByName('VALOR').AsCurrency                   := sqlDadosConciliacaoVALOR.AsCurrency;
+      end;
+
+      ParamByName('CONCILIACAO_REGISTRADO_ID').AsString := sqlDadosConciliacaoCONCILIACAO_REGISTRADO_ID.AsString;
+      ParamByName('SITUACAO').AsString                  := vpSituacao;
+      ParamByName('LIBERADO').AsString                  := vpLiberado;
+      ParamByName('LANCAMENTO').AsString                := vpLancamento;
+      ParamByName('VINCULO').AsString                   := sqlDadosConciliacaoVinculo.AsString;
+      ParamByName('OBSERVACAO').AsString                := sqlDadosConciliacaoOBSERVACAO.AsString;
+      ExecSQL(False);
+    end;
+  end;
+
+begin
+  if sqlDadosConciliacaoCALC_REGISTRADO.AsBoolean then
+  begin
+    if sqlDadosConciliacaoCALC_ALTERADO.AsBoolean or vpAutomatico then
+    begin
+      RegistrarAtualizacao;
+      CarregarValoresGravar(False);
+    end;
+  end
+  else
+  begin
+    RegistrarNovoItem;
+    CarregarValoresGravar(True);
+  end;
+end;
+
+procedure TfrmConciliacaoBancaria.RegistrarItem(vpTransferencia : Boolean = False);
+
+  procedure Validar;
+  begin
+    case sqlDadosConciliacaoSITUACAO.AsInteger of
+      1 : begin
+            Application.MessageBox('Este item ja foi lançado!!!', 'Atenção', mb_Ok + MB_ICONEXCLAMATION);
+            Abort;
+          end;
+    end;
+  end;
+
+begin
+  Validar;
+  vgAgendaConc.Conciliacao    := True;
+  vgAgendaConc.Operacao       := sqlDadosConciliacaoOPERACAO.AsString;
+  vgAgendaConc.Historico      := sqlDadosConciliacaoDESCRICAO.AsString;
+  vgAgendaConc.CaixaId        := sqlPesquisaConciliacaoCAIXA_ID.AsInteger;
+  vgAgendaConc.Valor          := sqlDadosConciliacaoVALOR.AsCurrency;
+  vgAgendaConc.Data           := sqlDadosConciliacaoDATA_PAGAMENTO.AsDateTime;
+  vgAgendaConc.Identificador  := sqlDadosConciliacaoCONCILIACAO_REGISTRADO_ID.AsString;
+
+  vgDadosCadastro.SomentePesquisa := True;
+
+  if vpTransferencia then
+  begin
+    vgDadosLivroCaixa.Novo := True;
+    CadTransferencia(True);
+  end
+  else
+  begin
+    dtmLookupServico.CarregarDadosLancamento(1, 0, nil);
+    ExibirFormulario(TfrmCadastroRapidoLancamento, frmCadastroRapidoLancamento, True);
+  end;
+
+  if not vgDadosLivroCaixa.Confirmado then
+    exit;
+
+  RegistrarConciliacao('1', '1','R', True);
+  AtualizarLivroCaixa(vgDadosLivroCaixa.LivroCaixaId);
+  VerificarConciliacaoRealizada(vgAgendaConc.Identificador, True);
+  if sqlDadosConciliacaoCALC_MODELO.AsString = 'S' then
+    IdentificarModelosGrid;
+end;
+
+procedure TfrmConciliacaoBancaria.SalvarDados(vpAutomatico: Boolean);
+var
+  viPosicao : Integer;
+begin
+  sqlDadosConciliacao.DisableControls;
+  viPosicao := sqlDadosConciliacao.RecNo;
+  sqlDadosConciliacao.First;
+
+  IniciarIncrementarProgressBar(progressBar, sqlDadosConciliacao.RecordCount);
+  Screen.Cursor := crHourGlass;
+  try
+    dtmControles.StartTransaction;
+    while not sqlDadosConciliacao.Eof do
+    begin
+      RegistrarConciliacao(sqlDadosConciliacaoSITUACAO.AsString, sqlDadosConciliacaoLANCAMENTO.AsString, sqlDadosConciliacaoLIBERADO.AsString);
+      sqlDadosConciliacao.Next;
+      IniciarIncrementarProgressBar(progressBar, 1, True);
+    end;
+    dtmControles.Commit;
+  except
+    dtmControles.Roolback;
+    Application.MessageBox('Falha ao Salvar Dados!!!','Aviso', MB_OK + MB_ICONINFORMATION);
+  end;
+  sqlDadosConciliacao.RecNo := viPosicao;
+  sqlDadosConciliacao.EnableControls;
+  Screen.Cursor := crDefault;
+
+  if not vpAutomatico then
+    Application.MessageBox('Dados da Conciliação Salvo!!!','Aviso', MB_OK + MB_ICONINFORMATION);
+  progressBar.Visible := False;
+end;
+
+procedure TfrmConciliacaoBancaria.sqlPesquisaConciliacaoAfterScroll(
+  DataSet: TDataSet);
+begin
+  btnConcliacaoExluir.Enabled    := not sqlPesquisaConciliacao.IsEmpty;
+  tbcConciliacaoDados.TabVisible := not sqlPesquisaConciliacao.IsEmpty;
+end;
+
+procedure TfrmConciliacaoBancaria.sqlVinculoEncontradoCalcFields(
+  DataSet: TDataSet);
+begin
+if sqlDadosConciliacaoCALC_LIVRO_FINANCEIRO_ID.AsInteger > 0 then
+    sqlVinculoEncontradoCALC_OBSERVACAO.AsString := 'Item Agendado à ser Lançado!!!'
+  else
+    if Pos('T', sqlVinculoEncontradoOPERACAO.AsString) > 0 then
+      sqlVinculoEncontradoCALC_OBSERVACAO.AsString := 'VINCULO DE TRANSFERENCIA BANCÁRIA'
+end;
+
+procedure TfrmConciliacaoBancaria.VerificarConciliacaoRealizada(vpID : string; vpAbrirEdicao : Boolean = False);
+var
+  viLista : TStringList;
+
+  procedure VerificarItemLivroCaixa;
+  begin
+    CarregarsqlVinculoEncontrado('VALOR', 'S');
+    vlSql := vlSql +
+            ' AND DATA_PAGAMENTO = :DATA_PAGAMENTO';
+    sqlVinculoEncontrado.Active := False;
+    sqlVinculoEncontrado.DataSet.CommandText := vlSql;
+    sqlVinculoEncontrado.DataSet.ParamByName('ID').AsCurrency         := sqlDadosConciliacaoVALOR.AsCurrency;
+    sqlVinculoEncontrado.DataSet.ParamByName('DATA_PAGAMENTO').AsDate := sqlDadosConciliacaoDATA_PAGAMENTO.AsDateTime;
+    sqlVinculoEncontrado.DataSet.ParamByName('OPERACAO1').AsString    := sqlDadosConciliacaoOPERACAO.AsString;
+    sqlVinculoEncontrado.DataSet.ParamByName('OPERACAO2').AsString    := 'T'+sqlDadosConciliacaoOPERACAO.AsString;
+    sqlVinculoEncontrado.Active := True;
+
+    if sqlVinculoEncontrado.IsEmpty then
+      exit
+    else
+    begin
+      if sqlVinculoEncontrado.RecordCount = 1 then
+      begin
+        sqlDadosConciliacaoCALC_LIVRO_CAIXA_ID.AsInteger := sqlVinculoEncontradoID.AsInteger;
+        if sqlVinculoEncontradoCONCILIACAO_IDENTIFICADOR.AsString <> '' then
+          sqlDadosConciliacaoCALC_MODELO.AsString := 'S';
+        if (viLista.Values['SITUACAO'] = '') or (viLista.Values['SITUACAO'] = '0') or (viLista.Values['SITUACAO'] = '5') then
+          AtualizarSituacaoItem('2','A',null, sqlDadosConciliacaoLANCAMENTO.AsVariant);
+      end;
+    end;
+  end;
+
+  procedure VerificarItemLivroFinanceiro;
+  begin
+    CarregarSqlLivroFinanceiro('LF.VALOR_AGENDADO');
+    vlSql := vlSql + ' AND LF.ANO_MES_REFERENCIA = :ANO_MES_REFERENCIA';
+    sqlVinculoEncontrado.Active := False;
+    sqlVinculoEncontrado.DataSet.CommandText := vlSql;
+    sqlVinculoEncontrado.DataSet.ParamByName('ID').AsCurrency               := sqlDadosConciliacaoVALOR.AsCurrency;
+    sqlVinculoEncontrado.DataSet.ParamByName('ANO_MES_REFERENCIA').AsString := PegarAnoMes(sqlDadosConciliacaoDATA_PAGAMENTO.AsString);
+    sqlVinculoEncontrado.Active := True;
+
+    if sqlVinculoEncontrado.IsEmpty then
+      exit
+    else
+    begin
+      if sqlVinculoEncontrado.RecordCount = 1 then
+      begin
+        sqlDadosConciliacaoCALC_LIVRO_FINANCEIRO_ID.AsInteger := sqlVinculoEncontradoID.AsInteger;
+        if sqlVinculoEncontradoCONCILIACAO_IDENTIFICADOR.AsString <> '' then
+          sqlDadosConciliacaoCALC_MODELO.AsString := 'S';
+        if (viLista.Values['SITUACAO'] = '') or (viLista.Values['SITUACAO'] = '1') then
+          AtualizarSituacaoItem('3','A',null, sqlDadosConciliacaoLANCAMENTO.AsVariant);
+      end;
+    end;
+  end;
+
+  function VerificarVinculoRegistrado:Boolean;
+  begin
+    Result := dtmControles.GetInt(' SELECT LIVRO_CAIXA_ID FROM J_LIVRO_CAIXA WHERE CONCILIACAO_REGISTRADO_ID = '+QuotedStr(sqlDadosConciliacaoCONCILIACAO_REGISTRADO_ID.AsString)) > 0;
+    if Result then
+      Exit;
+
+    Result := dtmControles.GetStr(' SELECT CONCILIACAO_REGISTRADO_ID FROM J_CONCILIACAO_REGISTRADO '+
+                                  ' WHERE CONCILIACAO_REGISTRADO_ID = '+QuotedStr(sqlDadosConciliacaoCONCILIACAO_REGISTRADO_ID.AsString)) <> '';
+    if Result then
+      exit;
+
+    sqlDadosConciliacaoSITUACAO.AsString := '0';
+  end;
+
+begin
+  if vpAbrirEdicao then
+    sqlDadosConciliacao.Edit;
+
+  // Verificar se ja foi salvo e/ou registrado.
+  viLista := dtmControles.GetFields(' SELECT SITUACAO, LIBERADO, VINCULO, LANCAMENTO, OBSERVACAO, '+
+                                    '        CONCILIACAO_VINCULO_ID FROM J_CONCILIACAO_REGISTRADO WHERE CONCILIACAO_REGISTRADO_ID = '+QuotedStr(sqlDadosConciliacaoCONCILIACAO_REGISTRADO_ID.AsString));
+  if viLista.Values['SITUACAO'] = '' then
+    sqlDadosConciliacaoSITUACAO.AsString := '0'
+  else
+  begin
+    sqlDadosConciliacaoCALC_REGISTRADO.AsBoolean := TRUE;
+    sqlDadosConciliacaoOBSERVACAO.AsString             := viLista.Values['OBSERVACAO'];
+    sqlDadosConciliacaoCONCILIACAO_VINCULO_ID.AsString := viLista.Values['CONCILIACAO_VINCULO_ID'];
+
+    if (viLista.Values['SITUACAO'] = '1') then
+    begin
+      if VerificarVinculoRegistrado then
+        AtualizarSituacaoItem(viLista.Values['SITUACAO'], viLista.Values['LIBERADO'], viLista.Values['VINCULO'], viLista.Values['LANCAMENTO']);
+    end
+    else AtualizarSituacaoItem(viLista.Values['SITUACAO'], viLista.Values['LIBERADO'], viLista.Values['VINCULO'], viLista.Values['LANCAMENTO']);
+  end;
+
+  // Verificar no Livro Caixa
+  if sqlDadosConciliacaoSITUACAO.AsInteger in [0,2,4,5] then
+  begin
+    BuscarModeloPlanejado(sqlDadosConciliacaoDESCRICAO.AsString);
+    if sqlDadosConciliacaoSITUACAO.AsInteger <> 4 then
+    begin
+      VerificarItemLivroCaixa;
+      if (sqlDadosConciliacaoCALC_LIVRO_CAIXA_ID.IsNull) and (sqlDadosConciliacaoSITUACAO.AsInteger in [0,5]) then
+        VerificarItemLivroFinanceiro;
+    end;
+  end
+  else
+    if sqlDadosConciliacaoSITUACAO.AsInteger = 3 then
+       VerificarItemLivroFinanceiro
+  else BuscarModeloPlanejado(sqlDadosConciliacaoDESCRICAO.AsString, sqlDadosConciliacaoCONCILIACAO_REGISTRADO_ID.AsString);
+
+  if vpAbrirEdicao then
+    sqlDadosConciliacao.Post;
+
+  FreeAndNil(viLista);
+end;
+
+procedure TfrmConciliacaoBancaria.VerificarSituacaoVinculo(vpSituacao : Integer);
+begin
+  case vpSituacao of
+   2,3 : begin
+           rdbVinculo.Caption := 'Vinculo Encontrado - Situação?';
+           rdbVinculo.Properties.Items[0].Caption := 'Verdadeiro';
+           rdbVinculo.Properties.Items[1].Caption := 'False';
+         end;
+   4   : begin
+           rdbVinculo.Caption := 'Modelo Encontrado - Aceitar?';
+           rdbVinculo.Properties.Items[0].Caption := 'Sim';
+           rdbVinculo.Properties.Items[1].Caption := 'Não';
+         end;
+   else
+    begin
+      rdbVinculo.Caption := 'Realizar Lançamento?';
+      rdbVinculo.Properties.Items[0].Caption := 'Sim';
+      rdbVinculo.Properties.Items[1].Caption := 'Não';
+    end;
+  end;
+end;
+
+procedure TfrmConciliacaoBancaria.VincularItemConciliadosUnidos;
+var
+  viConciliacaoUnidoId : String;
+begin
+  sqlDadosConciliacao.First;
+  viConciliacaoUnidoId := sqlDadosConciliacaoCONCILIACAO_REGISTRADO_ID.AsString;
+  While not sqlDadosConciliacao.Eof do
+  begin
+    AtualizaSituacaoRegistroItem(sqlDadosConciliacaoCONCILIACAO_REGISTRADO_ID.AsString, viConciliacaoUnidoId);
+    sqlDadosConciliacao.Next;
+  end;
+end;
+
+procedure TfrmConciliacaoBancaria.VincularItemLancamentoCaixa(vpLivroCaixaId,
+  vpIdConciliacao: String);
+begin
+  ExecutaSqlAuxiliar(' UPDATE J_LIVRO_CAIXA SET CONCILIACAO_REGISTRADO_ID = '+QuotedStr(vpIdConciliacao)+
+                     ' WHERE LIVRO_CAIXA_ID IN ('+(vpLivroCaixaId)+')', 1);
+  AtualizaSituacaoRegistroItem(sqlDadosConciliacaoCONCILIACAO_REGISTRADO_ID.AsString);
+  AtualizarSituacaoItem('1','R','S','1', True);
+end;
+
+end.
+

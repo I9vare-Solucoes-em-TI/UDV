@@ -1,0 +1,64 @@
+inherited frmCentroCustoPersonalizado: TfrmCentroCustoPersonalizado
+  Caption = 'Personalizar Centro de Custo'
+  ClientHeight = 312
+  ClientWidth = 573
+  ExplicitWidth = 579
+  ExplicitHeight = 341
+  PixelsPerInch = 96
+  TextHeight = 13
+  inherited Panel2: TPanel
+    Width = 573
+    inherited lblInformaca: TcxLabel
+      Caption = 'Centro de Custo - Rateio'
+      Style.IsFontAssigned = True
+      Width = 278
+      AnchorY = 19
+    end
+    inherited Panel6: TPanel
+      Left = 313
+      inherited btnCancelar: TcxButton
+        LookAndFeel.SkinName = ''
+      end
+      inherited btnConfirmar: TcxButton
+        LookAndFeel.SkinName = ''
+      end
+    end
+  end
+  inherited Panel1: TPanel
+    Width = 573
+    Height = 274
+    ExplicitTop = 37
+    ExplicitWidth = 573
+    ExplicitHeight = 274
+    object Panel3: TPanel
+      Left = 2
+      Top = 2
+      Width = 569
+      Height = 41
+      Align = alTop
+      BevelOuter = bvNone
+      Color = clWindow
+      ParentBackground = False
+      TabOrder = 0
+      ExplicitLeft = 184
+      ExplicitTop = 64
+      ExplicitWidth = 185
+    end
+  end
+  inherited DataSetAncestral: TSQLDataSet
+    Left = 431
+    Top = 225
+  end
+  inherited ProviderAncestral: TDataSetProvider
+    Left = 463
+    Top = 225
+  end
+  inherited ClientAncestral: TClientDataSet
+    Left = 495
+    Top = 225
+  end
+  inherited SourceAncestral: TDataSource
+    Left = 527
+    Top = 225
+  end
+end

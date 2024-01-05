@@ -1,0 +1,383 @@
+unit AtoMostrarTextoLavrado;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, CadAuxiliar, FMTBcd,
+  WPRTEEdit,
+  cxEdit, DB,
+  FrameEditorSimples, cxGridLevel, cxGridCustomTableView,
+  cxGridTableView, cxGridDBTableView, cxClasses, cxControls,
+  cxGridCustomView, cxGrid, DBClient, Provider, SqlExpr, StdCtrls,
+  cxButtons, ExtCtrls, cxTextEdit, cxContainer, cxLabel,
+  WPCTRRich, WPRuler, WPRTEDefs, Menus, ClipBrd, cxMaskEdit,
+  cxDropDownEdit, cxImageComboBox, cxSplitter, cxPC, WPCTRMemo, cxGraphics,
+  cxLookAndFeels, cxLookAndFeelPainters, dxBarBuiltInMenu, cxStyles,
+  cxCustomData, cxFilter, cxData, cxDataStorage, cxNavigator, cxDBData,
+  FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param,
+  FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
+  FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client,
+  I9Query;
+
+type
+
+  TDadosAtoMostrar = Record
+    AtoProtocolo : String;
+    SomenteProtocolo, SomenteTexto : Boolean;
+    AtoId : Integer;
+  End;
+
+  TfrmTextroLavrado = class(TfrmCadAuxiliar)
+    pnlPesquisar: TPanel;
+    cxLabel2: TcxLabel;
+    ClientAncestralTEXTO: TBlobField;
+    ClientAncestralPROTOCOLO: TBCDField;
+    ClientAncestralFOLHA_INICIAL: TBCDField;
+    ClientAncestralFOLHA_FINAL: TBCDField;
+    ClientAncestralDATA_LAVRATURA: TSQLTimeStampField;
+    ClientAncestralPESSOA_NOME: TStringField;
+    ClientAncestralNUMERO_LIVRO: TBCDField;
+    pgcVisualizacao: TcxPageControl;
+    cxTabSheet1: TcxTabSheet;
+    pnlTexto: TPanel;
+    fmeEditorSimples: TfmeEditorSimples;
+    cxGridBasica: TcxGrid;
+    cxGridBasicaDB: TcxGridDBTableView;
+    cxGridBasicaDBProtocolo: TcxGridDBColumn;
+    cxGridBasicaDBLivro: TcxGridDBColumn;
+    cxGridBasicaDBFolha: TcxGridDBColumn;
+    cxGridBasicaFolhaFinal: TcxGridDBColumn;
+    cxGridBasicaPessoaNome: TcxGridDBColumn;
+    cxGridBasicaLevel1: TcxGridLevel;
+    cxTabSheet2: TcxTabSheet;
+    cxGrid1: TcxGrid;
+    cxGridDBTableView1: TcxGridDBTableView;
+    cxGridDBColumn5: TcxGridDBColumn;
+    cxGridDBColumn1: TcxGridDBColumn;
+    cxGridLevel1: TcxGridLevel;
+    cxSplitterTexto: TcxSplitter;
+    Panel2: TPanel;
+    wptTexto: TWPRichText;
+    WPReguaHorizontal: TWPRuler;
+    ClientAncestralATO_ID: TBCDField;
+    cxLabel5: TcxLabel;
+    cxLabel6: TcxLabel;
+    btnConfirmar: TcxButton;
+    edtPesqProtocolo: TcxTextEdit;
+    edtPesqLivro: TcxTextEdit;
+    edtPesqFolha: TcxTextEdit;
+    btnBuscarProtocolo: TcxButton;
+    icxPesqTipoParte: TcxImageComboBox;
+    edtPesqOutorgado: TcxTextEdit;
+    btnBuscarParte: TcxButton;
+    procedure ClientAncestralAfterScroll(DataSet: TDataSet);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure ClientAncestralBeforeOpen(DataSet: TDataSet);
+    procedure ClientAncestralAfterOpen(DataSet: TDataSet);
+    procedure edtPesqOutorgadoEnter(Sender: TObject);
+    procedure edtPesqProtocoloEnter(Sender: TObject);
+    procedure edtPesqProtocoloKeyPress(Sender: TObject; var Key: Char);
+    procedure cxGridBasicaDBDblClick(Sender: TObject);
+    procedure btnConfirmarClick(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+    procedure btnBuscarProtocoloClick(Sender: TObject);
+    procedure btnBuscarParteClick(Sender: TObject);
+    procedure edtPesqProtocoloKeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure edtPesqOutorgadoKeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure icxPesqTipoPartePropertiesChange(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure pgcVisualizacaoChange(Sender: TObject);
+  private
+    procedure FiltrarSql(vpFiltro : string );
+  public
+  end;
+
+var
+  frmTextroLavrado: TfrmTextroLavrado;
+  vgDadosAtoMostrar : TDadosAtoMostrar;
+
+implementation
+
+uses Rotinas, Controles, ControleVariaveis;
+
+{$R *.dfm}
+{$WARNINGS OFF IMPLICIT_STRING_CAST}
+{$WARNINGS OFF IMPLICIT_STRING_CAST_LOSS}
+
+procedure TfrmTextroLavrado.ClientAncestralAfterScroll(
+  DataSet: TDataSet);
+  procedure AjustarTexto(vpWptTexto : TWPRichText);
+  begin
+    vpWptTexto.AsString := DeCompressString(ClientAncestral.FieldByName('TEXTO').AsString);
+    vpWptTexto.SelectionAsString := '';
+    vpWptTexto.AutoZoom := wpAutoZoomWidth;
+
+    try
+      vpWptTexto.ProtectedProp := [ppParProtected,ppAllowEditAtTextEnd,ppProtectSelectedTextToo];
+      vpWptTexto.CPPosition := $0;
+    except
+    end;
+  end;
+
+begin
+  inherited;
+
+    fmeEditorSimples.wptTexto.HideSelection;
+    wptTexto.HideSelection;
+    
+    if pgcVisualizacao.ActivePageIndex = 0 then
+         AjustarTexto(fmeEditorSimples.wptTexto)
+    else AjustarTexto(wptTexto);
+end;
+
+procedure TfrmTextroLavrado.FormClose(Sender: TObject;
+  var Action: TCloseAction);
+begin
+  inherited;
+  ClientAncestral.Active        := False;
+  vgAndamento.PesquisaAndamento := False;
+  vgDadosAtoMostrar.SomenteTexto:= False;
+
+  Action := caFree;
+  frmTextroLavrado := nil;
+end;
+
+procedure TfrmTextroLavrado.ClientAncestralBeforeOpen(DataSet: TDataSet);
+begin
+  inherited;
+  ClientAncestral.AfterScroll := nil;
+end;
+
+procedure TfrmTextroLavrado.ClientAncestralAfterOpen(DataSet: TDataSet);
+begin
+  inherited;
+  ClientAncestral.AfterScroll := ClientAncestralAfterScroll;
+end;
+
+procedure TfrmTextroLavrado.FiltrarSql(vpFiltro : string );
+begin
+  Screen.Cursor := crHourGlass;
+  ClientAncestral.Active := False;
+  DataSetAncestral.SQL.Text := ' SELECT A.TEXTO, A.PROTOCOLO, A.FOLHA_INICIAL, A.FOLHA_FINAL, A.DATA_LAVRATURA, A.ATO_ID, '+
+                                  ' VP.PESSOA_NOME, LA.NUMERO_LIVRO '+
+                                  '  FROM T_ATO A '+
+                                  '    LEFT OUTER JOIN T_ATO_VINCULOPARTE VP '+
+                                  '    ON A.ATO_ID = VP.ATO_ID '+
+                                  '    LEFT OUTER JOIN T_LIVRO_ANDAMENTO LA '+
+                                  '    ON A.LIVRO_ANDAMENTO_ID = LA.LIVRO_ANDAMENTO_ID '+
+                                  '    WHERE VP.ORDEM = 1 ';
+  if icxPesqTipoParte.EditValue <> '3' then
+    DataSetAncestral.SQL.Text := DataSetAncestral.SQL.Text +
+                                   '    AND (VP.TIPO_VINCULO = '+ QuotedStr('0') +
+                                   '    OR VP.TIPO_VINCULO = '+ QuotedStr(IntToStr(icxPesqTipoParte.EditValue))+')' + ' '+ vpFiltro+
+                                   '  ORDER BY A.PROTOCOLO '
+  else
+    DataSetAncestral.SQL.Text := DataSetAncestral.SQL.Text +
+                                   '    AND VP.TIPO_VINCULO BETWEEN '+ QuotedStr('0') + ' AND ' + QuotedStr('2') + ' '+ vpFiltro+
+                                   '  ORDER BY A.PROTOCOLO ';
+  ClientAncestral.Active := True;
+  Screen.Cursor := crDefault;
+end;
+
+procedure TfrmTextroLavrado.edtPesqOutorgadoEnter(Sender: TObject);
+begin
+  inherited;
+  edtPesqProtocolo.Clear;
+end;
+
+procedure TfrmTextroLavrado.edtPesqProtocoloEnter(Sender: TObject);
+begin
+  inherited;
+  icxPesqTipoParte.EditValue := 2; 
+  edtPesqOutorgado.Clear;
+end;
+
+procedure TfrmTextroLavrado.edtPesqProtocoloKeyPress(Sender: TObject;
+  var Key: Char);
+begin
+  inherited;
+  if (not (Key in ['0'..'9',',', #8, #13])) then
+  begin
+    Key := #0;
+    MessageBeep(MB_OK);
+  end;
+end;
+
+procedure TfrmTextroLavrado.cxGridBasicaDBDblClick(Sender: TObject);
+begin
+  inherited;
+  if not ClientAncestral.IsEmpty then
+    btnConfirmarClick(self);
+end;
+
+procedure TfrmTextroLavrado.btnConfirmarClick(Sender: TObject);
+var
+  viWptTexto : TWPRichText;
+
+  procedure SelecionatTexto(vpWptTexto : TWPRichText);
+  begin
+    vpWptTexto.SelectAll;
+    vpWptTexto.CurrAttr.DeleteStyle([ afsProtected ]);
+    RedefinirPadraoFonte(vpWptTexto);
+    vpWptTexto.CopyToClipboard;
+    vpWptTexto.ProtectedProp := [ppParProtected,ppProtected,ppAllowEditAtTextEnd,ppProtectSelectedTextToo];
+  end;
+
+begin
+  inherited;
+
+  if vgDadosAtoMostrar.SomenteProtocolo then
+  begin
+    vgDadosAtoMostrar.AtoProtocolo := ClientAncestralPROTOCOLO.AsString;
+    vgDadosAtoMostrar.AtoId        := ClientAncestralATO_ID.AsInteger;
+  end
+  else
+  if vgAndamento.PesquisaAndamento then
+  begin
+    vgAndamento.ProtocoloId := ClientAncestralPROTOCOLO.AsInteger;
+    close;
+    exit;
+  end
+  else vgAndamento.ProtocoloId := 0;
+
+  fmeEditorSimples.wptTexto.ProtectedProp := [ppParProtected,ppAllowEditAtTextEnd,ppProtectSelectedTextToo];
+  wptTexto.ProtectedProp         := [ppParProtected,ppAllowEditAtTextEnd,ppProtectSelectedTextToo];
+
+  if (not (fmeEditorSimples.wptTexto.IsSelected)) and (not (wptTexto.IsSelected)) then
+  begin
+    if pgcVisualizacao.ActivePageIndex = 0 then
+         SelecionatTexto(fmeEditorSimples.wptTexto)
+    else SelecionatTexto(wptTexto);
+  end
+  else
+  begin
+    viWptTexto := CarregarWptVirtual(viWptTexto, fmeEditorSimples.wptTexto);
+    if pgcVisualizacao.ActivePageIndex = 0 then
+         viWptTexto.AsString := fmeEditorSimples.wptTexto.SelectionAsString
+    else viWptTexto.AsString := wptTexto.SelectionAsString;
+
+    viWptTexto.SelectAll;
+    viWptTexto.CurrAttr.DeleteStyle([afsProtected]);
+    viWptTexto.BookmarkDeleteAllMarkers;
+    Marcacao_RetirarDicionarioGramatical(viWptTexto);
+    viWptTexto.SelectAll;
+
+    if pgcVisualizacao.ActivePageIndex = 0 then
+    begin
+      viWptTexto.CurrAttr.DeleteStyle([ afsProtected ]);
+      RedefinirPadraoFonte(viWptTexto);
+      viWptTexto.CopyToClipboard;
+    end
+    else
+    begin
+      viWptTexto.CurrAttr.DeleteStyle([ afsProtected ]);
+      RedefinirPadraoFonte(viWptTexto);
+      viWptTexto.CopyToClipboard;
+    end;
+    FreeAndNil(viWptTexto);
+  end;
+  close;
+end;
+
+procedure TfrmTextroLavrado.FormShow(Sender: TObject);
+begin
+  inherited;
+  icxPesqTipoParte.EditValue := 3;
+
+  if vgDadosAtoMostrar.AtoProtocolo <> '' then
+  begin
+    edtPesqProtocolo.Text := vgDadosAtoMostrar.AtoProtocolo;
+    btnBuscarProtocoloClick(Self);
+    pnlPesquisar.Enabled := False;
+
+    if vgDadosAtoMostrar.SomenteTexto then
+    begin
+      cxGridBasica.Visible := False;
+      pnlPesquisar.Enabled := False;
+      btnConfirmar.Visible := False;
+    end;
+    fmeEditorSimples.wptTexto.SetFocus;
+  end
+  else edtPesqProtocolo.SetFocus;
+end;
+
+procedure TfrmTextroLavrado.btnBuscarProtocoloClick(Sender: TObject);
+begin
+  inherited;
+
+  if edtPesqProtocolo.Text <> '' then
+    FiltrarSql(' AND A.PROTOCOLO = '+ edtPesqProtocolo.Text)
+  else
+  begin 
+    if (edtPesqLivro.Text <> '') and (edtPesqFolha.Text <> '') then     
+      FiltrarSql(' AND LA.NUMERO_LIVRO = '+ edtPesqLivro.Text +
+                 ' AND A.FOLHA_INICIAL = '+ edtPesqFolha.Text)   
+    else
+      if (edtPesqLivro.Text <> '') then 
+        FiltrarSql(' AND LA.NUMERO_LIVRO = '+ edtPesqLivro.Text)
+    else
+      if edtPesqFolha.Text <> '' then     
+        FiltrarSql(' AND A.FOLHA_INICIAL = '+ edtPesqFolha.Text);
+  end;
+
+  if not ClientAncestral.IsEmpty then
+    btnConfirmar.SetFocus;
+end;
+
+procedure TfrmTextroLavrado.btnBuscarParteClick(Sender: TObject);
+begin
+  inherited;
+  if edtPesqOutorgado.Text <> '' then
+    FiltrarSql(' AND VP.PESSOA_NOME LIKE '+ QuotedStr(edtPesqOutorgado.Text+'%'));
+end;
+
+procedure TfrmTextroLavrado.edtPesqProtocoloKeyDown(Sender: TObject;
+  var Key: Word; Shift: TShiftState);
+begin
+  inherited;
+  if key = 13 then
+    btnBuscarProtocoloClick(self);
+end;
+
+procedure TfrmTextroLavrado.edtPesqOutorgadoKeyDown(Sender: TObject;
+  var Key: Word; Shift: TShiftState);
+begin
+  inherited;
+  if key = 13 then
+    btnBuscarParteClick(self);
+end;
+
+procedure TfrmTextroLavrado.icxPesqTipoPartePropertiesChange(
+  Sender: TObject);
+begin
+  inherited;
+  cxGridBasicaPessoaNome.Caption := icxPesqTipoParte.Text;
+
+  if (icxPesqTipoParte.Text <> '') and ((edtPesqOutorgado.Text <> '') or (edtPesqProtocolo.Text <> '')) then
+     if edtPesqOutorgado.Text <> '' then
+          btnBuscarParteClick(self)
+     else btnBuscarProtocoloClick(self);
+end;
+
+procedure TfrmTextroLavrado.FormCreate(Sender: TObject);
+begin
+  inherited;
+  if vgAndamento.PesquisaAndamento then
+  begin
+    pgcVisualizacao.ActivePageIndex := 0;
+    pgcVisualizacao.HideTabs        := True; 
+    pnlTexto.Visible    := False;
+    cxGridBasica.Height := 355;
+  end;
+end;
+
+procedure TfrmTextroLavrado.pgcVisualizacaoChange(Sender: TObject);
+begin
+  inherited;
+  ClientAncestralAfterScroll(ClientAncestral);
+end;
+
+end.

@@ -1,0 +1,1770 @@
+unit GerenciadorSaidas;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, dxSkinsCore, dxSkinBlack, dxSkinBlue, dxSkinCaramel, dxSkinCoffee,
+  dxSkinDarkSide, dxSkinGlassOceans, dxSkiniMaginary, dxSkinLilian,
+  dxSkinLiquidSky, dxSkinLondonLiquidSky, dxSkinMcSkin, dxSkinMoneyTwins,
+  dxSkinOffice2007Black, dxSkinOffice2007Blue, dxSkinOffice2007Green,
+  dxSkinOffice2007Pink, dxSkinOffice2007Silver, dxSkinPumpkin, dxSkinSilver,
+  dxSkinStardust, dxSkinSummer2008, dxSkinsDefaultPainters, dxSkinValentine,
+  dxSkinXmas2008Blue, dxSkinscxPCPainter, cxPC, cxControls, cxStyles,
+  cxCustomData, cxGraphics, cxFilter, cxData, cxDataStorage, cxEdit, DB,
+  cxDBData, cxCurrencyEdit, cxTextEdit, Menus, cxLookAndFeelPainters,
+  cxGroupBox, cxDropDownEdit, cxMaskEdit, cxLookupEdit, cxDBLookupEdit,
+  cxDBLookupComboBox, ExtCtrls, StdCtrls, cxButtons, cxGridLevel,
+  cxGridCustomTableView, cxGridTableView, cxGridDBTableView, cxClasses,
+  cxGridCustomView, cxGrid, cxContainer, cxLabel, cxRadioGroup,
+  DBClient, cxImageComboBox, cxCalendar, SimpleDS, cxCheckBox, frxClass,
+  frxDBSet, cxDBEdit, cxLookAndFeels, dxSkinBlueprint, dxSkinDarkRoom,
+  dxSkinDevExpressDarkStyle, dxSkinDevExpressStyle, dxSkinFoggy,
+  dxSkinHighContrast, dxSkinOffice2010Black, dxSkinOffice2010Blue,
+  dxSkinOffice2010Silver, dxSkinOffice2013White, dxSkinSeven,
+  dxSkinSevenClassic, dxSkinSharp, dxSkinSharpPlus, dxSkinSpringTime,
+  dxSkinTheAsphaltWorld, dxSkinVS2010, dxSkinWhiteprint, cxPCdxBarPopupMenu,
+  cxNavigator, ComCtrls, dxCore, cxDateUtils, cxSplitter, dxBarBuiltInMenu,
+  Data.DBXInterBase, DbxDevartInterBase;
+
+type
+  TDadosRecibo = Record
+    Recibo, Cedente, CNPJ, Pessoa, CPF, RG : String;
+    Data : TDateTime;
+  End;
+
+  TfrmGerenciadorSaidas = class(TForm)
+    pgcSaidas: TcxPageControl;
+    tabGerenciador: TcxTabSheet;
+    tabMovimetacao: TcxTabSheet;
+    DataSource: TDataSource;
+    ClientDataSet: TClientDataSet;
+    tabBalancete: TcxTabControl;
+    Panel5: TPanel;
+    ClientDataSetCONTABIL_CONTA_ID: TIntegerField;
+    ClientDataSetREFERENCIA: TStringField;
+    ClientDataSetDOCUMENTO: TStringField;
+    ClientDataSetOBSERVACAO: TStringField;
+    ClientDataSetBALANCETE_GRUPO_ID: TIntegerField;
+    ClientDataSetCENTRO_CUSTO_ID: TIntegerField;
+    ClientDataSetVALOR: TCurrencyField;
+    cxGridRealizado: TcxGrid;
+    cxGridDBTableView2: TcxGridDBTableView;
+    cxGridDBTableView2Column1: TcxGridDBColumn;
+    cxGridDBColumn3: TcxGridDBColumn;
+    cxGridDBColumn5: TcxGridDBColumn;
+    cxGridDBColumn10: TcxGridDBColumn;
+    cxGridDBColumn13: TcxGridDBColumn;
+    cxGridDBColumn16: TcxGridDBColumn;
+    cxGridDBColumn17: TcxGridDBColumn;
+    cxGridDBColumn18: TcxGridDBColumn;
+    cxGridLevel5: TcxGridLevel;
+    Panel9: TPanel;
+    cxLabel4: TcxLabel;
+    cxLabel1: TcxLabel;
+    Panel11: TPanel;
+    btnReimprimir: TcxButton;
+    btnEstornar: TcxButton;
+    sqlCompromissoRealizado: TSimpleDataSet;
+    sqlCompromissoRealizadocalc_referencia: TStringField;
+    dtsCompromissoRealizado: TDataSource;
+    sqlCompromissoRealizadoSITUACAO: TStringField;
+    sqlCompromissoRealizadoLANCAMENTO_COMPROMISSO_ID: TFMTBCDField;
+    sqlCompromissoRealizadoCOMPROMISSO_VENCIDO_ID: TFMTBCDField;
+    sqlCompromissoRealizadoPESSOA_ID: TFMTBCDField;
+    sqlCompromissoRealizadoCONTABIL_CONTA_ID: TFMTBCDField;
+    sqlCompromissoRealizadoVALOR_ATUAL: TFMTBCDField;
+    sqlCompromissoRealizadoBOLETA_ID: TFMTBCDField;
+    sqlCompromissoRealizadoDIFERENCA: TStringField;
+    sqlCompromissoRealizadoVALOR_ORIGEM: TFMTBCDField;
+    sqlCompromissoRealizadoQTD_ADICIONAL: TFMTBCDField;
+    sqlCompromissoRealizadoATUALIZADO: TStringField;
+    sqlCompromissoRealizadoDATA_REALIZACAO: TSQLTimeStampField;
+    sqlCompromissoRealizadoBALANCETE_GRUPO_ID: TFMTBCDField;
+    sqlCompromissoRealizadoANO_MES_REFERENCIA: TStringField;
+    sqlCompromissoRealizadoPESSOA_NOME: TStringField;
+    sqlCompromissoRealizadoSAIDA_NUMERO: TFMTBCDField;
+    sqlCompromissoRealizadoSAIDA_TIPO: TStringField;
+    sqlCompromissoRealizadocalc_Descricao: TStringField;
+    sqlCompromissoRealizadoDESCRICAO: TStringField;
+    sqlCompromissoRealizadoCENTRO_CUSTO_ID: TFMTBCDField;
+    cxGridDBTableView2Column2: TcxGridDBColumn;
+    cxStyleRepository1: TcxStyleRepository;
+    cxStyle1: TcxStyle;
+    frxReport1: TfrxReport;
+    frxDBDatasetSaidas: TfrxDBDataset;
+    sqlCompromissoRealizadoPESSOA_CPF: TStringField;
+    sqlCompromissoRealizadoPESSOA_RG: TStringField;
+    sqlDadosRecibo: TSimpleDataSet;
+    dtsDadosRecibo: TDataSource;
+    sqlDadosReciboCONTABIL_CONTA_ID: TFMTBCDField;
+    sqlDadosReciboVALOR_ATUAL: TFMTBCDField;
+    sqlDadosReciboANO_MES_REFERENCIA: TStringField;
+    sqlDadosReciboDATA_REALIZACAO: TSQLTimeStampField;
+    sqlDadosReciboDESCRICAO: TStringField;
+    sqlDadosReciboOBSERVACAO: TStringField;
+    sqlDadosReciboCENTRO_CUSTO_ID: TFMTBCDField;
+    sqlDadosReciboCEDENTE_ID: TFMTBCDField;
+    sqlDadosReciboBALANCETE_GRUPO_ID: TFMTBCDField;
+    sqlDadosReciboPESSOA_NOME: TStringField;
+    sqlDadosReciboSAIDA_NUMERO: TFMTBCDField;
+    sqlDadosReciboSAIDA_TIPO: TStringField;
+    sqlDadosReciboSAIDA_PESSOA_ID: TFMTBCDField;
+    sqlDadosReciboANO_MES_REALIZADO: TStringField;
+    sqlDadosReciboPESSOA_CPF: TStringField;
+    sqlDadosReciboPESSOA_RG: TStringField;
+    sqlDadosRecibocalc_referencia: TStringField;
+    sqlDadosReciboSAIDA_DOCUMENTO: TStringField;
+    sqlDadosReciboPLANO_CONTAS: TStringField;
+    cxGridDBTableView2Column3: TcxGridDBColumn;
+    sqlCompromissoRealizadoSAIDA_DOCUMENTO: TStringField;
+    frxDBDatasetcABECALHO: TfrxDBDataset;
+    sqlCompromissoRealizadoDETALHADO: TStringField;
+    sqlCompromissoRealizadoCOMPROMISSO_DETALHADO_ID: TFMTBCDField;
+    ClientDataSetDETALHADO: TStringField;
+    ClientDataSetCHAVE_DETALHAMENTO: TIntegerField;
+    ClientDetalhe: TClientDataSet;
+    dtsDetalhe: TDataSource;
+    popDetalhar: TPopupMenu;
+    ClientDetalheCONTABIL_CONTA_ID: TIntegerField;
+    ClientDetalheREFERENCIA: TStringField;
+    ClientDetalheDOCUMENTO: TStringField;
+    ClientDetalheOBSERVACAO: TStringField;
+    ClientDetalheBALANCETE_GRUPO_ID: TIntegerField;
+    ClientDetalheDETALHADO: TStringField;
+    ClientDetalheCHAVE_DETALHAMENTO: TIntegerField;
+    ClientDetalheVALOR: TFloatField;
+    ClientDetalheCENTRO_CUSTO_ID: TIntegerField;
+    ClientDataSetDESCRICAO: TStringField;
+    ClientDetalheDESCRICAO: TStringField;
+    cxGridDBTableDetalhado: TcxGridDBColumn;
+    ClientDetalheCALC_VINCULO: TBooleanField;
+    sqlCompromissoRealizadoCALC_VINCULO: TStringField;
+    acmniDetalharItem: TMenuItem;
+    sqlCompromissoRealizadoOBSERVACAO: TStringField;
+    Panel6: TPanel;
+    Panel3: TPanel;
+    rdbRecibo: TcxRadioButton;
+    rdbOutrosDocumentos: TcxRadioButton;
+    btnRegistrar: TcxButton;
+    pgcAssociado: TcxPageControl;
+    tabSocio: TcxTabSheet;
+    lcxAssociado: TcxLookupComboBox;
+    lblAssociado: TcxLabel;
+    tabNaoSocio: TcxTabSheet;
+    lblNaoAssociado: TcxLabel;
+    cxLabel8: TcxLabel;
+    cxLabel9: TcxLabel;
+    edtNaoAssociado: TcxTextEdit;
+    edtCPF: TcxMaskEdit;
+    edtRG: TcxTextEdit;
+    PanelBotaoFechar: TPanel;
+    cxBtnFechar: TcxButton;
+    lblInformacaoLancamento: TcxLabel;
+    rdbNaoContabilizado: TcxRadioButton;
+    tabAcontabilizar: TcxTabSheet;
+    Panel2: TPanel;
+    Panel4: TPanel;
+    btnExcluirNaoContabilizado: TcxButton;
+    cbxAgruparNaoContabilizar: TcxCheckBox;
+    cbxAgruparAssociado: TcxCheckBox;
+    sqlCompromissoRealizadoSelecionar: TBooleanField;
+    pnlCampos: TPanel;
+    cxLabel3: TcxLabel;
+    cxLabel6: TcxLabel;
+    cxLabel7: TcxLabel;
+    cxLabel2: TcxLabel;
+    lblDocumento: TcxLabel;
+    cxLabel5: TcxLabel;
+    cxLabel10: TcxLabel;
+    lcxCompromisso: TcxLookupComboBox;
+    lcxCentroCusto: TcxLookupComboBox;
+    cbxReferencia: TcxComboBox;
+    edtDocumento: TcxTextEdit;
+    edtValor: TcxCurrencyEdit;
+    edtDescricao: TcxTextEdit;
+    edtObservacao: TcxTextEdit;
+    pnlBotoes: TPanel;
+    pgcCompromissos: TcxPageControl;
+    tabCompromissos: TcxTabSheet;
+    grdCompromissoVencido: TcxGrid;
+    cxGridDBTableCompromissos: TcxGridDBTableView;
+    cxGridDBTableCompromissosDetalhado: TcxGridDBColumn;
+    cxGridDBCompromisso: TcxGridDBColumn;
+    cxGridDBTableCompromissosColumn2: TcxGridDBColumn;
+    cxGridDBTableCompromissosColumn3: TcxGridDBColumn;
+    cxGridDBTableDescricao: TcxGridDBColumn;
+    cxGridDBColumn4: TcxGridDBColumn;
+    cxGridDBTableCompromissosColumn4: TcxGridDBColumn;
+    cxGridDBTableCompromissosColumn1: TcxGridDBColumn;
+    cxGridDBTableCompromissosColumn6: TcxGridDBColumn;
+    cxGridLevel2: TcxGridLevel;
+    tabDetalhamento: TcxTabSheet;
+    pgcDetalhar: TcxPageControl;
+    tabDetalharAgrupado: TcxTabSheet;
+    cxGrid3: TcxGrid;
+    cxGridDBTableDetalhar: TcxGridDBTableView;
+    cxGridDBTableSelecionar: TcxGridDBColumn;
+    cxGridDBColumn1: TcxGridDBColumn;
+    cxGridDBColumn22: TcxGridDBColumn;
+    cxGridDBColumn23: TcxGridDBColumn;
+    cxGridDBColumn24: TcxGridDBColumn;
+    cxGridDBColumn25: TcxGridDBColumn;
+    cxGridDBColumn27: TcxGridDBColumn;
+    cxGridDBColumn28: TcxGridDBColumn;
+    cxGridDBColumn30: TcxGridDBColumn;
+    cxGridLevel4: TcxGridLevel;
+    tabDetalharNovos: TcxTabSheet;
+    cxGrid1: TcxGrid;
+    cxGridDBTableView1: TcxGridDBTableView;
+    cxGridDBTableView1Column2: TcxGridDBColumn;
+    cxGridDBColumn2: TcxGridDBColumn;
+    cxGridDBColumn7: TcxGridDBColumn;
+    cxGridDBColumn8: TcxGridDBColumn;
+    cxGridDBColumn6: TcxGridDBColumn;
+    cxGridDBColumn9: TcxGridDBColumn;
+    cxGridDBColumn11: TcxGridDBColumn;
+    cxGridDBColumn12: TcxGridDBColumn;
+    cxGridDBTableView1Column1: TcxGridDBColumn;
+    cxGridLevel1: TcxGridLevel;
+    pnlAdicionar: TPanel;
+    btnItemIncluir: TcxButton;
+    btnExcluir: TcxButton;
+    pnlGravar: TPanel;
+    btnAdicionarCompromisso: TcxButton;
+    btnCancelar: TcxButton;
+    btnLimparCompromisso: TcxButton;
+    cxGridDBTableDetalharValorDetalhar: TcxGridDBColumn;
+    ClientDataSetVALOR_TOTAL: TAggregateField;
+    sqlCompromissoRealizadoVALOR_TOTAL: TAggregateField;
+    sqlCompromissoRealizadocalc_ValorPagar: TCurrencyField;
+    pnlDetalhar: TPanel;
+    rdbDetalharNovos: TcxRadioButton;
+    rdbDetalharContabilizar: TcxRadioButton;
+    rdbNaoDetalhar: TcxRadioButton;
+    pnlDetalhamento: TPanel;
+    pnlValorDetalhado: TPanel;
+    pnlValoraDetalhar: TPanel;
+    sqlCompromissoRealizadoDATA_LANCAMENTO: TSQLTimeStampField;
+    sqlCompromissoRealizadoCONTABILIZAR: TStringField;
+    sqlCompromissoRealizadoTIPO_REGISTRO: TStringField;
+    sqlCompromissoRealizadoCOMPROMISSO_CONTABILIZAR_ID: TFMTBCDField;
+    tabContabilizar: TcxTabControl;
+    cxGrid2: TcxGrid;
+    cxGridDBTableView3: TcxGridDBTableView;
+    cxGridDBTableView3Column4: TcxGridDBColumn;
+    cxGridDBTableView3Column1: TcxGridDBColumn;
+    cxGridDBColumn14: TcxGridDBColumn;
+    cxGridDBTableView3Column2: TcxGridDBColumn;
+    cxGridDBColumn15: TcxGridDBColumn;
+    cxGridDBColumn19: TcxGridDBColumn;
+    cxGridDBColumn20: TcxGridDBColumn;
+    cxGridDBColumn21: TcxGridDBColumn;
+    cxGridDBColumn26: TcxGridDBColumn;
+    cxGridDBTableView3Column3: TcxGridDBColumn;
+    cxGridLevel3: TcxGridLevel;
+    sqlCompromissoRealizadocalc_Observacao: TStringField;
+    cxGridDBTableView2Column4: TcxGridDBColumn;
+    cxGridDBTableValorRegistrado: TcxGridDBColumn;
+    sqlCompromissoRealizadoVALOR_CONTABILIZAR: TCurrencyField;
+    sqlCompromissoRealizadoVALOR_PAGO: TFMTBCDField;
+    cxGridDBTableView3Column5: TcxGridDBColumn;
+    cxGridDBTableView3Column6: TcxGridDBColumn;
+    ClientDataSetCOMPROMISSO_DETALHADO_ID: TIntegerField;
+    btnCancelarDetalhamento: TcxButton;
+    edtDataRealizadoIni: TcxDateEdit;
+    edtDataRealizadoFim: TcxDateEdit;
+    btnPesquisarRealizados: TcxButton;
+    chxAgruparCompromisso: TcxCheckBox;
+    chxCompromissoDetalhado: TcxCheckBox;
+    cxGridDBTableView2Column5: TcxGridDBColumn;
+    chxSelecaoMultipla: TcxCheckBox;
+    popExportacao: TPopupMenu;
+    ExportalExcel1: TMenuItem;
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure FormActivate(Sender: TObject);
+    procedure cxBtnFecharClick(Sender: TObject);
+    procedure btnAdicionarCompromissoClick(Sender: TObject);
+    procedure rdbReciboClick(Sender: TObject);
+    procedure rdbOutrosDocumentosClick(Sender: TObject);
+    procedure btnCancelarClick(Sender: TObject);
+    procedure btnLimparCompromissoClick(Sender: TObject);
+    procedure ClientDataSetAfterScroll(DataSet: TDataSet);
+    procedure btnRegistrarClick(Sender: TObject);
+    procedure pgcAssociadoChange(Sender: TObject);
+    procedure edtDescricaoKeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure lcxCompromissoPropertiesEditValueChanged(Sender: TObject);
+    procedure FormCreate(Sender: TObject);
+    procedure tabBalanceteChange(Sender: TObject);
+    procedure btnExcluirClick(Sender: TObject);
+    procedure pgcSaidasChange(Sender: TObject);
+    procedure btnPesquisarRealizadosClick(Sender: TObject);
+    procedure sqlCompromissoRealizadoCalcFields(DataSet: TDataSet);
+    procedure chxAgruparCompromissoClick(Sender: TObject);
+    procedure btnEstornarClick(Sender: TObject);
+    procedure sqlCompromissoRealizadoAfterScroll(DataSet: TDataSet);
+    procedure sqlDadosReciboCalcFields(DataSet: TDataSet);
+    procedure btnReimprimirClick(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+    procedure pgcCompromissosChange(Sender: TObject);
+    procedure tabBalanceteChanging(Sender: TObject; var AllowChange: Boolean);
+    procedure chxCompromissoDetalhadoClick(Sender: TObject);
+    procedure ClientDetalheCalcFields(DataSet: TDataSet);
+    procedure acmniDetalharItemClick(Sender: TObject);
+    procedure ClientDetalheAfterScroll(DataSet: TDataSet);
+    procedure rdbNaoContabilizadoClick(Sender: TObject);
+    procedure btnExcluirNaoContabilizadoClick(Sender: TObject);
+    procedure cbxAgruparNaoContabilizarClick(Sender: TObject);
+    procedure cbxAgruparAssociadoClick(Sender: TObject);
+    procedure rdbDetalharContabilizarClick(Sender: TObject);
+    procedure rdbDetalharNovosClick(Sender: TObject);
+    procedure cxGridDBTableSelecionarPropertiesChange(Sender: TObject);
+    procedure btnItemIncluirClick(Sender: TObject);
+    procedure sqlCompromissoRealizadoAfterPost(DataSet: TDataSet);
+    procedure cxGridDBTableDetalharCustomDrawCell(
+      Sender: TcxCustomGridTableView; ACanvas: TcxCanvas;
+      AViewInfo: TcxGridTableDataCellViewInfo; var ADone: Boolean);
+    procedure cxGridDBTableSelecionarCustomDrawCell(
+      Sender: TcxCustomGridTableView; ACanvas: TcxCanvas;
+      AViewInfo: TcxGridTableDataCellViewInfo; var ADone: Boolean);
+    procedure rdbNaoDetalharClick(Sender: TObject);
+    procedure tabContabilizarChange(Sender: TObject);
+    procedure cxGridDBTableView3CustomDrawCell(Sender: TcxCustomGridTableView;
+      ACanvas: TcxCanvas; AViewInfo: TcxGridTableDataCellViewInfo;
+      var ADone: Boolean);
+    procedure btnCancelarDetalhamentoClick(Sender: TObject);
+    procedure edtDataRealizadoFimKeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure chxSelecaoMultiplaClick(Sender: TObject);
+    procedure ExportalExcel1Click(Sender: TObject);
+  private
+
+    vgReciboSaida, vlDetalhamentoId, vgDetalhandoCompromissoId : Integer;
+    vgDadosRecibo : TDadosRecibo;
+    vlCriandoForm, vlDetalhamentoIniciado, vlGravandoValor : Boolean;
+    vlValorADetalhar, vlValorDetalhadoTotal: Currency;
+    procedure ImprimirRecibo(vpRecibo : Integer; vpTipo : String);
+    procedure ParametrosRelatorioRecibo;
+    function SomarCompromissosDetalhados(vpOpcao : Integer; vpSomar : Boolean = False):Boolean;
+    function SomarCompromissosNaoContabilizados(vpSomar : Boolean):Currency;
+    procedure HabilitarRegistroDetalhamento(vpHabilitar : Boolean);
+    procedure HabilitarModeloEntrada(vpHabilitado : Boolean; vpCor1, vpCor2, vpCor3 : TColor) ;
+    procedure HabilitarOpcoesRegistro(vpHabilitado : Boolean);
+    procedure HabilitarCampos(vpHabilitado : Boolean);
+    procedure HabilitarOpcaoDetalhar(vpOpcao : Integer; vpCor1, vpCor2, vpCor3 : TColor);
+    procedure HabilitarDetalhamento(vpHabilitar : Boolean);
+    procedure PesquisarRegistrosNaoContabilizados;
+    procedure VerificarValorADetalhar;
+  public
+    { Public declarations }
+  end;
+
+var
+  frmGerenciadorSaidas: TfrmGerenciadorSaidas;
+
+implementation
+
+uses Controles, Lookup, Rotinas, ConfirmacaoRecibo, ValidarPermissaoUsuario,
+  VisualizaRelatorios;
+
+{$R *.dfm}
+
+procedure TfrmGerenciadorSaidas.acmniDetalharItemClick(Sender: TObject);
+begin
+  pgcSaidas.ActivePageIndex := 0;
+  btnCancelarClick(self);
+  tabBalancete.TabIndex    := 0;
+
+  rdbOutrosDocumentos.Checked := True;
+  rdbOutrosDocumentosClick(self);
+
+  lcxCompromisso.EditValue := sqlCompromissoRealizadoCONTABIL_CONTA_ID.AsInteger;
+  cbxReferencia.EditValue  := dtmLookup.FormatarAnoMes(sqlCompromissoRealizadoANO_MES_REFERENCIA.AsString);
+  edtValor.EditValue       := sqlCompromissoRealizadoVALOR_ATUAL.AsCurrency;
+  edtDocumento.EditValue   := sqlCompromissoRealizadoSAIDA_DOCUMENTO.AsString;
+  edtObservacao.EditValue  := sqlCompromissoRealizadoOBSERVACAO.AsString;
+  edtDescricao.EditValue   := sqlCompromissoRealizadoDESCRICAO.AsString;
+  lcxCentroCusto.EditValue := sqlCompromissoRealizadoCENTRO_CUSTO_ID.AsString;
+  vgDetalhandoCompromissoId   := sqlCompromissoRealizadoCOMPROMISSO_VENCIDO_ID.AsInteger;
+  btnAdicionarCompromissoClick(self);
+  HabilitarRegistroDetalhamento(False);
+end;
+
+procedure TfrmGerenciadorSaidas.btnAdicionarCompromissoClick(Sender: TObject);
+
+  procedure AdicionarRegistro(vpClient : TClientDataSet; vpDetalhar : Boolean);
+  begin
+    vpClient.Append;
+    vpClient.FieldByName('CONTABIL_CONTA_ID').AsInteger := lcxCompromisso.EditValue;
+    vpClient.FieldByName('REFERENCIA').AsString         := cbxReferencia.EditValue;
+    vpClient.FieldByName('VALOR').AsCurrency            := edtValor.EditValue;
+
+    if edtDocumento.EditValue = null then
+         vpClient.FieldByName('DOCUMENTO').AsVariant    := ''
+    else vpClient.FieldByName('DOCUMENTO').AsVariant    := edtDocumento.EditValue;
+
+    if edtObservacao.EditValue = null then
+         vpClient.FieldByName('OBSERVACAO').AsString    := ''
+    else vpClient.FieldByName('OBSERVACAO').AsString    := edtObservacao.EditValue;
+
+    vpClient.FieldByName('DESCRICAO').AsString          := edtDescricao.EditValue;
+    vpClient.FieldByName('BALANCETE_GRUPO_ID').AsVariant:= vgTabBalancete[tabBalancete.TabIndex];
+    vpClient.FieldByName('CENTRO_CUSTO_ID').AsVariant   := lcxCentroCusto.EditValue;
+    vpClient.FieldByName('DETALHADO').AsVariant         := 'N';
+
+    if not vpDetalhar then
+    begin
+      vpClient.Post;
+      Exit;
+    end;
+
+    if vpClient.RecordCount = 0 then
+    begin
+      vlDetalhamentoId := dtmControles.GerarSequencia('TI_COMPROMISSO_DETALHADO');
+      vpClient.FieldByName('CHAVE_DETALHAMENTO').AsInteger := vlDetalhamentoId;
+
+      vpClient.FieldByName('COMPROMISSO_DETALHADO_ID').AsInteger := sqlCompromissoRealizadoCOMPROMISSO_VENCIDO_ID.AsInteger;
+      vpClient.Post;
+
+      ClientDataSet.Edit;
+      ClientDataSetDETALHADO.AsString := 'S';
+      ClientDataSetCHAVE_DETALHAMENTO.AsInteger := vlDetalhamentoId;
+      ClientDataSet.Post;
+    end
+    else
+    begin
+      vpClient.FieldByName('CHAVE_DETALHAMENTO').AsInteger := ClientDataSetCHAVE_DETALHAMENTO.AsInteger;
+      vpClient.post;
+    end;
+
+    SomarCompromissosDetalhados(2);
+  end;
+
+  procedure Validar;
+  begin
+    VerificarPreenchimentoLCX_TX(lcxCompromisso.Text, 'Compromisso de Despesa/Saída',lcxCompromisso);
+    VerificarPreenchimentoLCX_TX(lcxCentroCusto.Text, 'Centro de Custo',lcxCentroCusto);
+
+    if rdbOutrosDocumentos.Checked then
+      VerificarPreenchimentoEDT_TX(edtDocumento.Text, 'Documento',edtDocumento);
+
+    if (edtValor.Text = '') or (edtValor.EditValue <= 0) then
+    begin
+      Application.MessageBox('Valor Inválido!!!', 'Atenção', MB_OK + MB_ICONWARNING);
+      edtValor.SetFocus;
+      abort;
+    end;
+    VerificarPreenchimentoEDT_TX(edtDescricao.Text, 'Descrição',edtDescricao);
+
+    if (rdbNaoContabilizado.Checked) and (tabBalancete.TabIndex > 0) then
+    begin
+      Application.MessageBox('Despesas a Contabilizar somente no Balancete Principal!!!', 'Atenção', MB_OK + MB_ICONWARNING);
+      abort;
+    end;
+  end;
+
+begin
+  Validar;
+
+  if pgcCompromissos.ActivePageIndex = 0 then
+  begin
+    tabMovimetacao.TabVisible   := False;
+    tabAcontabilizar.TabVisible := False;
+    AdicionarRegistro(ClientDataSet, False)
+  end
+  else AdicionarRegistro(ClientDetalhe, True);
+
+  HabilitarOpcoesRegistro(False);
+
+  btnLimparCompromissoClick(Self);
+  HabilitarCampos(False);
+  HabilitarDetalhamento(pgcCompromissos.ActivePageIndex = 0);
+  if btnItemIncluir.Enabled then
+    btnItemIncluir.SetFocus;
+
+  if rdbDetalharContabilizar.Checked then
+    rdbDetalharContabilizarClick(Self);
+end;
+
+procedure TfrmGerenciadorSaidas.btnCancelarClick(Sender: TObject);
+begin
+  btnLimparCompromissoClick(self);
+
+  if pnlCampos.Visible then
+  begin
+    HabilitarCampos(False);
+    Exit;
+  end;
+
+  if vgDetalhandoCompromissoId > 0 then
+  begin
+    vlValorDetalhadoTotal := 0;
+    HabilitarRegistroDetalhamento(True);
+    pgcSaidas.ActivePageIndex := 1;
+  end;
+
+  HabilitarOpcoesRegistro(True);
+  btnLimparCompromissoClick(self);
+  pgcCompromissos.ActivePageIndex := 0;
+  vgDetalhandoCompromissoId       := 0;
+  ClientDataSet.EmptyDataSet;
+  ClientDetalhe.EmptyDataSet;
+
+  pnlGravar.Visible       := True;
+  lcxAssociado.EditValue  := null;
+  edtNaoAssociado.Clear;
+  edtCPF.Clear;
+  edtRG.Clear;
+  rdbRecibo.Checked      := True;
+  vlDetalhamentoIniciado := False;
+
+  rdbNaoDetalhar.Checked := True;
+  HabilitarCampos(False);
+  tabMovimetacao.TabVisible   := True;
+  tabAcontabilizar.TabVisible := True;
+  tabDetalhamento.TabVisible  := False;
+end;
+
+procedure TfrmGerenciadorSaidas.btnCancelarDetalhamentoClick(Sender: TObject);
+begin
+  btnCancelarClick(self);
+end;
+
+procedure TfrmGerenciadorSaidas.btnExcluirClick(Sender: TObject);
+begin
+  if pgcCompromissos.ActivePageIndex = 0 then
+  begin
+    ClientDetalhe.First;
+    while not ClientDetalhe.Eof do
+      ClientDetalhe.Delete;
+
+    ClientDataSet.Delete;
+    if ClientDataSet.IsEmpty then
+      btnCancelarClick(Self)
+    else
+      if rdbDetalharContabilizar.Checked then
+        sqlCompromissoRealizado.Refresh;
+  end
+  else
+  begin
+    ClientDetalhe.Delete;
+    SomarCompromissosDetalhados(2);
+  end;
+end;
+
+procedure TfrmGerenciadorSaidas.btnLimparCompromissoClick(Sender: TObject);
+begin
+  lcxCompromisso.EditValue := null;
+  cbxReferencia.editValue := dtmLookup.FormatarAnoMes(IntToStr(vgPeriodoAtual));
+  edtDocumento.Clear;
+  edtValor.EditValue := 0;
+  edtObservacao.Clear;
+  edtDescricao.Clear;
+
+  if pnlCampos.Visible then  
+    lcxCompromisso.SetFocus;
+end;
+
+procedure TfrmGerenciadorSaidas.btnPesquisarRealizadosClick(Sender: TObject);
+var
+  viSql : string;
+begin
+  Screen.Cursor := crHourGlass;
+  VerificarPreenchimentoDTA_TX(edtDataRealizadoIni.Text, 'Data Inicial', edtDataRealizadoIni);
+  VerificarPreenchimentoDTA_TX(edtDataRealizadoFim.Text, 'Data Final', edtDataRealizadoFim);
+  viSql := ' SELECT CV.*, CV.VALOR_ATUAL AS VALOR_PAGO '+
+           ' FROM T_COMPROMISSO_VENCIDO CV'+
+           ' WHERE CV.SITUACAO = ''2'''+
+           '   AND CV.TIPO_OPERACAO = ''D'''+
+           '   AND CV.CONTABILIZAR = ''S'''+
+           '   AND CV.DATA_REALIZACAO '+ MontarSqlData(edtDataRealizadoIni.EditValue, edtDataRealizadoFim.EditValue);
+
+  if chxCompromissoDetalhado.Checked then
+       viSql := viSql + ' AND (CV.DETALHADO = '+ QuotedStr('S') + ' OR CV.COMPROMISSO_DETALHADO_ID IS NULL '+')'
+  else viSql := viSql + ' AND (CV.DETALHADO = '+ QuotedStr('N') + ' OR CV.DETALHADO IS NULL '+')';
+
+  viSql := viSql + ' ORDER BY CV.DATA_REALIZACAO DESC, CV.ANO_MES_REFERENCIA, CV.CONTABIL_CONTA_ID ';
+
+  sqlCompromissoRealizado.Active := False;
+  sqlCompromissoRealizado.DataSet.CommandText := viSql;
+  sqlCompromissoRealizado.Active := True;
+  cxGridDBTableView2.DataController.Groups.FullExpand;
+  Screen.Cursor := crDefault;
+end;
+
+procedure TfrmGerenciadorSaidas.btnRegistrarClick(Sender: TObject);
+var
+  viPessoaId, viPessoaNome, viPessoaCPF, viPessoaRG, viTipoSaida, viCompromissoContabilizar : string;
+
+  procedure RegistrarCompromisso(vpClientRegistrar : TClientDataSet;
+        vpDetalhado, vpCompromissoDetalhado : String; vpRegistroParcial : Boolean = False);
+
+    procedure RegistrarItensTotal;
+    begin
+      with dtmControles.sqlAuxiliar do
+      begin
+        ParamByName('CONTABIL_CONTA_ID').AsBCD      := vpClientRegistrar.FieldByName('Contabil_Conta_Id').AsInteger;
+        ParamByName('VALOR_ATUAL').AsCurrency       := vpClientRegistrar.FieldByName('Valor').AsCurrency;
+        ParamByName('VALOR_ORIGEM').AsCurrency      := vpClientRegistrar.FieldByName('Valor').AsCurrency;
+        ParamByName('ANO_MES_REFERENCIA').AsString  := dtmLookup.FormatarAnoMes(vpClientRegistrar.FieldByName('Referencia').AsString, 'S');
+        ParamByName('CENTRO_CUSTO_ID').AsBCD        := vpClientRegistrar.FieldByName('Centro_Custo_Id').AsInteger;
+        ParamByName('BALANCETE_GRUPO_ID').AsBCD     := vpClientRegistrar.FieldByName('Balancete_Grupo_Id').AsInteger;
+        ParamByName('SAIDA_DOCUMENTO').AsString     := vpClientRegistrar.FieldByName('DOCUMENTO').AsString;
+        ParamByName('DESCRICAO').AsString           := vpClientRegistrar.FieldByName('DESCRICAO').AsString;
+        ParamByName('OBSERVACAO').AsString          := vpClientRegistrar.FieldByName('OBSERVACAO').AsString;
+        ParamByName('DETALHADO').AsString           := vpDetalhado;
+
+        if rdbNaoContabilizado.Checked then
+             ParamByName('CONTABILIZAR').AsString   := 'N'
+        else ParamByName('CONTABILIZAR').AsString   := 'S';
+
+        ParamByName('SAIDA_NUMERO').AsCurrency      := vgReciboSaida;
+        ParamByName('PESSOA_NOME').AsString         := viPessoaNome;
+        ParamByName('PESSOA_CPF').AsString          := viPessoaCPF;
+        ParamByName('PESSOA_RG').AsString           := viPessoaRG;
+        if rdbRecibo.Checked then
+        begin
+          viTipoSaida := 'R';
+          ParamByName('SAIDA_TIPO').AsString := viTipoSaida;
+        end
+        else
+        begin
+          viTipoSaida := 'C';
+          ParamByName('SAIDA_TIPO').AsString := viTipoSaida;
+        end;
+      end;
+    end;
+
+    procedure RegistrarItensParcial(vpClientRegistrar : TSimpleDataSet);
+    begin
+      with dtmControles.sqlAuxiliar do
+      begin
+        ParamByName('CONTABIL_CONTA_ID').AsBCD      := vpClientRegistrar.FieldByName('Contabil_Conta_Id').AsInteger;
+        ParamByName('VALOR_ATUAL').AsCurrency       := vpClientRegistrar.FieldByName('CALC_VALORPAGAR').AsCurrency;
+        ParamByName('VALOR_ORIGEM').AsCurrency      := vpClientRegistrar.FieldByName('CALC_VALORPAGAR').AsCurrency;
+        ParamByName('ANO_MES_REFERENCIA').AsString  := vpClientRegistrar.FieldByName('ANO_MES_REFERENCIA').AsString;
+        ParamByName('CENTRO_CUSTO_ID').AsBCD        := vpClientRegistrar.FieldByName('Centro_Custo_Id').AsInteger;
+        ParamByName('BALANCETE_GRUPO_ID').AsBCD     := vpClientRegistrar.FieldByName('Balancete_Grupo_Id').AsInteger;
+        ParamByName('SAIDA_DOCUMENTO').AsString     := 'Registro Detalhado Parcial';
+        ParamByName('DESCRICAO').AsString           := vpClientRegistrar.FieldByName('DESCRICAO').AsString;
+        ParamByName('OBSERVACAO').AsString          := vpClientRegistrar.FieldByName('OBSERVACAO').AsString;
+        ParamByName('CONTABILIZAR').AsString        := 'S';
+        ParamByName('SAIDA_NUMERO').AsCurrency      := vgReciboSaida;
+        ParamByName('PESSOA_NOME').AsString         := vpClientRegistrar.FieldByName('PESSOA_NOME').AsString;
+        ParamByName('PESSOA_CPF').AsString          := vpClientRegistrar.FieldByName('PESSOA_CPF').AsString;
+        ParamByName('PESSOA_RG').AsString           := vpClientRegistrar.FieldByName('PESSOA_RG').AsString;
+        ParamByName('SAIDA_TIPO').AsString          := vpClientRegistrar.FieldByName('SAIDA_TIPO').AsString;
+        ParamByName('DETALHADO').AsString           := 'N';       
+      end;
+    end;
+
+  begin
+    ExecutaSqlAuxiliar(' INSERT INTO T_COMPROMISSO_VENCIDO( '+
+                       '              COMPROMISSO_VENCIDO_ID, '+
+                       '              CONTABIL_CONTA_ID, '+
+                       '              VALOR_ATUAL, '+
+                       '              VALOR_ORIGEM, '+
+                       '              VALOR_ANTERIOR, '+
+                       '              ANO_MES_REFERENCIA, '+
+                       '              TIPO_OPERACAO, '+
+                       '              OBRIGATORIO, '+
+                       '              ATUALIZADO, '+
+                       '              CENTRO_CUSTO_ID, '+
+                       '              CEDENTE_ID, '+
+                       '              BALANCETE_GRUPO_ID, '+
+                       '              DATA_REALIZACAO, '+
+                       '              DATA_LANCAMENTO, '+
+                       '              SAIDA_NUMERO, '+
+                       '              SAIDA_TIPO, '+
+                       '              SAIDA_PESSOA_ID, '+
+                       '              SAIDA_DOCUMENTO, '+
+                       '              DESCRICAO, '+
+                       '              OBSERVACAO, '+
+                       '              PESSOA_NOME, '+
+                       '              PESSOA_CPF, '+
+                       '              PESSOA_RG, '+
+                       '              ANO_MES_REALIZADO, '+
+                       '              DETALHADO, '+
+                       '              COMPROMISSO_DETALHADO_ID, '+
+                       '              COMPROMISSO_CONTABILIZAR_ID, '+
+                       '              CONTABILIZAR, '+
+                       '              SITUACAO) '+
+                       ' VALUES(      :COMPROMISSO_VENCIDO_ID, '+
+                       '              :CONTABIL_CONTA_ID, '+
+                       '              :VALOR_ATUAL, '+
+                       '              :VALOR_ORIGEM, '+
+                       '              :VALOR_ANTERIOR, '+
+                       '              :ANO_MES_REFERENCIA, '+
+                       '              :TIPO_OPERACAO, '+
+                       '              :OBRIGATORIO, '+
+                       '              :ATUALIZADO, '+
+                       '              :CENTRO_CUSTO_ID, '+
+                       '              :CEDENTE_ID, '+
+                       '              :BALANCETE_GRUPO_ID, '+
+                       '              :DATA_REALIZACAO, '+
+                       '              :DATA_LANCAMENTO, '+
+                       '              :SAIDA_NUMERO, '+
+                       '              :SAIDA_TIPO, '+
+                       RetNull(viPessoaId)+', '+
+                       '              :SAIDA_DOCUMENTO, '+
+                       '              :DESCRICAO, '+
+                       '              :OBSERVACAO, '+
+                       '              :PESSOA_NOME, '+
+                       '              :PESSOA_CPF, '+
+                       '              :PESSOA_RG, '+
+                       '              :ANO_MES_REALIZADO, '+
+                       '              :DETALHADO, '+
+                       RetNull(vpCompromissoDetalhado)+', '+
+                       RetNull(viCompromissoContabilizar)+', '+                       
+                       '              :CONTABILIZAR, '+
+                       '              :SITUACAO)',2);
+    with dtmControles.sqlAuxiliar do
+    begin
+      ParamByName('COMPROMISSO_VENCIDO_ID').AsBCD := dtmControles.GerarSequencia('T_COMPROMISSO_VENCIDO');
+
+      if not vpRegistroParcial then
+           RegistrarItensTotal
+      else RegistrarItensParcial(sqlCompromissoRealizado);
+
+      ParamByName('VALOR_ANTERIOR').AsCurrency    := 0;
+      ParamByName('TIPO_OPERACAO').AsString       := 'D';
+      ParamByName('OBRIGATORIO').AsString         := 'N';
+      ParamByName('ATUALIZADO').AsString          := 'A';
+      ParamByName('CEDENTE_ID').AsBCD             := vgCedenteAtivo;
+      ParamByName('DATA_REALIZACAO').AsString     := FormatDateTime('DD.MM.YYYY HH:MM:SS', vgDadosConfirmacao.Data);
+      ParamByName('DATA_LANCAMENTO').AsString     := FormatDateTime('DD.MM.YYYY HH:MM:SS', vgDadosConfirmacao.Data);
+      ParamByName('ANO_MES_REALIZADO').AsInteger  := dtmLookup.PegarAnoMes(DateToStr(vgDadosConfirmacao.Data));
+      ParamByName('SITUACAO').AsString            := '2';
+      ExecSQL(FALSE);
+    end;
+  end;
+
+  procedure RealizarValidacao;
+  begin
+    if (not rdbOutrosDocumentos.Checked) and (vgDetalhandoCompromissoId = 0) then
+    begin
+      if (lcxAssociado.Text = '') and (trim(edtNaoAssociado.Text) = '') then
+      begin
+        Application.MessageBox('Associado/Não Associado em Branco!!!', 'Atenção', MB_OK + MB_ICONWARNING);
+        pgcAssociadoChange(self);
+        Abort;
+      end;
+    end;
+
+    // Detalhamento Individual
+    ClientDataSet.DisableControls;
+    while not ClientDataSet.Eof do
+    begin
+      if ClientDataSetDETALHADO.AsString = 'I' then
+      begin
+        Application.MessageBox('Existe compromisso com detalhamento incompleto!!!', 'Atenção', MB_OK + MB_ICONWARNING);
+        ClientDataSet.EnableControls;
+        Abort;
+      end;
+      ClientDataSet.Next
+    end;
+    ClientDataSet.EnableControls;
+
+    // Detalhamento de Itens a Contabilizar
+    if (vlDetalhamentoIniciado and (vlValorADetalhar <> vlValorDetalhadoTotal)) or
+       ((vgDetalhandoCompromissoId > 0) and not(vlDetalhamentoIniciado)) then
+    begin
+      Application.MessageBox('O Detalhamento está incompleto!!!', 'Atenção', MB_OK + MB_ICONWARNING);
+      Abort;
+    end;
+  end;
+
+  procedure PreencherDadosRegistro;
+  var
+    viCompromissoLista : TStringList;
+  begin
+    viPessoaNome := '';
+    viPessoaCPF  := '';
+    viPessoaRG   := '';
+    viPessoaId   := '';
+
+    if vgDetalhandoCompromissoId > 0 then
+    begin
+      viCompromissoLista := dtmControles.GetFields(' SELECT PESSOA_NOME, PESSOA_ID, SAIDA_NUMERO, DATA_REALIZACAO'+
+                                                   ' FROM T_COMPROMISSO_VENCIDO '+
+                                                   ' WHERE COMPROMISSO_VENCIDO_ID = '+IntToStr(vgDetalhandoCompromissoId));
+      viPessoaNome :=  viCompromissoLista.Values['PESSOA_NOME'];
+      viPessoaCPF  := '';
+      viPessoaRG   := '';
+
+      if (viCompromissoLista.Values['PESSOA_ID'] = '') then
+           viPessoaId := ''
+      else viPessoaId := viCompromissoLista.Values['PESSOA_ID'];
+
+      vgReciboSaida           := StrToInt(viCompromissoLista.Values['SAIDA_NUMERO']);
+      vgDadosConfirmacao.Data := StrToDate(Copy(viCompromissoLista.Values['DATA_REALIZACAO'], 1, 10));
+      vgDadosConfirmacao.Qtd  := 1;
+      FreeAndNil(viCompromissoLista);
+    end
+    else
+    begin
+      if rdbNaoContabilizado.Checked then
+      begin
+        vgReciboSaida := 0;
+        vgDadosConfirmacao.Data := StrToDate(dtmControles.DataHoraBanco(4));
+        vgDadosConfirmacao.Qtd  := 1;
+      end
+      else
+      begin
+        if rdbRecibo.Checked then
+             vgReciboSaida := dtmControles.GerarSequencia('SAIDA_RECIBO_NUMERO'+IntToStr(vgCedenteAtivo))
+        else vgReciboSaida := dtmControles.GerarSequencia('SAIDA_COMP_NUMERO'+IntToStr(vgCedenteAtivo));
+      end;
+
+      if not rdbOutrosDocumentos.Checked then
+      begin
+        if lcxAssociado.Text = '' then
+        begin
+          viPessoaNome := edtNaoAssociado.Text;
+          viPessoaCPF  := edtCPF.Text;
+          viPessoaRG   := edtRG.Text;
+          viPessoaId   := '';
+        end
+        else
+        begin
+          viPessoaId   := lcxAssociado.EditValue;
+          viPessoaNome := lcxAssociado.Text;
+          viPessoaCPF  := dtmControles.GetStr(' SELECT CPF FROM T_PESSOA WHERE PESSOA_ID = '+viPessoaId);
+          viPessoaRG   := dtmControles.GetStr(' SELECT RG FROM T_PESSOA WHERE PESSOA_ID = '+viPessoaId);
+        end;
+      end;
+    end;
+  end;
+
+  procedure DetalharItemIndividual;
+  begin
+    ClientDetalhe.First;
+    while not ClientDetalhe.eof do
+    begin
+      RegistrarCompromisso(ClientDetalhe, 'N', ClientDetalheCHAVE_DETALHAMENTO.AsString);
+      ClientDetalhe.Next;
+    end;
+  end;
+
+  procedure RegistrarItensDetalhadosNaoContabeis;
+
+    procedure AtualizarRegistro(vpTotal : Boolean);
+    begin
+      if vpTotal then
+        ExecutaSqlAuxiliar(' UPDATE T_COMPROMISSO_VENCIDO SET SAIDA_DOCUMENTO = :SAIDA_DOCUMENTO,' +
+                           '                        CONTABILIZAR = :CONTABILIZAR, '+
+                           '                       TIPO_REGISTRO = :TIPO_REGISTRO, '+
+                           '            COMPROMISSO_DETALHADO_ID = :COMPROMISSO_DETALHADO_ID, '+
+                           '                        SAIDA_NUMERO = :SAIDA_NUMERO, '+
+                           '                     DATA_REALIZACAO = :DATA_REALIZACAO, '+
+                           '                           DETALHADO = :DETALHADO '+
+                           ' WHERE COMPROMISSO_VENCIDO_ID = '+sqlCompromissoRealizadoCOMPROMISSO_VENCIDO_ID.AsString,2)
+      else
+        ExecutaSqlAuxiliar(' UPDATE T_COMPROMISSO_VENCIDO SET SAIDA_DOCUMENTO = :SAIDA_DOCUMENTO,' +
+                           '                       TIPO_REGISTRO = :TIPO_REGISTRO '+
+                           ' WHERE COMPROMISSO_VENCIDO_ID = '+sqlCompromissoRealizadoCOMPROMISSO_VENCIDO_ID.AsString,2);
+
+      With dtmControles.sqlAuxiliar do
+      begin
+        ParamByName('SAIDA_DOCUMENTO').AsString := 'Registro Detalhado';
+
+        if vpTotal then
+        begin
+          ParamByName('CONTABILIZAR').AsString              := 'S';
+          ParamByName('TIPO_REGISTRO').AsString             := 'T';
+          ParamByName('COMPROMISSO_DETALHADO_ID').AsInteger := vlDetalhamentoId;
+          ParamByName('SAIDA_NUMERO').AsInteger             := vgReciboSaida;
+          ParamByName('DATA_REALIZACAO').AsDate             := vgDadosConfirmacao.Data;
+          ParamByName('DETALHADO').AsString                 := 'N';
+        end
+        else
+        begin
+          if (sqlCompromissoRealizadoVALOR_CONTABILIZAR.AsCurrency = sqlCompromissoRealizadocalc_ValorPagar.AsCurrency) then
+               ParamByName('TIPO_REGISTRO').AsString        := 'F'
+          else ParamByName('TIPO_REGISTRO').AsString        := 'P';
+        end;
+        ExecSQL(FALSE);
+      end;
+    end;
+
+  begin
+    if not vlDetalhamentoIniciado then
+      exit;
+
+    sqlCompromissoRealizado.Filtered := False;
+    sqlCompromissoRealizado.Filter   := 'Selecionar = True';
+    sqlCompromissoRealizado.Filtered := True;
+
+    sqlCompromissoRealizado.First;
+    while not sqlCompromissoRealizado.eof do
+    begin
+      if (sqlCompromissoRealizadoVALOR_CONTABILIZAR.AsCurrency = sqlCompromissoRealizadocalc_ValorPagar.AsCurrency) and
+          (sqlCompromissoRealizadoTIPO_REGISTRO.IsNull) then
+        AtualizarRegistro(True)
+      else
+      begin
+        AtualizarRegistro(False);
+        viCompromissoContabilizar := sqlCompromissoRealizadoCOMPROMISSO_VENCIDO_ID.AsString;
+        RegistrarCompromisso(ClientDataSet, 'N',  IntToStr(vlDetalhamentoId), True);
+      end;
+      sqlCompromissoRealizado.Next;
+    end;
+    sqlCompromissoRealizado.ApplyUpdates(-1);
+    sqlCompromissoRealizado.Filtered := False;
+    sqlCompromissoRealizado.Refresh;
+  end;
+
+  procedure AtualizarRegistroDetalhado;
+  begin
+    ExecutaSqlAuxiliar(' UPDATE T_COMPROMISSO_VENCIDO SET DETALHADO = '+QuotedStr('S')+','+
+                       '                           COMPROMISSO_DETALHADO_ID = '+IntToStr(vlDetalhamentoId)+
+                       ' WHERE COMPROMISSO_VENCIDO_ID = '+IntToStr(vgDetalhandoCompromissoId),1);
+  end;
+
+begin
+
+  RealizarValidacao;
+
+  vgDadosConfirmacao.Multa      := False;
+  vgDadosConfirmacao.Saida      := True;
+  viCompromissoContabilizar     := '';
+
+  if vgDetalhandoCompromissoId = 0 then
+  begin
+     if rdbNaoContabilizado.Checked then
+     begin
+       if Application.MessageBox('Confirmar Registro de Itens a Contabilizar (Sem Notas)?', 'Confirmação', MB_YESNO) = IDNO then
+         exit;
+     end
+     else
+     begin
+       vgDadosConfirmacao.Detalhar := vlDetalhamentoIniciado;
+       ExibirFormulario(TfrmConfirmacaoRecibo, frmConfirmacaoRecibo, True);
+       if not vgDadosConfirmacao.Confirmado then
+          exit;
+     end;
+  end
+  else
+  begin
+    if Application.MessageBox('Confirmar Detalhamento do Registro?', 'Confirmação', MB_YESNO) = IDNO then
+      exit;
+  end;
+
+  vgDadosConfirmacao.Confirmado := True;
+  PreencherDadosRegistro;
+
+  if vlDetalhamentoIniciado then
+    vlDetalhamentoId := dtmControles.GerarSequencia('TI_COMPROMISSO_DETALHADO');
+
+  try
+    dtmControles.StartTransaction;
+    ClientDataSet.First;
+    while not ClientDataSet.eof do
+    begin
+      if vgDetalhandoCompromissoId = 0 then
+      begin
+        if not vlDetalhamentoIniciado then
+             RegistrarCompromisso(ClientDataSet, ClientDataSetDETALHADO.AsString,  ClientDetalheCHAVE_DETALHAMENTO.AsString)
+        else RegistrarCompromisso(ClientDataSet, 'S',  IntToStr(vlDetalhamentoId));
+      end;
+
+      DetalharItemIndividual;
+      ClientDataSet.Next;
+    end;
+
+    RegistrarItensDetalhadosNaoContabeis;
+    dtmControles.Commit;
+  except
+    vgDadosConfirmacao.Confirmado := False;
+    dtmControles.Roolback;
+    Application.MessageBox('Problemas no Registro da Despesa. Operação Cancelada!!!', 'Atenção', MB_OK + MB_ICONWARNING);
+    abort;
+  end;
+
+  if vgDetalhandoCompromissoId = 0 then
+  begin
+    if not rdbNaoContabilizado.Checked then
+      ImprimirRecibo(vgReciboSaida, viTipoSaida);
+    btnCancelarClick(Self);
+  end
+  else
+  begin
+    AtualizarRegistroDetalhado;
+    btnCancelarClick(Self);
+  end;
+  vgDadosConfirmacao.Confirmado := False;
+end;
+
+procedure TfrmGerenciadorSaidas.btnReimprimirClick(Sender: TObject);
+begin
+  ImprimirRecibo(sqlCompromissoRealizadoSAIDA_NUMERO.AsInteger,
+                 sqlCompromissoRealizadoSAIDA_TIPO.AsString);
+end;
+
+procedure TfrmGerenciadorSaidas.chxAgruparCompromissoClick(Sender: TObject);
+begin
+  if chxAgruparCompromisso.Checked then
+       cxGridDBColumn3.GroupIndex := 1
+  else cxGridDBColumn3.GroupIndex := -1;
+  cxGridDBTableView2.DataController.Groups.FullExpand;
+end;
+
+procedure TfrmGerenciadorSaidas.chxCompromissoDetalhadoClick(Sender: TObject);
+var
+  viCompromissoDetalhadoId, viCompromissoID :  Integer;
+begin
+  if vgDetalhandoCompromissoId > 0 then
+    exit;
+
+  viCompromissoDetalhadoId := 0;
+  viCompromissoID          := 0;
+  if (not sqlCompromissoRealizado.IsEmpty) and (sqlCompromissoRealizadoCOMPROMISSO_DETALHADO_ID.AsInteger > 0) then
+       viCompromissoDetalhadoId := sqlCompromissoRealizadoCOMPROMISSO_DETALHADO_ID.AsInteger
+  else viCompromissoID         := sqlCompromissoRealizadoCOMPROMISSO_VENCIDO_ID.AsInteger;
+
+  btnPesquisarRealizadosClick(Self);
+
+  if viCompromissoDetalhadoId > 0 then
+       sqlCompromissoRealizado.Locate('COMPROMISSO_DETALHADO_ID', viCompromissoDetalhadoId, [loCaseInsensitive])
+  else sqlCompromissoRealizado.Locate('COMPROMISSO_VENCIDO_ID', viCompromissoID, [loCaseInsensitive]);
+end;
+
+procedure TfrmGerenciadorSaidas.chxSelecaoMultiplaClick(Sender: TObject);
+begin
+  cxGridDBTableView2.OptionsSelection.MultiSelect := chxSelecaoMultipla.Checked;
+end;
+
+procedure TfrmGerenciadorSaidas.ClientDataSetAfterScroll(DataSet: TDataSet);
+begin
+  btnRegistrar.Enabled            := not ClientDataSet.IsEmpty;
+  btnExcluir.Enabled              := (not ClientDataSet.IsEmpty) and (vgDetalhandoCompromissoId = 0);
+  btnAdicionarCompromisso.Enabled := (vgDetalhandoCompromissoId = 0);
+end;
+
+procedure TfrmGerenciadorSaidas.ClientDetalheAfterScroll(DataSet: TDataSet);
+begin
+  btnExcluir.Enabled               := (not ClientDetalhe.IsEmpty);
+  btnAdicionarCompromisso.Enabled  := True;
+end;
+
+procedure TfrmGerenciadorSaidas.ClientDetalheCalcFields(DataSet: TDataSet);
+begin
+  ClientDetalheCALC_VINCULO.AsBoolean := ClientDetalheCHAVE_DETALHAMENTO.AsInteger > 0;
+end;
+
+procedure TfrmGerenciadorSaidas.cxBtnFecharClick(Sender: TObject);
+begin
+  Close;
+end;
+
+procedure TfrmGerenciadorSaidas.cxGridDBTableDetalharCustomDrawCell(
+  Sender: TcxCustomGridTableView; ACanvas: TcxCanvas;
+  AViewInfo: TcxGridTableDataCellViewInfo; var ADone: Boolean);
+begin
+  if ((AViewInfo.RecordViewInfo.GridRecord.Values[0] = False) or (AViewInfo.RecordViewInfo.GridRecord.Values[0] = null))
+     and (vlValorDetalhadoTotal = vlValorADetalhar) then
+    ACanvas.Font.Color := clSilver;
+
+  if (AViewInfo.RecordViewInfo.GridRecord.Values[0] = True) and
+     (AViewInfo.RecordViewInfo.GridRecord.Values[2] <> AViewInfo.RecordViewInfo.GridRecord.Values[3]) then
+  begin
+    ACanvas.Brush.Color := $0080FFFF;
+    ACanvas.Font.Color := clBlue;
+  end;
+end;
+
+procedure TfrmGerenciadorSaidas.cxGridDBTableSelecionarCustomDrawCell(
+  Sender: TcxCustomGridTableView; ACanvas: TcxCanvas;
+  AViewInfo: TcxGridTableDataCellViewInfo; var ADone: Boolean);
+begin
+  if ((AViewInfo.RecordViewInfo.GridRecord.Values[0] = False) or (AViewInfo.RecordViewInfo.GridRecord.Values[0] = null))
+     and (vlValorDetalhadoTotal = vlValorADetalhar) then
+    ACanvas.Brush.Color := clSilver;
+end;
+
+procedure TfrmGerenciadorSaidas.cxGridDBTableSelecionarPropertiesChange(
+  Sender: TObject);
+begin
+  vlDetalhamentoIniciado := True;
+  sqlCompromissoRealizado.Post;
+end;
+
+procedure TfrmGerenciadorSaidas.cxGridDBTableView3CustomDrawCell(
+  Sender: TcxCustomGridTableView; ACanvas: TcxCanvas;
+  AViewInfo: TcxGridTableDataCellViewInfo; var ADone: Boolean);
+var
+  viValor : Variant;
+begin
+  viValor := AViewInfo.RecordViewInfo.GridRecord.Values[0];
+  if viValor = 'P' then
+    ACanvas.Font.Color := clRed
+  else
+    if (viValor = 'F') or (viValor = 'T') then
+      ACanvas.Font.Color := clGray;
+end;
+
+procedure TfrmGerenciadorSaidas.cbxAgruparAssociadoClick(Sender: TObject);
+begin
+  if cbxAgruparAssociado.Checked then
+       cxGridDBTableView3Column1.GroupIndex := 1
+  else cxGridDBTableView3Column1.GroupIndex := -1;
+  cxGridDBTableView3.DataController.Groups.FullExpand;
+end;
+
+procedure TfrmGerenciadorSaidas.btnExcluirNaoContabilizadoClick(Sender: TObject);
+begin
+  if Application.MessageBox('Estornar Registro a Contabilizar (Sem Nota)?',
+      'Confirmação', MB_YESNO) = IDNO then
+    exit;
+
+  if (LiberarPermissaoUsuario('ESP_CANCELAR_BOLETOS')[6] = '0') then
+    exit;
+
+  ExecutaSqlAuxiliar(' DELETE FROM T_COMPROMISSO_VENCIDO '+
+                     ' WHERE COMPROMISSO_VENCIDO_ID = '+ sqlCompromissoRealizadoCOMPROMISSO_VENCIDO_ID.AsString+
+                     '   AND CEDENTE_ID = '+ IntToStr(vgCedenteAtivo),1);
+  sqlCompromissoRealizado.Refresh;
+  btnEstornar.Enabled := sqlCompromissoRealizado.RecordCount > 0;
+end;
+
+procedure TfrmGerenciadorSaidas.btnItemIncluirClick(Sender: TObject);
+begin
+  HabilitarCampos(True);
+  lcxCompromisso.SetFocus;
+end;
+
+procedure TfrmGerenciadorSaidas.cbxAgruparNaoContabilizarClick(Sender: TObject);
+begin
+  if cbxAgruparNaoContabilizar.Checked then
+       cxGridDBColumn14.GroupIndex := 1
+  else cxGridDBColumn14.GroupIndex := -1;
+  cxGridDBTableView3.DataController.Groups.FullExpand;
+end;
+
+procedure TfrmGerenciadorSaidas.btnEstornarClick(Sender: TObject);
+begin
+  dtmLookup.VerificarEdicao(IntToStr(dtmLookup.PegarAnoMes(sqlCompromissoRealizadoDATA_REALIZACAO.AsString)), 'Estorno');
+
+  if Application.MessageBox('Estornar Registro Selecionado?',
+      'Confirmação', MB_YESNO) = IDNO then
+    exit;
+
+//  if (LiberarPermissaoUsuario('ESP_CANCELAR_BOLETOS')[6] = '0') then
+  //  exit;
+
+  ExecutaSqlAuxiliar(' DELETE FROM T_COMPROMISSO_VENCIDO '+
+                     ' WHERE COMPROMISSO_VENCIDO_ID = '+ sqlCompromissoRealizadoCOMPROMISSO_VENCIDO_ID.AsString+
+                     '   AND CEDENTE_ID = '+ IntToStr(vgCedenteAtivo),1);
+  sqlCompromissoRealizado.Refresh;
+  btnEstornar.Enabled := sqlCompromissoRealizado.RecordCount > 0;
+end;
+
+procedure TfrmGerenciadorSaidas.edtDataRealizadoFimKeyDown(Sender: TObject;
+  var Key: Word; Shift: TShiftState);
+begin
+  if key = 13 then
+  begin
+    btnPesquisarRealizados.SetFocus;
+    btnPesquisarRealizadosClick(self);
+  end;
+end;
+
+procedure TfrmGerenciadorSaidas.edtDescricaoKeyDown(Sender: TObject;
+  var Key: Word; Shift: TShiftState);
+begin
+  if key = 13 then
+    btnAdicionarCompromissoClick(self);
+end;
+
+procedure TfrmGerenciadorSaidas.ExportalExcel1Click(Sender: TObject);
+begin
+  dtmLookup.ExportarExcel(cxGridRealizado)
+end;
+
+procedure TfrmGerenciadorSaidas.FormActivate(Sender: TObject);
+begin
+  dtmLookup.CarregarPeriodo(cbxReferencia,8,'',IntToStr(vgPeriodoAtual));
+  cbxReferencia.editValue := dtmLookup.FormatarAnoMes(IntToStr(vgPeriodoAtual));
+  tabBalanceteChange(tabBalancete);
+end;
+
+procedure TfrmGerenciadorSaidas.FormClose(Sender: TObject;
+  var Action: TCloseAction);
+begin
+  sqlCompromissoRealizado.close;
+  sqlDadosRecibo.Close;
+  dtmLookup.sqlPlanoContasDespesasAtivo.Filtered := False;
+  Action := caFree;
+  frmGerenciadorSaidas := nil;;
+end;
+
+procedure TfrmGerenciadorSaidas.FormCreate(Sender: TObject);
+begin
+  vlCriandoForm := True;
+  sqlCompromissoRealizado.Connection := dtmControles.DB;
+  sqlDadosRecibo.Connection          := dtmControles.DB;
+  dtmLookup.CarregarTabBalancete(tabBalancete);
+  edtDataRealizadoIni.EditValue := dtmControles.DataHoraBanco(3);
+  edtDataRealizadoFim.EditValue := dtmControles.DataHoraBanco(3);
+  tabDetalhamento.TabVisible := False;
+  pgcCompromissos.ActivePageIndex := 0;
+  vlCriandoForm := False;
+  HabilitarCampos(False);
+  rdbNaoDetalharClick(self);
+end;
+
+procedure TfrmGerenciadorSaidas.FormShow(Sender: TObject);
+begin
+  pgcSaidas.ActivePageIndex := 0;
+  rdbReciboClick(self);
+end;
+
+procedure TfrmGerenciadorSaidas.HabilitarCampos(vpHabilitado: Boolean);
+begin
+  pnlCampos.Visible       := vpHabilitado;
+  pnlGravar.Visible       := vpHabilitado;
+  pnlAdicionar.Visible    := (not vpHabilitado);
+  pnlDetalhamento.Visible := ((not vpHabilitado) and (pgcCompromissos.ActivePageIndex = 1)) or
+                             ((not vpHabilitado) and (rdbDetalharContabilizar.Checked) and (ClientDataSet.RecordCount > 0));
+  pnlDetalhar.Visible  := (not vpHabilitado) and (ClientDataSet.RecordCount > 0) and (rdbOutrosDocumentos.Checked);
+
+end;
+
+procedure TfrmGerenciadorSaidas.HabilitarDetalhamento(vpHabilitar: Boolean);
+begin
+  if vlCriandoForm then
+    exit;
+
+  rdbDetalharNovos.Enabled        := vpHabilitar;
+  rdbDetalharContabilizar.Enabled := vpHabilitar;
+  rdbNaoDetalhar.Enabled          := vpHabilitar;
+
+  pnlDetalhamento.Visible         := ((not rdbNaoContabilizado.Checked) and (pgcCompromissos.ActivePageIndex = 1)) or
+                                     ((rdbDetalharContabilizar.Checked) and (pgcCompromissos.ActivePageIndex = 0));
+  btnItemIncluir.Enabled := ((pgcCompromissos.ActivePageIndex = 0) or ((not vpHabilitar) and (rdbDetalharNovos.Checked))) and
+                            (vgDetalhandoCompromissoId = 0);
+
+  if pgcCompromissos.ActivePageIndex = 0 then
+    ClientDataSetAfterScroll(ClientDataSet)
+  else
+    if rdbDetalharNovos.Checked then
+      ClientDetalheAfterScroll(ClientDetalhe);
+end;
+
+procedure TfrmGerenciadorSaidas.HabilitarModeloEntrada(vpHabilitado: Boolean;
+  vpCor1, vpCor2, vpCor3: TColor);
+begin
+  pgcAssociado.Enabled    := vpHabilitado;
+  lcxAssociado.Enabled    := vpHabilitado;
+  lblAssociado.Enabled    := vpHabilitado;
+  edtNaoAssociado.Enabled := vpHabilitado;
+  edtCPF.Enabled          := vpHabilitado;
+  edtRG.Enabled           := vpHabilitado;
+  lblNaoAssociado.Enabled := vpHabilitado;
+  edtDocumento.Enabled    := not vpHabilitado;
+  lblDocumento.Enabled    := not vpHabilitado;
+
+  if vpHabilitado then
+  begin
+    pgcAssociado.ActivePageIndex := 0;
+    edtDocumento.Clear;
+    pgcAssociadoChange(self);
+  end
+  else
+  begin
+    lcxAssociado.EditValue  := null;
+    edtNaoAssociado.Clear;
+    edtCPF.Clear;
+    edtRG.Clear;
+    if pnlCampos.Visible then
+      lcxCompromisso.SetFocus;
+  end;
+
+  if rdbNaoContabilizado.Checked then
+       tabCompromissos.Caption := 'Compromisso(s) a Contabilizar (Sem Notas)'
+  else tabCompromissos.Caption := 'Compromisso(s) Contabilizado(s)';
+
+  rdbRecibo.Font.Color           := vpCor1;
+  rdbOutrosDocumentos.Font.Color := vpCor2;
+  rdbNaoContabilizado.Font.Color := vpCor3;
+end;
+
+procedure TfrmGerenciadorSaidas.HabilitarOpcaoDetalhar(vpOpcao : Integer; vpCor1, vpCor2, vpCor3 : TColor);
+begin
+  if vpOpcao = 2 then
+  begin
+    pgcDetalhar.ActivePage := tabDetalharAgrupado;
+    if not vlDetalhamentoIniciado then
+      PesquisarRegistrosNaoContabilizados;
+  end
+  else
+    if vpOpcao = 3 then
+      pgcDetalhar.ActivePage := tabDetalharNovos;
+
+  tabDetalharAgrupado.TabVisible     := vpOpcao = 2;
+  tabDetalharNovos.TabVisible        := vpOpcao = 3;
+  pnlDetalhamento.Visible            := vpOpcao = 2;
+  tabDetalhamento.TabVisible         := vpOpcao <> 1;
+  cxGridDBTableCompromissosDetalhado.Visible := vpOpcao = 3;
+
+  rdbNaoDetalhar.Font.Color          := vpCor1;
+  rdbDetalharContabilizar.Font.Color := vpCor2;
+  rdbDetalharNovos.Font.Color        := vpCor3;
+
+  if vpOpcao <> 1 then
+    VerificarValorADetalhar;
+
+  if rdbDetalharContabilizar.Checked then
+       tabDetalhamento.Caption := 'Detalhamento de Itens a Contabilizar'
+  else tabDetalhamento.Caption := 'Detalhamento de Item Individual';
+end;
+
+procedure TfrmGerenciadorSaidas.HabilitarOpcoesRegistro(vpHabilitado: Boolean);
+begin
+  if vpHabilitado then
+  begin
+    rdbRecibo.Enabled           := True;
+    rdbOutrosDocumentos.Enabled := True;
+    rdbNaoContabilizado.Enabled := True;
+  end
+  else
+  begin
+    rdbRecibo.Enabled           := rdbRecibo.Checked;
+    rdbOutrosDocumentos.Enabled := rdbOutrosDocumentos.Checked;
+    rdbNaoContabilizado.Enabled := rdbNaoContabilizado.Checked;
+  end;
+end;
+
+procedure TfrmGerenciadorSaidas.HabilitarRegistroDetalhamento(
+  vpHabilitar: Boolean);
+begin
+  tabMovimetacao.TabVisible       := vpHabilitar;
+  tabNaoSocio.Enabled             := vpHabilitar;
+  tabSocio.Enabled                := vpHabilitar;
+  btnItemIncluir.Enabled          := vpHabilitar;
+  btnCancelarDetalhamento.Visible := not vpHabilitar;
+
+  if vpHabilitar then
+       btnRegistrar.Caption := 'Registrar Despesa/Saída'
+  else btnRegistrar.Caption := 'Confirmar Detalhamento';
+end;
+
+procedure TfrmGerenciadorSaidas.ImprimirRecibo(vpRecibo : Integer; vpTipo : String);
+begin
+  sqlDadosRecibo.Active := False;
+  sqlDadosRecibo.DataSet.ParamByName('RECIBO').AsCurrency   := vpRecibo;
+  sqlDadosRecibo.DataSet.ParamByName('SAIDA_TIPO').AsString := vpTipo;
+  sqlDadosRecibo.Active := True;
+
+  vgDadosRecibo.Recibo := IntToStr(vpRecibo);
+  vgDadosRecibo.Data   := sqlDadosReciboDATA_REALIZACAO.AsDateTime;
+
+  if sqlDadosReciboSAIDA_TIPO.AsString = 'R' then
+  begin
+    vgDadosRecibo.Pessoa := sqlDadosReciboPESSOA_NOME.AsString;
+    if sqlDadosReciboSAIDA_PESSOA_ID.AsInteger = 0 then
+    begin
+      vgDadosRecibo.CPF    := sqlDadosReciboPESSOA_CPF.AsString;
+      vgDadosRecibo.RG     := sqlDadosReciboPESSOA_RG.AsString;
+    end
+    else
+    begin
+      vgDadosRecibo.CPF    := FormataCPF(sqlDadosReciboPESSOA_CPF.AsString);
+      vgDadosRecibo.RG     := sqlDadosReciboPESSOA_RG.AsString;
+    end;
+  end;
+
+  frxReport1.PrintOptions.Copies := 1;
+  frxReport1.PrintOptions.ShowDialog := True;
+
+  if pgcSaidas.ActivePageIndex = 0 then
+       dtmLookup.CarregarCabecalho(vgTabBalancete[tabBalancete.TabIndex])
+  else dtmLookup.CarregarCabecalho(sqlCompromissoRealizadoBALANCETE_GRUPO_ID.AsInteger);
+  if sqlDadosReciboSAIDA_TIPO.AsString = 'R' then
+       ExibirRelatorio(frxReport1, '6', ParametrosRelatorioRecibo, True, frxReport1.PrintOptions.Printer)
+  else ExibirRelatorio(frxReport1, '7', ParametrosRelatorioRecibo, True, frxReport1.PrintOptions.Printer);
+end;
+
+procedure TfrmGerenciadorSaidas.lcxCompromissoPropertiesEditValueChanged(
+  Sender: TObject);
+begin
+  edtDescricao.EditValue := lcxCompromisso.text;
+end;
+
+procedure TfrmGerenciadorSaidas.ParametrosRelatorioRecibo;
+begin
+  CriarFuncoesRelatorio(frxReport1);
+  frxReport1.Variables.Variables['DataDocumento']   := QuotedStr(FormatDateTime('dd ''de'' mmmm ''de'' yyyy', vgDadosRecibo.Data));
+  frxReport1.Variables.Variables['NumeroDocumento'] := QuotedStr(vgDadosRecibo.Recibo);
+  frxReport1.Variables.Variables['SacadoNome']      := QuotedStr(vgDadosRecibo.Pessoa);
+  frxReport1.Variables.Variables['SacadoCPFCGC']    := QuotedStr(vgDadosRecibo.CPF);
+  frxReport1.Variables.Variables['RG']              := QuotedStr(vgDadosRecibo.RG);
+end;
+
+procedure TfrmGerenciadorSaidas.PesquisarRegistrosNaoContabilizados;
+var
+  viSql : string;
+begin
+  Screen.Cursor := crHourGlass;
+  viSql := ' SELECT CV.*, '+
+           '   (SELECT SUM(COALESCE(CT.VALOR_ATUAL,0)) FROM T_COMPROMISSO_VENCIDO CT '+
+           '    WHERE CT.COMPROMISSO_CONTABILIZAR_ID = CV.COMPROMISSO_VENCIDO_ID) AS VALOR_PAGO '+
+           ' FROM T_COMPROMISSO_VENCIDO CV'+
+           ' WHERE CV.SITUACAO = ''2'''+
+           '   AND CV.TIPO_OPERACAO = ''D''';
+
+  if tabContabilizar.TabIndex = 0 then
+  begin
+    viSql := viSql + ' AND ((CV.CONTABILIZAR = ''N'') AND ((CV.TIPO_REGISTRO IS NULL) OR '+
+                     ' (CV.TIPO_REGISTRO = ''P'')))';
+    cxGridDBColumn20.Caption := 'Valor a Contabilizar';
+  end
+  else
+  begin
+    cxGridDBColumn20.Caption := 'Valor Contabilizado';
+    viSql := viSql + ' AND ((CV.TIPO_REGISTRO = ''T'') OR (CV.TIPO_REGISTRO = ''F''))';
+  end;
+
+  if pgcSaidas.ActivePageIndex = 0 then
+    viSql := viSql + ' AND CV.BALANCETE_GRUPO_ID = '+IntToStr(vgTabBalancete[tabBalancete.TabIndex]);
+
+  viSql := viSql + ' ORDER BY CV.DATA_REALIZACAO DESC, CV.ANO_MES_REFERENCIA, CV.CONTABIL_CONTA_ID ';
+
+  sqlCompromissoRealizado.Active := False;
+  sqlCompromissoRealizado.DataSet.CommandText := viSql;
+  sqlCompromissoRealizado.Active := True;
+
+  if pgcSaidas.ActivePageIndex = 2 then
+    cxGridDBTableView3.DataController.Groups.FullExpand;
+  Screen.Cursor := crDefault
+end;
+
+procedure TfrmGerenciadorSaidas.pgcAssociadoChange(Sender: TObject);
+begin
+  if vlCriandoForm then
+    exit;
+
+  if pgcSaidas.ActivePageIndex = 1 then
+    exit;
+
+  if pgcAssociado.ActivePage = tabSocio then
+  begin
+    edtNaoAssociado.Clear;
+    edtCPF.Clear;
+    edtRG.Clear;
+    lcxAssociado.SetFocus;
+  end
+  else
+    if pgcAssociado.ActivePage = tabNaoSocio then
+    begin
+      lcxAssociado.EditValue := null;
+      edtNaoAssociado.SetFocus;
+    end;
+end;
+
+procedure TfrmGerenciadorSaidas.pgcCompromissosChange(Sender: TObject);
+begin
+  pgcDetalhar.HideTabs := True;
+  if pgcCompromissos.ActivePageIndex = 1 then
+  begin
+    if rdbDetalharContabilizar.Checked then
+         rdbDetalharContabilizarClick(Self)
+    else rdbDetalharNovosClick(self);
+  end
+  else
+  begin
+    ClientDataSetAfterScroll(ClientDataSet);
+    pnlBotoes.Visible := True;
+  end;
+  HabilitarDetalhamento(pgcCompromissos.ActivePageIndex = 0);
+end;
+
+procedure TfrmGerenciadorSaidas.pgcSaidasChange(Sender: TObject);
+begin
+  if pgcSaidas.ActivePageIndex = 0 then
+  begin
+    if pnlCampos.Visible then
+      lcxCompromisso.SetFocus
+    else
+      if btnItemIncluir.Enabled then
+        btnItemIncluir.SetFocus;
+  end
+  else
+    if pgcSaidas.ActivePageIndex = 1 then
+    begin
+      if vgDetalhandoCompromissoId > 0 then
+      begin
+        if vgDadosConfirmacao.Confirmado then
+             chxCompromissoDetalhado.Checked := True
+        else chxCompromissoDetalhado.Checked := False;
+        btnPesquisarRealizadosClick(Self);
+        sqlCompromissoRealizado.Locate('COMPROMISSO_VENCIDO_ID', vgDetalhandoCompromissoId, [loCaseInsensitive]);
+        cxGridRealizado.SetFocus;
+      end
+      else
+      begin
+        btnPesquisarRealizadosClick(self);
+        edtDataRealizadoIni.SetFocus;
+      end;
+    end
+  else
+    if pgcSaidas.ActivePageIndex = 2 then
+    begin
+      tabContabilizar.TabIndex := 0;
+      PesquisarRegistrosNaoContabilizados;
+    end;
+end;
+
+procedure TfrmGerenciadorSaidas.rdbDetalharContabilizarClick(Sender: TObject);
+begin
+  HabilitarOpcaoDetalhar(2, clNavy, clRed, clNavy);
+  SomarCompromissosDetalhados(1);
+end;
+
+procedure TfrmGerenciadorSaidas.rdbDetalharNovosClick(Sender: TObject);
+begin
+  HabilitarOpcaoDetalhar(3, clNavy, clNavy, clRed);
+  SomarCompromissosDetalhados(2);
+end;
+
+procedure TfrmGerenciadorSaidas.rdbNaoContabilizadoClick(Sender: TObject);
+begin
+  HabilitarModeloEntrada(True, clNavy, clNavy, clRed);
+end;
+
+procedure TfrmGerenciadorSaidas.rdbNaoDetalharClick(Sender: TObject);
+begin
+  HabilitarOpcaoDetalhar(1, clRed, clNavy, clNavy);
+end;
+
+procedure TfrmGerenciadorSaidas.rdbOutrosDocumentosClick(Sender: TObject);
+begin
+  HabilitarModeloEntrada(False, clNavy, clRed, clNavy);
+end;
+
+procedure TfrmGerenciadorSaidas.rdbReciboClick(Sender: TObject);
+begin
+  HabilitarModeloEntrada(True, clRed, clNavy, clNavy);
+end;
+
+function TfrmGerenciadorSaidas.SomarCompromissosDetalhados(vpOpcao : Integer; vpSomar : Boolean = False):Boolean;
+var
+  viValorDetalhado, viValorRestante : Currency;
+  viMensagem : string;
+
+  procedure DefinirSituacao(vpColor1, vpColor2 : TColor; vpMensagem, vpSituacao : string);
+  begin
+    pnlValorDetalhado.Color      := vpColor1;
+    pnlValorDetalhado.Font.Color := vpColor2;
+    if vpMensagem <> '' then
+      pnlValorDetalhado.Caption  := viMensagem + ' - '+ vpMensagem + ' << RESTANTE: R$ '+FormatFloat(',#0.00, ', viValorRestante)+' >>';
+
+    if vpOpcao = 1 then
+      Exit;
+
+    ClientDataSet.edit;
+    ClientDataSetDETALHADO.AsString := vpSituacao;
+    ClientDataSet.post;
+    ClientDetalheAfterScroll(ClientDetalhe);
+  end;
+
+  function RealizarSoma:Currency;
+  var
+    viSoma : Currency;
+  begin
+    ClientDetalhe.DisableControls;
+    ClientDetalhe.First;
+    viSoma := 0;
+    while not ClientDetalhe.eof do
+    begin
+      viSoma := viSoma + ClientDetalheVALOR.AsCurrency;
+      ClientDetalhe.Next;
+    end;
+    Result := viSoma;
+    ClientDetalhe.EnableControls;
+  end;
+
+begin
+  if pgcSaidas.ActivePageIndex > 0 then
+    exit;
+
+  if vpOpcao = 1 then
+       viValorDetalhado := SomarCompromissosNaoContabilizados(vpSomar)
+  else viValorDetalhado := RealizarSoma;
+
+  if viValorDetalhado = 0 then
+  begin
+    pnlValorDetalhado.Caption := ' Compromisso(s) ainda ainda não Detalhado!!!';
+    DefinirSituacao(clWhite, clBlue, '', 'N');
+    Exit;
+  end;
+
+  viValorRestante := vlValorADetalhar - viValorDetalhado;
+  viMensagem := ' Valor Detalhado: '+FormatFloat('R$ ,#0.00',viValorDetalhado);
+
+  if vlValorADetalhar = viValorDetalhado then
+    DefinirSituacao(clWhite, clGreen, 'DETALHAMENTO COMPLETO!!!', 'S')
+  else
+    if vlValorADetalhar < viValorDetalhado then
+         DefinirSituacao(clWhite, clRed, 'Detalhamento superior ao valor do compromisso!!!','I')
+    else DefinirSituacao(clWhite, clRed, 'Detalhamento incompleto...','I');
+end;
+
+function TfrmGerenciadorSaidas.SomarCompromissosNaoContabilizados(vpSomar : Boolean):Currency;
+var
+  viValorDetalhado, viValorTotal, viValorSelecionado : Currency;
+
+  procedure VerificarValorDetalhado;
+  begin
+    if pgcSaidas.ActivePageIndex > 0 then
+      exit;
+
+    vlGravandoValor := True;
+    viValorDetalhado := sqlCompromissoRealizadoVALOR_CONTABILIZAR.AsCurrency + viValorTotal;
+
+    sqlCompromissoRealizado.Edit;
+    if sqlCompromissoRealizadoSelecionar.AsBoolean then
+    begin
+      if viValorDetalhado <= vlValorADetalhar then
+           sqlCompromissoRealizadocalc_ValorPagar.AsCurrency := sqlCompromissoRealizadoVALOR_CONTABILIZAR.AsCurrency
+      else sqlCompromissoRealizadocalc_ValorPagar.AsCurrency := vlValorADetalhar - viValorTotal;
+    end
+    else sqlCompromissoRealizadocalc_ValorPagar.AsCurrency := 0;
+    sqlCompromissoRealizado.Post;
+
+    if sqlCompromissoRealizadoVALOR_TOTAL.AsString <> '' then
+         viValorTotal := StrToCurr(sqlCompromissoRealizadoVALOR_TOTAL.AsString)
+    else viValorTotal := 0;
+
+    if viValorTotal = 0 then
+      vlDetalhamentoIniciado := False;
+
+    vlValorDetalhadoTotal := viValorTotal;
+    sqlCompromissoRealizadoAfterScroll(sqlCompromissoRealizado);
+    vlGravandoValor := False;
+  end;
+
+begin
+   if sqlCompromissoRealizadoVALOR_TOTAL.AsString <> '' then
+        viValorTotal := StrToCurr(sqlCompromissoRealizadoVALOR_TOTAL.AsString)
+   else viValorTotal := 0;
+
+  if vpSomar then
+    VerificarValorDetalhado;
+
+  Result := viValorTotal;
+end;
+
+procedure TfrmGerenciadorSaidas.sqlCompromissoRealizadoAfterPost(
+  DataSet: TDataSet);
+begin
+  if vlGravandoValor then
+    exit;
+
+  SomarCompromissosDetalhados(1, True);
+end;
+
+procedure TfrmGerenciadorSaidas.sqlCompromissoRealizadoAfterScroll(
+  DataSet: TDataSet);
+begin
+  btnEstornar.Enabled               := sqlCompromissoRealizado.RecordCount > 0;
+  btnExcluirNaoContabilizado.Enabled:= sqlCompromissoRealizado.RecordCount > 0;
+  btnReimprimir.Enabled             := sqlCompromissoRealizado.RecordCount > 0;
+  acmniDetalharItem.Enabled         := (sqlCompromissoRealizadoDETALHADO.AsString <> 'S') and
+                                       (sqlCompromissoRealizadoCOMPROMISSO_DETALHADO_ID.AsInteger = 0) and
+                                        (sqlCompromissoRealizadoSAIDA_TIPO.AsString = 'C');
+
+  cxGridDBTableSelecionar.Options.Editing := (sqlCompromissoRealizadoSelecionar.AsBoolean) or (vlValorDetalhadoTotal = 0) or
+                                             ((vlValorDetalhadoTotal > 0) and (vlValorDetalhadoTotal <> vlValorADetalhar));
+
+  pgcAssociado.Enabled := vlDetalhamentoIniciado;
+end;
+
+procedure TfrmGerenciadorSaidas.sqlCompromissoRealizadoCalcFields(
+  DataSet: TDataSet);
+begin
+  sqlCompromissoRealizadocalc_referencia.AsString := dtmLookup.FormatarAnoMes(sqlCompromissoRealizadoANO_MES_REFERENCIA.AsString);
+
+  // Vinculo Pessoa
+  if sqlCompromissoRealizadoPESSOA_NOME.AsString <> '' then
+    sqlCompromissoRealizadocalc_Descricao.AsString := sqlCompromissoRealizadoPESSOA_NOME.AsString + ' - ' +
+                                                      sqlCompromissoRealizadoDescricao.AsString
+  else
+    sqlCompromissoRealizadocalc_Descricao.AsString := sqlCompromissoRealizadoDescricao.AsString;
+
+  // Vinculo Compromisso Detalhado
+  if chxCompromissoDetalhado.Checked then
+    sqlCompromissoRealizadoCALC_VINCULO.AsString := sqlCompromissoRealizadoDETALHADO.AsString
+  else
+    if sqlCompromissoRealizadoCOMPROMISSO_DETALHADO_ID.AsInteger > 0 then
+      sqlCompromissoRealizadoCALC_VINCULO.AsString := 'V';
+
+  // Pagamento de Registro A Contabilizar Parcial
+  if sqlCompromissoRealizadoTIPO_REGISTRO.AsString = 'P' then
+  begin
+    sqlCompromissoRealizadoVALOR_CONTABILIZAR.AsCurrency := sqlCompromissoRealizadoVALOR_ATUAL.AsCurrency - sqlCompromissoRealizado.FieldByName('VALOR_PAGO').AsCurrency;
+    sqlCompromissoRealizadocalc_Observacao.AsString := 'Registrado Parcialmente';
+  end
+  else
+  begin
+    sqlCompromissoRealizadocalc_Observacao.AsString := sqlCompromissoRealizadoOBSERVACAO.AsString;
+    sqlCompromissoRealizadoVALOR_CONTABILIZAR.AsCurrency := sqlCompromissoRealizadoVALOR_ATUAL.AsCurrency;
+  end;
+
+end;
+
+procedure TfrmGerenciadorSaidas.sqlDadosReciboCalcFields(DataSet: TDataSet);
+begin
+  sqlDadosRecibocalc_referencia.AsString := dtmLookup.FormatarAnoMes(sqlDadosReciboANO_MES_REFERENCIA.AsString);
+end;
+
+procedure TfrmGerenciadorSaidas.tabBalanceteChange(Sender: TObject);
+begin
+  dtmLookup.sqlPlanoContasDespesasAtivo.Filtered := False;
+  dtmLookup.sqlPlanoContasDespesasAtivo.Filter   := 'BALANCETE_GRUPO_ID = ' +IntToStr(vgTabBalancete[tabBalancete.TabIndex]);
+  dtmLookup.sqlPlanoContasDespesasAtivo.Filtered := True;
+
+  dtmLookup.sqlCentroCustoAtivo.Filtered := False;
+  dtmLookup.sqlCentroCustoAtivo.Filter   := 'BALANCETE_GRUPO_ID = ' +IntToStr(vgTabBalancete[tabBalancete.TabIndex]);
+  dtmLookup.sqlCentroCustoAtivo.Filtered := True;
+
+  lcxCentroCusto.EditValue  := vgCentroCustoPrincipal[tabBalancete.TabIndex];
+  cbxReferencia.editValue   := vgPeriodoAtualS;
+  lcxCentroCusto.EditValue  := vgCentroCustoPrincipal[tabBalancete.TabIndex];
+  lcxCompromisso.EditValue  := null;
+end;
+
+procedure TfrmGerenciadorSaidas.tabBalanceteChanging(Sender: TObject;
+  var AllowChange: Boolean);
+begin
+  if not ClientDataSet.IsEmpty then
+  begin
+    Application.MessageBox('Já existe(m) lançamento(s) adicionado(s) em outro Balancete!!!', 'Atenção', MB_OK + MB_ICONWARNING);
+    abort;
+  end;
+end;
+
+procedure TfrmGerenciadorSaidas.tabContabilizarChange(Sender: TObject);
+begin
+  PesquisarRegistrosNaoContabilizados;
+  cxGridDBTableValorRegistrado.Visible := tabContabilizar.TabIndex = 0;
+end;
+
+procedure TfrmGerenciadorSaidas.VerificarValorADetalhar;
+begin
+  if rdbDetalharNovos.Checked then
+  begin
+    pnlValoraDetalhar.Caption := ' O Valor para Detalhamento é de R$ '+ FormatFloat(',#0.00', ClientDataSetVALOR.AsCurrency);
+    vlValorADetalhar := ClientDataSetVALOR.AsCurrency;
+  end
+  else
+  begin
+    pnlValoraDetalhar.Caption := ' O Valor para Detalhamento é de R$ '+ FormatFloat(',#0.00', StrToCurr(ClientDataSetVALOR_TOTAL.AsString));
+    vlValorADetalhar := StrToCurr(ClientDataSetVALOR_TOTAL.AsString);
+  end;
+end;
+
+end.
+
+

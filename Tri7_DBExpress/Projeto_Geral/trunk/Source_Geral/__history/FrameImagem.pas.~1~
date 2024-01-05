@@ -1,0 +1,2397 @@
+unit FrameImagem;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, cxLookAndFeelPainters, DB, DBClient, SimpleDS, ImgList,
+  ExtCtrls, AxCtrls, ComObj,ActiveX, OleCtrls, cxImageComboBox, cxMaskEdit, StdCtrls, cxButtons,
+  WPRTEDefs, WPCTRMemo, WPCTRRich, cxLookupEdit, cxDBLookupEdit,
+  cxDBLookupComboBox, cxDropDownEdit, ComCtrls, ToolWin, cxTextEdit,
+  cxControls, cxEdit, cxTrackBar, Buttons, cxContainer, Menus, cxSplitter,
+  FrameEditorSimples, cxGraphics, cxSpinEdit,
+  TWNPRO4Lib_TLB, PrintPRO3_TLB, NOTEXP70Lib_TLB,
+  ImagXpr7_TLB, dxBar, cxClasses, ExtDlgs, cxProgressBar,
+  AdvGlowButton, cxPC, cxCheckBox, FrameAssinaturaDigital, DelphiTwain,
+  cxLookAndFeels, cxPCdxBarPopupMenu;
+
+type
+  TImagem = Record
+    Valor1, Valor2, Valor3, Valor4, Valor5, Valor6, Valor7, Valor8, Valor9, Valor10,
+    Pagina, Folha, TipoImpressao, SeloAgrupador : string;
+  end;
+
+  TCabecalho = Record
+    Cabecalho1, Cabecalho2, Rodape1, Rodape2 : string;
+  end;
+
+type
+  TfmeImagem = class(TFrame)
+    Panel1: TPanel;
+    Panel2: TPanel;
+    ToolBar1: TToolBar;
+    btnImagem: TToolButton;
+    btnImprimir: TToolButton;
+    ToolButton3: TToolButton;
+    ToolButton1: TToolButton;
+    btnAnterior: TToolButton;
+    btnProximo: TToolButton;
+    btnUltimo: TToolButton;
+    btnPrimeiro: TToolButton;
+    pnlDigitalizar: TPanel;
+    btnDigitalizar: TcxButton;
+    btnRedigitalizar: TcxButton;
+    pnlDados: TPanel;
+    Label1: TLabel;
+    Label2: TLabel;
+    Label3: TLabel;
+    Label4: TLabel;
+    btnCancelar: TcxButton;
+    lcxTipo: TcxLookupComboBox;
+    edtNumero: TcxMaskEdit;
+    edtLetra: TcxTextEdit;
+    icxGrupo: TcxImageComboBox;
+    btnIndexar: TcxButton;
+    sqlCarimbo: TSimpleDataSet;
+    sqlCarimboDESCRICAO: TStringField;
+    sqlCarimboTEXTO: TBlobField;
+    sqlIndexacaoTipo: TSimpleDataSet;
+    sqlIndexacaoTipoINDEXACAO_TIPO_ID: TFMTBCDField;
+    sqlIndexacaoTipoDESCRICAO: TStringField;
+    sqlIndexacaoTipoSIGLA: TStringField;
+    sqlIndexacaoTipoGRUPO: TStringField;
+    sqlIndexacaoTipoSITUACAO: TStringField;
+    sqlIndexacaoTipoSISTEMA_ID: TFMTBCDField;
+    sqlIndexacaoTipoBD: TStringField;
+    dsIndexacaoTipo: TDataSource;
+    dsCarimbo: TDataSource;
+    TwainPRO: TTwainPRO;
+    Notate1: TNotateXpress;
+    ImageList1: TImageList;
+    IXDibLoader: TImagXpress;
+    stxFichaLado: TStaticText;
+    Shape1: TShape;
+    PopupMenu1: TPopupMenu;
+    Panel3: TPanel;
+    spbPreviewWhole: TSpeedButton;
+    spbPreview100Percent: TSpeedButton;
+    spbPreviewWidth: TSpeedButton;
+    btnCarimbo: TSpeedButton;
+    btnBrand: TSpeedButton;
+    cbxPaginas: TcxComboBox;
+    tbrZoom: TcxTrackBar;
+    edtZoom: TcxTextEdit;
+    pnlCarimbo: TPanel;
+    lcbCarimbo: TcxLookupComboBox;
+    Xpress1: TImagXpress;
+    pnlTextoCarimbo: TPanel;
+    cxSplitter1: TcxSplitter;
+    fmeEditorSimples1: TfmeEditorSimples;
+    imgControle: TImage;
+    btnPdf: TToolButton;
+    pnlImpressao: TPanel;
+    Panel4: TPanel;
+    Panel5: TPanel;
+    Label6: TLabel;
+    cbxTipoImpressao: TcxImageComboBox;
+    Shape3: TShape;
+    InserirPaginaemBranco1: TMenuItem;
+    InserirMargemnaImagem1: TMenuItem;
+    Margem1cm1: TMenuItem;
+    Margem2cm1: TMenuItem;
+    Margem3cm1: TMenuItem;
+    Margem4cm1: TMenuItem;
+    Margem5cm1: TMenuItem;
+    btnLembrete: TSpeedButton;
+    pnlLembrete: TPanel;
+    Shape2: TShape;
+    Label7: TLabel;
+    cxSplitter2: TcxSplitter;
+    cbxScanImageFloating: TcxCheckBox;
+    Image1: TImage;
+    Image2: TImage;
+    OpenPictureDialog: TOpenPictureDialog;
+    pnlCertificados: TPanel;
+    fmeAssinaturaDigital1: TfmeAssinaturaDigital;
+    pagControle: TcxPageControl;
+    tbsGeral: TcxTabSheet;
+    tbsImagem: TcxTabSheet;
+    tbsArquivo: TcxTabSheet;
+    btnscannerimg: TAdvGlowButton;
+    btnImprimirImg: TAdvGlowButton;
+    btnPDFImagem: TAdvGlowButton;
+    btnSalvarImagem: TAdvGlowButton;
+    btnGirarImagem: TAdvGlowButton;
+    btnTrocarImagem: TAdvGlowButton;
+    btnBordaImagem: TAdvGlowButton;
+    btnMargemImagem: TAdvGlowButton;
+    btnImagemBranco: TAdvGlowButton;
+    btnJuntarImagem: TAdvGlowButton;
+    btnExcluir: TAdvGlowButton;
+    btnImportar: TAdvGlowButton;
+    chxAssinar: TcxCheckBox;
+    ProgressBar: TcxProgressBar;
+    btnRecortarImagem: TAdvGlowButton;
+    DelphiTwain1: TDelphiTwain;
+    Panel6: TPanel;
+    Shape5: TShape;
+    cbxTipoPapel: TcxImageComboBox;
+    pnlIntervaloImp: TPanel;
+    Shape4: TShape;
+    Label8: TLabel;
+    Label9: TLabel;
+    spnPagInicial: TcxSpinEdit;
+    spnPagFinal: TcxSpinEdit;
+    PrintPRO1: TPrintPRO;
+    edtLembrete: TcxTextEdit;
+    btnSalvar: TcxButton;
+    btnCancelarLembrete: TcxButton;
+    btnImprimirImagem: TcxButton;
+    btnCancelarImpImagem: TcxButton;
+    procedure TwainPROPostScan(Sender: TObject; var Cancel: WordBool);
+    procedure Xpress1MouseDown(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; x, y: Integer);
+    procedure Xpress1MouseUp(Sender: TObject; Button: TMouseButton;
+      Shift: TShiftState; x, y: Integer);
+    procedure cxTrackBar1PropertiesChange(Sender: TObject);
+    procedure spbPreviewWidthClick(Sender: TObject);
+    procedure spbPreviewWholeClick(Sender: TObject);
+    procedure spbPreview100PercentClick(Sender: TObject);
+    procedure btnImagemClick(Sender: TObject);
+    procedure btnPrimeiroClick(Sender: TObject);
+    procedure btnAnteriorClick(Sender: TObject);
+    procedure btnProximoClick(Sender: TObject);
+    procedure btnUltimoClick(Sender: TObject);
+    procedure btnBrandClick(Sender: TObject);
+    procedure btnCarimboClick(Sender: TObject);
+    procedure Xpress1Click(Sender: TObject);
+    procedure btnDigitalizarClick(Sender: TObject);
+    procedure btnRedigitalizarClick(Sender: TObject);
+    procedure edtNumeroKeyPress(Sender: TObject; var Key: Char);
+    procedure btnCancelarClick(Sender: TObject);
+    procedure btnImprimirClick(Sender: TObject);
+    procedure Xpress1MouseMove(Sender: TObject; Shift: TShiftState; X,
+      Y: Integer);
+    procedure Xpress1KeyDown(Sender: TObject; var Key: Word;
+      Shift: TShiftState);
+    procedure icxGrupoPropertiesChange(Sender: TObject);
+    procedure btnIndexarClick(Sender: TObject);
+    procedure cbxPaginasPropertiesChange(Sender: TObject);
+    procedure Xpress1DblClick(Sender: TObject);
+    procedure lcbCarimboPropertiesEditValueChanged(Sender: TObject);
+    procedure btnPdfClick(Sender: TObject);
+    procedure btnCancelarImpImagemClick(Sender: TObject);
+    procedure btnImprimirImagemClick(Sender: TObject);
+    procedure cbxTipoImpressaoPropertiesEditValueChanged(Sender: TObject);
+    procedure Margem1cm1Click(Sender: TObject);
+    procedure Notate1CurrentLayerChange(ASender: TObject;
+      newLayer: Integer);
+    procedure btnCancelarLembreteClick(Sender: TObject);
+    procedure btnLembreteClick(Sender: TObject);
+    procedure btnSalvarClick(Sender: TObject);
+    procedure btnscannerimgClick(Sender: TObject);
+    procedure btnImprimirImgClick(Sender: TObject);
+    procedure btnPDFImagemClick(Sender: TObject);
+    procedure btnSalvarImagemClick(Sender: TObject);
+    procedure btnGirarImagemClick(Sender: TObject);
+    procedure btnTrocarImagemClick(Sender: TObject);
+    procedure btnBordaImagemClick(Sender: TObject);
+    procedure btnImagemBrancoClick(Sender: TObject);
+    procedure btnExcluirClick(Sender: TObject);
+    procedure btnJuntarImagemClick(Sender: TObject);
+    procedure btnMargemImagemClick(Sender: TObject);
+    procedure btnImportarClick(Sender: TObject);
+    procedure chxAssinarClick(Sender: TObject);
+    procedure pagControleChange(Sender: TObject);
+    procedure btnCancelClick(Sender: TObject);
+    procedure btnOKClick(Sender: TObject);
+    procedure btnRecortarImagemClick(Sender: TObject);
+    procedure DelphiTwain1TwainAcquire(Sender: TObject; const Index: Integer;
+      Image: TBitmap; var Cancel: Boolean);
+  private
+    { Private declarations }
+    vg_atualiza,
+    vg_Capturando,
+    vg_Activated,
+    vg_aspecto,
+    vg_ExibirFicha,
+    vg_trackzoom,
+    vgPrintPDF,
+    vlImagemColorida,
+    vg_Imagem_Alterada,
+    vgTwainPadrao,
+    vgControleNumeroPagina : Boolean;
+
+    vg_ZoomPadrao,
+    vg_Imagem_Nova_Largura_W,
+    vg_Imagem_Nova_Altura_H,
+    vg_EstiloCarimbo,
+    vg_ImprimirCabecalho,
+    vg_ImprimirRodape,
+    vg_BordaCarimbo,
+    vg_PaperSize,
+    curIDRectangle : Integer;
+
+    vg_TMargemCabecalho,
+    vg_LMargem,
+    vg_SobreMargemCabecalho,
+    vg_TMargemRodape,
+    vg_SobreMargemRodape,
+    vg_WPagina,
+    vg_HPagina : Double;
+
+    vg_ArquivoImagem,
+    vg_ExibirBarraControle : string;
+    vg_Qualifica, vg_CabecalhoDiferente, vg_RodapeDiferenteUtlPag : Boolean;
+
+    procedure PegaImagem;
+    procedure UpdateZoom;
+    procedure CarregarNumeroImagens;
+    procedure AtualizaImagem(Arquivo : String);
+
+    procedure Validar;
+    procedure Imprimir(Tipo : Byte);
+    procedure TrocarPosicaoImagem;
+    procedure GerarPDF(Tipo: Byte);
+    procedure InserirMargemImagem(vpMargem: Integer);
+    procedure InsereObjetoTexto;
+    procedure ScanImageFloating;
+    procedure RetirarBordas(vpTipo : Integer = 2);
+    procedure ShowCertificados;
+  public
+    { Public declarations }
+    vg_PosInic : TPoint;
+    vg_DiretorioAuxiliar,
+    vg_ArqruivoCarimbo,
+    vg_CaminhoDiretorio,
+    vg_NumeroMatricula,
+    vg_LetraMatricula,
+    vg_NomeArquivo,
+    vg_TipoGravacao, //M-> Manual / A -> Automatica
+    vg_NovoAto : String;
+
+    vg_NumImagem,
+    vg_NumeroPaginas,
+    curLayer : Integer;
+
+    vg_SolicitarPrint,
+    vg_hbltCarimbo,
+    vg_hbltImagem: Boolean;
+
+    vg_Imagem : TImagem;
+    vg_Cabecalho : TCabecalho;
+
+    procedure GravarImagem;
+    procedure CarregaPaginas;
+    procedure CriarTwain(NomeArquivo: string = 'IMAGEM.TIF');//Esta procedure eve ser declarado no onCreate do form que comportar este frame
+    procedure AtivarNotate(vpAtivar : Boolean = False);
+    procedure FecharNotate;//Esta procedure deve ser declarado no onClose do form que comportar este frame
+    procedure InicializarSessao;
+    procedure LimparCampos;
+    procedure ExibirFichaLado(Valor : Boolean);
+    procedure ImagemColorida(Valor : Boolean);
+    procedure ValidarImagem;
+    procedure SetEstiloCarimbo(vpTipo : Integer);
+
+  end;
+
+var
+  vgImagemImpressa : Boolean;
+
+implementation
+
+uses Controles, Rotinas, MostrarImagem, ControleVariaveis;
+
+{$R *.dfm}
+
+{ TfmeImagem }
+procedure TfmeImagem.ShowCertificados;
+begin
+  fmeAssinaturaDigital1.PopularCertList;
+
+  pnlCertificados.Top  := (Height div 2) - (pnlCertificados.Height div 2);
+  pnlCertificados.Left := (Width div 2) - (pnlCertificados.Width div 2);
+
+  pnlCertificados.Visible := True;
+end;
+
+procedure TfmeImagem.InicializarSessao;
+var
+  SourceIndex: Integer;
+begin
+  if vgTwainPadrao then
+  begin
+    try
+      TwainPRO.CloseSession;
+      TwainPRO.CloseSession;
+      TwainPRO.StartSession;
+    except
+    if TwainPRO.ErrorCode >= 1000 then
+      Application.MessageBox(PChar('Scanner não pode ser inicializado! Erro: ' + IntToStr(TwainPRO.ErrorCode)), 'Atenção', MB_OK + MB_ICONERROR);
+    end;
+  end
+  else
+  begin
+    if DelphiTwain1.LoadLibrary then
+    begin
+      try
+        DelphiTwain1.SourceManagerLoaded := false;
+
+        DelphiTwain1.LoadSourceManager();
+        SourceIndex := DelphiTwain1.SelectSource();
+
+        if SourceIndex <> -1 then
+          with DelphiTwain1.Source[SourceIndex] do
+          begin
+            //Prepare for transfering using ttmFile mode
+            Loaded := TRUE;
+            TransferMode := ttmMemory;
+            Enabled := TRUE;
+          end
+          else Abort;
+      except
+
+      end;
+    end
+    else ShowMessage('Twain não instalado!')
+  end;
+end;
+
+procedure TfmeImagem.CriarTwain(NomeArquivo: string = 'IMAGEM.TIF');
+begin
+  Application.ProcessMessages;
+
+  curLayer         := 0;
+  curIDRectangle   := 0;
+  vg_NumeroPaginas := 0;
+  
+  vg_ExibirFicha := True;
+  vg_hbltCarimbo := True;
+  ImagemColorida(False);
+
+  vg_DiretorioAuxiliar := Copy(ExtractFilePath(Application.ExeName),1,Length(ExtractFilePath(Application.ExeName))-1);
+
+  try
+    if not DirectoryExists(vg_DiretorioAuxiliar) then
+       MkDir(vg_DiretorioAuxiliar);
+
+    IXDibLoader.Visible := False;
+    PrintPRO1.UseDefaultPrinter := True;
+
+    Xpress1.FileName := '';
+    vg_hbltImagem := False;
+    vg_Activated  := False;
+
+    TwainPRO.hParentWnd := Application.Handle;
+
+    //Abrir a query com os tipos de carimbo
+    sqlCarimbo.Connection := dtmControles.DB;
+    sqlCarimbo.Active     := False;
+    sqlCarimbo.DataSet.Params[0].AsInteger := vgId;
+    sqlCarimbo.Active     := True;
+
+    //Carimbo
+    vg_EstiloCarimbo         := dtmControles.BuscarConfig('IMAGEM', 'CARIMBO',   'ESTILO_CARIMBO', 'I');
+    vg_BordaCarimbo          := dtmControles.BuscarConfig('IMAGEM', 'CARIMBO',   'BORDA_CARIMBO', 'I');
+
+    //Cabeçalho
+    vg_SobreMargemCabecalho  := dtmControles.BuscarConfig('IMAGEM', 'CABECALHO', 'SOBREMARGEM_CABECALHO', 'D');
+    vg_ImprimirCabecalho     := dtmControles.BuscarConfig('IMAGEM', 'CABECALHO', 'IMPRIMIR_CABECALHO', 'I');
+    vg_Qualifica             := dtmControles.BuscarConfig('IMAGEM', 'CABECALHO', 'QUALIFICA_CABECALHO', 'S') = 'S';
+    vg_CabecalhoDiferente    := dtmControles.BuscarConfig('IMAGEM', 'CABECALHO', 'CABECALHO_DIFERENTE_1PAGINA', 'S') = 'S';
+    vg_RodapeDiferenteUtlPag := dtmControles.BuscarConfig('IMAGEM', 'RODAPE', 'RODAPE_DIFERENTE_ULTIMAPAG', 'S') = 'S';
+
+    //Rodapé
+    vg_SobreMargemRodape     := dtmControles.BuscarConfig('IMAGEM', 'RODAPE', 'SOBREMARGEM_RODAPE', 'D');
+    vg_TMargemRodape         := dtmControles.BuscarConfig('IMAGEM', 'RODAPE', 'TAMANHO_RODAPE', 'D');
+    vg_ImprimirRodape        := dtmControles.BuscarConfig('IMAGEM', 'RODAPE', 'IMPRIMIR_RODAPE', 'I');
+
+    //Geral
+    vg_LMargem               := dtmControles.BuscarConfig('IMAGEM', 'GERAL', 'MARGEM_ESQUERDA_IMAGEM', 'D');
+    vg_aspecto               := dtmControles.BuscarConfig('IMAGEM', 'GERAL', 'ASPECTO', 'S') = 'S';
+    vg_ZoomPadrao            := dtmControles.BuscarConfig('IMAGEM', 'GERAL', 'ZOOM_PADRAO', 'I');
+    vg_Imagem_Nova_Largura_W := Round(dtmControles.BuscarConfig('IMAGEM', 'GERAL', 'IMAGEM_NOVA_LARGURA', 'D') * 118.095);
+    vg_Imagem_Nova_Altura_H  := Round(dtmControles.BuscarConfig('IMAGEM', 'GERAL', 'IMAGEM_NOVA_ALTURA', 'D')  * 118.095);
+    vg_ExibirBarraControle   := dtmControles.BuscarConfig('IMAGEM', 'GERAL', 'EXIBIR_BARRA_CONTROLE', 'S');
+    vgTwainPadrao            := dtmControles.BuscarConfig('IMAGEM', 'GERAL', 'TWAIN_PADRAO', 'S') = 'S';
+    vgControleNumeroPagina   := dtmControles.BuscarConfig('IMAGEM', 'GERAL', 'CONTROLE_NUMERO_PAGINA', 'S') = 'S';
+    cbxTipoPapel.EditValue   := dtmControles.BuscarConfig('IMAGEM', 'GERAL', 'PAPEL_PADRAO', 'I');
+
+    fmeAssinaturaDigital1.ParamentrosAssinatura;
+
+    if vg_ExibirBarraControle = 'N' then
+      cxSplitter2.CloseSplitter;
+
+    vg_ArquivoImagem   :=  vg_DiretorioAuxiliar + '\'+NomeArquivo;
+    vg_ArqruivoCarimbo :=  vg_DiretorioAuxiliar + '\CARIMBO.TIF';
+
+    vg_Imagem_Alterada := False;
+
+  Except
+
+  end;
+end;
+
+procedure TfmeImagem.TwainPROPostScan(Sender: TObject;
+  var Cancel: WordBool);
+begin
+  {Carrega imagem do scanner para o componente de exibição}
+  if not cbxScanImageFloating.Checked then
+  begin
+    //Controla Nº paginas digitalizadas
+    if vgControleNumeroPagina and (Xpress1.SaveMultiPage = True) then
+      if vg_NumeroPaginas <= Xpress1.Pages then
+      begin
+        Cancel := True;
+        Application.MessageBox('Número de páginas digitalizadas maior que número de paginas informadas!', 'Atenção', MB_OK + MB_ICONWARNING);
+        Exit;
+      end;
+
+    Xpress1.LoadBuffer(TwainPRO.hDIB);
+    if Xpress1.SaveMultiPage then
+    begin
+      Xpress1.SaveFileName := vg_ArquivoImagem;
+
+      if (not vlImagemColorida) then
+      begin
+        Xpress1.SaveFileType := FT_TIFF_G4;
+        Xpress1.SaveTIFFCompression := TIFF_CCITTFAX4
+      end
+      else
+      begin
+        Xpress1.SaveJPEGLumFactor   := 50;
+        Xpress1.SaveJPEGChromFactor := 50;
+        Xpress1.SaveFileType := FT_TIFF_JPEG;
+        Xpress1.SaveTIFFCompression := TIFF_JPEG;
+      end;
+
+      Xpress1.SaveFile;
+      Inc(vg_NumImagem);
+    end
+    else AtualizaImagem(vg_ArqruivoCarimbo);
+
+    //CarregarNumeroImagens;
+    PegaImagem;
+    imgControle.Visible := False;
+
+    // Grava a Imagem
+    GravarImagem;
+  end
+  else ScanImageFloating;
+end;
+
+procedure TfmeImagem.Xpress1MouseDown(Sender: TObject;
+  Button: TMouseButton; Shift: TShiftState; x, y: Integer);
+begin
+  if (Xpress1.MousePointer <> MP_CHand2) then
+    if (Button = mbLeft) and (Xpress1.ImagWidth <> 0) then
+    begin
+      vg_atualiza      := true;
+      vg_PosInic.X     := X;
+      vg_PosInic.Y     := Y;
+      vg_Capturando    := true;
+      if (Xpress1.MousePointer <> MP_BPush) then
+         Xpress1.MousePointer := MP_CHand2;
+    end;
+end;
+
+procedure TfmeImagem.Xpress1MouseUp(Sender: TObject; Button: TMouseButton;
+  Shift: TShiftState; x, y: Integer);
+begin
+  if Xpress1.MousePointer = MP_CHand2 then
+    if vg_Capturando then
+    begin
+      With Xpress1 do
+      begin
+        ScrollX := ScrollX  + (vg_PosInic.X - X);
+        ScrollY := ScrollY  + (vg_PosInic.Y - Y);
+      end;
+      vg_Capturando    := false;
+      vg_atualiza      := false;
+      Xpress1.MousePointer := MP_Arrow;
+    end;
+end;
+
+procedure TfmeImagem.cxTrackBar1PropertiesChange(Sender: TObject);
+begin
+  if vg_trackzoom then
+  begin
+    Xpress1.Zoom(tbrZoom.Position / 100);
+    UpdateZoom;
+  end;
+end;
+
+procedure TfmeImagem.DelphiTwain1TwainAcquire(Sender: TObject;
+  const Index: Integer; Image: TBitmap; var Cancel: Boolean);
+begin
+  {Carrega imagem do scanner para o componente de exibição}
+  if not cbxScanImageFloating.Checked then
+  begin
+    //Controla Nº paginas digitalizadas
+    if vgControleNumeroPagina and (Xpress1.SaveMultiPage = True) then
+      if vg_NumeroPaginas <= Xpress1.Pages then
+      begin
+        Cancel := True;
+        Application.MessageBox('Número de páginas digitalizadas maior que número de paginas informadas!', 'Atenção', MB_OK + MB_ICONWARNING);
+        Exit;
+      end;
+
+    Xpress1.Picture.Bitmap := Image;
+    if Xpress1.SaveMultiPage then
+    begin
+      Xpress1.SaveFileName := vg_ArquivoImagem;
+
+      if (not vlImagemColorida) then
+      begin
+        Xpress1.SaveFileType := FT_TIFF_G4;
+        Xpress1.SaveTIFFCompression := TIFF_CCITTFAX4
+      end
+      else
+      begin
+        Xpress1.SaveJPEGLumFactor   := 50;
+        Xpress1.SaveJPEGChromFactor := 50;
+        Xpress1.SaveFileType := FT_TIFF_JPEG;
+        Xpress1.SaveTIFFCompression := TIFF_JPEG;
+      end;
+
+      Xpress1.SaveFile;
+      Inc(vg_NumImagem);
+    end
+    else AtualizaImagem(vg_ArqruivoCarimbo);
+
+    //CarregarNumeroImagens;
+    PegaImagem;
+    imgControle.Visible := False;
+
+    // Grava a Imagem
+    GravarImagem;
+  end
+  else
+  begin
+    IXDibLoader.Picture.Bitmap := Image;
+    ScanImageFloating;
+  end;
+end;
+
+procedure TfmeImagem.spbPreviewWidthClick(Sender: TObject);
+begin
+  LockWindowUpdate(handle);
+  vg_trackzoom := False;
+  Xpress1.ZoomToFit(ZOOMFIT_WIDTH);
+  UpdateZoom;
+  if edtZoom.Text <> '' then
+     tbrZoom.Position := StrToInt(edtZoom.Text);
+  Application.ProcessMessages;
+  vg_trackzoom := True;
+  spbPreviewWidth.Down := True;
+  LockWindowUpdate(0);
+end;
+
+procedure TfmeImagem.spbPreviewWholeClick(Sender: TObject);
+begin
+  LockWindowUpdate(handle);
+  vg_trackzoom := False;
+  Xpress1.ZoomToFit(ZOOMFIT_HEIGHT);
+  UpdateZoom;
+  if edtZoom.Text <> '' then
+     tbrZoom.Position := StrToInt(edtZoom.Text);
+  vg_trackzoom := True;
+  spbPreviewWhole.Down := True;
+  LockWindowUpdate(0);
+end;
+
+procedure TfmeImagem.spbPreview100PercentClick(Sender: TObject);
+begin
+  LockWindowUpdate(handle);
+  vg_trackzoom := False;
+  Xpress1.Zoom(1);
+  UpdateZoom;
+  if edtZoom.Text <> '' then
+     tbrZoom.Position := StrToInt(edtZoom.Text);
+  vg_trackzoom := True;
+  spbPreview100Percent.Down := True;
+  LockWindowUpdate(0);
+end;
+
+procedure TfmeImagem.UpdateZoom;
+begin
+  edtZoom.Text := IntToStr(round(Xpress1.IPZoomF * 100));
+  fmeEditorSimples1.wptTexto.Zooming := Trunc(Xpress1.IPZoomF*100);
+end;
+
+procedure TfmeImagem.btnImagemClick(Sender: TObject);
+begin
+  imgControle.Visible := False;
+  pnlDigitalizar.Visible := not pnlDigitalizar.Visible;
+
+  btnCarimbo.Visible     := (not pnlDigitalizar.Visible) and (Tag = 0);
+  btnBrand.Visible       := btnCarimbo.Visible;
+  btnLembrete.Visible    := btnCarimbo.Visible;
+  pnlCarimbo.Visible     := False;
+
+  if Tag = 0 then
+  begin
+    vg_hbltImagem := False;
+    btnCarimbo.Flat := True;
+    spbPreviewWhole.Enabled      := True;
+    spbPreview100Percent.Enabled := True;
+    pnlTextoCarimbo.Visible := False;
+    cxSplitter1.Visible := False;
+    Xpress1.MousePointer := MP_Arrow;
+  end;
+
+  if vg_TipoGravacao = 'M' then
+  begin
+    btnIndexar.Visible := True;
+  end
+  else begin
+       btnIndexar.Visible := False;
+  end;
+
+  if pnlDigitalizar.Visible then
+     btnImagem.ImageIndex := 9
+  else begin
+       btnImagem.ImageIndex := 0;
+       btnCancelarClick(nil);
+  end;
+end;
+
+procedure TfmeImagem.PegaImagem;
+var Npag : Integer;
+    Lado : String;
+begin
+  {Carrega a imagem a ser exibida}
+  LockWindowUpdate(handle);
+  Screen.Cursor    := crHourglass;
+  Xpress1.IResUnits:= IRes_Cm;
+  Xpress1.PageNbr  := vg_NumImagem;
+  Xpress1.FileName := '';
+  Xpress1.FileName := vg_ArquivoImagem;
+  Application.ProcessMessages;
+  CarregarNumeroImagens;
+
+  case vg_ZoomPadrao of
+    0 :spbPreviewWholeClick(nil);
+    1 :spbPreviewWidthClick(nil);
+    2 :spbPreview100PercentClick(nil);
+  end;
+
+  //Controla a habilitação dos botões de movimentação entre as imagens
+  if vg_NumImagem = 1 then
+  begin
+    //Promeira imagem
+    btnPrimeiro.Enabled := False;
+    btnAnterior.Enabled := False;
+    if Xpress1.Pages > 1 then
+    begin
+      btnProximo.Enabled  := True;
+      btnUltimo.Enabled   := True;
+    end
+    else begin
+         btnProximo.Enabled  := false;
+         btnUltimo.Enabled   := false;
+    end;
+  end
+  else
+  if vg_NumImagem < Xpress1.Pages then
+  begin
+    //Imagens intermediarias
+    btnAnterior.Enabled := True;
+    btnPrimeiro.Enabled := True;
+    btnProximo.Enabled  := True;
+    btnUltimo.Enabled   := True;
+  end
+  else
+  if vg_NumImagem = Xpress1.Pages then
+  begin
+    //Ultima imagem
+    btnAnterior.Enabled := True;
+    btnPrimeiro.Enabled := True;
+    btnProximo.Enabled  := false;
+    btnUltimo.Enabled   := false;
+  end;
+
+  if vg_ExibirFicha then
+  begin
+    if (vg_NumImagem + 1) mod 2 = 0 then
+       Lado := 'F'
+    else Lado := 'V';
+    Npag := (vg_NumImagem + 1) div 2;
+    stxFichaLado.Caption := 'Ficha: ' + IntToStr(Npag) + '-' + Lado;
+  end;
+
+  cbxPaginas.Tag := 1;
+  cbxPaginas.Text := IntToStr(vg_NumImagem);
+  cbxPaginas.Tag := 0;
+
+  Screen.Cursor    := crDefault;
+
+  btnRedigitalizar.Enabled := Xpress1.Pages >= 1;
+  LockWindowUpdate(0);
+end;
+
+procedure TfmeImagem.RetirarBordas(vpTipo: Integer);
+var  r, i, Nri : Integer;
+    viArquivo,
+    viImgCorrigida : String;
+begin
+  Screen.Cursor := crHourglass;
+  viArquivo := vg_DiretorioAuxiliar + '\IMA.TIF';
+  viImgCorrigida := vg_DiretorioAuxiliar + '\IMG_CORRIGIDA.TIF';
+
+  Xpress1.FileName := vg_ArquivoImagem;
+  Nri := Xpress1.Pages;
+  for i := 1 to Nri do
+  begin
+    Xpress1.PageNbr := i;
+    Xpress1.FileName := vg_ArquivoImagem;
+    r := round(118 * 2.5423);
+    Xpress1.CropBorder(0.9, vpTipo);
+
+    if i = 1 then
+    begin
+      DeleteFile(viImgCorrigida);
+      Xpress1.SaveFileName := viImgCorrigida;
+    end
+    else
+    begin
+      DeleteFile(viArquivo);
+      Xpress1.SaveFileName := viArquivo;
+    end;
+
+    Xpress1.SaveMultiPage := True;
+    
+    if (not vlImagemColorida) then
+    begin
+      Xpress1.SaveFileType := FT_TIFF_G4;
+      Xpress1.SaveTIFFCompression := TIFF_CCITTFAX4
+    end
+    else
+    begin
+      Xpress1.SaveJPEGLumFactor   := 50;
+      Xpress1.SaveJPEGChromFactor := 50;
+      Xpress1.SaveFileType := FT_TIFF_JPEG;
+      Xpress1.SaveTIFFCompression := TIFF_JPEG;
+    end;
+
+    Xpress1.IResX := r;
+    Xpress1.IResY := r;
+    Xpress1.SaveFile;
+
+    if i > 1 then
+    begin
+      Xpress1.InsertPage(viArquivo, viImgCorrigida, i + 1);
+    end;
+  end;
+  CopyFile(Pchar(viImgCorrigida), Pchar(vg_ArquivoImagem), False);
+  
+  vg_Imagem_Alterada := True;
+  Screen.Cursor := crDefault;
+end;
+
+procedure TfmeImagem.ScanImageFloating;
+var
+  e, X, Y : Integer;
+begin
+  if Xpress1.Pages = 0 then
+    btnImagemBrancoClick(nil);
+
+  if vgTwainPadrao then
+    IXDibLoader.LoadBuffer(TwainPRO.hDIB);
+
+  IXDibLoader.SaveFileName := vg_ArqruivoCarimbo;
+
+  IXDibLoader.SaveJPEGLumFactor   := 50;
+  IXDibLoader.SaveJPEGChromFactor := 50;
+  IXDibLoader.SaveFileType := FT_TIFF_JPEG;
+  IXDibLoader.SaveTIFFCompression := TIFF_JPEG;
+  IXDibLoader.SaveFile;
+
+  IXDibLoader.Filename := vg_ArqruivoCarimbo;
+
+  if (curLayer = 0) then
+  begin
+    Notate1.SetClientWindow(Xpress1.hWnd);
+    if curLayer = 0 Then Notate1.CreateLayer;
+    if (curLayer <> 0) then
+    begin
+       Notate1.SetToolPaletteVisible (curLayer, False);
+       if (Notate1.GrpGetFirstGroupID(curLayer) = 0) Then
+          Notate1.GrpCreateGroup(curLayer, '', 0);
+    end;
+  end;
+
+  //Determina a posição central para ser inserida a imagem de carimbo
+  X := Trunc(100 / Xpress1.IPZoomF);
+  Y := Trunc(100 / Xpress1.IPZoomF);
+
+  //Cria imag em de carimbo
+  e := Notate1.ElementCreate;
+  Notate1.ElementSetType(e, ImageTool);
+  Notate1.ElementSetDIBHandle(e, IXDibLoader.CopyDib);
+  Notate1.ElementSetBoundingRect(e, X , Y , X + Trunc(IXDibLoader.IWidth), Y + Trunc(IXDibLoader.IHeight));
+  Notate1.ElementSetPenColor(e, clBlack);
+  Notate1.ElementSetPenWidth(e, vg_BordaCarimbo);
+  Notate1.ElementSetBackstyle(e, vg_EstiloCarimbo);
+  Notate1.ElementAppend(e);
+  Notate1.ElementDestroy(e);
+  imgControle.Visible := False;
+end;
+
+procedure TfmeImagem.SetEstiloCarimbo(vpTipo: Integer);
+begin
+  vg_EstiloCarimbo := vpTipo;
+end;
+
+procedure TfmeImagem.btnPrimeiroClick(Sender: TObject);
+begin
+  vg_NumImagem := 1;
+  PegaImagem;
+end;
+
+procedure TfmeImagem.btnAnteriorClick(Sender: TObject);
+begin
+  dec(vg_NumImagem);
+  PegaImagem;
+end;
+
+procedure TfmeImagem.btnProximoClick(Sender: TObject);
+begin
+  Inc(vg_NumImagem);
+  PegaImagem;
+end;
+
+procedure TfmeImagem.btnUltimoClick(Sender: TObject);
+begin
+  vg_NumImagem := Xpress1.Pages;
+  PegaImagem;
+end;
+
+procedure TfmeImagem.btnBrandClick(Sender: TObject);
+begin
+  {Aplica a imagem de carimbo a imagem original}
+  Screen.Cursor    := crHourglass;
+
+  Notate1.Brand(4);
+
+  //Delata os layers
+  if (curLayer <> 0) then
+      Notate1.DeleteLayer(curLayer);
+
+  AtualizaImagem(vg_ArqruivoCarimbo);
+
+  //Carrega para a tela a imagem gerada com o carimbo
+  PegaImagem;
+  vg_Activated := false;
+  vg_Imagem_Alterada := True;
+  Screen.Cursor := crDefault;
+end;
+
+procedure TfmeImagem.btnJuntarImagemClick(Sender: TObject);
+begin
+  if Application.MessageBox('Confirma juntar essas imagens?', 'Atenção', MB_YESNO + MB_ICONQUESTION) = ID_YES then
+    btnBrandClick(nil);
+end;
+
+procedure TfmeImagem.btnExcluirClick(Sender: TObject);
+begin
+if Application.MessageBox('Confirma exclusão desta imagem?', 'Atenção', MB_YESNO + MB_ICONQUESTION) = ID_YES then
+  begin
+    if Xpress1.Pages = 1 then
+    begin
+      DeleteFile(vg_NomeArquivo);
+      DeleteFile(vg_ArquivoImagem);
+      Xpress1.FileName    := '';
+      imgControle.Visible := True;
+      btnImprimir.Enabled := False;
+      btnPdf.Enabled      := False;
+      btnAnterior.Enabled := False;
+      btnPrimeiro.Enabled := False;
+      btnProximo.Enabled  := False;
+      btnUltimo.Enabled   := False;
+      btnCarimbo.Visible  := False;
+      btnLembrete.Visible := False;
+      btnBrand.Visible    := False;
+      cbxPaginas.Properties.Items.Clear;
+      if vg_hbltImagem then
+        btnCarimboClick(nil);
+    end
+    else
+    begin
+      Xpress1.DeletePage(vg_ArquivoImagem, vg_NumImagem);
+      //Comprime o arquivo das imagens
+      Xpress1.CompressInMemory;
+      Xpress1.CompactFile(vg_ArquivoImagem, vg_DiretorioAuxiliar + '\IMA.TIF');
+      if not CopyFile(Pchar(vg_DiretorioAuxiliar + '\IMA.TIF'), Pchar(vg_ArquivoImagem), FALSE) then
+        ShowMessage('Erro, não foi possivel copiar a imagem!');
+      //CarregarNumeroImagens;//Carrega o número de imagens para o combobox
+      btnPrimeiroClick(nil);
+      //GravarImagem;
+      vg_Imagem_Alterada := True;
+    end;
+  end;
+
+end;
+
+procedure TfmeImagem.btnscannerimgClick(Sender: TObject);
+begin
+  btnImagemClick(nil);
+end;
+
+procedure TfmeImagem.btnImprimirImgClick(Sender: TObject);
+begin
+  btnImprimirClick(nil);
+end;
+
+procedure TfmeImagem.btnPDFImagemClick(Sender: TObject);
+begin
+  btnPdfClick(nil);
+end;
+
+procedure TfmeImagem.btnSalvarImagemClick(Sender: TObject);
+begin
+  if Application.MessageBox('Confirma gravação desta imagem?', 'Atenção', MB_YESNO + MB_ICONQUESTION) = ID_YES then
+    GravarImagem;
+end;
+
+procedure TfmeImagem.btnGirarImagemClick(Sender: TObject);
+var
+   viArquivo : String;
+begin
+  Xpress1.Rotate(90);
+
+  viArquivo := vg_DiretorioAuxiliar + '\IMA.TIF';
+  DeleteFile(viArquivo);
+
+  Notate1.SaveAnnotations := True;
+  Notate1.PreserveWTLayers:= True;
+  Xpress1.SaveMultiPage   := false;
+  Xpress1.SaveFileName    := viArquivo;
+
+  if (not vlImagemColorida) then
+  begin
+    Xpress1.SaveFileType := FT_TIFF_G4;
+    Xpress1.SaveTIFFCompression := TIFF_CCITTFAX4
+  end
+  else
+  begin
+    Xpress1.SaveJPEGLumFactor   := 50;
+    Xpress1.SaveJPEGChromFactor := 50;
+    Xpress1.SaveFileType := FT_TIFF_JPEG;
+    Xpress1.SaveTIFFCompression := TIFF_JPEG;
+  end;
+  
+  Xpress1.SaveFile;
+
+  Xpress1.InsertPage(viArquivo, vg_ArquivoImagem, vg_NumImagem + 1);
+  Xpress1.DeletePage(vg_ArquivoImagem, vg_NumImagem);
+
+  //Comprime o arquivo das imagens
+  Xpress1.CompressInMemory;
+  Xpress1.CompactFile(vg_ArquivoImagem, viArquivo);
+  if not CopyFile(Pchar(viArquivo), Pchar(vg_ArquivoImagem), False) then
+    ShowMessage('Erro, não foi possivel salvar a imagem!');
+
+  PegaImagem;
+  vg_Imagem_Alterada := True;
+
+end;
+
+procedure TfmeImagem.btnBordaImagemClick(Sender: TObject);
+begin
+  with CreateMessageDialog('Retirar Bordas?', mtConfirmation, [mbYes, MbNo, mbCancel]) do
+  begin
+    vgPrintPDF := True;
+    Caption := 'Bordas';
+    (FindComponent('YES') as TButton).Caption := 'Brancas';
+    (FindComponent('NO') as TButton).Caption := 'Escuras';
+    (FindComponent('CANCEL') as TButton).Caption := 'Cancelar';
+    ShowModal;
+    try
+      if (ModalResult = mrYes) then
+         RetirarBordas(3)
+      else if(ModalResult = mrNo) then
+             RetirarBordas(2);
+    except
+      ShowMessage('Erro ao retirar bordas!');
+    end;
+  end;
+end;
+
+procedure TfmeImagem.btnTrocarImagemClick(Sender: TObject);
+begin
+  TrocarPosicaoImagem;
+end;
+
+procedure TfmeImagem.btnImagemBrancoClick(Sender: TObject);
+var
+  w, h : Integer;
+begin
+  if Xpress1.Pages <> 0 then
+  begin
+    if Application.MessageBox('Deseja gerar imagem nova no mesmo tamanho da imagem atual?', 'Atenção', MB_ICONQUESTION + MB_YESNO) = IDYES then
+    begin
+      w := Xpress1.IWidth;
+      h := Xpress1.IHeight;
+    end
+    else
+    begin
+      w := vg_Imagem_Nova_Largura_W;
+      h := vg_Imagem_Nova_Altura_H;
+    end;
+  end
+  else
+  begin
+    vg_NumImagem := 0;
+    w := vg_Imagem_Nova_Largura_W;
+    h := vg_Imagem_Nova_Altura_H;
+    imgControle.Visible := False;
+  end;
+  Xpress1.SaveMultiPage := True;
+  Xpress1.CreateDIB(w, h, 1, RGB(255, 255, 255));
+  Xpress1.SaveFileName := vg_ArquivoImagem;
+  if (not vlImagemColorida) then
+  begin
+    Xpress1.SaveFileType := FT_TIFF_G4;
+    Xpress1.SaveTIFFCompression := TIFF_CCITTFAX4
+  end
+  else
+  begin
+    Xpress1.SaveJPEGLumFactor   := 50;
+    Xpress1.SaveJPEGChromFactor := 50;
+    Xpress1.SaveFileType := FT_TIFF_JPEG;
+    Xpress1.SaveTIFFCompression := TIFF_JPEG;
+  end;
+  Xpress1.SaveFile;
+  Inc(vg_NumImagem);
+  PegaImagem;
+  vg_Imagem_Alterada := True;
+
+end;
+
+procedure TfmeImagem.btnMargemImagemClick(Sender: TObject);
+var pt: TPoint;
+begin
+  GetCursorPos(pt); // Pega a posição atual do mouse;
+  PopupMenu1.Popup(pt.x, pt.y);
+end;
+
+procedure TfmeImagem.AtivarNotate(vpAtivar : Boolean = False);
+begin
+  try
+    if (vg_Activated = False) then
+    begin
+      if not vpAtivar then
+         vg_Activated := True;
+      //Conecta o ImagXpress ao NotateXpress
+      Notate1.SetClientWindow(Xpress1.hWnd);
+      if curLayer = 0 Then Notate1.CreateLayer;
+      if (curLayer <> 0) then
+      begin
+        Notate1.SetToolPaletteVisible (curLayer, False);
+        if (Notate1.GrpGetFirstGroupID(curLayer) = 0) Then
+           Notate1.GrpCreateGroup(curLayer, '', 0);
+      end;
+      if (not vg_hbltImagem) and (imgControle.Visible = False) then
+        PegaImagem;
+    end;
+  finally
+    curIDRectangle := 0;
+  end;
+end;
+
+procedure TfmeImagem.FecharNotate;
+begin
+  try
+    TwainPRO.CloseSession;
+    Notate1.SetClientWindow(0);
+    sqlCarimbo.Close;
+  Except
+
+  end;
+end;
+
+procedure TfmeImagem.btnCarimboClick(Sender: TObject);
+begin
+  {Habilita a inserção de carimbo na imagem}
+  if not vg_hbltImagem then
+  begin
+    spbPreviewWidthClick(nil);//Volta a imagem para o tamanho da tela de exibição
+    vg_hbltImagem  := True;
+    vg_hbltCarimbo := True;
+    if (curLayer = 0) then
+    begin
+      Notate1.SetClientWindow(Xpress1.hWnd);
+      if curLayer = 0 Then Notate1.CreateLayer;
+      if (curLayer <> 0) then
+      begin
+         Notate1.SetToolPaletteVisible (curLayer, False);
+         if (Notate1.GrpGetFirstGroupID(curLayer) = 0) Then
+            Notate1.GrpCreateGroup(curLayer, '', 0);
+      end;
+    end;
+    btnCarimbo.Flat := False;
+    pnlCarimbo.Visible := True;
+    lcbCarimbo.SetFocus;
+    spbPreviewWhole.Enabled      := False;
+    spbPreview100Percent.Enabled := False;
+    pnlTextoCarimbo.Visible := True;
+    //cxSplitter1.CloseSplitter;
+    cxSplitter1.Visible := True;
+    Xpress1.MousePointer := MP_BPush;
+  end
+  else
+  begin
+    vg_hbltImagem := False;
+    btnCarimbo.Flat := True;
+    pnlCarimbo.Visible := False;
+    spbPreviewWhole.Enabled      := True;
+    spbPreview100Percent.Enabled := True;
+    pnlTextoCarimbo.Visible := False;
+    cxSplitter1.Visible := False;
+    Xpress1.MousePointer := MP_Arrow;
+  end;
+end;
+
+procedure TfmeImagem.CarregarNumeroImagens;
+var i : Integer;
+begin
+  {Carrega para o combobox o número de imagen que o arquivo contem}
+  cbxPaginas.Properties.Items.Clear;
+  for i := 1 to Xpress1.Pages do
+      cbxPaginas.Properties.Items.Add(IntToStr(i));
+end;
+
+procedure TfmeImagem.Xpress1Click(Sender: TObject);
+var
+  e, X, Y : Integer;
+begin
+  {Insere a imagem de carimbo na posição indicada pelo cursor do mouse}
+  if vg_hbltImagem then
+  begin
+    if (lcbCarimbo.EditValue = null) and pnlCarimbo.Visible then
+    begin
+      Application.MessageBox('Nenhum carimbo foi selecionado!', 'Atenção', MB_OK +  MB_ICONWARNING);
+      Exit;
+    end;
+
+    if vg_hbltCarimbo then
+    begin
+      if (Trim(fmeEditorSimples1.wptTexto.Text) <> '') then
+      begin
+        Application.ProcessMessages;
+        dtmControles.CriarImagem(fmeEditorSimples1.wptTexto, vg_DiretorioAuxiliar + '\Carimbo.tif');
+        pnlCarimbo.Visible := False;
+      end
+      else
+      begin
+        Application.MessageBox('Nenhum carimbo foi selecionado!', 'Atenção', MB_OK +  MB_ICONWARNING);
+        vg_hbltImagem := False;
+        btnCarimbo.Flat := True;
+        pnlCarimbo.Visible := False;
+        Xpress1.MousePointer := MP_Arrow;
+        Abort;
+      end;
+    end;
+
+    IXDibLoader.Filename := vg_DiretorioAuxiliar + '\Carimbo.tif';
+
+    //Determina a posição central para ser inserida a imagem de carimbo
+    X := Trunc((Xpress1.ScrollX + vg_PosInic.X) / Xpress1.IPZoomF);
+    Y := Trunc((Xpress1.ScrollY + vg_PosInic.Y) / Xpress1.IPZoomF);
+
+    //Cria imag em de carimbo
+    e := Notate1.ElementCreate;
+    Notate1.ElementSetType(e, ImageTool);
+    Notate1.ElementSetDIBHandle(e, IXDibLoader.CopyDib);
+    Notate1.ElementSetBoundingRect(e, X , Y , X + Trunc(IXDibLoader.IWidth), Y + Trunc(IXDibLoader.IHeight));
+    Notate1.ElementSetPenColor(e, clBlack);
+    Notate1.ElementSetPenWidth(e, vg_BordaCarimbo);
+    Notate1.ElementSetBackstyle(e, vg_EstiloCarimbo);
+    Notate1.ElementAppend(e);
+    Notate1.ElementDestroy(e);
+    btnCarimboClick(nil);
+  end
+  else
+  if pnlLembrete.Visible and (Xpress1.MousePointer = MP_BPush) then
+  begin
+    if Trim(edtLembrete.Text) <> '' then
+    begin
+      InsereObjetoTexto;
+      btnSalvar.Enabled := True;
+      Xpress1.MousePointer := MP_Arrow;
+    end
+    else
+    begin
+      Application.MessageBox(PChar('Não há texto para este lembrete!' + #13#10 + 'Preencha o campo lembrete antes de tentar inserer.'), 'Atenção', MB_OK + MB_ICONWARNING);
+      edtLembrete.SetFocus;
+    end;
+  end;
+
+end;
+
+procedure TfmeImagem.Xpress1MouseMove(Sender: TObject; Shift: TShiftState;
+  X, Y: Integer);
+begin
+  if Xpress1.MousePointer = MP_CHand2 then
+    if vg_Capturando then
+    begin
+      With Xpress1 do
+      begin
+        ScrollX := ScrollX  + (vg_PosInic.X - X);
+        ScrollY := ScrollY  + (vg_PosInic.Y - Y);
+      end;
+    end;
+end;
+
+procedure TfmeImagem.btnDigitalizarClick(Sender: TObject);
+begin
+  //Controla Nº paginas digitalizadas
+  if vgControleNumeroPagina then
+    if vg_NumeroPaginas <= Xpress1.Pages then
+    begin
+      Application.MessageBox('Número de páginas digitalizadas igual ou maior que número de paginas informadas!', 'Atenção', MB_OK + MB_ICONWARNING);
+      Exit;
+    end;
+    
+  if Xpress1.Pages = 0 then
+    DeleteFile(vg_ArquivoImagem);
+  Xpress1.SaveMultiPage := True;
+  vg_NumImagem := Xpress1.Pages;
+  InicializarSessao;
+end;
+
+procedure TfmeImagem.AtualizaImagem(Arquivo : String);
+begin
+  //Inseri a imagem
+  DeleteFile(Arquivo);
+  Xpress1.SaveFileName :=Arquivo;
+  Xpress1.PageNbr := vg_NumImagem;
+
+  if (not vlImagemColorida) then
+  begin
+    Xpress1.SaveFileType := FT_TIFF_G4;
+    Xpress1.SaveTIFFCompression := TIFF_CCITTFAX4
+  end
+  else
+  begin
+    Xpress1.SaveJPEGLumFactor   := 50;
+    Xpress1.SaveJPEGChromFactor := 50;
+    Xpress1.SaveFileType := FT_TIFF_JPEG;
+    Xpress1.SaveTIFFCompression := FT_TIFF_JPEG;
+  end;
+
+  Xpress1.SaveFile;
+  Application.ProcessMessages;
+  Xpress1.InsertPage(Arquivo, vg_ArquivoImagem, vg_NumImagem);
+  Xpress1.DeletePage(vg_ArquivoImagem, vg_NumImagem + 1);
+
+  //Comprime o arquivo das imagens
+  Xpress1.CompressInMemory;
+  Xpress1.CompactFile(vg_ArquivoImagem, vg_DiretorioAuxiliar + '\IMA.TIF');
+  Application.ProcessMessages;
+
+  if not CopyFile(Pchar(vg_DiretorioAuxiliar + '\IMA.TIF'), Pchar(vg_ArquivoImagem), FALSE) then
+    ShowMessage('Erro, não foi possivel copiar a imagem!');
+
+  Application.ProcessMessages;
+end;
+
+procedure TfmeImagem.btnRecortarImagemClick(Sender: TObject);
+var
+  e,X,Y,
+  l,t,r,b : Integer;
+  viArquivo : String;
+begin
+  if (curIDRectangle = 0) then
+  begin
+    if (curLayer = 0) then
+    begin
+      Notate1.SetClientWindow(Xpress1.hWnd);
+      if curLayer = 0 Then Notate1.CreateLayer;
+      if (curLayer <> 0) then
+      begin
+         Notate1.SetToolPaletteVisible (curLayer, False);
+         if (Notate1.GrpGetFirstGroupID(curLayer) = 0) Then
+            Notate1.GrpCreateGroup(curLayer, '', 0);
+      end;
+    end;
+
+    X := Trunc((Xpress1.ScrollX + 1) / Xpress1.IPZoomF);
+    Y := Trunc((Xpress1.ScrollY + 1) / Xpress1.IPZoomF);
+
+    e := Notate1.ElementCreate;
+    Notate1.ElementSetType(e, RectangleTool);
+    Notate1.ElementSetBoundingRect(e, X, Y, X + 1280, Y + 300);
+    Notate1.ElementSetBackstyle(e, NXP_TRANSPARENT );
+    Notate1.ElementSetPenWidth(e, 1);
+
+    curIDRectangle := Notate1.ElementAppend(e);
+
+    Notate1.ElementDestroy(e);
+  end
+  else
+  begin
+    try
+      Notate1.PrgGetItemRect(curLayer,curIDRectangle,l,t,r,b);
+
+      if l < 0 then  l := 0;
+      if r > Xpress1.IWidth then r := Xpress1.IWidth;
+      if t < 0 then  t := 0;
+      if b > Xpress1.IHeight then b := Xpress1.IHeight;
+
+      Xpress1.Crop(l,t,r-l,b-t);
+
+      //Delata os layers
+      if (curLayer <> 0) and (curIDRectangle <> 0) then
+        Notate1.PrgDeleteItem(curLayer,curIDRectangle);
+
+      viArquivo := vg_DiretorioAuxiliar + '\IMA.TIF';
+      DeleteFile(viArquivo);
+
+      Notate1.SaveAnnotations := True;
+      Notate1.PreserveWTLayers:= True;
+      Xpress1.SaveMultiPage   := false;
+      Xpress1.SaveFileName    := viArquivo;
+      if (not vlImagemColorida) then
+      begin
+        Xpress1.SaveFileType := FT_TIFF_G4;
+        Xpress1.SaveTIFFCompression := TIFF_CCITTFAX4
+      end
+      else
+      begin
+        Xpress1.SaveJPEGLumFactor   := 50;
+        Xpress1.SaveJPEGChromFactor := 50;
+        Xpress1.SaveFileType := FT_TIFF_JPEG;
+        Xpress1.SaveTIFFCompression := TIFF_JPEG;
+      end;
+      Xpress1.SaveFile;
+
+      Xpress1.InsertPage(viArquivo, vg_ArquivoImagem, vg_NumImagem + 1);
+      Xpress1.DeletePage(vg_ArquivoImagem, vg_NumImagem);
+
+      DeleteFile(viArquivo);
+
+      //Comprime o arquivo das imagens
+      Xpress1.CompressInMemory;
+      Xpress1.CompactFile(vg_ArquivoImagem, viArquivo);
+      if not CopyFile(Pchar(viArquivo), Pchar(vg_ArquivoImagem), False) then
+        ShowMessage('Erro, não foi possivel salvar a imagem!');
+
+      PegaImagem;
+      vg_Imagem_Alterada := True;
+    finally
+
+    end;
+    curIDRectangle := 0;
+  end;
+end;
+
+procedure TfmeImagem.btnRedigitalizarClick(Sender: TObject);
+begin
+  Xpress1.SaveMultiPage := False;
+  InicializarSessao;
+end;
+
+procedure TfmeImagem.CarregaPaginas;
+var NomeArquivo : String;
+begin
+  curIDRectangle := 0;
+  {Gera um arquivo unico com todas a imagens a serem exibidas}
+  if vg_NomeArquivo <> '' then
+  begin
+    NomeArquivo := GetNomeArquivo(vg_NomeArquivo);
+    ExibirFichaLado(NomeArquivo[1] = 'F');
+  end;
+
+  if FileExists(vg_NomeArquivo) then
+  begin
+    imgControle.Visible := False;
+    vg_Imagem_Alterada  := False;
+
+    vg_LetraMatricula := NomeArquivo[11];
+    if vg_LetraMatricula = '#' then
+       vg_LetraMatricula := '';
+    vg_NumeroMatricula := RetornaNumerico(copy(NomeArquivo, Pos_N('_', NomeArquivo, 2) + 1, 7));
+
+    //SetarAtributosArquivo(vg_NomeArquivo, False, False, False, False);
+
+    if not CopyFile(PChar(vg_NomeArquivo), PChar(vg_ArquivoImagem), false) then
+      ShowMessage('Erro, não foi possivel copiar a imagem!');
+
+    Application.ProcessMessages;
+    //CarregarNumeroImagens;//Carrega o número de imagens para o combobox
+    btnImprimir.Enabled := True;
+    btnPdf.Enabled := True;
+    if Tag = 0 then
+    begin
+      btnCarimbo.Visible  := True;
+      btnBrand.Visible    := True;
+      btnLembrete.Visible := True;
+      if vg_hbltImagem then
+        btnCarimboClick(nil);
+      lcbCarimbo.EditValue := Null;
+    end;
+
+    btnPrimeiroClick(nil);
+  end
+  else begin
+       DeleteFile(vg_ArquivoImagem);
+       Xpress1.FileName    := '';
+       imgControle.Visible := True;
+       btnImprimir.Enabled := False;
+       btnPdf.Enabled      := False;
+       btnAnterior.Enabled := False;
+       btnPrimeiro.Enabled := False;
+       btnProximo.Enabled  := False;
+       btnUltimo.Enabled   := False;
+       btnCarimbo.Visible  := False;
+       btnLembrete.Visible := False;
+       btnBrand.Visible    := False;
+       cbxPaginas.Properties.Items.Clear;
+       if vg_hbltImagem then
+         btnCarimboClick(nil);
+  end;
+
+end;
+
+procedure TfmeImagem.LimparCampos;
+begin
+  icxGrupo.ItemIndex := -1;
+  lcxTipo.Clear;
+  edtNumero.Clear;
+  edtLetra.Clear;
+end;
+
+procedure TfmeImagem.edtNumeroKeyPress(Sender: TObject; var Key: Char);
+begin
+  DigitaInteiro(Key);
+end;
+
+procedure TfmeImagem.btnCancelarClick(Sender: TObject);
+begin
+  btnIndexar.Visible := True;
+  pnlDados.Visible    := False;
+  btnCancelar.Visible      := pnlDados.Visible;
+  btnDigitalizar.Enabled   := not pnlDados.Visible;
+  btnRedigitalizar.Enabled := btnDigitalizar.Enabled;
+
+end;
+
+procedure TfmeImagem.Validar;
+begin
+  if Trim(icxGrupo.Text) = '' then
+  begin
+    Application.MessageBox('Grupo deve ser informado!', 'Atenção', MB_OK + MB_ICONWARNING);
+    icxGrupo.SetFocus;
+    Abort;
+  end;
+
+  if Trim(lcxTipo.Text) = '' then
+  begin
+    Application.MessageBox('Tipo deve ser informado!', 'Atenção', MB_OK + MB_ICONWARNING);
+    lcxTipo.SetFocus;
+    Abort;
+  end;
+
+  if Trim(edtNumero.Text) = '' then
+  begin
+    Application.MessageBox('Número deve ser informado!', 'Atenção', MB_OK + MB_ICONWARNING);
+    edtNumero.SetFocus;
+    Abort;
+  end;
+end;
+
+procedure TfmeImagem.ValidarImagem;
+begin
+  if vg_Imagem_Alterada then
+    if Application.MessageBox('Imagem alterada e não salva! Deseja continuar mesmo assim?', 'Atenção', MB_YESNO + MB_ICONWARNING) = IDNO then
+      Abort;
+end;
+
+procedure TfmeImagem.Imprimir(Tipo : Byte);
+var i,
+    NPagina,
+    ICabecalho,
+    IRodape,
+    viPagIni, viPagAux : Integer;
+    viPrinter : Boolean;
+
+  {Adiciona o cabeçalho a imagem a ser impressa}
+  procedure ImpCabecalho;
+  begin
+    //Montar Cabeçalho para impressão
+    PrintPRO1.Picture := Image1.Picture;
+    PrintPRO1.PrintPicture(vg_LMargem, 0, (vg_WPagina - vg_LMargem - 1), vg_TMargemCabecalho, 0, 0, 0, 0, false);
+  end;
+
+  {Adiciona o rodapé a imagem a ser impressa}
+  procedure ImpRodape;
+  begin
+    //Montar Cabeçalho para impressão
+    PrintPRO1.Picture := Image2.Picture;
+    PrintPRO1.PrintPicture(vg_LMargem, vg_HPagina - (vg_TMargemRodape + 1), (vg_WPagina - vg_LMargem - 1), vg_TMargemRodape, 0, 0, 0, 0, false)
+  end;
+
+  function getImpCabRod(vfTipo : integer) : Boolean;
+  begin
+    Result := False;
+    case vfTipo of
+      1: Result := True;  //todas as páginas
+      2: Result := (i mod 2 = 0); //apenas nas páginas pares
+      3: Result := (i mod 2 <> 0);//apenas nas páginas Impares
+      4: Result := i = 1; //apenas nas primeira páginas
+      5: Result := (i = NPagina);//apenas nas primeira páginas
+    end;
+  end;
+
+  procedure Cabecalho;
+  begin
+    if getImpCabRod(ICabecalho) then
+    begin
+      ImpCabecalho;
+      viPrinter := False;
+    end;
+  end;
+
+  procedure Rodape;
+  begin
+    if getImpCabRod(IRodape) then
+    begin
+      ImpRodape;
+      viPrinter := False;
+    end;
+  end;
+
+  procedure Qualificar;
+  begin
+    if vgQualificar.StlLista <> nil then
+       FreeAndNil(vgQualificar.StlLista);
+
+    vgQualificar.StlLista := TStringList.Create;
+    vgQualificar.StlLista.Add('IMAGEM_VALOR1='+vg_Imagem.Valor1);
+    vgQualificar.StlLista.Add('IMAGEM_VALOR2='+vg_Imagem.Valor2);
+    vgQualificar.StlLista.Add('IMAGEM_VALOR3='+vg_Imagem.Valor3);
+    vgQualificar.StlLista.Add('IMAGEM_VALOR4='+vg_Imagem.Valor4);
+    vgQualificar.StlLista.Add('IMAGEM_VALOR5='+vg_Imagem.Valor5);
+    vgQualificar.StlLista.Add('IMAGEM_VALOR6='+vg_Imagem.Valor6);
+    vgQualificar.StlLista.Add('IMAGEM_VALOR7='+vg_Imagem.Valor7);
+    vgQualificar.StlLista.Add('IMAGEM_VALOR8='+vg_Imagem.Valor8);
+    vgQualificar.StlLista.Add('IMAGEM_VALOR9='+vg_Imagem.Valor9);
+    vgQualificar.StlLista.Add('IMAGEM_VALOR10='+vg_Imagem.Valor10);
+    vgQualificar.StlLista.Add('IMAGEM_PAGINA='+vg_Imagem.Pagina);
+    vgQualificar.StlLista.Add('PAGINA_ATUAL='+vg_Imagem.Folha);
+    vgQualificar.StlLista.Add('DATA_ATUAL='+dtmControles.DataHoraBanco(4));
+    vgQualificar.StlLista.Add('SELO_AGRUPADOR='+vg_Imagem.SeloAgrupador);
+
+    PrepararQualificarPadrao(fmeEditorSimples1.wptTexto,'',True, False, True);
+    fmeEditorSimples1.wptTexto.SelectAll;
+//    RedefinirPadraoFonte(fmeEditorSimples1.wptTexto);
+    FreeAndNil(vgQualificar.StlLista);
+  end;
+
+  procedure MontarCabecalho;
+  begin
+    if (strtoint(vg_Imagem.Folha) > 1) and (vg_CabecalhoDiferente) then
+    begin
+      fmeEditorSimples1.wptTexto.AsString := DeCompressString(dtmControles.BuscarConfig('EDITOR', 'CABECALHO', 'CABECALHO_MODELO'+vg_Cabecalho.Cabecalho2, 'T'));
+      vg_TMargemCabecalho := dtmControles.BuscarConfig('IMAGEM', 'CABECALHO', 'TAMANHO_CAB2_'+vg_Imagem.TipoImpressao, 'D');
+    end
+    else
+    begin
+      fmeEditorSimples1.wptTexto.AsString := DeCompressString(dtmControles.BuscarConfig('EDITOR', 'CABECALHO', 'CABECALHO_MODELO'+vg_Cabecalho.Cabecalho1, 'T'));
+      vg_TMargemCabecalho := dtmControles.BuscarConfig('IMAGEM', 'CABECALHO', 'TAMANHO_CAB1_'+vg_Imagem.TipoImpressao, 'D');
+    end;
+
+    if vg_Qualifica then
+      Qualificar;
+
+    if Trim(fmeEditorSimples1.wptTexto.Text) <> '' then
+    begin
+      dtmControles.CriarImagem(fmeEditorSimples1.wptTexto, vg_DiretorioAuxiliar + '\cabecalho.bmp',2);
+      if FileExists(vg_DiretorioAuxiliar + '\cabecalho.bmp') then
+        Image1.Picture.LoadFromFile(vg_DiretorioAuxiliar + '\cabecalho.bmp');
+    end;
+  end;
+
+  procedure MontarRodape;
+  begin
+    if (strtoint(vg_Imagem.Folha) = NPagina) and (vg_RodapeDiferenteUtlPag) then
+    begin
+      fmeEditorSimples1.wptTexto.AsString := DeCompressString(dtmControles.BuscarConfig('EDITOR', 'CABECALHO', 'RODAPE_MODELO'+vg_Cabecalho.Rodape2, 'T'));
+      vg_TMargemRodape := dtmControles.BuscarConfig('IMAGEM', 'RODAPE', 'TAMANHO_RODAPE2', 'D');
+    end
+    else
+    begin
+      fmeEditorSimples1.wptTexto.AsString := DeCompressString(dtmControles.BuscarConfig('EDITOR', 'CABECALHO', 'RODAPE_MODELO'+vg_Cabecalho.Rodape1, 'T'));
+      vg_TMargemRodape := dtmControles.BuscarConfig('IMAGEM', 'RODAPE', 'TAMANHO_RODAPE', 'D');
+    end;
+
+    if vg_Qualifica then
+      Qualificar;
+
+    if Trim(fmeEditorSimples1.wptTexto.Text) <> '' then
+    begin
+      dtmControles.CriarImagem(fmeEditorSimples1.wptTexto, vg_DiretorioAuxiliar + '\rodape.bmp',2);
+      if FileExists(vg_DiretorioAuxiliar + '\rodape.bmp') then
+        Image2.Picture.LoadFromFile(vg_DiretorioAuxiliar + '\rodape.bmp');
+    end;
+  end;
+
+  {Monta impressão}
+  procedure MontarImpressao(NPag : Integer);
+  begin
+    //Monta a imagem para impressão
+    Xpress1.PageNbr := NPag;
+    Xpress1.FileName := vg_ArquivoImagem;
+
+    //Delata os layers (Lembretes)
+    if (curLayer <> 0) then
+    begin
+      Notate1.Brand(4);
+      Notate1.DeleteLayer(curLayer);
+      vg_Activated := False;
+    end;
+
+    Xpress1.CropBorder(0.9, 2);
+    PrintPRO1.hDib := Xpress1.hDib;
+    {Controle do Cabeçalho/Rodapé:
+     0 - Nenhuma Página
+     1 - Todas as Páginas
+     2 - Páginas Pares
+     3 - Páginas Impares
+     4 - Primeiras Páginas
+     5 - Ultimas Páginas}
+
+    viPrinter := True;
+    if (ICabecalho = 0) and (IRodape = 0) then
+      PrintPRO1.PrintDIB(vg_LMargem , 0, vg_WPagina - (vg_LMargem + 1), vg_HPagina - 1, 0, 0, 0, 0, vg_aspecto)
+    else
+    if getImpCabRod(ICabecalho) and getImpCabRod(IRodape) then
+    begin
+      MontarCabecalho;
+      MontarRodape;
+      PrintPRO1.PrintDIB(vg_LMargem , vg_TMargemCabecalho - vg_SobreMargemCabecalho, vg_WPagina - (vg_LMargem + 1), vg_HPagina - (vg_TMargemCabecalho + vg_TMargemRodape + 1), 0, 0, 0, 0, vg_aspecto);
+      Cabecalho;
+      Rodape;
+      if viPrinter then
+        PrintPRO1.PrintDIB(vg_LMargem , 0, vg_WPagina - (vg_LMargem + 1), vg_HPagina - 1, 0, 0, 0, 0, vg_aspecto);
+    end
+    else
+    if (ICabecalho > 0) then
+    begin
+      MontarCabecalho;
+      PrintPRO1.PrintDIB(vg_LMargem , vg_TMargemCabecalho - vg_SobreMargemCabecalho, vg_WPagina - (vg_LMargem + 1), vg_HPagina - (vg_TMargemCabecalho - vg_SobreMargemCabecalho + 1), 0, 0, 0, 0, vg_aspecto);
+      Cabecalho;
+      if viPrinter then
+        PrintPRO1.PrintDIB(vg_LMargem , 0, vg_WPagina - (vg_LMargem + 1), vg_HPagina - 1, 0, 0, 0, 0, vg_aspecto);
+    end
+    else
+    if (IRodape > 0) then
+    begin
+      MontarRodape;
+      PrintPRO1.PrintDIB(vg_LMargem , 0, vg_WPagina - (vg_LMargem + 1), vg_HPagina - (vg_TMargemRodape + 1), 0, 0, 0, 0, vg_aspecto);
+      Rodape;
+      if viPrinter then
+        PrintPRO1.PrintDIB(vg_LMargem , 0, vg_WPagina - (vg_LMargem + 1), vg_HPagina - 1, 0, 0, 0, 0, vg_aspecto);
+    end;
+
+    //Cria uma nova página para impressão
+    if (i <> NPagina) and (Tipo in [1,3])  then
+       PrintPRO1.NewPage;
+  end;
+
+begin
+  PrintPRO1.PrintError := 0;
+  PrintPRO1.TMargin := 0;
+  PrintPRO1.Lmargin := 0;
+  PrintPRO1.ScaleMode := SCALE_Centimeter;//Escala de imagem em Centimetros
+  PrintPRO1.OutputFileName := '';
+  PrintPRO1.PrintToFile := False;
+  PrintPRO1.PaperSize := vg_PaperSize;
+
+  ICabecalho := vg_ImprimirCabecalho; //Controla impressão de Cabeçalhos
+  IRodape    := vg_ImprimirRodape; //Controla impressão de Cabeçalhos
+  vg_WPagina := Round(PrintPRO1.ScaleWidth); //Largura da página
+  vg_HPagina := Round(PrintPRO1.ScaleHeight); //Altura da página
+  NPagina    := Xpress1.Pages; //Número de Paginas
+
+  if vg_SolicitarPrint then
+    PrintPRO1.PrintDialog; //Escolher a Impressoara
+
+  {Inicio da montagem do arquivo para impressão}
+  If PrintPRO1.PrintError <> 0 Then
+    Exit;
+
+  Screen.Cursor := crHourGlass;
+
+  PrintPRO1.StartPrintDoc;
+  Application.ProcessMessages;
+
+  if tipo = 1 then
+    viPagIni := 1
+  else
+    if tipo = 3 then
+    begin
+      viPagIni := spnPagInicial.EditValue;
+      NPagina  := spnPagFinal.EditValue;
+    end;
+
+  if vg_Imagem.Pagina <> '' then
+       viPagAux := StrToInt(vg_Imagem.Pagina)-1
+  else viPagAux := 0;
+
+  if Tipo in [1,3] then
+  for i := viPagIni to NPagina do
+  begin
+    Inc(viPagAux);
+    vg_Imagem.Pagina  := IntToStr(viPagAux);
+    vg_Imagem.Folha   := IntToStr(i);
+    MontarImpressao(i);
+  end
+  else
+  begin
+    vg_Imagem.Folha := IntToStr(Xpress1.PageNbr);
+    if vg_Imagem.Pagina <> '' then
+      vg_Imagem.Pagina := IntToStr((StrToInt(vg_Imagem.Pagina)+Xpress1.PageNbr)-1);
+    MontarImpressao(Xpress1.PageNbr);
+  end;
+
+  PrintPRO1.EndPrintDoc;
+  btnPrimeiroClick(nil);
+  vgImagemImpressa := True;
+  Screen.Cursor := crDefault;
+end;
+
+procedure TfmeImagem.btnImportarClick(Sender: TObject);
+var
+  i: Integer;
+  Xp : TImagXpress;
+  viExtArquivo,
+  viNomeArquivo : String;
+begin
+  if OpenPictureDialog.Execute then
+  begin
+    vg_NumImagem := Xpress1.Pages;
+
+    viExtArquivo := GetExtArquivo(OpenPictureDialog.FileName);
+    if UpperCase(viExtArquivo) = 'PDF' then
+    begin
+      viNomeArquivo := 'c:\Temp\ImgTemp.tiff';
+      dtmControles.ConverterPdfToTiff(OpenPictureDialog.FileName, viNomeArquivo)
+    end
+    else
+      viNomeArquivo := OpenPictureDialog.FileName;
+
+    Xp := TImagXpress.Create(Xpress1);
+    Xp.SaveMultiPage := vg_NumImagem > 0;
+    Xp.FileName := viNomeArquivo;
+
+    if (not vlImagemColorida) then
+    begin
+      Xp.SaveFileType := FT_TIFF_G4;
+      Xp.SaveTIFFCompression := TIFF_CCITTFAX4
+    end
+    else
+    begin
+      Xp.SaveJPEGLumFactor   := 50;
+      Xp.SaveJPEGChromFactor := 50;
+      Xp.SaveFileType := FT_TIFF_JPEG;
+      Xp.SaveTIFFCompression := TIFF_JPEG;
+    end;
+    ProgressBar.Properties.Max := Xp.Pages;
+    ProgressBar.Visible := True;
+
+    for i := 1 to Xp.Pages do
+    begin
+      ProgressBar.Position := i;
+      Application.ProcessMessages;
+
+      Xp.PageNbr := i;
+      Xp.FileName := viNomeArquivo;
+      Xp.SaveFileName := vg_ArquivoImagem;
+      Xp.SaveFile;
+      Xp.SaveMultiPage := True;
+    end;
+
+    Xp.Free;
+
+    Inc(vg_NumImagem);
+    PegaImagem;
+    imgControle.Visible := False;
+    vg_Imagem_Alterada := True;
+    
+    ProgressBar.Position := 0;
+    ProgressBar.Visible := False;
+  end;
+end;
+
+procedure TfmeImagem.btnImprimirClick(Sender: TObject);
+begin
+  vg_SolicitarPrint          := True;
+  pnlImpressao.Visible       := True;
+  cbxTipoImpressao.EditValue := 1;
+  spnPagInicial.EditValue    := 1;
+  spnPagFinal.EditValue      := 1;
+end;
+
+procedure TfmeImagem.Xpress1KeyDown(Sender: TObject; var Key: Word;
+  Shift: TShiftState);
+begin
+  if Key = VK_DELETE then
+  begin
+    //Welber 11/04/2008
+    if (Notate1.CurrentLayer <> 0) then
+    begin
+      Notate1.DeleteSelected;
+      curIDRectangle := 0;
+      if not vg_hbltImagem then
+        btnSalvarClick(Self);
+    end;
+    //final welber
+  end
+  else
+  if Key = VK_F12 then
+  begin
+    if vgTwainPadrao then
+    begin
+      try
+        TwainPRO.CloseSession;
+        TwainPRO.SelectSource;
+      except
+
+      end;
+    end;
+  end;
+end;
+
+procedure TfmeImagem.icxGrupoPropertiesChange(Sender: TObject);
+begin
+  sqlIndexacaoTipo.Connection := dtmControles.DB;
+  sqlIndexacaoTipo.Close;
+  sqlIndexacaoTipo.DataSet.Params[0].AsInteger := vgId;
+  sqlIndexacaoTipo.DataSet.Params[1].Value  := icxGrupo.EditValue;
+  sqlIndexacaoTipo.Open;
+
+  edtLetra.Visible := icxGrupo.Text = 'Ficha';
+  Label4.Visible   := edtLetra.Visible;
+end;
+
+procedure TfmeImagem.btnIndexarClick(Sender: TObject);
+begin
+  LimparCampos;
+  btnIndexar.Visible := False;
+  pnlDados.Visible  := True;
+
+  btnCancelar.Visible      := pnlDados.Visible;
+  btnDigitalizar.Enabled   := not pnlDados.Visible;
+  btnRedigitalizar.Enabled := btnDigitalizar.Enabled;
+
+end;
+
+procedure TfmeImagem.cbxPaginasPropertiesChange(Sender: TObject);
+begin
+  {Exibe a imagem selecionada no combobox}
+  if (Trim(cbxPaginas.Text) <> '') and (cbxPaginas.Tag = 0) then
+  begin
+    vg_NumImagem := StrToInt(cbxPaginas.Text);
+    PegaImagem;
+  end;
+end;
+
+procedure TfmeImagem.TrocarPosicaoImagem;
+var Arquivo, Valor : String;
+    Posicao : Integer;
+begin
+  Posicao := 0;
+  valor := InputBox('Mover imagem para', 'Posição:', '');
+  if Trim(Valor) <> '' then
+  begin
+     try
+       Posicao := StrToInt(Valor);
+     except
+       Application.MessageBox('Valor informado não é valido!', 'Atenção', MB_OK + MB_ICONWARNING);
+       Abort;
+     end;
+  end
+  else Abort;
+
+  if  (Posicao > Xpress1.Pages) or (Posicao < 1) then
+  begin
+    Application.MessageBox('Posição a ser movida não é valida!', 'Atenção', MB_OK + MB_ICONWARNING);
+    Abort;
+  end;
+
+  // Pagina em Branco {Atualizacao}
+  Xpress1.SaveMultiPage := False;
+
+  //Inseri a imagem na posição indicada
+  Arquivo :=  vg_DiretorioAuxiliar + '\IMA.TIF';
+  Xpress1.SaveFileName :=Arquivo;
+  Xpress1.PageNbr := vg_NumImagem;
+
+  if (not vlImagemColorida) then
+  begin
+    Xpress1.SaveFileType := FT_TIFF_G4;
+    Xpress1.SaveTIFFCompression := TIFF_CCITTFAX4
+  end
+  else
+  begin
+    Xpress1.SaveJPEGLumFactor   := 50;
+    Xpress1.SaveJPEGChromFactor := 50;
+    Xpress1.SaveFileType := FT_TIFF_JPEG;
+    Xpress1.SaveTIFFCompression := TIFF_JPEG;
+  end;
+
+  Xpress1.SaveFile;
+  Xpress1.DeletePage(vg_ArquivoImagem, vg_NumImagem);
+  Xpress1.InsertPage(Arquivo, vg_ArquivoImagem, Posicao);
+
+  //Comprime o arquivo das imagens
+  Xpress1.CompressInMemory;
+  Xpress1.CompactFile(vg_ArquivoImagem, Arquivo);
+
+  if not CopyFile(Pchar(Arquivo), Pchar(vg_ArquivoImagem), FALSE) then
+    ShowMessage('Erro, não foi possivel copiar a imagem!');
+    
+  Application.ProcessMessages;
+  vg_NumImagem := Posicao;
+  PegaImagem;
+  vg_Imagem_Alterada := True;
+  Application.MessageBox('Posição modifica com sucesso!', 'Atenção', MB_OK + MB_ICONWARNING);
+end;
+
+procedure TfmeImagem.ExibirFichaLado(Valor: Boolean);
+begin
+  vg_ExibirFicha := Valor;
+  vg_ExibirFichaMostrarImagem := Valor;
+  if Valor then
+     Panel3.Left := stxFichaLado.Left + stxFichaLado.Width + 1
+  else Panel3.Left := stxFichaLado.Left;
+end;
+
+procedure TfmeImagem.Xpress1DblClick(Sender: TObject);
+begin
+  vg_NumeroImagemAtual := vg_NumImagem;
+  if frmMostrarImagem = nil then
+    Application.CreateForm(TfrmMostrarImagem, frmMostrarImagem);
+  frmMostrarImagem.vg_ArquivoImagem := vg_ArquivoImagem;
+  frmMostrarImagem.ShowModal;
+end;
+
+procedure TfmeImagem.lcbCarimboPropertiesEditValueChanged(Sender: TObject);
+begin
+  if lcbCarimbo.EditValue <> Null then
+  begin
+    fmeEditorSimples1.wptTexto.AsString := DeCompressString(sqlCarimboTEXTO.AsString);
+    PrepararQualificarPadrao(fmeEditorSimples1.wptTexto, '', False, False, False);
+  end
+  else fmeEditorSimples1.wptTexto.AsString := '';
+
+end;
+
+procedure TfmeImagem.btnPdfClick(Sender: TObject);
+begin
+  with CreateMessageDialog('Páginas a serem geradas em PDF?', mtConfirmation, [mbYes, MbNo, mbCancel]) do
+  begin
+    vgPrintPDF := True;
+    Caption := 'Impressão';
+    (FindComponent('YES') as TButton).Caption := 'Todas';
+    (FindComponent('NO') as TButton).Caption := 'Atual';
+    (FindComponent('CANCEL') as TButton).Caption := 'Cancelar';
+    ShowModal;
+    try
+      if (ModalResult = mrYes) then
+         GerarPDF(1)
+      else if(ModalResult = mrNo) then
+             GerarPDF(0);
+    except
+      ShowMessage('Erro ao gerar arquivo PDF!');
+    end;
+  end;
+end;
+
+procedure TfmeImagem.GerarPDF(Tipo : Byte);
+var i,
+    NPagina, viPagIni : Integer;
+    Xp : TImagXpress;
+    DiretorioPDF : String;
+
+    procedure GerarArquivoPDF(NPag : Integer);
+    begin
+    xp.LoadResizeWidth  := 2480;
+      xp.LoadResizeHeight := 3508;
+      Xp.PageNbr := NPag;
+      Xp.FileName := Xpress1.FileName;
+      xp.IResX := 300;
+      xp.IResY := 300;
+      xp.SaveFile;
+    end;
+begin
+  NPagina      := Xpress1.Pages; //Número de Paginas
+  DiretorioPDF := ExtractFilePath(Application.ExeName) + '\PDF';
+  if not DirectoryExists(DiretorioPDF) then
+    CreateDir(DiretorioPDF);
+  DiretorioPDF := DiretorioPDF + '\'+ TiraBarra(dtmControles.DataHoraBanco(4));
+  if not DirectoryExists(DiretorioPDF) then
+    CreateDir(DiretorioPDF);
+
+  Xp := TImagXpress.Create(Xpress1);
+  Xp.SaveFileName := DiretorioPDF + '\' + vg_NumeroMatricula + '.PDF';
+  xp.SaveMultiPage := True;
+  xp.SavePDFCompression := PDF_CCITTFAX4;
+  xp.LoadResizeEnabled := True;
+
+  DeleteFile(Xp.SaveFileName);
+
+  {Inicio da montagem do arquivo para impressão}
+  Screen.Cursor := crHourGlass;
+
+  Application.ProcessMessages;
+
+  if tipo = 1 then
+    viPagIni := 1
+  else
+    if tipo = 3 then
+    begin
+      viPagIni := spnPagInicial.EditValue;
+      NPagina  := spnPagFinal.EditValue;
+    end;
+
+  if Tipo in [1,3] then
+     for i := viPagIni to NPagina do
+         GerarArquivoPDF(i)
+  else GerarArquivoPDF(Xpress1.PageNbr);
+
+  Xp.Free;
+
+  //Assinar PDF
+  if chxAssinar.Checked then
+    fmeAssinaturaDigital1.AssinarDoc(DiretorioPDF + '\' + vg_NumeroMatricula + '.PDF');
+
+  Screen.Cursor := crDefault;
+  ShowMessage('Arquivo gerado com sucesso!');
+end;
+
+procedure TfmeImagem.ImagemColorida(Valor: Boolean);
+begin
+  vlImagemColorida := Valor;
+  if (not vlImagemColorida) then
+    TwainPRO.SaveTIFFCompression := TIFF_CCITTFAX4
+  else TwainPRO.SaveTIFFCompression := TIFF_JPEG;
+end;
+
+procedure TfmeImagem.btnCancelarImpImagemClick(Sender: TObject);
+begin
+  pnlImpressao.Visible := False;
+end;
+
+procedure TfmeImagem.btnImprimirImagemClick(Sender: TObject);
+begin
+  vg_PaperSize := cbxTipoPapel.EditValue;
+  Imprimir(cbxTipoImpressao.EditValue);
+  spnPagInicial.EditValue := 1;
+  spnPagFinal.EditValue   := 1;
+  pnlImpressao.Visible    := False;
+end;
+
+procedure TfmeImagem.cbxTipoImpressaoPropertiesEditValueChanged(
+  Sender: TObject);
+begin
+  pnlIntervaloImp.Visible := cbxTipoImpressao.EditValue >= 3;
+end;
+
+procedure TfmeImagem.chxAssinarClick(Sender: TObject);
+begin
+  if chxAssinar.Checked then
+    ShowCertificados
+  else pnlCertificados.Visible := False;
+end;
+
+procedure TfmeImagem.InserirMargemImagem(vpMargem: Integer);
+var w, h, r, i, Nri,
+    viWPagina,
+    viHPagina,
+    viLMargem,
+    viTMargem : Integer;
+    viArquivo : String;
+    Xp : TImagXpress;
+begin
+  Screen.Cursor := crHourglass;
+  viArquivo := vg_DiretorioAuxiliar + '\IMA.TIF';
+
+  PrintPRO1.PrintError := 0;
+  PrintPRO1.TMargin    := 0;
+  PrintPRO1.Lmargin    := 0;
+  PrintPRO1.ScaleMode  := SCALE_Centimeter;//Escala de imagem em Centimetros
+  PrintPRO1.OutputFileName := viArquivo;
+  PrintPRO1.PaperSize  := vg_PaperSize;
+
+  viWPagina := Round(PrintPRO1.ScaleWidth); //Largura da página
+  viHPagina := Round(PrintPRO1.ScaleHeight); //Altura da página
+
+  viLMargem := 0;
+  viTMargem := 0;
+
+  Nri := Xpress1.Pages;
+
+  Xp := TImagXpress.Create(Xpress1);
+
+  for i := 1 to Nri do
+  begin
+    DeleteFile(viArquivo);
+
+    Xpress1.PageNbr := i;
+    Xpress1.FileName := vg_ArquivoImagem;
+
+    //Delata os layers (Lembretes)
+    if (curLayer <> 0) then
+    begin
+      Notate1.Brand(4);
+      Notate1.DeleteLayer(curLayer);
+      vg_Activated := False;
+    end;
+
+    r := round(Xpress1.IResX * 2.5423);
+    w := Xpress1.IWidth;
+    h := Xpress1.IHeight;
+
+    Xpress1.CropBorder(0.9, 2);
+
+    PrintPRO1.PrintToFile  := True;
+    PrintPRO1.SaveFileType := PP_TIF_G4;
+    PrintPRO1.StartPrintDoc;
+    PrintPRO1.hDib := Xpress1.hDib;
+    PrintPRO1.PrintDIB(viLMargem , viTMargem , viWPagina - (viLMargem + 1), viHPagina - (viTMargem + 1) - vpMargem, 0, 0, 0, 0, vg_aspecto);
+    PrintPRO1.EndPrintDoc;
+    PrintPRO1.PrintToFile := False;
+
+    Xp.SaveFileName := viArquivo;
+    xp.SaveMultiPage := False;
+    xp.LoadResizeEnabled := True;
+
+    if (not vlImagemColorida) then
+    begin
+      xp.SaveFileType := FT_TIFF_G4;
+      xp.SaveTIFFCompression := TIFF_CCITTFAX4
+    end
+    else
+    begin
+      xp.SaveJPEGLumFactor   := 50;
+      xp.SaveJPEGChromFactor := 50;
+      xp.SaveFileType := FT_TIFF_JPEG;
+      xp.SaveTIFFCompression := TIFF_JPEG;
+    end;
+
+    xp.LoadResizeWidth  := w;
+    xp.LoadResizeHeight := h;
+    Xp.FileName := viArquivo;
+    xp.IResX := r;
+    xp.IResY := r;
+    xp.SaveFile;
+
+    Xpress1.InsertPage(viArquivo, vg_ArquivoImagem, i + 1);
+    Xpress1.DeletePage(vg_ArquivoImagem, i);
+  end;
+  Xp.Free;
+
+  //Comprime o arquivo das imagens
+  Xpress1.CompressInMemory;
+  Xpress1.CompactFile(vg_ArquivoImagem, viArquivo);
+
+  if not CopyFile(Pchar(viArquivo), Pchar(vg_ArquivoImagem), False) then
+    ShowMessage('Erro, não foi possivel copiar a imagem!');
+    
+  Application.ProcessMessages;
+  PegaImagem;
+  Screen.Cursor := crDefault;
+end;
+
+
+procedure TfmeImagem.Margem1cm1Click(Sender: TObject);
+begin
+  InserirMargemImagem(TMenuItem(Sender).Tag);
+end;
+
+procedure TfmeImagem.GravarImagem;
+var Letra : String;
+begin
+  try
+    if vg_TipoGravacao = 'M' then
+    begin
+      Validar;
+      if Trim(edtLetra.Text) = '' then
+         Letra := '#'
+      else Letra := edtLetra.Text;
+
+      vg_NomeArquivo := vg_CaminhoDiretorio + icxGrupo.EditValue + '_' + sqlIndexacaoTipoSIGLA.AsString + '_' + RetZeros(edtNumero.Text, 6) + Letra + '.spd';
+      btnIndexar.Visible := True;
+    end;
+
+    try
+    if not DirectoryExists(vg_CaminhoDiretorio) then
+       MkDir(vg_CaminhoDiretorio);
+    except
+      Application.MessageBox(PChar('Caminho da imagem não existe : ' + vg_CaminhoDiretorio), 'Atenção', MB_OK + MB_ICONERROR);
+      Abort;
+    end;
+
+    if not CopyFile(PChar(vg_ArquivoImagem), PChar(vg_NomeArquivo), false) then
+       ShowMessage('Erro, não foi possivel salvar a imagem!');
+
+    pnlDados.Visible    := False;
+
+    btnCancelar.Visible      := pnlDados.Visible;
+    btnDigitalizar.Enabled   := not pnlDados.Visible;
+    btnRedigitalizar.Enabled := btnDigitalizar.Enabled;
+    vg_Imagem_Alterada := False;
+    
+  except
+    Application.MessageBox('ERRO! Imagem não digitalizada! Verifique!',  'Atenção', MB_OK  + MB_ICONEXCLAMATION);
+  end;
+end;
+
+procedure TfmeImagem.Notate1CurrentLayerChange(ASender: TObject;
+  newLayer: Integer);
+begin
+  curLayer := newLayer;
+end;
+
+procedure TfmeImagem.pagControleChange(Sender: TObject);
+begin
+  if pagControle.ActivePage = tbsGeral then
+  begin
+    tbsGeral.ImageIndex := 13;
+    tbsImagem.ImageIndex := -1;
+    tbsArquivo.ImageIndex := -1;
+  end
+  else
+  if pagControle.ActivePage = tbsImagem then
+  begin
+    tbsGeral.ImageIndex := -1;
+    tbsImagem.ImageIndex := 14;
+    tbsArquivo.ImageIndex := -1;
+  end
+  else
+  if pagControle.ActivePage = tbsArquivo then
+  begin
+    tbsGeral.ImageIndex := -1;
+    tbsImagem.ImageIndex := -1;
+    tbsArquivo.ImageIndex := 15;
+  end;
+end;
+
+procedure TfmeImagem.btnCancelarLembreteClick(Sender: TObject);
+begin
+  Xpress1.MousePointer := MP_Arrow;
+  pnlLembrete.Visible := False;
+end;
+
+procedure TfmeImagem.btnCancelClick(Sender: TObject);
+begin
+  pnlCertificados.Visible := False;
+  chxAssinar.Checked      := False;
+end;
+
+procedure TfmeImagem.btnLembreteClick(Sender: TObject);
+begin
+  pnlLembrete.Visible := True;
+  if (curLayer = 0) then
+    begin
+      Notate1.SetClientWindow(Xpress1.hWnd);
+      if curLayer = 0 Then Notate1.CreateLayer;
+      if (curLayer <> 0) then
+      begin
+         Notate1.SetToolPaletteVisible (curLayer, False);
+         if (Notate1.GrpGetFirstGroupID(curLayer) = 0) Then
+            Notate1.GrpCreateGroup(curLayer, '', 0);
+      end;
+    end;
+  Xpress1.MousePointer := MP_BPush;
+  edtLembrete.SetFocus;
+end;
+
+procedure TfmeImagem.btnOKClick(Sender: TObject);
+begin
+  if fmeAssinaturaDigital1.ValidarCertificado then
+    pnlCertificados.Visible := False;
+end;
+
+procedure TfmeImagem.InsereObjetoTexto;
+Var e, x, y : Integer;
+   t : String;
+   f : TFont;
+   NewFont : IFontDisp;
+
+begin
+   f := TFont.Create;
+   f.Name := 'Arial';
+   f.Size := 48;
+   f.Style := [fsBold];
+
+   GetOleFont(f, NewFont);
+
+   X := Trunc((Xpress1.ScrollX + vg_PosInic.X) / Xpress1.IPZoomF);
+   Y := Trunc((Xpress1.ScrollY + vg_PosInic.Y) / Xpress1.IPZoomF);
+
+   e := Notate1.ElementCreate;
+   Notate1.ElementSetType(e, StampTool);
+   Notate1.ElementSetBoundingRect(e, X , Y , X + 1300, Y + 300);
+   Notate1.ElementSetTextColor(e, clGreen);
+   Notate1.ElementSetBackstyle(e, NXP_TRANSPARENT);
+   Notate1.ElementSetPenWidth(e, 0);
+
+   t := edtLembrete.Text;
+   Notate1.ElementSetText(e, t);
+   Notate1.ElementSetFont(e, NewFont);
+   Notate1.ElementAppend(e);
+   Notate1.ElementDestroy(e);
+
+   f.Free;
+end;
+
+procedure TfmeImagem.btnSalvarClick(Sender: TObject);
+var
+   viArquivo : String;
+begin
+  viArquivo := vg_DiretorioAuxiliar + '\IMA.TIF';
+  DeleteFile(viArquivo);
+
+  Notate1.SaveAnnotations := True;
+  Notate1.PreserveWTLayers:= True;
+  Xpress1.SaveMultiPage   := false;
+  Xpress1.SaveFileName    := viArquivo;
+  if (not vlImagemColorida) then
+  begin
+    Xpress1.SaveFileType := FT_TIFF_G4;
+    Xpress1.SaveTIFFCompression := TIFF_CCITTFAX4
+  end
+  else
+  begin
+    Xpress1.SaveJPEGLumFactor   := 50;
+    Xpress1.SaveJPEGChromFactor := 50;
+    Xpress1.SaveFileType := FT_TIFF_JPEG;
+    Xpress1.SaveTIFFCompression := TIFF_JPEG;
+  end;
+  Xpress1.SaveFile;
+
+  Xpress1.InsertPage(viArquivo, vg_ArquivoImagem, vg_NumImagem + 1);
+  Xpress1.DeletePage(vg_ArquivoImagem, vg_NumImagem);
+
+  //Comprime o arquivo das imagens
+  Xpress1.CompressInMemory;
+  Xpress1.CompactFile(vg_ArquivoImagem, viArquivo);
+  if not CopyFile(Pchar(viArquivo), Pchar(vg_ArquivoImagem), False) then
+    ShowMessage('Erro, não foi possivel salvar a imagem!');
+
+  PegaImagem;
+
+  GravarImagem;
+
+  Notate1.SaveAnnotations := False;
+  Notate1.PreserveWTLayers:= False;
+  pnlLembrete.Visible := False;
+
+ end;
+
+end.

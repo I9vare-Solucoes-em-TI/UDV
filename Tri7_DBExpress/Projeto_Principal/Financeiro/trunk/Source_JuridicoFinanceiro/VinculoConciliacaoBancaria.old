@@ -1,0 +1,189 @@
+unit VinculoConciliacaoBancaria;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, CadastroAuxSimplificado, cxGraphics,
+  cxControls, cxLookAndFeels, cxLookAndFeelPainters, cxContainer, cxEdit,
+  Vcl.Menus, Data.FMTBcd, Data.DB, Datasnap.DBClient, Datasnap.Provider,
+  Data.SqlExpr, Vcl.StdCtrls, cxButtons, Vcl.ExtCtrls, cxLabel, cxStyles,
+  cxCustomData, cxFilter, cxData, cxDataStorage, cxNavigator, cxDBData,
+  cxCurrencyEdit, cxImageComboBox, cxCalendar, cxGridLevel,
+  cxGridCustomTableView, cxGridTableView, cxGridDBTableView, cxClasses,
+  cxGridCustomView, cxGrid, cxGroupBox, cxCheckBox;
+
+type
+  TfrmVinculoConciliacaoBancaria = class(TfrmCadastroAuxSimplificado)
+    cxGroupBox1: TcxGroupBox;
+    cxGrid1: TcxGrid;
+    grdBasicaDBTableView1: TcxGridDBTableView;
+    grdBasicaDBTableView1Column1: TcxGridDBColumn;
+    grdBasicaDBTableView1Column2: TcxGridDBColumn;
+    grdBasicaDBTableView1Column3: TcxGridDBColumn;
+    grdBasicaDBTableView1Column4: TcxGridDBColumn;
+    grdBasicaDBTableView1Column5: TcxGridDBColumn;
+    cxGridLevel1: TcxGridLevel;
+    gbcLivroCaixa: TcxGroupBox;
+    grdBasica: TcxGrid;
+    cxGridPesquisa: TcxGridDBTableView;
+    cxGridBasicaDBDataPag: TcxGridDBColumn;
+    cxGridBasicaDBPlanoConta: TcxGridDBColumn;
+    cxGridPesquisaHistorico: TcxGridDBColumn;
+    cxGridBasicaDBFavorecido: TcxGridDBColumn;
+    cxGridPesquisaObservacao: TcxGridDBColumn;
+    cxGridBasicaDBOperacao: TcxGridDBColumn;
+    cxGridBasicaDBValor: TcxGridDBColumn;
+    cxGridPesquisaColumn1: TcxGridDBColumn;
+    grdBasicaLevel1: TcxGridLevel;
+    ClientAncestralLIVRO_CAIXA_ID: TFMTBCDField;
+    ClientAncestralDATA_PAGAMENTO: TSQLTimeStampField;
+    ClientAncestralHISTORICO: TStringField;
+    ClientAncestralOBSERVACAO: TStringField;
+    ClientAncestralPESSOA_ID: TFMTBCDField;
+    ClientAncestralOPERACAO: TStringField;
+    ClientAncestralVALOR: TFMTBCDField;
+    ClientAncestralCALC_SELECIONADO: TBooleanField;
+    ClientAncestralCONTABIL_CONTA_ID: TFMTBCDField;
+    ClientConciliacao: TClientDataSet;
+    ClientConciliacaoDATA: TStringField;
+    ClientConciliacaoDESCRICAO: TStringField;
+    ClientConciliacaoVALOR: TCurrencyField;
+    ClientConciliacaoOPERACAO: TStringField;
+    ClientConciliacaoID: TStringField;
+    dtsConciliacao: TDataSource;
+    ClientAncestralCalc_ValorRegistrar: TCurrencyField;
+    cxGridPesquisaValorRegistrar: TcxGridDBColumn;
+    procedure FormActivate(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure ClientAncestralCalcFields(DataSet: TDataSet);
+    procedure cxGridPesquisaColumn1PropertiesChange(Sender: TObject);
+    procedure btnCancelarClick(Sender: TObject);
+    procedure btnConfirmarClick(Sender: TObject);
+  private
+    vlPosicaoID : Integer;
+  public
+    { Public declarations }
+  end;
+
+var
+  frmVinculoConciliacaoBancaria: TfrmVinculoConciliacaoBancaria;
+  vgConciliacaoId : String;
+
+implementation
+
+uses
+  ConciliacaoBancaria, LookupFinanceiro, Lookup, Lookup_Contabil, Rotinas;
+
+{$R *.dfm}
+
+procedure TfrmVinculoConciliacaoBancaria.btnCancelarClick(Sender: TObject);
+begin
+  frmConciliacaoBancaria.sqlDadosConciliacao.EnableControls;
+  frmConciliacaoBancaria.sqlDadosConciliacao.Filtered := False;
+  frmConciliacaoBancaria.sqlDadosConciliacao.RecNo := vlPosicaoID;
+
+  vgConciliacaoId := '';
+  inherited;
+end;
+
+procedure TfrmVinculoConciliacaoBancaria.btnConfirmarClick(Sender: TObject);
+begin
+  ClientAncestral.Filtered := True;
+  ClientAncestral.Filter   := 'CALC_SELECIONADO = TRUE';
+  ClientAncestral.Filtered := False;
+  vgConciliacaoId := '';
+
+  ClientAncestral.First;
+  while not ClientAncestral.Eof do
+  begin
+    if ClientAncestralCALC_SELECIONADO.AsBoolean then
+    begin
+      if vgConciliacaoId = '' then
+           vgConciliacaoId := ClientAncestralLIVRO_CAIXA_ID.AsString
+      else vgConciliacaoId := vgConciliacaoId  +','+ ClientAncestralLIVRO_CAIXA_ID.AsString;
+    end;
+    ClientAncestral.Next;
+  end;
+  inherited;
+end;
+
+procedure TfrmVinculoConciliacaoBancaria.ClientAncestralCalcFields(
+  DataSet: TDataSet);
+begin
+  inherited;
+  if ClientAncestralCALC_SELECIONADO.AsBoolean then
+       ClientAncestralCalc_ValorRegistrar.AsCurrency :=  ClientAncestralVALOR.AsCurrency
+  else ClientAncestralCalc_ValorRegistrar.AsCurrency :=  0;
+end;
+
+procedure TfrmVinculoConciliacaoBancaria.cxGridPesquisaColumn1PropertiesChange(
+  Sender: TObject);
+begin
+  inherited;
+  ClientAncestral.Post;
+  btnConfirmar.Enabled := grdBasicaDBTableView1.DataController.Summary.FooterSummaryValues[0] =  cxGridPesquisa.DataController.Summary.FooterSummaryValues[0];
+end;
+
+procedure TfrmVinculoConciliacaoBancaria.FormActivate(Sender: TObject);
+
+  procedure CarregarItensConciliacao;
+  begin
+    with frmConciliacaoBancaria do
+    begin
+      sqlDadosConciliacao.DisableControls;
+      vlPosicaoID := sqlDadosConciliacao.RecNo;
+
+      sqlDadosConciliacao.Filtered := False;
+      sqlDadosConciliacao.Filter   := 'CALC_SELECIONADO = TRUE';
+      sqlDadosConciliacao.Filtered := True;
+
+      if sqlDadosConciliacao.IsEmpty then
+      begin
+        sqlDadosConciliacao.Filtered := False;
+        sqlDadosConciliacao.RecNo    := vlPosicaoID;
+      end
+      else sqlDadosConciliacao.First;
+
+      while not sqlDadosConciliacao.Eof do
+      begin
+        ClientConciliacao.Append;
+        ClientConciliacaoDATA.AsString      := sqlDadosConciliacaoDATA_PAGAMENTO.AsString;
+        ClientConciliacaoDESCRICAO.AsString := sqlDadosConciliacaoDESCRICAO.AsString;
+        ClientConciliacaoVALOR.AsCurrency   := sqlDadosConciliacaoVALOR.AsCurrency;
+        ClientConciliacaoOPERACAO.AsString  := sqlDadosConciliacaoOPERACAO.AsString;
+        ClientConciliacaoID.AsString        := sqlDadosConciliacaoCONCILIACAO_REGISTRADO_ID.AsString;
+        ClientConciliacao.Post;
+
+        if not sqlDadosConciliacao.Filtered then
+          Break;
+
+        sqlDadosConciliacao.Next;
+      end;
+      gbcLivroCaixa.Caption := 'Registros no Livro Caixa do Dia '+sqlDadosConciliacaoDATA_PAGAMENTO.AsString + ' ainda não conciliado(s).';
+
+      ClientAncestral.Active := False;
+      DataSetAncestral.ParamByName('DATA').AsString      := FormatDateTime('DD.MM.YYYY HH:MM:SS', sqlDadosConciliacaoDATA_PAGAMENTO.AsDateTime);
+      DataSetAncestral.ParamByName('OPERACAO1').AsString := sqlDadosConciliacaoOPERACAO.AsString;
+      DataSetAncestral.ParamByName('OPERACAO2').AsString := 'T'+sqlDadosConciliacaoOPERACAO.AsString;
+//      DataSetAncestral.ParamByName('CAIXA_ID').AsBCD     := lcbConta.EditValue;
+      ClientAncestral.Active := True;
+      dtmLookup.MarcarDesmarcarItensClietDataSet('N', ClientAncestral);
+    end;
+  end;
+
+begin
+  inherited;
+  CarregarItensConciliacao;
+  btnConfirmar.Enabled := False;
+end;
+
+procedure TfrmVinculoConciliacaoBancaria.FormClose(Sender: TObject;
+  var Action: TCloseAction);
+begin
+  Action      := caFree;
+  frmVinculoConciliacaoBancaria := nil;
+  inherited;
+end;
+
+end.
