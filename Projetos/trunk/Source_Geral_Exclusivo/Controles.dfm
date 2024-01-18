@@ -261,7 +261,7 @@ object dtmControles: TdtmControles
     end
   end
   object frxRelatorio: TfrxReport
-    Version = '6.8.6'
+    Version = '2022.3'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator]
@@ -384,7 +384,7 @@ object dtmControles: TdtmControles
     Top = 232
   end
   object frxImagem: TfrxReport
-    Version = '6.8.6'
+    Version = '2022.3'
     DotMatrixReport = False
     IniFile = '\Software\Fast Reports'
     PreviewOptions.Buttons = [pbPrint, pbLoad, pbSave, pbExport, pbZoom, pbFind, pbOutline, pbPageSetup, pbTools, pbEdit, pbNavigator]
@@ -414,6 +414,10 @@ object dtmControles: TdtmControles
       OnBeforePrint = 'Page1OnBeforePrint'
       object ReportTitle1: TfrxReportTitle
         FillType = ftBrush
+        FillGap.Top = 0
+        FillGap.Left = 0
+        FillGap.Bottom = 0
+        FillGap.Right = 0
         Frame.Typ = []
         Height = 166.299197950000000000
         Top = 18.897650000000000000
@@ -548,6 +552,7 @@ object dtmControles: TdtmControles
     ShowProgress = True
     OverwritePrompt = False
     DataOnly = False
+    EmbedFontsIfProtected = False
     InteractiveFormsFontSubset = 'A-Z,a-z,0-9,#43-#47 '
     OpenAfterExport = False
     PrintOptimized = False

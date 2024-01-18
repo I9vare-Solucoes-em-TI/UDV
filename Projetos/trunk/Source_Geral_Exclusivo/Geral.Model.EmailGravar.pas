@@ -22,6 +22,8 @@ type
     FSistemaId: Integer;
     FObservacao: string;
     FStatus: string;
+    FTabela: string;
+    FCampoId: Integer;
   public
     property EmailId: Integer read FEmailId write FEmailId;
     property DataEnvio: TDateTime read FDataEnvio write FDataEnvio;
@@ -32,6 +34,8 @@ type
     property SistemaId: Integer read FSistemaId write FSistemaId;
     property Observacao: string read FObservacao write FObservacao;
     property Status: string read FStatus write FStatus;
+    property Tabela: string read FTabela write FTabela;
+    property CampoId: Integer read FCampoId write FCampoId;
   end;
 
   TEmailGravarUtil = class
@@ -45,7 +49,9 @@ type
       const vpIpMaquina: string;
       const vpSistemaId: Integer;
       const vpObservacao: string;
-      const vpStatus: string): TEmailGravar;
+      const vpStatus: string;
+      const vpTabela: string;
+      const vpCampoId: integer): TEmailGravar;
   end;
 
   TEmailGravarDao = class(TDao<TEmailGravar>)
@@ -117,7 +123,9 @@ begin
     vpDataSet.FieldByName('IP_MAQUINA').Asstring,
     vpDataSet.FieldByName('SISTEMA_ID').AsInteger,
     vpDataSet.FieldByName('OBSERVACAO').Asstring,
-    vpDataSet.FieldByName('STATUS').Asstring);
+    vpDataSet.FieldByName('STATUS').Asstring,
+    vpDataSet.FieldByName('TABELA').Asstring,
+    vpDataSet.FieldByName('CAMPO_ID').AsInteger);
 end;
 
 procedure TEmailGravarDao.FillParams(
@@ -135,6 +143,8 @@ begin
   PreencherParametro(vpParams, 'SISTEMA_ID', vpValue.SistemaId, vpIndex);
   PreencherParametro(vpParams, 'OBSERVACAO', vpValue.Observacao, vpIndex);
   PreencherParametro(vpParams, 'STATUS', vpValue.Status, vpIndex);
+  PreencherParametro(vpParams, 'TABELA', vpValue.Tabela, vpIndex);
+  PreencherParametro(vpParams, 'CAMPO_ID', vpValue.CampoId, vpIndex);
 end;
 
 function TEmailGravarDao.GetColumns: TArray<string>;
@@ -148,7 +158,9 @@ begin
     'IP_MAQUINA',
     'SISTEMA_ID',
     'OBSERVACAO',
-    'STATUS'
+    'STATUS',
+    'TABELA',
+    'CAMPO_ID'
   ];
 end;
 
@@ -164,14 +176,14 @@ class function TEmailGravarBusiness.Buscar(
 var
   viEmailDao: TEmailGravarDao;
 begin
-{  Result := nil;
+  Result := nil;
   viEmailDao := nil;
   try
     viEmailDao := TEmailGravarDao.Create(dtmControles.DB);
     Result := viEmailDao.GetById(vpEmailId);
   finally
     FreeAndNil(viEmailDao);
-  end;}
+  end;
 end;
 
 class function TEmailGravarBusiness.Cadastrar(
@@ -184,7 +196,7 @@ var
   viCadastroValido: Boolean;
   viListaErroValidacao: TStrings;
 begin
-{  Result := 0;
+  Result := 0;
 
   viListaErroValidacao := nil;
   viEmailDao := nil;
@@ -225,7 +237,7 @@ begin
   finally
     FreeAndNil(viEmailDao);
     FreeAndNil(viListaErroValidacao);
-  end; }
+  end;
 end;
 
 constructor TEmailGravarBusiness.Create(const vpConexaoDb: TConexaoDb);
@@ -243,7 +255,7 @@ var
   viExclusaoValida: Boolean;
   viListaErroValidacao: TStrings;
 begin
-{  Result := 0;
+  Result := 0;
 
   viListaErroValidacao := nil;
   viEmailDao := nil;
@@ -266,7 +278,7 @@ begin
   finally
     FreeAndNil(viEmailDao);
     FreeAndNil(viListaErroValidacao);
-  end; }
+  end;
 end;
 
 function TEmailGravarBusiness.Pesquisar(const vpDataIni,
@@ -312,7 +324,9 @@ begin
       '    E.IP_MAQUINA, '+
       '    S.DESCRICAO AS SISTEMA, '+
       '    E.OBSERVACAO, '+
-      '    E.STATUS '+
+      '    E.STATUS, '+
+      '    E.TABELA, '+
+      '    E.CAMPO_ID '+
       'FROM '+
       '    G_EMAIL E '+
       'LEFT JOIN '+
@@ -383,7 +397,9 @@ class function TEmailGravarUtil.Preencher(
   const vpIpMaquina: string;
   const vpSistemaId: Integer;
   const vpObservacao: string;
-  const vpStatus: string): TEmailGravar;
+  const vpStatus: string;
+  const vpTabela: string;
+  const vpCampoId: integer): TEmailGravar;
 begin
   Result := TEmailGravar.Create;
   Result.EmailId := vpEmailId;
@@ -395,9 +411,11 @@ begin
   Result.SistemaId := vpSistemaId;
   Result.Observacao := vpObservacao;
   Result.Status := vpStatus;
+  Result.Tabela := vpTabela;
+  Result.CampoId := vpCampoId;
 end;
- 
+
 { TEmail }
- 
+
 end.
 

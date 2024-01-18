@@ -145,8 +145,16 @@ var
 
 implementation
 
-uses Controles, Lookup, Rotinas, SelecionarBoletoEnviar, Lookup_Contabil,
-  GerenciadorRecebimento, LookupBoleto, ConfirmacaoRecibo, VisualizaRelatorios;
+uses
+  Controles,
+  Lookup,
+  Rotinas,
+  SelecionarBoletoEnviar,
+  Lookup_Contabil,
+  GerenciadorRecebimento,
+  LookupBoleto,
+  ConfirmacaoRecibo,
+  VisualizaRelatorios;
 
 {$R *.dfm}
 
@@ -250,20 +258,20 @@ var
           if not vgEmailConfig.Autenticar then
           begin
             if chxCC.Checked then
-                 dtmControles.EnviarEmailNovo(viTexto, edtCC.Text, vlAttachmentFile, nil, True)
-            else dtmControles.EnviarEmailNovo(viTexto, '', vlAttachmentFile, nil, True);
-
+              dtmControles.EnviarEmailNovo(viTexto, edtCC.Text, vlAttachmentFile, nil, True)
+            else
+              dtmControles.EnviarEmailNovo(viTexto, '', vlAttachmentFile, nil, True);
 
           //            if chxCC.Checked then
   //               dtmControles.EnviarEmailAntigo(viTexto, edtCC.Text, vlAttachmentFile, nil)
     //        else dtmControles.EnviarEmailAntigo(viTexto, '', vlAttachmentFile, nil);
-
           end
           else
           begin
             if chxCC.Checked then
-                 dtmControles.EnviarEmailNovo(viTexto, edtCC.Text, vlAttachmentFile, nil, True)
-            else dtmControles.EnviarEmailNovo(viTexto, '', vlAttachmentFile, nil, True);
+              dtmControles.EnviarEmailNovo(viTexto, edtCC.Text, vlAttachmentFile, nil, True)
+            else
+              dtmControles.EnviarEmailNovo(viTexto, '', vlAttachmentFile, nil, True);
 //           SendMail(viTexto, edtCC.Text, vlAttachmentFile, nil);
           end;
 

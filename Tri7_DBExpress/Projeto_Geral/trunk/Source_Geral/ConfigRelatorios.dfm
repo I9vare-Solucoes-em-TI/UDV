@@ -313,6 +313,7 @@ inherited frmConfigRelatorios: TfrmConfigRelatorios
       Control = PanelData
       Color = 14807280
       ParentColor = False
+      ExplicitWidth = 8
     end
     object pnlRelatorio: TPanel
       Left = 1
@@ -466,23 +467,24 @@ inherited frmConfigRelatorios: TfrmConfigRelatorios
   end
   inherited DataSetAncestral: TI9Query
     SQL.Strings = (
-      'select CONFIG_RELATORIO_ID, DESCRICAO, GRUPO_RELATORIO_ID, INTER' +
-      'NO, SISTEMA_ID, SITUACAO, EDITAR  '#13#10'from G_CONFIG_RELATORIO'#13#10'whe' +
-      're SISTEMA_ID = :SISTEMA_ID'#13#10'   OR  SISTEMA_ID = :SISTEMA_ID1'#13#10'O' +
-      'RDER BY CONFIG_RELATORIO_ID')
-    Params = <
+      
+        'select CONFIG_RELATORIO_ID, DESCRICAO, GRUPO_RELATORIO_ID, INTER' +
+        'NO, SISTEMA_ID, SITUACAO, EDITAR  '#13#10'from G_CONFIG_RELATORIO'#13#10'whe' +
+        're SISTEMA_ID = :SISTEMA_ID'#13#10'   OR  SISTEMA_ID = :SISTEMA_ID1'#13#10'O' +
+        'RDER BY CONFIG_RELATORIO_ID')
+    Left = 355
+    Top = 18
+    ParamData = <
       item
-        DataType = ftBCD
         Name = 'SISTEMA_ID'
+        DataType = ftBCD
         ParamType = ptInput
       end
       item
-        DataType = ftBCD
         Name = 'SISTEMA_ID1'
+        DataType = ftBCD
         ParamType = ptInput
       end>
-    Left = 355
-    Top = 18
   end
   inherited ProviderAncestral: TDataSetProvider
     Left = 387
@@ -529,7 +531,7 @@ inherited frmConfigRelatorios: TfrmConfigRelatorios
     Top = 18
   end
   object frxRelatorio: TfrxReport
-    Version = '6.0.7'
+    Version = '2022.3'
     DotMatrixReport = False
     EngineOptions.UseFileCache = True
     IniFile = '\Software\Fast Reports'
@@ -561,29 +563,31 @@ inherited frmConfigRelatorios: TfrmConfigRelatorios
       TopMargin = 10.000000000000000000
       BottomMargin = 10.000000000000000000
       Frame.Typ = []
+      MirrorMode = []
       OnBeforePrint = 'Page1OnBeforePrint'
     end
   end
   object sqlGrupoRelatorio: TI9Query
-    Aggregates = <>
     Connection = dtmControles.DB
+    FetchOptions.AssignedValues = [evMode]
+    FetchOptions.Mode = fmAll
     SQL.Strings = (
-      'select * from G_GRUPO_RELATORIO'#13#10'where SISTEMA_ID = :SISTEMA_ID'#13 +
-      #10'   OR  SISTEMA_ID = :SISTEMA_ID1'#13#10'order by DESCRICAO')
+      
+        'select * from G_GRUPO_RELATORIO'#13#10'where SISTEMA_ID = :SISTEMA_ID'#13 +
+        #10'   OR  SISTEMA_ID = :SISTEMA_ID1'#13#10'order by DESCRICAO')
+    Left = 617
+    Top = 60
     ParamData = <
       item
-        DataType = ftBCD
         Name = 'SISTEMA_ID'
+        DataType = ftBCD
         ParamType = ptInput
       end
       item
-        DataType = ftBCD
         Name = 'SISTEMA_ID1'
+        DataType = ftBCD
         ParamType = ptInput
       end>
-    Params = <>
-    Left = 617
-    Top = 60
     object sqlGrupoRelatorioGRUPO_RELATORIO_ID: TBCDField
       FieldName = 'GRUPO_RELATORIO_ID'
       Required = True

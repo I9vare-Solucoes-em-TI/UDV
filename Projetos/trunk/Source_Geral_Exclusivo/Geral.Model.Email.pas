@@ -10,8 +10,6 @@ unit Geral.Model.Email;
 interface
 
 uses
-  I9Query,
-  I9Connection,
   Data.DB,
   System.SysUtils,
   System.StrUtils,
@@ -23,7 +21,7 @@ uses
   Vcl.Forms,
   Geral.Model.Entity.Spec.List,
   Geral.Model.Entity.Spec.Email,
-  System.Generics.Collections, CRSQLConnection, SimpleDS;
+  System.Generics.Collections;
 
   type
   TEmailEnvio = class
@@ -35,7 +33,6 @@ uses
      FWebBrowser: TWebBrowser;
 
      procedure EmailConfig;
-     function GetConfigEmailPadraoID: Integer;
      function WB_Get_HTML(const vpFileBody: string): string;
      function CabecalhoRadapePadrao(const vpCorpo: string): string;
      function GetEmailPadrao: string;
@@ -47,25 +44,34 @@ uses
      procedure GravarEmail(const vpEmailDestinatario: string;
        const vpAssunto: string;
        const vpStatus: string;
-       const vpObservacao: string);
+       const vpObservacao: string;
+       const vpTabela: string;
+       const vpCampoId: integer);
+    function GetConfigEmailPadraoID: Integer;
   public
+     function ExisteEmailConfigirador: Boolean;
+
      procedure EnviarEmail(
        const vpEmailDestinatario: string;
        const vpAssunto: string;
        const vpCorpo: string;
        const vpAnexo: IList<string>;
-       const vpCorpoArquivoHtml: Boolean = True;
-       const vpEmailCopia: string = '';
-       const vpEmailCopiaOculta: string = '');overload;
+       const vpCorpoArquivoHtml: Boolean;
+       const vpEmailCopia: string;
+       const vpEmailCopiaOculta: string;
+       const vpTabela: string;
+       const vpCampoId: integer);overload;
 
      procedure EnviarEmail(
        const vpEmailDestinatario: string;
        const vpAssunto: string;
        const vpCorpo: string;
        const vpAnexo: string;
-       const vpCorpoArquivoHtml: Boolean = True;
-       const vpEmailCopia: string = '';
-       const vpEmailCopiaOculta: string = '');overload;
+       const vpCorpoArquivoHtml: Boolean;
+       const vpEmailCopia: string;
+       const vpEmailCopiaOculta: string;
+       const vpTabela: string;
+       const vpCampoId: integer);overload;
 
      constructor Create(const vpEmailConfigID: Integer = 0); reintroduce;
      destructor Destroy; override;
@@ -83,6 +89,7 @@ uses
   Geral.Model.Entity.Impl.Maybe,
   Geral.Model.Entity.Impl.Factory.List,
   Geral.Model.EmailGravar;
+
 
 function TEmailEnvio.CabecalhoRadapePadrao(const vpCorpo: string): string;
 var
@@ -172,7 +179,7 @@ begin
       '  G_EC.ESPACO_TEXTO_RODAPE, '+
       '  G_EC.ADICIONAR_ASSINATURA_USUARIO '+
       'FROM ' +
-      '  T_EMAIL_CONFIG G_EC ' +
+      '  G_EMAIL_CONFIG G_EC ' +
       'WHERE ' +
       '  G_EC.EMAIL_CONFIG_ID = :P_EMAIL_CONFIG_ID';
     {$ENDREGION}
@@ -189,9 +196,11 @@ end;
 procedure TEmailEnvio.EnviarEmail(
   const vpEmailDestinatario, vpAssunto, vpCorpo,
   vpAnexo: string;
-  const vpCorpoArquivoHtml: Boolean = True;
-  const vpEmailCopia: string = '';
-  const vpEmailCopiaOculta: string = '');
+  const vpCorpoArquivoHtml: Boolean;
+  const vpEmailCopia: string;
+  const vpEmailCopiaOculta: string;
+  const vpTabela: string;
+  const vpCampoId: integer);
 var
   viAnexo: IList<string>;
 begin
@@ -210,7 +219,14 @@ begin
     viAnexo,
     vpCorpoArquivoHtml,
     vpEmailCopia,
-    vpEmailCopiaOculta);
+    vpEmailCopiaOculta,
+    vpTabela,
+    vpCampoId);
+end;
+
+function TEmailEnvio.ExisteEmailConfigirador: Boolean;
+begin
+  Result := GetConfigEmailPadraoID > 0;
 end;
 
 procedure TEmailEnvio.EnviarEmail(
@@ -218,9 +234,11 @@ procedure TEmailEnvio.EnviarEmail(
   const vpAssunto: string;
   const vpCorpo: string;
   const vpAnexo: IList<string>;
-  const vpCorpoArquivoHtml: Boolean = True;
-  const vpEmailCopia: string = '';
-  const vpEmailCopiaOculta: string = '');
+  const vpCorpoArquivoHtml: Boolean;
+  const vpEmailCopia: string;
+  const vpEmailCopiaOculta: string;
+  const vpTabela: string;
+  const vpCampoId: integer);
 var
   viPara: IList<IEmailItem>;
   viDe: IEmailItem;
@@ -236,7 +254,7 @@ begin
     viCorpo := CabecalhoRadapePadrao(vpCorpo);
 
   viDe := TEmailItem.New(
-    dtmControles.NucleoNome,
+    'Nome da Unidade', { TODO : Colocar o nome da Unidade }
     GetEmailPadrao);
 
   viPara := TListFactory<IEmailItem>.New.GetInstance;
@@ -269,12 +287,13 @@ begin
   except
     on E: Exception do
     begin
-      GravarEmail(vpEmailDestinatario, vpAssunto, 'N', e.Message);
+      GravarEmail(vpEmailDestinatario, vpAssunto, 'N', e.Message, vpTabela, vpCampoID);
       Exit;
     end;
   end;
 
-  GravarEmail(vpEmailDestinatario, vpAssunto, 'E', 'E-mail Enviado com Sucesso!!!');
+  //GravarEmail(vpEmailDestinatario, vpAssunto, 'E', 'E-mail Enviado com Sucesso!!!', vpTabela, vpCampoID);
+  { TODO : Verificar se vai usar essa estrutura de gravação nas tabelas de email }
 end;
 
 function TEmailEnvio.GetConfigEmailPadraoID: Integer;
@@ -288,7 +307,7 @@ begin
     viQuery.Connection := FConnection;
 
     {$REGION 'Retorna E-mail Padrão do Sistema'}
-{    viQuery.SQL.Text := 'SELECT EMAIL_CONFIG_ID '+
+    viQuery.SQL.Text := 'SELECT FIRST 1 EMAIL_CONFIG_ID '+
                         'FROM G_EMAIL_CONFIG '+
                         'WHERE SISTEMA_ID = :P_SISTEMA_ID ';
     viQuery.ParamByName('P_SISTEMA_ID').AsInteger := vgId;
@@ -299,11 +318,11 @@ begin
     viQuery.Close;
     {$ENDREGION}
 
- {   if Result > 0 then
+    if Result > 0 then
       Exit;
 
     {$REGION 'Retorna E-mail Padrão Geral'}
-  {  viQuery.SQL.Text := 'SELECT FIRST 1 EMAIL_CONFIG_ID '+
+    viQuery.SQL.Text := 'SELECT FIRST 1 EMAIL_CONFIG_ID '+
                         'FROM G_EMAIL_CONFIG '+
                         'WHERE PADRAO = ''S'' ';
     viQuery.Open;
@@ -313,12 +332,12 @@ begin
     viQuery.Close;
     {$ENDREGION}
 
-  {  if Result > 0 then
+    if Result > 0 then
       Exit;
 
     {$REGION 'Retorna Primeiro Registro (Metodo Anterior)'}
     viQuery.SQL.Text := 'SELECT FIRST 1 EMAIL_CONFIG_ID '+
-                        'FROM T_EMAIL_CONFIG ';
+                        'FROM G_EMAIL_CONFIG ';
     viQuery.Open;
 
     Result := viQuery.FieldByName('EMAIL_CONFIG_ID').AsInteger;
@@ -343,7 +362,6 @@ end;
 
 function TEmailEnvio.GetTextoAssinatura: string;
 var
-  i,
   viLinhas: Integer;
 begin
   Result := EmptyStr;
@@ -375,7 +393,9 @@ begin
 end;
 
 procedure TEmailEnvio.GravarEmail(const vpEmailDestinatario, vpAssunto,
-  vpStatus, vpObservacao: string);
+  vpStatus, vpObservacao: string;
+  const vpTabela: string;
+  const vpCampoId: integer);
 var
   viEmailGravar: TEmailGravar;
 begin
@@ -392,6 +412,8 @@ begin
     viEmailGravar.SistemaId := vgId;
     viEmailGravar.Status    := vpStatus;
     viEmailGravar.Observacao:= Copy(vpObservacao, 1, 260);
+    viEmailGravar.Tabela    := vpTabela;
+    viEmailGravar.CampoId   := vpCampoId;
 
     TEmailGravarBusiness.Cadastrar(viEmailGravar);
   finally

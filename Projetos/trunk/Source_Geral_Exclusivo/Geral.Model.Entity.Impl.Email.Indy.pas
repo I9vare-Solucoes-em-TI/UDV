@@ -49,7 +49,7 @@ type
 implementation
 
 uses
-  Email,
+  EmailIndy,
   System.SysUtils,
   System.StrUtils,
   Geral.Model.Entity.Impl.Factory.List,
@@ -132,6 +132,7 @@ begin
         vpEmail.TypeHtml) then
         raise Exception.Create(
           viMensagemResult);
+
     except
       on E: Exception do
         raise Exception.CreateFmt(

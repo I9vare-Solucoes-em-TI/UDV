@@ -9,7 +9,8 @@ uses
   frxExportPDF, frxExportRTF, frxExportXLS, ComCtrls, Controles,
   DBClient, SimpleDS, cxButtons, Printers, frxDesgnCtrls,
   frxRichEditor, frxRich,
-  frxDesgn, cxGraphics, cxLookAndFeels, cxLookAndFeelPainters;
+  frxDesgn, cxGraphics, cxLookAndFeels, cxLookAndFeelPainters, dxSkinsCore, dxSkinOffice2007Black, dxSkinOffice2007Blue, dxSkinOffice2007Green,
+  dxSkinOffice2007Pink, dxSkinOffice2007Silver;
 
 type
   TRelFast =  record
