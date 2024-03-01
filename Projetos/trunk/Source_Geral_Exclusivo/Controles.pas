@@ -473,7 +473,8 @@ uses
   FundoTipoDAO,
   csDXFunctions,
   Lookup,
-  MensagemUtils;
+  MensagemUtils,
+  Geral.Model.Email;
 
 {$R *.dfm}
 
@@ -1096,7 +1097,6 @@ end;
 
 procedure TdtmControles.EnviarEmailNovo(vBodyHtml : String; vEmailCC: string; vAttachment: String; vAnexo: TStrings;
                  vpEncaminhaAnexo : Boolean = False);
-(* { TODO : CORRIGIR }
 var
   viWptTexto: TWPRichText;
   viTexto: string;
@@ -1108,9 +1108,7 @@ var
   viDestinatario: string;
   viErroValidacao: string;
   viTextoEmail : TStringList;
-*)
 begin
-(*
   inherited;
 //  viAttachmentFile := 'c:\Temp\EmailRascunho.pdf';
   viAttachmentFile := vAttachment;
@@ -1170,7 +1168,11 @@ begin
             { vpAssunto } vgEmailConfig.AssuntoPadrao,
             { vpCorpo } 'c:\Temp\Body.html',
             { vpAnexo } viAttachmentFile,
-            { vpCorpoArquivoHtml } True, vEmailCC);
+            { vpCorpoArquivoHtml } True,
+            { vpEmailCopia } vEmailCC,
+            { vpEmailCopiaOculta } '',
+            { vpTabela } '',
+            { vpCampoId } 0);
         except
           on e: exception do
           begin
@@ -1192,7 +1194,6 @@ begin
     FreeAndNil(vgEmailConfig.TextoRodape);
     Screen.Cursor := crDefault;
   end;
-*)
 end;
 
 function TdtmControles.ExecSQL(Qry: string): Boolean;

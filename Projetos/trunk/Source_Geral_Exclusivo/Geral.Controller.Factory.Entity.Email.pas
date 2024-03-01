@@ -10,12 +10,10 @@ unit Geral.Controller.Factory.Entity.Email;
 interface
 
 uses
-  I9Query,
-  I9Connection,
   Geral.Model.Entity.Spec.Factory,
   Geral.Model.Entity.Spec.Email,
   I9Connection,
-  Data.DB, CRSQLConnection, SimpleDS;
+  Data.DB;
 
 type
   TEnvioEmailFactory = class(TInterfacedObject, IFactory<IEnvioEmail>)
@@ -40,7 +38,8 @@ implementation
 
 uses
   Geral.Model.Entity.Impl.Email.Indy,
-  I9Query;
+  I9Query,
+  Controles;
 
 { TEnvioEmailFactory }
 
@@ -80,7 +79,7 @@ begin
 
     {$REGION 'Cláusula FROM'}
     'FROM ' +
-    'T_EMAIL_CONFIG G_EC ' +
+    'G_EMAIL_CONFIG G_EC ' +
     {$ENDREGION}
 
     {$REGION 'Cláusula WHERE e Parâmetros'}
@@ -115,8 +114,8 @@ begin
     viUsuario := viEmailConfig.FieldByName(
       'USER_NAME').AsString;
 
-    viSenha := viEmailConfig.FieldByName(
-      'PASSWORD').AsString;
+    viSenha := dtmControles.Cripto.CriptoHexToText(viEmailConfig.FieldByName(
+      'PASSWORD').AsString);
 
     viAutenticarServidor := viEmailConfig.FieldByName(
       'AUTENTICAR_SERVIDOR').AsString = 'S';

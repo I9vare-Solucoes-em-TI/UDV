@@ -20,7 +20,8 @@ uses
   dxSkinDevExpressStyle, dxSkinMcSkin, dxSkinOffice2007Black,
   dxSkinOffice2007Blue, dxSkinOffice2007Green, dxSkinOffice2007Pink,
   dxSkinOffice2007Silver, dxSkinsDefaultPainters, dxSkinscxPCPainter,
-  GrupoRelatorios;
+  GrupoRelatorios, FireDAC.Stan.Intf, FireDAC.Stan.Option, FireDAC.Stan.Param, FireDAC.Stan.Error, FireDAC.DatS, FireDAC.Phys.Intf, FireDAC.DApt.Intf,
+  FireDAC.Stan.Async, FireDAC.DApt, FireDAC.Comp.DataSet, FireDAC.Comp.Client;
 
 type
   TConfiguracaoRelatorio = class

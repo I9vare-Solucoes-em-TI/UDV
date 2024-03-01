@@ -167,7 +167,21 @@ uses
   Geral.Model.Entity.Impl.Assinar.PDF in 'Source_Geral_Exclusivo\Geral.Model.Entity.Impl.Assinar.PDF.pas',
   Geral.Model.Entity.Impl.Maybe in 'Source_Geral_Exclusivo\Geral.Model.Entity.Impl.Maybe.pas',
   Geral.Model.Entity.Impl.Factory.List in 'Source_Geral_Exclusivo\Geral.Model.Entity.Impl.Factory.List.pas',
-  Email in 'Source_Geral_Exclusivo\Email.pas';
+  Geral.Model.Email in 'Source_Geral_Exclusivo\Geral.Model.Email.pas',
+  Geral.Model.Entity.Spec.Email in 'Source_Geral_Exclusivo\Geral.Model.Entity.Spec.Email.pas',
+  Geral.Model.Entity.Impl.Email in 'Source_Geral_Exclusivo\Geral.Model.Entity.Impl.Email.pas',
+  Geral.Model.Entity.Impl.Email.Indy in 'Source_Geral_Exclusivo\Geral.Model.Entity.Impl.Email.Indy.pas',
+  Geral.Controller.Factory.Entity.Email in 'Source_Geral_Exclusivo\Geral.Controller.Factory.Entity.Email.pas',
+  Geral.Model.Entity.Spec.IntervaloDatas in 'Source_Geral_Exclusivo\Geral.Model.Entity.Spec.IntervaloDatas.pas',
+  Geral.Model.Entity.Impl.IntervaloDatas in 'Source_Geral_Exclusivo\Geral.Model.Entity.Impl.IntervaloDatas.pas',
+  Geral.Model.EmailGravar in 'Source_Geral_Exclusivo\Geral.Model.EmailGravar.pas',
+  Geral.Model.DAO in 'Source_Geral_Exclusivo\Geral.Model.DAO.pas',
+  Geral.Model.ConexaoDb in 'Source_Tesouraria\Geral.Model.ConexaoDb.pas',
+  Geral.Model.Util.Firebird in 'Source_Geral_Exclusivo\Geral.Model.Util.Firebird.pas',
+  Geral.Model.Util.List in 'Source_Geral_Exclusivo\Geral.Model.Util.List.pas',
+  Geral.Model.Util.Str in 'Source_Geral_Exclusivo\Geral.Model.Util.Str.pas',
+  Geral.Model.Exception in 'Source_Geral_Exclusivo\Geral.Model.Exception.pas',
+  EmailIndy in 'Source_Geral_Exclusivo\EmailIndy.pas';
 
 {$R *.res}
 {$R Atualizador.res}
