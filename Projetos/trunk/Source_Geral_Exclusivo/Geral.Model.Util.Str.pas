@@ -40,6 +40,9 @@ type
     class function MaiusculoMinusculo(
       vpPalavra: string;
       const vpRetirarEspacos: Boolean = True): string;
+
+    class function ValidarEmail(
+      const vpEmail: string): Boolean;
   end;
 
 implementation
@@ -47,7 +50,8 @@ implementation
 uses
   System.SysUtils,
   System.StrUtils,
-  System.Classes;
+  System.Classes,
+  System.RegularExpressions;
 
 { TUtilString }
 
@@ -315,6 +319,19 @@ begin
   finally
     FreeAndNil(viLista);
   end;
+end;
+
+class function TUtilString.ValidarEmail(const vpEmail: string): Boolean;
+const
+  CI_PATTERN = '^((?>[a-zA-Z\d!#$%&''*+\-\/=?^_`{|}~]+\x20*|"((?=[\x01-\x7f])' +
+    '[^"\\]|\\[\x01-\x7f])*"\x20*)*(?<angle><))?((?!\.)' +
+    '(?>\.?[a-zA-Z\d!#$%&''*+\-\/=?^_`{|}~]+)+|"((?=[\x01-\x7f])' +
+    '[^"\\]|\\[\x01-\x7f])*")@(((?!-)[a-zA-Z\d\-]+(?<!-)\.)+[a-zA-Z]' +
+    '{2,}|\[(((?(?<!\[)\.)(25[0-5]|2[0-4]\d|[01]?\d?\d))' +
+    '{4}|[a-zA-Z\d\-]*[a-zA-Z\d]:((?=[\x01-\x7f])[^\\\[\]]|\\' +
+    '[\x01-\x7f])+)\])(?(angle)>)$';
+begin
+  Result := TRegEx.IsMatch(vpEmail, CI_PATTERN);
 end;
 
 end.

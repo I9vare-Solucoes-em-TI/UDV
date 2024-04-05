@@ -444,22 +444,7 @@
         <DCCReference Include="..\..\Tri7_Firedac\Desenvolvimento\Projeto_Geral\trunk\Source_Geral\FrameImageNovo\PesquisaImagem.pas">
             <Form>frmPesquisaImagem</Form>
         </DCCReference>
-        <DCCReference Include="D:\Tri7\Desenvolvimento\Projeto_Geral\trunk\Source_Geral\Geral.Model.Entity.Spec.PKI.pas"/>
-        <DCCReference Include="D:\Tri7\Desenvolvimento\Projeto_Geral\trunk\Source_Geral\Geral.Controller.Factory.Entity.PDF.pas"/>
-        <DCCReference Include="D:\Tri7\Desenvolvimento\Projeto_Geral\trunk\Source_Geral\Geral.Model.Entity.Impl.PDF.Debenu.pas"/>
-        <DCCReference Include="D:\Tri7\Desenvolvimento\Projeto_Geral\trunk\Source_Geral\Geral.Controller.Factory.Entity.PKI.pas"/>
-        <DCCReference Include="D:\Tri7\Desenvolvimento\Projeto_Geral\trunk\Source_Geral\Geral.Model.Entity.Impl.PKI.XSignPKCS.pas"/>
-        <DCCReference Include="D:\Tri7\Desenvolvimento\Projeto_Geral\trunk\Source_Geral\Geral.Model.Entity.Impl.Blob.pas"/>
-        <DCCReference Include="D:\Tri7\Desenvolvimento\Projeto_Geral\trunk\Source_Geral\XSign_TLB.pas"/>
-        <DCCReference Include="D:\Tri7\Desenvolvimento\Projeto_Geral\trunk\Source_Geral\Geral.Model.Entity.Impl.PKI.Eldos.pas"/>
-        <DCCReference Include="D:\Tri7\Desenvolvimento\Projeto_Geral\trunk\Source_Geral\Geral.View.Sel.Certificado.Eldos.pas">
-            <Form>frmSelecionarCertificadoEldos</Form>
-        </DCCReference>
         <DCCReference Include="Source_Geral_Exclusivo\Geral.Model.PDF.pas"/>
-        <DCCReference Include="D:\Tri7\Desenvolvimento\Projeto_Geral\trunk\Source_Geral\Geral.Model.Entity.Spec.PDF.pas"/>
-        <DCCReference Include="D:\Tri7\Desenvolvimento\Projeto_Principal\Financeiro\trunk\Source_JuridicoFinanceiro\FN.Model.GED.pas"/>
-        <DCCReference Include="D:\Tri7\Desenvolvimento\Projeto_Geral\trunk\Source_Geral\Geral.Model.GED.pas"/>
-        <DCCReference Include="D:\Tri7\Desenvolvimento\Projeto_Geral\trunk\Source_Geral\csDXFunctions.pas"/>
         <DCCReference Include="Source_Geral_Exclusivo\CodigoPix.pas"/>
         <DCCReference Include="Source_Geral_Exclusivo\Geral.Model.Entity.Impl.Assinar.PDF.pas"/>
         <DCCReference Include="Source_Geral_Exclusivo\Geral.Model.Entity.Impl.Maybe.pas"/>
@@ -478,6 +463,43 @@
         <DCCReference Include="Source_Geral_Exclusivo\Geral.Model.Util.List.pas"/>
         <DCCReference Include="Source_Geral_Exclusivo\Geral.Model.Util.Str.pas"/>
         <DCCReference Include="Source_Geral_Exclusivo\Geral.Model.Exception.pas"/>
+        <DCCReference Include="Source_Geral_Exclusivo\Geral.Model.Entity.Spec.PDF.pas"/>
+        <DCCReference Include="Source_Geral_Exclusivo\Geral.Controller.Factory.Entity.PDF.pas"/>
+        <DCCReference Include="Source_Geral_Exclusivo\Geral.Model.Entity.Impl.PDF.Debenu.pas"/>
+        <DCCReference Include="Source_Geral_Exclusivo\Geral.Model.Entity.Spec.PKI.pas"/>
+        <DCCReference Include="Source_Geral_Exclusivo\Geral.Controller.Factory.Entity.PKI.pas"/>
+        <DCCReference Include="Source_Geral_Exclusivo\Geral.Model.Entity.Impl.PKI.XSignPKCS.pas"/>
+        <DCCReference Include="Source_Geral_Exclusivo\XSign_TLB.pas"/>
+        <DCCReference Include="Source_Geral_Exclusivo\Geral.Model.Entity.Impl.Blob.pas"/>
+        <DCCReference Include="Source_Geral_Exclusivo\Geral.Model.Entity.Impl.PKI.Eldos.pas"/>
+        <DCCReference Include="Source_Geral_Exclusivo\Geral.View.Sel.Certificado.Eldos.pas">
+            <Form>frmSelecionarCertificadoEldos</Form>
+        </DCCReference>
+        <DCCReference Include="Source_Geral_Exclusivo\Geral.Model.Business.Spec.UsuarioPKI.pas"/>
+        <DCCReference Include="Source_Geral_Exclusivo\Geral.Controller.Factory.Business.UsuarioPKI.pas"/>
+        <DCCReference Include="Source_Geral_Exclusivo\Geral.Model.Business.Impl.UsuarioPKI.pas"/>
+        <DCCReference Include="Source_Geral_Exclusivo\Geral.Model.Sistema.pas"/>
+        <DCCReference Include="Source_Geral_Exclusivo\Geral.Model.Workflow.pas"/>
+        <DCCReference Include="Source_Geral_Exclusivo\Geral.Model.Rest.Workflow.pas"/>
+        <DCCReference Include="Source_Geral_Exclusivo\Geral.Model.Util.Http.pas"/>
+        <DCCReference Include="Source_Geral_Exclusivo\Geral.Model.Tri7.pas"/>
+        <DCCReference Include="Source_Geral_Exclusivo\Geral.Model.Autorizacao.pas"/>
+        <DCCReference Include="Source_Geral_Exclusivo\Geral.Model.ConexaoHistoricoDb.pas"/>
+        <DCCReference Include="Source_Geral_Exclusivo\Geral.Model.Spec.QueryBuilder.pas"/>
+        <DCCReference Include="Source_Geral_Exclusivo\Geral.Model.Validacao.pas"/>
+        <DCCReference Include="Source_Geral_Exclusivo\Geral.Model.Permissao.pas"/>
+        <DCCReference Include="Source_Geral_Exclusivo\Geral.Model.Impl.QueryBuilder.I9.pas"/>
+        <DCCReference Include="Source_Geral_Exclusivo\Geral.Model.Util.Enum.pas"/>
+        <DCCReference Include="Source_Geral_Exclusivo\Geral.Model.Sequencia.pas"/>
+        <DCCReference Include="Source_Geral_Exclusivo\Geral.Model.SistemaRotina.pas"/>
+        <DCCReference Include="Source_Geral_Exclusivo\Geral.Model.Util.DataSet.pas"/>
+        <DCCReference Include="Source_Geral_Exclusivo\Geral.Model.Proxy.pas"/>
+        <DCCReference Include="Source_Geral_Exclusivo\Geral.Model.Util.Json.pas"/>
+        <DCCReference Include="Source_Geral_Exclusivo\Geral.Model.Util.Stream.pas"/>
+        <DCCReference Include="Source_Geral_Exclusivo\Geral.Model.Cripto.pas"/>
+        <DCCReference Include="Source_Financeiro\FN.Model.GED.pas"/>
+        <DCCReference Include="Source_Geral_Exclusivo\Geral.Model.GED.pas"/>
+        <DCCReference Include="Source_Geral_Exclusivo\csDXFunctions.pas"/>
         <DCCReference Include="Source_Geral_Exclusivo\EmailIndy.pas"/>
         <BuildConfiguration Include="Debug">
             <Key>Cfg_2</Key>
@@ -509,15 +531,21 @@
                 <Platform value="Win64">False</Platform>
             </Platforms>
             <Deployment>
-                <DeployFile LocalName="..\..\Tri7_DBExpress\Projeto_Geral\trunk\Source_Geral\TBPRN.PAS" Configuration="Debug" Class="ProjectFile">
-                    <Platform Name="Win32">
-                        <RemoteDir>.\</RemoteDir>
-                        <Overwrite>true</Overwrite>
-                    </Platform>
-                </DeployFile>
                 <DeployFile LocalName="I9vareTesouraria.exe" Configuration="Debug" Class="ProjectOutput">
                     <Platform Name="Win32">
                         <RemoteName>I9vareTesouraria.exe</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="D:\Projeto UDV\ProjetosUDV_NOVO\trunk\I9vareTesouraria.exe" Configuration="Debug" Class="ProjectOutput">
+                    <Platform Name="Win32">
+                        <RemoteName>I9vareTesouraria.exe</RemoteName>
+                        <Overwrite>true</Overwrite>
+                    </Platform>
+                </DeployFile>
+                <DeployFile LocalName="..\..\Tri7_DBExpress\Projeto_Geral\trunk\Source_Geral\TBPRN.PAS" Configuration="Debug" Class="ProjectFile">
+                    <Platform Name="Win32">
+                        <RemoteDir>.\</RemoteDir>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
