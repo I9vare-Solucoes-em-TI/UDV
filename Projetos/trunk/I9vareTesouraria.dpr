@@ -208,45 +208,53 @@ uses
 {$R *.res}
 {$R Atualizador.res}
 
-   procedure IX_Unlock(pw1, pw2, pw3, pw4: LongInt); stdcall; external 'imagxpr7.dll' name 'PS_Unlock';
-   procedure TP_Unlock(pw1, pw2, pw3, pw4: LongInt); stdcall; external 'TwnPRO4.dll' name 'PS_Unlock';
-   procedure CAP_Unlock(pw1, pw2, pw3, pw4: LongInt); stdcall; external 'capturepro3.dll' name 'PS_Unlock';
-   procedure NX_Unlock(pw1, pw2, pw3, pw4: LongInt); stdcall; external 'imagxpr7.dll' name 'PS_Unlock';
-   procedure PP_Unlock(pw1, pw2, pw3, pw4: LongInt); stdcall; external 'printpro3.dll' name 'PS_Unlock';
+procedure IX_Unlock(pw1, pw2, pw3, pw4: LongInt); stdcall; external 'imagxpr7.dll' name 'PS_Unlock';
+procedure TP_Unlock(pw1, pw2, pw3, pw4: LongInt); stdcall; external 'TwnPRO4.dll' name 'PS_Unlock';
+procedure CAP_Unlock(pw1, pw2, pw3, pw4: LongInt); stdcall; external 'capturepro3.dll' name 'PS_Unlock';
+procedure NX_Unlock(pw1, pw2, pw3, pw4: LongInt); stdcall; external 'imagxpr7.dll' name 'PS_Unlock';
+procedure PP_Unlock(pw1, pw2, pw3, pw4: LongInt); stdcall; external 'printpro3.dll' name 'PS_Unlock';
 
-var Hwnd: THandle;
-    Ini  : TIniFile;
-    vSecao: string;
+var
+  Hwnd: THandle;
+  Ini: TIniFile;
+  vSecao: string;
+
 begin
   Ini := TIniFile.Create(ExtractFilePath(Application.ExeName) + 'Config.ini');
-  vgChaveSecao:= 'Grupo@I9vare@Tri7';
-  vSecao      := 'Geral';
+  vgChaveSecao := 'Grupo@I9vare@Tri7';
+  vSecao := 'Geral';
+
   vgTipoBanco := Ini.ReadString(vSecao, 'TipoBanco', ''); //Firebird ou Oracle
   vgBaseDados := Ini.ReadString(vSecao, 'BaseDados', '');
-  vgUsuario   := Ini.ReadString(vSecao, 'Usuario', '');
-  vgSenha     := Ini.ReadString(vSecao, 'Senha', '');
+  vgUsuario := Ini.ReadString(vSecao, 'Usuario', '');
+  vgSenha := Ini.ReadString(vSecao, 'Senha', '');
 
-  vgKey       := Ini.ReadString(vSecao, 'Key', '');
+  vgKey := Ini.ReadString(vSecao, 'Key', '');
   Ini.Free;
 
   vgId := 2;
   ReportMemoryLeaksOnShutdown := DebugHook <> 0;
   Hwnd := FindWindow('TApplication', 'I9vare TESOURARIA');
 
-  CopyFile(PChar(vgVERSAO + '\dbexpida40.dll')  , PChar('dbexpida40.dll')  , false);
+  CopyFile(PChar(vgVERSAO + '\dbexpida40.dll'), PChar('dbexpida40.dll'), false);
 
   if Hwnd = 0 then
   begin
-   Application.CreateForm(TdtmControles, dtmControles);
-  Application.CreateForm(TdtmLookupBoleto, dtmLookupBoleto);
-  Application.CreateForm(TdtmLookupFinanceiro, dtmLookupFinanceiro);
-  Application.CreateForm(TdtmLookupContabil, dtmLookupContabil);
-  Application.CreateForm(TdtmLookupServico, dtmLookupServico);
-  Application.Initialize;
-   frmSplash := tfrmSplash.Create(Application);
+    Application.CreateForm(TdtmControles, dtmControles);
+    Application.CreateForm(TdtmLookupBoleto, dtmLookupBoleto);
+    Application.CreateForm(TdtmLookupFinanceiro, dtmLookupFinanceiro);
+    Application.CreateForm(TdtmLookupContabil, dtmLookupContabil);
+    Application.CreateForm(TdtmLookupServico, dtmLookupServico);
+    Application.CreateForm(TdtmLookup, dtmLookup);
+
+    Application.Initialize;
+
+    frmSplash := tfrmSplash.Create(Application);
     frmSplash.Show;
     frmSplash.Update;
+
     Application.Title := 'I9vare TESOURARIA';
+
     if vgExecutarSistema then
     begin
       IX_Unlock(228945729, 870386929, 834184233, 23643);
@@ -255,8 +263,9 @@ begin
       NX_Unlock(228945729, 870386929, 834184233, 23643);
       PP_Unlock(228945729, 870386929, 834184233, 23643);
     end;
+
     Application.CreateForm(TfrmPrincipal, frmPrincipal);
-    Application.CreateForm(TdtmLookup, dtmLookup);
+
     frmSplash.Close;
     Application.Run;
   end
@@ -268,3 +277,4 @@ begin
   end;
 
 end.
+
